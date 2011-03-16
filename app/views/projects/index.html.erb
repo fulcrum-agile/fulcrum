@@ -1,0 +1,31 @@
+<h1>Listing projects</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Start date</th>
+    <th>Iteration start day</th>
+    <th>Iteration length</th>
+    <th>Point scale</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.name %></td>
+    <td><%= project.start_date %></td>
+    <td><%= project.iteration_start_day %></td>
+    <td><%= project.iteration_length %></td>
+    <td><%= project.point_scale %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project', new_project_path %>

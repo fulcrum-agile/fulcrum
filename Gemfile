@@ -29,3 +29,7 @@ gem 'devise'
 # group :development, :test do
 #   gem 'webrat'
 # end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+end

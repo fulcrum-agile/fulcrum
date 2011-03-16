@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @project.name %>
+</p>
+
+<p>
+  <b>Point scale:</b>
+  <%= @project.point_scale %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @project.start_date %>
+</p>
+
+<p>
+  <b>Iteration start day:</b>
+  <%= @project.iteration_start_day %>
+</p>
+
+<p>
+  <b>Iteration length:</b>
+  <%= @project.iteration_length %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
