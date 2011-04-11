@@ -11,27 +11,30 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :point_scale %><br />
-    <%= f.select :point_scale, point_scale_options %>
-  </div>
-  <div class="field">
-    <%= f.label :start_date %><br />
-    <%= f.date_select :start_date %>
-  </div>
-  <div class="field">
-    <%= f.label :iteration_start_day %><br />
-    <%= f.select :iteration_start_day, day_name_options %>
-  </div>
-  <div class="field">
-    <%= f.label :iteration_length %><br />
-    <%= f.select :iteration_length, iteration_length_options %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <fieldset>
+    <legend>Project properties</legend>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :point_scale %><br />
+      <%= f.select :point_scale, point_scale_options %>
+    </div>
+    <div class="field">
+      <%= f.label :start_date %><br />
+      <%= f.date_select :start_date %>
+    </div>
+    <div class="field">
+      <%= f.label :iteration_start_day %><br />
+      <%= f.select :iteration_start_day, day_name_options %>
+    </div>
+    <div class="field">
+      <%= f.label :iteration_length %><br />
+      <%= f.select :iteration_length, iteration_length_options %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </fieldset>
 <% end %>

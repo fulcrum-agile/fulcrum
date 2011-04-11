@@ -1,9 +1,9 @@
 class ProjectsController < ApplicationController
+
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = Project.all
-
+    @projects = current_user.projects
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,13 +34,15 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
+    @project.users.build
   end
 
   # POST /projects
   # POST /projects.xml
   def create
-    @project = Project.new(params[:project])
+    @project = current_user.projects.build(params[:project])
+    @project.users << current_user
 
     respond_to do |format|
       if @project.save
@@ -56,7 +58,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -72,12 +74,24 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
     @project.destroy
 
     respond_to do |format|
       format.html { redirect_to(projects_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  # GET /projects/1/users
+  # GET /projects/1/users.xml
+  def users
+    @project = current_user.projects.find(params[:id])
+    @users = @project.users
+
+    respond_to do |format|
+      format.html # users.html.erb
+      format.xml  { render :xml => @project }
     end
   end
 end

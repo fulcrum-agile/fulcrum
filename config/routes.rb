@@ -1,6 +1,8 @@
 Fulcrum::Application.routes.draw do
 
-  resources :projects
+  resources :projects do
+    resources :users, :only => [:index, :create, :destroy]
+  end
 
   devise_for :users
 

@@ -8,10 +8,22 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<ul id="primary-nav">
+  <% if current_user %>
+    <li><%= current_user.email %></li>
+    <li><%= link_to 'Log out', destroy_user_session_path %></li>
+  <% else %>
+    <li><%= link_to 'Log in', new_user_session_path %></li>
+    <li><%= link_to 'Sign up', new_user_registration_path %></li>
+  <% end %>
+</ul>
 
-<%= yield %>
+<div id="main">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+  <%= yield %>
+</div>
 
 </body>
 </html>

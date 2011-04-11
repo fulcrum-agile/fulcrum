@@ -41,5 +41,4 @@ class ProjectTest < ActiveSupport::TestCase
     @project.iteration_start_day = 2.5
     assert !@project.save
   end
-
 end

@@ -18,4 +18,7 @@ class Project < ActiveRecord::Base
   validates_numericality_of :iteration_start_day,
     :greater_than_or_equal_to => 0, :less_than_or_equal_to => 6,
     :only_integer => true, :message => "must be an integer between 0 and 6"
+
+  has_and_belongs_to_many :users, :uniq => true
+  accepts_nested_attributes_for :users, :reject_if => :all_blank
 end
