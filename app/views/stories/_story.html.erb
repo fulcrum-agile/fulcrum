@@ -1,0 +1,27 @@
+<%= div_for story, :class => story.story_type do %>
+
+  <% if story.estimable? %>
+    <div class="state-actions">
+      <% story.project.point_values.each do |points| %>
+        <a class="action-button estimate"><%= points %></a>
+      <% end %>
+    </div>
+  <% else  %>
+    <% unless story.events.empty? %>
+    <div class="state-actions">
+      <% story.events.each do |state| %>
+        <!-- <a class="action-button <%= state %>"><%= state.to_s.humanize %></a> -->
+        <%= state_transition_button(story, state) %>
+      <% end %>
+    </div>
+    <% end %>
+  <% end %>
+  <div class="story-icons">
+    <%= image_tag 'expand.png', :class => 'expand' %>
+    <%= image_tag "#{story.story_type}.png", :class => 'story_type' %>
+    <% if story.estimated? %>
+      <span class="estimate"><%= story.estimate %></span>
+    <% end %>
+  </div>
+  <div class="story-title"><%= story %></div>
+<% end %>

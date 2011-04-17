@@ -42,6 +42,8 @@ class ProjectsControllerTest < ActionController::TestCase
   test "should show project" do
     sign_in @user
     get :show, :id => @project.to_param
+    assert_equal @project, assigns(:project)
+    assert assigns(:story)
     assert_response :success
   end
 

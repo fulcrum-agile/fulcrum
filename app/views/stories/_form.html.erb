@@ -1,0 +1,41 @@
+<%= form_for([@project, @story]) do |f| %>
+  <% if @story.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+      <% @story.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <div class="field">
+    <%= f.label :story_type %><br />
+    <%= f.select :story_type, Story::STORY_TYPES %>
+  </div>
+  <div class="field">
+    <%= f.label :estimate %><br />
+    <%= f.select :estimate, @story.project.point_values, :include_blank => 'No estimate' %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br />
+    <%= f.select :state, Story.state_machines[:default].states_for_select %>
+  </div>
+  <div class="field">
+    <%= f.label :requested_by_id %><br />
+    <%= f.collection_select :requested_by_id, @project.users, :id, :email %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+<% end %>

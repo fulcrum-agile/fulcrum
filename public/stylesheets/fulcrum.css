@@ -3,6 +3,10 @@ body {
   padding: 0;
 }
 
+a img {
+  border: 0;
+}
+
 ul#primary-nav {
   text-align: right;
   background: #575757;
@@ -21,4 +25,96 @@ ul#primary-nav li a {
 
 #main {
   margin: 1em;
+}
+
+html.stories, html.stories body, html.stories div#main {
+  height: 100%;
+}
+
+/* stories table */
+table.stories {
+  width: 100%;
+  height: 100%;
+}
+
+table.stories td {
+  padding-bottom: 80px;
+  vertical-align: top;
+  background-color: #ccc;
+}
+
+/* Story columns headers */
+table.stories th {
+  background-color: #000;
+  color: #eee;
+  padding: 0.2em;
+  font-weight: bold;
+}
+
+/* Story types */
+div.story {
+  padding: 0.3em;
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+}
+div.story:hover {
+  background-color: #ddd;
+}
+
+div.story-icons {
+  float: left;
+}
+div.story-title {
+  margin-left: 60px;
+}
+
+span.estimate {
+  border: 1px solid #777;
+  padding: 0 0.2em;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.story.release {
+  background-color: #333;
+  color: white;
+}
+
+/* Story action buttons */
+.state-actions {
+  float: right;
+}
+
+.state-actions form div, .state-actions form {
+  display: inline;
+}
+
+.state-actions input[type=submit] {
+  padding: 0;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 1px solid #333;
+}
+
+.state-actions input.start {
+  background-color: gray;
+}
+.state-actions input.finish {
+  background-color: blue;
+}
+.state-actions input.deliver {
+  background-color: Gold;
+}
+.state-actions input.accept {
+  background-color: green;
+}
+.state-actions input.reject {
+  background-color: red;
+}
+.state-actions input.estimate {
+  padding: 0.2em 0.2em;
 }

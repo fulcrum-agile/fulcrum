@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="stories">
+<head>
+  <title>Fulcrum</title>
+  <link href="/stylesheets/fulcrum.css?1302854450" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/scaffold.css?1300260416" media="screen" rel="stylesheet" type="text/css" />
+  <script src="/javascripts/prototype.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/effects.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/dragdrop.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/controls.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/rails.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/application.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/jquery-1.4.2.min.js?1297243421" type="text/javascript"></script>
+<script src="/javascripts/jquery-ui-1.8.11.custom.min.js?1297243421" type="text/javascript"></script>
+  <meta name="csrf-param" content="authenticity_token"/>
+<meta name="csrf-token" content="rOuAkdKVzSuEHOSWismpny86yVJGW/ifpemOI9RkRTY="/>
+<script>
+  $(function() {
+    $('#in-progress, #backlog, #chilly-bin').sortable({
+      connectWith: '.sortable', revert: true
+    }).disableSelection();
+  });
+</script>
+</head>
+<body>
+
+<ul id="primary-nav">
+    <li>test@example.com</li>
+    <li><a href="/users/sign_out">Log out</a></li>
+</ul>
+
+<div id="main">
+  <table class="stories" width="100%">
+    <tbody>
+      <tr>
+        <td id="done" style="width: 25%">
+          <div class="column-header">Done</div>
+          <div class="story feature" id="story_1">
+            Flum
+          </div>
+          <div class="story feature" id="story_2">
+            Blum
+          </div>
+          <div class="story bug" id="story_3">
+            Bug
+          </div>
+          <div class="story release" id="story_6">
+            Alpha 1
+          </div>
+          <div class="story chore" id="story_4">
+            Chore
+          </div>
+        </td>
+
+        <td id="in-progress" class="sortable" style="width: 25%">
+          <div class="column-header">In progress</div>
+          <div class="story feature" id="story_1">
+            <div class="state-actions">
+              <a class="action-button accept">Accept</a>
+              <a class="action-button reject">Reject</a>
+            </div>
+            <a href="#"><img src="/images/expand.png"/></a>
+            Flum
+          </div>
+          <div class="story feature" id="story_2">
+            Blum
+            <div class="state-actions">
+              <a class="action-button deliver">Deliver</a>
+            </div>
+          </div>
+          <div class="story bug" id="story_3">
+            Bug
+            <div class="state-actions">
+              <a class="action-button finish">Finish</a>
+            </div>
+          </div>
+          <div class="story chore" id="story_4">
+            Chore
+          </div>
+          <div class="story feature" id="story_1">
+            Flum
+            <div class="state-actions">
+              <a class="action-button finish">Finish</a>
+            </div>
+          </div>
+          <div class="story feature" id="story_2">
+            Blum
+          </div>
+          <div class="story bug" id="story_3">
+            Bug
+          </div>
+          <div class="story chore" id="story_4">
+            Chore
+          </div>
+        </td>
+
+        <td id="backlog" class="sortable" style="width: 25%">
+          <div class="column-header">Backlog</div>
+          <div class="story feature" id="story_1">
+            Flum
+            <div class="state-actions">
+              <a class="action-button start">Start</a>
+            </div>
+          </div>
+          <div class="story feature" id="story_2">
+            Blum
+            <div class="state-actions">
+              <a class="action-button start">Start</a>
+            </div>
+          </div>
+          <div class="story bug" id="story_3">
+            Bug
+            <div class="state-actions">
+              <a class="action-button start">Start</a>
+            </div>
+          </div>
+          <div class="story chore" id="story_4">
+            Chore
+            <div class="state-actions">
+              <a class="action-button start">Start</a>
+            </div>
+          </div>
+        </td>
+
+        <td id="chilly-bin" class="sortable" style="width: 25%">
+          <div class="column-header">Chilly Bin</div>
+          <div class="story feature" id="story_1">
+            <div class="state-actions">
+              <a class="action-button estimate">0</a><a class="action-button estimate">1</a><a class="action-button estimate">2</a><a class="action-button estimate">3</a><a class="action-button estimate">5</a><a class="action-button estimate">8</a>
+            </div>
+            Should be able to estimate how difficult a story is to implement
+          </div>
+          <div class="story feature" id="story_2">
+            Blum
+            <div class="state-actions">
+              <a class="action-button estimate">0</a><a class="action-button estimate">1</a><a class="action-button estimate">2</a><a class="action-button estimate">3</a><a class="action-button estimate">5</a><a class="action-button estimate">8</a>
+            </div>
+          </div>
+          <div class="story bug" id="story_3">
+            Bug
+            <div class="state-actions">
+              <a class="action-button estimate">0</a><a class="action-button estimate">1</a><a class="action-button estimate">2</a><a class="action-button estimate">3</a><a class="action-button estimate">5</a><a class="action-button estimate">8</a>
+            </div>
+          </div>
+          <div class="story chore" id="story_4">
+            Chore
+            <div class="state-actions">
+              <a class="action-button estimate">0</a><a class="action-button estimate">1</a><a class="action-button estimate">2</a><a class="action-button estimate">3</a><a class="action-button estimate">5</a><a class="action-button estimate">8</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>

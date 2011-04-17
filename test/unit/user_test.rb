@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should return a string" do
-    assert_equal "user1@example.com", @user.to_s
+    assert_equal @user.email, @user.to_s
   end
 
   test "should set a flag if user created by dynamic finder" do

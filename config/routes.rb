@@ -1,7 +1,18 @@
 Fulcrum::Application.routes.draw do
 
+  get "story/new"
+
   resources :projects do
     resources :users, :only => [:index, :create, :destroy]
+    resources :stories, :only => [:create] do
+      member do
+        put :start
+        put :finish
+        put :deliver
+        put :accept
+        put :reject
+      end
+    end
   end
 
   devise_for :users

@@ -1,31 +1,31 @@
+<h1><%= @project.name %></h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
-
-<p>
-  <b>Point scale:</b>
-  <%= @project.point_scale %>
-</p>
-
-<p>
-  <b>Start date:</b>
-  <%= @project.start_date %>
-</p>
-
-<p>
-  <b>Iteration start day:</b>
-  <%= @project.iteration_start_day %>
-</p>
-
-<p>
-  <b>Iteration length:</b>
-  <%= @project.iteration_length %>
-</p>
-
 
 <%= link_to 'Members', project_users_path(@project) %> |
 <%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Back', projects_path %> |
+<a id="add_story" href="#">Add story</a>
+
+<table class="stories" width="100%">
+  <thead>
+    <tr>
+      <th>Done</th>
+      <th>In Progress</th>
+      <th>Backlog</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="done" style="width: 33%">
+        <%= render @project.stories.done %>
+      </td>
+      <td id="in_progress" style="width: 33%">
+        <%= render @project.stories.in_progress %>
+      </td>
+      <td id="backlog" style="width: 33%">
+        <%= render @project.stories.backlog %>
+        <%= render 'stories/form' %>
+      </td>
+    </tr>
+  </tbody>
+</table>

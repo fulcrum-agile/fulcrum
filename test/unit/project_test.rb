@@ -14,6 +14,10 @@ class ProjectTest < ActiveSupport::TestCase
     assert !@project.save
   end
 
+  test "should return the valid values for point scale" do
+    assert_equal [0,1,2,3,5,8], @project.point_values
+  end
+
   test "default iteration length should be 1 week" do
     assert_equal 1, Project.new.iteration_length
   end
