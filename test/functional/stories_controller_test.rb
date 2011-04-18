@@ -44,6 +44,35 @@ class StoriesControllerTest < ActionController::TestCase
     assert_state_change(:reject, 'rejected')
   end
 
+  test "should get done stories in js format" do
+    sign_in @user
+    get :done, :project_id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @project.stories.done, assigns(:stories)
+  end
+  test "should get in progress stories in js format" do
+    sign_in @user
+    get :in_progress, :project_id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @project.stories.in_progress, assigns(:stories)
+  end
+  test "should get backlog stories in js format" do
+    sign_in @user
+    get :backlog, :project_id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @project.stories.backlog, assigns(:stories)
+  end
+
+  test "should estimate a story" do
+    sign_in @user
+    put :update, :id => @story.to_param, :project_id => @project.to_param,
+      :story => {:estimate => 1}
+    assert_equal @project, assigns(:project)
+    assert_equal @story, assigns(:story)
+    assert_equal 1, assigns(:story).estimate
+    assert_redirected_to project_url(@project)
+  end
+
   private
 
   def assert_state_change(action, resulting_state)

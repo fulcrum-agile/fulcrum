@@ -1,3 +1,39 @@
+<script id="story_tmpl" type="text/x-jQuery-tmpl">
+  <div id="story_${story.id}" class="story ${story.story_type}">
+    {{if story.estimable}}
+    <div class="state-actions">
+      <%= form_for :story, :url => "/projects/#{@project.to_param}/stories/${story.id}", :html => {:method => :put} do |f| %>
+        <% @project.point_values.each do |points| %>
+          <%= f.submit points, :name => 'story[estimate]' %>
+        <% end %>
+      <% end %>
+    </div>
+    {{else story.events.length > 0}}
+    <div class="state-actions">
+      {{each story.events}}
+      <%= button_to "${$value}", "/projects/#{@project.id}/stories/${story.id}/${$value}", {:method => :put, :class => "${$value}"} %>
+      {{/each}}
+    </div>
+    {{/if}}
+    <div class="story-icons">
+      <img src="/images/expand.png" class="expand" alt="Expand">
+      <img src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}">
+      {{if story.estimated}}
+      <span class="estimate">${story.estimate}</span>
+      {{/if}}
+    </div>
+    <div class="story-title">${story.title}</div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    loadColumn('<%= done_project_stories_path(@project) %>', '#done');
+    loadColumn('<%= in_progress_project_stories_path(@project) %>', '#in_progress');
+    loadColumn('<%= backlog_project_stories_path(@project) %>', '#backlog');
+  });
+</script>
+
 <h1><%= @project.name %></h1>
 <p id="notice"><%= notice %></p>
 
@@ -16,14 +52,9 @@
   </thead>
   <tbody>
     <tr>
-      <td id="done" style="width: 33%">
-        <%= render @project.stories.done %>
-      </td>
-      <td id="in_progress" style="width: 33%">
-        <%= render @project.stories.in_progress %>
-      </td>
+      <td id="done" style="width: 33%"></td>
+      <td id="in_progress" style="width: 33%"></td>
       <td id="backlog" style="width: 33%">
-        <%= render @project.stories.backlog %>
         <%= render 'stories/form' %>
       </td>
     </tr>

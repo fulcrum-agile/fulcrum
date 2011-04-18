@@ -4,7 +4,12 @@ Fulcrum::Application.routes.draw do
 
   resources :projects do
     resources :users, :only => [:index, :create, :destroy]
-    resources :stories, :only => [:create] do
+    resources :stories, :only => [:index, :create, :update] do
+      collection do
+        get :done
+        get :in_progress
+        get :backlog
+      end
       member do
         put :start
         put :finish

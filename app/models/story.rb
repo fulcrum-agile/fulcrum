@@ -62,9 +62,11 @@ class Story < ActiveRecord::Base
   def estimated?
     !estimate.nil?
   end
+  alias :estimated :estimated?
 
   # Returns true if this story can have an estimate made against it
   def estimable?
     story_type == 'feature' && !estimated?
   end
+  alias :estimable :estimable?
 end

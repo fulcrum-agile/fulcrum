@@ -76,6 +76,10 @@ span.estimate {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  vertical-align: top;
+  font-size: x-small;
+  font-weight: bold;
+  font-style: italic;
 }
 
 .story.release {
@@ -101,19 +105,19 @@ span.estimate {
 }
 
 .state-actions input.start {
-  background-color: gray;
+  background-color: #d3d7cf;
 }
 .state-actions input.finish {
-  background-color: blue;
+  background-color: #729fcf;
 }
 .state-actions input.deliver {
-  background-color: Gold;
+  background-color: #edd400;
 }
 .state-actions input.accept {
-  background-color: green;
+  background-color: #73d216;
 }
 .state-actions input.reject {
-  background-color: red;
+  background-color: #ef2929;
 }
 .state-actions input.estimate {
   padding: 0.2em 0.2em;
