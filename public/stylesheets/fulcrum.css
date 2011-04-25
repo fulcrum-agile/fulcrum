@@ -96,7 +96,7 @@ span.estimate {
   display: inline;
 }
 
-.state-actions input[type=submit] {
+.state-actions input {
   padding: 0;
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -118,7 +118,4 @@ span.estimate {
 }
 .state-actions input.reject {
   background-color: #ef2929;
-}
-.state-actions input.estimate {
-  padding: 0.2em 0.2em;
 }

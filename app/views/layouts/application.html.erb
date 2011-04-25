@@ -2,10 +2,11 @@
 <html>
 <head>
   <title>Fulcrum</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag 'jquery-1.4.2.min', 'jquery-ui-1.8.11.custom.min',
-                              'jquery.tmpl.min.js', 'fulcrum' %>
   <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'underscore.js', 'jquery-1.4.2.min',
+    'backbone.js', 'jquery-ui-1.8.11.custom.min', 'jquery.tmpl.min.js',
+    'backbone.rails', 'formview.js', 'rails.js', 'fulcrum' %>
 </head>
 <body>
 

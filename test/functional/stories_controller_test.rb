@@ -19,6 +19,25 @@ class StoriesControllerTest < ActionController::TestCase
     assert_redirected_to project_url(@project)
   end
 
+  test "should create a story from xhr" do
+    sign_in @user
+    assert_difference 'Story.count' do
+      xhr :post, :create, :project_id => @project.to_param,
+        :story => {:editing => true}
+    end
+    assert_equal @user, assigns(:story).requested_by
+    assert_equal @project, assigns(:project)
+    assert_response :success
+  end
+
+  test "should destroy a story from xhr" do
+    sign_in @user
+    assert_difference 'Story.count', -1 do
+      xhr :delete, :destroy, :project_id => @project.to_param,
+        :id => @story.to_param
+    end
+  end
+
   test "should start a story" do
     sign_in @user
     assert_state_change(:start, 'started')
@@ -44,6 +63,12 @@ class StoriesControllerTest < ActionController::TestCase
     assert_state_change(:reject, 'rejected')
   end
 
+  test "should get all stories in js format" do
+    sign_in @user
+    get :index, :project_id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @project.stories, assigns(:stories)
+  end
   test "should get done stories in js format" do
     sign_in @user
     get :done, :project_id => @project.to_param, :format => 'js'
@@ -71,6 +96,16 @@ class StoriesControllerTest < ActionController::TestCase
     assert_equal @story, assigns(:story)
     assert_equal 1, assigns(:story).estimate
     assert_redirected_to project_url(@project)
+  end
+
+  test "should update a story via xhr" do
+    sign_in @user
+    xhr :put, :update, :id => @story.to_param, :project_id => @project.to_param,
+      :story => {:title => "Updated title", :estimate => 1}
+    assert_response :success
+    assert_equal @project, assigns(:project)
+    assert_equal @story, assigns(:story)
+    assert_equal 1, assigns(:story).estimate
   end
 
   private

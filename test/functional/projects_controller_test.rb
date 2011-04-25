@@ -47,6 +47,13 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should show project in js format" do
+    sign_in @user
+    get :show, :id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_response :success
+  end
+
   test "should not show other users project" do
     other_user = Factory.create(:user)
     sign_in other_user

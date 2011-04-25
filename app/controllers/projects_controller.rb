@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.js   { render :json => @project }
       format.xml  { render :xml => @project }
     end
   end
