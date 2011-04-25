@@ -1,14 +1,3 @@
-$(function(){
-  // The 'Add story button' should show the hidden form at the bottom of the
-  // backlog
-  $('#new_story').hide();
-  //$('#add_story').click(function() {
-  //  $('#new_story').toggle();
-  //  $('#story_title').focus();
-  //  return false;
-  //});
-});
-
 /**
  * Loads an entire column from a remote data path.  path is the path of the
  * url to call, column_id is the element id to append the data to.
@@ -201,18 +190,10 @@ var StoryView = FormView.extend({
 
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON()));
-      //var view = this;
-      //$(this.el).find('img.expand').bind("click", function() {
-      //  view.model.set({editing: true});
-      //  view.render();
-      //});
     }
     return this;
   }
 });
-
-//var Stories = new StoryCollection();
-//var Project = new Project({id: 1});
 
 var AppView = Backbone.View.extend({
 
