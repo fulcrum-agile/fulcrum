@@ -8,6 +8,12 @@ class StoriesController < ApplicationController
     render :json => @stories, :methods => JSON_METHODS
   end
 
+  def show
+    @project = current_user.projects.find(params[:project_id])
+    @story = @project.stories.find(params[:id])
+    render :json => @story, :methods => JSON_METHODS
+  end
+
   def update
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])

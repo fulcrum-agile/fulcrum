@@ -63,6 +63,14 @@ class StoriesControllerTest < ActionController::TestCase
     assert_state_change(:reject, 'rejected')
   end
 
+  test "should get a single story in js format" do
+    sign_in @user
+    get :show, :project_id => @project.to_param, :id => @story.to_param,
+      :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @story, assigns(:story)
+  end
+
   test "should get all stories in js format" do
     sign_in @user
     get :index, :project_id => @project.to_param, :format => 'js'
