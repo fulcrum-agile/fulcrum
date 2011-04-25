@@ -28,7 +28,7 @@ class Story < ActiveRecord::Base
     state :rejected
 
     event :start do
-      transitions :to => :started, :from => [:unstarted, :rejected]
+      transitions :to => :started, :from => :unstarted
     end
 
     event :finish do
@@ -45,6 +45,10 @@ class Story < ActiveRecord::Base
 
     event :reject do
       transitions :to => :rejected, :from => :delivered
+    end
+
+    event :restart do
+      transitions :to => :started, :from => :rejected
     end
   end
 

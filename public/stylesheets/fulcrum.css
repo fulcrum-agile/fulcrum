@@ -119,3 +119,6 @@ span.estimate {
 .state-actions input.reject {
   background-color: #ef2929;
 }
+.state-actions input.restart {
+  background-color: #ef2929;
+}
