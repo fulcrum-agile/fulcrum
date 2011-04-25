@@ -37,6 +37,8 @@
 $(function() { 
   window.Project = new Project({id: <%= @project.id %>});
   window.App = new AppView;
+  window.App.scaleToViewport();
+  $(window).resize(App.scaleToViewport);
 });
 </script>
 
@@ -58,9 +60,9 @@ $(function() {
   </thead>
   <tbody>
     <tr>
-      <td id="done" style="width: 33%"></td>
-      <td id="in_progress" style="width: 33%"></td>
-      <td id="backlog" style="width: 33%"></td>
+      <td style="width: 33%"><div id="done" class="storycolumn"></div></td>
+      <td style="width: 33%"><div id="in_progress" class="storycolumn"></div></td>
+      <td style="width: 33%"><div id="backlog" class="storycolumn"></div></td>
     </tr>
   </tbody>
 </table>

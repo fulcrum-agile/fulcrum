@@ -38,9 +38,13 @@ table.stories {
 }
 
 table.stories td {
-  padding-bottom: 80px;
   vertical-align: top;
   background-color: #ccc;
+}
+
+div.storycolumn {
+  overflow: auto;
+  padding-bottom: 80px;
 }
 
 /* Story columns headers */

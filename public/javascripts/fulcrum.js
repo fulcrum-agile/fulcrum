@@ -209,6 +209,12 @@ var AppView = Backbone.View.extend({
 
   addAll: function() {
     window.Project.stories.each(this.addOne);
+  },
+
+  scaleToViewport: function() {
+    // TODO Make this a calculated value
+    var height = $(window).height() - 250;
+    $('.storycolumn').css('height', height + 'px');
   }
 });
 
