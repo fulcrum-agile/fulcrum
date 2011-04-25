@@ -20,19 +20,8 @@ var Story = Backbone.Model.extend({
   defaults: {
     events: [],
     state: "unstarted",
+    column: "#backlog",
     story_type: "feature"
-  },
-
-  column: function() {
-    if (this.get('state') == "accepted") {
-      return '#done';
-    }
-    else if (this.get('state') == "unstarted") {
-      return "#backlog";
-    }
-    else {
-      return "#in_progress";
-    }
   },
 
   clear: function() {
@@ -92,10 +81,11 @@ var StoryView = FormView.extend({
   tagName: 'div',
 
   initialize: function() {
-    _.bindAll(this, "render", "highlight");
+    _.bindAll(this, "render", "highlight", "moveColumn");
     // Rerender on any change to the views story
     this.model.bind("change", this.render);
     this.model.bind("change", this.highlight);
+    this.model.bind("change:column", this.moveColumn);
 
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
@@ -123,6 +113,11 @@ var StoryView = FormView.extend({
   estimate: function(ev) {
     this.model.set({estimate: ev.target.value});
     this.model.save();
+  },
+
+  // Move the story to a new column
+  moveColumn: function() {
+    $(this.el).appendTo(this.model.get('column'));
   },
 
   startEdit: function() {
@@ -209,7 +204,7 @@ var AppView = Backbone.View.extend({
 
   addOne: function(story) {
     var view = new StoryView({model: story, id: story.id, className: story.className()});
-    $(story.column()).append(view.render().el);
+    $(story.get('column')).append(view.render().el);
   },
 
   addAll: function() {

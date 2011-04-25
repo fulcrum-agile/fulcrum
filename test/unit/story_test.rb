@@ -80,4 +80,18 @@ class StoryTest < ActiveSupport::TestCase
     @story.deliver
     assert_equal [:accept, :reject], @story.events
   end
+
+  test "should return the css id of the column the story belongs in" do
+    assert_equal '#backlog', @story.column
+    @story.state = 'started'
+    assert_equal '#in_progress', @story.column
+    @story.state = 'finished'
+    assert_equal '#in_progress', @story.column
+    @story.state = 'delivered'
+    assert_equal '#in_progress', @story.column
+    @story.state = 'rejected'
+    assert_equal '#in_progress', @story.column
+    @story.state = 'accepted'
+    assert_equal '#done', @story.column
+  end
 end

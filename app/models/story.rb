@@ -73,4 +73,16 @@ class Story < ActiveRecord::Base
     story_type == 'feature' && !estimated?
   end
   alias :estimable :estimable?
+
+  # Returns the CSS id of the column this story belongs in
+  def column
+    case state
+    when 'unstarted'
+      '#backlog'
+    when 'accepted'
+      '#done'
+    else
+      '#in_progress'
+    end
+  end
 end
