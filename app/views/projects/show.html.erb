@@ -21,7 +21,7 @@
     <img src="/images/expand.png" class="expand" alt="Expand">
     <img src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}">
     {{if story.estimated}}
-    <span class="estimate">${story.estimate}</span>
+    <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
     {{/if}}
   </div>
   <div class="story-title">${story.title}</div>

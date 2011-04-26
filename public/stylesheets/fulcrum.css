@@ -86,6 +86,119 @@ span.estimate {
   font-style: italic;
 }
 
+span.estimate_1 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.125, rgb(250,182,155)),
+      color-stop(0..25, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 12.5%,
+      rgb(255,255,255) 12.5%
+  );
+}
+span.estimate_2 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.25, rgb(250,182,155)),
+      color-stop(0.25, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 25%,
+      rgb(255,255,255) 25%
+  );
+}
+span.estimate_3 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.375, rgb(250,182,155)),
+      color-stop(0.375, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 37.5%,
+      rgb(255,255,255) 37.5%
+  );
+}
+span.estimate_4 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.5, rgb(250,182,155)),
+      color-stop(0.5, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 50%,
+      rgb(255,255,255) 50%
+  );
+}
+span.estimate_5 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.625, rgb(250,182,155)),
+      color-stop(0.625, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 62.5%,
+      rgb(255,255,255) 62.5%
+  );
+}
+span.estimate_6 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.75, rgb(250,182,155)),
+      color-stop(0.75, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 75%,
+      rgb(255,255,255) 75%
+  );
+}
+span.estimate_7 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.875, rgb(250,182,155)),
+      color-stop(0.875, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 87.5%,
+      rgb(255,255,255) 87.5%
+  );
+}
+span.estimate_8 {
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(1, rgb(250,182,155)),
+      color-stop(1, rgb(255,255,255))
+  );
+  background-image: -moz-linear-gradient(
+      center bottom,
+      rgb(250,182,155) 100%,
+      rgb(255,255,255) 100%
+  );
+}
+
 .story.release {
   background-color: #333;
   color: white;
