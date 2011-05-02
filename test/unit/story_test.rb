@@ -83,6 +83,8 @@ class StoryTest < ActiveSupport::TestCase
 
   test "should return the css id of the column the story belongs in" do
     assert_equal '#backlog', @story.column
+    @story.state = 'unscheduled'
+    assert_equal '#chilly_bin', @story.column
     @story.state = 'started'
     assert_equal '#in_progress', @story.column
     @story.state = 'finished'
@@ -93,5 +95,16 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal '#in_progress', @story.column
     @story.state = 'accepted'
     assert_equal '#done', @story.column
+  end
+
+  test "should return json" do
+    attrs = [
+      "title", "accepted_at", "created_at", "updated_at", "description",
+      "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
+      "state", "position", "id", "events", "estimable", "estimated", "column"
+    ]
+
+    assert_equal(attrs.count, @story.as_json['story'].keys.count)
+    assert_equal(attrs.sort, @story.as_json['story'].keys.sort)
   end
 end

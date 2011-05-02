@@ -1,4 +1,14 @@
 class Story < ActiveRecord::Base
+
+  JSON_ATTRIBUTES = [
+    "title", "accepted_at", "created_at", "updated_at", "description",
+    "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
+    "state", "position", "id", "events", "estimable", "estimated"
+  ]
+  JSON_METHODS = [
+    "events", "estimable", "estimated", "column"
+  ]
+
   belongs_to :project
   validates_presence_of :project_id
 
@@ -16,6 +26,7 @@ class Story < ActiveRecord::Base
   scope :done, where(:state => :accepted)
   scope :in_progress, where(:state => [:started, :finished, :delivered])
   scope :backlog, where(:state => :unstarted)
+  scope :chilly_bin, where(:state => :unscheduled)
 
   include ActiveRecord::Transitions
   state_machine do
@@ -28,7 +39,7 @@ class Story < ActiveRecord::Base
     state :rejected
 
     event :start do
-      transitions :to => :started, :from => :unstarted
+      transitions :to => :started, :from => [:unstarted, :unscheduled]
     end
 
     event :finish do
@@ -77,6 +88,8 @@ class Story < ActiveRecord::Base
   # Returns the CSS id of the column this story belongs in
   def column
     case state
+    when 'unscheduled'
+      '#chilly_bin'
     when 'unstarted'
       '#backlog'
     when 'accepted'
@@ -84,5 +97,9 @@ class Story < ActiveRecord::Base
     else
       '#in_progress'
     end
+  end
+
+  def as_json(options = {})
+    super(:only => JSON_ATTRIBUTES, :methods => JSON_METHODS)
   end
 end

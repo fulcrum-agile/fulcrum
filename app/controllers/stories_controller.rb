@@ -1,17 +1,15 @@
 class StoriesController < ApplicationController
 
-  JSON_METHODS = [:events, :estimable, :estimated, :column]
-
   def index
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories
-    render :json => @stories, :methods => JSON_METHODS
+    render :json => @stories
   end
 
   def show
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
-    render :json => @story, :methods => JSON_METHODS
+    render :json => @story
   end
 
   def update
@@ -20,7 +18,7 @@ class StoriesController < ApplicationController
     @story.update_attributes(filter_story_params)
     respond_to do |format|
       format.html { redirect_to project_url(@project) }
-      format.js   { render :json => @story, :methods => JSON_METHODS } end
+      format.js   { render :json => @story } end
   end
 
   def destroy
@@ -33,17 +31,17 @@ class StoriesController < ApplicationController
   def done
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.done
-    render :json => @stories, :methods => JSON_METHODS
+    render :json => @stories
   end
   def backlog
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.backlog
-    render :json => @stories, :methods => JSON_METHODS
+    render :json => @stories
   end
   def in_progress
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.in_progress
-    render :json => @stories, :methods => JSON_METHODS
+    render :json => @stories
   end
 
   def create
@@ -53,7 +51,7 @@ class StoriesController < ApplicationController
     @story.save!
     respond_to do |format|
       format.html { redirect_to project_url(@project) }
-      format.js   { render :json => @story, :methods => JSON_METHODS }
+      format.js   { render :json => @story }
     end
   end
 

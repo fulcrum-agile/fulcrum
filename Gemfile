@@ -35,4 +35,5 @@ gem 'fastercsv', '1.5.3'
 
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'jasmine'
 end

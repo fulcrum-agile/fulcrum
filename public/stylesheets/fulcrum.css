@@ -73,6 +73,13 @@ div.story-icons {
 div.story-title {
   margin-left: 60px;
 }
+.unestimated div.story-title {
+  font-style: italic;
+}
+
+#backlog div.story-title, #chilly_bin div.story-title {
+  cursor: move;
+}
 
 span.estimate {
   border: 1px solid #777;

@@ -1,17 +1,3 @@
-/**
- * Loads an entire column from a remote data path.  path is the path of the
- * url to call, column_id is the element id to append the data to.
- */
-function loadColumn(path, column_id) {
-  $.ajax({
-    dataType: "json",
-    url: path,
-    success: function(stories) {
-      $('#story_tmpl').tmpl(stories).appendTo(column_id);
-    }
-  });
-}
-
 // Backbone implementation
 
 var Story = Backbone.Model.extend({
@@ -19,14 +5,22 @@ var Story = Backbone.Model.extend({
 
   defaults: {
     events: [],
-    state: "unstarted",
-    column: "#backlog",
+    state: "unscheduled",
+    column: "#chilly_bin",
     story_type: "feature"
   },
 
   clear: function() {
     this.destroy();
     this.view.remove();
+  },
+
+  estimable: function() {
+    return this.get('story_type') === 'feature';
+  },
+
+  estimated: function() {
+    return typeof this.get('estimate') !== 'undefined';
   },
 
   // State machine transitions
@@ -55,7 +49,11 @@ var Story = Backbone.Model.extend({
   },
 
   className: function() {
-    return 'story ' + this.get('story_type');
+    var className = 'story ' + this.get('story_type');
+    if (this.estimable() && !this.estimated()) {
+      className += ' unestimated';
+    }
+    return className;
   }
 });
 
@@ -81,11 +79,13 @@ var StoryView = FormView.extend({
   tagName: 'div',
 
   initialize: function() {
-    _.bindAll(this, "render", "highlight", "moveColumn");
+    _.bindAll(this, "render", "highlight", "moveColumn", "moveStory");
     // Rerender on any change to the views story
     this.model.bind("change", this.render);
     this.model.bind("change", this.highlight);
     this.model.bind("change:column", this.moveColumn);
+    this.model.bind("change:previous_story_id", this.moveStory);
+    this.model.bind("change:next_story_id", this.moveStory);
 
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
@@ -99,7 +99,17 @@ var StoryView = FormView.extend({
     "click #cancel": "cancelEdit",
     "click .transition": "transition",
     "click input.estimate": "estimate",
-    "click #destroy": "clear"
+    "click #destroy": "clear",
+    "sortupdate": "sortUpdate"
+  },
+
+  // Triggered whenever a story is dropped to a new position
+  sortUpdate: function(ev, ui) {
+    var previous_story_id = $(ev.target).prev().attr('id');
+    var next_story_id = $(ev.target).next().attr('id');
+    this.model.set({
+      previous_story_id: previous_story_id, next_story_id: next_story_id
+    });
   },
 
   transition: function(ev) {
@@ -118,6 +128,16 @@ var StoryView = FormView.extend({
   // Move the story to a new column
   moveColumn: function() {
     $(this.el).appendTo(this.model.get('column'));
+  },
+
+  moveStory: function() {
+    var before = $('#' + this.model.get('previous_story_id'));
+    var after = $('#' + this.model.get('next_story_id'));
+    console.debug($(this.el));
+    console.debug(before);
+    console.debug(after);
+    $(this.el).insertAfter(before);
+    $(this.el).insertBefore(after);
   },
 
   startEdit: function() {
@@ -162,6 +182,7 @@ var StoryView = FormView.extend({
       div = this.make('div');
       $(div).append(this.label("estimate"));
       $(div).append('<br/>');
+      // TODO Make dynamic
       $(div).append(this.select("estimate", [["zero","0"],1,2,3,5,8]));
       $(this.el).append(div);
 
@@ -174,7 +195,7 @@ var StoryView = FormView.extend({
       div = this.make('div');
       $(div).append(this.label("state"));
       $(div).append('<br/>');
-      $(div).append(this.select("state", ["unstarted", "started", "finished", "delivered", "accepted", "rejected"]));
+      $(div).append(this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"]));
       $(this.el).append(div);
 
       div = this.make('div');
@@ -224,4 +245,14 @@ $(function() {
       title: "New story", events: [], editing: true
     }]);
   });
+
+  $('div.sortable').sortable({
+    handle: '.story-title', opacity: 0.6,
+    update: function(ev, ui) {
+      ui.item.trigger("sortupdate", ev, ui);
+    }
+  });
+
+  //$('#backlog').sortable('option', 'connectWith', '#chilly_bin');
+  //$('#chilly_bin').sortable('option', 'connectWith', '#backlog');
 });
