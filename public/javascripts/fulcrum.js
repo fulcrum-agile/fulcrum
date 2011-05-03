@@ -13,6 +13,36 @@ var Story = Backbone.Model.extend({
     return this;
   },
 
+  moveAfter: function(beforeId) {
+    var before = this.collection.get(beforeId);
+    var after = this.collection.next(before);
+    if (typeof after == 'undefined') {
+      afterPosition = before.position() + 2;
+    } else {
+      afterPosition = after.position();
+    }
+    var difference = (afterPosition - before.position()) / 2;
+    var newPosition = difference + before.position();
+    this.set({position: newPosition});
+    this.collection.sort({silent: true});
+    return this;
+  },
+
+  moveBefore: function(afterId) {
+    var after = this.collection.get(afterId);
+    var before = this.collection.previous(after);
+    if (typeof before == 'undefined') {
+      beforePosition = 0.0;
+    } else {
+      beforePosition = before.position();
+    }
+    var difference = (after.position() - beforePosition) / 2;
+    var newPosition = difference + beforePosition;
+    this.set({position: newPosition});
+    this.collection.sort({silent: true});
+    return this;
+  },
+
   defaults: {
     events: [],
     state: "unscheduled",
@@ -77,6 +107,14 @@ var StoryCollection = Backbone.Collection.extend({
   comparator: function(story) {
     return story.position();
   },
+
+  next: function(story) {
+    return this.at(this.indexOf(story) + 1);
+  },
+
+  previous: function(story) {
+    return this.at(this.indexOf(story) - 1);
+  }
 });
 
 var Project = Backbone.Model.extend({
@@ -123,7 +161,16 @@ var StoryView = FormView.extend({
   sortUpdate: function(ev, ui) {
     var previous_story_id = $(ev.target).prev().attr('id');
     var next_story_id = $(ev.target).next().attr('id');
-    this.model.moveBetween(previous_story_id, next_story_id);
+    if (typeof previous_story_id != 'undefined') {
+      this.model.moveAfter(previous_story_id);
+    } else if (typeof next_story_id != 'undefined') {
+      this.model.moveBefore(next_story_id);
+    } else {
+      // TODO Implement dropping on empty columns
+      throw "Dropping on empty columns is not yet implemented";
+    }
+
+    //this.model.moveBetween(previous_story_id, next_story_id);
     this.model.save();
   },
 
