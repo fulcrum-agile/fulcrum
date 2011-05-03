@@ -3,6 +3,16 @@
 var Story = Backbone.Model.extend({
   name: 'story',
 
+  moveBetween: function(before, after) {
+    var beforeStory = this.collection.get(before);
+    var afterStory = this.collection.get(after);
+    var difference = (afterStory.position() - beforeStory.position()) / 2;
+    var newPosition = difference + beforeStory.position();
+    this.set({position: newPosition});
+    this.collection.sort({silent: true});
+    return this;
+  },
+
   defaults: {
     events: [],
     state: "unscheduled",
@@ -48,6 +58,10 @@ var Story = Backbone.Model.extend({
     this.set({state: "started"});
   },
 
+  position: function() {
+    return parseFloat(this.get('position'));
+  },
+
   className: function() {
     var className = 'story ' + this.get('story_type');
     if (this.estimable() && !this.estimated()) {
@@ -59,6 +73,10 @@ var Story = Backbone.Model.extend({
 
 var StoryCollection = Backbone.Collection.extend({
   model: Story,
+
+  comparator: function(story) {
+    return story.position();
+  },
 });
 
 var Project = Backbone.Model.extend({
@@ -79,13 +97,11 @@ var StoryView = FormView.extend({
   tagName: 'div',
 
   initialize: function() {
-    _.bindAll(this, "render", "highlight", "moveColumn", "moveStory");
+    _.bindAll(this, "render", "highlight", "moveColumn");
     // Rerender on any change to the views story
     this.model.bind("change", this.render);
     this.model.bind("change", this.highlight);
     this.model.bind("change:column", this.moveColumn);
-    this.model.bind("change:previous_story_id", this.moveStory);
-    this.model.bind("change:next_story_id", this.moveStory);
 
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
@@ -107,9 +123,8 @@ var StoryView = FormView.extend({
   sortUpdate: function(ev, ui) {
     var previous_story_id = $(ev.target).prev().attr('id');
     var next_story_id = $(ev.target).next().attr('id');
-    this.model.set({
-      previous_story_id: previous_story_id, next_story_id: next_story_id
-    });
+    this.model.moveBetween(previous_story_id, next_story_id);
+    this.model.save();
   },
 
   transition: function(ev) {
@@ -128,16 +143,6 @@ var StoryView = FormView.extend({
   // Move the story to a new column
   moveColumn: function() {
     $(this.el).appendTo(this.model.get('column'));
-  },
-
-  moveStory: function() {
-    var before = $('#' + this.model.get('previous_story_id'));
-    var after = $('#' + this.model.get('next_story_id'));
-    console.debug($(this.el));
-    console.debug(before);
-    console.debug(after);
-    $(this.el).insertAfter(before);
-    $(this.el).insertBefore(after);
   },
 
   startEdit: function() {
@@ -251,6 +256,9 @@ $(function() {
     update: function(ev, ui) {
       ui.item.trigger("sortupdate", ev, ui);
     }
+    //receive: function(ev, ui) {
+    //  ui.item.trigger("sortreceive", ev, ui);
+    //}
   });
 
   //$('#backlog').sortable('option', 'connectWith', '#chilly_bin');

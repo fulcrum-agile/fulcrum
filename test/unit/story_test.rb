@@ -107,4 +107,15 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal(attrs.count, @story.as_json['story'].keys.count)
     assert_equal(attrs.sort, @story.as_json['story'].keys.sort)
   end
+
+  test "should set a new story position to last in list" do
+    project = Factory.create(:project, :users => [@user])
+    story = Factory.create(:story, :project => project, :requested_by => @user)
+    assert_equal 1, story.position
+    story = Factory.create(:story, :project => project, :requested_by => @user)
+    assert_equal 2, story.position
+    story = Factory.create(:story, :project => project, :requested_by => @user,
+                          :position => 1.5)
+    assert_equal 1.5, story.position
+  end
 end

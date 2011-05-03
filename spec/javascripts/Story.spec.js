@@ -2,7 +2,7 @@ describe('Story model', function() {
 
   beforeEach(function() {
     this.story = new Story({
-      title: 'Test story'
+      title: 'Test story', position: '2.45'
     });
   });
 
@@ -94,6 +94,14 @@ describe('Story model', function() {
       expect(this.story.estimable()).toBeTruthy();
       expect(this.story.estimated()).toBeFalsy();
       expect(this.story.className()).toEqual('story feature unestimated');
+    });
+
+  });
+
+  describe('position', function() {
+
+    it('should get position as a float', function() {
+      expect(this.story.position()).toEqual(2.45);
     });
 
   });

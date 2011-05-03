@@ -15,10 +15,15 @@ class StoriesController < ApplicationController
   def update
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
-    @story.update_attributes(filter_story_params)
     respond_to do |format|
-      format.html { redirect_to project_url(@project) }
-      format.js   { render :json => @story } end
+      if @story.update_attributes(filter_story_params)
+        format.html { redirect_to project_url(@project) }
+        format.js   { render :json => @story }
+      else
+        format.html { render :action => 'edit' }
+        format.js   { render :json => @story, :status => :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -89,7 +94,7 @@ class StoriesController < ApplicationController
   def filter_story_params
     allowed = [
       :title, :description, :estimate, :story_type, :state, :requested_by_id,
-      :owned_by_id
+      :owned_by_id, :position
     ]
     filtered = {}
     params[:story].each do |key, value|

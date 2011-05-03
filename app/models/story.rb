@@ -22,6 +22,8 @@ class Story < ActiveRecord::Base
 
   validates :estimate, :estimate => true, :allow_nil => true
 
+  before_validation :set_position_to_last
+
   # Scopes for the different columns in the UI
   scope :done, where(:state => :accepted)
   scope :in_progress, where(:state => [:started, :finished, :delivered])
@@ -101,5 +103,15 @@ class Story < ActiveRecord::Base
 
   def as_json(options = {})
     super(:only => JSON_ATTRIBUTES, :methods => JSON_METHODS)
+  end
+
+  def set_position_to_last
+    return true if position
+    last = project.stories.first(:order => 'position DESC')
+    if last
+      self.position = last.position + 1
+    else
+      self.position = 1
+    end
   end
 end
