@@ -19,7 +19,7 @@
   {{/if}}
   <div class="story-icons">
     <img src="/images/expand.png" class="expand" alt="Expand">
-    <img src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}">
+    <img src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">
     {{if story.estimated}}
     <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
     {{/if}}

@@ -72,5 +72,19 @@ describe('StoryCollection collection', function() {
       expect(this.stories.previous(this.story1)).toBeUndefined();
     });
 
+    it("should refresh whenever a models position attr changes", function() {
+      var spy = sinon.spy();
+      this.stories.bind("refresh", spy);
+      this.story1.set({position: 0.5});
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it("should refresh whenever a models state changes", function() {
+      var spy = sinon.spy();
+      this.stories.bind("refresh", spy);
+      this.story1.set({state: 'unstarted'});
+      expect(spy).toHaveBeenCalled();
+    });
+
   });
 });

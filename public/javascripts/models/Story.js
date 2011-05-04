@@ -7,7 +7,7 @@ var Story = Backbone.Model.extend({
     var difference = (afterStory.position() - beforeStory.position()) / 2;
     var newPosition = difference + beforeStory.position();
     this.set({position: newPosition});
-    this.collection.sort({silent: true});
+    this.collection.sort();
     return this;
   },
 
@@ -21,8 +21,15 @@ var Story = Backbone.Model.extend({
     }
     var difference = (afterPosition - before.position()) / 2;
     var newPosition = difference + before.position();
+
+    if (before.get('state') == 'unstarted' && this.get('state') == 'unscheduled') {
+      this.set({state: 'unstarted'});
+    }
+    if (before.get('state') == 'unscheduled' && this.get('state') == 'unstarted') {
+      this.set({state: 'unscheduled'});
+    }
+
     this.set({position: newPosition});
-    this.collection.sort({silent: true});
     return this;
   },
 
@@ -36,6 +43,14 @@ var Story = Backbone.Model.extend({
     }
     var difference = (after.position() - beforePosition) / 2;
     var newPosition = difference + beforePosition;
+
+    if (after.get('state') == 'unstarted' && this.get('state') == 'unscheduled') {
+      this.set({state: 'unstarted'});
+    }
+    if (after.get('state') == 'unscheduled' && this.get('state') == 'unstarted') {
+      this.set({state: 'unscheduled'});
+    }
+
     this.set({position: newPosition});
     this.collection.sort({silent: true});
     return this;
@@ -44,8 +59,24 @@ var Story = Backbone.Model.extend({
   defaults: {
     events: [],
     state: "unscheduled",
-    column: "#chilly_bin",
     story_type: "feature"
+  },
+
+  column: function() {
+    switch(this.get('state')) {
+      case 'unscheduled':
+        return '#chilly_bin';
+        break;
+      case 'unstarted':
+        return '#backlog';
+        break;
+      case 'accepted':
+        return '#done';
+        break;
+      default:
+        return '#in_progress';
+        break;
+    }
   },
 
   clear: function() {

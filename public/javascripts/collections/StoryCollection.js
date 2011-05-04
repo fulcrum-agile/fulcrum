@@ -1,6 +1,11 @@
 var StoryCollection = Backbone.Collection.extend({
   model: Story,
 
+  initialize: function() {
+    this.bind('change:position', this.sort);
+    this.bind('change:state', this.sort);
+  },
+
   comparator: function(story) {
     return story.position();
   },

@@ -7,14 +7,13 @@ $(function() {
 
   $('div.sortable').sortable({
     handle: '.story-title', opacity: 0.6,
+
     update: function(ev, ui) {
       ui.item.trigger("sortupdate", ev, ui);
     }
-    //receive: function(ev, ui) {
-    //  ui.item.trigger("sortreceive", ev, ui);
-    //}
+
   });
 
-  //$('#backlog').sortable('option', 'connectWith', '#chilly_bin');
-  //$('#chilly_bin').sortable('option', 'connectWith', '#backlog');
+  $('#backlog').sortable('option', 'connectWith', '#chilly_bin');
+  $('#chilly_bin').sortable('option', 'connectWith', '#backlog');
 });

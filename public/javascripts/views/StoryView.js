@@ -4,9 +4,13 @@ var StoryView = FormView.extend({
 
   initialize: function() {
     _.bindAll(this, "render", "highlight", "moveColumn");
-    // Rerender on any change to the views story
+
+    // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
+
+    // TODO - Only highlight on relevant attribute changes
     this.model.bind("change", this.highlight);
+
     this.model.bind("change:column", this.moveColumn);
 
     // Supply the model with a reference to it's own view object, so it can
@@ -38,7 +42,6 @@ var StoryView = FormView.extend({
       throw "Dropping on empty columns is not yet implemented";
     }
 
-    //this.model.moveBetween(previous_story_id, next_story_id);
     this.model.save();
   },
 

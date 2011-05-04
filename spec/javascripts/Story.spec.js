@@ -18,11 +18,6 @@ describe('Story model', function() {
         .toEqual('unscheduled');
     });
 
-    it('should have a default column of chilly bin', function() {
-      expect(this.story.get('column'))
-        .toEqual('#chilly_bin');
-    });
-
     it('should have a default story type of feature', function() {
       expect(this.story.get('story_type'))
         .toEqual('feature');
@@ -104,6 +99,23 @@ describe('Story model', function() {
       expect(this.story.position()).toEqual(2.45);
     });
 
+  });
+
+  describe('column', function() {
+    it('should return the right column', function() {
+      this.story.set({state: 'unscheduled'});
+      expect(this.story.column()).toEqual('#chilly_bin');
+      this.story.set({state: 'unstarted'});
+      expect(this.story.column()).toEqual('#backlog');
+      this.story.set({state: 'started'});
+      expect(this.story.column()).toEqual('#in_progress');
+      this.story.set({state: 'delivered'});
+      expect(this.story.column()).toEqual('#in_progress');
+      this.story.set({state: 'rejected'});
+      expect(this.story.column()).toEqual('#in_progress');
+      this.story.set({state: 'accepted'});
+      expect(this.story.column()).toEqual('#done');
+    });
   });
 
 });

@@ -12,10 +12,14 @@ var AppView = Backbone.View.extend({
 
   addOne: function(story) {
     var view = new StoryView({model: story, id: story.id, className: story.className()});
-    $(story.get('column')).append(view.render().el);
+    $(story.column()).append(view.render().el);
   },
 
   addAll: function() {
+    $('#done').html("");
+    $('#in_progress').html("");
+    $('#backlog').html("");
+    $('#chilly_bin').html("");
     window.Project.stories.each(this.addOne);
   },
 

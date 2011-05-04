@@ -6,7 +6,7 @@ class Story < ActiveRecord::Base
     "state", "position", "id", "events", "estimable", "estimated"
   ]
   JSON_METHODS = [
-    "events", "estimable", "estimated", "column"
+    "events", "estimable", "estimated"
   ]
 
   belongs_to :project
