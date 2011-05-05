@@ -24,8 +24,10 @@ var AppView = Backbone.View.extend({
   },
 
   scaleToViewport: function() {
-    // TODO Make this a calculated value
-    var height = $(window).height() - 250;
+    var storyTableTop = $('table.stories tbody').offset().top;
+    // Extra for the bottom padding and the 
+    var extra = 100;
+    var height = $(window).height() - (storyTableTop + extra);
     $('.storycolumn').css('height', height + 'px');
   }
 });
