@@ -4,9 +4,10 @@ var Project = Backbone.Model.extend({
   initialize: function() {
     this.stories = new StoryCollection;
     this.stories.url = this.url() + '/stories';
+    this.stories.project = this;
   },
 
   url: function() {
     return '/projects/' + this.id;
-  },
+  }
 });

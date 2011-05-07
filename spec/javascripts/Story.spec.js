@@ -1,9 +1,17 @@
 describe('Story model', function() {
 
   beforeEach(function() {
+    var Project = Backbone.Model.extend({
+      name: 'project',
+      defaults: {point_values: [0, 1, 2, 3]}
+    });
+    var collection = {
+      project: new Project()
+    }
     this.story = new Story({
       title: 'Test story', position: '2.45'
     });
+    this.story.collection = collection;
   });
 
   describe('when instantiated', function() {
@@ -74,6 +82,10 @@ describe('Story model', function() {
       expect(this.story.estimated()).toBeFalsy();
       this.story.set({estimate: 1});
       expect(this.story.estimated()).toBeTruthy();
+    });
+
+    it('should known about its valid points values', function() {
+      expect(this.story.point_values()).toEqual([0, 1, 2, 3]);
     });
 
   });

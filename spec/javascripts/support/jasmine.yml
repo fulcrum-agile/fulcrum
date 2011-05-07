@@ -19,6 +19,7 @@ src_files:
   - public/javascripts/jquery-ui-1.8.11.custom.min.js
   - public/javascripts/jquery.tmpl.min.js
   - public/javascripts/backbone.rails.js
+  - public/javascripts/models/Project.js
   - public/javascripts/models/Story.js
   - public/javascripts/collections/StoryCollection.js
 

@@ -92,6 +92,10 @@ var Story = Backbone.Model.extend({
     return typeof this.get('estimate') !== 'undefined';
   },
 
+  point_values: function() {
+    return this.collection.project.get('point_values');
+  },
+
   // State machine transitions
   start: function() {
     this.set({state: "started"});

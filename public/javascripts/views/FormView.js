@@ -23,16 +23,25 @@ var FormView = Backbone.View.extend({
     return el;
   },
 
-  select: function(name, options) {
+  select: function(name, select_options, options) {
     var select = this.make('select', {name: name});
     var view = this;
     var model = this.model;
-    _.each(options, function(option) {
+
+    if (typeof options == 'undefined') {
+      options = {};
+    }
+
+    if (options.blank) {
+      $(select).append(this.make('option', {}, options.blank));
+    }
+
+    _.each(select_options, function(option) {
       if (option instanceof Array) {
         option_name = option[0];
         option_value = option[1];
       } else {
-        option_name = option_value = option;
+        option_name = option_value = option + '';
       }
       var attr = {value: option_value};
       if (model.get(name) == option_value) {

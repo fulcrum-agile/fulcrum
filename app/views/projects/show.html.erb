@@ -3,9 +3,9 @@
   {{if story.estimable}}
   <div class="state-actions">
     <form>
-      <% @project.point_values.each do |points| %>
-        <input type="button" class="estimate" value="<%= points %>"/>
-      <% end %>
+      {{each $item.story.point_values()}}
+      <input type="button" class="estimate" value="${$value}"/>
+      {{/each}}
     </form>
   </div>
   {{else story.events.length > 0}}
@@ -35,7 +35,9 @@
 
 <script type="text/javascript">
 $(function() { 
-  window.Project = new Project({id: <%= @project.id %>});
+  window.Project = new Project({
+    id: <%= @project.id %>, point_values: <%= @project.point_values.to_json %>
+  });
   window.App = new AppView;
   window.App.scaleToViewport();
   $(window).resize(App.scaleToViewport);

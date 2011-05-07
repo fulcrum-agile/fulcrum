@@ -105,8 +105,8 @@ var StoryView = FormView.extend({
       div = this.make('div');
       $(div).append(this.label("estimate"));
       $(div).append('<br/>');
-      // TODO Make dynamic
-      $(div).append(this.select("estimate", [["zero","0"],1,2,3,5,8]));
+
+      $(div).append(this.select("estimate", this.model.point_values(), {blank: 'No estimate'}));
       $(this.el).append(div);
 
       div = this.make('div');
@@ -128,7 +128,7 @@ var StoryView = FormView.extend({
       $(this.el).append(div);
 
     } else {
-      $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON()));
+      $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model}));
     }
     return this;
   }
