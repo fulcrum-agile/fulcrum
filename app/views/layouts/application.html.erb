@@ -14,7 +14,7 @@
 
 <ul id="primary-nav">
   <% if current_user %>
-    <li><%= current_user.email %></li>
+    <li><%= link_to current_user.email, edit_user_registration_path %></li>
     <li><%= link_to 'Log out', destroy_user_session_path %></li>
   <% else %>
     <li><%= link_to 'Log in', new_user_session_path %></li>
