@@ -3,6 +3,10 @@ $(function() {
     window.Project.stories.add([{
       title: "New story", events: [], editing: true
     }]);
+
+    // TODO - This needs some improvement, scroll into view
+    var newStoryElement = $('#chilly_bin div.story:last');
+    $('#chilly_bin').scrollTop(newStoryElement.position().top);
   });
 
   $('div.sortable').sortable({
