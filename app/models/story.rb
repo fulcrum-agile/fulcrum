@@ -23,6 +23,7 @@ class Story < ActiveRecord::Base
   validates :estimate, :estimate => true, :allow_nil => true
 
   before_validation :set_position_to_last
+  before_save :set_accepted_at
 
   # Scopes for the different columns in the UI
   scope :done, where(:state => :accepted)
@@ -114,4 +115,12 @@ class Story < ActiveRecord::Base
       self.position = 1
     end
   end
+
+  private
+    
+    def set_accepted_at
+      if state_changed? && state == 'accepted'
+        self.accepted_at = Date.today
+      end
+    end
 end

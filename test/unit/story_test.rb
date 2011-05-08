@@ -118,4 +118,10 @@ class StoryTest < ActiveSupport::TestCase
                           :position => 1.5)
     assert_equal 1.5, story.position
   end
+
+  test "should set accepted at when accepted" do
+    assert_nil @story.accepted_at
+    @story.update_attribute :state, 'accepted'
+    assert_equal Date.today, @story.accepted_at
+  end
 end
