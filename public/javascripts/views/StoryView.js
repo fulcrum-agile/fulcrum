@@ -29,8 +29,8 @@ var StoryView = FormView.extend({
 
   events: {
     "click img.expand": "startEdit",
-    "click img.collapse": "cancelEdit",
-    "click #submit": "modelSave",
+    "click img.collapse": "saveEdit",
+    "click #submit": "saveEdit",
     "click #cancel": "cancelEdit",
     "click .transition": "transition",
     "click input.estimate": "estimate",
@@ -80,7 +80,8 @@ var StoryView = FormView.extend({
     this.model.set({editing: false});
   },
 
-  modelSave: function() {
+  saveEdit: function() {
+    this.model.set(this.changed_attributes);
     this.model.save();
     this.model.set({editing: false});
   },
