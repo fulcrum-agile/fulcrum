@@ -13,6 +13,7 @@
 src_files:
   - spec/javascripts/support/sinon-1.0.0.js
   - spec/javascripts/support/jasmine-sinon.js
+  - spec/javascripts/support/jasmine-jquery-1.2.0.js
   - public/javascripts/underscore.js
   - public/javascripts/jquery-1.4.2.min.js
   - public/javascripts/backbone.js
@@ -22,6 +23,8 @@ src_files:
   - public/javascripts/models/Project.js
   - public/javascripts/models/Story.js
   - public/javascripts/collections/StoryCollection.js
+  - public/javascripts/views/FormView.js
+  - public/javascripts/views/StoryView.js
 
 # stylesheets
 #

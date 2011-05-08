@@ -3,7 +3,7 @@ var StoryView = FormView.extend({
   tagName: 'div',
 
   initialize: function() {
-    _.bindAll(this, "render", "highlight", "moveColumn");
+    _.bindAll(this, "render", "highlight", "moveColumn", "setClassName");
 
     // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
@@ -13,9 +13,18 @@ var StoryView = FormView.extend({
 
     this.model.bind("change:column", this.moveColumn);
 
+    this.model.bind("change:estimate", this.setClassName);
+
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
     this.model.view = this;
+
+    if (this.model.id) {
+      this.id = this.el.id = this.model.id;
+    }
+
+    // Set up CSS classes for the view
+    this.setClassName();
   },
 
   events: {
@@ -130,6 +139,15 @@ var StoryView = FormView.extend({
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model}));
     }
+    return this;
+  },
+
+  setClassName: function() {
+    var className = 'story ' + this.model.get('story_type');
+    if (this.model.estimable() && !this.model.estimated()) {
+      className += ' unestimated';
+    }
+    this.className = this.el.className = className;
     return this;
   }
 });

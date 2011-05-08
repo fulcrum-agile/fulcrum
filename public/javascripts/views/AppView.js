@@ -11,7 +11,7 @@ var AppView = Backbone.View.extend({
   },
 
   addOne: function(story) {
-    var view = new StoryView({model: story, id: story.id, className: story.className()});
+    var view = new StoryView({model: story});
     $(story.column()).append(view.render().el);
   },
 
