@@ -8,8 +8,13 @@ var StoryView = FormView.extend({
     // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
 
-    // TODO - Only highlight on relevant attribute changes
-    this.model.bind("change", this.highlight);
+    this.model.bind("change:title", this.highlight);
+    this.model.bind("change:description", this.highlight);
+    this.model.bind("change:column", this.highlight);
+    this.model.bind("change:state", this.highlight);
+    this.model.bind("change:position", this.highlight);
+    this.model.bind("change:estimate", this.highlight);
+    this.model.bind("change:story_type", this.highlight);
 
     this.model.bind("change:column", this.moveColumn);
 
@@ -108,13 +113,17 @@ var StoryView = FormView.extend({
     if(this.model.get('editing') === true) {
       $(this.el).empty();
       div = this.make('div');
-      $(div).append(this.make("img", {class: "collapse", src: "/images/collapse.png"}));
+      if (!this.model.isNew()) {
+        $(div).append(
+          this.make("img", {class: "collapse", src: "/images/collapse.png"})
+        );
+      }
       $(div).append(this.textField("title"));
       $(this.el).append(div);
 
       div = this.make('div');
       $(div).append(this.submit());
-      $(div).append(this.destroy());
+      if (!this.model.isNew()) $(div).append(this.destroy());
       $(div).append(this.cancel());
       $(this.el).append(div);
 

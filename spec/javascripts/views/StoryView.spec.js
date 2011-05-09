@@ -4,12 +4,16 @@ describe('StoryView', function() {
     var Story = Backbone.Model.extend({
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true },
-      estimated: function() { return false }
+      estimated: function() { return false },
+      point_values: function() [0,1,2]
     });
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
     this.view = new StoryView({
       model: this.story
+    });
+    this.new_story_view = new StoryView({
+      model: this.new_story
     });
   });
 
@@ -51,6 +55,16 @@ describe('StoryView', function() {
 
       view.cancelEdit();
       expect(spy).toHaveBeenCalled();
+    });
+
+  });
+
+  describe("expand collapse controls", function() {
+
+    it("should not show the collapse control if its a new story", function() {
+      this.new_story.set({editing: true});
+
+      expect($(this.new_story_view.el)).not.toContain('img.collapse');
     });
 
   });
