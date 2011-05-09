@@ -80,7 +80,10 @@ var Story = Backbone.Model.extend({
   },
 
   clear: function() {
-    this.destroy();
+    if (!this.isNew()) {
+      this.destroy();
+    }
+    this.collection.remove(this);
     this.view.remove();
   },
 

@@ -6,12 +6,17 @@ describe('Story model', function() {
       defaults: {point_values: [0, 1, 2, 3]}
     });
     var collection = {
-      project: new Project()
+      project: new Project(), url: '/foo', remove: function() {}
     }
+    var view = new Backbone.View;
     this.story = new Story({
-      title: 'Test story', position: '2.45'
+      id: 999, title: 'Test story', position: '2.45'
     });
-    this.story.collection = collection;
+    this.new_story = new Story({
+      title: 'New story'
+    });
+    this.story.collection = this.new_story.collection = collection;
+    this.story.view = this.new_story.view = view;
   });
 
   describe('when instantiated', function() {
@@ -128,6 +133,34 @@ describe('Story model', function() {
       this.story.set({state: 'accepted'});
       expect(this.story.column()).toEqual('#done');
     });
+  });
+
+  describe("clear", function() {
+
+    it("should destroy itself and its view", function() {
+      var model_spy = sinon.spy(this.story, "destroy");
+      var view_spy = sinon.spy(this.story.view, "remove");
+      var collection_spy = sinon.spy(this.story.collection, "remove");
+
+      this.story.clear();
+
+      expect(model_spy).toHaveBeenCalled();
+      expect(view_spy).toHaveBeenCalled();
+      expect(collection_spy).toHaveBeenCalled();
+    });
+
+    it("should not call destroy if its a new object", function() {
+      var spy = sinon.spy(this.new_story, 'destroy');
+      var view_spy = sinon.spy(this.new_story.view, "remove");
+      var collection_spy = sinon.spy(this.new_story.collection, "remove");
+
+      this.new_story.clear();
+
+      expect(spy).not.toHaveBeenCalled();
+      expect(view_spy).toHaveBeenCalled();
+      expect(collection_spy).toHaveBeenCalled();
+    });
+
   });
 
 });

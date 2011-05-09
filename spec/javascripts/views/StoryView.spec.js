@@ -7,6 +7,7 @@ describe('StoryView', function() {
       estimated: function() { return false }
     });
     this.story = new Story({id: 999, title: 'Story'});
+    this.new_story = new Story({title: 'New Story'});
     this.view = new StoryView({
       model: this.story
     });
@@ -38,6 +39,18 @@ describe('StoryView', function() {
     it("should have an id", function() {
       expect(this.view.id).toEqual(this.view.model.id);
       expect($(this.view.el)).toHaveId(this.view.model.id);
+    });
+
+  });
+
+  describe("cancel edit", function() {
+
+    it("should remove itself when edit cancelled if its new", function() {
+      var view = new StoryView({model: this.new_story});
+      var spy = sinon.spy(this.new_story, "clear");
+
+      view.cancelEdit();
+      expect(spy).toHaveBeenCalled();
     });
 
   });

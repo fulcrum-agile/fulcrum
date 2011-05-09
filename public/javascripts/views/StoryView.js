@@ -78,12 +78,18 @@ var StoryView = FormView.extend({
 
   cancelEdit: function() {
     this.model.set({editing: false});
+
+    // If this is a new story and cancel is clicked, the story and view
+    // should be removed.
+    if (this.model.isNew()) {
+      this.model.clear();
+    }
   },
 
   saveEdit: function() {
+    this.model.set({editing: false});
     this.model.set(this.changed_attributes);
     this.model.save();
-    this.model.set({editing: false});
   },
 
   // Delete the story and remove it's view element
