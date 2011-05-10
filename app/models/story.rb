@@ -6,11 +6,13 @@ class Story < ActiveRecord::Base
     "state", "position", "id", "events", "estimable", "estimated"
   ]
   JSON_METHODS = [
-    "events", "estimable", "estimated"
+    "events", "estimable", "estimated", "errors"
   ]
 
   belongs_to :project
   validates_presence_of :project_id
+
+  validates :title, :presence => true
 
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true

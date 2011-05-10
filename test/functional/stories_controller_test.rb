@@ -12,7 +12,7 @@ class StoriesControllerTest < ActionController::TestCase
     sign_in @user
     assert_difference 'Story.count' do
       post :create, :project_id => @project.to_param,
-        :story => {:requested_by_id => @user.to_param}
+        :story => {:title => 'Test story', :requested_by_id => @user.to_param}
     end
     assert_equal @user, assigns(:story).requested_by
     assert_equal @project, assigns(:project)
@@ -23,7 +23,7 @@ class StoriesControllerTest < ActionController::TestCase
     sign_in @user
     assert_difference 'Story.count' do
       xhr :post, :create, :project_id => @project.to_param,
-        :story => {:editing => true}
+        :story => {:title => 'Test title', :editing => true}
     end
     assert_equal @user, assigns(:story).requested_by
     assert_equal @project, assigns(:project)

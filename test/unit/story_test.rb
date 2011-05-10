@@ -12,6 +12,11 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal @story.title, @story.to_s
   end
 
+  test "should not save without a title" do
+    @story.title = ''
+    assert !@story.save
+  end
+
   test "state should default to unstarted" do
     assert_equal "unstarted", Story.new.state
   end
@@ -101,7 +106,7 @@ class StoryTest < ActiveSupport::TestCase
     attrs = [
       "title", "accepted_at", "created_at", "updated_at", "description",
       "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-      "state", "position", "id", "events", "estimable", "estimated"
+      "state", "position", "id", "events", "estimable", "estimated", "errors"
     ]
 
     assert_equal(attrs.count, @story.as_json['story'].keys.count)
