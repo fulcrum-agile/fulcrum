@@ -228,6 +228,7 @@ span.estimate_8 {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border: 1px solid #333;
+  cursor: pointer;
 }
 
 .state-actions input.start {
@@ -247,4 +248,8 @@ span.estimate_8 {
 }
 .state-actions input.restart {
   background-color: #ef2929;
+}
+
+img.expand, img.collapse {
+  cursor: pointer;
 }
