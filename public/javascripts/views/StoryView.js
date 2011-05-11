@@ -84,6 +84,15 @@ var StoryView = FormView.extend({
   cancelEdit: function() {
     this.model.set({editing: false});
 
+    // If the model was edited, but the edits were deemed invalid by the
+    // server, the local copy of the model will still be invalid and have
+    // errors set on it after cancel.  So, reload it from the server, which
+    // will return the attributes to their true state.
+    if (this.model.hasErrors()) {
+      this.model.unset('errors');
+      this.model.fetch();
+    }
+
     // If this is a new story and cancel is clicked, the story and view
     // should be removed.
     if (this.model.isNew()) {
@@ -92,10 +101,12 @@ var StoryView = FormView.extend({
   },
 
   saveEdit: function() {
-    this.model.set({editing: false});
     this.model.set(this.changed_attributes);
     var that = this;
     this.model.save(null, {
+      success: function(model, response) {
+        that.model.set({editing: false});
+      },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
         model.set({editing: true, errors: json.story.errors});

@@ -6,6 +6,7 @@ describe('StoryView', function() {
       estimable: function() { return true },
       estimated: function() { return false },
       point_values: function() [0,1,2],
+      hasErrors: function() { return false},
       errorsOn: function() { return false},
       url: '/path/to/story'
     });
@@ -65,13 +66,36 @@ describe('StoryView', function() {
       expect(spy).toHaveBeenCalled();
     });
 
+    it("should reload after cancel if there were existing errors", function() {
+      this.story.set({errors:true});
+      expect(this.story.get('errors')).toEqual(true);
+      sinon.stub(this.story, "hasErrors").returns(true);
+      var spy = sinon.spy(this.story, "fetch");
+      this.view.cancelEdit();
+      expect(spy).toHaveBeenCalled();
+      expect(this.story.get('errors')).toBeUndefined();
+    });
+
   });
 
   describe("save edit", function() {
 
     it("should call save", function() {
+      this.server.respondWith(
+        "PUT", "/path/to/story", [
+          200, {"Content-Type": "application/json"},
+          '{"story":{"title":"Story title"}}'
+        ]
+      );
+      this.story.set({editing: true});
       this.view.saveEdit();
+      expect(this.story.get('editing')).toBeTruthy();
       expect(this.server.requests.length).toEqual(1);
+
+      // editing should be set to false when save is successful
+      this.server.respond();
+
+      expect(this.story.get('editing')).toBeFalsy();
     });
 
     it("should set editing when errors occur", function() {

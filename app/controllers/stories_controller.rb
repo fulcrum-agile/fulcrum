@@ -53,10 +53,14 @@ class StoriesController < ApplicationController
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.build(filter_story_params)
     @story.requested_by_id = current_user.id unless @story.requested_by_id
-    @story.save!
     respond_to do |format|
-      format.html { redirect_to project_url(@project) }
-      format.js   { render :json => @story }
+      if @story.save
+        format.html { redirect_to project_url(@project) }
+        format.js   { render :json => @story }
+      else
+        format.html { render :action => 'new' }
+        format.js   { render :json => @story, :status => :unprocessable_entity }
+      end
     end
   end
 
