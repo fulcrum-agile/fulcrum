@@ -17,6 +17,8 @@ describe('Story model', function() {
     });
     this.story.collection = this.new_story.collection = collection;
     this.story.view = this.new_story.view = view;
+
+    this.server = sinon.fakeServer.create();
   });
 
   describe('when instantiated', function() {
@@ -159,6 +161,27 @@ describe('Story model', function() {
       expect(spy).not.toHaveBeenCalled();
       expect(view_spy).toHaveBeenCalled();
       expect(collection_spy).toHaveBeenCalled();
+    });
+
+  });
+
+  describe("errors", function() {
+
+    it("should record errors", function() {
+      expect(this.story.hasErrors()).toBeFalsy();
+      expect(this.story.errorsOn('title')).toBeFalsy();
+
+      this.story.set({errors: {
+        title: ["cannot be blank", "needs to be better"],
+        estimate: ["is helluh unrealistic"]
+      }});
+
+      expect(this.story.hasErrors()).toBeTruthy();
+      expect(this.story.errorsOn('title')).toBeTruthy();
+      expect(this.story.errorsOn('position')).toBeFalsy();
+
+      expect(this.story.errorMessages())
+        .toEqual("title cannot be blank, title needs to be better, estimate is helluh unrealistic");
     });
 
   });

@@ -134,5 +134,22 @@ var Story = Backbone.Model.extend({
       className += ' unestimated';
     }
     return className;
+  },
+
+  hasErrors: function() {
+    return (typeof this.get('errors') != "undefined");
+  },
+
+  errorsOn: function(field) {
+    if (!this.hasErrors()) return false;
+    return (typeof this.get('errors')[field] != "undefined");
+  },
+
+  errorMessages: function() {
+    return _.map(this.get('errors'), function(errors, field) {
+      return _.map(errors, function(error) {
+        return field + " " + error;
+      }).join(', ');
+    }).join(', ');
   }
 });

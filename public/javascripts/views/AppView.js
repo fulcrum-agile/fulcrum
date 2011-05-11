@@ -29,5 +29,9 @@ var AppView = Backbone.View.extend({
     var extra = 100;
     var height = $(window).height() - (storyTableTop + extra);
     $('.storycolumn').css('height', height + 'px');
+  },
+
+  notice: function(message) {
+    $.gritter.add(message);
   }
 });

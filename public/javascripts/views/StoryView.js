@@ -94,7 +94,14 @@ var StoryView = FormView.extend({
   saveEdit: function() {
     this.model.set({editing: false});
     this.model.set(this.changed_attributes);
-    this.model.save();
+    var that = this;
+    this.model.save(null, {
+      error: function(model, response) {
+        var json = $.parseJSON(response.responseText);
+        model.set({editing: true, errors: json.story.errors});
+        App.notice({title: "Save error", text: model.errorMessages()});
+      }
+    });
   },
 
   // Delete the story and remove it's view element
