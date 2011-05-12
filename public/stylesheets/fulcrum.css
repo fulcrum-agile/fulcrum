@@ -216,6 +216,7 @@ span.estimate_8 {
 /* Story action buttons */
 .state-actions {
   float: right;
+  margin-left: 0.2em;
 }
 
 .state-actions form div, .state-actions form {
