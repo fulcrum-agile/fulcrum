@@ -1,0 +1,6 @@
+<h1><%= project.name %></h1>
+
+<%= link_to_unless_current 'Stories', project_path(project) %> |
+<%= link_to_unless_current 'Members', project_users_path(project) %> |
+<%= link_to_unless_current 'Edit', edit_project_path(project) %> |
+<%= link_to_unless_current 'Import', import_project_stories_path(project) %>

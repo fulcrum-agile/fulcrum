@@ -116,6 +116,75 @@ class StoriesControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:story).estimate
   end
 
+  test "should show csv import form" do
+    sign_in @user
+    get :import, :project_id => @project.to_param
+    assert_response :success
+    assert_equal @project, assigns(:project)
+  end
+
+  test "should import a csv of stories" do
+    sign_in @user
+    csv = fixture_file_upload('csv/stories.csv')
+
+    # Count of new stories should be number of lines in the csv minus the
+    # header line
+    story_count = File.readlines(csv.path).length - 1
+
+    assert_difference 'Story.count', story_count do
+      post :import_upload, :project_id => @project.to_param, :csv => csv
+    end
+
+    assert_equal @project, assigns(:project)
+    assert_equal story_count, assigns(:stories).length
+    assert_equal "Imported %d stories" % story_count, flash[:notice]
+    assert_nil flash[:alert]
+    assert_response :success
+    assert_template 'import'
+  end
+
+  test "should import a csv with some invalid rows" do
+    sign_in @user
+    csv = fixture_file_upload('csv/stories_invalid.csv')
+
+    assert_difference 'Story.count', 1 do
+      post :import_upload, :project_id => @project.to_param, :csv => csv
+    end
+
+    assert_equal @project, assigns(:project)
+    assert_equal 1, assigns(:valid_stories).length
+    assert_equal "Imported 1 story", flash[:notice]
+    assert_equal 1, assigns(:invalid_stories).length
+    assert_equal "1 story failed to import", flash[:alert]
+    assert_response :success
+    assert_template 'import'
+  end
+
+  test "should gracefully fail to import an illegal csv" do
+    sign_in @user
+    csv = fixture_file_upload('csv/stories_illegal.csv')
+
+    assert_no_difference 'Story.count' do
+      post :import_upload, :project_id => @project.to_param, :csv => csv
+    end
+
+    assert_equal @project, assigns(:project)
+    assert_equal "Unable to import CSV: Illegal quoting on line 1.", flash[:alert]
+    assert_response :success
+    assert_template 'import'
+  end
+
+  test "should handle no file selected for import" do
+    sign_in @user
+
+    post :import_upload, :project_id => @project.to_param
+
+    assert_equal @project, assigns(:project)
+    assert_equal "You must select a file for import", flash[:alert]
+    assert_response :success
+    assert_template 'import'
+  end
+
   private
 
   def assert_state_change(action, resulting_state)

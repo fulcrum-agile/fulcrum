@@ -1,5 +1,7 @@
 class StoriesController < ApplicationController
 
+  include ActionView::Helpers::TextHelper
+
   def index
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories
@@ -82,6 +84,52 @@ class StoriesController < ApplicationController
 
   def reject
     state_change(:reject!)
+  end
+
+  # CSV import form
+  def import
+    @project = current_user.projects.find(params[:project_id])
+  end
+
+  # CSV import
+  def import_upload
+    @project = current_user.projects.find(params[:project_id])
+    stories = []
+
+    if params[:csv].blank?
+
+      flash[:alert] = "You must select a file for import"
+
+    else
+
+      begin
+        csv = FasterCSV.parse(File.read(params[:csv].path), :headers => true)
+        csv.each do |row|
+          row = row.to_hash
+          stories << {
+            :state => row["Current State"],
+            :title => row["Story"],
+            :story_type => row["Story Type"],
+            :requested_by => current_user, # FIXME - Get from CSV
+            :estimate => row["Estimate"]
+          }
+        end
+        @stories = @project.stories.create(stories)
+        @valid_stories = @stories.select(&:valid?)
+        @invalid_stories = @stories.reject(&:valid?)
+        flash[:notice] = "Imported #{pluralize(@valid_stories.count, "story")}"
+
+        unless @invalid_stories.empty?
+          flash[:alert] = "#{pluralize(@invalid_stories.count, "story")} failed to import"
+        end
+      rescue FasterCSV::MalformedCSVError => e
+        flash[:alert] = "Unable to import CSV: #{e.message}"
+      end
+
+    end
+
+    render 'import'
+
   end
 
   private

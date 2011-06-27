@@ -1,4 +1,5 @@
-<h1><%= @project.name %> members</h1>
+<%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<h2>Project members</h2>
 <ul>
   <% @users.each do |user| %>
     <li><%= user.email %><%= link_to 'Remove', project_user_path(@project, user),
@@ -6,7 +7,7 @@
       :method => :delete %></li>
   <% end %>
 </ul>
-<h2>Add a new user</h2>
+<h2>Add a new member</h2>
 <%= form_for project_users_path(@project, User.new) do |f| %>
   <% fields_for :user do |u| %>
     <p>

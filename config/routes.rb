@@ -9,6 +9,8 @@ Fulcrum::Application.routes.draw do
         get :done
         get :in_progress
         get :backlog
+        get :import
+        post :import_upload
       end
       member do
         put :start

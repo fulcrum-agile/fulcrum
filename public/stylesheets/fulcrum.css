@@ -254,3 +254,12 @@ span.estimate_8 {
 img.expand, img.collapse {
   cursor: pointer;
 }
+
+table#import tr.valid, .notice {
+  color: white;
+  background-color: green;
+}
+table#import tr.invalid, .alert {
+  color: white;
+  background-color: red;
+}

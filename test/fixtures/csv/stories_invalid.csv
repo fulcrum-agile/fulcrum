@@ -1,0 +1,3 @@
+Id,Story,Labels,Iteration,Iteration Start,Iteration End,Story Type,Estimate,Current State,Created at,Accepted at,Deadline,Requested By,Owned By,Description,URL,Note
+1817033,Valid story,"",1,"Nov 23, 2009","Nov 29, 2009",bug,,accepted,"Nov 27, 2009","Nov 28, 2009",,Malcolm Locke,Malcolm Locke,,http://www.pivotaltracker.com/story/show/1817033
+1816991,This story has an invalid estimate and type,"",2,"Nov 30, 2009","Dec 6, 2009",flunk,123,accepted,"Nov 27, 2009","Dec 1, 2009",,Malcolm Locke,Malcolm Locke,,http://www.pivotaltracker.com/story/show/1816991

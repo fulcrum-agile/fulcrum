@@ -41,16 +41,25 @@ $(function() {
   window.App = new AppView;
   window.App.scaleToViewport();
   $(window).resize(App.scaleToViewport);
+
+  <% if notice %>
+    window.App.notice({
+      title: 'Notice', text: '<%= notice %>',
+      image: '<%= image_path('dialog-information.png') %>'
+    });
+  <% end %>
+
+  <% if alert %>
+    window.App.notice({
+      title: 'Alert', text: '<%= alert %>', sticky: true,
+      image: '<%= image_path('dialog-warning.png') %>'
+    });
+  <% end %>
 });
 </script>
 
-<h1><%= @project.name %></h1>
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Members', project_users_path(@project) %> |
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %> |
-<a id="add_story" href="#">Add story</a>
+<%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+| <a id="add_story" href="#">Add story</a>
 
 <table class="stories" width="100%">
   <thead>
