@@ -1,4 +1,6 @@
 Factory.define :user do |u|
+  u.sequence(:name) {|n| "User #{n}"}
+  u.sequence(:initials) {|n| "U#{n}"}
   u.sequence(:email) {|n| "user#{n}@example.com"}
   u.password 'password'
   u.password_confirmation 'password'

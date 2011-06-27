@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should return a string" do
-    assert_equal @user.email, @user.to_s
+    assert_equal "#{@user.name} (#{@user.initials}) <#{@user.email}>", @user.to_s
   end
 
   test "should set a flag if user created by dynamic finder" do
@@ -19,6 +19,16 @@ class UserTest < ActiveSupport::TestCase
       u.was_created = true
     end
     assert user.was_created
+  end
+
+  test "should not save a user without a name" do
+    @user.name = ''
+    assert !@user.save
+  end
+
+  test "should not save a user without initials" do
+    @user.initials = ''
+    assert !@user.save
   end
 
 end

@@ -2,13 +2,22 @@ class UsersController < ApplicationController
   def index
     @project = current_user.projects.find(params[:project_id])
     @users = @project.users
+    @user = User.new
   end
 
   def create
     @project = current_user.projects.find(params[:project_id])
+    @users = @project.users
     @user = User.find_or_create_by_email(params[:user][:email]) do |u|
       # Set to true if the user was not found
       u.was_created = true
+      u.name = params[:user][:name]
+      u.initials = params[:user][:initials]
+    end
+
+    if @user.new_record? && !@user.save
+      render 'index'
+      return
     end
 
     if @project.users.include?(@user)

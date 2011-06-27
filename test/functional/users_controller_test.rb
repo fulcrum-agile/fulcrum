@@ -16,6 +16,7 @@ class UsersControllerTest < ActionController::TestCase
     get :index, :project_id => @project.to_param
     assert_response :success
     assert_equal @project, assigns(:project)
+    assert assigns(:user).new_record?
     assert_equal [@user], assigns(:users)
   end
 
@@ -48,15 +49,34 @@ class UsersControllerTest < ActionController::TestCase
 
     assert_difference ['User.count', 'ActionMailer::Base.deliveries.size'] do
       post :create, :project_id => @project.to_param,
-        :user => {:email => 'new_user@example.com'}
+                    :user => {
+                      :name => 'New User', :initials => 'NU',
+                      :email => 'new_user@example.com'
+                    }
+      assert_not_nil assigns(:users)
+      assert_equal @project, assigns(:project)
+      assert_equal 'new_user@example.com', assigns(:user).email
+      assert !assigns(:user).confirmed?
+      assert assigns(:project).users.include?(assigns(:user))
+      assert_equal "new_user@example.com was sent an invite to join this project",
+        flash[:notice]
+      assert_redirected_to project_users_path(@project)
     end
-    assert_equal @project, assigns(:project)
-    assert_equal 'new_user@example.com', assigns(:user).email
-    assert !assigns(:user).confirmed?
-    assert assigns(:project).users.include?(assigns(:user))
-    assert_equal "new_user@example.com was sent an invite to join this project",
-      flash[:notice]
-    assert_redirected_to project_users_path(@project)
+  end
+
+  test "should not create a new invalid user as project member" do
+    sign_in @user
+
+    assert_no_difference ['User.count', 'ActionMailer::Base.deliveries.size'] do
+      post :create, :project_id => @project.to_param,
+                    :user => {
+                      :email => 'new_user@example.com'
+                    }
+      assert_not_nil assigns(:users)
+      assert_equal @project, assigns(:project)
+      assert_equal 'new_user@example.com', assigns(:user).email
+      assert_response :success
+    end
   end
 
   test "should not add a user who is already a member" do

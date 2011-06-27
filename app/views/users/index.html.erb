@@ -2,17 +2,25 @@
 <h2>Project members</h2>
 <ul>
   <% @users.each do |user| %>
-    <li><%= user.email %><%= link_to 'Remove', project_user_path(@project, user),
+    <li><%= user %><%= link_to 'Remove', project_user_path(@project, user),
       :confirm => "Are you sure you want to remove #{user.email} from this project?",
       :method => :delete %></li>
   <% end %>
 </ul>
 <h2>Add a new member</h2>
-<%= form_for project_users_path(@project, User.new) do |f| %>
+<%= form_for project_users_path(@project, @user) do |f| %>
   <% fields_for :user do |u| %>
     <p>
     <%= u.label :email %><br />
     <%= u.text_field :email %>
+    </p>
+    <p>
+    <%= u.label :name %><br />
+    <%= u.text_field :name %>
+    </p>
+    <p>
+    <%= u.label :initials %><br />
+    <%= u.text_field :initials %>
     </p>
     <p>
     <%= u.submit 'Add user' %>
