@@ -79,6 +79,8 @@ div.story-title {
 div.story-title abbr.initials {
   color: green;
   font-weight: bold;
+  margin-left: 0.2em;
+  border: none;
 }
 
 #in_progress div.story-title,
