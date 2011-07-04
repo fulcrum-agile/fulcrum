@@ -20,6 +20,13 @@ describe('Project model', function() {
       expect(this.project.stories.project).toBe(this.project);
     });
 
+    it('should set up a user collection', function() {
+      expect(this.project.users).toBeDefined();
+      expect(this.project.users.url).toEqual('/projects/999/users')
+      // Sets up a reference on the collection to itself
+      expect(this.project.users.project).toBe(this.project);
+    });
+
   });
 
   describe('url', function() {

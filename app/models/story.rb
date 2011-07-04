@@ -17,6 +17,9 @@ class Story < ActiveRecord::Base
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true
 
+  belongs_to :owned_by, :class_name => 'User'
+  validates :owned_by_id, :belongs_to_project => true
+
   STORY_TYPES = [
     'feature', 'chore', 'bug', 'release'
   ]

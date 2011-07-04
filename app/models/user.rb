@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  # FIXME - DRY up, repeated in Story model
+  JSON_ATTRIBUTES = ["id", "name", "initials", "email"]
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -26,5 +30,9 @@ class User < ActiveRecord::Base
     if new_record? && self.password.blank? && self.password_confirmation.blank?
       self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,6]
     end
+  end
+
+  def as_json(options = {})
+    super(:only => JSON_ATTRIBUTES)
   end
 end

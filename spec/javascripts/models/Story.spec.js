@@ -3,10 +3,13 @@ describe('Story model', function() {
   beforeEach(function() {
     var Project = Backbone.Model.extend({
       name: 'project',
-      defaults: {point_values: [0, 1, 2, 3]}
+      defaults: {point_values: [0, 1, 2, 3]},
+      users: { get: function() {} },
+      current_user: { id: 999 }
     });
     var collection = {
-      project: new Project(), url: '/foo', remove: function() {}
+      project: new Project(), url: '/foo', remove: function() {},
+      get: function() {}
     }
     var view = new Backbone.View;
     this.story = new Story({
@@ -182,6 +185,33 @@ describe('Story model', function() {
 
       expect(this.story.errorMessages())
         .toEqual("title cannot be blank, title needs to be better, estimate is helluh unrealistic");
+    });
+
+  });
+
+  describe("users", function() {
+
+    it("should get it's owner", function() {
+
+      // Should return undefined if the story does not have an owner
+      var spy = sinon.spy(this.story.collection.project.users, "get");
+      var owned_by = this.story.owned_by();
+      expect(spy).toHaveBeenCalledWith(undefined);
+      expect(owned_by).toBeUndefined();
+
+      this.story.set({'owned_by_id': 999});
+      owned_by = this.story.owned_by();
+      expect(spy).toHaveBeenCalledWith(999);
+    });
+
+    it("should be assigned to the current user when started", function() {
+
+      expect(this.story.get('state')).toEqual('unscheduled');
+      expect(this.story.owned_by()).toBeUndefined();
+
+      this.story.set({state: 'started'});
+
+      expect(this.story.get('owned_by_id')).toEqual(999);
     });
 
   });

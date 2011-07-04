@@ -76,6 +76,10 @@ div.story-title {
 .unestimated div.story-title {
   font-style: italic;
 }
+div.story-title abbr.initials {
+  color: green;
+  font-weight: bold;
+}
 
 #in_progress div.story-title,
 #backlog div.story-title,

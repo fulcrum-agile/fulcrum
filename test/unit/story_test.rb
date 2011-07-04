@@ -51,6 +51,12 @@ class StoryTest < ActiveSupport::TestCase
     assert !@story.save
   end
 
+  test "owner must belong to project" do
+    user = Factory.create(:user)
+    @story.owned_by = user
+    assert !@story.save
+  end
+
   test "estimate must be valid for project point scale" do
     @story.project.point_scale = 'fibonacci'
     @story.estimate = 4 # not in the fibonacci series

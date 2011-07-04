@@ -31,4 +31,9 @@ class UserTest < ActiveSupport::TestCase
     assert !@user.save
   end
 
+  test "should return json" do
+    attrs = ["id", "name", "initials", "email"]
+
+    assert_equal(attrs.count, @user.as_json['user'].keys.count)
+  end
 end

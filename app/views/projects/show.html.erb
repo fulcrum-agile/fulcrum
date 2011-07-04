@@ -24,7 +24,8 @@
     <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
     {{/if}}
   </div>
-  <div class="story-title">${story.title}</div>
+  <div class="story-title">${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
+  
 </script>
 <script id="story_form" type="text/x-jQuery-tmpl">
   <p>
@@ -38,6 +39,8 @@ $(function() {
   window.Project = new Project({
     id: <%= @project.id %>, point_values: <%= @project.point_values.to_json %>
   });
+  window.Project.users.refresh(<%= @project.users.to_json.html_safe %>);
+  window.Project.current_user = new User(<%= current_user.to_json.html_safe %>);
   window.App = new AppView;
   window.App.scaleToViewport();
   $(window).resize(App.scaleToViewport);

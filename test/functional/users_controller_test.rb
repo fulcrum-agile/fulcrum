@@ -20,6 +20,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal [@user], assigns(:users)
   end
 
+  test "should get project users in json format" do
+    sign_in @user
+    get :index, :project_id => @project.to_param, :format => 'json'
+    assert_response :success
+    assert_equal @project, assigns(:project)
+    assert_equal @project.users, assigns(:users)
+    assert_equal Mime::JSON, response.content_type
+  end
+
+
   test "should not get other users project users" do
     user = Factory.create(:user)
     sign_in user

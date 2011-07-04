@@ -1,6 +1,18 @@
 var Story = Backbone.Model.extend({
   name: 'story',
 
+  initialize: function(args) {
+    this.bind('change:state', this.changeState);
+    // FIXME Call super()?
+    this.maybeUnwrap(args);
+  },
+
+  changeState: function(model, new_value) {
+    if (new_value == "started") {
+      model.set({owned_by_id: model.collection.project.current_user.id}, true);
+    }
+  },
+
   moveBetween: function(before, after) {
     var beforeStory = this.collection.get(before);
     var afterStory = this.collection.get(after);
@@ -151,5 +163,11 @@ var Story = Backbone.Model.extend({
         return field + " " + error;
       }).join(', ');
     }).join(', ');
+  },
+
+  // Returns the user that owns this Story, or undefined if no user owns
+  // the Story
+  owned_by: function() {
+    return this.collection.project.users.get(this.get('owned_by_id'));
   }
 });
