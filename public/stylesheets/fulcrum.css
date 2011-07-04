@@ -236,6 +236,7 @@ span.estimate_8 {
   -webkit-border-radius: 3px;
   border: 1px solid #333;
   cursor: pointer;
+  font-size: small;
 }
 
 .state-actions input.start {
