@@ -146,26 +146,40 @@ var StoryView = FormView.extend({
       $(this.el).append(div);
 
       div = this.make('div');
-      $(div).append(this.label("estimate"));
+      $(div).append(this.label("estimate", "Estimate"));
       $(div).append('<br/>');
 
       $(div).append(this.select("estimate", this.model.point_values(), {blank: 'No estimate'}));
       $(this.el).append(div);
 
       div = this.make('div');
-      $(div).append(this.label("story_type"));
+      $(div).append(this.label("story_type", "Story Type"));
       $(div).append('<br/>');
       $(div).append(this.select("story_type", ["feature", "chore", "bug", "release"]));
       $(this.el).append(div);
 
       div = this.make('div');
-      $(div).append(this.label("state"));
+      $(div).append(this.label("state", "State"));
       $(div).append('<br/>');
       $(div).append(this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"]));
       $(this.el).append(div);
 
       div = this.make('div');
-      $(div).append(this.label("description"));
+      $(div).append(this.label("requested_by_id", "Requested By"));
+      $(div).append('<br/>');
+      $(div).append(this.select("requested_by_id",
+        this.model.collection.project.users.forSelect(),{blank: '---'}));
+      $(this.el).append(div);
+
+      div = this.make('div');
+      $(div).append(this.label("owned_by_id", "Owned By"));
+      $(div).append('<br/>');
+      $(div).append(this.select("owned_by_id",
+        this.model.collection.project.users.forSelect(),{blank: '---'}));
+      $(this.el).append(div);
+
+      div = this.make('div');
+      $(div).append(this.label("description", "Description"));
       $(div).append('<br/>');
       $(div).append(this.textArea("description"));
       $(this.el).append(div);

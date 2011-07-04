@@ -8,7 +8,8 @@ describe('StoryView', function() {
       point_values: function() [0,1,2],
       hasErrors: function() { return false},
       errorsOn: function() { return false},
-      url: '/path/to/story'
+      url: '/path/to/story',
+      collection: { project: { users: { forSelect: function() {return []} } } }
     });
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});

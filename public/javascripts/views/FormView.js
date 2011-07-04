@@ -1,8 +1,9 @@
 var FormView = Backbone.View.extend({
   tagName: 'form',
 
-  label: function(name) {
-    return this.make('label', {for: name}, name);
+  label: function(elem_id, value) {
+    value = value || elem_id;
+    return this.make('label', {for: elem_id}, value);
   },
 
   textField: function(name) {
@@ -33,7 +34,7 @@ var FormView = Backbone.View.extend({
     }
 
     if (options.blank) {
-      $(select).append(this.make('option', {}, options.blank));
+      $(select).append(this.make('option', {value: ''}, options.blank));
     }
 
     _.each(select_options, function(option) {
