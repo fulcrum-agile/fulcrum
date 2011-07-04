@@ -131,8 +131,18 @@ class StoriesControllerTest < ActionController::TestCase
     # header line
     story_count = File.readlines(csv.path).length - 1
 
+    # The fixture CSV stories are all requested by and assigned to 'User 1',
+    # so make sure this user is present and a member of the project
+    assigned_user = Factory.create(:user, :name => 'Test User')
+    @project.users << assigned_user
+
     assert_difference 'Story.count', story_count do
       post :import_upload, :project_id => @project.to_param, :csv => csv
+    end
+
+    assigns(:stories).each do |story|
+      assert_equal assigned_user, story.requested_by
+      assert_equal assigned_user, story.owned_by
     end
 
     assert_equal @project, assigns(:project)

@@ -93,7 +93,9 @@ class StoriesController < ApplicationController
 
   # CSV import
   def import_upload
+
     @project = current_user.projects.find(params[:project_id])
+
     stories = []
 
     if params[:csv].blank?
@@ -102,7 +104,13 @@ class StoriesController < ApplicationController
 
     else
 
+      # FIXME Move to model
       begin
+
+        # Eager load this so that we don't have to make multiple db calls when
+        # searching for users by full name from the CSV.
+        users = @project.users
+
         csv = FasterCSV.parse(File.read(params[:csv].path), :headers => true)
         csv.each do |row|
           row = row.to_hash
@@ -110,7 +118,8 @@ class StoriesController < ApplicationController
             :state => row["Current State"],
             :title => row["Story"],
             :story_type => row["Story Type"],
-            :requested_by => current_user, # FIXME - Get from CSV
+            :requested_by => users.detect {|u| u.name == row["Requested By"]},
+            :owned_by => users.detect {|u| u.name == row["Owned By"]},
             :estimate => row["Estimate"]
           }
         end
