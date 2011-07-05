@@ -5,11 +5,12 @@ describe('StoryView', function() {
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true },
       estimated: function() { return false },
-      point_values: function() [0,1,2],
+      point_values: function() { return [0,1,2] },
       hasErrors: function() { return false},
       errorsOn: function() { return false},
       url: '/path/to/story',
-      collection: { project: { users: { forSelect: function() {return []} } } }
+      collection: { project: { users: { forSelect: function() {return []} } } },
+      start: function() {}
     });
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
@@ -116,6 +117,65 @@ describe('StoryView', function() {
 
       expect(this.story.get('editing')).toBeTruthy();
       expect(this.story.get('errors').title[0]).toEqual("cannot be blank");
+    });
+
+    it("should disable all form controls on submit", function() {
+      this.server.respondWith(
+        "PUT", "/path/to/story", [
+          200, {"Content-Type": "application/json"},
+          '{"story":{"title":"Story title"}}'
+        ]
+      );
+
+      var disable_spy = sinon.spy(this.view, 'disableForm');
+      var enable_spy = sinon.spy(this.view, 'enableForm');
+
+      this.story.set({editing: true});
+      this.view.saveEdit();
+
+      expect(disable_spy).toHaveBeenCalled();
+      expect(enable_spy).not.toHaveBeenCalled();
+      expect($(this.view.el).find('img.collapse').attr('src')).toEqual('/images/throbber.gif');
+
+      this.server.respond();
+
+      expect(enable_spy).toHaveBeenCalled();
+    });
+
+    it('should disable state transition buttons on click', function() {
+      this.server.respondWith(
+        "PUT", "/path/to/story", [
+          200, {"Content-Type": "application/json"},
+          '{"story":{"state":"started"}}'
+        ]
+      );
+
+      var ev = { target: { value : 'start' } };
+      this.view.transition(ev);
+
+      expect(this.view.saveInProgress).toBeTruthy();
+
+      this.server.respond();
+
+      expect(this.view.saveInProgress).toBeFalsy();
+    });
+
+    it('should disable estimate buttons on click', function() {
+      this.server.respondWith(
+        "PUT", "/path/to/story", [
+          200, {"Content-Type": "application/json"},
+          '{"story":{"estimate":"1"}}'
+        ]
+      );
+
+      var ev = { target: { value : '1' } };
+      this.view.estimate(ev);
+
+      expect(this.view.saveInProgress).toBeTruthy();
+
+      this.server.respond();
+
+      expect(this.view.saveInProgress).toBeFalsy();
     });
   });
 

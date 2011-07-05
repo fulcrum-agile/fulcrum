@@ -18,7 +18,11 @@
   </div>
   {{/if}}
   <div class="story-icons">
+    {{if $item.view.saveInProgress}}
+    <img src="/images/throbber.gif" alt="Saving ...">
+    {{else}}
     <img src="/images/expand.png" class="expand" alt="Expand">
+    {{/if}}
     <img src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">
     {{if story.estimated}}
     <span class="estimate estimate_${story.estimate}">${story.estimate}</span>

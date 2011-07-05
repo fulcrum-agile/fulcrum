@@ -3,7 +3,8 @@ var StoryView = FormView.extend({
   tagName: 'div',
 
   initialize: function() {
-    _.bindAll(this, "render", "highlight", "moveColumn", "setClassName");
+    _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
+                    "transition", "estimate", "disableForm");
 
     // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
@@ -63,13 +64,45 @@ var StoryView = FormView.extend({
     // The name of the function that needs to be called on the model is the
     // value of the form button that was clicked.
     var transitionEvent = ev.target.value;
-    this.model[transitionEvent]();
-    this.model.save();
+
+    this.saveInProgress = true;
+    this.render();
+
+    this.model[transitionEvent]({silent:true});
+
+    var that = this;
+    this.model.save(null, {
+      success: function(model, response) {
+        that.saveInProgress = false;
+        that.render();
+      },
+      error: function(model, response) {
+        var json = $.parseJSON(response.responseText);
+        App.notice({title: "Save error", text: model.errorMessages()});
+        that.saveInProgress = false;
+        that.render();
+      }
+    });
   },
 
   estimate: function(ev) {
+    this.saveInProgress = true;
+    this.render();
     this.model.set({estimate: ev.target.value});
-    this.model.save();
+
+    var that = this;
+    this.model.save(null, {
+      success: function(model, response) {
+        that.saveInProgress = false;
+        that.render();
+      },
+      error: function(model, response) {
+        var json = $.parseJSON(response.responseText);
+        App.notice({title: "Save error", text: model.errorMessages()});
+        that.saveInProgress = false;
+        that.render();
+      }
+    });
   },
 
   // Move the story to a new column
@@ -102,15 +135,19 @@ var StoryView = FormView.extend({
 
   saveEdit: function() {
     this.model.set(this.changed_attributes);
+    this.disableForm();
+
     var that = this;
     this.model.save(null, {
       success: function(model, response) {
         that.model.set({editing: false});
+        that.enableForm();
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
         model.set({editing: true, errors: json.story.errors});
         App.notice({title: "Save error", text: model.errorMessages()});
+        that.enableForm();
       }
     });
   },
@@ -185,7 +222,7 @@ var StoryView = FormView.extend({
       $(this.el).append(div);
 
     } else {
-      $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model}));
+      $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
     return this;
   },
@@ -197,5 +234,16 @@ var StoryView = FormView.extend({
     }
     this.className = this.el.className = className;
     return this;
+  },
+
+  saveInProgress: false,
+
+  disableForm: function() {
+    $(this.el).find('input,select,textarea').attr('disabled', 'disabled');
+    $(this.el).find('img.collapse,img.expand').attr('src', '/images/throbber.gif');
+  },
+
+  enableForm: function() {
+    $(this.el).find('img.collapse').attr('src', '/images/collapse.png');
   }
 });
