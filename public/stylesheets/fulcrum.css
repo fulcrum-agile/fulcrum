@@ -218,6 +218,9 @@ span.estimate_8 {
   background-color: #333;
   color: white;
 }
+.story.release:hover {
+  background-color: #222;
+}
 
 /* Story action buttons */
 .state-actions {
