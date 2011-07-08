@@ -1,7 +1,10 @@
 var Project = Backbone.Model.extend({
   name: 'project',
 
-  initialize: function() {
+  initialize: function(args) {
+
+    this.maybeUnwrap(args);
+
     this.stories = new StoryCollection;
     this.stories.url = this.url() + '/stories';
     this.stories.project = this;

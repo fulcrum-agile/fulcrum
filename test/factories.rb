@@ -16,3 +16,8 @@ Factory.define :story do |s|
   s.association :requested_by, :factory => :user
   s.association :project
 end
+
+Factory.define :changeset do |c|
+  c.association :story
+  c.association :project
+end

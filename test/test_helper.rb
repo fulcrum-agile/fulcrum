@@ -10,6 +10,13 @@ class ActiveSupport::TestCase
   #fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  # Check the passed object returns the passed hash from it's as_json
+  # method.
+  def assert_returns_json(attrs, object)
+    wrapper = object.class.name.underscore
+    assert_equal(attrs.sort, object.as_json[wrapper].keys.sort)
+  end
 end
 
 class ActionController::TestCase

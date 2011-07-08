@@ -1,4 +1,8 @@
 class Project < ActiveRecord::Base
+
+  JSON_ATTRIBUTES = ["id"]
+  JSON_METHODS = ["last_changeset_id", "point_values"]
+
   # These are the valid point scalse for a project.  These represent
   # the set of valid points estimate values for a story in this project.
   POINT_SCALES = {
@@ -23,9 +27,18 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :users, :reject_if => :all_blank
 
   has_many :stories
+  has_many :changesets
 
   # Returns an array of the valid points values for this project
   def point_values
     POINT_SCALES[point_scale]
+  end
+
+  def last_changeset_id
+    changesets.last && changesets.last.id
+  end
+
+  def as_json(options = {})
+    super(:only => JSON_ATTRIBUTES, :methods => JSON_METHODS)
   end
 end

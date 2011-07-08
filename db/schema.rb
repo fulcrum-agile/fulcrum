@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110627083011) do
+ActiveRecord::Schema.define(:version => 20110706094137) do
+
+  create_table "changesets", :force => true do |t|
+    t.integer  "story_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "name"

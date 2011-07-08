@@ -115,8 +115,7 @@ class StoryTest < ActiveSupport::TestCase
       "state", "position", "id", "events", "estimable", "estimated", "errors"
     ]
 
-    assert_equal(attrs.count, @story.as_json['story'].keys.count)
-    assert_equal(attrs.sort, @story.as_json['story'].keys.sort)
+    assert_returns_json attrs, @story
   end
 
   test "should set a new story position to last in list" do
@@ -134,5 +133,17 @@ class StoryTest < ActiveSupport::TestCase
     assert_nil @story.accepted_at
     @story.update_attribute :state, 'accepted'
     assert_equal Date.today, @story.accepted_at
+  end
+
+  test "modifying a story should create a new changeset" do
+    assert_difference 'Changeset.count' do
+      @story.update_attribute :title, 'New title to test changeset'
+    end
+  end
+
+  test "creating a story should create a new changeset" do
+    assert_difference 'Changeset.count' do
+      Factory.create(:story, :project => @project, :requested_by => @user)
+    end
   end
 end

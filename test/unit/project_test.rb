@@ -45,4 +45,19 @@ class ProjectTest < ActiveSupport::TestCase
     @project.iteration_start_day = 2.5
     assert !@project.save
   end
+
+  test "should return the id of the most recent changeset" do
+    assert_equal nil, @project.last_changeset_id
+    user = Factory.create(:user)
+    @project.users << user
+    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    assert_equal Changeset.last.id, @project.last_changeset_id
+  end
+
+  test "should return json" do
+    attrs = [
+      "id", "point_values", "last_changeset_id"
+    ]
+    assert_returns_json attrs, @project
+  end
 end
