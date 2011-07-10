@@ -258,7 +258,8 @@ span.estimate_8 {
   background-color: #ef2929;
 }
 .state-actions input.restart {
-  background-color: #ef2929;
+  background: #ef2929 url('/images/redo.png') no-repeat;
+  padding-left: 16px;
 }
 
 img.expand, img.collapse {
