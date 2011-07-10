@@ -47,6 +47,10 @@ $(function() {
   window.App.scaleToViewport();
   $(window).resize(App.scaleToViewport);
 
+  setInterval(function() {
+    window.Project.fetch();
+  }, 5000);
+
   <% if notice %>
     window.App.notice({
       title: 'Notice', text: '<%= notice %>',
