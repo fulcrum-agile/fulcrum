@@ -71,7 +71,7 @@ div.story-icons {
   float: left;
 }
 div.story-title {
-  margin-left: 50px;
+  margin-left: 65px;
 }
 .unestimated div.story-title {
   font-style: italic;
@@ -92,6 +92,7 @@ div.story-title abbr.initials {
 span.estimate {
   border: 1px solid #777;
   padding: 0 0.2em;
+  margin: 0 2px 0 0;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;

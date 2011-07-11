@@ -216,4 +216,19 @@ describe('Story model', function() {
 
   });
 
+
+  describe("details", function() {
+
+    // If the story has details other than the title, e.g. description
+    it("should return if the story has details", function() {
+
+      expect(this.story.hasDetails()).toBeFalsy();
+
+      this.story.set({description: "Test description"});
+
+      expect(this.story.hasDetails()).toBeTruthy();
+
+    });
+  });
+
 });
