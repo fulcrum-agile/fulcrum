@@ -6,7 +6,7 @@ $(function() {
 
     // TODO - This needs some improvement, scroll into view
     var newStoryElement = $('#chilly_bin div.story:last');
-    $('#chilly_bin').scrollTop(newStoryElement.position().top);
+    $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
 
   $('div.sortable').sortable({
