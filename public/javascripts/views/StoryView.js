@@ -160,7 +160,10 @@ var StoryView = FormView.extend({
   // Visually highlight the story if an external change happens
   highlight: function() {
     if(!this.model.get('editing')) {
-      $(this.el).effect("highlight", {}, 3000);
+      // Workaround for http://bugs.jqueryui.com/ticket/5506
+      if ($(this.el).is(':visible')) {
+        $(this.el).effect("highlight", {}, 3000);
+      }
     }
   },
 
