@@ -9,7 +9,7 @@ a img {
 
 ul#primary-nav {
   text-align: right;
-  background: #575757;
+  background: #575757 url('/images/logo.png') no-repeat 13px 6px;
   margin: 0;
   padding: 1em;
   color: white;
