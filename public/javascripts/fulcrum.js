@@ -4,7 +4,6 @@ $(function() {
       title: "New story", events: [], editing: true
     }]);
 
-    // TODO - This needs some improvement, scroll into view
     var newStoryElement = $('#chilly_bin div.story:last');
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
