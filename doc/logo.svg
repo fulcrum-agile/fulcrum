@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="30"
-   height="30"
+   width="32.198475"
+   height="32.198475"
    id="svg2996"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="New document 2">
+   sodipodi:docname="logo.svg">
   <defs
      id="defs2998">
     <inkscape:path-effect
@@ -29,6 +29,15 @@
        effect="spiro"
        id="path-effect3796"
        is_visible="true" />
+    <filter
+       inkscape:collect="always"
+       id="filter3773"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.45801527"
+         id="feGaussianBlur3775" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -37,9 +46,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="17"
-     inkscape:cx="14.999997"
-     inkscape:cy="15.000003"
+     inkscape:zoom="8.5"
+     inkscape:cx="-16.900755"
+     inkscape:cy="16.805102"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -47,8 +56,8 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1366"
-     inkscape:window-height="714"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
@@ -60,7 +69,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -68,7 +77,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-350.42377,-453.19263)">
+     transform="translate(-349.32453,-452.79926)">
+    <rect
+       ry="7"
+       rx="7"
+       y="453.8985"
+       x="350.42377"
+       height="30"
+       width="30"
+       id="rect3000"
+       style="fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3773)" />
     <rect
        style="fill:#8ae234;fill-opacity:1;stroke:none"
        id="rect3792"
@@ -90,7 +108,7 @@
          x="412.15485"
          y="492.81976" /></text>
     <path
-       style="color:#000000;fill:none;stroke:#000000;stroke-width:7.843;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:7.84299994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        d="m 357.96558,478.19263 0,-14.45819 c 0,-2.77 2.23,-5 5,-5 l 9.72016,0"
        id="rect3826"
        inkscape:connector-curvature="0"
