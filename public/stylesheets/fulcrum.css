@@ -35,6 +35,7 @@ html.stories, html.stories body, html.stories div#main {
 table.stories {
   width: 100%;
   height: 100%;
+  border-spacing: 5px 0;
 }
 
 table.stories td {
@@ -53,6 +54,8 @@ table.stories th {
   color: #eee;
   padding: 0.2em;
   font-weight: bold;
+  border-top-left-radius: 5px 5px;
+  border-top-right-radius: 5px 5px;
 }
 
 /* Story types */
