@@ -10,7 +10,9 @@ describe('StoryView', function() {
       errorsOn: function() { return false},
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return []} } } },
-      start: function() {}
+      start: function() {},
+      //moveAfter: function() {},
+      //moveBefore: function() {}
     });
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
@@ -185,6 +187,38 @@ describe('StoryView', function() {
       this.new_story.set({editing: true});
 
       expect($(this.new_story_view.el)).not.toContain('img.collapse');
+    });
+
+  });
+
+  describe("sorting", function() {
+
+    it("should move after the previous story in the column", function() {
+      var html = $('<div id="1"></div><div id="2"></div>');
+      var ev = {target: html[1]};
+
+      this.story.moveAfter = sinon.spy();
+      this.view.sortUpdate(ev);
+
+      expect(this.story.moveAfter).toHaveBeenCalledWith("1");
+    });
+
+    it("should move before the next story in the column", function() {
+      var html = $('<div id="1"></div><div id="2"></div>');
+      var ev = {target: html[0]};
+
+      this.story.moveBefore = sinon.spy();
+      this.view.sortUpdate(ev);
+
+      expect(this.story.moveBefore).toHaveBeenCalledWith("2");
+    });
+
+    it("should throw an exception when dropping on an empty column", function() {
+      var html = $('<div id="1"></div>');
+      var ev = {target: html[0]};
+
+      var that = this;
+      expect(function() {that.view.sortUpdate(ev)}).toThrow("Dropping on empty columns is not yet implemented");
     });
 
   });
