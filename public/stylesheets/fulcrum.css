@@ -22,6 +22,32 @@ ul#primary-nav li {
 ul#primary-nav li a {
   color: white;
 }
+ul#primary-nav li.secondary {
+  position: relative;
+  background: #333 url('/images/collapse.png') no-repeat right;
+  padding: 0.4em 18px 0.4em 0.4em;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+ul#primary-nav li.secondary ul {
+  visibility: hidden;
+}
+ul#primary-nav li.secondary:hover ul {
+  visibility: visible;
+}
+ul#primary-nav li.secondary ul {
+  padding: 0.3em;
+  position: absolute;
+  left: 0; top: 1.7em;
+  background-color: #333;
+  border-radius: 0px 5px 5px 5px;
+  -moz-border-radius: 0px 5px 5px 5px;
+}
+ul#primary-nav li.secondary ul li {
+  white-space: nowrap;
+  text-align: left;
+  display: block;
+}
 
 #main {
   margin: 1em;
@@ -54,8 +80,8 @@ table.stories th {
   color: #eee;
   padding: 0.2em;
   font-weight: bold;
-  border-top-left-radius: 5px 5px;
-  border-top-right-radius: 5px 5px;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
 }
 
 /* Story types */

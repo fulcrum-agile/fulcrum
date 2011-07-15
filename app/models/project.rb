@@ -29,6 +29,10 @@ class Project < ActiveRecord::Base
   has_many :stories
   has_many :changesets
 
+  def to_s
+    name
+  end
+
   # Returns an array of the valid points values for this project
   def point_values
     POINT_SCALES[point_scale]

@@ -5,6 +5,10 @@ class ProjectTest < ActiveSupport::TestCase
     @project = Factory.create(:project)
   end
 
+  test "should return a string" do
+    assert_equal @project.name, @project.to_s
+  end
+
   test "default point scale should be fibonacci" do
     assert_equal 'fibonacci', Project.new.point_scale
   end
