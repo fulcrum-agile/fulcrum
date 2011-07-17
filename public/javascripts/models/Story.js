@@ -34,13 +34,6 @@ var Story = Backbone.Model.extend({
     var difference = (afterPosition - before.position()) / 2;
     var newPosition = difference + before.position();
 
-    if (before.get('state') == 'unstarted' && this.get('state') == 'unscheduled') {
-      this.set({state: 'unstarted'});
-    }
-    if (before.get('state') == 'unscheduled' && this.get('state') == 'unstarted') {
-      this.set({state: 'unscheduled'});
-    }
-
     this.set({position: newPosition});
     return this;
   },
@@ -55,13 +48,6 @@ var Story = Backbone.Model.extend({
     }
     var difference = (after.position() - beforePosition) / 2;
     var newPosition = difference + beforePosition;
-
-    if (after.get('state') == 'unstarted' && this.get('state') == 'unscheduled') {
-      this.set({state: 'unstarted'});
-    }
-    if (after.get('state') == 'unscheduled' && this.get('state') == 'unstarted') {
-      this.set({state: 'unscheduled'});
-    }
 
     this.set({position: newPosition});
     this.collection.sort({silent: true});

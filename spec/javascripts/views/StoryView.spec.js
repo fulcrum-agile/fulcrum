@@ -193,6 +193,35 @@ describe('StoryView', function() {
 
   describe("sorting", function() {
 
+    beforeEach(function() {
+      this.story.collection.length = 1;
+      this.story.collection.columns = function() {return [];};
+    });
+
+    it("sets state to unstarted if dropped on the backlog column", function() {
+
+      this.story.set({'state':'unscheduled'});
+
+      var html = $('<td id="backlog"><div id="1"></div></td>');
+      var ev = {target: html.find('#1')};
+
+      this.view.sortUpdate(ev);
+
+      expect(this.story.get('state')).toEqual("unstarted");
+    });
+
+    it("sets state to unscheduled if dropped on the chilly_bin column", function() {
+
+      this.story.set({'state':'unstarted'});
+
+      var html = $('<td id="chilly_bin"><div id="1"></div></td>');
+      var ev = {target: html.find('#1')};
+
+      this.view.sortUpdate(ev);
+
+      expect(this.story.get('state')).toEqual("unscheduled");
+    });
+
     it("should move after the previous story in the column", function() {
       var html = $('<div id="1"></div><div id="2"></div>');
       var ev = {target: html[1]};
@@ -213,12 +242,14 @@ describe('StoryView', function() {
       expect(this.story.moveBefore).toHaveBeenCalledWith("2");
     });
 
-    it("should throw an exception when dropping on an empty column", function() {
-      var html = $('<div id="1"></div>');
-      var ev = {target: html[0]};
+    it("should move into an empty chilly bin", function() {
+      var html = $('<td id="backlog"><div id="1"></div></td><td id="chilly_bin"><div id="2"></div></td>');
+      var ev = {target: html.find('#2')};
 
-      var that = this;
-      expect(function() {that.view.sortUpdate(ev)}).toThrow("Dropping on empty columns is not yet implemented");
+      this.story.moveAfter = sinon.spy();
+      this.view.sortUpdate(ev);
+
+      expect(this.story.get('state')).toEqual('unscheduled');
     });
 
   });

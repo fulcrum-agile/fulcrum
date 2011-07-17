@@ -16,5 +16,22 @@ var StoryCollection = Backbone.Collection.extend({
 
   previous: function(story) {
     return this.at(this.indexOf(story) - 1);
+  },
+
+  // Returns all the stories in the named column, either #done, #current,
+  // #backlog or #chilly_bin
+  column: function(column) {
+    return this.select(function(story) {
+      return story.column() == column;
+    });
+  },
+
+  // Returns an array of the stories in a set of columns.  Pass an array
+  // of the column names accepted by column().
+  columns: function(columns) {
+    var that = this;
+    return _.flatten(_.map(columns, function(column) {
+      return that.column(column);
+    }));
   }
 });

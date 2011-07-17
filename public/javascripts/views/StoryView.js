@@ -46,17 +46,63 @@ var StoryView = FormView.extend({
 
   // Triggered whenever a story is dropped to a new position
   sortUpdate: function(ev, ui) {
-    var previous_story_id = $(ev.target).prev().attr('id');
-    var next_story_id = $(ev.target).next().attr('id');
+
+    // The target element, i.e. the StoryView.el element
+    var target = $(ev.target);
+
+    // Initially, try and get the id's of the previous and / or next stories
+    // by just searching up above and below in the DOM of the column position
+    // the story was dropped on.  The case where the column is empty is
+    // handled below.
+    var previous_story_id = target.prev().attr('id');
+    var next_story_id = target.next().attr('id');
+
+    // Set the story state if drop column is chilly_bin or backlog
+    var column = target.parent().attr('id');
+    if (column == 'backlog') {
+      this.model.set({state: 'unstarted'});
+    } else if (column == 'chilly_bin') {
+      this.model.set({state: 'unscheduled'});
+    }
+
+    // If both of these are unset, the story has been dropped on an empty
+    // column, which will be either the backlog or the chilly bin as these
+    // are the only columns that can receive drops from other columns.
+    if (typeof previous_story_id == 'undefined' && typeof next_story_id == 'undefined') {
+
+      var beforeSearchColumns = [], afterSearchColumns = [];
+
+      if (column == 'chilly_bin') {
+        beforeSearchColumns = ['#done', '#current', '#backlog'];
+      } else if (column == 'backlog') {
+        beforeSearchColumns = ['#done', '#current'];
+        afterSearchColumns = ['#chilly_bin'];
+      }
+
+      var previousStory = _.last(this.model.collection.columns(beforeSearchColumns));
+      var nextStory = _.first(this.model.collection.columns(afterSearchColumns));
+
+      if (typeof previousStory != 'undefined') {
+        previous_story_id = previousStory.id;
+      }
+      if (typeof nextStory != 'undefined') {
+        next_story_id = nextStory.id;
+      }
+    }
+
     if (typeof previous_story_id != 'undefined') {
       this.model.moveAfter(previous_story_id);
     } else if (typeof next_story_id != 'undefined') {
       this.model.moveBefore(next_story_id);
     } else {
-      // TODO Implement dropping on empty columns
-      throw "Dropping on empty columns is not yet implemented";
+      // The only possible scenario that we should reach this point under
+      // is if there is only one story in the collection, so there is no
+      // previous or next story.  If this is not the case then something
+      // has gone wrong.
+      if (this.model.collection.length != 1) {
+        throw "Unable to determine previous or next story id for dropped story";
+      }
     }
-
     this.model.save();
   },
 

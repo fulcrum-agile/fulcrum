@@ -87,4 +87,22 @@ describe('StoryCollection collection', function() {
     });
 
   });
+
+  describe("columns", function() {
+
+    it("should return all stories in the done column", function() {
+      expect(this.stories.column('#done')).toEqual([]);
+      this.story1.column = function() {return '#done';};
+      expect(this.stories.column('#done')).toEqual([this.story1]);
+    });
+
+    it("returns a set of columns", function() {
+      this.story1.column = function() {return '#done';};
+      this.story2.column = function() {return '#current';};
+      this.story3.column = function() {return '#backlog';};
+      expect(this.stories.columns(['#backlog', '#current', '#done']))
+        .toEqual([this.story3,this.story2,this.story1]);
+    });
+
+  });
 });
