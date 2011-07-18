@@ -195,6 +195,13 @@ class StoriesControllerTest < ActionController::TestCase
     assert_template 'import'
   end
 
+  test "should set the acting user" do
+    sign_in @user
+    put :update, :id => @story.to_param, :project_id => @project.to_param,
+      :story => {:estimate => 1}
+    assert_equal @user, assigns(:story).acting_user
+  end
+
   private
 
   def assert_state_change(action, resulting_state)

@@ -22,6 +22,10 @@ class Story < ActiveRecord::Base
 
   has_many :changesets
 
+  # This attribute is used to store the user who is acting on a story, for
+  # example delivering or modifying it.  Usually set by the controller.
+  attr_accessor :acting_user
+
   STORY_TYPES = [
     'feature', 'chore', 'bug', 'release'
   ]

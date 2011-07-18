@@ -146,4 +146,26 @@ class StoryTest < ActiveSupport::TestCase
       Factory.create(:story, :project => @project, :requested_by => @user)
     end
   end
+
+  test "delivering a story sends an email to the requestor" do
+    @story.acting_user = Factory.create(:user)
+    @project.users << @story.acting_user
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'delivered'
+    end
+  end
+
+  test "delivering a story sends no email if acting user is not set" do
+    @story.acting_user = nil
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'delivered'
+    end
+  end
+
+  test "delivering a story sends no email if acting user was the requestor" do
+    @story.acting_user = @story.requested_by
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'delivered'
+    end
+  end
 end

@@ -17,6 +17,7 @@ class StoriesController < ApplicationController
   def update
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
+    @story.acting_user = current_user
     respond_to do |format|
       if @story.update_attributes(filter_story_params)
         format.html { redirect_to project_url(@project) }
