@@ -168,4 +168,39 @@ class StoryTest < ActiveSupport::TestCase
       @story.update_attribute :state, 'delivered'
     end
   end
+
+  test "accepting a story sends an email to the owner" do
+    @story.acting_user = Factory.create(:user)
+    @story.owned_by = @story.requested_by
+    @project.users << @story.acting_user
+    assert_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'accepted'
+    end
+  end
+
+  test "accepting a story sends no email if acting user is not set" do
+    @story.acting_user = nil
+    @story.owned_by = @story.requested_by
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'accepted'
+    end
+  end
+
+  test "accepting a story sends no email if owned_by is not set" do
+    @story.acting_user = Factory.create(:user)
+    @story.owned_by = nil
+    @project.users << @story.acting_user
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'accepted'
+    end
+  end
+
+  test "accepting a story sends no email if owned_by accepter are the same user" do
+    @story.acting_user = Factory.create(:user)
+    @project.users << @story.acting_user
+    @story.owned_by = @story.acting_user
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'accepted'
+    end
+  end
 end
