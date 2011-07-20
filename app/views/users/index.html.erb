@@ -1,4 +1,6 @@
-<%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<% content_for :title_bar do %>
+  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<% end %>
 <h2>Project members</h2>
 <ul>
   <% @users.each do |user| %>

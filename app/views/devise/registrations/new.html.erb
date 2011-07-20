@@ -1,4 +1,6 @@
-<h2>Sign up</h2>
+<% content_for :title_bar do %>
+  <h1>Sign up</h1>
+<% end %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>

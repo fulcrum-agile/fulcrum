@@ -71,6 +71,33 @@ ul#primary-nav li.secondary ul li {
   display: block;
 }
 
+#title_bar {
+  background: #efefef;
+  background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#dfe1e2));
+  background: -moz-linear-gradient(-90deg, #efefef, #dfe1e2);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#efefef, endColorstr=#dfe1e2);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#efefef, endColorstr=#dfe1e2);
+  box-shadow: 0 1px 2px #aaaaaa;
+  -moz-box-shadow: 0 1px 2px #aaaaaa;
+  -webkit-box-shadow: 0 1px 2px #aaaaaa;
+  text-shadow: white 0 1px 0;
+  border-bottom: 1px solid #ededed;
+  padding: 5px 10px 3px 10px;
+  font-size: 1.0em;
+  font-weight: bold;
+  line-height: 140%;
+  margin-bottom: 0.5em;
+  color: #5e6469;
+  position: relative;
+  margin: 0;
+  padding: 10px 1em;
+}
+
+#title_bar h1 {
+  font-size: 2em;
+  margin: 0.3em 0;
+}
+
 #main {
   margin: 1em;
 }

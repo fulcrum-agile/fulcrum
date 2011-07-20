@@ -62,8 +62,10 @@ $(function() {
 });
 </script>
 
-<%= render :partial => 'projects/nav', :locals => {:project => @project} %>
-| <a id="add_story" href="#">Add story</a>
+<% content_for :title_bar do %>
+  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+  | <a id="add_story" href="#">Add story</a>
+<% end %>
 
 <table class="stories" width="100%">
   <thead>
