@@ -40,4 +40,20 @@ class NotificationsTest < ActionMailer::TestCase
     assert_match "Accepter has accepted the story 'Test story'.", mail.body.encoded
     assert_match project_url(project), mail.body.encoded
   end
+
+  test "rejected" do
+    owner = Factory.create(:user, :name => "Owner")
+    rejecter = Factory.create(:user, :name => "Rejecter")
+    requester = Factory.create(:user, :name => "Requester")
+    project = Factory.create(:project, :users => [owner, rejecter, requester])
+    story = Factory.create(:story, :project => project,
+                            :requested_by => requester, :owned_by => owner)
+
+    mail = Notifications.rejected(story, rejecter)
+    assert_equal "[Test Project] Rejecter REJECTED your story 'Test story'.", mail.subject
+    assert_equal [owner.email], mail.to
+    assert_equal [rejecter.email], mail.from
+    assert_match "Rejecter has rejected the story 'Test story'.", mail.body.encoded
+    assert_match project_url(project), mail.body.encoded
+  end
 end

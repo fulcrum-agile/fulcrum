@@ -15,4 +15,12 @@ class Notifications < ActionMailer::Base
     mail :to => story.owned_by.email, :from => accepted_by.email,
       :subject => "[#{story.project.name}] #{accepted_by.name} ACCEPTED your story '#{story.title}'."
   end
+
+  def rejected(story, rejected_by)
+    @story = story
+    @accepted_by = rejected_by
+
+    mail :to => story.owned_by.email, :from => rejected_by.email,
+      :subject => "[#{story.project.name}] #{rejected_by.name} REJECTED your story '#{story.title}'."
+  end
 end

@@ -15,5 +15,11 @@ class StoryObserver < ActiveRecord::Observer
       notifier = Notifications.accepted(story, story.acting_user)
       notifier.deliver if notifier
     end
+
+    # Send 'story accepted' email if state changed to 'accepted'
+    if story.state_changed? && story.state == 'rejected' && story.acting_user && story.owned_by && story.owned_by != story.acting_user
+      notifier = Notifications.rejected(story, story.acting_user)
+      notifier.deliver if notifier
+    end
   end
 end

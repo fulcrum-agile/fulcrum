@@ -89,7 +89,9 @@ class StoryTest < ActiveSupport::TestCase
     @story.finish
     assert_equal [:deliver], @story.events
     @story.deliver
-    assert_equal [:accept, :reject], @story.events
+    assert @story.events.include?(:accept)
+    assert @story.events.include?(:reject)
+    assert_equal 2, @story.events.length
   end
 
   test "should return the css id of the column the story belongs in" do
@@ -169,38 +171,42 @@ class StoryTest < ActiveSupport::TestCase
     end
   end
 
-  test "accepting a story sends an email to the owner" do
-    @story.acting_user = Factory.create(:user)
-    @story.owned_by = @story.requested_by
-    @project.users << @story.acting_user
-    assert_difference 'ActionMailer::Base.deliveries.size' do
-      @story.update_attribute :state, 'accepted'
-    end
-  end
+  ["accept", "reject"].each do |action|
 
-  test "accepting a story sends no email if acting user is not set" do
-    @story.acting_user = nil
-    @story.owned_by = @story.requested_by
-    assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      @story.update_attribute :state, 'accepted'
+    test "#{action}ing a story sends an email to the owner" do
+      @story.acting_user = Factory.create(:user)
+      @story.owned_by = @story.requested_by
+      @project.users << @story.acting_user
+      assert_difference 'ActionMailer::Base.deliveries.size' do
+        @story.update_attribute :state, "#{action}ed"
+      end
     end
-  end
 
-  test "accepting a story sends no email if owned_by is not set" do
-    @story.acting_user = Factory.create(:user)
-    @story.owned_by = nil
-    @project.users << @story.acting_user
-    assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      @story.update_attribute :state, 'accepted'
+    test "#{action}ing a story sends no email if acting user is not set" do
+      @story.acting_user = nil
+      @story.owned_by = @story.requested_by
+      assert_no_difference 'ActionMailer::Base.deliveries.size' do
+        @story.update_attribute :state, "#{action}ed"
+      end
     end
-  end
 
-  test "accepting a story sends no email if owned_by accepter are the same user" do
-    @story.acting_user = Factory.create(:user)
-    @project.users << @story.acting_user
-    @story.owned_by = @story.acting_user
-    assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      @story.update_attribute :state, 'accepted'
+    test "#{action}ing a story sends no email if owned_by is not set" do
+      @story.acting_user = Factory.create(:user)
+      @story.owned_by = nil
+      @project.users << @story.acting_user
+      assert_no_difference 'ActionMailer::Base.deliveries.size' do
+        @story.update_attribute :state, "#{action}ed"
+      end
     end
+
+    test "#{action}ing a story sends no email if owned_by is acting user" do
+      @story.acting_user = Factory.create(:user)
+      @project.users << @story.acting_user
+      @story.owned_by = @story.acting_user
+      assert_no_difference 'ActionMailer::Base.deliveries.size' do
+        @story.update_attribute :state, "#{action}ed"
+      end
+    end
+
   end
 end
