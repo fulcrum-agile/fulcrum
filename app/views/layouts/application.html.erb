@@ -14,23 +14,26 @@
 </head>
 <body>
 
-<ul id="primary-nav">
-  <% if current_user %>
-    <li class="secondary">
-      Projects
-      <ul>
-        <%- current_user.projects.each do |project| -%>
-          <li><%= link_to project, project %></li>
-        <%- end -%>
-      </ul>
-    </li>
-    <li><%= link_to current_user.email, edit_user_registration_path %></li>
-    <li><%= link_to 'Log out', destroy_user_session_path %></li>
-  <% else %>
-    <li><%= link_to 'Log in', new_user_session_path %></li>
-    <li><%= link_to 'Sign up', new_user_registration_path %></li>
-  <% end %>
-</ul>
+<div id="header">
+  <ul id="primary-nav">
+    <li class="root"><%= link_to "Fulcrum", root_path %></li>
+    <% if current_user %>
+      <li class="secondary">
+        Projects
+        <ul>
+          <%- current_user.projects.each do |project| -%>
+            <li><%= link_to project, project %></li>
+          <%- end -%>
+        </ul>
+      </li>
+      <li><%= link_to current_user.email, edit_user_registration_path %></li>
+      <li><%= link_to 'Log out', destroy_user_session_path %></li>
+    <% else %>
+      <li><%= link_to 'Log in', new_user_session_path %></li>
+      <li><%= link_to 'Sign up', new_user_registration_path %></li>
+    <% end %>
+  </ul>
+</div>
 
 <div id="main">
   <p class="notice"><%= notice %></p>

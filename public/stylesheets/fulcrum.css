@@ -7,11 +7,28 @@ a img {
   border: 0;
 }
 
+#header {
+  background: #6a7176;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
+  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  border-bottom: 1px solid #44484b;
+  box-shadow: 0 1px 2px #aaaaaa;
+  -moz-box-shadow: 0 1px 2px #aaaaaa;
+  -webkit-box-shadow: 0 1px 2px #aaaaaa;
+  text-shadow: black 0 1px 0;
+  position: relative;
+  z-index: 900;
+}
+
 ul#primary-nav {
   text-align: right;
-  background: #575757 url('/images/logo.png') no-repeat 13px 6px;
+  background-image: url('/images/logo.png');
+  background-repeat: no-repeat;
+  background-position: 13px 6px;
   margin: 0;
-  padding: 1em;
+  padding: 1em 1em 1em 40px;
   color: white;
   font-weight: bold;
 }
@@ -21,6 +38,11 @@ ul#primary-nav li {
 }
 ul#primary-nav li a {
   color: white;
+  text-decoration: none;
+}
+ul#primary-nav li.root {
+  float: left;
+  font-size: large;
 }
 ul#primary-nav li.secondary {
   position: relative;
