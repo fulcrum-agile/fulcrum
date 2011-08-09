@@ -60,8 +60,16 @@ class ProjectTest < ActiveSupport::TestCase
 
   test "should return json" do
     attrs = [
-      "id", "point_values", "last_changeset_id"
+      "id", "point_values", "last_changeset_id", "iteration_length",
+      "iteration_start_day", "start_date"
     ]
     assert_returns_json attrs, @project
+  end
+
+  test "should set the start date when starting the first story" do
+    assert_nil @project.start_date
+    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    story.update_attribute :state, 'started'
+    assert_equal Date.today, @project.start_date
   end
 end

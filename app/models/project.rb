@@ -1,6 +1,8 @@
 class Project < ActiveRecord::Base
 
-  JSON_ATTRIBUTES = ["id"]
+  JSON_ATTRIBUTES = [
+    "id", "iteration_length", "iteration_start_day", "start_date"
+  ]
   JSON_METHODS = ["last_changeset_id", "point_values"]
 
   # These are the valid point scalse for a project.  These represent
