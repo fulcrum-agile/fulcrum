@@ -130,8 +130,14 @@ class Story < ActiveRecord::Base
   private
     
     def set_accepted_at
-      if state_changed? && state == 'accepted'
-        self.accepted_at = Date.today
+      if state_changed?
+        if state == 'accepted' && accepted_at == nil
+          # Set accepted at to today when accepted
+          self.accepted_at = Date.today
+        elsif state_was == 'accepted'
+          # Unset accepted at when changing from accepted to something else
+          self.accepted_at = nil
+        end
       end
     end
 end

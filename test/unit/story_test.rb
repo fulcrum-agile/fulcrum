@@ -137,6 +137,27 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal Date.today, @story.accepted_at
   end
 
+  test "should not set accepted at when accepted if already set" do
+    date = @story.accepted_at = Date.parse('1999-01-01')
+    @story.update_attribute :state, 'accepted'
+    assert_equal date, @story.accepted_at
+  end
+
+  test "should unset accepted at when changing from accepted" do
+    @story.update_attribute :state, 'accepted'
+    assert_not_nil @story.accepted_at
+    @story.update_attribute :state, 'started'
+    assert_nil @story.accepted_at
+  end
+
+  # If a story has an accepted date prior to the project start date,
+  # reset the project start date
+  test "should set project start date if accepted at is prior" do
+    @project.start_date = Date.parse('2001-01-02')
+    @story.update_attribute :accepted_at, Date.parse('2001-01-01')
+    assert_equal @story.accepted_at, @project.start_date
+  end
+
   test "modifying a story should create a new changeset" do
     assert_difference 'Changeset.count' do
       @story.update_attribute :title, 'New title to test changeset'
@@ -153,6 +174,15 @@ class StoryTest < ActiveSupport::TestCase
     @story.acting_user = Factory.create(:user)
     @project.users << @story.acting_user
     assert_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'delivered'
+    end
+  end
+
+  test "delivering a story sends no email if requested by is not set" do
+    @story.acting_user = Factory.create(:user)
+    @project.users << @story.acting_user
+    @story.requested_by = nil
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       @story.update_attribute :state, 'delivered'
     end
   end
