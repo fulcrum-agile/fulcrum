@@ -121,6 +121,7 @@ class StoriesController < ApplicationController
             :story_type => row["Story Type"],
             :requested_by => users.detect {|u| u.name == row["Requested By"]},
             :owned_by => users.detect {|u| u.name == row["Owned By"]},
+            :accepted_at => row["Accepted at"],
             :estimate => row["Estimate"]
           }
         end
