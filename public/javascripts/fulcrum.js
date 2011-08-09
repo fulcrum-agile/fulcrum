@@ -11,6 +11,8 @@ $(function() {
   $('div.sortable').sortable({
     handle: '.story-title', opacity: 0.6,
 
+    items: ".story",
+
     update: function(ev, ui) {
       ui.item.trigger("sortupdate", ev, ui);
     }

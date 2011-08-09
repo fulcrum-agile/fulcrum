@@ -10,7 +10,7 @@ describe('Project model', function() {
 
     this.project = new Project({
       id: 999, title: 'Test project', point_values: [0, 1, 2, 3],
-      last_changeset_id: null
+      last_changeset_id: null, iteration_start_day: 1, iteration_length: 1
     });
     this.project.stories.add(this.story);
   });
@@ -134,6 +134,65 @@ describe('Project model', function() {
 
       this.project.handleChangesets(changesets);
       expect(server.requests.length).toEqual(1);
+    });
+  });
+
+
+  describe("iterations", function() {
+
+    it("should get the right iteration number for a given date", function() {
+      // This is a Monday
+      this.project.set({start_date: "2011-07-25"});
+
+      var compare_date = new Date("2011-07-25");
+      expect(this.project.getIterationNumberForDate(compare_date)).toEqual(1);
+
+      compare_date = new Date("2011-08-01");
+      expect(this.project.getIterationNumberForDate(compare_date)).toEqual(2);
+
+      // With a 2 week iteration length, the date above will still be in
+      // iteration 1
+      this.project.set({iteration_length: 2});
+      expect(this.project.getIterationNumberForDate(compare_date)).toEqual(1);
+    });
+
+    it("should return the current iteration number", function() {
+      expect(this.project.currentIterationNumber()).toEqual(1);
+    });
+
+  });
+
+
+  describe("start date", function() {
+
+    it("should return the start date", function() {
+      // Date is a Monday, and day 1 is Monday
+      this.project.set({start_date: "2011-07-25",iteration_start_day: 1});
+      expect(this.project.startDate()).toEqual(new Date("2011-07-25"));
+
+      // If the project start date has been explicitly set to a Thursday, but
+      // the iteration_start_day is Monday, the start date should be the Monday
+      // that immeadiatly preceeds the Thursday.
+      this.project.set({start_date: "2011-07-28"});
+      expect(this.project.startDate()).toEqual(new Date("2011-07-25"));
+
+      // The same, but this time the iteration start day is 'after' the start
+      // date day, in ordinal terms, e.g. iteration start date is a Saturday,
+      // project start date is a Thursday.  The Saturday prior to the Thursday
+      // should be returned.
+      this.project.set({iteration_start_day: 6});
+      expect(this.project.startDate()).toEqual(new Date("2011-07-23"));
+
+      // If the project start date is not set, it should be considered as the
+      // first iteration start day prior to today.
+      // FIXME - Stubbing Date is not working
+      var expected_date = new Date('2011-07-23');
+      var fake_today = new Date('2011-07-29');
+      orig_date = Date;
+      Date = sinon.stub().returns(fake_today);
+      this.project.unset('start_date');
+      expect(this.project.startDate()).toEqual(expected_date);
+      Date = orig_date;
     });
   });
 });

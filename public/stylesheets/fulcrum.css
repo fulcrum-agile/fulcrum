@@ -125,7 +125,11 @@ div.storycolumn {
 
 /* Story columns headers */
 table.stories th {
-  background-color: #000;
+  background: #6a7176;
+  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
+  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
   color: #eee;
   padding: 0.2em;
   font-weight: bold;
@@ -309,6 +313,16 @@ span.estimate_8 {
 
 .state-actions form div, .state-actions form {
   display: inline;
+}
+
+/* Iteration markers */
+.iteration {
+  background: #000 url('/images/iteration.png') no-repeat 2px center;
+  color: #ddd;
+  padding: 0.2em 0.2em 0.2em 20px
+}
+.iteration .points {
+  float: right;
 }
 
 .state-actions input {

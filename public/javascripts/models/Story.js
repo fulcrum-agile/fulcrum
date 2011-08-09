@@ -11,6 +11,15 @@ var Story = Backbone.Model.extend({
     if (new_value == "started") {
       model.set({owned_by_id: model.collection.project.current_user.id}, true);
     }
+
+    if (new_value == "accepted" && !model.get('accepted_at')) {
+      var today = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+      today.setMilliseconds(0);
+      model.set({accepted_at: today});
+    }
   },
 
   moveBetween: function(before, after) {
@@ -69,7 +78,13 @@ var Story = Backbone.Model.extend({
         return '#backlog';
         break;
       case 'accepted':
-        return '#done';
+        // Accepted stories remain in the in progress column if they were
+        // completed within the current iteration.
+        if (this.collection.project.currentIterationNumber() === this.iterationNumber()) {
+          return '#in_progress';
+        } else {
+          return '#done';
+        }
         break;
       default:
         return '#in_progress';
@@ -159,5 +174,11 @@ var Story = Backbone.Model.extend({
 
   hasDetails: function() {
     return typeof this.get('description') == "string";
+  },
+
+  iterationNumber: function() {
+    if (this.get('state') === "accepted") {
+      return this.collection.project.getIterationNumberForDate(new Date(this.get("accepted_at")));
+    }
   }
 });

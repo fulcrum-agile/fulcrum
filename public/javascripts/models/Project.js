@@ -67,5 +67,50 @@ var Project = Backbone.Model.extend({
         story.fetch();
       }
     });
+  },
+
+  milliseconds_in_a_day: 1000 * 60 * 60 * 24,
+
+  // Return the correct iteration number for a given date.
+  getIterationNumberForDate: function(compare_date) {
+    //var start_date = new Date(this.get('start_date'));
+    var start_date = this.startDate();
+    var difference = Math.abs(compare_date.getTime() - start_date.getTime());
+    var days_apart = Math.round(difference / this.milliseconds_in_a_day);
+    return Math.floor((days_apart / (this.get('iteration_length') * 7)) + 1);
+  },
+
+  currentIterationNumber: function() {
+    return this.getIterationNumberForDate(new Date());
+  },
+
+  startDate: function() {
+
+    var start_date;
+    if (this.get('start_date')) {
+      start_date = new Date(this.get('start_date'));
+    } else {
+      start_date = new Date();
+    }
+
+    // Is the specified project start date the same week day as the iteration
+    // start day?
+    if (start_date.getDay() === this.get('iteration_start_day')) {
+      return start_date;
+    } else {
+      // Calculate the date of the nearest prior iteration start day to the
+      // specified project start date.  So if the iteration start day is
+      // set to Monday, but the project start date is set to a specific
+      // Thursday, return the Monday before the Thursday.  A greater
+      // mathemtician than I could probably do this with the modulo.
+      var day_difference = start_date.getDay() - this.get('iteration_start_day');
+
+      // The iteration start day is after the project start date, in terms of
+      // day number
+      if (day_difference < 0) {
+        day_difference = day_difference + 7;
+      }
+      return new Date(start_date - day_difference * this.milliseconds_in_a_day);
+    }
   }
 });

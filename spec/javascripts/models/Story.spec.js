@@ -80,6 +80,23 @@ describe('Story model', function() {
       expect(this.story.get('state')).toEqual('started');
     });
 
+    it("should set accepted at to today's date when accepted", function() {
+      var today = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+      today.setMilliseconds(0);
+      expect(this.story.get('accepted_at')).toBeUndefined();
+      this.story.accept();
+      expect(new Date(this.story.get('accepted_at'))).toEqual(today);
+    });
+
+    it("should not set accepted at when accepted if already set", function() {
+      this.story.set({accepted_at: "2001-01-01"});
+      this.story.accept();
+      expect(this.story.get('accepted_at')).toEqual("2001-01-01");
+    });
+
   });
 
   describe('estimable', function() {
@@ -135,8 +152,16 @@ describe('Story model', function() {
       expect(this.story.column()).toEqual('#in_progress');
       this.story.set({state: 'rejected'});
       expect(this.story.column()).toEqual('#in_progress');
+
+      // If the story is accepted, but it's accepted_at date is within the
+      // current iteration, it should be in the in_progress column, otherwise
+      // it should be in the #done column
+      sinon.stub(this.story, 'iterationNumber').returns(1);
+      this.story.collection.project.currentIterationNumber = sinon.stub().returns(2);
       this.story.set({state: 'accepted'});
       expect(this.story.column()).toEqual('#done');
+      this.story.collection.project.currentIterationNumber.returns(1);
+      expect(this.story.column()).toEqual('#in_progress');
     });
   });
 
@@ -229,6 +254,17 @@ describe('Story model', function() {
       expect(this.story.hasDetails()).toBeTruthy();
 
     });
+  });
+
+
+  describe("iterations", function() {
+
+    it("should return the iteration number for an accepted story", function() {
+      this.story.collection.project.getIterationNumberForDate = sinon.stub().returns(999);
+      this.story.set({accepted_at: "2011-07-25", state: "accepted"});
+      expect(this.story.iterationNumber()).toEqual(999);
+    });
+
   });
 
 });

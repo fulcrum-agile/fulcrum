@@ -18,7 +18,7 @@ var StoryCollection = Backbone.Collection.extend({
     return this.at(this.indexOf(story) - 1);
   },
 
-  // Returns all the stories in the named column, either #done, #current,
+  // Returns all the stories in the named column, either #done, #in_progress,
   // #backlog or #chilly_bin
   column: function(column) {
     return this.select(function(story) {
