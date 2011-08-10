@@ -46,8 +46,8 @@ var AppView = Backbone.View.extend({
         } 
         return memo + estimate;
       }, 0);
-      // FIXME - Make a view
-      $('#done').append('<div class="iteration">' + iteration + '<span class="points">' + points + ' points</span></div>');
+
+      $('#done').append(that.iterationDiv(iteration, points));
       _.each(stories, function(story) {that.addOne(story)});
     });
 
@@ -60,9 +60,29 @@ var AppView = Backbone.View.extend({
       } 
       return memo + estimate;
     }, 0);
-    $('#in_progress').append('<div class="iteration">' + window.Project.getIterationNumberForDate(new Date()) + '<span class="points">' + 0 + ' points</span></div>');
+
+    var currentIterationNumber = window.Project.getIterationNumberForDate(new Date())
+    // FIXME - Show real points value
+    $('#in_progress').append(that.iterationDiv(currentIterationNumber));
     _.each(window.Project.stories.column('#in_progress'), this.addOne);
-    _.each(window.Project.stories.column('#backlog'), this.addOne);
+
+    var backlog = {
+      num: currentIterationNumber + 1, points: 0, rendered: false
+    };
+    _.each(window.Project.stories.column('#backlog'), function(story) {
+      if (backlog.points > 0 && (backlog.points + story.get('estimate')) > window.Project.velocity()) {
+        backlog.num = backlog.num + 1;
+        backlog.points = 0;
+        backlog.rendered = false;
+      }
+      if (!backlog.rendered) {
+        $('#backlog').append(that.iterationDiv(backlog.num));
+        backlog.rendered = true;
+      }
+      that.addOne(story);
+      backlog.points = backlog.points + story.get('estimate');
+    });
+
     _.each(window.Project.stories.column('#chilly_bin'), this.addOne);
   },
 
@@ -70,8 +90,9 @@ var AppView = Backbone.View.extend({
   // starting at start and ending at end
   fillInEmptyIterations: function(el, start, end) {
     var missing_range = _.range(parseInt(start) + 1, parseInt(end));
+    var that = this;
     _.each(missing_range, function(missing_iteration_number) {
-      el.append('<div class="iteration">' + missing_iteration_number + '<span class="points">0 points</span></div>');
+      el.append(that.iterationDiv(missing_iteration_number, 0));
     });
   },
 
@@ -81,6 +102,13 @@ var AppView = Backbone.View.extend({
     var extra = 100;
     var height = $(window).height() - (storyTableTop + extra);
     $('.storycolumn').css('height', height + 'px');
+  },
+
+  // FIXME - Make a view
+  iterationDiv: function(iteration, points) {
+    var iteration_date = window.Project.getDateForIterationNumber(iteration);
+    var points_markup = (points == undefined) ? '' : '<span class="points">' + points + ' points</span>';
+    return '<div class="iteration">' + iteration + ' - ' + iteration_date.toDateString() + points_markup + '</div>'
   },
 
   notice: function(message) {

@@ -80,6 +80,17 @@ var Project = Backbone.Model.extend({
     return Math.floor((days_apart / (this.get('iteration_length') * 7)) + 1);
   },
 
+  getDateForIterationNumber: function(iteration_number) {
+    // The difference betweeen the start date in days.  Iteration length is
+    // in weeks.
+    var difference = (7 * this.get('iteration_length')) * (iteration_number - 1);
+    var start_date = this.startDate();
+    var iteration_date = new Date(start_date);
+
+    iteration_date.setDate(start_date.getDate() + difference);
+    return iteration_date;
+  },
+
   currentIterationNumber: function() {
     return this.getIterationNumberForDate(new Date());
   },
@@ -112,5 +123,10 @@ var Project = Backbone.Model.extend({
       }
       return new Date(start_date - day_difference * this.milliseconds_in_a_day);
     }
+  },
+
+  velocity: function() {
+    // TODO Implement real velocity calculation
+    return 10;
   }
 });

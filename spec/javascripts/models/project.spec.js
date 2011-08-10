@@ -160,6 +160,30 @@ describe('Project model', function() {
       expect(this.project.currentIterationNumber()).toEqual(1);
     });
 
+    it("should return the date for an iteration number", function() {
+
+      // This is a Monday
+      this.project.set({start_date: "2011-07-25"});
+
+      expect(this.project.getDateForIterationNumber(1)).toEqual(new Date("2011-07-25"));
+      expect(this.project.getDateForIterationNumber(5)).toEqual(new Date("2011-08-22"));
+
+      this.project.set({iteration_length: 4});
+      expect(this.project.getDateForIterationNumber(1)).toEqual(new Date("2011-07-25"));
+      expect(this.project.getDateForIterationNumber(5)).toEqual(new Date("2011-11-14"));
+
+      // Sunday
+      this.project.set({iteration_start_day: 0});
+      expect(this.project.getDateForIterationNumber(1)).toEqual(new Date("2011-07-24"));
+      expect(this.project.getDateForIterationNumber(5)).toEqual(new Date("2011-11-13"));
+
+      // Tuesday - This should evaluate to the Tuesday before the explicitly
+      // set start date (Monday)
+      this.project.set({iteration_start_day: 2});
+      expect(this.project.getDateForIterationNumber(1)).toEqual(new Date("2011-07-19"));
+      expect(this.project.getDateForIterationNumber(5)).toEqual(new Date("2011-11-08"));
+    });
+
   });
 
 
@@ -194,5 +218,14 @@ describe('Project model', function() {
       expect(this.project.startDate()).toEqual(expected_date);
       Date = orig_date;
     });
+  });
+
+  describe("velocity", function() {
+
+    // TODO Implement real velocity
+    it("should return velocity", function() {
+      expect(this.project.velocity()).toEqual(10);
+    });
+
   });
 });
