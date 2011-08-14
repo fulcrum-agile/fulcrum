@@ -3,8 +3,15 @@ var Story = Backbone.Model.extend({
 
   initialize: function(args) {
     this.bind('change:state', this.changeState);
+
     // FIXME Call super()?
     this.maybeUnwrap(args);
+
+		if (!this.isNew()) {
+      this.notes = new NoteCollection;
+      this.notes.url = this.url() + '/notes';
+      this.notes.story = this;
+    }
   },
 
   changeState: function(model, new_value) {

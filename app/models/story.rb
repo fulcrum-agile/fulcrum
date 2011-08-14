@@ -26,6 +26,7 @@ class Story < ActiveRecord::Base
   validates :owned_by_id, :belongs_to_project => true
 
   has_many :changesets
+  has_many :notes
 
   # This attribute is used to store the user who is acting on a story, for
   # example delivering or modifying it.  Usually set by the controller.

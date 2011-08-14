@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20111009095221) do
     t.datetime "updated_at"
   end
 
+  create_table "notes", :force => true do |t|
+    t.text     "text"
+    t.integer  "author_id"
+    t.integer  "story_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.string   "point_scale",         :default => "fibonacci"

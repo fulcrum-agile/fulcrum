@@ -6,6 +6,7 @@ Fulcrum::Application.routes.draw do
     resources :users, :only => [:index, :create, :destroy]
     resources :changesets, :only => [:index]
     resources :stories, :only => [:index, :create, :update, :destroy, :show] do
+      resources :notes, :only => [:index, :create, :show, :destroy]
       collection do
         get :done
         get :in_progress

@@ -279,6 +279,14 @@ var StoryView = FormView.extend({
       $(div).append(this.textArea("description"));
       $(this.el).append(div);
       this.initTags();
+
+      if (!this.model.isNew()) {
+      	div = this.make('div');
+        var note = new NoteForm({model: new Note({text: 'New Comment' })});
+				$(div).append(note.render().el);
+        $(this.el).append(div);
+    	}
+
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }

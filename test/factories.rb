@@ -21,3 +21,8 @@ Factory.define :changeset do |c|
   c.association :story
   c.association :project
 end
+
+Factory.define :note do |n|
+  n.association :story
+  n.association :author, :factory => :user
+end
