@@ -24,5 +24,5 @@ end
 
 Factory.define :note do |n|
   n.association :story
-  n.association :author, :factory => :user
+  n.association :user
 end

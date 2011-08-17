@@ -6,16 +6,16 @@ class NotesControllerTest < ActionController::TestCase
     @project = Factory.create(:project, :users => [@user])
     @story = Factory.create(:story, :project => @project,
                             :requested_by => @user)
-    @note = Factory.create(:note, :story => @story, :author => @user)
+    @note = Factory.create(:note, :story => @story, :user => @user)
   end
 
   test "should create a note" do
     sign_in @user
     assert_difference 'Note.count' do
       post :create, :project_id => @project.to_param, :story_id => @story.to_param,
-        :note => {:text => 'This is a test comment.'}
+        :note => {:note => 'This is a test comment.'}
     end
-    assert_equal @user, assigns(:note).author
+    assert_equal @user, assigns(:note).user
     assert_equal @story, assigns(:story)
     assert_response :success
   end
@@ -24,9 +24,9 @@ class NotesControllerTest < ActionController::TestCase
     sign_in @user
     assert_difference 'Note.count' do
       post :create, :project_id => @project.to_param, :story_id => @story.to_param,
-        :note => {:text => 'This is a test comment.'}
+        :note => {:note => 'This is a test comment.'}
     end
-    assert_equal @user, assigns(:note).author
+    assert_equal @user, assigns(:note).user
     assert_equal @story, assigns(:story)
     assert_response :success
   end

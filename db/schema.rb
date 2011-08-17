@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20111009095221) do
   end
 
   create_table "notes", :force => true do |t|
-    t.text     "text"
-    t.integer  "author_id"
+    t.text     "note"
+    t.integer  "user_id"
     t.integer  "story_id"
     t.datetime "created_at"
     t.datetime "updated_at"

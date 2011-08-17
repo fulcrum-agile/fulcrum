@@ -42,9 +42,9 @@ var NoteForm = FormView.extend({
     $(this.el).empty();
 
     div = this.make('div');
-    $(div).append(this.label("text", "Text"));
+    $(div).append(this.label("note", "Note"));
     $(div).append('<br/>');
-    $(div).append(this.textArea("text"));
+    $(div).append(this.textArea("note"));
     //$(this.el).append(div);
 
     //div = this.make('div');
