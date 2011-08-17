@@ -6,7 +6,7 @@ class Story < ActiveRecord::Base
     "state", "position", "id", "events", "estimable", "estimated", "labels"
   ]
   JSON_METHODS = [
-    "events", "estimable", "estimated", "errors"
+    "events", "estimable", "estimated", "errors", "notes"
   ]
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",
