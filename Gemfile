@@ -9,7 +9,9 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise', '1.2.1'
 gem 'cancan', '1.6.1'
 gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitions"]
-gem 'fastercsv', '1.5.3'
+
+gem 'fastercsv', '1.5.3', :platforms => :ruby_18
+# (using standard csv lib if ruby version is 1.9)
 
 # Use unicorn as the web server
 # gem 'unicorn'

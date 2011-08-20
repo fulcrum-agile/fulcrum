@@ -1,4 +1,10 @@
-require 'fastercsv'
+require 'csv'
+if CSV.const_defined? :Reader
+  require 'fastercsv'
+  Object.send(:remove_const, :CSV)
+  CSV = FasterCSV
+  # CSV is now FasterCSV in ruby 1.9
+end
 
 project_id = 1
 
@@ -7,7 +13,7 @@ user = User.first
 
 project.stories.destroy_all
 
-csv = FasterCSV.parse(STDIN.read, :headers => true)
+csv = CSV.parse(STDIN.read, :headers => true)
 csv.each do |row|
   row = row.to_hash
   project.stories.create!(:state => row["Current State"], :title => row["Story"],
