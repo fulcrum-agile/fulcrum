@@ -112,7 +112,7 @@ class StoriesController < ApplicationController
         # searching for users by full name from the CSV.
         users = @project.users
 
-        csv = FasterCSV.parse(File.read(params[:csv].path), :headers => true)
+        csv = CSV.parse(File.read(params[:csv].path), :headers => true)
         csv.each do |row|
           row = row.to_hash
           stories << {
@@ -133,7 +133,7 @@ class StoriesController < ApplicationController
         unless @invalid_stories.empty?
           flash[:alert] = "#{pluralize(@invalid_stories.count, "story")} failed to import"
         end
-      rescue FasterCSV::MalformedCSVError => e
+      rescue CSV::MalformedCSVError => e
         flash[:alert] = "Unable to import CSV: #{e.message}"
       end
 
