@@ -35,7 +35,6 @@ Once you have these:
     
     # Set up the development database
     $ rake db:setup
-    $ rake db:seed
     
     # Start the local web server
     $ rails server
