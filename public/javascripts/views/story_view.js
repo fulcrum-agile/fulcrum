@@ -219,7 +219,7 @@ var StoryView = FormView.extend({
       div = this.make('div');
       if (!this.model.isNew()) {
         $(div).append(
-          this.make("img", {class: "collapse", src: "/images/collapse.png"})
+          this.make("img", {'class': "collapse", 'src': "/images/collapse.png"})
         );
       }
       $(div).append(this.textField("title"));
