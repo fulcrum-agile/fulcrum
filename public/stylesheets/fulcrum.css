@@ -367,3 +367,40 @@ table#import tr.invalid, .alert {
   color: white;
   background-color: red;
 }
+
+ul#projects {
+  list-style: none;
+}
+
+ul#projects li {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #d3d7cf;
+  border: 2px solid #888a85;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+ul#projects li h2 {
+  display: inline;
+}
+
+div.project_options { float: right; margin-top: -65px;}
+
+ul#projects li:hover{
+  background-color: #babdb6;
+}
+
+a.button {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #d3d7cf;
+  border: 2px solid #888a85;
+  display: inline-block;
+  padding: 5px;
+  text-decoration: none;
+}
+
+a.button:hover { background-color: #babdb6; }
