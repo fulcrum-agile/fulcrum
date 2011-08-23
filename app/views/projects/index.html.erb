@@ -2,34 +2,26 @@
   <h1>Listing projects</h1>
 <% end %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Start date</th>
-    <th>Iteration start day</th>
-    <th>Iteration length</th>
-    <th>Point scale</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<%= link_to 'New Project', new_project_path, :class => :button %>
 
-<% @projects.each do |project| %>
-  <tr>
-    <td><%= project.name %></td>
-    <td><%= project.start_date %></td>
-    <td><%= project.iteration_start_day %></td>
-    <td><%= project.iteration_length %></td>
-    <td><%= project.point_scale %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Members', project_users_path(project) %></td>
-    <td><%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<ul id="projects">
+  <% @projects.each do |project| %>
+    <li>
+      <h2><%= project.name %></h2>
+      Started at: 
+      <%= project.start_date %>
+      <br />
+      <p>
+        The iteration starts on <%= Date::DAYNAMES[project.iteration_start_day].pluralize %> with length of <%= project.iteration_length %> week(s)
+      </p>
 
-<br />
+      <div class="project_options">
+        <%= link_to 'Show', project %>
+        <%= link_to 'Edit', edit_project_path(project) %>
+        <%= link_to 'Members', project_users_path(project) %>
+      </div>
+    </li>
+  <% end %>
+</ul>
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to 'New Project', new_project_path, :class => :button %>
