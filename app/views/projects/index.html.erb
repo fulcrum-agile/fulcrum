@@ -7,7 +7,7 @@
 <ul id="projects">
   <% @projects.each do |project| %>
     <li>
-      <h2><%= project.name %></h2>
+      <h2><%= link_to project.name, project %></h2>
       Started at: 
       <%= project.start_date %>
       <br />
@@ -16,7 +16,6 @@
       </p>
 
       <div class="project_options">
-        <%= link_to 'Show', project %>
         <%= link_to 'Edit', edit_project_path(project) %>
         <%= link_to 'Members', project_users_path(project) %>
       </div>
