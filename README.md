@@ -6,6 +6,19 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
+Get involved
+------------
+
+Fulcrum is still in early development, so now is the time to make your mark on
+the project.
+
+There are 2 discussion groups for Fulcrum:
+
+* [Fulcrum Users](http://groups.google.com/group/fulcrum-users) - A general
+  discussion group for users of Fulcrum.
+* [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) - Discussion
+  on the development of Fulcrum.
+
 Goals
 -----
 
