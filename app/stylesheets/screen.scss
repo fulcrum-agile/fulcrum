@@ -1,3 +1,4 @@
+@import 'compass/css3';
 @import 'scaffold';
 @import 'jquery_gritter';
 
@@ -12,14 +13,9 @@ a img {
 
 #header {
   background: #6a7176;
-  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
-  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
-  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  @include background(linear-gradient(top, #6a7176, #4d5256));
   border-bottom: 1px solid #44484b;
-  box-shadow: 0 1px 2px #aaaaaa;
-  -moz-box-shadow: 0 1px 2px #aaaaaa;
-  -webkit-box-shadow: 0 1px 2px #aaaaaa;
+  @include box-shadow(0 1px 2px #aaaaaa);
   text-shadow: black 0 1px 0;
   position: relative;
   z-index: 900;
@@ -51,8 +47,7 @@ ul#primary-nav li.secondary {
   position: relative;
   background: #333 url('/images/collapse.png') no-repeat right;
   padding: 0.4em 18px 0.4em 0.4em;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
+  @include border-radius(5px);
 }
 ul#primary-nav li.secondary ul {
   visibility: hidden;
@@ -65,8 +60,7 @@ ul#primary-nav li.secondary ul {
   position: absolute;
   left: 0; top: 1.7em;
   background-color: #333;
-  border-radius: 0px 5px 5px 5px;
-  -moz-border-radius: 0px 5px 5px 5px;
+  @include border-radius(0 5px 5px 5px);
 }
 ul#primary-nav li.secondary ul li {
   white-space: nowrap;
@@ -76,13 +70,8 @@ ul#primary-nav li.secondary ul li {
 
 #title_bar {
   background: #efefef;
-  background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#dfe1e2));
-  background: -moz-linear-gradient(-90deg, #efefef, #dfe1e2);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#efefef, endColorstr=#dfe1e2);
-  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#efefef, endColorstr=#dfe1e2);
-  box-shadow: 0 1px 2px #aaaaaa;
-  -moz-box-shadow: 0 1px 2px #aaaaaa;
-  -webkit-box-shadow: 0 1px 2px #aaaaaa;
+  @include background(linear-gradient(top, #efefef, #dfe1e2));
+  @include box-shadow(0 1px 2px #aaaaaa);
   text-shadow: white 0 1px 0;
   border-bottom: 1px solid #ededed;
   padding: 5px 10px 3px 10px;
@@ -129,15 +118,11 @@ div.storycolumn {
 /* Story columns headers */
 table.stories th {
   background: #6a7176;
-  background: -webkit-gradient(linear, left top, left bottom, from(#6a7176), to(#4d5256));
-  background: -moz-linear-gradient(-90deg, #6a7176, #4d5256);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
-  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#6a7176, endColorstr=#4d5256);
+  @include background(linear-gradient(top, #6a7176, #4d5256));
   color: #eee;
   padding: 0.2em;
   font-weight: bold;
-  border-radius: 5px 5px 0 0;
-  -moz-border-radius: 5px 5px 0 0;
+  @include border-radius(5px 5px 0 0);
 }
 
 /* Story types */
@@ -178,9 +163,7 @@ span.estimate {
   border: 1px solid #777;
   padding: 0 0.2em;
   margin: 0 2px 0 0;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  @include border-radius(3px);
   vertical-align: top;
   font-size: x-small;
   font-weight: bold;
@@ -188,116 +171,44 @@ span.estimate {
 }
 
 span.estimate_1 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.125, rgb(250,182,155)),
-      color-stop(0.25, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 12.5%,
-      rgb(255,255,255) 12.5%
-  );
+      rgb(255,255,255) 12.5%));
 }
 span.estimate_2 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.25, rgb(250,182,155)),
-      color-stop(0.25, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 25%,
-      rgb(255,255,255) 25%
-  );
+      rgb(255,255,255) 25%));
 }
 span.estimate_3 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.375, rgb(250,182,155)),
-      color-stop(0.375, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 37.5%,
-      rgb(255,255,255) 37.5%
-  );
+      rgb(255,255,255) 37.5%));
 }
 span.estimate_4 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.5, rgb(250,182,155)),
-      color-stop(0.5, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 50%,
-      rgb(255,255,255) 50%
-  );
+      rgb(255,255,255) 50%));
 }
 span.estimate_5 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.625, rgb(250,182,155)),
-      color-stop(0.625, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 62.5%,
-      rgb(255,255,255) 62.5%
-  );
+      rgb(255,255,255) 62.5%));
 }
 span.estimate_6 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.75, rgb(250,182,155)),
-      color-stop(0.75, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 75%,
-      rgb(255,255,255) 75%
-  );
+      rgb(255,255,255) 75%));
 }
 span.estimate_7 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.875, rgb(250,182,155)),
-      color-stop(0.875, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 87.5%,
-      rgb(255,255,255) 87.5%
-  );
+      rgb(255,255,255) 87.5%));
 }
 span.estimate_8 {
-  background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(1, rgb(250,182,155)),
-      color-stop(1, rgb(255,255,255))
-  );
-  background-image: -moz-linear-gradient(
-      center bottom,
+  @include background(linear-gradient(bottom, 
       rgb(250,182,155) 100%,
-      rgb(255,255,255) 100%
-  );
+      rgb(255,255,255) 100%));
 }
 
 .story.release {
@@ -330,9 +241,7 @@ span.estimate_8 {
 
 .state-actions input {
   padding: 0;
-  border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
+  @include border-radius(3px);
   border: 1px solid #333;
   cursor: pointer;
   font-size: small;
@@ -376,9 +285,7 @@ ul#projects {
 }
 
 ul#projects li {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  @include border-radius(10px);
   background-color: #d3d7cf;
   border: 2px solid #888a85;
   margin: 10px 0;
@@ -389,16 +296,17 @@ ul#projects li h2 {
   display: inline;
 }
 
-div.project_options { float: right; margin-top: -65px;}
+div.project_options {
+  float: right;
+  margin-top: -65px;
+}
 
-ul#projects li:hover{
+ul#projects li:hover {
   background-color: #babdb6;
 }
 
 a.button {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  @include border-radius(5px);
   background-color: #d3d7cf;
   border: 2px solid #888a85;
   display: inline-block;
@@ -406,4 +314,6 @@ a.button {
   text-decoration: none;
 }
 
-a.button:hover { background-color: #babdb6; }
+a.button:hover {
+  background-color: #babdb6;
+}
