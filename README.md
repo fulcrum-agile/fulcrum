@@ -55,9 +55,37 @@ Once you have these:
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
 You can log in with the test username `test@example.com`, password `testpass`.
 
+
+Heroku setup
+------------
+
 If you wish to host a publicly available copy of Fulcrum, the easiest option is
-to host it on [Heroku](http://heroku.com/).  You'll find full instructions on
-setting up Rails applications on their website.
+to host it on [Heroku](http://heroku.com/).
+
+To deploy it to Heroku, make sure you have a local copy of the project; refer 
+to the previous section for instuctions. Then:
+
+    # Make sure you have the Heroku gem
+    $ gem install heroku
+
+    # Create your app. Replace APPNAME with whatever you want to name it.
+    $ heroku create APPNAME --stack bamboo-mri-1.9.2
+   
+    # Define where the user emails will be coming from
+    # (This email address does not need to exist)
+    $ heroku config:add MAILER_SENDER=noreply@example.org
+
+    # Allow emails to be sent
+    $ heroku addons:add sendgrid:free
+
+    # Deploy the first version
+    $ git push heroku master
+
+    # Set up the database
+    $ heroku rake db:setup
+
+Once that's done, you will be able to view your site at 
+`http://APPNAME.heroku.com`.
 
 Development
 -----------
