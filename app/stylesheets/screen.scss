@@ -2,6 +2,9 @@
 @import 'scaffold';
 @import 'jquery_gritter';
 
+$darkgrey:   #6a7176;           // Header color
+$orange:     rgb(250,182,155);  // Estimate gauge color
+
 body {
   margin: 0;
   padding: 0;
@@ -12,9 +15,9 @@ a img {
 }
 
 #header {
-  background: #6a7176;
-  @include background(linear-gradient(top, #6a7176, #4d5256));
-  border-bottom: 1px solid #44484b;
+  background: $darkgrey;
+  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
+  border-bottom: 1px solid $darkgrey*0.7;
   @include box-shadow(0 1px 2px #aaaaaa);
   text-shadow: black 0 1px 0;
   position: relative;
@@ -117,8 +120,8 @@ div.storycolumn {
 
 /* Story columns headers */
 table.stories th {
-  background: #6a7176;
-  @include background(linear-gradient(top, #6a7176, #4d5256));
+  background: $darkgrey;
+  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
   color: #eee;
   padding: 0.2em;
   font-weight: bold;
@@ -172,43 +175,43 @@ span.estimate {
 
 span.estimate_1 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 12.5%,
-      rgb(255,255,255) 12.5%));
+      $orange 12.5%,
+      white 12.5%));
 }
 span.estimate_2 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 25%,
-      rgb(255,255,255) 25%));
+      $orange 25%,
+      white 25%));
 }
 span.estimate_3 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 37.5%,
-      rgb(255,255,255) 37.5%));
+      $orange 37.5%,
+      white 37.5%));
 }
 span.estimate_4 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 50%,
-      rgb(255,255,255) 50%));
+      $orange 50%,
+      white 50%));
 }
 span.estimate_5 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 62.5%,
-      rgb(255,255,255) 62.5%));
+      $orange 62.5%,
+      white 62.5%));
 }
 span.estimate_6 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 75%,
-      rgb(255,255,255) 75%));
+      $orange 75%,
+      white 75%));
 }
 span.estimate_7 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 87.5%,
-      rgb(255,255,255) 87.5%));
+      $orange 87.5%,
+      white 87.5%));
 }
 span.estimate_8 {
   @include background(linear-gradient(bottom, 
-      rgb(250,182,155) 100%,
-      rgb(255,255,255) 100%));
+      $orange 100%,
+      white 100%));
 }
 
 .story.release {
