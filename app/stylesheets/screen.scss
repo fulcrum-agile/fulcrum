@@ -1,3 +1,6 @@
+@import 'scaffold';
+@import 'jquery_gritter';
+
 body {
   margin: 0;
   padding: 0;
@@ -190,7 +193,7 @@ span.estimate_1 {
       left bottom,
       left top,
       color-stop(0.125, rgb(250,182,155)),
-      color-stop(0..25, rgb(255,255,255))
+      color-stop(0.25, rgb(255,255,255))
   );
   background-image: -moz-linear-gradient(
       center bottom,
