@@ -70,7 +70,6 @@ var AppView = Backbone.View.extend({
   // starting at start and ending at end
   fillInEmptyIterations: function(el, start, end) {
     var missing_range = _.range(parseInt(start) + 1, parseInt(end));
-    console.debug(missing_range);
     _.each(missing_range, function(missing_iteration_number) {
       el.append('<div class="iteration">' + missing_iteration_number + '<span class="points">0 points</span></div>');
     });
