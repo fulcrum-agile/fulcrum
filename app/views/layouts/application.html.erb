@@ -18,13 +18,15 @@
   <ul id="primary-nav">
     <li class="root"><%= link_to "Fulcrum", root_path %></li>
     <% if current_user %>
-      <li class="secondary">
-        Projects
-        <ul>
-          <%- current_user.projects.each do |project| -%>
-            <li><%= link_to project, project %></li>
-          <%- end -%>
-        </ul>
+      <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
+        <%= link_to 'Projects', root_path %>
+        <%- if current_user.projects.present? -%>
+          <ul>
+            <%- current_user.projects.each do |project| -%>
+              <li><%= link_to project, project %></li>
+            <%- end -%>
+          </ul>
+        <%- end %>
       </li>
       <li><%= link_to current_user.email, edit_user_registration_path %></li>
       <li><%= link_to 'Log out', destroy_user_session_path %></li>
