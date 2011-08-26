@@ -92,9 +92,9 @@ describe('Story model', function() {
     });
 
     it("should not set accepted at when accepted if already set", function() {
-      this.story.set({accepted_at: "2001-01-01"});
+      this.story.set({accepted_at: "2001/01/01"});
       this.story.accept();
-      expect(this.story.get('accepted_at')).toEqual("2001-01-01");
+      expect(this.story.get('accepted_at')).toEqual("2001/01/01");
     });
 
   });
@@ -261,7 +261,7 @@ describe('Story model', function() {
 
     it("should return the iteration number for an accepted story", function() {
       this.story.collection.project.getIterationNumberForDate = sinon.stub().returns(999);
-      this.story.set({accepted_at: "2011-07-25", state: "accepted"});
+      this.story.set({accepted_at: "2011/07/25", state: "accepted"});
       expect(this.story.iterationNumber()).toEqual(999);
     });
 

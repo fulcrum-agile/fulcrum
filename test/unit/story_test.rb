@@ -138,7 +138,7 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "should not set accepted at when accepted if already set" do
-    date = @story.accepted_at = Date.parse('1999-01-01')
+    date = @story.accepted_at = Date.parse('1999/01/01')
     @story.update_attribute :state, 'accepted'
     assert_equal date, @story.accepted_at
   end
@@ -153,8 +153,8 @@ class StoryTest < ActiveSupport::TestCase
   # If a story has an accepted date prior to the project start date,
   # reset the project start date
   test "should set project start date if accepted at is prior" do
-    @project.start_date = Date.parse('2001-01-02')
-    @story.update_attribute :accepted_at, Date.parse('2001-01-01')
+    @project.start_date = Date.parse('2001/01/02')
+    @story.update_attribute :accepted_at, Date.parse('2001/01/01')
     assert_equal @story.accepted_at, @project.start_date
   end
 
