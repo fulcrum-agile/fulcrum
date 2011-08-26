@@ -11,6 +11,7 @@ gem 'cancan', '1.6.1'
 gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitions"]
 
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
+gem 'compass', '>= 0.11.5'
 # (using standard csv lib if ruby version is 1.9)
 
 # Use unicorn as the web server

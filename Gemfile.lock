@@ -34,6 +34,11 @@ GEM
     cancan (1.6.1)
     childprocess (0.1.9)
       ffi (~> 1.0.6)
+    chunky_png (1.2.0)
+    compass (0.11.5)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     devise (1.2.1)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.3)
@@ -47,6 +52,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.3)
     ffi (1.0.9)
+    fssm (0.2.7)
     i18n (0.5.0)
     jasmine (1.0.2.1)
       json_pure (>= 1.4.3)
@@ -92,6 +98,7 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
     rubyzip (0.9.4)
+    sass (3.1.5)
     selenium-webdriver (0.2.1)
       childprocess (>= 0.1.7)
       ffi (>= 1.0.7)
@@ -113,6 +120,7 @@ PLATFORMS
 
 DEPENDENCIES
   cancan (= 1.6.1)
+  compass (>= 0.11.5)
   devise (= 1.2.1)
   factory_girl_rails
   fastercsv (= 1.5.3)
