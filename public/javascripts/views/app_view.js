@@ -4,7 +4,7 @@ var AppView = Backbone.View.extend({
     _.bindAll(this, 'addOne', 'addAll', 'render');
 
     window.Project.stories.bind('add', this.addOne);
-    window.Project.stories.bind('refresh', this.addAll);
+    window.Project.stories.bind('reset', this.addAll);
     window.Project.stories.bind('all', this.render);
 
     window.Project.stories.fetch();
