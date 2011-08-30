@@ -11,7 +11,7 @@
 #   - dist/**/*.js
 #
 src_files:
-  - spec/javascripts/support/sinon-1.0.0.js
+  - spec/javascripts/support/sinon-1.1.1.js
   - spec/javascripts/support/jasmine-sinon.js
   - spec/javascripts/support/jasmine-jquery-1.2.0.js
   - public/javascripts/underscore.js
