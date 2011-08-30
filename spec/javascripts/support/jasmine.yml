@@ -20,6 +20,7 @@ src_files:
   - public/javascripts/jquery-ui-1.8.11.custom.min.js
   - public/javascripts/jquery.tmpl.min.js
   - public/javascripts/backbone.rails.js
+  - public/javascripts/models/iteration.js
   - public/javascripts/models/project.js
   - public/javascripts/models/story.js
   - public/javascripts/models/user.js

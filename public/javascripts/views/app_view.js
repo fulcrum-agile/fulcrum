@@ -21,7 +21,9 @@ var AppView = Backbone.View.extend({
     $('#backlog').html("");
     $('#chilly_bin').html("");
 
-    // FIXME - Refactor
+    //
+    // Done column
+    //
     var that = this;
     var done_iterations = _.groupBy(window.Project.stories.column('#done'),
                                     function(story) {
@@ -32,56 +34,77 @@ var AppView = Backbone.View.extend({
     // may have been accepted in a given iteration, and it will therefore
     // not appear in the set.  Store this to iterate over those gaps and
     // insert empty iterations.
-    var last_iteration = 0;
+    var last_iteration = new Iteration({'number': 0});
 
-    _.each(done_iterations, function(stories, iteration) {
+    _.each(done_iterations, function(stories, iterationNumber) {
+
+      var iteration = new Iteration({
+        'number': iterationNumber, 'stories': stories
+      });
 
       that.fillInEmptyIterations($('#done'), last_iteration, iteration);
       last_iteration = iteration;
 
-      var points = _.reduce(stories, function(memo, story) {
-        var estimate = 0;
-        if (story.get('story_type') === 'feature') {
-          estimate = story.get('estimate') || 0;
-        } 
-        return memo + estimate;
-      }, 0);
-
-      $('#done').append(that.iterationDiv(iteration, points));
+      $('#done').append(that.iterationDiv(iteration));
       _.each(stories, function(story) {that.addOne(story)});
     });
 
-    this.fillInEmptyIterations($('#done'), last_iteration, window.Project.currentIterationNumber());
+    // Fill in any remaining empty iterations in the done column
+    var currentIteration = new Iteration({
+      'number': window.Project.currentIterationNumber(),
+      'stories': window.Project.stories.column('#in_progress')
+    });
+    this.fillInEmptyIterations($('#done'), last_iteration, currentIteration);
 
-    var points = _.reduce(window.Project.stories.column('#in_progress'), function(memo, story) {
-      var estimate = 0;
-      if (story.get('story_type') === 'feature' && story.get('state') === 'accepted') {
-        estimate = story.get('estimate') || 0;
-      } 
-      return memo + estimate;
-    }, 0);
-
-    var currentIterationNumber = window.Project.getIterationNumberForDate(new Date())
-    // FIXME - Show real points value
-    $('#in_progress').append(that.iterationDiv(currentIterationNumber));
+    //
+    // In progress column
+    //
+    // FIXME - Show completed/total points
+    $('#in_progress').append(that.iterationDiv(currentIteration));
     _.each(window.Project.stories.column('#in_progress'), this.addOne);
 
-    var backlog = {
-      num: currentIterationNumber + 1, points: 0, rendered: false
-    };
-    _.each(window.Project.stories.column('#backlog'), function(story) {
-      if (backlog.points > 0 && (backlog.points + story.get('estimate')) > window.Project.velocity()) {
-        backlog.num = backlog.num + 1;
-        backlog.points = 0;
-        backlog.rendered = false;
-      }
-      if (!backlog.rendered) {
-        $('#backlog').append(that.iterationDiv(backlog.num));
-        backlog.rendered = true;
-      }
-      that.addOne(story);
-      backlog.points = backlog.points + story.get('estimate');
+
+
+    //
+    // Backlog column
+    //
+    //var backlog = {
+    //  num: currentIterationNumber + 1, points: 0, rendered: false
+    //};
+    var backlogIteration = new Iteration({
+      'number': currentIteration.get('number') + 1,
+      'rendered': false,
+      'maximum_points': window.Project.velocity()
     });
+    _.each(window.Project.stories.column('#backlog'), function(story) {
+
+      if (!backlogIteration.canTakeStory(story)) {
+        // The iteration is full, render it
+        $('#backlog').append(that.iterationDiv(backlogIteration));
+        _.each(backlogIteration.get('stories'), function(iterationStory) {
+          that.addOne(iterationStory);
+        });
+        backlogIteration.set({'rendered': true});
+
+        // Create the next iteration
+        var nextNumber = backlogIteration.get('number') + 1;
+        backlogIteration = new Iteration({
+          'number': nextNumber,
+          'rendered': false,
+          'maximum_points': window.Project.velocity()
+        });
+      }
+
+      backlogIteration.get('stories').push(story);
+      //that.addOne(story);
+    });
+
+    // Render the backlog final backlog iteration if it isn't already
+    $('#backlog').append(that.iterationDiv(backlogIteration));
+    _.each(backlogIteration.get('stories'), function(story) {
+      that.addOne(story);
+    });
+    backlogIteration.set({'rendered': true});
 
     _.each(window.Project.stories.column('#chilly_bin'), this.addOne);
   },
@@ -89,10 +112,14 @@ var AppView = Backbone.View.extend({
   // Creates a set of empty iterations in column el, with iteration numbers
   // starting at start and ending at end
   fillInEmptyIterations: function(el, start, end) {
-    var missing_range = _.range(parseInt(start) + 1, parseInt(end));
+    var missing_range = _.range(
+      parseInt(start.get('number')) + 1,
+      parseInt(end.get('number'))
+    );
     var that = this;
     _.each(missing_range, function(missing_iteration_number) {
-      el.append(that.iterationDiv(missing_iteration_number, 0));
+      var iteration = new Iteration({'number': missing_iteration_number});
+      el.append(that.iterationDiv(iteration));
     });
   },
 
@@ -105,10 +132,11 @@ var AppView = Backbone.View.extend({
   },
 
   // FIXME - Make a view
-  iterationDiv: function(iteration, points) {
-    var iteration_date = window.Project.getDateForIterationNumber(iteration);
-    var points_markup = (points == undefined) ? '' : '<span class="points">' + points + ' points</span>';
-    return '<div class="iteration">' + iteration + ' - ' + iteration_date.toDateString() + points_markup + '</div>'
+  iterationDiv: function(iteration) {
+    // FIXME Make a model method
+    var iteration_date = window.Project.getDateForIterationNumber(iteration.get('number'));
+    var points_markup = '<span class="points">' + iteration.points() + ' points</span>';
+    return '<div class="iteration">' + iteration.get('number') + ' - ' + iteration_date.toDateString() + points_markup + '</div>'
   },
 
   notice: function(message) {
