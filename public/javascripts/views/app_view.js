@@ -68,9 +68,6 @@ var AppView = Backbone.View.extend({
     //
     // Backlog column
     //
-    //var backlog = {
-    //  num: currentIterationNumber + 1, points: 0, rendered: false
-    //};
     var backlogIteration = new Iteration({
       'number': currentIteration.get('number') + 1,
       'rendered': false,

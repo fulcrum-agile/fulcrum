@@ -4,6 +4,16 @@ describe("iteration", function() {
     this.iteration = new Iteration();
   });
 
+  describe("initialize", function() {
+
+    it("should assign stories if passed", function() {
+      var stories = [1,2,3];
+      var iteration = new Iteration({'stories': stories});
+      expect(iteration.get('stories')).toEqual(stories);
+    });
+
+  });
+
   describe("defaults", function() {
 
     it("should have an empty array of stories", function() {

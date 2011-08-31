@@ -3,7 +3,7 @@ var Iteration = Backbone.Model.extend({
   name: 'iteration',
 
   initialize: function(opts) {
-    this.set({stories: []});
+    this.set({'stories': opts.stories || []});
   },
 
   points: function() {
