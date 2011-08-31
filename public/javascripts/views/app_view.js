@@ -39,10 +39,12 @@ var AppView = Backbone.View.extend({
     _.each(done_iterations, function(stories, iterationNumber) {
 
       var iteration = new Iteration({
-        'number': iterationNumber, 'stories': stories
+        'number': iterationNumber, 'stories': stories, column: '#done'
       });
 
-      that.fillInEmptyIterations($('#done'), last_iteration, iteration);
+      window.Project.iterations.push(iteration);
+
+      that.fillInEmptyIterations('#done', last_iteration, iteration);
       last_iteration = iteration;
 
       $('#done').append(that.iterationDiv(iteration));
@@ -54,7 +56,7 @@ var AppView = Backbone.View.extend({
       'number': window.Project.currentIterationNumber(),
       'stories': window.Project.stories.column('#in_progress')
     });
-    this.fillInEmptyIterations($('#done'), last_iteration, currentIteration);
+    this.fillInEmptyIterations('#done', last_iteration, currentIteration);
 
     //
     // In progress column
@@ -106,16 +108,20 @@ var AppView = Backbone.View.extend({
     _.each(window.Project.stories.column('#chilly_bin'), this.addOne);
   },
 
-  // Creates a set of empty iterations in column el, with iteration numbers
+  // Creates a set of empty iterations in column, with iteration numbers
   // starting at start and ending at end
-  fillInEmptyIterations: function(el, start, end) {
+  fillInEmptyIterations: function(column, start, end) {
+    var el = $(column);
     var missing_range = _.range(
       parseInt(start.get('number')) + 1,
       parseInt(end.get('number'))
     );
     var that = this;
     _.each(missing_range, function(missing_iteration_number) {
-      var iteration = new Iteration({'number': missing_iteration_number});
+      var iteration = new Iteration({
+        'number': missing_iteration_number, 'column': column
+      });
+      window.Project.iterations.push(iteration);
       el.append(that.iterationDiv(iteration));
     });
   },
