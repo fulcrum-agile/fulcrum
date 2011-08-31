@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, :uniq => true
 
-  before_validation :set_random_password_if_blank
+  before_validation :set_random_password_if_blank, :set_reset_password_token
 
   validates :name, :presence => true
   validates :initials, :presence => true
@@ -29,6 +29,12 @@ class User < ActiveRecord::Base
   def set_random_password_if_blank
     if new_record? && self.password.blank? && self.password_confirmation.blank?
       self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,6]
+    end
+  end
+
+  def set_reset_password_token
+    if new_record?
+      self.reset_password_token = Devise.friendly_token
     end
   end
 
