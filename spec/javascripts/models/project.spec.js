@@ -36,6 +36,10 @@ describe('Project model', function() {
       expect(this.project.users.project).toBe(this.project);
     });
 
+    it("should have a default velocity of 10", function() {
+      expect(this.project.get('default_velocity')).toEqual(10);
+    });
+
   });
 
   describe('url', function() {
@@ -184,6 +188,31 @@ describe('Project model', function() {
       expect(this.project.getDateForIterationNumber(5)).toEqual(new Date("2011-11-08"));
     });
 
+    it("should initialize with an array of iterations", function() {
+      expect(this.project.iterations).toEqual([]);
+    });
+
+    it("should get all the done iterations", function() {
+      var doneIteration = {
+        get: sinon.stub().withArgs('column').returns('#done')
+      };
+      var inProgressIteration = {
+        get: sinon.stub().withArgs('column').returns('#in_progress')
+      };
+      var backlogIteration = {
+        get: sinon.stub().withArgs('column').returns('#backlog')
+      };
+      var chillyBinIteration = {
+        get: sinon.stub().withArgs('column').returns('#chilly_bin')
+      };
+
+      this.project.iterations = [
+        doneIteration, inProgressIteration, backlogIteration, chillyBinIteration
+      ];
+
+      expect(this.project.doneIterations()).toEqual([doneIteration]);
+    });
+
   });
 
 
@@ -222,9 +251,55 @@ describe('Project model', function() {
 
   describe("velocity", function() {
 
-    // TODO Implement real velocity
+    it("returns the default velocity when done iterations are empty", function() {
+      this.project.set({'default_velocity': 999});
+      expect(this.project.velocity()).toEqual(999);
+    });
+
     it("should return velocity", function() {
-      expect(this.project.velocity()).toEqual(10);
+      var doneIterations = _.map([1,2,3,4,5], function(i) {
+        return {points: sinon.stub().returns(i)};
+      });
+      var doneIterationsStub = sinon.stub(this.project, 'doneIterations');
+      doneIterationsStub.returns(doneIterations);
+
+      // By default, should take the average of the last 3 iterations,
+      // (3 + 4 + 5) = 12 / 3 = 4
+      expect(this.project.velocity()).toEqual(4);
+    });
+
+    it("should floor the velocity when it returns a fraction", function() {
+      var doneIterations = _.map([3,2,2], function(i) {
+        return {points: sinon.stub().returns(i)};
+      });
+      var doneIterationsStub = sinon.stub(this.project, 'doneIterations');
+      doneIterationsStub.returns(doneIterations);
+
+      // Should floor the result
+      // (3 + 2 + 2) = 7 / 3 = 2.333333
+      expect(this.project.velocity()).toEqual(2);
+    });
+
+    it("should return the velocity when few iterations are complete", function() {
+      // Still calculate the average correctly if fewer than the expected
+      // number of iterations have been completed.
+      var doneIterations = _.map([3,1], function(i) {
+        return {points: sinon.stub().returns(i)};
+      });
+      var doneIterationsStub = sinon.stub(this.project, 'doneIterations');
+      doneIterationsStub.returns(doneIterations);
+
+      expect(this.project.velocity()).toEqual(2);
+    });
+
+    it("should not return less than 1", function() {
+      var doneIterations = _.map([0,0,0], function(i) {
+        return {points: sinon.stub().returns(i)};
+      });
+      var doneIterationsStub = sinon.stub(this.project, 'doneIterations');
+      doneIterationsStub.returns(doneIterations);
+
+      expect(this.project.velocity()).toEqual(1);
     });
 
   });
