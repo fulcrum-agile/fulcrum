@@ -5,6 +5,36 @@
 $darkgrey:   #6a7176;           // Header color
 $orange:     rgb(250,182,155);  // Estimate gauge color
 
+// Tango icon theme pallette
+// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
+$butter-1:      #fce94f;
+$butter-2:      #edd400;
+$butter-3:      #c4a000;
+$orange-1:      #fcaf3e;
+$orange-2:      #f57900;
+$orange-3:      #ce5c00;
+$chocolate-1:   #e9b96e;
+$chocolate-2:   #c17d11;
+$chocolate-3:   #8f5902;
+$chameleon-1:   #8ae234;
+$chameleon-2:   #73d216;
+$chameleon-3:   #4e9a06;
+$sky-blue-1:    #729fcf;
+$sky-blue-2:    #3465a4;
+$sky-blue-3:    #204a87;
+$plum-1:        #ad7fa8;
+$plum-2:        #75507b;
+$plum-3:        #5c3566;
+$scarlet-red-1: #ef2929;
+$scarlet-red-2: #cc0000;
+$scarlet-red-3: #a40000;
+$aluminium-1:   #eeeeec;
+$aluminium-2:   #d3d7cf;
+$aluminium-3:   #babdb6;
+$aluminium-4:   #888a85;
+$aluminium-5:   #555753;
+$aluminium-6:   #2e3436;
+
 body {
   margin: 0;
   padding: 0;
@@ -252,22 +282,22 @@ span.estimate_8 {
 }
 
 .state-actions input.start {
-  background-color: #d3d7cf;
+  background-color: $aluminium-2;
 }
 .state-actions input.finish {
-  background-color: #729fcf;
+  background-color: $sky-blue-1;
 }
 .state-actions input.deliver {
-  background-color: #edd400;
+  background-color: $butter-2;
 }
 .state-actions input.accept {
-  background-color: #73d216;
+  background-color: $chameleon-2;
 }
 .state-actions input.reject {
-  background-color: #ef2929;
+  background-color: $scarlet-red-2;
 }
 .state-actions input.restart {
-  background: #ef2929 url('/images/redo.png') no-repeat;
+  background: $scarlet-red-2 url('/images/redo.png') no-repeat;
   padding-left: 16px;
 }
 
@@ -277,23 +307,31 @@ img.expand, img.collapse {
 
 table#import tr.valid, .notice {
   color: white;
-  background-color: green;
+  background-color: $chameleon-3;
 }
 table#import tr.invalid, .alert {
   color: white;
-  background-color: red;
+  background-color: $scarlet-red-2;
 }
 
 ul#projects {
   list-style: none;
+  width: 50%;
+  padding-left: 0;
 }
 
 ul#projects li {
-  @include border-radius(10px);
+  @include background(linear-gradient(top, $aluminium-1, $aluminium-2));
+  @include box-shadow(0 1px 2px #aaaaaa);
+  text-shadow: white 0 1px 0;
   background-color: #d3d7cf;
-  border: 2px solid #888a85;
+  border: 1px solid $aluminium-1;
+  border-top: 1px solid $aluminium-2;
   margin: 10px 0;
   padding: 10px;
+}
+ul#projects li:hover {
+  @include background(linear-gradient(top, $aluminium-2, $aluminium-3));
 }
 
 ul#projects li h2 {
@@ -310,14 +348,18 @@ ul#projects li:hover {
 }
 
 a.button {
-  @include border-radius(5px);
-  background-color: #d3d7cf;
-  border: 2px solid #888a85;
+  @include border-radius(2px);
+  @include background(linear-gradient(top, $aluminium-1, $aluminium-2));
+  @include box-shadow(0 1px 2px $aluminium-2);
+  border: 1px solid $aluminium-3;
   display: inline-block;
   padding: 5px;
   text-decoration: none;
+  font-weight: bold;
 }
 
 a.button:hover {
-  background-color: #babdb6;
+  @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+  color: white;
+  text-decoration: underline;
 }
