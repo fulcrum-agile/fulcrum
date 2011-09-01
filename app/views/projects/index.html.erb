@@ -5,6 +5,11 @@
 <ul id="projects">
   <% @projects.each do |project| %>
     <li>
+      <div class="project_options">
+        <%= link_to 'Edit', edit_project_path(project) %>
+        <%= link_to 'Members', project_users_path(project) %>
+        <%= link_to 'Delete', project, :confirm => 'Are you sure you want to delete this project?  This action cannot be undone.', :method => :delete %>
+      </div>
       <h2><%= link_to project.name, project %></h2>
       Started at: 
       <%= project.start_date %>
@@ -12,12 +17,6 @@
       <p>
         The iteration starts on <%= Date::DAYNAMES[project.iteration_start_day].pluralize %> with length of <%= project.iteration_length %> week(s)
       </p>
-
-      <div class="project_options">
-        <%= link_to 'Edit', edit_project_path(project) %>
-        <%= link_to 'Members', project_users_path(project) %>
-        <%= link_to 'Delete', project, :confirm => 'Are you sure you want to delete this project?  This action cannot be undone.', :method => :delete %>
-      </div>
     </li>
   <% end %>
 </ul>
