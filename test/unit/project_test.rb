@@ -5,6 +5,12 @@ class ProjectTest < ActiveSupport::TestCase
     @project = Factory.create(:project)
   end
 
+  test "should not save a project without a name" do
+    @project.name = ""
+    assert !@project.save
+    assert_equal ["can't be blank"], @project.errors[:name]
+  end
+
   test "should return a string" do
     assert_equal @project.name, @project.to_s
   end
