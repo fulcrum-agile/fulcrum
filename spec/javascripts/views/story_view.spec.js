@@ -223,7 +223,7 @@ describe('StoryView', function() {
     });
 
     it("should move after the previous story in the column", function() {
-      var html = $('<div id="1"></div><div id="2"></div>');
+      var html = $('<div id="1" class="story"></div><div id="2" class="story"></div>');
       var ev = {target: html[1]};
 
       this.story.moveAfter = sinon.spy();
@@ -233,8 +233,18 @@ describe('StoryView', function() {
     });
 
     it("should move before the next story in the column", function() {
-      var html = $('<div id="1"></div><div id="2"></div>');
+      var html = $('<div id="1" class="story"></div><div id="2" class="story"></div>');
       var ev = {target: html[0]};
+
+      this.story.moveBefore = sinon.spy();
+      this.view.sortUpdate(ev);
+
+      expect(this.story.moveBefore).toHaveBeenCalledWith("2");
+    });
+
+    it("should move before the next story in the column", function() {
+      var html = $('<div id="foo"></div><div id="1" class="story"></div><div id="2" class="story"></div>');
+      var ev = {target: html[1]};
 
       this.story.moveBefore = sinon.spy();
       this.view.sortUpdate(ev);
