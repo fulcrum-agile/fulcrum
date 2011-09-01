@@ -72,4 +72,20 @@ class ProjectTest < ActiveSupport::TestCase
     story.update_attribute :state, 'started'
     assert_equal Date.today, @project.start_date
   end
+
+  test "should cascade delete stories" do
+    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    assert_equal @project.stories.count, 1
+    assert_difference 'Story.count', -1 do
+      assert @project.destroy
+    end
+  end
+
+  test "should cascade delete changesets" do
+    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    assert_equal @project.changesets.count, 1
+    assert_difference 'Changeset.count', -1 do
+      assert @project.destroy
+    end
+  end
 end

@@ -28,8 +28,8 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :users, :uniq => true
   accepts_nested_attributes_for :users, :reject_if => :all_blank
 
-  has_many :stories
-  has_many :changesets
+  has_many :stories,    :dependent => :destroy
+  has_many :changesets, :dependent => :destroy
 
   def to_s
     name
