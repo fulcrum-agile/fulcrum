@@ -85,13 +85,21 @@ var AppView = Backbone.View.extend({
         });
         backlogIteration.set({'rendered': true});
 
-        // Create the next iteration
-        var nextNumber = backlogIteration.get('number') + 1;
-        backlogIteration = new Iteration({
+        var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / window.Project.velocity());
+
+        var nextIteration = new Iteration({
           'number': nextNumber,
           'rendered': false,
           'maximum_points': window.Project.velocity()
         });
+
+        // If the iteration overflowed, create enough empty iterations to
+        // accommodate the surplus.  For example, if the project velocity
+        // is 1, and the last iteration contained 1 5 point story, we'll
+        // need 4 empty iterations.
+        //
+        that.fillInEmptyIterations('#backlog', backlogIteration, nextIteration);
+        backlogIteration = nextIteration;
       }
 
       backlogIteration.get('stories').push(story);
