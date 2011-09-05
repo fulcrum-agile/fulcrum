@@ -26,6 +26,10 @@ var Iteration = Backbone.Model.extend({
   // Returns true if this iteration has enough points free for a given
   // story.  Only valid for backlog iterations.
   canTakeStory: function(story) {
+    if (this.points() === 0) {
+      return true;
+    }
+
     if (story.get('story_type') === 'feature') {
       return story.get('estimate') <= this.availablePoints();
     } else {
