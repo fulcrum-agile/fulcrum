@@ -105,7 +105,15 @@ var Project = Backbone.Model.extend({
 
     var start_date;
     if (this.get('start_date')) {
-      start_date = new Date(this.get('start_date'));
+      // Parse the date string into an array of [YYYY, MM, DD] to
+      // ensure identical date behaviour across browsers.
+      var dateArray = this.get('start_date').split('/');
+      var year = parseInt(dateArray[0])
+      // Month is zero indexed
+      var month = parseInt(dateArray[1]) - 1;
+      var day = parseInt(dateArray[2]);
+
+      start_date = new Date(year, month, day);
     } else {
       start_date = new Date();
     }
