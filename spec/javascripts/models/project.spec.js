@@ -220,8 +220,8 @@ describe('Project model', function() {
 
     it("should return the start date", function() {
       // Date is a Monday, and day 1 is Monday
-      this.project.set({start_date: "2011/07/25",iteration_start_day: 1});
-      expect(this.project.startDate()).toEqual(new Date("2011/07/25"));
+      this.project.set({start_date: "2011/09/12",iteration_start_day: 1});
+      expect(this.project.startDate()).toEqual(new Date("2011/09/12"));
 
       // If the project start date has been explicitly set to a Thursday, but
       // the iteration_start_day is Monday, the start date should be the Monday

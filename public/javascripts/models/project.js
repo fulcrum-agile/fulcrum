@@ -108,10 +108,10 @@ var Project = Backbone.Model.extend({
       // Parse the date string into an array of [YYYY, MM, DD] to
       // ensure identical date behaviour across browsers.
       var dateArray = this.get('start_date').split('/');
-      var year = parseInt(dateArray[0])
+      var year = parseInt(dateArray[0], 10)
       // Month is zero indexed
-      var month = parseInt(dateArray[1]) - 1;
-      var day = parseInt(dateArray[2]);
+      var month = parseInt(dateArray[1], 10) - 1;
+      var day = parseInt(dateArray[2], 10);
 
       start_date = new Date(year, month, day);
     } else {
