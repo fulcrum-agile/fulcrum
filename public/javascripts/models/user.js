@@ -1,3 +1,3 @@
 var User = Backbone.Model.extend({
-  name: 'user',
+  name: 'user'
 });

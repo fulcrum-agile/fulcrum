@@ -46,7 +46,7 @@ describe("iteration", function() {
 
     it("should report how many points it overflows by", function() {
       // Should return 0
-      this.iteration.set({'maximum_points':2})
+      this.iteration.set({'maximum_points':2});
       var pointsStub = sinon.stub(this.iteration, 'points');
 
       // Should return 0 if the iteration points are less than maximum_points

@@ -70,26 +70,28 @@ var Story = Backbone.Model.extend({
   },
 
   column: function() {
+
+    var column = '#in_progress';
+
     switch(this.get('state')) {
       case 'unscheduled':
-        return '#chilly_bin';
+        column = '#chilly_bin';
         break;
       case 'unstarted':
-        return '#backlog';
+        column = '#backlog';
         break;
       case 'accepted':
         // Accepted stories remain in the in progress column if they were
         // completed within the current iteration.
         if (this.collection.project.currentIterationNumber() === this.iterationNumber()) {
-          return '#in_progress';
+          column = '#in_progress';
         } else {
-          return '#done';
+          column = '#done';
         }
         break;
-      default:
-        return '#in_progress';
-        break;
     }
+
+    return column;
   },
 
   clear: function() {
@@ -154,7 +156,9 @@ var Story = Backbone.Model.extend({
   },
 
   errorsOn: function(field) {
-    if (!this.hasErrors()) return false;
+    if (!this.hasErrors()) {
+      return false;
+    }
     return (typeof this.get('errors')[field] != "undefined");
   },
 

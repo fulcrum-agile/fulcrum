@@ -82,8 +82,10 @@ var FormView = Backbone.View.extend({
   bindElementToAttribute: function(el, name) {
     var that = this;
     $(el).bind("change", function() {
-      that.changed_attributes || (that.changed_attributes = {});
+      if (typeof(that.changed_attributes) == 'undefined') {
+        that.changed_attributes = {};
+      }
       that.changed_attributes[name] = $(el).val();
     });
-  },
+  }
 });

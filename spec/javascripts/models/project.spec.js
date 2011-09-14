@@ -24,14 +24,14 @@ describe('Project model', function() {
 
     it('should set up a story collection', function() {
       expect(this.project.stories).toBeDefined();
-      expect(this.project.stories.url).toEqual('/projects/999/stories')
+      expect(this.project.stories.url).toEqual('/projects/999/stories');
       // Sets up a reference on the collection to itself
       expect(this.project.stories.project).toBe(this.project);
     });
 
     it('should set up a user collection', function() {
       expect(this.project.users).toBeDefined();
-      expect(this.project.users.url).toEqual('/projects/999/users')
+      expect(this.project.users.url).toEqual('/projects/999/users');
       // Sets up a reference on the collection to itself
       expect(this.project.users.project).toBe(this.project);
     });
@@ -241,6 +241,8 @@ describe('Project model', function() {
       // FIXME - Stubbing Date is not working
       var expected_date = new Date('2011/07/23');
       var fake_today = new Date('2011/07/29');
+      // Stop JSHINT complaining about overriding Date
+      /*global Date: true*/
       orig_date = Date;
       Date = sinon.stub().returns(fake_today);
       this.project.unset('start_date');

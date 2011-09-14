@@ -7,11 +7,11 @@ var Project = Backbone.Model.extend({
 
     this.bind('change:last_changeset_id', this.updateChangesets);
 
-    this.stories = new StoryCollection;
+    this.stories = new StoryCollection();
     this.stories.url = this.url() + '/stories';
     this.stories.project = this;
 
-    this.users = new UserCollection;
+    this.users = new UserCollection();
     this.users.url = this.url() + '/users';
     this.users.project = this;
 
@@ -108,7 +108,7 @@ var Project = Backbone.Model.extend({
       // Parse the date string into an array of [YYYY, MM, DD] to
       // ensure identical date behaviour across browsers.
       var dateArray = this.get('start_date').split('/');
-      var year = parseInt(dateArray[0], 10)
+      var year = parseInt(dateArray[0], 10);
       // Month is zero indexed
       var month = parseInt(dateArray[1], 10) - 1;
       var day = parseInt(dateArray[2], 10);

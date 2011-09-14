@@ -10,8 +10,8 @@ describe('Story model', function() {
     var collection = {
       project: new Project(), url: '/foo', remove: function() {},
       get: function() {}
-    }
-    var view = new Backbone.View;
+    };
+    var view = new Backbone.View();
     this.story = new Story({
       id: 999, title: 'Test story', position: '2.45'
     });
