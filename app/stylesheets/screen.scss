@@ -193,6 +193,11 @@ div.story-title abbr.initials {
   cursor: move;
 }
 
+.state-actions input.estimate {
+  @include background(linear-gradient(top, $aluminium-2, $aluminium-2*0.75));
+  border-color:     $aluminium-3;
+}
+
 span.estimate {
   border: 1px solid #777;
   padding: 0 0.2em;
@@ -274,7 +279,7 @@ span.estimate_8 {
 }
 
 .state-actions input {
-  padding: 0;
+  padding: 0.1em;
   @include border-radius(3px);
   border: 1px solid #333;
   cursor: pointer;
@@ -282,22 +287,30 @@ span.estimate_8 {
 }
 
 .state-actions input.start {
-  background-color: $aluminium-2;
+  @include background(linear-gradient(top, $aluminium-2, $aluminium-2*0.75));
+  border-color:     $aluminium-3;
 }
 .state-actions input.finish {
-  background-color: $sky-blue-1;
+  @include background(linear-gradient(top, $sky-blue-1, $sky-blue-1*0.75));
+  border-color: $sky-blue-3;
 }
 .state-actions input.deliver {
-  background-color: $butter-2;
+  @include background(linear-gradient(top, $butter-1, $butter-1*0.75));
+  border-color:     $butter-3;
 }
 .state-actions input.accept {
-  background-color: $chameleon-2;
+  @include background(linear-gradient(top, $chameleon-2, $chameleon-2*0.75));
+  border-color: $chameleon-3;
 }
 .state-actions input.reject {
-  background-color: $scarlet-red-2;
+  @include background(linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
+  border-color:     $scarlet-red-3;
 }
 .state-actions input.restart {
-  background: $scarlet-red-2 url('/images/redo.png') no-repeat;
+  @include background(url('/images/redo.png'),
+                      linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
+  background-repeat: no-repeat;
+  border-color: $scarlet-red-3;
   padding-left: 16px;
 }
 
