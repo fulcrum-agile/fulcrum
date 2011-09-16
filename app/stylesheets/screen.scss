@@ -193,11 +193,6 @@ div.story-title abbr.initials {
   cursor: move;
 }
 
-.state-actions input.estimate {
-  @include background(linear-gradient(top, $aluminium-2, $aluminium-2*0.75));
-  border-color:     $aluminium-3;
-}
-
 span.estimate {
   border: 1px solid #777;
   padding: 0 0.2em;
@@ -279,17 +274,19 @@ span.estimate_8 {
 }
 
 .state-actions input {
-  padding: 0.1em;
+  margin: 0;
+  padding: 0 0.3em;
   @include border-radius(3px);
   border: 1px solid #333;
   cursor: pointer;
   font-size: small;
+  font-weight: bold;
+  color: white;
+  @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
+  border-color: $aluminium-5;
+  text-shadow:  $aluminium-5 0 1px 0;
 }
 
-.state-actions input.start {
-  @include background(linear-gradient(top, $aluminium-2, $aluminium-2*0.75));
-  border-color:     $aluminium-3;
-}
 .state-actions input.finish {
   @include background(linear-gradient(top, $sky-blue-1, $sky-blue-1*0.75));
   border-color: $sky-blue-3;
