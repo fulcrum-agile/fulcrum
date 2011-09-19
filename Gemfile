@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
+gem 'rails', '3.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # SQLite
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3'
 
 # MySQL
 # gem 'mysql2', '~> 0.2.6'
@@ -14,13 +14,25 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # PostgreSQL
 # gem 'pg'
 
-gem 'devise', '1.2.1'
-gem 'cancan', '1.6.1'
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "  ~> 3.1.0"
+  gem 'coffee-rails', "~> 3.1.0"
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
+gem 'rails-backbone'
+
+gem 'devise'
+gem 'cancan'
 gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitions"]
 
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
-gem 'compass', '>= 0.11.5'
 # (using standard csv lib if ruby version is 1.9)
+gem 'compass', '>= 0.12.alpha.0'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -29,7 +41,7 @@ gem 'compass', '>= 0.11.5'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug'
+# gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Bundle the extra gems:
 # gem 'bj'

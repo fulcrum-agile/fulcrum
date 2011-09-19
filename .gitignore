@@ -2,6 +2,8 @@ config/database.yml
 .bundle
 db/*.sqlite3
 log/*.log
-tmp/**/*
+tmp/
 .rvmrc
-public/stylesheets/*
+.sass-cache/
+.DS_Store
+tmp/restart.txt
