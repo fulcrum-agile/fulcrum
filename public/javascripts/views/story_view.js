@@ -180,7 +180,6 @@ var StoryView = FormView.extend({
   },
 
   saveEdit: function() {
-    this.model.set(this.changed_attributes);
     this.disableForm();
 
     var that = this;

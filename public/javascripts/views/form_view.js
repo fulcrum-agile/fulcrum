@@ -8,7 +8,7 @@ var FormView = Backbone.View.extend({
 
   textField: function(name) {
     var el = this.make('input', {type: "text", name: name, value: this.model.get(name)});
-    this.bindElementToAttribute(el, name);
+    this.bindElementToAttribute(el, name, "keyup");
     return el;
   }, 
 
@@ -79,13 +79,14 @@ var FormView = Backbone.View.extend({
     return el;
   },
 
-  bindElementToAttribute: function(el, name) {
+  bindElementToAttribute: function(el, name, eventType) {
     var that = this;
-    $(el).bind("change", function() {
-      if (typeof(that.changed_attributes) == 'undefined') {
-        that.changed_attributes = {};
-      }
-      that.changed_attributes[name] = $(el).val();
+    eventType = typeof(eventType) != 'undefined' ? eventType : "change";
+    $(el).bind(eventType, function() {
+      var obj = {};
+      obj[name] = $(el).val();
+      that.model.set(obj, {silent: true});
+      return true;
     });
   }
 });
