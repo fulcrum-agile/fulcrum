@@ -18,13 +18,13 @@
   </div>
   {{/if}}
   <div class="story-icons">{{if $item.view.saveInProgress}}<img
-    src="/images/throbber.gif" alt="Saving ...">{{else}}<img
-    src="/images/expand.png" class="expand" alt="Expand">{{/if}}<img
-    src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">{{if story.estimated}}<span
+    src="/assets/throbber.gif" alt="Saving ...">{{else}}<img
+    src="/assets/expand.png" class="expand" alt="Expand">{{/if}}<img
+    src="/assets/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">{{if story.estimated}}<span
       class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<img
-    src="/images/details.png" title="${story.description}"/>{{/if}}</div>
+    src="/assets/details.png" title="${story.description}"/>{{/if}}</div>
   <div class="story-title">${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
-  
+
 </script>
 <script id="story_form" type="text/x-jQuery-tmpl">
   <p>
@@ -34,7 +34,7 @@
 </script>
 
 <script type="text/javascript">
-$(function() { 
+$(function() {
   window.Project = new Project(<%= @project.to_json.html_safe %>);
   window.Project.users.reset(<%= @project.users.to_json.html_safe %>);
   window.Project.current_user = new User(<%= current_user.to_json.html_safe %>);
@@ -49,14 +49,14 @@ $(function() {
   <% if notice %>
     window.App.notice({
       title: 'Notice', text: '<%= notice %>',
-      image: '<%= image_path('dialog-information.png') %>'
+      image: 'assets/dialog-information.png'
     });
   <% end %>
 
   <% if alert %>
     window.App.notice({
       title: 'Alert', text: '<%= alert %>', sticky: true,
-      image: '<%= image_path('dialog-warning.png') %>'
+      image: 'dialog-warning.png'
     });
   <% end %>
 });
