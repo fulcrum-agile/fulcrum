@@ -78,7 +78,7 @@ ul#primary-nav li.root {
 }
 ul#primary-nav li.secondary {
   position: relative;
-  background: image-url('collapse.png') #333 no-repeat right;
+  background: image-url('icon/collapse.png') #333 no-repeat right;
   padding: 0.4em 18px 0.4em 0.4em;
   @include border-radius(5px);
 }
@@ -291,7 +291,7 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  background: #000 image-url('iteration.png') no-repeat 2px center;
+  background: #000 image-url('icon/iteration.png') no-repeat 2px center;
   color: #ddd;
   padding: 0.2em 0.2em 0.2em 20px
 }
@@ -335,10 +335,6 @@ span.estimate_8 {
   background-repeat: no-repeat;
   border-color: $scarlet-red-3;
   padding-left: 16px;
-}
-
-img.expand, img.collapse {
-  cursor: pointer;
 }
 
 table#import tr.valid, .notice {

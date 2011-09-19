@@ -21,14 +21,9 @@ src_files:
   - spec/javascripts/support/jasmine-jquery-1.2.0.js
   - vendor/assets/javascripts/jquery.tmpl.min.js
   - vendor/assets/javascripts/backbone.rails.js
-  - app/assets/javascripts/backbone/models/iteration.js
-  - app/assets/javascripts/backbone/models/project.js
-  - app/assets/javascripts/backbone/models/story.js
-  - app/assets/javascripts/backbone/models/user.js
-  - app/assets/javascripts/backbone/collections/story_collection.js
-  - app/assets/javascripts/backbone/collections/user_collection.js
-  - app/assets/javascripts/backbone/views/form_view.js
-  - spec/javascripts/lib/story_view.js
+  - app/assets/javascripts/backbone/models/*.js
+  - app/assets/javascripts/backbone/collections/*.js
+  - app/assets/javascripts/backbone/views/*.js
   - app/assets/javascripts/fulcrum.js
 
 # stylesheets

@@ -17,13 +17,22 @@
     </form>
   </div>
   {{/if}}
-  <div class="story-icons">{{if $item.view.saveInProgress}}<img
-    src="/assets/throbber.gif" alt="Saving ...">{{else}}<img
-    src="/assets/expand.png" class="expand" alt="Expand">{{/if}}<img
-    src="/assets/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">{{if story.estimated}}<span
-      class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<img
-    src="/assets/details.png" title="${story.description}"/>{{/if}}</div>
-  <div class="story-title">${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
+  <div class="story-icons">
+    {{if $item.view.saveInProgress}}
+      <a class="icon icon-throbber">Saving...</a>
+    {{else}}
+      <a class="icon icon-expand expand">Expand</a>
+    {{/if}}
+    <b class="icon icon-${story.story_type} story_type"  title="${story.story_type}: ${story.id}">${story.story_type}</b>
+    {{if story.estimated}}
+      <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
+    {{/if}}
+    {{if $item.story.hasDetails()}}
+      <b class="icon icon-details" title="${story.description}"></b>
+    {{/if}}
+  </div>
+  <div class="story-title">
+    ${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
 
 </script>
 <script id="story_form" type="text/x-jQuery-tmpl">
@@ -49,14 +58,14 @@ $(function() {
   <% if notice %>
     window.App.notice({
       title: 'Notice', text: '<%= notice %>',
-      image: 'assets/dialog-information.png'
+      image: '<%= image_path('dialog-information.png') %>'
     });
   <% end %>
 
   <% if alert %>
     window.App.notice({
       title: 'Alert', text: '<%= alert %>', sticky: true,
-      image: 'dialog-warning.png'
+      image: '<%= image_path('dialog-warning.png') %>'
     });
   <% end %>
 });
