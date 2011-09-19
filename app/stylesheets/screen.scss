@@ -189,6 +189,13 @@ div.story {
 div.story:hover {
   background-color: #ddd;
 }
+div.story input[type=text],
+div.story textarea {
+  width: 99%;
+}
+div.story textarea {
+  height: 50px;
+}
 
 div.story-icons {
   float: left;
