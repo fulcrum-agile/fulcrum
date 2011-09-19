@@ -59,7 +59,7 @@ a img {
 
 ul#primary-nav {
   text-align: right;
-  background-image: url('/images/logo.png');
+  background-image: image-url('logo.png');
   background-repeat: no-repeat;
   background-position: 13px 6px;
   margin: 0;
@@ -81,9 +81,13 @@ ul#primary-nav li.root {
 }
 ul#primary-nav li.secondary {
   position: relative;
+<<<<<<< HEAD:app/stylesheets/screen.scss
   @include icons-sprite(collapse, false, 0px, 6px);
   background-color: #333;
   background-position-x:right;
+=======
+  background: image-url('collapse.png') #333 no-repeat right;
+>>>>>>> Move to Rails 3.1 Asset Pipeline. Had to duplicate story_view.js to get Jasmine tests passing. Need to work out how to integrate Jasmine with the asset pipeline:app/assets/stylesheets/screen.css.scss
   padding: 0.4em 18px 0.4em 0.4em;
   @include border-radius(5px);
   text-shadow: black 0 1px 0;
@@ -365,8 +369,12 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
+<<<<<<< HEAD:app/stylesheets/screen.scss
   @include icons-sprite(iteration, false, 2px, 3px);
   background-color: #000;
+=======
+  background: #000 image-url('iteration.png') no-repeat 2px center;
+>>>>>>> Move to Rails 3.1 Asset Pipeline. Had to duplicate story_view.js to get Jasmine tests passing. Need to work out how to integrate Jasmine with the asset pipeline:app/assets/stylesheets/screen.css.scss
   color: #ddd;
   padding: 0.2em 0.2em 0.2em 20px
 }
@@ -412,7 +420,11 @@ span.estimate_8 {
   border-color:     $scarlet-red-3;
 }
 .state-actions input.restart {
+<<<<<<< HEAD:app/stylesheets/screen.scss
   @include background(sprite($icons-sprites,redo),
+=======
+  @include background(image-url('redo.png'),
+>>>>>>> Move to Rails 3.1 Asset Pipeline. Had to duplicate story_view.js to get Jasmine tests passing. Need to work out how to integrate Jasmine with the asset pipeline:app/assets/stylesheets/screen.css.scss
                       linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
   background-repeat: no-repeat;
   border-color: $scarlet-red-3;
