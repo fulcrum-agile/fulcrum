@@ -24,7 +24,7 @@
       class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<img
     src="/images/details.png" title="${story.description}"/>{{/if}}</div>
   <div class="story-title">${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
-  
+
 </script>
 <script id="story_form" type="text/x-jQuery-tmpl">
   <p>
@@ -34,7 +34,7 @@
 </script>
 
 <script type="text/javascript">
-$(function() { 
+$(function() {
   window.Project = new Project(<%= @project.to_json.html_safe %>);
   window.Project.users.reset(<%= @project.users.to_json.html_safe %>);
   window.Project.current_user = new User(<%= current_user.to_json.html_safe %>);
@@ -70,18 +70,18 @@ $(function() {
 <table class="stories" width="100%">
   <thead>
     <tr>
-      <th>Done</th>
-      <th>In Progress</th>
-      <th>Backlog</th>
-      <th>Chilly Bin</th>
+      <th id="done_header">Done</th>
+      <th id="in_progress_header">In Progress</th>
+      <th id="backlog_header">Backlog</th>
+      <th id="chilly_bin_header">Chilly Bin</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="width: 25%"><div id="done" class="storycolumn"></div></td>
-      <td style="width: 25%"><div id="in_progress" class="storycolumn sortable"></div></td>
-      <td style="width: 25%"><div id="backlog" class="storycolumn sortable"></div></td>
-      <td style="width: 25%"><div id="chilly_bin" class="storycolumn sortable"></div></td>
+      <td id="done_column" style="width: 25%"><div id="done" class="storycolumn"></div></td>
+      <td id="in_progress_column" style="width: 25%"><div id="in_progress" class="storycolumn sortable"></div></td>
+      <td id="backlog_column" style="width: 25%"><div id="backlog" class="storycolumn sortable"></div></td>
+      <td id="chilly_bin_column" style="width: 25%"><div id="chilly_bin" class="storycolumn sortable"></div></td>
     </tr>
   </tbody>
 </table>

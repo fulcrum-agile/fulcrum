@@ -131,6 +131,25 @@ html.stories, html.stories body, html.stories div#main {
   height: 100%;
 }
 
+#show_hide_buttons {
+  float: right;
+}
+
+#show_hide_buttons a {
+  margin: none;
+  padding: 3px;
+  color: white;
+  background-color: $darkgrey;
+  @include border-radius(3px);
+  text-decoration: none;
+  text-shadow: none;
+}
+
+#show_hide_buttons a.pressed {
+  color: $darkgrey;
+  background-color: #cecece;
+}
+
 /* stories table */
 table.stories {
   width: 100%;
@@ -170,6 +189,13 @@ div.story {
 div.story:hover {
   background-color: #ddd;
 }
+div.story input[type=text],
+div.story textarea {
+  width: 99%;
+}
+div.story textarea {
+  height: 50px;
+}
 
 div.story-icons {
   float: left;
@@ -205,42 +231,42 @@ span.estimate {
 }
 
 span.estimate_1 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 12.5%,
       white 12.5%));
 }
 span.estimate_2 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 25%,
       white 25%));
 }
 span.estimate_3 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 37.5%,
       white 37.5%));
 }
 span.estimate_4 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 50%,
       white 50%));
 }
 span.estimate_5 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 62.5%,
       white 62.5%));
 }
 span.estimate_6 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 75%,
       white 75%));
 }
 span.estimate_7 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 87.5%,
       white 87.5%));
 }
 span.estimate_8 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 100%,
       white 100%));
 }
