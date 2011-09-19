@@ -19,6 +19,14 @@ $(function() {
 
   });
 
+  $('#show_hide_buttons a').click(function(el){
+    var button = el.target;
+    var id = button.id.replace('hide_','');
+    $(button).toggleClass('pressed');
+    $('#'+id+'_column').toggle();
+    $('#'+id+'_header').toggle();
+  })
+
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin');
   $('#chilly_bin').sortable('option', 'connectWith', '#backlog');
 });
