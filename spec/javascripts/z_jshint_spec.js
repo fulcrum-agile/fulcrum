@@ -26,7 +26,6 @@ describe('JSHint', function () {
     if (!files.test(script)) {
       return;
     }
-    console.debug(script);
 
     it(script, function () {
       var self = this;
