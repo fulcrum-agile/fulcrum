@@ -56,7 +56,7 @@ a img {
 
 ul#primary-nav {
   text-align: right;
-  background-image: url('/images/logo.png');
+  background-image: image-url('logo.png');
   background-repeat: no-repeat;
   background-position: 13px 6px;
   margin: 0;
@@ -78,7 +78,7 @@ ul#primary-nav li.root {
 }
 ul#primary-nav li.secondary {
   position: relative;
-  background: #333 url('/images/collapse.png') no-repeat right;
+  background: image-url('collapse.png') #333 no-repeat right;
   padding: 0.4em 18px 0.4em 0.4em;
   @include border-radius(5px);
 }
@@ -205,42 +205,42 @@ span.estimate {
 }
 
 span.estimate_1 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 12.5%,
       white 12.5%));
 }
 span.estimate_2 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 25%,
       white 25%));
 }
 span.estimate_3 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 37.5%,
       white 37.5%));
 }
 span.estimate_4 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 50%,
       white 50%));
 }
 span.estimate_5 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 62.5%,
       white 62.5%));
 }
 span.estimate_6 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 75%,
       white 75%));
 }
 span.estimate_7 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 87.5%,
       white 87.5%));
 }
 span.estimate_8 {
-  @include background(linear-gradient(bottom, 
+  @include background(linear-gradient(bottom,
       $orange 100%,
       white 100%));
 }
@@ -265,7 +265,7 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  background: #000 url('/images/iteration.png') no-repeat 2px center;
+  background: #000 image-url('iteration.png') no-repeat 2px center;
   color: #ddd;
   padding: 0.2em 0.2em 0.2em 20px
 }
@@ -304,7 +304,7 @@ span.estimate_8 {
   border-color:     $scarlet-red-3;
 }
 .state-actions input.restart {
-  @include background(url('/images/redo.png'),
+  @include background(image-url('redo.png'),
                       linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
   background-repeat: no-repeat;
   border-color: $scarlet-red-3;
