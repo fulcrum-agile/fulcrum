@@ -96,14 +96,14 @@ $(function() {
   <% if notice %>
     window.projectView.notice({
       title: 'Notice', text: '<%= notice %>',
-      image: '<%= image_path('dialog-information.png') %>'
+      image: 'assets/dialog-information.png'
     });
   <% end %>
 
   <% if alert %>
     window.projectView.notice({
       title: 'Alert', text: '<%= alert %>', sticky: true,
-      image: '<%= image_path('dialog-warning.png') %>'
+      image: 'dialog-warning.png'
     });
   <% end %>
 });
