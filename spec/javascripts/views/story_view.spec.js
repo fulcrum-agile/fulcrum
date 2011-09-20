@@ -137,7 +137,7 @@ describe('StoryView', function() {
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
-      expect($(this.view.el).find('img.collapse').attr('src')).toEqual('/images/throbber.gif');
+      expect($(this.view.el).find('img.collapse').attr('src')).toEqual('/assets/throbber.gif');
 
       this.server.respond();
 
