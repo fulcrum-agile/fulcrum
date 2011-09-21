@@ -70,18 +70,18 @@ $(function() {
 <table class="stories" width="100%">
   <thead>
     <tr>
-      <th id="done_header">Done</th>
-      <th id="in_progress_header">In Progress</th>
-      <th id="backlog_header">Backlog</th>
-      <th id="chilly_bin_header">Chilly Bin</th>
+      <th class="done-column">Done<a class="toggle-column hide-done" title="Close">x</a></th>
+      <th class="in-progress-column">In Progress<a class="toggle-column hide-in-progress" title="Close">x</a></th>
+      <th class="backlog-column">Backlog<a class="toggle-column hide-backlog" title="Close">x</a></th>
+      <th class="chilly-bin-column">Chilly Bin<a class="toggle-column hide-chilly-bin" title="Close">x</a></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td id="done_column" style="width: 25%"><div id="done" class="storycolumn"></div></td>
-      <td id="in_progress_column" style="width: 25%"><div id="in_progress" class="storycolumn sortable"></div></td>
-      <td id="backlog_column" style="width: 25%"><div id="backlog" class="storycolumn sortable"></div></td>
-      <td id="chilly_bin_column" style="width: 25%"><div id="chilly_bin" class="storycolumn sortable"></div></td>
+      <td class="done-column" style="width: 25%"><div id="done" class="storycolumn"></div></td>
+      <td class="in-progress-column" style="width: 25%"><div id="in-progress" class="storycolumn sortable"></div></td>
+      <td class="backlog-column" style="width: 25%"><div id="backlog" class="storycolumn sortable"></div></td>
+      <td class="chilly-bin-column" style="width: 25%"><div id="chilly-bin" class="storycolumn sortable"></div></td>
     </tr>
   </tbody>
 </table>

@@ -19,12 +19,11 @@ $(function() {
 
   });
 
-  $('#show_hide_buttons a').click(function(el){
-    var button = el.target;
-    var id = button.id.replace('hide_','');
-    $(button).toggleClass('pressed');
-    $('#'+id+'_column').toggle();
-    $('#'+id+'_header').toggle();
+  $('thead a.toggle-column, #column-toggles a').click(function(el){
+    //Find relevant column from class name
+    var className = _.detect( el.target.classList, function(elClass){ return elClass.match(/hide-\w+/) });
+    $('.'+className.replace(/hide-/,'')+'-column').toggle();
+    $("#column-toggles").find( "."+className ).toggleClass('pressed');
   })
 
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin');
