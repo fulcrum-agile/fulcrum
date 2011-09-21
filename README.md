@@ -39,21 +39,22 @@ Fulcrum is still a work in progress, but if you're really keen to try it out
 these instructions will hopefully help you get up and running.
 
 First up, your system will need the
-[prerequisites for running Ruby on Rails 3.0.x installed](http://rubyonrails.org/download)
+[prerequisites for running Ruby on Rails 3.1.x installed](http://rubyonrails.org/download)
 
 Once you have these:
 
     # Checkout the project
     $ git clone git://github.com/malclocke/fulcrum.git
     $ cd fulcrum
-    
+    $ git checkout rails3.1
+
     # Install the project dependencies
     $ gem install bundler
     $ bundle install
-    
+
     # Set up the development database
     $ bundle exec rake fulcrum:setup db:setup
-    
+
     # Start the local web server
     $ rails server
 
@@ -67,15 +68,21 @@ Heroku setup
 If you wish to host a publicly available copy of Fulcrum, the easiest option is
 to host it on [Heroku](http://heroku.com/).
 
-To deploy it to Heroku, make sure you have a local copy of the project; refer 
-to the previous section for instuctions. Then:
+To deploy it to Heroku, make sure you have a local copy of the project; refer
+to the previous section for instructions. Then:
 
-    # Make sure you have the Heroku gem
-    $ gem install heroku
+    # Add the Heroku and Postgres gems to your Gemfile
+    gem "heroku"
+    gem "pg"
+
+    # Update your bundle and commit the changes to git
+    $ bundle install
+    $ git add Gemfile Gemfile.lock
+    $ git commit -m "update fulcrum to use postgres on heroku"
 
     # Create your app. Replace APPNAME with whatever you want to name it.
-    $ heroku create APPNAME --stack bamboo-mri-1.9.2
-   
+    $ heroku create APPNAME --stack cedar
+
     # Define where the user emails will be coming from
     # (This email address does not need to exist)
     $ heroku config:add MAILER_SENDER=noreply@example.org
@@ -87,9 +94,9 @@ to the previous section for instuctions. Then:
     $ git push heroku master
 
     # Set up the database
-    $ heroku rake db:setup
+    $ heroku run rake db:setup
 
-Once that's done, you will be able to view your site at 
+Once that's done, you will be able to view your site at
 `http://APPNAME.heroku.com`.
 
 Development
