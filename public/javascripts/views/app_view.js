@@ -61,7 +61,8 @@ var AppView = Backbone.View.extend({
     // Fill in any remaining empty iterations in the done column
     var currentIteration = new Iteration({
       'number': window.Project.currentIterationNumber(),
-      'stories': window.Project.stories.column('#in_progress')
+      'stories': window.Project.stories.column('#in_progress'),
+      'maximum_points': window.Project.velocity()
     });
     this.fillInEmptyIterations('#done', last_iteration, currentIteration);
 
