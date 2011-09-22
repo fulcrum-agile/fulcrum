@@ -1,10 +1,10 @@
 <h1><%= project.name %></h1>
 
-<div id="show_hide_buttons">
-  <%= link_to 'Done', '#', :id => 'hide_done' %>
-  <%= link_to 'In Progress', '#', :id => 'hide_in_progress' %>
-  <%= link_to 'Backlog', '#', :id => 'hide_backlog' %>
-  <%= link_to 'Chilly Bin', '#', :id => 'hide_chilly_bin' %>
+<div id="column-toggles">
+  <%= link_to 'Done', '#', :class => 'hide-done' %>
+  <%= link_to 'In Progress', '#', :class => 'hide-in-progress' %>
+  <%= link_to 'Backlog', '#', :class => 'hide-backlog' %>
+  <%= link_to 'Chilly Bin', '#', :class => 'hide-chilly-bin' %>
 </div>
 
 <%= link_to_unless_current 'Stories', project_path(project) %> |
