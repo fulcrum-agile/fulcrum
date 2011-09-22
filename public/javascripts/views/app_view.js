@@ -10,9 +10,12 @@ var AppView = Backbone.View.extend({
     window.Project.stories.fetch();
   },
 
-  addOne: function(story) {
+  addOne: function(story, column) {
+    if (typeof column === 'undefined') {
+      column = story.column();
+    }
     var view = new StoryView({model: story});
-    $(story.column()).append(view.render().el);
+    $(column).append(view.render().el);
   },
 
   addAll: function() {
@@ -63,7 +66,9 @@ var AppView = Backbone.View.extend({
     //
     // FIXME - Show completed/total points
     $('#in_progress').append(that.iterationDiv(currentIteration));
-    _.each(window.Project.stories.column('#in_progress'), this.addOne);
+    _.each(window.Project.stories.column('#in_progress'), function(story) {
+      that.addOne(story);
+    });
 
 
 
@@ -76,6 +81,12 @@ var AppView = Backbone.View.extend({
       'maximum_points': window.Project.velocity()
     });
     _.each(window.Project.stories.column('#backlog'), function(story) {
+
+      if (currentIteration.canTakeStory(story)) {
+        currentIteration.get('stories').push(story);
+        that.addOne(story, '#in_progress');
+        return;
+      }
 
       if (!backlogIteration.canTakeStory(story)) {
         // The iteration is full, render it
@@ -113,7 +124,9 @@ var AppView = Backbone.View.extend({
     });
     backlogIteration.set({'rendered': true});
 
-    _.each(window.Project.stories.column('#chilly_bin'), this.addOne);
+    _.each(window.Project.stories.column('#chilly_bin'), function(story) {
+      that.addOne(story)
+    });
   },
 
   // Creates a set of empty iterations in column, with iteration numbers
