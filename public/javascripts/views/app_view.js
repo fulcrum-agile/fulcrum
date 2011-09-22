@@ -11,7 +11,11 @@ var AppView = Backbone.View.extend({
   },
 
   addOne: function(story, column) {
-    if (typeof column === 'undefined') {
+    // If column is blank determine it from the story.  When the add event
+    // is bound on a collection, the callback send the collection as the
+    // second argument, so also check that column is a string and not an
+    // object for those cases.
+    if (typeof column === 'undefined' || typeof column !== 'string') {
       column = story.column();
     }
     var view = new StoryView({model: story});
