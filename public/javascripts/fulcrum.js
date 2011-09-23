@@ -1,6 +1,6 @@
 $(function() {
   $('#add_story').click(function() {
-    window.App.model.stories.add([{
+    window.projectView.model.stories.add([{
       title: "New story", events: [], editing: true
     }]);
 

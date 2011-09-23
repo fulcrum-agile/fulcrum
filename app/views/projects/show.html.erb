@@ -38,23 +38,23 @@ $(function() {
   var project = new Project(<%= @project.to_json.html_safe %>);
   project.users.reset(<%= @project.users.to_json.html_safe %>);
   project.current_user = new User(<%= current_user.to_json.html_safe %>);
-  window.App = new ProjectView({model: project});
-  window.App.scaleToViewport();
-  $(window).resize(App.scaleToViewport);
+  window.projectView = new ProjectView({model: project});
+  window.projectView.scaleToViewport();
+  $(window).resize(projectView.scaleToViewport);
 
   setInterval(function() {
-    window.App.model.fetch();
+    window.projectView.model.fetch();
   }, 5000);
 
   <% if notice %>
-    window.App.notice({
+    window.projectView.notice({
       title: 'Notice', text: '<%= notice %>',
       image: '<%= image_path('dialog-information.png') %>'
     });
   <% end %>
 
   <% if alert %>
-    window.App.notice({
+    window.projectView.notice({
       title: 'Alert', text: '<%= alert %>', sticky: true,
       image: '<%= image_path('dialog-warning.png') %>'
     });
