@@ -35,100 +35,15 @@ var ProjectView = Backbone.View.extend({
   },
 
   addAll: function() {
+
+    var that = this;
+
     $('#done').html("");
     $('#in_progress').html("");
     $('#backlog').html("");
     $('#chilly_bin').html("");
 
-    //
-    // Done column
-    //
-    var that = this;
-    var done_iterations = _.groupBy(this.model.stories.column('#done'),
-                                    function(story) {
-                                      return story.iterationNumber();
-                                    });
-
-    // Clear the project iterations
-    this.model.iterations = [];
-
-    // There will sometimes be gaps in the done iterations, i.e. no work
-    // may have been accepted in a given iteration, and it will therefore
-    // not appear in the set.  Store this to iterate over those gaps and
-    // insert empty iterations.
-    var last_iteration = new Iteration({'number': 0});
-
-    _.each(done_iterations, function(stories, iterationNumber) {
-
-      var iteration = new Iteration({
-        'number': iterationNumber, 'stories': stories, column: '#done'
-      });
-
-      that.model.iterations.push(iteration);
-
-      that.model.iterations = that.model.iterations.concat(
-        Iteration.createMissingIterations('#done', last_iteration, iteration)
-      );
-      last_iteration = iteration;
-
-    });
-
-    // Fill in any remaining empty iterations in the done column
-    var currentIteration = new Iteration({
-      'number': this.model.currentIterationNumber(),
-      'stories': this.model.stories.column('#in_progress'),
-      'maximum_points': this.model.velocity(), 'column': '#in_progress'
-    });
-
-    this.model.iterations = this.model.iterations.concat(
-      Iteration.createMissingIterations('#done', last_iteration, currentIteration)
-    );
-
-    this.model.iterations.push(currentIteration);
-
-
-
-    //
-    // Backlog column
-    //
-    var backlogIteration = new Iteration({
-      'number': currentIteration.get('number') + 1,
-      'column': '#backlog', 'maximum_points': this.model.velocity()
-    });
-    that.model.iterations.push(backlogIteration);
-
-    _.each(this.model.stories.column('#backlog'), function(story) {
-
-      if (currentIteration.canTakeStory(story)) {
-        currentIteration.get('stories').push(story);
-        return;
-      }
-
-      if (!backlogIteration.canTakeStory(story)) {
-
-        var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.model.velocity());
-
-        var nextIteration = new Iteration({
-          'number': nextNumber, 'column': '#backlog',
-          'maximum_points': that.model.velocity()
-        });
-
-        // If the iteration overflowed, create enough empty iterations to
-        // accommodate the surplus.  For example, if the project velocity
-        // is 1, and the last iteration contained 1 5 point story, we'll
-        // need 4 empty iterations.
-        //
-        that.model.iterations = that.model.iterations.concat(
-          Iteration.createMissingIterations('#backlog', backlogIteration, nextIteration)
-        );
-
-        that.model.iterations.push(nextIteration);
-        backlogIteration = nextIteration;
-      }
-
-      backlogIteration.get('stories').push(story);
-    });
-
+    this.model.rebuildIterations();
 
     // Render each iteration
     _.each(this.model.iterations, function(iteration) {
