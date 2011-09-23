@@ -38,7 +38,7 @@ $(function() {
   window.Project = new Project(<%= @project.to_json.html_safe %>);
   window.Project.users.reset(<%= @project.users.to_json.html_safe %>);
   window.Project.current_user = new User(<%= current_user.to_json.html_safe %>);
-  window.App = new AppView;
+  window.App = new ProjectView();
   window.App.scaleToViewport();
   $(window).resize(App.scaleToViewport);
 

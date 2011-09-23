@@ -1,4 +1,4 @@
-var AppView = Backbone.View.extend({
+var ProjectView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'addOne', 'addAll', 'render');
