@@ -1,16 +1,16 @@
 var ProjectView = Backbone.View.extend({
 
   initialize: function() {
-    _.bindAll(this, 'addOne', 'addAll', 'render');
+    _.bindAll(this, 'addStory', 'addAll', 'render');
 
-    this.model.stories.bind('add', this.addOne);
+    this.model.stories.bind('add', this.addStory);
     this.model.stories.bind('reset', this.addAll);
     this.model.stories.bind('all', this.render);
 
     this.model.stories.fetch();
   },
 
-  addOne: function(story, column) {
+  addStory: function(story, column) {
     // If column is blank determine it from the story.  When the add event
     // is bound on a collection, the callback sends the collection as the
     // second argument, so also check that column is a string and not an
@@ -117,14 +117,14 @@ var ProjectView = Backbone.View.extend({
       var column = iteration.get('column');
       $(column).append(that.iterationDiv(iteration));
       _.each(iteration.get('stories'), function(story) {
-        that.addOne(story, column);
+        that.addStory(story, column);
       });
     });
 
     // Render the chilly bin.  This needs to be rendered separately because
     // the stories don't belong to an iteration.
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
-      that.addOne(story)
+      that.addStory(story)
     });
   },
 
