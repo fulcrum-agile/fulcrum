@@ -12,7 +12,7 @@ var ProjectView = Backbone.View.extend({
 
   addOne: function(story, column) {
     // If column is blank determine it from the story.  When the add event
-    // is bound on a collection, the callback send the collection as the
+    // is bound on a collection, the callback sends the collection as the
     // second argument, so also check that column is a string and not an
     // object for those cases.
     if (typeof column === 'undefined' || typeof column !== 'string') {
@@ -37,6 +37,9 @@ var ProjectView = Backbone.View.extend({
                                       return story.iterationNumber();
                                     });
 
+    // Clear the project iterations
+    this.model.iterations = [];
+
     // There will sometimes be gaps in the done iterations, i.e. no work
     // may have been accepted in a given iteration, and it will therefore
     // not appear in the set.  Store this to iterate over those gaps and
@@ -51,14 +54,9 @@ var ProjectView = Backbone.View.extend({
 
       that.model.iterations.push(iteration);
 
-      var emptyIterations = that.fillInEmptyIterations('#done', last_iteration, iteration);
-      _.each(emptyIterations, function(iteration) {
-        $('#done').append(that.iterationDiv(iteration));
-      });
+      that.fillInEmptyIterations('#done', last_iteration, iteration);
       last_iteration = iteration;
 
-      $('#done').append(that.iterationDiv(iteration));
-      _.each(stories, function(story) {that.addOne(story)});
     });
 
     // Fill in any remaining empty iterations in the done column
@@ -67,21 +65,10 @@ var ProjectView = Backbone.View.extend({
       'stories': this.model.stories.column('#in_progress'),
       'maximum_points': this.model.velocity(), 'column': '#in_progress'
     });
-    var emptyIterations = this.fillInEmptyIterations('#done', last_iteration, currentIteration);
-    _.each(emptyIterations, function(iteration) {
-      $('#done').append(that.iterationDiv(iteration));
-    });
+
+    this.fillInEmptyIterations('#done', last_iteration, currentIteration);
 
     this.model.iterations.push(currentIteration);
-
-    //
-    // In progress column
-    //
-    // FIXME - Show completed/total points
-    $('#in_progress').append(that.iterationDiv(currentIteration));
-    _.each(this.model.stories.column('#in_progress'), function(story) {
-      that.addOne(story);
-    });
 
 
 
@@ -90,31 +77,23 @@ var ProjectView = Backbone.View.extend({
     //
     var backlogIteration = new Iteration({
       'number': currentIteration.get('number') + 1,
-      'rendered': false, 'column': '#backlog',
-      'maximum_points': this.model.velocity()
+      'column': '#backlog', 'maximum_points': this.model.velocity()
     });
+    that.model.iterations.push(backlogIteration);
+
     _.each(this.model.stories.column('#backlog'), function(story) {
 
       if (currentIteration.canTakeStory(story)) {
         currentIteration.get('stories').push(story);
-        that.addOne(story, '#in_progress');
         return;
       }
 
       if (!backlogIteration.canTakeStory(story)) {
-        // The iteration is full, render it
-        $('#backlog').append(that.iterationDiv(backlogIteration));
-        _.each(backlogIteration.get('stories'), function(iterationStory) {
-          that.addOne(iterationStory);
-        });
-        backlogIteration.set({'rendered': true});
-        that.model.iterations.push(backlogIteration);
 
         var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.model.velocity());
 
         var nextIteration = new Iteration({
-          'number': nextNumber,
-          'rendered': false, 'column': '#backlog',
+          'number': nextNumber, 'column': '#backlog',
           'maximum_points': that.model.velocity()
         });
 
@@ -123,25 +102,27 @@ var ProjectView = Backbone.View.extend({
         // is 1, and the last iteration contained 1 5 point story, we'll
         // need 4 empty iterations.
         //
-        var emptyIterations = that.fillInEmptyIterations('#backlog', backlogIteration, nextIteration);
-        _.each(emptyIterations, function(iteration) {
-          $('#backlog').append(that.iterationDiv(iteration));
-        });
+        that.fillInEmptyIterations('#backlog', backlogIteration, nextIteration);
+
+        that.model.iterations.push(nextIteration);
         backlogIteration = nextIteration;
       }
 
       backlogIteration.get('stories').push(story);
-      //that.addOne(story);
     });
 
-    // Render the backlog final backlog iteration if it isn't already
-    $('#backlog').append(that.iterationDiv(backlogIteration));
-    _.each(backlogIteration.get('stories'), function(story) {
-      that.addOne(story);
-    });
-    backlogIteration.set({'rendered': true});
-    this.model.iterations.push(backlogIteration);
 
+    // Render each iteration
+    _.each(this.model.iterations, function(iteration) {
+      var column = iteration.get('column');
+      $(column).append(that.iterationDiv(iteration));
+      _.each(iteration.get('stories'), function(story) {
+        that.addOne(story, column);
+      });
+    });
+
+    // Render the chilly bin.  This needs to be rendered separately because
+    // the stories don't belong to an iteration.
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addOne(story)
     });
