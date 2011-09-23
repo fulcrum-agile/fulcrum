@@ -22,6 +22,18 @@ var ProjectView = Backbone.View.extend({
     $(column).append(view.render().el);
   },
 
+  addIteration: function(iteration) {
+    // FIXME Make a model method
+    var iteration_date = this.model.getDateForIterationNumber(iteration.get('number'));
+    var points_markup = '<span class="points">' + iteration.points() + ' points</span>';
+    var that = this;
+    var column = iteration.get('column');
+    $(column).append('<div class="iteration">' + iteration.get('number') + ' - ' + iteration_date.toDateString() + points_markup + '</div>');
+    _.each(iteration.get('stories'), function(story) {
+      that.addStory(story, column);
+    });
+  },
+
   addAll: function() {
     $('#done').html("");
     $('#in_progress').html("");
@@ -115,10 +127,7 @@ var ProjectView = Backbone.View.extend({
     // Render each iteration
     _.each(this.model.iterations, function(iteration) {
       var column = iteration.get('column');
-      $(column).append(that.iterationDiv(iteration));
-      _.each(iteration.get('stories'), function(story) {
-        that.addStory(story, column);
-      });
+      that.addIteration(iteration);
     });
 
     // Render the chilly bin.  This needs to be rendered separately because
@@ -151,14 +160,6 @@ var ProjectView = Backbone.View.extend({
     var extra = 100;
     var height = $(window).height() - (storyTableTop + extra);
     $('.storycolumn').css('height', height + 'px');
-  },
-
-  // FIXME - Make a view
-  iterationDiv: function(iteration) {
-    // FIXME Make a model method
-    var iteration_date = this.model.getDateForIterationNumber(iteration.get('number'));
-    var points_markup = '<span class="points">' + iteration.points() + ' points</span>';
-    return '<div class="iteration">' + iteration.get('number') + ' - ' + iteration_date.toDateString() + points_markup + '</div>'
   },
 
   notice: function(message) {
