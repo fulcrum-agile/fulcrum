@@ -39,5 +39,8 @@ module Fulcrum
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+	# Disable action_mailer SSL usage by default for the uncertified.
+	config.action_mailer.smtp_settings = { enable_starttls_auto: false }
   end
 end
