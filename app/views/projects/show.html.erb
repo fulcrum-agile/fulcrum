@@ -17,12 +17,20 @@
     </form>
   </div>
   {{/if}}
-  <div class="story-icons">{{if $item.view.saveInProgress}}<img
-    src="/images/throbber.gif" alt="Saving ...">{{else}}<img
-    src="/images/expand.png" class="expand" alt="Expand">{{/if}}<img
-    src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">{{if story.estimated}}<span
-      class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<img
-    src="/images/details.png" title="${story.description}"/>{{/if}}</div>
+  <div class="story-icons">
+	{{if $item.view.saveInProgress}}
+	  <%= image_tag("throbber.gif", :alt => 'Saving ...') %>
+	{{else}}
+	  <%= image_tag("expand.png", :class => 'expand', :alt => 'Expand') %>
+	{{/if}}
+	<%= image_tag("${story.story_type}.png", :class => 'story_type', :alt => '${story.story_type}', :title => '${story.story_type}: ${story.id}') %>
+	{{if story.estimated}}
+	  <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
+	{{/if}}
+	{{if $item.story.hasDetails()}}
+	  <%= image_tag("details.png", :title => '${story.description}') %>
+	{{/if}}
+  </div>
   <div class="story-title">${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
 
 </script>

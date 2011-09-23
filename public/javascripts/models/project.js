@@ -23,7 +23,7 @@ var Project = Backbone.Model.extend({
   },
 
   url: function() {
-    return '/projects/' + this.id;
+    return '../projects/' + this.id;
   },
 
   // This method is triggered when the last_changeset_id attribute is changed,
