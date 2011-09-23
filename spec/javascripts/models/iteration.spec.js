@@ -123,4 +123,32 @@ describe("iteration", function() {
 
   });
 
+  describe("createMissingIterations", function() {
+
+    beforeEach(function() {
+      this.start = new Iteration({'number': 1});
+    });
+
+    it("should create a range of iterations", function() {
+      var end = new Iteration({'number': 5});
+      var iterations = Iteration.createMissingIterations('#done', this.start, end);
+      expect(iterations.length).toEqual(3);
+    });
+
+    it("should return an empty array when there is no gap between start and end", function() {
+      var end   = new Iteration({'number': 2});
+      var iterations = Iteration.createMissingIterations('#done', this.start, end);
+      expect(iterations.length).toEqual(0);
+    });
+
+    it("should raise an exception if end number is less than or equal to start", function() {
+      var end   = new Iteration({'number': 1});
+      var that = this;
+      expect(function() {
+        Iteration.createMissingIterations('#done', that.start, end);
+      }).toThrow("end iteration number must be greater than start iteration number");
+    });
+
+  });
+
 });

@@ -305,4 +305,5 @@ describe('Project model', function() {
     });
 
   });
+
 });

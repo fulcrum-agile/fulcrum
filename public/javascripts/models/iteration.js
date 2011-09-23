@@ -46,4 +46,35 @@ var Iteration = Backbone.Model.extend({
     return (difference < 0) ? 0 : difference;
   }
 
+},{
+
+  //
+  // Class properties
+  //
+
+  // Creates a range of empty iteration between 2 other iteration objects.
+  // For example, if passed iteration 1 for start and iteration 5 for end
+  // will return an array of iterations numbered 2, 3 and 4.  Each iteration
+  // will be assigned to the provided column.
+  createMissingIterations: function(column, startIteration, endIteration) {
+
+    var start = parseInt(startIteration.get('number'), 10) + 1;
+    var end = parseInt(endIteration.get('number'), 10);
+
+    if (end < start) {
+      throw "end iteration number must be greater than start iteration number";
+    }
+
+    var missing_range = _.range(start, end);
+    var that = this;
+
+    return _.map(missing_range, function(missing_iteration_number) {
+      var iteration = new that({
+        'number': missing_iteration_number, 'column': column
+      });
+      return iteration;
+    });
+
+  }
+
 });

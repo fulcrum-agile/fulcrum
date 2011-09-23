@@ -66,7 +66,9 @@ var ProjectView = Backbone.View.extend({
 
       that.model.iterations.push(iteration);
 
-      that.fillInEmptyIterations('#done', last_iteration, iteration);
+      that.model.iterations = that.model.iterations.concat(
+        Iteration.createMissingIterations('#done', last_iteration, iteration)
+      );
       last_iteration = iteration;
 
     });
@@ -78,7 +80,9 @@ var ProjectView = Backbone.View.extend({
       'maximum_points': this.model.velocity(), 'column': '#in_progress'
     });
 
-    this.fillInEmptyIterations('#done', last_iteration, currentIteration);
+    this.model.iterations = this.model.iterations.concat(
+      Iteration.createMissingIterations('#done', last_iteration, currentIteration)
+    );
 
     this.model.iterations.push(currentIteration);
 
@@ -114,7 +118,9 @@ var ProjectView = Backbone.View.extend({
         // is 1, and the last iteration contained 1 5 point story, we'll
         // need 4 empty iterations.
         //
-        that.fillInEmptyIterations('#backlog', backlogIteration, nextIteration);
+        that.model.iterations = that.model.iterations.concat(
+          Iteration.createMissingIterations('#backlog', backlogIteration, nextIteration)
+        );
 
         that.model.iterations.push(nextIteration);
         backlogIteration = nextIteration;
@@ -134,23 +140,6 @@ var ProjectView = Backbone.View.extend({
     // the stories don't belong to an iteration.
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addStory(story)
-    });
-  },
-
-  // Creates a set of empty iterations in column, with iteration numbers
-  // starting at start and ending at end
-  fillInEmptyIterations: function(column, start, end) {
-    var missing_range = _.range(
-      parseInt(start.get('number')) + 1,
-      parseInt(end.get('number'))
-    );
-    var that = this;
-    return _.map(missing_range, function(missing_iteration_number) {
-      var iteration = new Iteration({
-        'number': missing_iteration_number, 'column': column
-      });
-      that.model.iterations.push(iteration);
-      return iteration;
     });
   },
 
