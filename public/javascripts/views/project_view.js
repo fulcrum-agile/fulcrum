@@ -1,13 +1,15 @@
 var ProjectView = Backbone.View.extend({
 
+  model: Project,
+
   initialize: function() {
     _.bindAll(this, 'addOne', 'addAll', 'render');
 
-    window.Project.stories.bind('add', this.addOne);
-    window.Project.stories.bind('reset', this.addAll);
-    window.Project.stories.bind('all', this.render);
+    this.model.stories.bind('add', this.addOne);
+    this.model.stories.bind('reset', this.addAll);
+    this.model.stories.bind('all', this.render);
 
-    window.Project.stories.fetch();
+    this.model.stories.fetch();
   },
 
   addOne: function(story, column) {
@@ -32,7 +34,7 @@ var ProjectView = Backbone.View.extend({
     // Done column
     //
     var that = this;
-    var done_iterations = _.groupBy(window.Project.stories.column('#done'),
+    var done_iterations = _.groupBy(this.model.stories.column('#done'),
                                     function(story) {
                                       return story.iterationNumber();
                                     });
@@ -49,7 +51,7 @@ var ProjectView = Backbone.View.extend({
         'number': iterationNumber, 'stories': stories, column: '#done'
       });
 
-      window.Project.iterations.push(iteration);
+      that.model.iterations.push(iteration);
 
       that.fillInEmptyIterations('#done', last_iteration, iteration);
       last_iteration = iteration;
@@ -60,9 +62,9 @@ var ProjectView = Backbone.View.extend({
 
     // Fill in any remaining empty iterations in the done column
     var currentIteration = new Iteration({
-      'number': window.Project.currentIterationNumber(),
-      'stories': window.Project.stories.column('#in_progress'),
-      'maximum_points': window.Project.velocity()
+      'number': this.model.currentIterationNumber(),
+      'stories': this.model.stories.column('#in_progress'),
+      'maximum_points': this.model.velocity()
     });
     this.fillInEmptyIterations('#done', last_iteration, currentIteration);
 
@@ -71,7 +73,7 @@ var ProjectView = Backbone.View.extend({
     //
     // FIXME - Show completed/total points
     $('#in_progress').append(that.iterationDiv(currentIteration));
-    _.each(window.Project.stories.column('#in_progress'), function(story) {
+    _.each(this.model.stories.column('#in_progress'), function(story) {
       that.addOne(story);
     });
 
@@ -83,9 +85,9 @@ var ProjectView = Backbone.View.extend({
     var backlogIteration = new Iteration({
       'number': currentIteration.get('number') + 1,
       'rendered': false,
-      'maximum_points': window.Project.velocity()
+      'maximum_points': this.model.velocity()
     });
-    _.each(window.Project.stories.column('#backlog'), function(story) {
+    _.each(this.model.stories.column('#backlog'), function(story) {
 
       if (currentIteration.canTakeStory(story)) {
         currentIteration.get('stories').push(story);
@@ -101,12 +103,12 @@ var ProjectView = Backbone.View.extend({
         });
         backlogIteration.set({'rendered': true});
 
-        var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / window.Project.velocity());
+        var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.model.velocity());
 
         var nextIteration = new Iteration({
           'number': nextNumber,
           'rendered': false,
-          'maximum_points': window.Project.velocity()
+          'maximum_points': that.model.velocity()
         });
 
         // If the iteration overflowed, create enough empty iterations to
@@ -129,7 +131,7 @@ var ProjectView = Backbone.View.extend({
     });
     backlogIteration.set({'rendered': true});
 
-    _.each(window.Project.stories.column('#chilly_bin'), function(story) {
+    _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addOne(story)
     });
   },
@@ -147,7 +149,7 @@ var ProjectView = Backbone.View.extend({
       var iteration = new Iteration({
         'number': missing_iteration_number, 'column': column
       });
-      window.Project.iterations.push(iteration);
+      that.model.iterations.push(iteration);
       el.append(that.iterationDiv(iteration));
     });
   },
@@ -163,7 +165,7 @@ var ProjectView = Backbone.View.extend({
   // FIXME - Make a view
   iterationDiv: function(iteration) {
     // FIXME Make a model method
-    var iteration_date = window.Project.getDateForIterationNumber(iteration.get('number'));
+    var iteration_date = this.model.getDateForIterationNumber(iteration.get('number'));
     var points_markup = '<span class="points">' + iteration.points() + ' points</span>';
     return '<div class="iteration">' + iteration.get('number') + ' - ' + iteration_date.toDateString() + points_markup + '</div>'
   },

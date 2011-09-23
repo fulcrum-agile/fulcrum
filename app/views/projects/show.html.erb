@@ -35,15 +35,15 @@
 
 <script type="text/javascript">
 $(function() {
-  window.Project = new Project(<%= @project.to_json.html_safe %>);
-  window.Project.users.reset(<%= @project.users.to_json.html_safe %>);
-  window.Project.current_user = new User(<%= current_user.to_json.html_safe %>);
-  window.App = new ProjectView();
+  var project = new Project(<%= @project.to_json.html_safe %>);
+  project.users.reset(<%= @project.users.to_json.html_safe %>);
+  project.current_user = new User(<%= current_user.to_json.html_safe %>);
+  window.App = new ProjectView({model: project});
   window.App.scaleToViewport();
   $(window).resize(App.scaleToViewport);
 
   setInterval(function() {
-    window.Project.fetch();
+    window.App.model.fetch();
   }, 5000);
 
   <% if notice %>
