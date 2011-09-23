@@ -1,7 +1,5 @@
 var ProjectView = Backbone.View.extend({
 
-  model: Project,
-
   initialize: function() {
     _.bindAll(this, 'addOne', 'addAll', 'render');
 
