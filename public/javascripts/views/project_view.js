@@ -51,7 +51,10 @@ var ProjectView = Backbone.View.extend({
 
       that.model.iterations.push(iteration);
 
-      that.fillInEmptyIterations('#done', last_iteration, iteration);
+      var emptyIterations = that.fillInEmptyIterations('#done', last_iteration, iteration);
+      _.each(emptyIterations, function(iteration) {
+        $('#done').append(that.iterationDiv(iteration));
+      });
       last_iteration = iteration;
 
       $('#done').append(that.iterationDiv(iteration));
@@ -62,9 +65,14 @@ var ProjectView = Backbone.View.extend({
     var currentIteration = new Iteration({
       'number': this.model.currentIterationNumber(),
       'stories': this.model.stories.column('#in_progress'),
-      'maximum_points': this.model.velocity()
+      'maximum_points': this.model.velocity(), 'column': '#in_progress'
     });
-    this.fillInEmptyIterations('#done', last_iteration, currentIteration);
+    var emptyIterations = this.fillInEmptyIterations('#done', last_iteration, currentIteration);
+    _.each(emptyIterations, function(iteration) {
+      $('#done').append(that.iterationDiv(iteration));
+    });
+
+    this.model.iterations.push(currentIteration);
 
     //
     // In progress column
@@ -82,7 +90,7 @@ var ProjectView = Backbone.View.extend({
     //
     var backlogIteration = new Iteration({
       'number': currentIteration.get('number') + 1,
-      'rendered': false,
+      'rendered': false, 'column': '#backlog',
       'maximum_points': this.model.velocity()
     });
     _.each(this.model.stories.column('#backlog'), function(story) {
@@ -100,12 +108,13 @@ var ProjectView = Backbone.View.extend({
           that.addOne(iterationStory);
         });
         backlogIteration.set({'rendered': true});
+        that.model.iterations.push(backlogIteration);
 
         var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.model.velocity());
 
         var nextIteration = new Iteration({
           'number': nextNumber,
-          'rendered': false,
+          'rendered': false, 'column': '#backlog',
           'maximum_points': that.model.velocity()
         });
 
@@ -114,7 +123,10 @@ var ProjectView = Backbone.View.extend({
         // is 1, and the last iteration contained 1 5 point story, we'll
         // need 4 empty iterations.
         //
-        that.fillInEmptyIterations('#backlog', backlogIteration, nextIteration);
+        var emptyIterations = that.fillInEmptyIterations('#backlog', backlogIteration, nextIteration);
+        _.each(emptyIterations, function(iteration) {
+          $('#backlog').append(that.iterationDiv(iteration));
+        });
         backlogIteration = nextIteration;
       }
 
@@ -128,6 +140,7 @@ var ProjectView = Backbone.View.extend({
       that.addOne(story);
     });
     backlogIteration.set({'rendered': true});
+    this.model.iterations.push(backlogIteration);
 
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addOne(story)
@@ -137,18 +150,17 @@ var ProjectView = Backbone.View.extend({
   // Creates a set of empty iterations in column, with iteration numbers
   // starting at start and ending at end
   fillInEmptyIterations: function(column, start, end) {
-    var el = $(column);
     var missing_range = _.range(
       parseInt(start.get('number')) + 1,
       parseInt(end.get('number'))
     );
     var that = this;
-    _.each(missing_range, function(missing_iteration_number) {
+    return _.map(missing_range, function(missing_iteration_number) {
       var iteration = new Iteration({
         'number': missing_iteration_number, 'column': column
       });
       that.model.iterations.push(iteration);
-      el.append(that.iterationDiv(iteration));
+      return iteration;
     });
   },
 
