@@ -17,20 +17,13 @@
     </form>
   </div>
   {{/if}}
-  <div class="story-icons">
-    {{if $item.view.saveInProgress}}
-      <a class="icon icon-throbber">Saving...</a>
-    {{else}}
-      <a class="icon icon-expand expand">Expand</a>
-    {{/if}}
-    <b class="icon icon-${story.story_type} story_type"  title="${story.story_type}: ${story.id}">${story.story_type}</b>
-    {{if story.estimated}}
-      <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
-    {{/if}}
-    {{if $item.story.hasDetails()}}
-      <b class="icon icon-details" title="${story.description}"></b>
-    {{/if}}
-  </div>
+  <div class="story-icons">{{if $item.view.saveInProgress}}<a
+    class="icon icon-throbber">Saving...</a>{{else}}<a
+    class="icon icon-expand expand">Expand</a>{{/if}}<span
+    class="icon icon-${story.story_type} story_type"
+    title="${story.story_type}: ${story.id}">${story.story_type}</span>{{if story.estimated}}<span
+    class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<span
+    class="icon icon-details" title="${story.description}"></span>{{/if}}</div>
   <div class="story-title">
     ${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
 
