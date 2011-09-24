@@ -173,19 +173,14 @@ var Project = Backbone.Model.extend({
     // Done column
     //
     var that = this;
-    var done_iterations = _.groupBy(this.stories.column('#done'),
-                                    function(story) {
-                                      return story.iterationNumber();
-                                    });
 
     // Clear the project iterations
     this.iterations = [];
 
-    // There will sometimes be gaps in the done iterations, i.e. no work
-    // may have been accepted in a given iteration, and it will therefore
-    // not appear in the set.  Store this to iterate over those gaps and
-    // insert empty iterations.
-    var last_iteration = new Iteration({'number': 0});
+    var done_iterations = _.groupBy(this.stories.column('#done'),
+                                    function(story) {
+                                      return story.iterationNumber();
+                                    });
 
     _.each(done_iterations, function(stories, iterationNumber) {
 
@@ -193,27 +188,17 @@ var Project = Backbone.Model.extend({
         'number': iterationNumber, 'stories': stories, column: '#done'
       });
 
-      that.iterations.push(iteration);
-
-      that.iterations = that.iterations.concat(
-        Iteration.createMissingIterations('#done', last_iteration, iteration)
-      );
-      last_iteration = iteration;
+      that.appendIteration(iteration, '#done');
 
     });
 
-    // Fill in any remaining empty iterations in the done column
     var currentIteration = new Iteration({
       'number': this.currentIterationNumber(),
       'stories': this.stories.column('#in_progress'),
       'maximum_points': this.velocity(), 'column': '#in_progress'
     });
 
-    this.iterations = this.iterations.concat(
-      Iteration.createMissingIterations('#done', last_iteration, currentIteration)
-    );
-
-    this.iterations.push(currentIteration);
+    this.appendIteration(currentIteration, '#done');
 
 
 
@@ -224,10 +209,13 @@ var Project = Backbone.Model.extend({
       'number': currentIteration.get('number') + 1,
       'column': '#backlog', 'maximum_points': this.velocity()
     });
-    that.iterations.push(backlogIteration);
+    this.appendIteration(backlogIteration, '#backlog');
 
     _.each(this.stories.column('#backlog'), function(story) {
 
+      // The in progress iteration usually needs to be filled with the first
+      // few stories from the backlog, unless the points total of the stories
+      // in progress already equal or exceed the project velocity
       if (currentIteration.canTakeStory(story)) {
         currentIteration.get('stories').push(story);
         return;
@@ -235,27 +223,37 @@ var Project = Backbone.Model.extend({
 
       if (!backlogIteration.canTakeStory(story)) {
 
+        // Iterations sometimes 'overflow', i.e. an iteration may contain a
+        // 5 point story but the project velocity is 1.  In this case, the
+        // next iteration that can have a story added is the current + 4.
         var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.velocity());
 
-        var nextIteration = new Iteration({
+        backlogIteration = new Iteration({
           'number': nextNumber, 'column': '#backlog',
           'maximum_points': that.velocity()
         });
 
-        // If the iteration overflowed, create enough empty iterations to
-        // accommodate the surplus.  For example, if the project velocity
-        // is 1, and the last iteration contained 1 5 point story, we'll
-        // need 4 empty iterations.
-        //
-        that.iterations = that.iterations.concat(
-          Iteration.createMissingIterations('#backlog', backlogIteration, nextIteration)
-        );
-
-        that.iterations.push(nextIteration);
-        backlogIteration = nextIteration;
+        that.appendIteration(backlogIteration, '#backlog');
       }
 
       backlogIteration.get('stories').push(story);
     });
+  },
+
+  // Adds an iteration to the project.  Creates empty iterations to fill any
+  // gaps between the iteration number and the last iteration number added.
+  appendIteration: function(iteration, columnForMissingIterations) {
+
+    var lastIteration = _.last(this.iterations);
+
+    if (lastIteration) {
+      // If there is a gap between the last iteration and this one, fill
+      // the gap with empty iterations
+      this.iterations = this.iterations.concat(
+        Iteration.createMissingIterations(columnForMissingIterations, lastIteration, iteration)
+      );
+    }
+
+    this.iterations.push(iteration);
   }
 });
