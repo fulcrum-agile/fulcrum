@@ -28,6 +28,7 @@ src_files:
   - public/javascripts/collections/user_collection.js
   - public/javascripts/views/form_view.js
   - public/javascripts/views/story_view.js
+  - public/javascripts/views/iteration_view.js
 
 # stylesheets
 #

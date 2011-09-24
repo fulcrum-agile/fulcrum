@@ -23,12 +23,10 @@ var ProjectView = Backbone.View.extend({
   },
 
   addIteration: function(iteration) {
-    // FIXME Make a model method
-    var iteration_date = this.model.getDateForIterationNumber(iteration.get('number'));
-    var points_markup = '<span class="points">' + iteration.points() + ' points</span>';
     var that = this;
     var column = iteration.get('column');
-    $(column).append('<div class="iteration">' + iteration.get('number') + ' - ' + iteration_date.toDateString() + points_markup + '</div>');
+    var view = new IterationView({model: iteration});
+    $(column).append(view.render().el);
     _.each(iteration.get('stories'), function(story) {
       that.addStory(story, column);
     });

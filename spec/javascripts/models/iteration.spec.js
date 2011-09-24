@@ -28,9 +28,9 @@ describe("iteration", function() {
       var Story = Backbone.Model.extend({name: 'story'});
       this.stories = [
         new Story({estimate: 2, story_type: 'feature'}),
-        new Story({estimate: 3, story_type: 'feature'}),
-        new Story({estimate: 3, story_type: 'bug'}) // Only features count
-                                                    // towards velocity
+        new Story({estimate: 3, story_type: 'feature', state: 'accepted'}),
+        new Story({estimate: 3, story_type: 'bug', state: 'accepted'}) // Only features count
+                                                                       // towards velocity
       ];
       this.iteration.set({stories: this.stories});
     });
@@ -61,6 +61,10 @@ describe("iteration", function() {
       // maximum_points
       pointsStub.returns(5);
       expect(this.iteration.overflowsBy()).toEqual(3);
+    });
+
+    it("should report how many accepted points it has", function() {
+      expect(this.iteration.acceptedPoints()).toEqual(3);
     });
 
   });
@@ -147,6 +151,20 @@ describe("iteration", function() {
       expect(function() {
         Iteration.createMissingIterations('#done', that.start, end);
       }).toThrow("end iteration number must be greater than start iteration number");
+    });
+
+  });
+
+  describe("startDate", function() {
+
+    it("should return the start date", function() {
+      var startDate = new Date('2011/09/26');
+      var stub = sinon.stub();
+      stub.returns(startDate);
+      this.iteration.project = { getDateForIterationNumber: stub };
+
+      expect(this.iteration.startDate()).toEqual(startDate);
+      expect(stub).toHaveBeenCalledWith(this.iteration.get('number'));
     });
 
   });

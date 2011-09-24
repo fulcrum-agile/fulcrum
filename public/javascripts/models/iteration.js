@@ -16,6 +16,16 @@ var Iteration = Backbone.Model.extend({
     }, 0);
   },
 
+  acceptedPoints: function() {
+    return _.reduce(this.get('stories'), function(memo, story) {
+      var estimate = 0;
+      if (story.get('story_type') === 'feature' && story.get('state') === 'accepted') {
+        estimate = story.get('estimate') || 0;
+      }
+      return memo + estimate;
+    }, 0);
+  },
+
   // Returns the number of points available before this iteration is full.
   // Only valid for backlog iterations.
   availablePoints: function() {
@@ -44,6 +54,10 @@ var Iteration = Backbone.Model.extend({
   overflowsBy: function() {
     var difference = this.points() - this.get('maximum_points');
     return (difference < 0) ? 0 : difference;
+  },
+
+  startDate: function() {
+    return this.project.getDateForIterationNumber(this.get('number'));
   }
 
 },{

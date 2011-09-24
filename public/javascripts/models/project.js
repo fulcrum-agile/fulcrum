@@ -238,6 +238,10 @@ var Project = Backbone.Model.extend({
 
       backlogIteration.get('stories').push(story);
     });
+
+    _.each(this.iterations, function(iteration) {
+      iteration.project = that;
+    });
   },
 
   // Adds an iteration to the project.  Creates empty iterations to fill any
