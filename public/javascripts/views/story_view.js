@@ -218,7 +218,7 @@ var StoryView = FormView.extend({
       div = this.make('div');
       if (!this.model.isNew()) {
         $(div).append(
-          this.make("img", {'class': "collapse", 'src': "/images/collapse.png"})
+          this.make("img", {'class': "collapse", 'src': "../images/collapse.png"})
         );
       }
       $(div).append(this.textField("title"));
@@ -290,10 +290,10 @@ var StoryView = FormView.extend({
 
   disableForm: function() {
     $(this.el).find('input,select,textarea').attr('disabled', 'disabled');
-    $(this.el).find('img.collapse,img.expand').attr('src', '/images/throbber.gif');
+    $(this.el).find('img.collapse,img.expand').attr('src', '../images/throbber.gif');
   },
 
   enableForm: function() {
-    $(this.el).find('img.collapse').attr('src', '/images/collapse.png');
+    $(this.el).find('img.collapse').attr('src', '../images/collapse.png');
   }
 });
