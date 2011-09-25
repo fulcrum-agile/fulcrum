@@ -102,6 +102,7 @@ Fulcrum is currently welcoming contributions.  If you'd like to help:
   the issue queue indicating that you're working on it.
 * If you'd like to discuss anything about the issue with other developers,
   do so on the [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel)
+  mailing list.
 
 Here are some general guidelines for contributing:
 
