@@ -20,6 +20,22 @@
   <p><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></p>
 
+  <h3>Notify me when my stories are:</h3>
+  <p>
+    <%= f.check_box :email_delivery %>
+    <%= f.label :email_delivery, 'delivered' %>
+  </p>
+
+  <p>
+    <%= f.check_box :email_acceptance %>
+    <%= f.label :email_acceptance, 'accepted' %>
+  </p>
+
+  <p>
+    <%= f.check_box :email_rejection %>
+    <%= f.label :email_rejection, 'rejected' %>
+  </p>
+
   <p><%= f.submit "Sign up" %></p>
 <% end %>
 
