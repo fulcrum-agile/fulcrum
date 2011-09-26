@@ -10,7 +10,8 @@ describe('StoryView', function() {
       errorsOn: function() { return false; },
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return [];} } } },
-      start: function() {}
+      start: function() {},
+      setAcceptedAt: sinon.spy()
       //moveAfter: function() {},
       //moveBefore: function() {}
     });
@@ -178,6 +179,11 @@ describe('StoryView', function() {
       this.server.respond();
 
       expect(this.view.saveInProgress).toBeFalsy();
+    });
+
+    it("should call setAcceptedAt on the story", function() {
+      this.view.saveEdit();
+      expect(this.story.setAcceptedAt).toHaveBeenCalledOnce();
     });
   });
 

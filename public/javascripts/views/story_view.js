@@ -182,6 +182,12 @@ var StoryView = FormView.extend({
   saveEdit: function() {
     this.disableForm();
 
+    // Call this here to ensure the story gets it's accepted_at date set
+    // before the story collection callbacks are run if required.  The 
+    // collection callbacks need this to be set to know which iteration to
+    // put an accepted story in.
+    this.model.setAcceptedAt();
+
     var that = this;
     this.model.save(null, {
       success: function(model, response) {

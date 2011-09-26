@@ -12,14 +12,7 @@ var Story = Backbone.Model.extend({
       model.set({owned_by_id: model.collection.project.current_user.id}, true);
     }
 
-    if (new_value == "accepted" && !model.get('accepted_at')) {
-      var today = new Date();
-      today.setHours(0);
-      today.setMinutes(0);
-      today.setSeconds(0);
-      today.setMilliseconds(0);
-      model.set({accepted_at: today});
-    }
+    model.setAcceptedAt();
   },
 
   moveBetween: function(before, after) {
@@ -184,5 +177,19 @@ var Story = Backbone.Model.extend({
     if (this.get('state') === "accepted") {
       return this.collection.project.getIterationNumberForDate(new Date(this.get("accepted_at")));
     }
+  },
+
+  // If the story state is 'accepted', and the 'accepted_at' attribute is not
+  // set, set it to today's date.
+  setAcceptedAt: function() {
+    if (this.get('state') === "accepted" && !this.get('accepted_at')) {
+      var today = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+      today.setMilliseconds(0);
+      this.set({accepted_at: today});
+    }
   }
+
 });
