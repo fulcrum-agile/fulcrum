@@ -1,9 +1,8 @@
-Id,Story,Labels,Iteration,Iteration Start,Iteration End,Story Type,Estimate,Current State,Created at,Accepted at,Deadline,Requested By,Owned By,Description,URL,Note,Task,Task Status,Task,Task Status
+Story,Labels,Iteration,Iteration Start,Iteration End,Story Type,Estimate,Current State,Created at,Accepted at,Deadline,Requested By,Owned By,Description,URL,Note
 <%=
   CSV.generate do |csv|
     @stories.each do |story|
       csv << [
-        nil,                            # Id
         story.title,                    # Story
         nil,                            # Labels
         nil,                            # Iteration
@@ -20,8 +19,6 @@ Id,Story,Labels,Iteration,Iteration Start,Iteration End,Story Type,Estimate,Curr
         story.description,              # Description
         project_story_url(story,@project),               # URL
         nil,                            # Note
-        nil,                            # Task
-        nil,                            # Task Status
       ]
     end
   end
