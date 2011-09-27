@@ -61,6 +61,61 @@ describe('StoryView', function() {
 
   });
 
+  describe("story_type", function(){
+    it('should have limited controls if it is changed to a release', function() {
+      this.story.set({editing: true});
+      expect($(this.view.el).find('select[name="state"]').is(':enabled')).toBeTruthy();
+      expect($(this.view.el).find('select[name="estimate"]').is(':enabled')).toBeTruthy();
+
+      $(this.view.el).find('select[name="story_type"]').val('release').change();
+      // Should disable estimate field
+      expect($(this.view.el).find('select[name="estimate"]').attr('disabled')).toBeTruthy();
+      // Should limit state options
+      expect($(this.view.el).find('select[name="state"]').find('option[value="unscheduled"]').length).toBeFalsy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="unstarted"]').length).toBeTruthy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="started"]').length).toBeFalsy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="finished"]').length).toBeFalsy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="delivered"]').length).toBeFalsy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="accepted"]').length).toBeTruthy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="rejected"]').length).toBeFalsy();
+    });
+
+    it('should have limited controls if it is a release on render', function() {
+      this.story.set({editing: true});
+      $(this.view.el).find('select[name="story_type"]').val('release').change();
+      this.view.render();
+      expect($(this.view.el).find('select[name="estimate"]').attr('disabled')).toBeTruthy();
+
+      expect($(this.view.el).find('select[name="state"]').find('option[value="unscheduled"]').length).toBeFalsy();
+      expect($(this.view.el).find('select[name="state"]').find('option[value="unstarted"]').length).toBeTruthy();
+    });
+
+    it('should get back full control when changed back', function() {
+      this.story.set({editing: true});
+      $(this.view.el).find('select[name="story_type"]').val('release').change();
+      this.view.render();
+      // Sanity check
+      expect($(this.view.el).find('select[name="estimate"]').attr('disabled')).toBeTruthy();
+
+      $(this.view.el).find('select[name="story_type"]').val('feature').change();
+      expect($(this.view.el).find('select[name="estimate"]').attr('disabled')).toBe(false);
+      expect($(this.view.el).find('select[name="state"]').find('option[value="unscheduled"]').length).toBe(1);
+      expect($(this.view.el).find('select[name="state"]').find('option[value="unstarted"]').length).toBe(1);
+    });
+
+    it('should restore original value when changed back', function() {
+      this.story.set({editing: true});
+      $(this.view.el).find('select[name="estimate"]').val('2').change();
+      $(this.view.el).find('select[name="story_type"]').val('release').change();
+      this.view.render();
+      // Sanity check
+      expect($(this.view.el).find('select[name="estimate"]').attr('disabled')).toBeTruthy();
+
+      $(this.view.el).find('select[name="story_type"]').val('feature').change();
+      expect($(this.view.el).find('select[name="estimate"]').val()).toBe('2');
+    });
+  });
+
   describe("cancel edit", function() {
 
     it("should remove itself when edit cancelled if its new", function() {
