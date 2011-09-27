@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110706094137) do
+ActiveRecord::Schema.define(:version => 20110914211417) do
 
   create_table "changesets", :force => true do |t|
     t.integer  "story_id"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(:version => 20110706094137) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                               :default => "",   :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",   :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -68,6 +68,9 @@ ActiveRecord::Schema.define(:version => 20110706094137) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "initials"
+    t.boolean  "email_delivery",                      :default => true
+    t.boolean  "email_acceptance",                    :default => true
+    t.boolean  "email_rejection",                     :default => true
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

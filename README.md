@@ -19,6 +19,8 @@ There are 2 discussion groups for Fulcrum:
 * [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) - Discussion
   on the development of Fulcrum.
 
+See the *Development* section below for details on contributing to the project.
+
 Goals
 -----
 
@@ -90,27 +92,32 @@ Once that's done, you will be able to view your site at
 Development
 -----------
 
-Fulcrum is currently welcoming contributions, but if you're planning on
-implementing a major feature please contact us first, your feature may
-already be in progress.
+Fulcrum is currently welcoming contributions.  If you'd like to help:
 
-The following features are being developed actively at the moment:
+* Check the [issue queue](http://github.com/malclocke/fulcrum/issues) for a
+  list of the major features which are yet to be implemented.  These have the
+  `feature` and `unstarted` labels.  If a feature you'd like isn't there, add
+  an issue.
+* If you'd like to take ownership of one of the features, leave a comment on
+  the issue queue indicating that you're working on it.
+* If you'd like to discuss anything about the issue with other developers,
+  do so on the [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel)
+  mailing list.
 
-* Iterations
-* Comments
+Here are some general guidelines for contributing:
 
-Particularly welcome at the time of writing would be UI improvement and
-clean ups.
-
-For any development, please bear the following in mind:
-
-* Please send patches as either github pull requests or as git patches.
-  Try to break patches up into the smallest logical blocks possible.  We'd
-  prefer to receive many small commits to one large one.
-* All patches should be covered by tests, and should not break the existing
+* Make your changes on a branch, and use that branch as the base for pull
+  requests.
+* Try to break changes up into the smallest logical blocks possible.  We'd
+  prefer to receive many small commits to one large one in a pull request.
+* Feel free to open unfinished pull requests if you'd like to discuss work
+  in progress, or would like other developers to test it.
+* All patches changes be covered by tests, and should not break the existing
   tests, unless a current test is invalidated by a code change.  This includes
-  Javascript, which is covered with a Jasmine test
-  suite in `spec/javascripts/`.
+  Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
+* Run `rake test` to check the Rails test suite is green.  To run the
+  Javascript test suite, run `rake jasmine` and point your browser to
+  `http://localhost:8888/`
 * For any UI changes, please try to follow the
   [Tango theme guidelines](http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines).
 

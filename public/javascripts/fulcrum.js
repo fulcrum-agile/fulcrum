@@ -1,9 +1,11 @@
 $(function() {
   $('#add_story').click(function() {
-    window.Project.stories.add([{
+    window.projectView.model.stories.add([{
       title: "New story", events: [], editing: true
     }]);
 
+    // Show chilly bin if it's hidden
+    $('.hide_chilly_bin.pressed').click();
     var newStoryElement = $('#chilly_bin div.story:last');
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
@@ -19,12 +21,11 @@ $(function() {
 
   });
 
-  $('#show_hide_buttons a').click(function(el){
-    var button = el.target;
-    var id = button.id.replace('hide_','');
-    $(button).toggleClass('pressed');
-    $('#'+id+'_column').toggle();
-    $('#'+id+'_header').toggle();
+  $('thead a.toggle-column, #column-toggles a').click(function(el){
+    //Find relevant column from class name
+    var className = _.detect( el.target.classList, function(elClass){ return elClass.match(/hide_\w+/) });
+    $('.'+className.replace(/hide_/,'')+'_column').toggle();
+    $("#column-toggles").find( "."+className ).toggleClass('pressed');
   })
 
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin');

@@ -178,6 +178,15 @@ class StoryTest < ActiveSupport::TestCase
     end
   end
 
+  test "delivering a story does not send an email to the requestor when email_delivery is false" do
+    @story.acting_user = Factory.create(:user)
+    @project.users << @story.acting_user
+    @story.requested_by = Factory.create(:user, :email_delivery => false)
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'delivered'
+    end
+  end
+
   test "delivering a story sends no email if requested by is not set" do
     @story.acting_user = Factory.create(:user)
     @project.users << @story.acting_user
@@ -208,6 +217,19 @@ class StoryTest < ActiveSupport::TestCase
       @story.owned_by = @story.requested_by
       @project.users << @story.acting_user
       assert_difference 'ActionMailer::Base.deliveries.size' do
+        @story.update_attribute :state, "#{action}ed"
+      end
+    end
+
+    test "#{action}ing a story where the owner has email_#{action} set to false" do
+      @story.acting_user = Factory.create(:user)
+      if action == 'accept'
+        @story.owned_by = Factory.create(:user, :email_acceptance => false)
+      else
+        @story.owned_by = Factory.create(:user, :email_rejection => false)
+      end
+      @project.users << @story.acting_user
+      assert_no_difference 'ActionMailer::Base.deliveries.size' do
         @story.update_attribute :state, "#{action}ed"
       end
     end

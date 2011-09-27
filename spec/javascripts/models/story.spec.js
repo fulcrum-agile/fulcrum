@@ -80,6 +80,10 @@ describe('Story model', function() {
       expect(this.story.get('state')).toEqual('started');
     });
 
+  });
+
+  describe("setAcceptedAt", function() {
+
     it("should set accepted at to today's date when accepted", function() {
       var today = new Date();
       today.setHours(0);
@@ -96,7 +100,6 @@ describe('Story model', function() {
       this.story.accept();
       expect(this.story.get('accepted_at')).toEqual("2001/01/01");
     });
-
   });
 
   describe('estimable', function() {

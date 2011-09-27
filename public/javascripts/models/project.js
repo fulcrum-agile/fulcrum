@@ -165,5 +165,99 @@ var Project = Backbone.Model.extend({
     return _.select(this.iterations, function(iteration) {
       return iteration.get('column') === "#done";
     });
+  },
+
+  rebuildIterations: function() {
+
+    //
+    // Done column
+    //
+    var that = this;
+
+    // Clear the project iterations
+    this.iterations = [];
+
+    var done_iterations = _.groupBy(this.stories.column('#done'),
+                                    function(story) {
+                                      return story.iterationNumber();
+                                    });
+
+    _.each(done_iterations, function(stories, iterationNumber) {
+
+      var iteration = new Iteration({
+        'number': iterationNumber, 'stories': stories, column: '#done'
+      });
+
+      that.appendIteration(iteration, '#done');
+
+    });
+
+    var currentIteration = new Iteration({
+      'number': this.currentIterationNumber(),
+      'stories': this.stories.column('#in_progress'),
+      'maximum_points': this.velocity(), 'column': '#in_progress'
+    });
+
+    this.appendIteration(currentIteration, '#done');
+
+
+
+    //
+    // Backlog column
+    //
+    var backlogIteration = new Iteration({
+      'number': currentIteration.get('number') + 1,
+      'column': '#backlog', 'maximum_points': this.velocity()
+    });
+    this.appendIteration(backlogIteration, '#backlog');
+
+    _.each(this.stories.column('#backlog'), function(story) {
+
+      // The in progress iteration usually needs to be filled with the first
+      // few stories from the backlog, unless the points total of the stories
+      // in progress already equal or exceed the project velocity
+      if (currentIteration.canTakeStory(story)) {
+        currentIteration.get('stories').push(story);
+        return;
+      }
+
+      if (!backlogIteration.canTakeStory(story)) {
+
+        // Iterations sometimes 'overflow', i.e. an iteration may contain a
+        // 5 point story but the project velocity is 1.  In this case, the
+        // next iteration that can have a story added is the current + 4.
+        var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.velocity());
+
+        backlogIteration = new Iteration({
+          'number': nextNumber, 'column': '#backlog',
+          'maximum_points': that.velocity()
+        });
+
+        that.appendIteration(backlogIteration, '#backlog');
+      }
+
+      backlogIteration.get('stories').push(story);
+    });
+
+    _.each(this.iterations, function(iteration) {
+      iteration.project = that;
+    });
+  },
+
+  // Adds an iteration to the project.  Creates empty iterations to fill any
+  // gaps between the iteration number and the last iteration number added.
+  appendIteration: function(iteration, columnForMissingIterations) {
+
+    var lastIteration = _.last(this.iterations);
+
+    if (lastIteration) {
+      // If there is a gap between the last iteration and this one, fill
+      // the gap with empty iterations
+      this.iterations = this.iterations.concat(
+        Iteration.createMissingIterations(columnForMissingIterations, lastIteration, iteration)
+      );
+    }
+
+    this.iterations.push(iteration);
   }
 });

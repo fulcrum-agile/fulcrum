@@ -131,11 +131,11 @@ html.stories, html.stories body, html.stories div#main {
   height: 100%;
 }
 
-#show_hide_buttons {
+#column-toggles {
   float: right;
 }
 
-#show_hide_buttons a {
+#column-toggles a {
   margin: none;
   padding: 3px;
   color: white;
@@ -145,7 +145,7 @@ html.stories, html.stories body, html.stories div#main {
   text-shadow: none;
 }
 
-#show_hide_buttons a.pressed {
+#column-toggles a.pressed {
   color: $darkgrey;
   background-color: #cecece;
 }
@@ -175,6 +175,14 @@ table.stories th {
   padding: 0.2em;
   font-weight: bold;
   @include border-radius(5px 5px 0 0);
+  a.toggle-column{
+    float: right;
+    padding: 0px 5px 1px;
+    cursor: pointer;
+    &:hover{
+      color:$aluminium-3;
+    }
+  }
 }
 
 /* Story types */
@@ -398,3 +406,5 @@ a.button:hover {
   color: white;
   text-decoration: underline;
 }
+
+

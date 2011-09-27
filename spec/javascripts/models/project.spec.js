@@ -305,4 +305,37 @@ describe('Project model', function() {
     });
 
   });
+
+  describe("appendIteration", function() {
+
+    beforeEach(function() {
+      this.iteration = {
+        get: sinon.stub()
+      };
+    });
+
+    it("should add the first iteration to the array", function() {
+      var spy = sinon.spy(Iteration, 'createMissingIterations');
+      this.project.appendIteration(this.iteration);
+      expect(_.last(this.project.iterations)).toEqual(this.iteration);
+      expect(spy).not.toHaveBeenCalled();
+      expect(this.project.iterations.length).toEqual(1);
+      spy.restore();
+    });
+
+    it("should create missing iterations if required", function() {
+      var spy = sinon.spy(Iteration, 'createMissingIterations');
+      this.iteration.get.withArgs('number').returns(1);
+      this.project.iterations.push(this.iteration);
+      var iteration = {
+        get: sinon.stub().withArgs('number').returns(5)
+      };
+      this.project.appendIteration(iteration, '#done');
+      expect(spy).toHaveBeenCalledWith('#done', this.iteration, iteration);
+      expect(this.project.iterations.length).toEqual(5);
+      spy.restore();
+    });
+
+  });
+
 });
