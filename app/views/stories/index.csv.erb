@@ -1,0 +1,25 @@
+Story,Labels,Iteration,Iteration Start,Iteration End,Story Type,Estimate,Current State,Created at,Accepted at,Deadline,Requested By,Owned By,Description,URL,Note
+<%=
+  CSV.generate do |csv|
+    @stories.each do |story|
+      csv << [
+        story.title,                    # Story
+        nil,                            # Labels
+        nil,                            # Iteration
+        nil,                            # Iteration Start
+        nil,                            # Iteration End
+        story.story_type,               # Story Type
+        story.estimate,                 # Estimate
+        story.state,                    # Current State
+        story.created_at,               # Created at
+        story.accepted_at,              # Accepted at
+        nil,                            # Deadline
+        story.requested_by.try(:name),  # Requested By
+        story.owned_by.try(:name),      # Owned By
+        story.description,              # Description
+        project_story_url(story,@project),               # URL
+        nil,                            # Note
+      ]
+    end
+  end
+%>
