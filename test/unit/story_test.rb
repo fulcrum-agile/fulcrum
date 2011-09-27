@@ -261,4 +261,13 @@ class StoryTest < ActiveSupport::TestCase
     end
 
   end
+
+  test "should return the CSV headers" do
+    assert_instance_of Array, Story.csv_headers
+  end
+
+  test "should return a story as a CSV row" do
+    assert_instance_of Array, @story.to_csv
+    assert_equal Story.csv_headers.length, @story.to_csv.length
+  end
 end

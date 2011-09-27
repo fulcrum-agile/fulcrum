@@ -8,6 +8,11 @@ class Story < ActiveRecord::Base
   JSON_METHODS = [
     "events", "estimable", "estimated", "errors"
   ]
+  CSV_HEADERS = [
+    "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",
+    "Story Type","Estimate","Current State","Created at","Accepted at",
+    "Deadline","Requested By","Owned By","Description","URL","Note"
+  ]
 
   belongs_to :project
   validates_presence_of :project_id
@@ -77,8 +82,36 @@ class Story < ActiveRecord::Base
     end
   end
 
+  # Returns an array, in the correct order, of the headers to be added to
+  # a CSV render of a list of stories
+  def self.csv_headers
+    CSV_HEADERS
+  end
+
   def to_s
     title
+  end
+
+  def to_csv
+    [
+      id,                       # Id
+      title,                    # Story
+      nil,                            # Labels
+      nil,                            # Iteration
+      nil,                            # Iteration Start
+      nil,                            # Iteration End
+      story_type,               # Story Type
+      estimate,                 # Estimate
+      state,                    # Current State
+      created_at,               # Created at
+      accepted_at,              # Accepted at
+      nil,                            # Deadline
+      requested_by.try(:name),  # Requested By
+      owned_by.try(:name),      # Owned By
+      description,              # Description
+      nil,                      # URL
+      nil                             # Note
+    ]
   end
 
   # Returns the list of state change events that can operate on this story,
