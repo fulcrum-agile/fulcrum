@@ -116,6 +116,22 @@ ul#primary-nav li.secondary ul li {
   position: relative;
   margin: 0;
   padding: 10px 1em;
+
+  #add_story {
+    @include background(url('/images/feature.png'), linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin: 0;
+    padding: 0.2em 0.3em 0.2em 16px;
+    @include border-radius(3px);
+    border: 1px solid $aluminium-5;
+    cursor: pointer;
+    font-size: small;
+    font-weight: bold;
+    color: white;
+    text-shadow:  $aluminium-5 0 1px 0;
+    text-decoration: none;
+  }
 }
 
 #title_bar h1 {
