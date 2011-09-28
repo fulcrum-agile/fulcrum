@@ -106,6 +106,8 @@ class StoriesControllerTest < ActionController::TestCase
     assert_match /attachment; filename="Test Project-\d{8}_\d{4}\.csv"/,
       @response.headers['Content-Disposition'],
       "Filename should be 'Test Project-YYYYMMDD_HHMM.csv'"
+    assert_equal @project.stories.count + 1, @response.body.lines.count,
+      "body should have 1 header line plus 1 line for each story"
   end
 
   test "should estimate a story" do
