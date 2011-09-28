@@ -8,7 +8,8 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.json { render :json => @stories }
       format.csv do
-        render_csv("#{@project.name}-#{Time.now.strftime('%Y%m%d_%I%M')}")
+        render :csv => @stories,
+          :filename => "#{@project.name}-#{Time.now.strftime('%Y%m%d_%I%M')}.csv"
       end
     end
   end
@@ -169,23 +170,5 @@ class StoriesController < ApplicationController
       filtered[key.to_sym] = value if allowed.include?(key.to_sym)
     end
     filtered
-  end
-
-  def render_csv(filename = nil)
-    filename ||= params[:action]
-    filename += '.csv'
-
-    if request.env['HTTP_USER_AGENT'] =~ /msie/i
-      headers['Pragma'] = 'public'
-      headers["Content-type"] = "text/plain"
-      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-      headers['Expires'] = "0"
-    else
-      headers["Content-Type"] ||= 'text/csv'
-      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\""
-    end
-
-    render :layout => false
   end
 end
