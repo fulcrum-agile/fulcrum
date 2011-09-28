@@ -91,6 +91,20 @@ describe("iteration", function() {
       expect(this.iteration.canTakeStory(story)).toBeTruthy();
     });
 
+    it("should not accept anything when isFull is true", function() {
+      var stub = sinon.stub();
+      var story = {get: stub};
+
+      this.iteration.isFull = true;
+
+      stub.withArgs('story_type').returns('chore');
+      expect(this.iteration.canTakeStory(story)).toBeFalsy();
+      stub.withArgs('story_type').returns('bug');
+      expect(this.iteration.canTakeStory(story)).toBeFalsy();
+      stub.withArgs('story_type').returns('release');
+      expect(this.iteration.canTakeStory(story)).toBeFalsy();
+    });
+
     it("should accept a feature if there are enough free points", function() {
       var availablePointsStub = sinon.stub(this.iteration, "availablePoints");
       availablePointsStub.returns(3);
@@ -124,6 +138,31 @@ describe("iteration", function() {
       expect(this.iteration.canTakeStory(story)).toBeTruthy();
     });
 
+
+  });
+
+  describe("isFull flag", function() {
+
+    it("should default to false", function() {
+      expect(this.iteration.isFull).toEqual(false);
+    });
+
+    it("should be set to true once canTakeStory has returned false", function() {
+      var stub = sinon.stub();
+      var story = {get: stub};
+
+      this.iteration.availablePoints = sinon.stub();
+      this.iteration.availablePoints.returns(0);
+      this.iteration.points = sinon.stub();
+      this.iteration.points.returns(1);
+
+      stub.withArgs('story_type').returns('feature');
+      stub.withArgs('estimate').returns(1);
+
+      expect(this.iteration.isFull).toEqual(false);
+      expect(this.iteration.canTakeStory(story)).toBeFalsy();
+      expect(this.iteration.isFull).toEqual(true);
+    });
 
   });
 

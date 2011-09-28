@@ -4,6 +4,7 @@ var Iteration = Backbone.Model.extend({
 
   initialize: function(opts) {
     this.set({'stories': opts.stories || []});
+    this.isFull = false;
   },
 
   points: function() {
@@ -36,12 +37,18 @@ var Iteration = Backbone.Model.extend({
   // Returns true if this iteration has enough points free for a given
   // story.  Only valid for backlog iterations.
   canTakeStory: function(story) {
+
+    if (this.isFull === true) {
+      return false;
+    }
+
     if (this.points() === 0) {
       return true;
     }
 
     if (story.get('story_type') === 'feature') {
-      return story.get('estimate') <= this.availablePoints();
+      this.isFull = story.get('estimate') > this.availablePoints();
+      return !this.isFull;
     } else {
       return true;
     }
