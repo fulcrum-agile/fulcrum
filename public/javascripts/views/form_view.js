@@ -10,13 +10,13 @@ var FormView = Backbone.View.extend({
     var el = this.make('input', {type: "text", name: name, value: this.model.get(name)});
     this.bindElementToAttribute(el, name, "keyup");
     return el;
-  },
+  }, 
 
   hiddenField: function(name) {
     var el = this.make('input', {type: "hidden", name: name, value: this.model.get(name)});
     this.bindElementToAttribute(el, name);
     return el;
-  },
+  }, 
 
   textArea: function(name) {
     var el = this.make('textarea', {name: name, value: this.model.get(name)});
@@ -50,9 +50,6 @@ var FormView = Backbone.View.extend({
       }
       $(select).append(view.make('option', attr, option_name));
     });
-    if (options.disabled) {
-      $(select).attr('disabled','disabled');
-    }
     this.bindElementToAttribute(select, name);
     return select;
   },

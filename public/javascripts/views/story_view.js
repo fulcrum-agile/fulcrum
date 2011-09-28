@@ -41,8 +41,7 @@ var StoryView = FormView.extend({
     "click .transition": "transition",
     "click input.estimate": "estimate",
     "click #destroy": "clear",
-    "sortupdate": "sortUpdate",
-    "change select[name='story_type']": "changeStoryType"
+    "sortupdate": "sortUpdate"
   },
 
   // Triggered whenever a story is dropped to a new position
@@ -243,7 +242,7 @@ var StoryView = FormView.extend({
       $(div).append(this.label("estimate", "Estimate"));
       $(div).append('<br/>');
 
-      $(div).append(this.select("estimate", this.model.point_values(), {blank: 'No estimate', 'disabled': this.model.get('story_type') === 'release'}));
+      $(div).append(this.select("estimate", this.model.point_values(), {blank: 'No estimate'}));
       $(this.el).append(div);
 
       div = this.make('div');
@@ -255,7 +254,7 @@ var StoryView = FormView.extend({
       div = this.make('div');
       $(div).append(this.label("state", "State"));
       $(div).append('<br/>');
-      $(div).append(this.select("state", this.availableStates()));
+      $(div).append(this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"]));
       $(this.el).append(div);
 
       div = this.make('div');
@@ -295,18 +294,6 @@ var StoryView = FormView.extend({
 
   saveInProgress: false,
 
-  changeStoryType: function() {
-    if(this.model.get('story_type') === 'release'){
-      $(this.el).find('select[name="estimate"]').attr('disabled', 'disabled').val("");
-    }
-    else{
-      $(this.el).find('select[name="estimate"]').attr('disabled', false).val(this.model.get("estimate"));
-    }
-    $(this.el).find('select[name="state"]').replaceWith(this.select("state", this.availableStates())).val(this.model.get('state'));
-    this.setClassName();
-  },
-
-
   disableForm: function() {
     $(this.el).find('input,select,textarea').attr('disabled', 'disabled');
     $(this.el).find('img.collapse,img.expand').attr('src', '/images/throbber.gif');
@@ -314,14 +301,5 @@ var StoryView = FormView.extend({
 
   enableForm: function() {
     $(this.el).find('img.collapse').attr('src', '/images/collapse.png');
-  },
-
-  availableStates: function() {
-    if (this.model.get('story_type') === "release"){
-      return ["unstarted", "accepted"];
-    }
-    else{
-      return ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"];
-    }
   }
 });
