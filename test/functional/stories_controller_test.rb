@@ -96,6 +96,18 @@ class StoriesControllerTest < ActionController::TestCase
     assert_equal @project.stories.backlog, assigns(:stories)
   end
 
+  test "should get all stories in CSV format" do
+    sign_in @user
+    get :index, :project_id => @project.to_param, :format => 'csv'
+    assert_equal @project, assigns(:project)
+    assert_equal @project.stories, assigns(:stories)
+    assert_equal 'text/csv',
+      @response.headers['Content-Type'], 'Content type is CSV'
+    assert_match /attachment; filename="Test Project-\d{8}_\d{4}\.csv"/,
+      @response.headers['Content-Disposition'],
+      "Filename should be 'Test Project-YYYYMMDD_HHMM.csv'"
+  end
+
   test "should estimate a story" do
     sign_in @user
     put :update, :id => @story.to_param, :project_id => @project.to_param,
