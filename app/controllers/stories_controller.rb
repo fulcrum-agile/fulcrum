@@ -8,8 +8,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.json { render :json => @stories }
       format.csv do
-        render :csv => @stories,
-          :filename => "#{@project.name}-#{Time.now.strftime('%Y%m%d_%I%M')}.csv"
+        render :csv => @stories, :filename => @project.csv_filename
       end
     end
   end

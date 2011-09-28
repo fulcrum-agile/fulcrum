@@ -94,4 +94,8 @@ class ProjectTest < ActiveSupport::TestCase
       assert @project.destroy
     end
   end
+
+  test "should return the projects csv filename" do
+    assert_match /^Test Project-\d{8}_\d{4}\.csv$/, @project.csv_filename
+  end
 end
