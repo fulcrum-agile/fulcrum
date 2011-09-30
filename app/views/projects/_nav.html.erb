@@ -1,11 +1,13 @@
 <h1><%= project.name %></h1>
 
+<%- if defined? show_column_toggles -%>
 <div id="column-toggles">
   <%= link_to 'Done', '#', :class => 'hide_done' %>
   <%= link_to 'In Progress', '#', :class => 'hide_in_progress' %>
   <%= link_to 'Backlog', '#', :class => 'hide_backlog' %>
   <%= link_to 'Chilly Bin', '#', :class => 'hide_chilly_bin' %>
 </div>
+<%- end -%>
 
 <%= link_to_unless_current 'Stories', project_path(project) %> |
 <%= link_to_unless_current 'Members', project_users_path(project) %> |
