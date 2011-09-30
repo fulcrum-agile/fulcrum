@@ -112,7 +112,7 @@ $(function() {
 <% content_for :title_bar do %>
   <%= render :partial => 'projects/nav',
              :locals => {:project => @project, :show_column_toggles => true} %>
-  | <a id="add_story" href="#">Add story</a>
+  | <a id="add_story" href="#"><span class="icons-feature"></span>Add story</a>
 <% end %>
 
 <table class="stories" width="100%">
