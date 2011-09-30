@@ -335,6 +335,13 @@ span.estimate_8 {
   @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
   border-color: $aluminium-5;
   text-shadow:  $aluminium-5 0 1px 0;
+  @include box-shadow(0 1px 2px #aaaaaa);
+}
+.story.release .state-actions input {
+  @include box-shadow(0 1px 2px #000);
+}
+.state-actions input:active {
+  @include box-shadow(none);
 }
 
 .state-actions input.finish {
