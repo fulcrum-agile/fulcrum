@@ -79,6 +79,14 @@ var Iteration = Backbone.Model.extend({
   // will be assigned to the provided column.
   createMissingIterations: function(column, startIteration, endIteration) {
 
+    // A reference to Iteration().
+    var that = this;
+
+    if (typeof startIteration == "undefined") {
+      // Create a dummy iteration with number 0
+      startIteration = new that({'number': 0, 'column': column});
+    }
+
     var start = parseInt(startIteration.get('number'), 10) + 1;
     var end = parseInt(endIteration.get('number'), 10);
 
@@ -87,7 +95,6 @@ var Iteration = Backbone.Model.extend({
     }
 
     var missing_range = _.range(start, end);
-    var that = this;
 
     return _.map(missing_range, function(missing_iteration_number) {
       var iteration = new that({

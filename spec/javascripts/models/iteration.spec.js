@@ -192,6 +192,19 @@ describe("iteration", function() {
       }).toThrow("end iteration number must be greater than start iteration number");
     });
 
+    it("should return an empty array when start is undefined and end is number 1", function() {
+      var end   = new Iteration({'number': 1});
+      var iterations = Iteration.createMissingIterations('#done', undefined, end);
+      expect(iterations.length).toEqual(0);
+    });
+
+    it("should return a range of iterations when start is undefined", function() {
+      var end   = new Iteration({'number': 5});
+      var iterations = Iteration.createMissingIterations('#done', undefined, end);
+      expect(iterations.length).toEqual(4);
+      expect(_.first(iterations).get('number')).toEqual(1);
+    });
+
   });
 
   describe("startDate", function() {

@@ -315,12 +315,12 @@ describe('Project model', function() {
     });
 
     it("should add the first iteration to the array", function() {
-      var spy = sinon.spy(Iteration, 'createMissingIterations');
+      var stub = sinon.stub(Iteration, 'createMissingIterations');
+      stub.returns([]);
       this.project.appendIteration(this.iteration);
       expect(_.last(this.project.iterations)).toEqual(this.iteration);
-      expect(spy).not.toHaveBeenCalled();
       expect(this.project.iterations.length).toEqual(1);
-      spy.restore();
+      stub.restore();
     });
 
     it("should create missing iterations if required", function() {
