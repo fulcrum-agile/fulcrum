@@ -423,5 +423,4 @@ describe('StoryView', function() {
     });
 
   });
-
 });

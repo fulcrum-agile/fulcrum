@@ -434,11 +434,25 @@ var StoryView = FormView.extend({
       content: function(){
         return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
       },
-      placement: 'right',
-      offset: 10,
+      // A small delay to stop the popovers triggering whenever the mouse is
+      // moving around
+      delayIn: 200,
+      placement: view.hoverBoxPlacement,
       html: true,
       live: true
     });
   },
 
+  hoverBoxPlacement: function() {
+    // Gets called from a jQuery context, so this is set to the element that
+    // the popover is bound to.
+    var position = $(this).position();
+    var windowWidth = $(window).width();
+    // If the element is to the right of the vertical half way line in the
+    // viewport, position the popover on the left.
+    if (position.left > (windowWidth / 2)) {
+      return 'left';
+    }
+    return 'right';
+  }
 });
