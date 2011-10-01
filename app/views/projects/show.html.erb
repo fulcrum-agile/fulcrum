@@ -33,6 +33,24 @@
   </p>
 </script>
 
+<script id="story_hover" type="text/x-jQuery-tmpl">
+  <div class="small">
+    <span>Requested by ${$item.story.requested_by().get("name")} on ${$item.story.created_at()}</span>
+    <span class="icons">
+      <span class="icon icon-${story.story_type}"></span>
+      <span class="text">${story.story_type}</span>
+      {{if story.estimated}}
+        <span class="estimate estimate_${story.estimate}">${story.estimate}</span>
+        <span class="text">${story.estimate} points</span>
+      {{/if}}
+    </span>
+  </div>
+  {{if story.description}}
+    <h4 class="title">Description</h4>
+    <div class="description">${story.description}</div>
+  {{/if}}
+</script>
+
 <script type="text/javascript">
 $(function() {
   var project = new Project(<%= @project.to_json.html_safe %>);

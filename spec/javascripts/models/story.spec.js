@@ -232,6 +232,26 @@ describe('Story model', function() {
       expect(spy).toHaveBeenCalledWith(999);
     });
 
+    it("should get it's requester", function() {
+
+      // Should return undefined if the story does not have an owner
+      var spy = sinon.spy(this.story.collection.project.users, "get");
+      var requested_by = this.story.requested_by();
+      expect(spy).toHaveBeenCalledWith(undefined);
+      expect(requested_by).toBeUndefined();
+
+      this.story.set({'requested_by_id': 999});
+      requested_by = this.story.requested_by();
+      expect(spy).toHaveBeenCalledWith(999);
+    });
+
+    it("should return a readable created_at", function() {
+
+      this.story.set({'created_at': "2011/09/19 02:25:56 +0000"});
+      expect(this.story.created_at()).toBe("19 Sep 2011, 2:25pm");
+
+    });
+
     it("should be assigned to the current user when started", function() {
 
       expect(this.story.get('state')).toEqual('unscheduled');
