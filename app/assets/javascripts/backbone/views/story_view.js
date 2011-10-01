@@ -306,6 +306,7 @@ var StoryView = FormView.extend({
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
+    this.hoverBox();
     return this;
   },
 
@@ -422,6 +423,22 @@ var StoryView = FormView.extend({
 
   enableForm: function() {
     $(this.el).find('a.collapse').removeClass(/icon-/).addClass("icon-collapse");
-  }
+  },
+
+  hoverBox: function(){
+    var view  = this;
+    $(this.el).find('.story_type').popover({
+      title: function(){
+        return view.model.get("title");
+      },
+      content: function(){
+        return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
+      },
+      placement: 'right',
+      offset: 10,
+      html: true,
+      live: true
+    });
+  },
 
 });

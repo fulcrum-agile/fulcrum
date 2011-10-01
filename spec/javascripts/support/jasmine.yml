@@ -20,6 +20,9 @@ src_files:
   - spec/javascripts/support/jasmine-sinon.js
   - spec/javascripts/support/jasmine-jquery-1.2.0.js
   - vendor/assets/javascripts/jquery.tmpl.min.js
+  - vendor/assets/javascripts/date.format.js
+  - vendor/assets/javascripts/bootstrap-twipsy.js
+  - vendor/assets/javascripts/bootstrap-popover.js
   - vendor/assets/javascripts/backbone.rails.js
   - app/assets/javascripts/backbone/models/*.js
   - app/assets/javascripts/backbone/collections/*.js

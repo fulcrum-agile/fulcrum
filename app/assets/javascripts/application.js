@@ -8,6 +8,7 @@
 //= require jquery.gritter.min
 //= require jquery.scrollTo-min
 //= require_self
+//= require date.format
 //= require underscore
 //= require backbone
 //= require backbone.rails
@@ -15,4 +16,6 @@
 //= require_tree ./backbone/collections
 //= require_tree ./backbone/views
 //= require fulcrum
+//= require bootstrap-twipsy
+//= require bootstrap-popover
 //= require_tree .
