@@ -1,6 +1,7 @@
 @import 'compass/css3';
 @import 'scaffold';
 @import 'jquery_gritter';
+@import 'twipsy';
 
 $darkgrey:   #6a7176;           // Header color
 $orange:     rgb(250,182,155);  // Estimate gauge color
@@ -429,5 +430,35 @@ a.button:hover {
   color: white;
   text-decoration: underline;
 }
-
-
+// Popover Overrides
+// Custom Style Overrides
+.popover{
+  p{
+    margin-top:0px;
+  }
+  .title{
+    margin:0px;
+  }
+  .inner{
+    width:480px;
+    padding:2px ;
+  }
+  .content{
+    padding: 10px 0px 14px;
+  }
+  .small{
+    color:$aluminium-3;
+    font-size:0.85em;
+    padding-left:15px;
+    margin: 0 10px 10px 0;
+    .icons{
+      float:right;
+      .text{
+        vertical-align:top;
+      }
+    }
+  }
+  .description{
+    padding:10px 15px 0px;
+  }
+}

@@ -183,7 +183,7 @@ var StoryView = FormView.extend({
     this.disableForm();
 
     // Call this here to ensure the story gets it's accepted_at date set
-    // before the story collection callbacks are run if required.  The 
+    // before the story collection callbacks are run if required.  The
     // collection callbacks need this to be set to know which iteration to
     // put an accepted story in.
     this.model.setAcceptedAt();
@@ -280,6 +280,7 @@ var StoryView = FormView.extend({
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
+    this.hoverBox();
     return this;
   },
 
@@ -301,5 +302,21 @@ var StoryView = FormView.extend({
 
   enableForm: function() {
     $(this.el).find('img.collapse').attr('src', '/images/collapse.png');
+  },
+
+  hoverBox: function(){
+    var view  = this;
+    $(this.el).find('.story_type').popover({
+      title: function(){
+        return view.model.get("title");
+      },
+      content: function(){
+        return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
+      },
+      placement: 'right',
+      offset: 10,
+      html: true,
+      live: true
+    });
   }
 });

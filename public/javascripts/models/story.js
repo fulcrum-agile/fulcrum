@@ -169,6 +169,15 @@ var Story = Backbone.Model.extend({
     return this.collection.project.users.get(this.get('owned_by_id'));
   },
 
+  requested_by: function() {
+    return this.collection.project.users.get(this.get('requested_by_id'));
+  },
+
+  created_at: function() {
+    var d = new Date(this.get('created_at'));
+    return d.format("d mmm yyyy, h:MMtt");
+  },
+
   hasDetails: function() {
     return typeof this.get('description') == "string";
   },
