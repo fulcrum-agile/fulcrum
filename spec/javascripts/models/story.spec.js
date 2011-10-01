@@ -235,14 +235,19 @@ describe('Story model', function() {
     it("should get it's requester", function() {
 
       // Should return undefined if the story does not have an owner
-      var spy = sinon.spy(this.story.collection.project.users, "get");
+      var stub = sinon.stub(this.story.collection.project.users, "get");
+      var dummyUser = {};
+      stub.withArgs(undefined).returns(undefined);
+      stub.withArgs(999).returns(dummyUser);
+
       var requested_by = this.story.requested_by();
-      expect(spy).toHaveBeenCalledWith(undefined);
+      expect(stub).toHaveBeenCalledWith(undefined);
       expect(requested_by).toBeUndefined();
 
       this.story.set({'requested_by_id': 999});
       requested_by = this.story.requested_by();
-      expect(spy).toHaveBeenCalledWith(999);
+      expect(requested_by).toEqual(dummyUser);
+      expect(stub).toHaveBeenCalledWith(999);
     });
 
     it("should return a readable created_at", function() {
