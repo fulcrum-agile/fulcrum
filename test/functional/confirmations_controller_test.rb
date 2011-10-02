@@ -18,7 +18,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
   test "should not fail with invalid tokens" do
     get :show, :confirmation_token => 'randomtoken'
     assert_equal flash[:notice], 'Invalid confirmation token.'
-    assert_response 200
+    assert_redirected_to(new_user_confirmation_path)
   end
   test "should be render new form when resending confirmation instructions" do
     get :new
