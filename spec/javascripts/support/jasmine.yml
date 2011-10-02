@@ -19,6 +19,9 @@ src_files:
   - public/javascripts/backbone.js
   - public/javascripts/jquery-ui-1.8.11.custom.min.js
   - public/javascripts/jquery.tmpl.min.js
+  - public/javascripts/date.format.js
+  - public/javascripts/bootstrap-twipsy.js
+  - public/javascripts/bootstrap-popover.js
   - public/javascripts/backbone.rails.js
   - public/javascripts/models/iteration.js
   - public/javascripts/models/project.js
@@ -68,7 +71,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - **/*[sS]pec.js
+  - "**/*[sS]pec.js"
 
 # src_dir
 #

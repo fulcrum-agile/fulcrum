@@ -49,4 +49,8 @@ class Project < ActiveRecord::Base
   def as_json(options = {})
     super(:only => JSON_ATTRIBUTES, :methods => JSON_METHODS)
   end
+
+  def csv_filename
+    "#{name}-#{Time.now.strftime('%Y%m%d_%I%M')}.csv"
+  end
 end

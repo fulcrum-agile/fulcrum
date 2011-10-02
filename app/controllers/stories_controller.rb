@@ -5,7 +5,12 @@ class StoriesController < ApplicationController
   def index
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories
-    render :json => @stories
+    respond_to do |format|
+      format.json { render :json => @stories }
+      format.csv do
+        render :csv => @stories, :filename => @project.csv_filename
+      end
+    end
   end
 
   def show

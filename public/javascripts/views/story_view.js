@@ -183,7 +183,7 @@ var StoryView = FormView.extend({
     this.disableForm();
 
     // Call this here to ensure the story gets it's accepted_at date set
-    // before the story collection callbacks are run if required.  The 
+    // before the story collection callbacks are run if required.  The
     // collection callbacks need this to be set to know which iteration to
     // put an accepted story in.
     this.model.setAcceptedAt();
@@ -280,6 +280,7 @@ var StoryView = FormView.extend({
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
+    this.hoverBox();
     return this;
   },
 
@@ -301,5 +302,36 @@ var StoryView = FormView.extend({
 
   enableForm: function() {
     $(this.el).find('img.collapse').attr('src', '/images/collapse.png');
+  },
+
+  hoverBox: function(){
+    var view  = this;
+    $(this.el).find('.story_type').popover({
+      title: function(){
+        return view.model.get("title");
+      },
+      content: function(){
+        return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
+      },
+      // A small delay to stop the popovers triggering whenever the mouse is
+      // moving around
+      delayIn: 200,
+      placement: view.hoverBoxPlacement,
+      html: true,
+      live: true
+    });
+  },
+
+  hoverBoxPlacement: function() {
+    // Gets called from a jQuery context, so this is set to the element that
+    // the popover is bound to.
+    var position = $(this).position();
+    var windowWidth = $(window).width();
+    // If the element is to the right of the vertical half way line in the
+    // viewport, position the popover on the left.
+    if (position.left > (windowWidth / 2)) {
+      return 'left';
+    }
+    return 'right';
   }
 });

@@ -1,0 +1,8 @@
+<%= Story.csv_headers.join(',') %>
+<%=
+  CSV.generate do |csv|
+    @stories.each do |story|
+      csv << story.to_csv
+    end
+  end
+-%>

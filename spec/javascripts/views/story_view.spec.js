@@ -270,4 +270,28 @@ describe('StoryView', function() {
 
   });
 
+  describe("hover box placement", function() {
+
+    it("should return right if element is in the left half of the page", function() {
+      var positionStub = sinon.stub(jQuery.fn, 'position');
+      var widthStub = sinon.stub(jQuery.fn, 'width');
+      positionStub.returns({'left': 25, 'top': 25});
+      widthStub.returns(100);
+      expect(this.view.hoverBoxPlacement()).toEqual('right');
+      positionStub.restore();
+      widthStub.restore();
+    });
+
+    it("should return left if element is in the right half of the page", function() {
+      var positionStub = sinon.stub(jQuery.fn, 'position');
+      var widthStub = sinon.stub(jQuery.fn, 'width');
+      positionStub.returns({'left': 75, 'top': 75});
+      widthStub.returns(100);
+      expect(this.view.hoverBoxPlacement()).toEqual('left');
+      positionStub.restore();
+      widthStub.restore();
+    });
+
+  });
+
 });

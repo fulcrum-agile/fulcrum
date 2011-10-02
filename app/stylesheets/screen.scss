@@ -1,6 +1,7 @@
 @import 'compass/css3';
 @import 'scaffold';
 @import 'jquery_gritter';
+@import 'twipsy';
 
 $darkgrey:   #6a7176;           // Header color
 $orange:     rgb(250,182,155);  // Estimate gauge color
@@ -116,6 +117,22 @@ ul#primary-nav li.secondary ul li {
   position: relative;
   margin: 0;
   padding: 10px 1em;
+
+  #add_story {
+    @include background(url('/images/feature.png'), linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin: 0;
+    padding: 0.2em 0.3em 0.2em 16px;
+    @include border-radius(3px);
+    border: 1px solid $aluminium-5;
+    cursor: pointer;
+    font-size: small;
+    font-weight: bold;
+    color: white;
+    text-shadow:  $aluminium-5 0 1px 0;
+    text-decoration: none;
+  }
 }
 
 #title_bar h1 {
@@ -319,6 +336,13 @@ span.estimate_8 {
   @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
   border-color: $aluminium-5;
   text-shadow:  $aluminium-5 0 1px 0;
+  @include box-shadow(0 1px 2px #aaaaaa);
+}
+.story.release .state-actions input {
+  @include box-shadow(0 1px 2px #000);
+}
+.state-actions input:active {
+  @include box-shadow(none);
 }
 
 .state-actions input.finish {
@@ -406,5 +430,34 @@ a.button:hover {
   color: white;
   text-decoration: underline;
 }
-
-
+// Popover Overrides
+// Custom Style Overrides
+.popover{
+  p{
+    margin-top:0px;
+  }
+  .title{
+    margin:0px;
+  }
+  .inner{
+    padding:2px ;
+  }
+  .content{
+    padding: 10px 0px 14px;
+  }
+  .small{
+    color:$aluminium-3;
+    font-size:0.85em;
+    padding-left:15px;
+    margin: 0 10px 10px 0;
+    .icons{
+      float:right;
+      .text{
+        vertical-align:top;
+      }
+    }
+  }
+  .description{
+    padding:10px 15px 0px;
+  }
+}

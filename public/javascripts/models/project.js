@@ -250,13 +250,11 @@ var Project = Backbone.Model.extend({
 
     var lastIteration = _.last(this.iterations);
 
-    if (lastIteration) {
-      // If there is a gap between the last iteration and this one, fill
-      // the gap with empty iterations
-      this.iterations = this.iterations.concat(
-        Iteration.createMissingIterations(columnForMissingIterations, lastIteration, iteration)
-      );
-    }
+    // If there is a gap between the last iteration and this one, fill
+    // the gap with empty iterations
+    this.iterations = this.iterations.concat(
+      Iteration.createMissingIterations(columnForMissingIterations, lastIteration, iteration)
+    );
 
     this.iterations.push(iteration);
   }
