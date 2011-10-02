@@ -19,6 +19,10 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal 'fibonacci', Project.new.point_scale
   end
 
+  test "default public flag should be false" do
+    assert_equal false, @project.public
+  end
+
   test "should reject invalid point scale" do
     @project.point_scale = 'invalid_point_scale'
     assert !@project.save
