@@ -72,14 +72,8 @@ var StoryView = FormView.extend({
     // are the only columns that can receive drops from other columns.
     if (typeof previous_story_id == 'undefined' && typeof next_story_id == 'undefined') {
 
-      var beforeSearchColumns = [], afterSearchColumns = [];
-
-      if (column == 'chilly_bin') {
-        beforeSearchColumns = ['#done', '#current', '#backlog'];
-      } else if (column == 'backlog') {
-        beforeSearchColumns = ['#done', '#current'];
-        afterSearchColumns = ['#chilly_bin'];
-      }
+      var beforeSearchColumns = this.model.collection.project.columnsBefore('#' + column);
+      var afterSearchColumns  = this.model.collection.project.columnsAfter('#' + column);
 
       var previousStory = _.last(this.model.collection.columns(beforeSearchColumns));
       var nextStory = _.first(this.model.collection.columns(afterSearchColumns));

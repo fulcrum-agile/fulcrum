@@ -26,6 +26,31 @@ var Project = Backbone.Model.extend({
     return '/projects/' + this.id;
   },
 
+  // The ids of the columns, in the order that they appear by story weight
+  columnIds: ['#done', '#in_progress', '#backlog', '#chilly_bin'],
+
+  // Return an array of the columns that appear after column, or an empty
+  // array if the column is the last
+  columnsAfter: function(column) {
+    var index = _.indexOf(this.columnIds, column);
+    if (index === -1) {
+      // column was not found in the array
+      throw column.toString() + ' is not a valid column';
+    }
+    return this.columnIds.slice(index + 1);
+  },
+
+  // Return an array of the columns that appear before column, or an empty
+  // array if the column is the first
+  columnsBefore: function(column) {
+    var index = _.indexOf(this.columnIds, column);
+    if (index === -1) {
+      // column was not found in the array
+      throw column.toString() + ' is not a valid column';
+    }
+    return this.columnIds.slice(0, index);
+  },
+
   // This method is triggered when the last_changeset_id attribute is changed,
   // which indicates there are changed or new stories on the server which need
   // to be loaded.

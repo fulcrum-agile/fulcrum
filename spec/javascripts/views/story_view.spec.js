@@ -211,6 +211,8 @@ describe('StoryView', function() {
     beforeEach(function() {
       this.story.collection.length = 1;
       this.story.collection.columns = function() {return [];};
+      this.story.collection.project.columnsBefore = sinon.stub();
+      this.story.collection.project.columnsAfter = sinon.stub();
     });
 
     it("sets state to unstarted if dropped on the backlog column", function() {

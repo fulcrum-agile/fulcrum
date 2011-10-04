@@ -339,4 +339,46 @@ describe('Project model', function() {
 
   });
 
+  describe("columns", function() {
+
+    it("should define the columns", function() {
+      expect(this.project.columnIds).toEqual([
+        '#done', '#in_progress', '#backlog', '#chilly_bin'
+      ]);
+    });
+
+    it("should return the columns after a given column", function() {
+      expect(this.project.columnsAfter('#done')).toEqual([
+        '#in_progress', '#backlog', '#chilly_bin'
+      ]);
+      expect(this.project.columnsAfter('#in_progress')).toEqual([
+        '#backlog', '#chilly_bin'
+      ]);
+      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin']);
+      expect(this.project.columnsAfter('#chilly_bin')).toEqual([]);
+
+      var project = this.project;
+      expect(function() {project.columnsAfter('#foobar');}).toThrow(
+        "#foobar is not a valid column"
+      );
+    });
+
+    it("should return the columns before a given column", function() {
+      expect(this.project.columnsBefore('#done')).toEqual([]);
+      expect(this.project.columnsBefore('#in_progress')).toEqual(['#done']);
+      expect(this.project.columnsBefore('#backlog')).toEqual([
+        '#done', '#in_progress'
+      ]);
+      expect(this.project.columnsBefore('#chilly_bin')).toEqual([
+        '#done', '#in_progress', '#backlog'
+      ]);
+
+      var project = this.project;
+      expect(function() {project.columnsBefore('#foobar');}).toThrow(
+        "#foobar is not a valid column"
+      );
+    });
+
+  });
+
 });
