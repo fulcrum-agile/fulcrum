@@ -20,6 +20,7 @@ var StoryView = FormView.extend({
     this.model.bind("change:column", this.moveColumn);
 
     this.model.bind("change:estimate", this.setClassName);
+    this.model.bind("change:state", this.setClassName);
 
     this.model.bind("render", this.hoverBox());
     // Supply the model with a reference to it's own view object, so it can
@@ -291,7 +292,9 @@ var StoryView = FormView.extend({
   },
 
   setClassName: function() {
-    var className = 'story ' + this.model.get('story_type');
+    var className = [
+      'story', this.model.get('story_type'), this.model.get('state')
+    ].join(' ');
     if (this.model.estimable() && !this.model.estimated()) {
       className += ' unestimated';
     }

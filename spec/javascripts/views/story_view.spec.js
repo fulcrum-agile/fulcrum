@@ -53,6 +53,12 @@ describe('StoryView', function() {
       expect($(this.view.el)).not.toHaveClass('unestimated');
     });
 
+    it("should have the story state class", function() {
+      expect($(this.view.el)).toHaveClass('unestimated');
+      this.view.model.set({state: 'accepted'});
+      expect($(this.view.el)).toHaveClass('accepted');
+    });
+
   });
 
   describe("id", function() {
