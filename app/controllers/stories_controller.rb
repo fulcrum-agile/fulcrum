@@ -162,7 +162,7 @@ class StoriesController < ApplicationController
   def filter_story_params
     allowed = [
       :title, :description, :estimate, :story_type, :state, :requested_by_id,
-      :owned_by_id, :position
+      :owned_by_id, :position, :tag_string
     ]
     filtered = {}
     params[:story].each do |key, value|

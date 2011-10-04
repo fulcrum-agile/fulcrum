@@ -1,4 +1,5 @@
 class Story < ActiveRecord::Base
+  include Taggable
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
@@ -6,7 +7,7 @@ class Story < ActiveRecord::Base
     "state", "position", "id", "events", "estimable", "estimated"
   ]
   JSON_METHODS = [
-    "events", "estimable", "estimated", "errors"
+    "events", "estimable", "estimated", "errors", "tag_string"
   ]
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",

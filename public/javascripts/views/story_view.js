@@ -272,6 +272,12 @@ var StoryView = FormView.extend({
       $(this.el).append(div);
 
       div = this.make('div');
+      $(div).append(this.label("tag_string", "Tags"));
+      $(div).append('<br/>');
+      $(div).append(this.textField("tag_string"));
+      $(this.el).append(div);
+
+      div = this.make('div');
       $(div).append(this.label("description", "Description"));
       $(div).append('<br/>');
       $(div).append(this.textArea("description"));

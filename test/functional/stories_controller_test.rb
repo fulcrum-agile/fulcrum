@@ -120,6 +120,17 @@ class StoriesControllerTest < ActionController::TestCase
     assert_redirected_to project_url(@project)
   end
 
+  test "should add tags to a story" do
+    sign_in @user
+    put :update, :id => @story.to_param, :project_id => @project.to_param,
+      :story => {:tag_string => "hello, kitty"}
+    assert_equal @project, assigns(:project)
+    assert_equal @story, assigns(:story)
+    assert_equal 2, assigns(:story).tags.count
+    assert_equal ["hello", "kitty"], assigns(:story).tags.map(&:name)
+    assert_redirected_to project_url(@project)
+  end
+
   test "should update a story via xhr" do
     sign_in @user
     xhr :put, :update, :id => @story.to_param, :project_id => @project.to_param,

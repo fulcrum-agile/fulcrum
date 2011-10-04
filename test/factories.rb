@@ -21,3 +21,14 @@ Factory.define :changeset do |c|
   c.association :story
   c.association :project
 end
+
+Factory.define :tag do |c|
+  c.association :project
+  c.sequence(:name) {|n| "tag#{n}"}
+end
+
+Factory.define :tagging do |c|
+  c.association :story
+  c.association :tag
+end
+

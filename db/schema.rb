@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110914211417) do
+ActiveRecord::Schema.define(:version => 20111003055242) do
 
   create_table "changesets", :force => true do |t|
     t.integer  "story_id"
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(:version => 20110914211417) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "position"
+  end
+
+  create_table "taggings", :force => true do |t|
+    t.integer "tag_id"
+    t.integer "story_id"
+  end
+
+  add_index "taggings", ["story_id"], :name => "index_taggings_on_story_id"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+
+  create_table "tags", :force => true do |t|
+    t.string  "name"
+    t.integer "project_id"
   end
 
   create_table "users", :force => true do |t|
