@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-
+  has_many :tags
   JSON_ATTRIBUTES = [
     "id", "iteration_length", "iteration_start_day", "start_date"
   ]
