@@ -342,12 +342,17 @@ var StoryView = FormView.extend({
   },
 
   initTags: function() {
-    $(this.el).find("input[name='tag_string']").tagit({
+    var model = this.model;
+    var $input = $(this.el).find("input[name='tag_string']");
+    $input.tagit({
       availableTags: window.projectView.availableTags,
       onTagAdded: function(ev, tagEl){
         var tag = tagEl.find(".tagit-label").text();
         if(!_.include(window.projectView.availableTags, tag)){
           window.projectView.availableTags.push(tag);
+        }
+        if($input.val() !== model.get('tag_string')){
+          model.set({'tag_string': $input.val()},{silent:true});
         }
       }
     });
