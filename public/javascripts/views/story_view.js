@@ -283,7 +283,7 @@ var StoryView = FormView.extend({
       $(div).append('<br/>');
       $(div).append(this.textArea("description"));
       $(this.el).append(div);
-      this.initTags();
+
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
@@ -339,17 +339,5 @@ var StoryView = FormView.extend({
       return 'left';
     }
     return 'right';
-  },
-
-  initTags: function() {
-    $(this.el).find("input[name='tag_string']").tagit({
-      availableTags: window.projectView.availableTags,
-      onTagAdded: function(ev, tagEl){
-        var tag = tagEl.find(".tagit-label").text();
-        if(!_.include(window.projectView.availableTags, tag)){
-          window.projectView.availableTags.push(tag);
-        }
-      }
-    });
   }
 });

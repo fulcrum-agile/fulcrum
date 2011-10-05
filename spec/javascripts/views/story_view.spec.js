@@ -1,9 +1,6 @@
 describe('StoryView', function() {
 
   beforeEach(function() {
-    window.projectView = {
-      availableTags: []
-    };
     var Story = Backbone.Model.extend({
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true; },
@@ -293,16 +290,6 @@ describe('StoryView', function() {
       expect(this.view.hoverBoxPlacement()).toEqual('left');
       positionStub.restore();
       widthStub.restore();
-    });
-
-  });
-  describe("labels", function() {
-
-    it("should initialize tagit on edit", function() {
-      var spy = sinon.spy(jQuery.fn, 'tagit');
-      this.new_story.set({editing: true});
-      expect(spy).toHaveBeenCalled();
-      spy.restore();
     });
 
   });

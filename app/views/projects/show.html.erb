@@ -62,7 +62,6 @@ $(function() {
   project.current_user = new User(<%= current_user.to_json.html_safe %>);
   window.projectView = new ProjectView({model: project});
   window.projectView.scaleToViewport();
-  window.projectView.availableTags = <%= @project.tags.map(&:name).to_json.html_safe %>
   $(window).resize(projectView.scaleToViewport);
 
   setInterval(function() {
