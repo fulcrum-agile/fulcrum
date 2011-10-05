@@ -1,5 +1,4 @@
 class Story < ActiveRecord::Base
-  include Taggable
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
