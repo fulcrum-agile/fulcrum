@@ -1,5 +1,5 @@
 "Id","Story","Labels","Iteration","Iteration Start","Iteration End","Story Type","Estimate","Current State","Created at","Accepted at","Deadline","Requested By","Owned By","Description","URL","Note"
-1817033,"Errors and flash messages should show from Ajax requests",,1,"Nov 23, 2009","Nov 29, 2009","bug",,"accepted","Nov 27, 2009","Nov 28, 2009",,"Test User","Test User",,"http://www.pivotaltracker.com/story/show/1817033",
+1817033,"Errors and flash messages should show from Ajax requests","this, that, another",1,"Nov 23, 2009","Nov 29, 2009","bug",,"accepted","Nov 27, 2009","Nov 28, 2009",,"Test User","Test User",,"http://www.pivotaltracker.com/story/show/1817033",
 1816991,"Add user authentication",,2,"Nov 30, 2009","Dec 6, 2009","feature",2,"accepted","Nov 27, 2009","Dec 1, 2009",,"Test User","Test User",,"http://www.pivotaltracker.com/story/show/1816991",
 1829902,"A user should only see their own timeslices",,2,"Nov 30, 2009","Dec 6, 2009","feature",1,"accepted","Nov 29, 2009","Dec 1, 2009",,"Test User","Test User",,"http://www.pivotaltracker.com/story/show/1829902",
 1829901,"A user should only see their own tasks",,2,"Nov 30, 2009","Dec 6, 2009","feature",1,"accepted","Nov 29, 2009","Dec 1, 2009",,"Test User","Test User",,"http://www.pivotaltracker.com/story/show/1829901",
