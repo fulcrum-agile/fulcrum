@@ -21,6 +21,7 @@ var StoryView = FormView.extend({
 
     this.model.bind("change:estimate", this.setClassName);
 
+    this.model.bind("render", this.hoverBox());
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
     this.model.view = this;
@@ -286,7 +287,6 @@ var StoryView = FormView.extend({
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
-    this.hoverBox();
     return this;
   },
 
