@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  skip_before_filter :authenticate_user!, :only => [:show]
+  before_filter :permit_public_project, :only => [:show]
 
   # GET /projects
   # GET /projects.xml
@@ -13,7 +15,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @project = current_user.projects.find(params[:id])
     @story = @project.stories.build
 
     respond_to do |format|

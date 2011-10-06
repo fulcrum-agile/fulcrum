@@ -1,9 +1,10 @@
 class StoriesController < ApplicationController
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
+  before_filter :permit_public_project, :only => [:index, :show]
 
   include ActionView::Helpers::TextHelper
 
   def index
-    @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories
     respond_to do |format|
       format.json { render :json => @stories }
@@ -14,7 +15,6 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
     render :json => @story
   end

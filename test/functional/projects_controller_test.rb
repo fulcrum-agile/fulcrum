@@ -61,6 +61,23 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
+  test "should anonymously show public project" do
+    @project.public = true
+    @project.save
+    get :show, :id => @project.to_param
+    assert_equal @project, assigns(:project)
+    assert assigns(:story)
+    assert_response :success
+  end
+
+  test "should anonymously show public project in js format" do
+    @project.public = true
+    @project.save
+    get :show, :id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_response :success
+  end
+
   test "should get edit" do
     sign_in @user
     get :edit, :id => @project.to_param
