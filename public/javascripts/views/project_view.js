@@ -53,7 +53,7 @@ var ProjectView = Backbone.View.extend({
     // Render the chilly bin.  This needs to be rendered separately because
     // the stories don't belong to an iteration.
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
-      that.addStory(story)
+      that.addStory(story);
     });
   },
 

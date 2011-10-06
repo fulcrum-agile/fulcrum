@@ -351,10 +351,11 @@ var StoryView = FormView.extend({
         if(!_.include(window.projectView.availableTags, tag)){
           window.projectView.availableTags.push(tag);
         }
-        if($input.val() !== model.get('labels')){
-          model.set({'labels': $input.val()},{silent:true});
-        }
       }
+    });
+    // Manually bind labels for now
+    $input.bind('change', function(){
+      model.set({ labels: $(this).val()},{silent:true});
     });
   }
 });
