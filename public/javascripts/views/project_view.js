@@ -2,6 +2,7 @@ var ProjectView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'addStory', 'addAll', 'render');
+    this.availableTags = [];
 
     this.model.stories.bind('add', this.addStory);
     this.model.stories.bind('reset', this.addAll);
@@ -58,7 +59,7 @@ var ProjectView = Backbone.View.extend({
 
   scaleToViewport: function() {
     var storyTableTop = $('table.stories tbody').offset().top;
-    // Extra for the bottom padding and the 
+    // Extra for the bottom padding and the
     var extra = 100;
     var height = $(window).height() - (storyTableTop + extra);
     $('.storycolumn').css('height', height + 'px');
