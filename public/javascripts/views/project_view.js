@@ -52,13 +52,14 @@ var ProjectView = Backbone.View.extend({
     // Render the chilly bin.  This needs to be rendered separately because
     // the stories don't belong to an iteration.
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
-      that.addStory(story)
+      that.addStory(story);
     });
+    this.loadTags();
   },
 
   scaleToViewport: function() {
     var storyTableTop = $('table.stories tbody').offset().top;
-    // Extra for the bottom padding and the 
+    // Extra for the bottom padding and the
     var extra = 100;
     var height = $(window).height() - (storyTableTop + extra);
     $('.storycolumn').css('height', height + 'px');
@@ -66,5 +67,21 @@ var ProjectView = Backbone.View.extend({
 
   notice: function(message) {
     $.gritter.add(message);
+  },
+
+  loadTags: function(){
+    this.availableTags = _.compact(
+      _.uniq(
+        _.flatten(
+          _.map( this.model.stories.models, function(story){
+            if(story.get('labels')){
+              return _.map( story.get('labels').split(','), function(label){
+                return $.trim(label);
+              });
+            }
+          })
+        )
+      )
+    );
   }
 });

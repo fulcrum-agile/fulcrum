@@ -127,7 +127,8 @@ class StoriesController < ApplicationController
             :requested_by => users.detect {|u| u.name == row["Requested By"]},
             :owned_by => users.detect {|u| u.name == row["Owned By"]},
             :accepted_at => row["Accepted at"],
-            :estimate => row["Estimate"]
+            :estimate => row["Estimate"],
+            :labels => row["Labels"]
           }
         end
         @stories = @project.stories.create(stories)
@@ -162,7 +163,7 @@ class StoriesController < ApplicationController
   def filter_story_params
     allowed = [
       :title, :description, :estimate, :story_type, :state, :requested_by_id,
-      :owned_by_id, :position
+      :owned_by_id, :position, :labels
     ]
     filtered = {}
     params[:story].each do |key, value|
