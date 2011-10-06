@@ -3,7 +3,7 @@ class Story < ActiveRecord::Base
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
     "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-    "state", "position", "id", "events", "estimable", "estimated"
+    "state", "position", "id", "events", "estimable", "estimated", "labels"
   ]
   JSON_METHODS = [
     "events", "estimable", "estimated", "errors"
@@ -96,21 +96,21 @@ class Story < ActiveRecord::Base
     [
       id,                       # Id
       title,                    # Story
-      nil,                            # Labels
-      nil,                            # Iteration
-      nil,                            # Iteration Start
-      nil,                            # Iteration End
+      labels,                   # Labels
+      nil,                      # Iteration
+      nil,                      # Iteration Start
+      nil,                      # Iteration End
       story_type,               # Story Type
       estimate,                 # Estimate
       state,                    # Current State
       created_at,               # Created at
       accepted_at,              # Accepted at
-      nil,                            # Deadline
+      nil,                      # Deadline
       requested_by.try(:name),  # Requested By
       owned_by.try(:name),      # Owned By
       description,              # Description
       nil,                      # URL
-      nil                             # Note
+      nil                       # Note
     ]
   end
 
@@ -161,7 +161,7 @@ class Story < ActiveRecord::Base
   end
 
   private
-    
+
     def set_accepted_at
       if state_changed?
         if state == 'accepted' && accepted_at == nil

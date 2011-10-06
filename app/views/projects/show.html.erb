@@ -23,7 +23,15 @@
     src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">{{if story.estimated}}<span
       class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<img
     src="/images/details.png" title="${story.description}"/>{{/if}}</div>
-  <div class="story-title">${story.title}{{if $item.story.owned_by()}}<abbr class="initials" title="${$item.story.owned_by().get("name")}">${$item.story.owned_by().get("initials")}</abbr>{{/if}}</div>
+  <div class="story-title">
+    {{if story.labels}}<span class="tags">${story.labels}</span>{{/if}}
+    ${story.title}
+    {{if $item.story.owned_by()}}
+      <abbr class="initials" title="${$item.story.owned_by().get("name")}">
+        ${$item.story.owned_by().get("initials")}
+      </abbr>
+    {{/if}}
+  </div>
 
 </script>
 <script id="story_form" type="text/x-jQuery-tmpl">
