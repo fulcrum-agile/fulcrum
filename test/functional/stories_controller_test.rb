@@ -77,6 +77,23 @@ class StoriesControllerTest < ActionController::TestCase
     assert_equal @project, assigns(:project)
     assert_equal @project.stories, assigns(:stories)
   end
+
+  test "should get a single story in a public project for an anonymous user in js format" do
+    @project.public = true
+    @project.save
+    get :show, :project_id => @project.to_param, :id => @story.to_param,
+      :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @story, assigns(:story)
+  end
+
+  test "should get all stories in a public project for an anonymous user in js format" do
+    @project.public = true
+    @project.save
+    get :index, :project_id => @project.to_param, :format => 'js'
+    assert_equal @project, assigns(:project)
+    assert_equal @project.stories, assigns(:stories)
+  end
   test "should get done stories in js format" do
     sign_in @user
     get :done, :project_id => @project.to_param, :format => 'js'

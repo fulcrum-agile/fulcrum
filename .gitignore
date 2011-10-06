@@ -4,4 +4,5 @@ db/*.sqlite3
 log/*.log
 tmp/**/*
 .rvmrc
+*.swp
 public/stylesheets/*

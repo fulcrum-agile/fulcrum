@@ -22,4 +22,16 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  private
+  def permit_public_project
+    project_id = params[:id] ? params[:id] : params[:project_id]
+    project = Project.find(project_id)
+    unless project.public?
+      authenticate_user!
+      @project = current_user.projects.find(project_id)
+    else
+      @project = project
+    end
+  end
 end
