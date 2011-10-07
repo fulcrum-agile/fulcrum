@@ -454,5 +454,18 @@ var StoryView = FormView.extend({
       return 'left';
     }
     return 'right';
+  },
+
+  initTags: function() {
+    var model = this.model;
+    var $input = $(this.el).find("input[name='labels']");
+    $input.tagit({
+      availableTags: model.collection.labels
+    });
+
+    // Manually bind labels for now
+    $input.bind('change', function(){
+      model.set({ labels: $(this).val()});
+    });
   }
 });

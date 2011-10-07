@@ -18,4 +18,5 @@
 //= require fulcrum
 //= require bootstrap-twipsy
 //= require bootstrap-popover
+//= require tag-it
 //= require_tree .
