@@ -43,6 +43,11 @@ var ProjectView = Backbone.View.extend({
 
     this.model.rebuildIterations();
 
+    // Render the velocity display
+    $('#title_bar').prepend(
+      new ProjectVelocityView({model: this.model}).render().el
+    );
+
     // Render each iteration
     _.each(this.model.iterations, function(iteration) {
       var column = iteration.get('column');
