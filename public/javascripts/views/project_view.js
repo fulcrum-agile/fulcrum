@@ -54,7 +54,6 @@ var ProjectView = Backbone.View.extend({
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addStory(story);
     });
-    this.loadTags();
   },
 
   scaleToViewport: function() {
@@ -67,21 +66,5 @@ var ProjectView = Backbone.View.extend({
 
   notice: function(message) {
     $.gritter.add(message);
-  },
-
-  loadTags: function(){
-    this.availableTags = _.compact(
-      _.uniq(
-        _.flatten(
-          _.map( this.model.stories.models, function(story){
-            if(story.get('labels')){
-              return _.map( story.get('labels').split(','), function(label){
-                return $.trim(label);
-              });
-            }
-          })
-        )
-      )
-    );
   }
 });

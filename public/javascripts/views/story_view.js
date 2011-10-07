@@ -345,17 +345,12 @@ var StoryView = FormView.extend({
     var model = this.model;
     var $input = $(this.el).find("input[name='labels']");
     $input.tagit({
-      availableTags: window.projectView.availableTags,
-      onTagAdded: function(ev, tagEl){
-        var tag = tagEl.find(".tagit-label").text();
-        if(!_.include(window.projectView.availableTags, tag)){
-          window.projectView.availableTags.push(tag);
-        }
-      }
+      availableTags: model.collection.labels
     });
+
     // Manually bind labels for now
     $input.bind('change', function(){
-      model.set({ labels: $(this).val()},{silent:true});
+      model.set({ labels: $(this).val()});
     });
   }
 });

@@ -4,6 +4,7 @@ describe('StoryCollection collection', function() {
     this.story1 = new Story({id: 1, title: "Story 1", position: '10.0'});
     this.story2 = new Story({id: 2, title: "Story 2", position: '20.0'});
     this.story3 = new Story({id: 3, title: "Story 3", position: '30.0'});
+    this.story1.labels = this.story2.labels = this.story3.labels = function() { return []; };
 
     this.stories = new StoryCollection();
     this.stories.add([this.story3, this.story2, this.story1]);
@@ -102,6 +103,40 @@ describe('StoryCollection collection', function() {
       this.story3.column = function() {return '#backlog';};
       expect(this.stories.columns(['#backlog', '#current', '#done']))
         .toEqual([this.story3,this.story2,this.story1]);
+    });
+
+  });
+
+  describe("labels", function() {
+
+    it("should initialize with an empty labels list", function() {
+      expect(this.stories.labels).toEqual([]);
+    });
+
+    it("should add labels to the list", function() {
+      expect(this.stories.addLabels(["foo","bar","baz"])).toEqual(["foo","bar","baz"]);
+      expect(this.stories.labels).toEqual(["foo","bar","baz"]);
+
+      // Should add to the array
+      expect(this.stories.addLabels(["boo"])).toEqual(["foo","bar","baz","boo"]);
+      expect(this.stories.labels).toEqual(["foo","bar","baz","boo"]);
+
+      // Should add to the array, ignoring duplicates
+      expect(this.stories.addLabels(["foo", "bun"])).toEqual(["foo","bar","baz","boo","bun"]);
+      expect(this.stories.labels).toEqual(["foo","bar","baz","boo","bun"]);
+    });
+
+    it("should add labels when adding a story", function() {
+      var Story = Backbone.Model.extend({
+        name: 'story',
+        labels: sinon.stub(),
+        position: function() { return 1; }
+      });
+      var story = new Story();
+      story.labels.returns(["dummy", "labels"]);
+      expect(this.stories.labels).toEqual([]);
+      this.stories.add(story);
+      expect(this.stories.labels).toEqual(["dummy", "labels"]);
     });
 
   });

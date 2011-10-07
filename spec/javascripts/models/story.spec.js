@@ -295,4 +295,23 @@ describe('Story model', function() {
 
   });
 
+  describe("labels", function() {
+
+    it("should return an empty array if labels undefined", function() {
+      expect(this.story.get('labels')).toBeUndefined();
+      expect(this.story.labels()).toEqual([]);
+    });
+
+    it("should return an array of labels", function() {
+      this.story.set({labels: "foo,bar"});
+      expect(this.story.labels()).toEqual(["foo","bar"]);
+    });
+
+    it("should remove trailing and leading whitespace when spliting labels", function() {
+      this.story.set({labels: "foo , bar , baz"});
+      expect(this.story.labels()).toEqual(["foo","bar","baz"]);
+    });
+
+  });
+
 });

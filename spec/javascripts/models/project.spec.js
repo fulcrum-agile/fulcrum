@@ -4,7 +4,8 @@ describe('Project model', function() {
     var Story = Backbone.Model.extend({
       name: 'story',
       fetch: function() {},
-      position: function() {}
+      position: function() {},
+      labels: function() { return []; }
     });
     this.story = new Story({id: 456});
 

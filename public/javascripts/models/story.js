@@ -199,6 +199,15 @@ var Story = Backbone.Model.extend({
       today.setMilliseconds(0);
       this.set({accepted_at: today});
     }
+  },
+
+  labels: function() {
+    if (typeof this.get('labels') != 'string') {
+      return [];
+    }
+    return _.map(this.get('labels').split(','), function(label) {
+      return $.trim(label);
+    });
   }
 
 });
