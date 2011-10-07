@@ -8,6 +8,10 @@ var ProjectView = Backbone.View.extend({
     this.model.stories.bind('all', this.render);
 
     this.model.stories.fetch();
+
+    // Render the velocity display
+    this.velocityView = new ProjectVelocityView({model: this.model});
+    $('#title_bar').prepend(this.velocityView.render().el);
   },
 
   addStory: function(story, column) {
@@ -43,10 +47,8 @@ var ProjectView = Backbone.View.extend({
 
     this.model.rebuildIterations();
 
-    // Render the velocity display
-    $('#title_bar').prepend(
-      new ProjectVelocityView({model: this.model}).render().el
-    );
+    // Update the velocity display
+    this.velocityView.render();
 
     // Render each iteration
     _.each(this.model.iterations, function(iteration) {
