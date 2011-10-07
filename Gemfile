@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-# gem 'rails', '3.1.1.rc1'
+gem 'rails', '3.1.1'
 
 # Bundle edge Rails instead:
-gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
+# gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
 
 # SQLite
 gem 'sqlite3'
