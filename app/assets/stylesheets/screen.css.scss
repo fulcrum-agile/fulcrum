@@ -367,7 +367,8 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  background: #000 image-url('icon/iteration.png') no-repeat 2px center;
+  @include icon-sprite(iteration, false, 2px, 3px);
+  background-color: #000;
   color: #ddd;
   padding: 0.2em 0.2em 0.2em 20px
 }
