@@ -309,7 +309,7 @@ var StoryView = FormView.extend({
 
   hoverBox: function(){
     var view  = this;
-    $(this.el).find('.story_type').popover({
+    $(this.el).find('.popover-activate').popover({
       title: function(){
         return view.model.get("title");
       },

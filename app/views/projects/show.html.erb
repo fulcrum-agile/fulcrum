@@ -19,10 +19,10 @@
   {{/if}}
   <div class="story-icons">{{if $item.view.saveInProgress}}<img
     src="/images/throbber.gif" alt="Saving ...">{{else}}<img
-    src="/images/expand.png" class="expand" alt="Expand">{{/if}}<img
-    src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}" title="${story.story_type}: ${story.id}">{{if story.estimated}}<span
+    src="/images/expand.png" class="expand" alt="Expand">{{/if}}<span class="popover-activate"><img
+    src="/images/${story.story_type}.png" class="story_type" alt="${story.story_type}">{{if story.estimated}}<span
       class="estimate estimate_${story.estimate}">${story.estimate}</span>{{/if}}{{if $item.story.hasDetails()}}<img
-    src="/images/details.png" title="${story.description}"/>{{/if}}</div>
+    src="/images/details.png"/>{{/if}}</span></div>
   <div class="story-title">
     {{if story.labels}}<span class="tags">${story.labels}</span>{{/if}}
     ${story.title}
