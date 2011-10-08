@@ -227,6 +227,30 @@ describe('StoryView', function() {
       expect(this.story.get('state')).toEqual("unstarted");
     });
 
+    it("sets state to unstarted if dropped on the in_progress column", function() {
+
+      this.story.set({'state':'unscheduled'});
+
+      var html = $('<td id="in_progress"><div id="1"></div></td>');
+      var ev = {target: html.find('#1')};
+
+      this.view.sortUpdate(ev);
+
+      expect(this.story.get('state')).toEqual("unstarted");
+    });
+
+    it("doesn't change state if not unscheduled and dropped on the in_progress column", function() {
+
+      this.story.set({'state':'finished'});
+
+      var html = $('<td id="in_progress"><div id="1"></div></td>');
+      var ev = {target: html.find('#1')};
+
+      this.view.sortUpdate(ev);
+
+      expect(this.story.get('state')).toEqual("finished");
+    });
+
     it("sets state to unscheduled if dropped on the chilly_bin column", function() {
 
       this.story.set({'state':'unstarted'});

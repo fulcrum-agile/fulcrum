@@ -13,7 +13,7 @@ $(function() {
   $('div.sortable').sortable({
     handle: '.story-title', opacity: 0.6,
 
-    items: ".story",
+    items: ".story:not(.accepted)",
 
     update: function(ev, ui) {
       ui.item.trigger("sortupdate", ev, ui);
@@ -28,6 +28,7 @@ $(function() {
     $("#column-toggles").find( "."+className ).toggleClass('pressed');
   })
 
-  $('#backlog').sortable('option', 'connectWith', '#chilly_bin');
-  $('#chilly_bin').sortable('option', 'connectWith', '#backlog');
+  $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
+  $('#chilly_bin').sortable('option', 'connectWith', '#backlog,#in_progress');
+  $('#in_progress').sortable('option', 'connectWith', '#backlog,#chilly_bin');
 });

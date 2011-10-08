@@ -252,6 +252,9 @@ div.story-title abbr.initials {
 #chilly_bin div.story-title {
   cursor: move;
 }
+#in_progress div.story.accepted div.story-title {
+  cursor: inherit;
+}
 
 span.estimate {
   border: 1px solid #777;
