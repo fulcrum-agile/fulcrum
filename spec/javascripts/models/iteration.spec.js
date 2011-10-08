@@ -221,4 +221,39 @@ describe("iteration", function() {
 
   });
 
+  describe("stories", function() {
+
+    beforeEach(function() {
+      var Story = Backbone.Model.extend({name: 'story'});
+      this.acceptedStory = new Story({state: 'accepted'});
+      this.finishedStory = new Story({state: 'finished'});
+      this.unstartedStory = new Story({state: 'unstarted'});
+      var stories = [
+        this.unstartedStory, this.acceptedStory, this.finishedStory
+      ];
+      this.iteration.set({stories: stories});
+    });
+
+    it("returns the stories in the order they were added by default", function() {
+      expect(this.iteration.stories()).toEqual([
+        this.unstartedStory, this.acceptedStory, this.finishedStory
+      ]);
+    });
+
+    it("returns the stories accepted first if in progress iteration", function() {
+      this.iteration.set({column:'#in_progress'});
+      var stories = this.iteration.stories();
+      expect(stories.length).toEqual(3);
+      expect(stories[0]).toEqual(this.acceptedStory);
+    });
+
+    it("returns stories with a given state", function() {
+      expect(this.iteration.storiesWithState('accepted')).toEqual([this.acceptedStory]);
+    });
+
+    it("returns stories except a given state", function() {
+      expect(this.iteration.storiesExceptState('accepted')).toEqual([this.unstartedStory, this.finishedStory]);
+    });
+  });
+
 });

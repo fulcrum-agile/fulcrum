@@ -7,6 +7,28 @@ var Iteration = Backbone.Model.extend({
     this.isFull = false;
   },
 
+  // Return the list of stories
+  stories: function() {
+    if (this.get('column') === '#in_progress') {
+      var stories = this.storiesWithState('accepted');
+      return stories.concat(this.storiesExceptState('accepted'));
+    } else {
+      return this.get('stories');
+    }
+  },
+
+  storiesWithState: function(state) {
+    return _.select(this.get('stories'), function(story) {
+      return (story.get('state') === state);
+    });
+  },
+
+  storiesExceptState: function(state) {
+    return _.reject(this.get('stories'), function(story) {
+      return (story.get('state') === state);
+    });
+  },
+
   points: function() {
     return _.reduce(this.get('stories'), function(memo, story) {
       var estimate = 0;

@@ -31,7 +31,7 @@ var ProjectView = Backbone.View.extend({
     var column = iteration.get('column');
     var view = new IterationView({model: iteration});
     $(column).append(view.render().el);
-    _.each(iteration.get('stories'), function(story) {
+    _.each(iteration.stories(), function(story) {
       that.addStory(story, column);
     });
   },
