@@ -1,7 +1,8 @@
 class Project < ActiveRecord::Base
 
   JSON_ATTRIBUTES = [
-    "id", "iteration_length", "iteration_start_day", "start_date"
+    "id", "iteration_length", "iteration_start_day", "start_date",
+    "default_velocity"
   ]
   JSON_METHODS = ["last_changeset_id", "point_values"]
 
@@ -26,6 +27,9 @@ class Project < ActiveRecord::Base
     :only_integer => true, :message => "must be an integer between 0 and 6"
 
   validates :name, :presence => true
+
+  validates_numericality_of :default_velocity, :greater_than => 0,
+                            :only_integer => true
 
   has_and_belongs_to_many :users, :uniq => true
   accepts_nested_attributes_for :users, :reject_if => :all_blank

@@ -19,6 +19,22 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal 'fibonacci', Project.new.point_scale
   end
 
+  test "default velocity should be 10" do
+    assert_equal 10, Project.new.default_velocity
+  end
+
+  test "default velocity must be greater than 0" do
+    @project.default_velocity = 0
+    assert !@project.valid?
+    assert_equal ["must be greater than 0"], @project.errors[:default_velocity]
+  end
+
+  test "default velocity must be an integer" do
+    @project.default_velocity = 1.5
+    assert !@project.valid?
+    assert_equal ["must be an integer"], @project.errors[:default_velocity]
+  end
+
   test "should reject invalid point scale" do
     @project.point_scale = 'invalid_point_scale'
     assert !@project.save
@@ -67,7 +83,7 @@ class ProjectTest < ActiveSupport::TestCase
   test "should return json" do
     attrs = [
       "id", "point_values", "last_changeset_id", "iteration_length",
-      "iteration_start_day", "start_date"
+      "iteration_start_day", "start_date", "default_velocity"
     ]
     assert_returns_json attrs, @project
   end
