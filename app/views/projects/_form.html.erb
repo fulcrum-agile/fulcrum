@@ -22,6 +22,10 @@
       <%= f.select :point_scale, point_scale_options %>
     </div>
     <div class="field">
+      <%= f.label :default_velocity %><br />
+      <%= f.text_field :default_velocity, :length => 2, :size => 3 %>
+    </div>
+    <div class="field">
       <%= f.label :start_date %><br />
       <%= f.date_select :start_date %>
     </div>
