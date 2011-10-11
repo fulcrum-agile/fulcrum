@@ -39,6 +39,12 @@ class ProjectsControllerTest < ActionController::TestCase
     end
   end
 
+  test "should set flash on create" do
+    sign_in @user
+    post :create, :project => @project.attributes
+    assert_equal "Project was successfully created", flash[:notice]
+  end
+
   test "should show project" do
     sign_in @user
     get :show, :id => @project.to_param
@@ -49,7 +55,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should show project in js format" do
     sign_in @user
-    get :show, :id => @project.to_param, :format => 'js'
+    get :show, :id => @project.to_param, :format => 'json'
     assert_equal @project, assigns(:project)
     assert_response :success
   end
@@ -79,6 +85,12 @@ class ProjectsControllerTest < ActionController::TestCase
     attributes[:name] = ''
     put :update, :id => @project.to_param, :project => attributes
     assert_response :success
+  end
+
+  test "should set flash on update" do
+    sign_in @user
+    put :update, :id => @project.to_param, :project => @project.attributes
+    assert_equal "Project was successfully updated", flash[:notice]
   end
 
   test "should destroy project" do

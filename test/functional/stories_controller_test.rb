@@ -23,7 +23,7 @@ class StoriesControllerTest < ActionController::TestCase
     sign_in @user
     assert_difference 'Story.count' do
       xhr :post, :create, :project_id => @project.to_param,
-        :story => {:title => 'Test title', :editing => true}
+        :story => {:title => 'Test title', :editing => true}, :format => :json
     end
     assert_equal @user, assigns(:story).requested_by
     assert_equal @project, assigns(:project)
@@ -123,7 +123,7 @@ class StoriesControllerTest < ActionController::TestCase
   test "should update a story via xhr" do
     sign_in @user
     xhr :put, :update, :id => @story.to_param, :project_id => @project.to_param,
-      :story => {:title => "Updated title", :estimate => 1}
+      :story => {:title => "Updated title", :estimate => 1}, :format => :json
     assert_response :success
     assert_equal @project, assigns(:project)
     assert_equal @story, assigns(:story)
