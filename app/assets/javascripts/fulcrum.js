@@ -33,8 +33,8 @@ $(function() {
   $('#in_progress').sortable('option', 'connectWith', '#backlog,#chilly_bin');
 
   // Add close button to flash messages
-  $('#messages div').prepend('<a class="close" href="#">×</a>').find('a.close').click(function () { 
-    $(this).parent().fadeOut(); 
+  $('#messages div').prepend('<a class="close" href="#">×</a>').find('a.close').click(function () {
+    $(this).parent().fadeOut();
     return false;
   });
 });
