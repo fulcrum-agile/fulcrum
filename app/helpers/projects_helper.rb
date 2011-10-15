@@ -18,6 +18,6 @@ module ProjectsHelper
   # Returns an array of day name options suitable for use in
   # a select helper.  The values are 0 to 6, with 0 being Sunday.
   def day_name_options
-    DateTime::DAYNAMES.each_with_index.collect{|name,i| [name,i]}
+    I18n.t('date.day_names').each_with_index.collect{|name,i| [name,i]}
   end
 end
