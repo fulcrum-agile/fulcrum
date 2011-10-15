@@ -36,8 +36,8 @@ var StoryView = FormView.extend({
   },
 
   events: {
-    "click img.expand": "startEdit",
-    "click img.collapse": "saveEdit",
+    "click a.expand": "startEdit",
+    "click a.collapse": "saveEdit",
     "click #submit": "saveEdit",
     "click #cancel": "cancelEdit",
     "click .transition": "transition",
@@ -220,7 +220,7 @@ var StoryView = FormView.extend({
       div = this.make('div');
       if (!this.model.isNew()) {
         $(div).append(
-          this.make("img", {'class': "collapse", 'src': "/images/collapse.png"})
+          this.make("a", {'class': "collapse icon icons-collapse"})
         );
       }
       $(div).append(this.textField("title"));
@@ -300,11 +300,11 @@ var StoryView = FormView.extend({
 
   disableForm: function() {
     $(this.el).find('input,select,textarea').attr('disabled', 'disabled');
-    $(this.el).find('img.collapse,img.expand').attr('src', '/images/throbber.gif');
+    $(this.el).find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
   },
 
   enableForm: function() {
-    $(this.el).find('img.collapse').attr('src', '/images/collapse.png');
+    $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
   },
 
   hoverBox: function(){

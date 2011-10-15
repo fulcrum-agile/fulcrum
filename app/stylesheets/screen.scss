@@ -3,6 +3,7 @@
 @import 'jquery_gritter';
 @import 'jquery_tagit';
 @import 'twipsy';
+@import 'icons';
 
 $darkgrey:   #6a7176;           // Header color
 $orange:     rgb(250,182,155);  // Estimate gauge color
@@ -80,7 +81,9 @@ ul#primary-nav li.root {
 }
 ul#primary-nav li.secondary {
   position: relative;
-  background: #333 url('/images/collapse.png') no-repeat right;
+  @include icons-sprite(collapse, false, 0px, 6px);
+  background-color: #333;
+  background-position-x:right;
   padding: 0.4em 18px 0.4em 0.4em;
   @include border-radius(5px);
 }
@@ -125,11 +128,11 @@ ul#primary-nav li.secondary ul li {
   }
 
   #add_story {
-    @include background(url('/images/feature.png'), linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
+    @include background(sprite($icons-sprites, feature, 2, 2),
+                        linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
     background-repeat: no-repeat;
-    background-position: left center;
     margin: 0;
-    padding: 0.2em 0.3em 0.2em 16px;
+    padding: 0.2em 0.4em 0.2em 18px;
     @include border-radius(3px);
     border: 1px solid $aluminium-5;
     cursor: pointer;
@@ -328,7 +331,8 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  background: #000 url('/images/iteration.png') no-repeat 2px center;
+  @include icons-sprite(iteration, false, 2px, 3px);
+  background-color: #000;
   color: #ddd;
   padding: 0.2em 0.2em 0.2em 20px
 }
@@ -374,15 +378,11 @@ span.estimate_8 {
   border-color:     $scarlet-red-3;
 }
 .state-actions input.restart {
-  @include background(url('/images/redo.png'),
+  @include background(sprite($icons-sprites,redo),
                       linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
   background-repeat: no-repeat;
   border-color: $scarlet-red-3;
   padding-left: 16px;
-}
-
-img.expand, img.collapse {
-  cursor: pointer;
 }
 
 table#import tr.valid, .notice {

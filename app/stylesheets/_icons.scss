@@ -1,0 +1,21 @@
+$icons-spacing:2px;
+$icons-collapse-spacing:6px;
+@import "icons/*.png";
+@include all-icons-sprites;
+//$icon-redo: sprite($icons-sprites, redo);
+.icon{
+  width:16px;
+  height:16px;
+  padding:0;
+  display:inline-block;
+  text-indent:-9999px;
+}
+
+.icons-throbber{
+  background:image-url('throbber.gif') no-repeat;
+}
+
+
+a.expand, a.collapse {
+  cursor: pointer;
+}
