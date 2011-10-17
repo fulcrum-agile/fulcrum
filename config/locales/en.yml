@@ -2,7 +2,12 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  fulcrum:  "Fulcrum"
+
+  log out:  "Log out"
+  log in:   "Log in"
+  sign up:  "Sign up"
+
   activerecord:
     models:
       user: 'Member'

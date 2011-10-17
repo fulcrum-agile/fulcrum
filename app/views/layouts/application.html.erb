@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Fulcrum</title>
+  <title><%= t('fulcrum') %></title>
   <%= csrf_meta_tag %>
   <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
   <%= stylesheet_link_tag 'screen.css', :Media => 'screen, projection' %>
@@ -20,7 +20,7 @@
 
 <div id="header">
   <ul id="primary-nav">
-    <li class="root"><%= link_to "Fulcrum", root_path %></li>
+    <li class="root"><%= link_to t('fulcrum'), root_path %></li>
     <% if current_user %>
       <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
         <%= link_to Project.model_name.human.pluralize, root_path %>
@@ -33,10 +33,10 @@
         <%- end %>
       </li>
       <li><%= link_to current_user.email, edit_user_registration_path %></li>
-      <li><%= link_to 'Log out', destroy_user_session_path %></li>
+      <li><%= link_to t('log out'), destroy_user_session_path %></li>
     <% else %>
-      <li><%= link_to 'Log in', new_user_session_path %></li>
-      <li><%= link_to 'Sign up', new_user_registration_path %></li>
+      <li><%= link_to t('log in'), new_user_session_path %></li>
+      <li><%= link_to t('sign up'), new_user_registration_path %></li>
     <% end %>
   </ul>
 </div>
