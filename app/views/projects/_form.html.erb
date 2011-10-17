@@ -2,7 +2,7 @@
   <%= render 'shared/form_errors', :object => @project if @project.errors.any? %>
 
   <fieldset>
-    <legend>Project properties</legend>
+    <legend><%= t('projects.project properties') %></legend>
     <div class="field">
       <%= f.label :name %><br />
       <%= f.text_field :name %>

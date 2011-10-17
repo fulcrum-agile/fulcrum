@@ -16,10 +16,13 @@ en:
 
 
   projects:
+    new project:        "New Project"
+    edit project:       "Edit Project"
+    project properties: "Project Properties"
+
     index:
       listing projects: "Listing Projects"
       are you sure you want to delete this project: "Are you sure you want to delete this project?  This action cannot be undone."
       the iteration starts on x with length of x weeks:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
-      new project: "New Project"
