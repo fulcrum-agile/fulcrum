@@ -1,15 +1,5 @@
 <%= form_for([@project, @story]) do |f| %>
-  <% if @story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this project from being saved:</h2>
-
-      <ul>
-      <% @story.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/form_errors', :object => @story if @story.errors.any? %>
 
   <div class="field">
     <%= f.label :title %><br />
