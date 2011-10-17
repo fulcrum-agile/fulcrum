@@ -73,6 +73,14 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_redirected_to project_path(assigns(:project))
   end
 
+  test "should show update errors" do
+    sign_in @user
+    attributes = Factory.attributes_for(:project)
+    attributes[:name] = ''
+    put :update, :id => @project.to_param, :project => attributes
+    assert_response :success
+  end
+
   test "should destroy project" do
     sign_in @user
     assert_difference('Project.count', -1) do
