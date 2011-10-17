@@ -36,7 +36,7 @@
 </script>
 <script id="story_form" type="text/x-jQuery-tmpl">
   <p>
-    <label for="story_title">Title</label><br/>
+    <label for="story_title"><%= Story.human_attribute_name('title') %></label><br/>
     <input type="text" id="story_title" value="${title}"/>
   </p>
 </script>
@@ -58,7 +58,7 @@
       on ${$item.story.created_at()}</span>
   </div>
   {{if story.description}}
-    <h4 class="title">Description</h4>
+    <h4 class="title"><%= Story.human_attribute_name('description') %></h4>
     <div class="description">${story.description}</div>
   {{/if}}
 </script>

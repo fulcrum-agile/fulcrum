@@ -3,3 +3,6 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    models:
+      user: 'Member'
