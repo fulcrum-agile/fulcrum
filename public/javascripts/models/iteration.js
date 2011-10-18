@@ -113,7 +113,7 @@ var Iteration = Backbone.Model.extend({
     var end = parseInt(endIteration.get('number'), 10);
 
     if (end < start) {
-      throw "end iteration number must be greater than start iteration number";
+      throw "end iteration number:" + end + " must be greater than start iteration number:" + start ;
     }
 
     var missing_range = _.range(start, end);

@@ -189,7 +189,7 @@ describe("iteration", function() {
       var that = this;
       expect(function() {
         Iteration.createMissingIterations('#done', that.start, end);
-      }).toThrow("end iteration number must be greater than start iteration number");
+      }).toThrow("end iteration number:1 must be greater than start iteration number:2");
     });
 
     it("should return an empty array when start is undefined and end is number 1", function() {

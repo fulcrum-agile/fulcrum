@@ -202,13 +202,18 @@ var Project = Backbone.Model.extend({
     // Clear the project iterations
     this.iterations = [];
 
-    var done_iterations = _.groupBy(this.stories.column('#done'),
+    var doneIterations = _.groupBy(this.stories.column('#done'),
                                     function(story) {
                                       return story.iterationNumber();
                                     });
 
-    _.each(done_iterations, function(stories, iterationNumber) {
+    // groupBy() returns an object with keys of the iteration number
+    // and values of the stories array.  Ensure the keys are sorted
+    // in numeric order.
+    var doneNumbers = _.keys(doneIterations).sort();
 
+    _.each(doneNumbers, function(iterationNumber) {
+      var stories = doneIterations[iterationNumber];
       var iteration = new Iteration({
         'number': iterationNumber, 'stories': stories, column: '#done'
       });
