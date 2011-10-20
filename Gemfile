@@ -46,5 +46,5 @@ gem 'compass', '>= 0.11.5'
 
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'jasmine'
+  gem 'jasmine', '1.1.0'
 end
