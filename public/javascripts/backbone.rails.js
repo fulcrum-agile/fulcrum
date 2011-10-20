@@ -40,8 +40,9 @@ Backbone.RailsJSON = {
   // expected format. Should be called early in the model's constructor.
   maybeUnwrap : function(args) {
     if (this.isWrapped(args)) {
-      this.set(this.unwrappedAttributes(args), { silent: true });
+      var unwrappedAttributes = this.unwrappedAttributes(args);
       this.unset(this._name(), { silent: true });
+      this.set(unwrappedAttributes, { silent: true });
       this._previousAttributes = _.clone(this.attributes);
     }
   }
