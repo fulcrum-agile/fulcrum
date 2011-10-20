@@ -7,6 +7,7 @@ describe('StoryCollection collection', function() {
     this.story1.labels = this.story2.labels = this.story3.labels = function() { return []; };
 
     this.stories = new StoryCollection();
+    this.stories.url = '/foo';
     this.stories.add([this.story3, this.story2, this.story1]);
   });
 

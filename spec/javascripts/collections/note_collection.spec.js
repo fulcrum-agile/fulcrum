@@ -2,12 +2,20 @@ describe('NoteCollection collection', function() {
 
 
   beforeEach(function() {
-    this.story = new Story({id: 1, title: "Story", position: '10.0'});
-		this.note1 = new Note({id: 1, text: "Note text 1"})
-		this.note2 = new Note({id: 1, text: "Note text 2"})
-		this.note3 = new Note({id: 1, text: "Note text 3"})
-		
-    this.story.notes.add([this.note1, this.note2, this.note1]);
+    var Story = Backbone.Model.extend({name: 'story'});
+    this.story = new Story({url: '/foo'});
+    this.story.url = function() { return '/foo'; };
+
+    this.note_collection = new NoteCollection();
+    this.note_collection.story = this.story;
+  });
+
+  describe("url", function() {
+
+    it("should return the url", function() {
+      expect(this.note_collection.url()).toEqual('/foo/notes');
+    });
+
   });
 
 });

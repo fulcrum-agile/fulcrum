@@ -314,4 +314,24 @@ describe('Story model', function() {
 
   });
 
+  describe("notes", function() {
+
+    it("should default with an empty notes collection", function() {
+      expect(this.story.notes.length).toEqual(0);
+    });
+
+    it("should set the right notes collection url", function() {
+      expect(this.story.notes.url()).toEqual('/foo/999/notes');
+    });
+
+    it("should set a notes collection", function() {
+      var story = new Story({
+        notes: [{"note":{"text": "Dummy note"}}]
+      });
+
+      expect(story.notes.length).toEqual(1);
+    });
+
+  });
+
 });

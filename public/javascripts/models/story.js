@@ -3,15 +3,13 @@ var Story = Backbone.Model.extend({
 
   initialize: function(args) {
     this.bind('change:state', this.changeState);
+    this.bind('change:notes', this.populateNotes);
 
     // FIXME Call super()?
     this.maybeUnwrap(args);
 
-		if (!this.isNew()) {
-      this.notes = new NoteCollection;
-      this.notes.url = this.url() + '/notes';
-      this.notes.story = this;
-    }
+    this.initNotes();
+
   },
 
   changeState: function(model, new_value) {
@@ -215,6 +213,19 @@ var Story = Backbone.Model.extend({
     return _.map(this.get('labels').split(','), function(label) {
       return $.trim(label);
     });
+  },
+
+  // Initialize the notes collection on this story, and populate if necessary
+  initNotes: function() {
+    this.notes = new NoteCollection();
+    this.notes.story = this;
+    this.populateNotes();
+  },
+
+  // Resets this stories notes collection
+  populateNotes: function() {
+    var notes = this.get("notes") || [];
+    this.notes.reset(notes);
   }
 
 });

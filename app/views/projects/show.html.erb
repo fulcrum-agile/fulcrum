@@ -63,6 +63,10 @@
   {{/if}}
 </script>
 
+<script id="note_tmpl" type="text/x-jQuery-tmpl">
+  <p class="note">${note.note}</p>
+</script>
+
 <script type="text/javascript">
 $(function() {
   var project = new Project(<%= @project.to_json.html_safe %>);

@@ -13,45 +13,41 @@ var NoteForm = FormView.extend({
 	},
 
 	events: {
-    "click #note-submit": "save"
+    "click input": "saveEdit"
 	},
 	
-	save: function() {
+	saveEdit: function() {
 		console.debug(this.model);
-		/*
     this.model.set(this.changed_attributes);
-    this.disableForm();
+    //this.disableForm();
 
-    var that = this;
+    var view = this;
     this.model.save(null, {
       success: function(model, response) {
-        that.model.set({editing: false});
-        that.enableForm();
+        view.model.set({editing: false});
+        //view.enableForm();
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
         model.set({editing: true, errors: json.note.errors});
         App.notice({title: "Save error", text: model.errorMessages()});
-        that.enableForm();
+        //view.enableForm();
       }
     });
-*/
   },
 
   render: function() {
-    $(this.el).empty();
+    var view = this;
 
     div = this.make('div');
     $(div).append(this.label("note", "Note"));
     $(div).append('<br/>');
     $(div).append(this.textArea("note"));
-    //$(this.el).append(div);
 
-    //div = this.make('div');
-    $(div).append($(this.submit()).attr('id', 'note-submit'));
-    $(this.el).append(div);
-
-		console.debug(this.el);
+    var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note'});
+    $(submit).bind('click', function() { view.saveEdit(); });
+    $(div).append(submit);
+    $(this.el).html(div);
 
     return this;
   }

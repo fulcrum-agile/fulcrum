@@ -281,11 +281,25 @@ var StoryView = FormView.extend({
       this.initTags();
 
       if (!this.model.isNew()) {
-      	div = this.make('div');
-        var note = new NoteForm({model: new Note({text: 'New Comment' })});
-				$(div).append(note.render().el);
-        $(this.el).append(div);
-    	}
+        // Add a new unsaved note to the collection.  This will be rendered
+        // as a form.
+        this.model.notes.add([{note: 'New note'}]);
+      }
+
+      if (this.model.notes.length > 0) {
+        var el = $(this.el);
+        el.append('<hr/>');
+        el.append('<h3>Notes</h3>');
+        this.model.notes.each(function(note) {
+          var view;
+          if (note.isNew()) {
+            view = new NoteForm({model: note});
+          } else {
+            view = new NoteView({model: note});
+          }
+          el.append(view.render().el);
+        });
+      }
 
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));

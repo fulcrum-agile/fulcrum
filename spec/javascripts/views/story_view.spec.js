@@ -4,6 +4,8 @@ describe('StoryView', function() {
     window.projectView = {
       availableTags: []
     };
+    var Note = Backbone.Model.extend({name: 'note'});
+    var NotesCollection = Backbone.Collection.extend({model: Note});
     var Story = Backbone.Model.extend({
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true; },
@@ -20,6 +22,7 @@ describe('StoryView', function() {
     });
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
+    this.story.notes = this.new_story.notes = new NotesCollection();
     this.view = new StoryView({
       model: this.story
     });
