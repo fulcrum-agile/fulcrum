@@ -64,7 +64,11 @@
 </script>
 
 <script id="note_tmpl" type="text/x-jQuery-tmpl">
-  <p class="note">${note.note}</p>
+  <p class="note">${note.get("note")}</p>
+  <div class="note_meta">
+    <span class="user">${note.user().get("name")}</span> -
+    <span class="created_at">${note.get("created_at")}</span>
+  </div>
 </script>
 
 <script type="text/javascript">

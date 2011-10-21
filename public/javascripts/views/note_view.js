@@ -4,7 +4,7 @@ var NoteView = Backbone.View.extend({
   className: 'note',
 
   render: function() {
-    $(this.el).html($('#note_tmpl').tmpl(this.model.toJSON()));
+    $(this.el).html($('#note_tmpl').tmpl({note: this.model}));
     return this;
   }
 });
