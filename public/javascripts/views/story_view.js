@@ -4,7 +4,8 @@ var StoryView = FormView.extend({
 
   initialize: function() {
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
-                    "transition", "estimate", "disableForm");
+      "transition", "estimate", "disableForm", "renderNotes",
+      "renderNotesCollection");
 
     // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
@@ -21,6 +22,8 @@ var StoryView = FormView.extend({
 
     this.model.bind("change:estimate", this.setClassName);
     this.model.bind("change:state", this.setClassName);
+
+    this.model.bind("change:notes", this.renderNotes);
 
     this.model.bind("render", this.hoverBox());
     // Supply the model with a reference to it's own view object, so it can
@@ -286,20 +289,7 @@ var StoryView = FormView.extend({
         this.model.notes.add([{note: 'New note'}]);
       }
 
-      if (this.model.notes.length > 0) {
-        var el = $(this.el);
-        el.append('<hr/>');
-        el.append('<h3>Notes</h3>');
-        this.model.notes.each(function(note) {
-          var view;
-          if (note.isNew()) {
-            view = new NoteForm({model: note});
-          } else {
-            view = new NoteView({model: note});
-          }
-          el.append(view.render().el);
-        });
-      }
+      this.renderNotes();
 
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
@@ -371,5 +361,29 @@ var StoryView = FormView.extend({
     $input.bind('change', function(){
       model.set({ labels: $(this).val()});
     });
+  },
+
+  renderNotes: function() {
+    if (this.model.notes.length > 0) {
+      var el = $(this.el);
+      el.append('<hr/>');
+      el.append('<h3>Notes</h3>');
+      el.append('<div class="notelist"/>');
+      this.renderNotesCollection();
+    }
+  },
+
+  renderNotesCollection: function() {
+    var notelist = this.$('div.notelist');
+    this.model.notes.each(function(note) {
+      var view;
+      if (note.isNew()) {
+        view = new NoteForm({model: note});
+      } else {
+        view = new NoteView({model: note});
+      }
+      notelist.append(view.render().el);
+    });
   }
+
 });
