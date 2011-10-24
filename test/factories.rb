@@ -23,6 +23,7 @@ Factory.define :changeset do |c|
 end
 
 Factory.define :note do |n|
+  n.note        'Test note'
   n.association :story
   n.association :user
 end

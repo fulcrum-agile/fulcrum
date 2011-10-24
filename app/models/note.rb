@@ -4,6 +4,8 @@ class Note < ActiveRecord::Base
 
   after_save :create_changeset
 
+  validates :note, :presence => true
+
   def create_changeset
     story.changesets.create! if story
   end

@@ -9,6 +9,11 @@ class NoteTest < ActiveSupport::TestCase
     @note = Factory.create(:note, :story => @story, :user => @user)
   end
 
+  test "cannot save without a body" do
+    @note.note = ''
+    assert !@note.valid?
+  end
+
   test "creating a note creates a changeset" do
     assert_difference ['Changeset.count', '@story.changesets.count'] do
       Factory.create(:note, :story => @story, :user => @user)
