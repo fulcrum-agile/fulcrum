@@ -23,7 +23,7 @@ var StoryView = FormView.extend({
     this.model.bind("change:estimate", this.setClassName);
     this.model.bind("change:state", this.setClassName);
 
-    this.model.bind("change:notes", this.renderNotes);
+    this.model.bind("change:notes", this.renderNotesCollection);
 
     this.model.bind("render", this.hoverBox());
     // Supply the model with a reference to it's own view object, so it can
@@ -375,6 +375,7 @@ var StoryView = FormView.extend({
 
   renderNotesCollection: function() {
     var notelist = this.$('div.notelist');
+    notelist.html('');
     this.model.notes.each(function(note) {
       var view;
       if (note.isNew()) {

@@ -344,10 +344,10 @@ describe('StoryView', function() {
 
   describe("notes", function() {
 
-    it("binds change:notes to renderNotes()", function() {
+    it("binds change:notes to renderNotesCollection()", function() {
       var spy = sinon.spy(this.story, 'bind');
       var view = new StoryView({model: this.story});
-      expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotes);
+      expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotesCollection);
     });
 
   });
