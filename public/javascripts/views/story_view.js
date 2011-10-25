@@ -5,7 +5,7 @@ var StoryView = FormView.extend({
   initialize: function() {
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
-      "renderNotesCollection");
+      "renderNotesCollection", "addEmptyNote");
 
     // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
@@ -23,6 +23,7 @@ var StoryView = FormView.extend({
     this.model.bind("change:estimate", this.setClassName);
     this.model.bind("change:state", this.setClassName);
 
+    this.model.bind("change:notes", this.addEmptyNote);
     this.model.bind("change:notes", this.renderNotesCollection);
 
     this.model.bind("render", this.hoverBox());
@@ -36,6 +37,9 @@ var StoryView = FormView.extend({
 
     // Set up CSS classes for the view
     this.setClassName();
+
+    // Add an empty note to the collection
+    this.addEmptyNote();
   },
 
   events: {
@@ -283,12 +287,6 @@ var StoryView = FormView.extend({
       $(this.el).append(div);
       this.initTags();
 
-      if (!this.model.isNew()) {
-        // Add a new unsaved note to the collection.  This will be rendered
-        // as a form.
-        this.model.notes.add([{note: 'New note'}]);
-      }
-
       this.renderNotes();
 
     } else {
@@ -376,6 +374,7 @@ var StoryView = FormView.extend({
   renderNotesCollection: function() {
     var notelist = this.$('div.notelist');
     notelist.html('');
+    this.addEmptyNote();
     this.model.notes.each(function(note) {
       var view;
       if (note.isNew()) {
@@ -385,6 +384,25 @@ var StoryView = FormView.extend({
       }
       notelist.append(view.render().el);
     });
+  },
+
+  addEmptyNote: function() {
+
+    // Don't add an empty note if the story is unsaved.
+    if (this.model.isNew()) {
+      return;
+    }
+
+    // Don't add an empty note if the notes collection already has a trailing
+    // new Note.
+    var last = this.model.notes.last();
+    if (last && last.isNew()) {
+      return;
+    }
+
+    // Add a new unsaved note to the collection.  This will be rendered
+    // as a form which will allow the user to add a new note to the story.
+    this.model.notes.add([{note: 'New note'}]);
   }
 
 });

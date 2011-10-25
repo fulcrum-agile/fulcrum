@@ -350,6 +350,39 @@ describe('StoryView', function() {
       expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotesCollection);
     });
 
+    it("binds change:notes to addEmptyNote()", function() {
+      var spy = sinon.spy(this.story, 'bind');
+      var view = new StoryView({model: this.story});
+      expect(spy).toHaveBeenCalledWith('change:notes', view.addEmptyNote);
+    });
+
+    it("adds a blank note to the end of the notes collection", function() {
+      this.view.model.notes.reset();
+      expect(this.view.model.notes.length).toEqual(0);
+      this.view.addEmptyNote();
+      expect(this.view.model.notes.length).toEqual(1);
+      expect(this.view.model.notes.last().isNew()).toBeTruthy();
+    });
+
+    it("doesn't add a blank note if the story is new", function() {
+      var stub = sinon.stub(this.view.model, 'isNew');
+      stub.returns(true);
+      this.view.model.notes.reset();
+      expect(this.view.model.notes.length).toEqual(0);
+      this.view.addEmptyNote();
+      expect(this.view.model.notes.length).toEqual(0);
+    });
+
+    it("doesn't add a blank note if there is already one", function() {
+      this.view.model.notes.last = sinon.stub().returns({
+        isNew: sinon.stub().returns(true)
+      });
+      expect(this.view.model.notes.last().isNew()).toBeTruthy();
+      var oldLength = this.view.model.notes.length;
+      this.view.addEmptyNote();
+      expect(this.view.model.notes.length).toEqual(oldLength);
+    });
+
   });
 
 });
