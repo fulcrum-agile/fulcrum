@@ -184,7 +184,7 @@ var Story = Backbone.Model.extend({
   },
 
   hasDetails: function() {
-    return typeof this.get('description') == "string";
+    return (typeof this.get('description') == "string" || this.hasNotes());
   },
 
   iterationNumber: function() {
@@ -226,6 +226,13 @@ var Story = Backbone.Model.extend({
   populateNotes: function() {
     var notes = this.get("notes") || [];
     this.notes.reset(notes);
+  },
+
+  // Returns true if any of the story has any saved notes.
+  hasNotes: function() {
+    return this.notes.any(function(note) {
+      return !note.isNew();
+    });
   }
 
 });

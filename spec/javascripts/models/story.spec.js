@@ -273,12 +273,20 @@ describe('Story model', function() {
   describe("details", function() {
 
     // If the story has details other than the title, e.g. description
-    it("should return if the story has details", function() {
+    it("should return true the story has a description", function() {
 
       expect(this.story.hasDetails()).toBeFalsy();
 
       this.story.set({description: "Test description"});
 
+      expect(this.story.hasDetails()).toBeTruthy();
+
+    });
+
+    it("should return true if the story has saved notes", function() {
+
+      expect(this.story.hasDetails()).toBeFalsy();
+      this.story.hasNotes = sinon.stub().returns(true);
       expect(this.story.hasDetails()).toBeTruthy();
 
     });
@@ -330,6 +338,21 @@ describe('Story model', function() {
       });
 
       expect(story.notes.length).toEqual(1);
+    });
+
+    describe("hasNotes", function() {
+
+      it("returns true if it has saved notes", function() {
+        expect(this.story.hasNotes()).toBeFalsy();
+        this.story.notes.add({id: 999, note: "Test note"});
+        expect(this.story.hasNotes()).toBeTruthy();
+      });
+
+      it("returns false if it has unsaved notes", function() {
+        this.story.notes.add({note: "Unsaved note"});
+        expect(this.story.hasNotes()).toBeFalsy();
+      });
+
     });
 
   });
