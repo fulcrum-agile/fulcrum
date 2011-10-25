@@ -17,7 +17,6 @@ var NoteForm = FormView.extend({
 	},
 	
 	saveEdit: function() {
-		console.debug(this.model);
     this.model.set(this.changed_attributes);
     //this.disableForm();
 
@@ -45,7 +44,6 @@ var NoteForm = FormView.extend({
     $(div).append(this.textArea("note"));
 
     var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note'});
-    $(submit).bind('click', function() { view.saveEdit(); });
     $(div).append(submit);
     $(this.el).html(div);
 
