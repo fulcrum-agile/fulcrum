@@ -61,12 +61,20 @@
     <h4 class="title"><%= Story.human_attribute_name('description') %></h4>
     <div class="description">${story.description}</div>
   {{/if}}
+  {{if $item.story.hasNotes()}}
+    <h5 class="title"><%= Note.model_name.human.pluralize %></h5>
+    {{each(index, note) $item.story.notes.saved()}}
+    <div class="note">
+      {{tmpl({note:note}) "#note_tmpl"}}
+    </div>
+    {{/each}}
+  {{/if}}
 </script>
 
 <script id="note_tmpl" type="text/x-jQuery-tmpl">
   <p class="note">${note.get("note")}</p>
   <div class="note_meta">
-    <span class="user">${note.user().get("name")}</span> -
+    <span class="user">${note.userName()}</span> -
     <span class="created_at">${note.get("created_at")}</span>
   </div>
 </script>

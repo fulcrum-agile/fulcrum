@@ -3,5 +3,11 @@ var NoteCollection = Backbone.Collection.extend({
 
   url: function() {
     return this.story.url() + '/notes';
+  },
+
+  saved: function() {
+    return this.reject(function(note) {
+      return note.isNew();
+    });
   }
 });

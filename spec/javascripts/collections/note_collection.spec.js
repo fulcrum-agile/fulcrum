@@ -18,4 +18,11 @@ describe('NoteCollection collection', function() {
 
   });
 
+  it("should return only saved notes", function() {
+    this.note_collection.add({id: 1, note: "Saved note"});
+    this.note_collection.add({note: "Unsaved note"});
+    expect(this.note_collection.length).toEqual(2);
+    expect(this.note_collection.saved().length).toEqual(1);
+  });
+
 });
