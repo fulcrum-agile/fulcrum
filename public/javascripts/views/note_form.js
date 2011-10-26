@@ -2,6 +2,8 @@ var NoteForm = FormView.extend({
 
   tagName: 'div',
 
+  className: 'note_form',
+
   initialize: function() {
 	  // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
@@ -18,19 +20,17 @@ var NoteForm = FormView.extend({
 	
 	saveEdit: function() {
     this.model.set(this.changed_attributes);
-    //this.disableForm();
+    this.disableForm();
 
     var view = this;
     this.model.save(null, {
       success: function(model, response) {
-        view.model.set({editing: false});
-        //view.enableForm();
+        //view.model.set({editing: false});
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
         model.set({editing: true, errors: json.note.errors});
         App.notice({title: "Save error", text: model.errorMessages()});
-        //view.enableForm();
       }
     });
   },
@@ -48,5 +48,10 @@ var NoteForm = FormView.extend({
     $(this.el).html(div);
 
     return this;
+  },
+
+  disableForm: function() {
+    this.$('input,textarea').attr('disabled', 'disabled');
+    this.$('input[type="button"]').addClass('saving');
   }
 });

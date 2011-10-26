@@ -402,7 +402,7 @@ var StoryView = FormView.extend({
 
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
-    this.model.notes.add([{note: 'New note'}]);
+    this.model.notes.add();
   }
 
 });
