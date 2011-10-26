@@ -210,7 +210,9 @@ var Project = Backbone.Model.extend({
     // groupBy() returns an object with keys of the iteration number
     // and values of the stories array.  Ensure the keys are sorted
     // in numeric order.
-    var doneNumbers = _.keys(doneIterations).sort();
+    var doneNumbers = _.keys(doneIterations).sort(function(left, right) {
+      return (left - right);
+    });
 
     _.each(doneNumbers, function(iterationNumber) {
       var stories = doneIterations[iterationNumber];
