@@ -1,5 +1,9 @@
 describe("Note", function() {
 
+  beforeEach(function() {
+    this.note = new Note();
+  });
+
   describe("user", function() {
 
     beforeEach(function() {
@@ -7,7 +11,7 @@ describe("Note", function() {
       this.usersCollectionStub = sinon.stub();
       this.usersCollectionStub.withArgs(999).returns(this.user);
       this.project = {users: {get: this.usersCollectionStub}};
-      this.note = new Note({user_id: 999});
+      this.note.set({user_id: 999});
       this.note.collection = {story: {collection: {project: this.project}}};
     });
 
@@ -26,6 +30,24 @@ describe("Note", function() {
       expect(this.note.userName()).toEqual('Author unknown');
     });
 
+  });
+
+  describe("errors", function() {
+
+    it("should record errors", function() {
+      expect(this.note.hasErrors()).toBeFalsy();
+      expect(this.note.errorsOn('note')).toBeFalsy();
+
+      this.note.set({errors: {
+        note: ["cannot be blank", "needs to be better"]
+      }});
+
+      expect(this.note.hasErrors()).toBeTruthy();
+      expect(this.note.errorsOn('note')).toBeTruthy();
+
+      expect(this.note.errorMessages())
+        .toEqual("note cannot be blank, note needs to be better");
+    });
 
   });
 });

@@ -29,8 +29,9 @@ var NoteForm = FormView.extend({
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
-        model.set({editing: true, errors: json.note.errors});
-        App.notice({title: "Save error", text: model.errorMessages()});
+        view.enableForm();
+        model.set({errors: json.note.errors});
+        window.projectView.notice({title: "Save error", text: model.errorMessages()});
       }
     });
   },
@@ -50,8 +51,15 @@ var NoteForm = FormView.extend({
     return this;
   },
 
+  // Makes the note for uneditable during save
   disableForm: function() {
     this.$('input,textarea').attr('disabled', 'disabled');
     this.$('input[type="button"]').addClass('saving');
+  },
+
+  // Re-enables the note form once save is complete
+  enableForm: function() {
+    this.$('input,textarea').removeAttr('disabled');
+    this.$('input[type="button"]').removeClass('saving');
   }
 });

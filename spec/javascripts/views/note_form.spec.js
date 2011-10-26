@@ -40,4 +40,21 @@ describe("NoteForm", function() {
     });
 
   });
+
+  describe("enableForm", function() {
+
+    it("removes disabled state from form tags", function() {
+      $(this.view.el).html('<textarea disabled="disabled"></textarea><input type="submit" disabled="disabled">');
+      this.view.enableForm();
+      expect(this.view.$('textarea').attr('disabled')).toBeFalsy();
+      expect(this.view.$('input').attr('disabled')).toBeFalsy();
+    });
+
+    it("removes saving class from the submit button", function() {
+      $(this.view.el).html('<input type="button" class="saving">');
+      this.view.enableForm();
+      expect(this.view.$('input[type="button"]')).not.toHaveClass('saving');
+    });
+
+  });
 });

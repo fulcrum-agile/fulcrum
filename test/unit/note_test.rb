@@ -19,4 +19,11 @@ class NoteTest < ActiveSupport::TestCase
       Factory.create(:note, :story => @story, :user => @user)
     end
   end
+
+  test "returns JSON" do
+    attrs = [
+      "id", "created_at", "updated_at", "user_id", "story_id", "note", "errors"
+    ]
+    assert_returns_json attrs, @note
+  end
 end
