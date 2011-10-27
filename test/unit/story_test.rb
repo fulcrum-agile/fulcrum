@@ -271,4 +271,32 @@ class StoryTest < ActiveSupport::TestCase
     assert_instance_of Array, @story.to_csv
     assert_equal Story.csv_headers.length, @story.to_csv.length
   end
+
+  test "notify_users should include requestor" do
+    assert @story.notify_users.include?(@story.requested_by)
+  end
+
+  test "notify_users should include owner" do
+    user = Factory.create(:user)
+    @project.users << user
+    @story.owned_by = user
+    assert @story.notify_users.include?(user)
+  end
+
+  test "notify_users should include users who have added notes" do
+    user = Factory.create(:user)
+    @project.users << user
+    Factory.create(:note, :story => @story, :user => user)
+    assert @story.notify_users.include?(user)
+  end
+
+  test "notify_users should not include any nil values" do
+    @story.owned_by = nil
+    assert !@story.notify_users.include?(nil)
+  end
+
+  test "notify_users should not include the same user twice" do
+    @story.owned_by = @story.requested_by = @user
+    assert_equal [@user], @story.notify_users
+  end
 end
