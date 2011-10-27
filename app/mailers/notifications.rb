@@ -23,4 +23,15 @@ class Notifications < ActionMailer::Base
     mail :to => story.owned_by.email, :from => rejected_by.email,
       :subject => "[#{story.project.name}] #{rejected_by.name} REJECTED your story '#{story.title}'."
   end
+
+  # Send notification to of a new note to the listed users
+  def new_note(note, notify_users)
+    @note = note
+    @story = note.story
+
+    @notify_emails = notify_users.map(&:email)
+
+    mail :to => @notify_emails, :from => @note.user.email,
+      :subject => "[#{@story.project.name}] New comment on '#{@story.title}'"
+  end
 end
