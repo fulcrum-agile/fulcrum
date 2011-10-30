@@ -49,7 +49,7 @@ Once you have these:
     $ bundle install
     
     # Set up the development database
-    $ rake fulcrum:setup db:setup
+    $ bundle exec rake fulcrum:setup db:setup
     
     # Start the local web server
     $ rails server
