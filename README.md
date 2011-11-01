@@ -78,7 +78,7 @@ to the previous section for instuctions. Then:
     $ heroku config:add MAILER_SENDER=noreply@example.org
 
     # Allow emails to be sent
-    $ heroku addons:add sendgrid:free
+    $ heroku addons:add sendgrid:starter
 
     # Deploy the first version
     $ git push heroku master
