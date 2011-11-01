@@ -18,5 +18,8 @@ project.stories.create! :title => "A user should be able to estimate features",
   :story_type => 'feature', :requested_by => user, :estimate => 1,
   :labels => 'estimates,features'
 
-story.notes.create! :note => "Here is a comment", :user => user
-story.notes.create! :note => "Here is another comment", :user => user
+2.times do |n|
+  note = story.notes.build :note => "This is comment number #{n + 1}"
+  note.user = user
+  note.save!
+end
