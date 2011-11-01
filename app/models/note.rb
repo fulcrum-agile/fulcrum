@@ -11,12 +11,14 @@ class Note < ActiveRecord::Base
   def create_changeset
     story.changesets.create!
 
-    # Notify all stakeholders in the story, but not the user who made the
-    # note.
-    notify_users = story.notify_users
-    notify_users.delete(user)
+    unless story.project.suppress_notifications
+      # Notify all stakeholders in the story, but not the user who made the
+      # note.
+      notify_users = story.notify_users
+      notify_users.delete(user)
 
-    Notifications.new_note(self, notify_users).deliver unless notify_users.empty?
+      Notifications.new_note(self, notify_users).deliver unless notify_users.empty?
+    end
   end
 
   # Defines the attributes and methods that are included when calling to_json

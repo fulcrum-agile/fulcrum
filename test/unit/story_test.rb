@@ -179,6 +179,15 @@ class StoryTest < ActiveSupport::TestCase
     end
   end
 
+  test "delivering a story does not send an email when notifications are suppressed" do
+    @story.acting_user = Factory.create(:user)
+    @project.users << @story.acting_user
+    @project.suppress_notifications = true
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
+      @story.update_attribute :state, 'delivered'
+    end
+  end
+
   test "delivering a story does not send an email to the requestor when email_delivery is false" do
     @story.acting_user = Factory.create(:user)
     @project.users << @story.acting_user

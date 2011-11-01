@@ -29,6 +29,11 @@ class NoteTest < ActiveSupport::TestCase
     end
     assert_equal [user.email], ActionMailer::Base.deliveries.first.to
     assert_equal [@user.email], ActionMailer::Base.deliveries.first.from
+
+    @project.suppress_notifications = true
+    assert_no_difference 'ActionMailer::Base.deliveries.count' do
+      Factory.create(:note, :story => @story, :user => @user)
+    end
   end
 
   test "creating a note does not send a notification for the current user" do

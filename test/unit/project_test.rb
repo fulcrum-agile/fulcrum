@@ -114,4 +114,8 @@ class ProjectTest < ActiveSupport::TestCase
   test "should return the projects csv filename" do
     assert_match /^Test Project-\d{8}_\d{4}\.csv$/, @project.csv_filename
   end
+
+  test "suppress notifications should default to false" do
+    assert_equal false, @project.suppress_notifications
+  end
 end

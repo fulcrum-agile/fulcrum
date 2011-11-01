@@ -37,6 +37,8 @@ class Project < ActiveRecord::Base
   has_many :stories,    :dependent => :destroy
   has_many :changesets, :dependent => :destroy
 
+  attr_accessor_with_default :suppress_notifications, false
+
   def to_s
     name
   end
