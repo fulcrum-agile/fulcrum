@@ -34,7 +34,37 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :users, :uniq => true
   accepts_nested_attributes_for :users, :reject_if => :all_blank
 
-  has_many :stories,    :dependent => :destroy
+  has_many :stories, :dependent => :destroy do
+
+    # Populates the stories collection from a CSV string.
+    def from_csv(csv_string)
+
+      # Eager load this so that we don't have to make multiple db calls when
+      # searching for users by full name from the CSV.
+      users = proxy_owner.users
+
+      # This will store an array of hashes of the story attributes from the
+      # CSV
+      stories = []
+
+      csv = CSV.parse(csv_string, :headers => true)
+      csv.each do |row|
+        row = row.to_hash
+        stories << {
+          :state => row["Current State"],
+          :title => row["Story"],
+          :story_type => row["Story Type"],
+          :requested_by => users.detect {|u| u.name == row["Requested By"]},
+          :owned_by => users.detect {|u| u.name == row["Owned By"]},
+          :accepted_at => row["Accepted at"],
+          :estimate => row["Estimate"],
+          :labels => row["Labels"]
+        }
+      end
+      create(stories)
+    end
+
+  end
   has_many :changesets, :dependent => :destroy
 
   attr_accessor_with_default :suppress_notifications, false
