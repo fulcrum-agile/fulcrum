@@ -150,7 +150,7 @@ describe('StoryView', function() {
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
-      expect($(this.view.el).find('img.collapse').attr('src')).toEqual('/images/throbber.gif');
+      expect($(this.view.el).find('a.collapse').hasClass('icons-throbber')).toBeTruthy();
 
       this.server.respond();
 
@@ -204,7 +204,7 @@ describe('StoryView', function() {
     it("should not show the collapse control if its a new story", function() {
       this.new_story.set({editing: true});
 
-      expect($(this.new_story_view.el)).not.toContain('img.collapse');
+      expect($(this.new_story_view.el)).not.toContain('a.collapse');
     });
 
   });
