@@ -43,25 +43,25 @@ class Project < ActiveRecord::Base
       # searching for users by full name from the CSV.
       users = proxy_owner.users
 
-      # This will store an array of hashes of the story attributes from the
-      # CSV
-      stories = []
-
       csv = CSV.parse(csv_string, :headers => true)
-      csv.each do |row|
-        row = row.to_hash
-        stories << {
-          :state => row["Current State"],
-          :title => row["Story"],
-          :story_type => row["Story Type"],
+      csv.map do |row|
+        row_attrs = row.to_hash
+        story = create({
+          :state        => row_attrs["Current State"],
+          :title        => row_attrs["Story"],
+          :story_type   => row_attrs["Story Type"],
           :requested_by => users.detect {|u| u.name == row["Requested By"]},
-          :owned_by => users.detect {|u| u.name == row["Owned By"]},
-          :accepted_at => row["Accepted at"],
-          :estimate => row["Estimate"],
-          :labels => row["Labels"]
-        }
+          :owned_by     => users.detect {|u| u.name == row["Owned By"]},
+          :accepted_at  => row_attrs["Accepted at"],
+          :estimate     => row_attrs["Estimate"],
+          :labels       => row_attrs["Labels"]
+        })
+
+        # Generate notes for this story if any are present
+        story.notes.from_csv_row(row)
+
+        story
       end
-      create(stories)
     end
 
   end

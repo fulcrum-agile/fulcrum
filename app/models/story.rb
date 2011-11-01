@@ -26,7 +26,25 @@ class Story < ActiveRecord::Base
   validates :owned_by_id, :belongs_to_project => true
 
   has_many :changesets
-  has_many :notes
+  has_many :notes do
+
+    # Creates a collection of rows on this story from a CSV::Row instance
+    def from_csv_row(row)
+      # Ensure no email notifications get sent during CSV import
+      proxy_owner.project.suppress_notifications
+
+      # Each row can have muliple Note headers.  Extract any of them from
+      # this row.
+      notes = []
+      row.each do |header, value|
+        if header == 'Note' && value
+          notes << create(:note => value)
+        end
+      end
+      notes
+    end
+
+  end
 
   # This attribute is used to store the user who is acting on a story, for
   # example delivering or modifying it.  Usually set by the controller.

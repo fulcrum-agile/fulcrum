@@ -308,4 +308,17 @@ class StoryTest < ActiveSupport::TestCase
     @story.owned_by = @story.requested_by = @user
     assert_equal [@user], @story.notify_users
   end
+
+  test "should create notes from a CSV row" do
+    row = [["Note", "Note 1"], ["Note", "Note 2"]]
+    notes = []
+    assert_difference 'Note.count', 2 do
+      notes = @story.notes.from_csv_row row
+    end
+    assert_equal "Note 1", notes[0].note
+    assert_equal "Note 2", notes[1].note
+    notes.each do |note|
+      assert_equal @story, note.story
+    end
+  end
 end

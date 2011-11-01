@@ -160,6 +160,7 @@ class StoriesControllerTest < ActionController::TestCase
     end
 
     assert_equal @project, assigns(:project)
+    assert assigns(:project).suppress_notifications
     assert_equal story_count, assigns(:stories).length
     assert_equal "Imported %d stories" % story_count, flash[:notice]
     assert_nil flash[:alert]

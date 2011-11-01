@@ -102,7 +102,8 @@ class StoriesController < ApplicationController
 
     @project = current_user.projects.find(params[:project_id])
 
-    stories = []
+    # Do not send any email notifications during the import process
+    @project.suppress_notifications = true
 
     if params[:csv].blank?
 

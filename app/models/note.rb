@@ -17,7 +17,7 @@ class Note < ActiveRecord::Base
       notify_users = story.notify_users
       notify_users.delete(user)
 
-      Notifications.new_note(self, notify_users).deliver unless notify_users.empty?
+      Notifications.new_note(self, notify_users).deliver unless notify_users.empty? || user.nil?
     end
   end
 
