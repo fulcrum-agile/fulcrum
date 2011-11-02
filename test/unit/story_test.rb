@@ -310,13 +310,31 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "should create notes from a CSV row" do
-    row = [["Note", "Note 1"], ["Note", "Note 2"]]
+    row = [
+      ["Note", "Note 1 (#{@user.name} - Jan 5, 2011)"],
+      ["Note", "Note 2 (Nosuch User - Unparseable date)"],
+      ["Note", "Note 3"]
+    ]
+
     notes = []
-    assert_difference 'Note.count', 2 do
+    assert_difference 'Note.count', row.length do
       notes = @story.notes.from_csv_row row
     end
+
+    # Notes should have the right body text
     assert_equal "Note 1", notes[0].note
     assert_equal "Note 2", notes[1].note
+    assert_equal "Note 3", notes[2].note
+
+    # Notes should be assigned to the correct user
+    assert_equal @user, notes[0].user
+    assert_nil notes[1].user
+    assert_nil notes[2].user
+
+    # Notes should have the correct created_at time
+    assert_equal DateTime.parse('Jan 5, 2011'), notes[0].created_at
+
+    # Notes should be asigned to the correct story
     notes.each do |note|
       assert_equal @story, note.story
     end

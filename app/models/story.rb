@@ -29,16 +29,32 @@ class Story < ActiveRecord::Base
   has_many :notes do
 
     # Creates a collection of rows on this story from a CSV::Row instance
+    # Each 'Note' field in the CSV will usually be in the following format:
+    #
+    #   "This is the note body text (Note Author - Dec 25, 2011)"
+    #
+    # This method will attempt to set the user and created_at timestamps
+    # according to the values in the parens.  If the parens are missing, or
+    # their contents cannot be matched or parsed, user and created_at will
+    # not be set.
     def from_csv_row(row)
       # Ensure no email notifications get sent during CSV import
-      proxy_owner.project.suppress_notifications
+      project = proxy_owner.project
+      project.suppress_notifications
 
       # Each row can have muliple Note headers.  Extract any of them from
       # this row.
       notes = []
       row.each do |header, value|
         if header == 'Note' && value
-          notes << create(:note => value)
+          note = build(:note => value)
+          if matches = /(.*)\((.*) - (.*)\)$/.match(value)
+            note.note = matches[1].strip
+            note.user = project.users.find_by_name(matches[2])
+            note.created_at = matches[3]
+          end
+          note.save
+          notes << note
         end
       end
       notes
