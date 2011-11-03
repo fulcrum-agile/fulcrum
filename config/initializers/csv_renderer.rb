@@ -3,6 +3,17 @@
 ActionController::Renderers.add :csv do |stories, options|
 
   filename = options[:filename] || 'export.csv'
+
+
+  # Calculate the number of Notes headers that will be required, and append
+  # this many "Note" headers to the CSV
+  headers = Story.csv_headers
+  story_with_most_notes = stories.max_by {|s| s.notes.count}
+
+  if story_with_most_notes
+    max_notes = story_with_most_notes.notes.length
+    headers.concat(Array.new(max_notes, "Note"))
+  end
   
   csv_string = CSV.generate do |csv|
     csv << Story.csv_headers

@@ -11,7 +11,7 @@ class Story < ActiveRecord::Base
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",
     "Story Type","Estimate","Current State","Created at","Accepted at",
-    "Deadline","Requested By","Owned By","Description","URL","Note"
+    "Deadline","Requested By","Owned By","Description","URL"
   ]
 
   belongs_to :project
@@ -144,9 +144,8 @@ class Story < ActiveRecord::Base
       requested_by.try(:name),  # Requested By
       owned_by.try(:name),      # Owned By
       description,              # Description
-      nil,                      # URL
-      nil                       # Note
-    ]
+      nil                       # URL
+    ].concat(notes.map(&:to_s))
   end
 
   # Returns the list of state change events that can operate on this story,

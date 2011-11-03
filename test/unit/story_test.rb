@@ -281,6 +281,13 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal Story.csv_headers.length, @story.to_csv.length
   end
 
+  test "should return a story as a CSV row with notes appended" do
+    assert_equal 0, @story.notes.size
+    @story.notes << Factory.create(:note, :story => @story)
+    assert_equal 1, @story.notes.size
+    assert_equal Story.csv_headers.length + 1, @story.to_csv.length
+  end
+
   test "notify_users should include requestor" do
     assert @story.notify_users.include?(@story.requested_by)
   end
