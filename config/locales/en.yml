@@ -10,6 +10,8 @@ en:
   edit:     "Edit"
   delete:   "Delete"
 
+  author unknown: "Author Unknown"
+
   activerecord:
     models:
       user: 'Member'
@@ -26,3 +28,8 @@ en:
       the iteration starts on x with length of x weeks:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
+
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"

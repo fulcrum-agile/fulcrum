@@ -49,4 +49,12 @@ class NoteTest < ActiveSupport::TestCase
     ]
     assert_returns_json attrs, @note
   end
+
+  test "returns a string" do
+    @note.created_at = "Nov 3, 2011"
+    assert_equal "Test note (#{@user.name} - Nov 03, 2011)", @note.to_s
+
+    @note.user = nil
+    assert_equal "Test note (Author Unknown - Nov 03, 2011)", @note.to_s
+  end
 end
