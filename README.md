@@ -19,6 +19,9 @@ There are 2 discussion groups for Fulcrum:
 * [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) - Discussion
   on the development of Fulcrum.
 
+You might also find someone who can help you in #fulcrum on the Freenode IRC
+network.
+
 See the *Development* section below for details on contributing to the project.
 
 Goals
