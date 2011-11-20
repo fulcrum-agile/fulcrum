@@ -1,49 +1,60 @@
 <% content_for :title_bar do %>
   <h1>Edit <%= resource_name.to_s.humanize %></h1>
 <% end %>
-
+<div class="form-wrapper">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <p><%= f.label :name %><br />
-  <%= f.text_field :name %></p>
+  <div class="field-wrapper">
+    <%= f.label :name %>
+    <div class="field"><%= f.text_field :name %></div>
+  </div>
 
-  <p><%= f.label :initials %><br />
-  <%= f.text_field :initials %></p>
+  <div class="field-wrapper">
+    <%= f.label :initials %>
+    <div class="field"><%= f.text_field :initials %></div>
+  </div>
 
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
+  <div class="field-wrapper">
+    <%= f.label :email %>
+    <div class="field"><%= f.email_field :email %></div>
+  </div>
 
-  <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></p>
+  <div class="field-wrapper">
+    <%= f.label :password %>
+    <div class="field"><%= f.password_field :password %></div>
+    <div class="help">Leave blank if you don't want to change it</div>
+  </div>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+  <div class="field-wrapper">
+    <%= f.label :password_confirmation %>
+    <div class="field"><%= f.password_field :password_confirmation %></div>
+  </div>
 
   <h3>Notify me when my stories are:</h3>
-  <p>
+  <div class="field">
     <%= f.check_box :email_delivery %>
     <%= f.label :email_delivery, 'delivered' %>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.check_box :email_acceptance %>
     <%= f.label :email_acceptance, 'accepted' %>
-  </p>
+  </div>
 
-  <p>
+  <div class="field">
     <%= f.check_box :email_rejection %>
     <%= f.label :email_rejection, 'rejected' %>
-  </p>
+  </div>
 
-  <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></p>
+  <div class="field-wrapper">
+    <%= f.label :current_password %>
+    <div class="field"><%= f.password_field :current_password %></div>
+    <div class="help">We need your current password to confirm your changes.</div>
+  </div>
 
-  <p><%= f.submit "Update" %></p>
+  <div class="actions"><%= f.submit "Update" %></div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+<div class="secondary-actions"><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %></div>
 
 <%= link_to "Back", :back %>

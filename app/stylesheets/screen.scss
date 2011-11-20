@@ -86,6 +86,8 @@ ul#primary-nav li.secondary {
   background-position-x:right;
   padding: 0.4em 18px 0.4em 0.4em;
   @include border-radius(5px);
+  @include box-shadow(#000 0 0 4px inset);
+  text-shadow: black 0 1px 0;
 }
 ul#primary-nav li.secondary ul {
   visibility: hidden;
@@ -403,17 +405,17 @@ ul#projects {
 }
 
 ul#projects li {
-  @include background(linear-gradient(top, $aluminium-1, $aluminium-2));
-  @include box-shadow(0 1px 2px #aaaaaa);
+  background: #efefef;
+  @include background(linear-gradient(top, #efefef, #dfe1e2));
+  @include box-shadow(0 1px 2px #aaaaaa inset);
   text-shadow: white 0 1px 0;
-  background-color: #d3d7cf;
-  border: 1px solid $aluminium-1;
-  border-top: 1px solid $aluminium-2;
   margin: 10px 0;
   padding: 10px;
+  @include border-radius(5px);
+  border: 1px solid $darkgrey*1.5;
 }
 ul#projects li:hover {
-  @include background(linear-gradient(top, $aluminium-2, $aluminium-3));
+  @include background(linear-gradient(top, darken(#efefef, 10%), darken(#dfe1e2, 10%)));
 }
 
 ul#projects li h2 {
@@ -429,20 +431,23 @@ ul#projects li:hover {
 }
 
 a.button {
-  @include border-radius(2px);
-  @include background(linear-gradient(top, $aluminium-1, $aluminium-2));
-  @include box-shadow(0 1px 2px $aluminium-2);
-  border: 1px solid $aluminium-3;
-  display: inline-block;
+  background: #efefef;
+  @include background(linear-gradient(top, #efefef, #dfe1e2));
+  @include box-shadow(0 1px 2px #aaaaaa);
+  text-shadow: white 0 1px 0;
   padding: 5px;
+  @include border-radius(5px);
+  border: 1px solid $darkgrey*1.5;
   text-decoration: none;
   font-weight: bold;
 }
 
+
+
 a.button:hover {
   @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
   color: white;
-  text-decoration: underline;
+  text-shadow: $darkgrey 0 1px 0;
 }
 .tags{
   color:$sky-blue-3;
@@ -545,4 +550,97 @@ div.note {
   text-shadow: $scarlet-red-3*0.5 0 1px 0;
   padding: 5px;
   margin-bottom: 10px;
+}
+
+/* Form Styles */
+.form-wrapper  {
+  padding: 10px;
+ 
+  h3 {
+    margin-left: 160px;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  select
+  textarea {
+    @include transition(border linear 0.2s, box-shadow linear 0.2s);
+    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1));
+  }
+
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus,
+  select:focus,
+  textarea:focus {
+    outline: 0;
+    border-color: rgba(114, 159, 207, 0.8);
+    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(114, 159, 207, 0.6));
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  select {
+    display: inline-block;
+    width: 210px;
+    height: 14px;
+    padding: 4px;
+    font-size: 14px;
+    color: gray;
+    border: 1px solid #CCC;
+    @include border-radius(3px);
+  }
+  select {
+    height: 26px;
+    min-width: 220px;
+    width: auto;
+    margin: auto;
+  }
+
+  div.field-wrapper label {
+    width: 150px;
+    text-align: right;
+    display: block;
+    zoom: 1;
+    height: 14px;
+    float: left;
+  }
+
+  div.field-wrapper:before, div.field-wrapper:after {
+    display: table;
+    content: "";
+    zoom: 1;
+  }
+
+  div.field-wrapper:after {
+    clear: both;
+  }
+
+  div.field {
+    margin-left: 160px;
+  }
+
+  div.date-wrapper select {
+    min-width: 0px;
+    width: auto;
+  }
+
+  div.field-wrapper div.help {
+    color: $darkgrey;
+    margin-left: 160px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 0.85em;
+    font-style: italic;
+  }
+
+  div.actions, div.secondary-actions {
+    padding-left: 160px;
+  }
+
+  div.secondary-actions a {
+    display: block;
+  }
 }
