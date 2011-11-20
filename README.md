@@ -12,15 +12,15 @@ Get involved
 Fulcrum is still in early development, so now is the time to make your mark on
 the project.
 
-There are 2 discussion groups for Fulcrum:
+There are several communication channels for Fulcrum:
 
+* [Follow @fulcrumagile on Twitter](https://twitter.com/fulcrumagile)
 * [Fulcrum Users](http://groups.google.com/group/fulcrum-users) - A general
   discussion group for users of Fulcrum.
 * [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) - Discussion
   on the development of Fulcrum.
-
-You might also find someone who can help you in #fulcrum on the Freenode IRC
-network.
+* You might also find someone in #fulcrum on the Freenode IRC network if you're
+  looking for realtime help.
 
 See the *Development* section below for details on contributing to the project.
 
