@@ -5,7 +5,7 @@ namespace :fulcrum do
     file    = Rails.root.join('config',"database.yml")
 
     unless File.exists?(file)
-      sh "cp #{example_file} #{file}"
+      sh "cp '#{example_file}' '#{file}'"
     else
       puts "#{file} already exists!"
     end
