@@ -15,8 +15,8 @@ Fulcrum::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => '127.0.0.1:3000' }
 
   # Print deprecation notices to the Rails logger
@@ -24,5 +24,7 @@ Fulcrum::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  config.action_mailer.delivery_method = :letter_opener
 end
 
