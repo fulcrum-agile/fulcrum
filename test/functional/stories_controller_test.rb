@@ -194,7 +194,7 @@ class StoriesControllerTest < ActionController::TestCase
     end
 
     assert_equal @project, assigns(:project)
-    assert_equal "Unable to import CSV: Illegal quoting on line 1.", flash[:alert]
+    assert_equal "Unable to import CSV: Illegal quoting in line 1.", flash[:alert]
     assert_response :success
     assert_template 'import'
   end
