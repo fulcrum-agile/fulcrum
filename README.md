@@ -136,7 +136,7 @@ Fulcrum is built with the following Open Source technologies:
 * [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
 * [Jasmine](http://pivotal.github.com/jasmine/)
 * [Sinon](http://sinonjs.org/)
-* [Simplecov](http://https://github.com/colszowka/simplecov/)
+* [Simplecov](http://github.com/colszowka/simplecov/)
 
 License
 -------
