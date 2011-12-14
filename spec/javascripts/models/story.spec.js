@@ -253,7 +253,7 @@ describe('Story model', function() {
     it("should return a readable created_at", function() {
 
       this.story.set({'created_at': "2011/09/19 02:25:56 +0000"});
-      expect(this.story.created_at()).toBe("19 Sep 2011, 2:25pm");
+      expect(this.story.created_at()).toBe("18 Sep 2011, 10:25pm");
 
     });
 
