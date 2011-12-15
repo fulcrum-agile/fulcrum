@@ -31,4 +31,10 @@ $(function() {
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
   $('#chilly_bin').sortable('option', 'connectWith', '#backlog,#in_progress');
   $('#in_progress').sortable('option', 'connectWith', '#backlog,#chilly_bin');
+
+  // Add close button to flash messages
+  $('#messages div').prepend('<a class="close" href="#">×</a>').find('a.close').click(function () { 
+    $(this).parent().fadeOut(); 
+    return false;
+  });
 });
