@@ -551,6 +551,19 @@ div.note {
   margin-bottom: 10px;
 }
 
+#messages .close {
+  padding-right: 5px;
+  float: right;
+  line-height: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 /* Form Styles */
 .form-wrapper  {
   padding: 10px;
