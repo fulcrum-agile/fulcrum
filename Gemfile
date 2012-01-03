@@ -20,6 +20,9 @@ gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitio
 
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
 gem 'compass', '>= 0.11.5'
+
+gem 'pivotal-tracker'
+
 # (using standard csv lib if ruby version is 1.9)
 
 # Use unicorn as the web server
