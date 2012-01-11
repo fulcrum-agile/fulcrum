@@ -1,6 +1,8 @@
 var Story = Backbone.Model.extend({
   name: 'story',
 
+  timestampFormat: 'd mmm yyyy, h:MMtt',
+
   initialize: function(args) {
     this.bind('change:state', this.changeState);
     this.bind('change:notes', this.populateNotes);
@@ -182,7 +184,7 @@ var Story = Backbone.Model.extend({
 
   created_at: function() {
     var d = new Date(this.get('created_at'));
-    return d.format("d mmm yyyy, h:MMtt");
+    return d.format(this.timestampFormat);
   },
 
   hasDetails: function() {
