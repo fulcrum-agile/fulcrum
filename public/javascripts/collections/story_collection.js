@@ -28,7 +28,7 @@ var StoryCollection = Backbone.Collection.extend({
   // #backlog or #chilly_bin
   column: function(column) {
     return this.select(function(story) {
-      return story.column() == column;
+      return story.column == column;
     });
   },
 

@@ -249,6 +249,12 @@ var Project = Backbone.Model.extend({
       // few stories from the backlog, unless the points total of the stories
       // in progress already equal or exceed the project velocity
       if (currentIteration.canTakeStory(story)) {
+
+        // On initialisation, a stories column is determined based on the
+        // story state.  For unstarted stories this defaults to #backlog.
+        // Stories matched here need this value overridden to #in_progress
+        story.column = '#in_progress';
+
         currentIteration.get('stories').push(story);
         return;
       }

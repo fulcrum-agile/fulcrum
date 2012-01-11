@@ -20,7 +20,7 @@ var ProjectView = Backbone.View.extend({
     // second argument, so also check that column is a string and not an
     // object for those cases.
     if (typeof column === 'undefined' || typeof column !== 'string') {
-      column = story.column();
+      column = story.column;
     }
     var view = new StoryView({model: story});
     $(column).append(view.render().el);

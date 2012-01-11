@@ -94,14 +94,14 @@ describe('StoryCollection collection', function() {
 
     it("should return all stories in the done column", function() {
       expect(this.stories.column('#done')).toEqual([]);
-      this.story1.column = function() {return '#done';};
+      this.story1.column = '#done';
       expect(this.stories.column('#done')).toEqual([this.story1]);
     });
 
     it("returns a set of columns", function() {
-      this.story1.column = function() {return '#done';};
-      this.story2.column = function() {return '#current';};
-      this.story3.column = function() {return '#backlog';};
+      this.story1.column = '#done';
+      this.story2.column = '#current';
+      this.story3.column = '#backlog';
       expect(this.stories.columns(['#backlog', '#current', '#done']))
         .toEqual([this.story3,this.story2,this.story1]);
     });

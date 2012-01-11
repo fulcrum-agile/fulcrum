@@ -5,7 +5,9 @@ describe('Story model', function() {
       name: 'project',
       defaults: {point_values: [0, 1, 2, 3]},
       users: { get: function() {} },
-      current_user: { id: 999 }
+      current_user: { id: 999 },
+      currentIterationNumber: function() { return 1; },
+      getIterationNumberForDate: function() { return 999; }
     });
     var collection = {
       project: new Project(), url: '/foo', remove: function() {},
@@ -146,15 +148,15 @@ describe('Story model', function() {
   describe('column', function() {
     it('should return the right column', function() {
       this.story.set({state: 'unscheduled'});
-      expect(this.story.column()).toEqual('#chilly_bin');
+      expect(this.story.column).toEqual('#chilly_bin');
       this.story.set({state: 'unstarted'});
-      expect(this.story.column()).toEqual('#backlog');
+      expect(this.story.column).toEqual('#backlog');
       this.story.set({state: 'started'});
-      expect(this.story.column()).toEqual('#in_progress');
+      expect(this.story.column).toEqual('#in_progress');
       this.story.set({state: 'delivered'});
-      expect(this.story.column()).toEqual('#in_progress');
+      expect(this.story.column).toEqual('#in_progress');
       this.story.set({state: 'rejected'});
-      expect(this.story.column()).toEqual('#in_progress');
+      expect(this.story.column).toEqual('#in_progress');
 
       // If the story is accepted, but it's accepted_at date is within the
       // current iteration, it should be in the in_progress column, otherwise
@@ -162,9 +164,10 @@ describe('Story model', function() {
       sinon.stub(this.story, 'iterationNumber').returns(1);
       this.story.collection.project.currentIterationNumber = sinon.stub().returns(2);
       this.story.set({state: 'accepted'});
-      expect(this.story.column()).toEqual('#done');
+      expect(this.story.column).toEqual('#done');
       this.story.collection.project.currentIterationNumber.returns(1);
-      expect(this.story.column()).toEqual('#in_progress');
+      this.story.setColumn();
+      expect(this.story.column).toEqual('#in_progress');
     });
   });
 

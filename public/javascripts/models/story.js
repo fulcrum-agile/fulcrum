@@ -9,6 +9,7 @@ var Story = Backbone.Model.extend({
     this.maybeUnwrap(args);
 
     this.initNotes();
+    this.setColumn();
 
   },
 
@@ -18,6 +19,7 @@ var Story = Backbone.Model.extend({
     }
 
     model.setAcceptedAt();
+    model.setColumn();
   },
 
   moveBetween: function(before, after) {
@@ -67,7 +69,7 @@ var Story = Backbone.Model.extend({
     story_type: "feature"
   },
 
-  column: function() {
+  setColumn: function() {
 
     var column = '#in_progress';
 
@@ -89,7 +91,7 @@ var Story = Backbone.Model.extend({
         break;
     }
 
-    return column;
+    this.column = column;
   },
 
   clear: function() {
