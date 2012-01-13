@@ -194,7 +194,9 @@ class StoriesControllerTest < ActionController::TestCase
     end
 
     assert_equal @project, assigns(:project)
-    assert_equal "Unable to import CSV: Illegal quoting on line 1.", flash[:alert]
+    # The CSV exception message is different between Ruby < 1.9.3 and >= 1.9.3
+    # so check for either.
+    assert_match /Unable to import CSV: Illegal quoting [io]n line 1./, flash[:alert]
     assert_response :success
     assert_template 'import'
   end
