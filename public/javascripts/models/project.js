@@ -16,6 +16,8 @@ var Project = Backbone.Model.extend({
     this.users.project = this;
 
     this.iterations = [];
+
+    this.velocityIsFake = false;
   },
 
   defaults: {
@@ -164,14 +166,27 @@ var Project = Backbone.Model.extend({
     }
   },
 
-  velocity: function() {
+  velocity: function(userVelocity) {
+    if(userVelocity !== undefined) {
+      this.set({velocityIsFake: true});
+      this.set({userVelocity: userVelocity});
+    } else {
+      if(this.get('userVelocity') && this.get('velocityIsFake')) {
+        return this.get('userVelocity');
+      } else {
+        return this.calculateVelocity();
+      }
+    }
+  },
+
+  calculateVelocity: function() {
     if (this.doneIterations().length === 0) {
       return this.get('default_velocity');
     } else {
       // TODO Make number of iterations configurable
       var numIterations = 3;
       var iterations = this.doneIterations();
-      
+
       // Take a maximum of numIterations from the end of the array
       if (iterations.length > numIterations) {
         iterations = iterations.slice(iterations.length - numIterations);
@@ -184,6 +199,10 @@ var Project = Backbone.Model.extend({
       var velocity = Math.floor(sum / pointsArray.length);
       return velocity < 1 ? 1 : velocity;
     }
+  },
+
+  revertVelocity: function() {
+    this.set({userVelocity: undefined, velocityIsFake: false, velocity: this.calculateVelocity()});
   },
 
   doneIterations: function() {
