@@ -37,6 +37,8 @@ src_files:
   - public/javascripts/views/note_view.js
   - public/javascripts/views/story_view.js
   - public/javascripts/views/iteration_view.js
+  - public/javascripts/views/project_velocity_view.js
+  - public/javascripts/views/project_velocity_override_view.js
 
 # stylesheets
 #
