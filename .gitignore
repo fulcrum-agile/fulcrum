@@ -6,3 +6,5 @@ tmp/**/*
 .rvmrc
 public/stylesheets/*
 *.swp
+.DS_Store
+Gemfile.lock
