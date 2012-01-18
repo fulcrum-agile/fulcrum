@@ -168,8 +168,7 @@ var Project = Backbone.Model.extend({
 
   velocity: function(userVelocity) {
     if(userVelocity !== undefined) {
-      this.set({velocityIsFake: true});
-      this.set({userVelocity: userVelocity});
+      this.set({velocityIsFake: true, userVelocity: userVelocity});
     } else {
       if(this.get('userVelocity') && this.get('velocityIsFake')) {
         return this.get('userVelocity');
@@ -202,7 +201,7 @@ var Project = Backbone.Model.extend({
   },
 
   revertVelocity: function() {
-    this.set({userVelocity: undefined, velocityIsFake: false, velocity: this.calculateVelocity()});
+    this.set({userVelocity: 14, velocityIsFake: false});
   },
 
   doneIterations: function() {
@@ -261,6 +260,7 @@ var Project = Backbone.Model.extend({
       'column': '#backlog', 'maximum_points': this.velocity()
     });
     this.appendIteration(backlogIteration, '#backlog');
+
 
     _.each(this.stories.column('#backlog'), function(story) {
 
