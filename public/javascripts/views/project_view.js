@@ -63,7 +63,7 @@ var ProjectView = Backbone.View.extend({
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addStory(story);
     });
-    setTimeout('$(".loading_screen").hide()', 500);
+    $(".loading_screen").hide();
   },
 
   scaleToViewport: function() {
