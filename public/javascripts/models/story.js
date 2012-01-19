@@ -183,8 +183,10 @@ var Story = Backbone.Model.extend({
   },
 
   created_at: function() {
-    var d = new Date(this.get('created_at'));
-    return d.format(this.timestampFormat);
+    if(this.get('created_at')) {
+      var d = new Date(this.get('created_at'));
+      return d.format(this.timestampFormat);
+    }
   },
 
   hasDetails: function() {
