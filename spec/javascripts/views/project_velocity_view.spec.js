@@ -45,6 +45,7 @@ describe('ProjectVelocityView', function() {
       it("should contain text with the overridden velocity", function() {
         expect($(this.view.el).find("span").text()).toEqual('999');
       });
+
     });
   });
 
