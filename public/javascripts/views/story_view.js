@@ -50,6 +50,7 @@ var StoryView = FormView.extend({
     "click .transition": "transition",
     "click input.estimate": "estimate",
     "click #destroy": "clear",
+    "click #edit-description": "editDescription",
     "sortupdate": "sortUpdate"
   },
 
@@ -160,7 +161,7 @@ var StoryView = FormView.extend({
   },
 
   startEdit: function() {
-    this.model.set({editing: true});
+    this.model.set({editing: true, editingDescription: false});
   },
 
   cancelEdit: function() {
@@ -209,6 +210,11 @@ var StoryView = FormView.extend({
   // Delete the story and remove it's view element
   clear: function() {
     this.model.clear();
+  },
+
+  editDescription: function() {
+    this.model.set({editingDescription: true});
+    this.render();
   },
 
   // Visually highlight the story if an external change happens
@@ -283,7 +289,15 @@ var StoryView = FormView.extend({
       div = this.make('div');
       $(div).append(this.label("description", "Description"));
       $(div).append('<br/>');
-      $(div).append(this.textArea("description"));
+      if(this.model.isNew() || this.model.get('editingDescription')) {
+        $(div).append(this.textArea("description"));
+      } else {
+        var description = this.make('div');
+        $(description).addClass('description');
+        $(description).text(this.model.get('description'));
+        $(div).append(description);
+        $(description).after('<input id="edit-description" type="button" value="Edit"/>');
+      }
       $(this.el).append(div);
       this.initTags();
 

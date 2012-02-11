@@ -385,4 +385,44 @@ describe('StoryView', function() {
 
   });
 
+  describe("description", function() {
+
+    beforeEach(function() {
+      this.view.model.set({editing: true});
+    });
+
+    afterEach(function() {
+      this.view.model.set({editing: false});
+    });
+    
+    it("is text area when story is new", function() {
+      this.view.model.isNew = sinon.stub().returns(true);
+      this.view.render();
+      expect(this.view.$('textarea[name="description"]').length).toEqual(1);
+      expect(this.view.$('div.description').length).toEqual(0);
+      expect(this.view.$('input#edit-description').length).toEqual(0);
+    });
+
+    it("isn't text area when story isn't new", function() {
+      this.view.model.isNew = sinon.stub().returns(false);
+      this.view.render();
+      expect(this.view.$('textarea[name="description"]').length).toEqual(0);
+      expect(this.view.$('div.description').length).toEqual(1);
+      expect(this.view.$('input#edit-description').length).toEqual(1);
+    });
+
+    it('is a text area after #edit-description is clicked', function() {
+      this.view.model.isNew = sinon.stub().returns(false);
+      this.view.editDescription();
+      expect(this.view.model.get('editingDescription')).toBeTruthy();
+    });
+
+    it('is reset to false after startEdit is called', function() {
+      this.view.model.set({editingDescription: true});
+      this.view.startEdit();
+      expect(this.view.model.get('editingDescription')).toBeFalsy();
+    });
+
+  });
+
 });
