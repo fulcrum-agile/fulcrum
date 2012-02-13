@@ -305,6 +305,36 @@ describe('Project model', function() {
       expect(this.project.velocity()).toEqual(1);
     });
 
+    describe("when velocity is not set", function() {
+      describe("velocityIsFake", function() {
+        it("should be false", function() {
+          expect(this.project.get('velocityIsFake')).toBeFalsy();
+        });
+      });
+
+      it("returns the default velocity", function() {
+          this.project.set({'default_velocity': 99});
+          expect(this.project.velocity()).toEqual(99);
+      });
+    });
+
+    describe("when velocity is set to 20", function() {
+
+      beforeEach(function() {
+        this.project.velocity(20);
+      });
+
+      describe("velocityIsFake", function() {
+        it("should be true", function() {
+          expect(this.project.get('velocityIsFake')).toBeTruthy();
+        });
+      });
+
+      it("returns 20", function() {
+          expect(this.project.velocity()).toEqual(20);
+      });
+    });
+
   });
 
   describe("appendIteration", function() {

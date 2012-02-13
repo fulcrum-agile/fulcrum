@@ -6,6 +6,7 @@ var ProjectView = Backbone.View.extend({
     this.model.stories.bind('add', this.addStory);
     this.model.stories.bind('reset', this.addAll);
     this.model.stories.bind('all', this.render);
+    this.model.bind('change:userVelocity', this.addAll);
 
     this.model.stories.fetch();
 
@@ -37,7 +38,8 @@ var ProjectView = Backbone.View.extend({
   },
 
   addAll: function() {
-
+    var loadingScreen = new LoadingScreenView();
+    $(".loading_screen").show();
     var that = this;
 
     $('#done').html("");
@@ -61,6 +63,7 @@ var ProjectView = Backbone.View.extend({
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addStory(story);
     });
+    $(".loading_screen").hide();
   },
 
   scaleToViewport: function() {

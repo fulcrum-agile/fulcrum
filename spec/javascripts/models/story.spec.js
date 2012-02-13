@@ -220,6 +220,21 @@ describe('Story model', function() {
 
   });
 
+  describe("created_at", function() {
+    it("should return a readable created_at", function() {
+      var timestamp = "2011/09/19 02:25:56 +0000";
+      this.story.set({'created_at': timestamp});
+      expect(this.story.created_at()).toBe(
+        new Date(timestamp).format(this.story.timestampFormat)
+      );
+    });
+
+    it("should return undefined if the story is newly created", function() {
+      expect(this.new_story.created_at()).toBe(undefined);
+    });
+
+  });
+
   describe("users", function() {
 
     it("should get it's owner", function() {
@@ -251,16 +266,6 @@ describe('Story model', function() {
       requested_by = this.story.requested_by();
       expect(requested_by).toEqual(dummyUser);
       expect(stub).toHaveBeenCalledWith(999);
-    });
-
-    it("should return a readable created_at", function() {
-
-      var timestamp = "2011/09/19 02:25:56 +0000";
-      this.story.set({'created_at': timestamp});
-      expect(this.story.created_at()).toBe(
-        new Date(timestamp).format(this.story.timestampFormat)
-      );
-
     });
 
     it("should be assigned to the current user when started", function() {

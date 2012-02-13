@@ -126,6 +126,32 @@ ul#primary-nav li.secondary ul li {
   div.velocity {
     font-size: 1.6em;
     float: right;
+    position: relative;
+
+    div.velocity_override_container {
+      width: 220px;
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background: #efefef;
+      border: 1px solid #ccc;
+      @include border-radius(3px);
+      @include single-box-shadow;
+      z-index: 1;
+
+      ul {
+        margin: 10px;
+        padding: 0;
+        li {
+          list-style-type: none;
+        }
+      }
+    }
+
+    .fake {
+      color: #f00;
+      font-style: italic;
+    }
   }
 
   #add_story {
@@ -152,6 +178,7 @@ ul#primary-nav li.secondary ul li {
 
 #main {
   margin: 1em;
+  position: relative;
 }
 
 html.stories, html.stories body, html.stories div#main {
@@ -224,7 +251,7 @@ div.story {
 div.story:hover {
   background-color: #ddd;
 }
-div.story.feature.accepted, 
+div.story.feature.accepted,
 div.story.bug.accepted,
 div.story.chore.accepted{
   background-color: adjust-lightness($chameleon-1, 40);
@@ -567,7 +594,7 @@ div.note {
 /* Form Styles */
 .form-wrapper  {
   padding: 10px;
- 
+
   h3 {
     margin-left: 160px;
   }
@@ -656,3 +683,19 @@ div.note {
     display: block;
   }
 }
+
+div.loading_screen {
+  position: absolute;
+  top:-10px;
+  left:-10px;
+  z-index: 1000;
+  background: #ccc;
+  @include opacity(0.7);
+  width: 110%;
+  height: 110%;
+}
+
+div.spinner {
+  margin: 15% 45%;
+}
+

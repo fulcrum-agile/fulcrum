@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111009095221) do
+ActiveRecord::Schema.define(:version => 20120117074350) do
 
   create_table "changesets", :force => true do |t|
     t.integer  "story_id"
@@ -26,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20111009095221) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "notes", ["story_id"], :name => "index_notes_on_story_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"
@@ -58,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20111009095221) do
     t.decimal  "position"
     t.string   "labels"
   end
+
+  add_index "stories", ["project_id"], :name => "index_stories_on_project_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",   :null => false

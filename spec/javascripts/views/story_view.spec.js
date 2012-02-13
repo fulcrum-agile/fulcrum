@@ -16,12 +16,16 @@ describe('StoryView', function() {
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return [];} } } },
       start: function() {},
-      setAcceptedAt: sinon.spy()
+      setAcceptedAt: sinon.spy(),
       //moveAfter: function() {},
       //moveBefore: function() {}
+      created_at: function() {  // Not DRY?
+        var d = new Date(this.get('created_at'));
+        return d.format("d mmm yyyy, h:MMtt");
+      }
     });
-    this.story = new Story({id: 999, title: 'Story'});
-    this.new_story = new Story({title: 'New Story'});
+    this.story = new Story({id: 999, title: 'Story', created_at: "2011/09/19 14:25:56"});
+    this.new_story = new Story({title: 'New Story', created_at: "2011/09/19 14:25:56"});
     this.story.notes = this.new_story.notes = new NotesCollection();
     this.view = new StoryView({
       model: this.story
@@ -62,6 +66,14 @@ describe('StoryView', function() {
       expect($(this.view.el)).toHaveClass('accepted');
     });
 
+  });
+
+  describe("displayed information", function() {
+    it('should display created on date', function() {
+      this.story.set({editing: true});
+      expect($(this.view.el).text()).toMatch(/on 19 Sep 2011, 2:25pm/);
+      this.story.set({editing: false});
+    });
   });
 
   describe("id", function() {

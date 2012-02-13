@@ -271,6 +271,13 @@ var StoryView = FormView.extend({
       $(div).append('<br/>');
       $(div).append(this.select("requested_by_id",
         this.model.collection.project.users.forSelect(),{blank: '---'}));
+
+      if(this.model.created_at()) {
+        span = this.make('span');
+        $(span).text('on ' + this.model.created_at());
+        $(div).append(span);
+      }
+
       $(this.el).append(div);
 
       div = this.make('div');
