@@ -335,6 +335,18 @@ describe('Project model', function() {
       });
     });
 
+    describe("when velocity is set to less than 1", function() {
+
+      beforeEach(function() {
+        this.project.velocity(0);
+      });
+
+      it("sets the velocity to 1", function() {
+        expect(this.project.velocity()).toEqual(1);
+      });
+
+    });
+
     describe("when velocity is set to the same as the real value", function() {
 
       describe("velocity", function() {

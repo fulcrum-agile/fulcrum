@@ -169,6 +169,11 @@ var Project = Backbone.Model.extend({
   // attribute will be set to true.
   velocity: function(userVelocity) {
     if(userVelocity !== undefined) {
+
+      if(userVelocity < 1) {
+        userVelocity = 1;
+      }
+
       if(userVelocity === this.calculateVelocity()) {
         this.unset('userVelocity');
       } else {
