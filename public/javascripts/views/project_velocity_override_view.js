@@ -31,18 +31,12 @@ var ProjectVelocityOverrideView = Backbone.View.extend({
   changeVelocity: function() {
     this.model.velocity(parseInt($("input[name=override]").val(), 10));
     $(this.el).remove();
-    $("#velocity_value")
-      .addClass("fake")
-      .text(this.model.velocity());
     return false;
   },
 
   revertVelocity: function() {
     this.model.revertVelocity();
     $(this.el).remove();
-    $("#velocity_value")
-      .removeClass("fake")
-      .text(this.model.velocity());
     return false;
   },
 

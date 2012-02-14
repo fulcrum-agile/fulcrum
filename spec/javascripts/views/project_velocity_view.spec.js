@@ -64,4 +64,26 @@ describe('ProjectVelocityView', function() {
       });
     });
   });
+
+  describe("setFakeClass", function() {
+    describe("when velocity is not overridden", function() {
+      beforeEach(function() {
+        this.project.velocityIsFake = function() { return false; };
+      });
+
+      it("doesn't have the fake class", function() {
+        expect($(this.view.render().el)).not.toHaveClass('fake');
+      });
+    });
+
+    describe("when velocity is overridden", function() {
+      beforeEach(function() {
+        this.project.velocityIsFake = function() { return true; };
+      });
+
+      it("has the fake class", function() {
+        expect($(this.view.render().el)).toHaveClass('fake');
+      });
+    });
+  });
 });

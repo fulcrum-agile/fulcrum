@@ -147,11 +147,11 @@ ul#primary-nav li.secondary ul li {
         }
       }
     }
+  }
 
-    .fake {
-      color: #f00;
-      font-style: italic;
-    }
+  div.velocity.fake #velocity_value {
+    color: #f00;
+    font-style: italic;
   }
 
   #add_story {
