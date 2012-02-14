@@ -209,8 +209,8 @@ var Project = Backbone.Model.extend({
   },
 
   revertVelocity: function() {
-    // FIXME
-    this.set({userVelocity: 14, velocityIsFake: false});
+    this.set({velocityIsFake: false});
+    this.unset('userVelocity');
   },
 
   doneIterations: function() {

@@ -354,6 +354,23 @@ describe('Project model', function() {
       });
     });
 
+    describe("revertVelocity", function() {
+
+      beforeEach(function() {
+        this.project.set({userVelocity: 999, velocityIsFake: true});
+      });
+
+      it("unsets userVelocity", function() {
+        this.project.revertVelocity();
+        expect(this.project.get('userVelocity')).toBeUndefined();
+      });
+
+      it("sets velocityIsFake to false", function() {
+        this.project.revertVelocity();
+        expect(this.project.get('velocityIsFake')).toBeFalsy();
+      });
+    });
+
   });
 
 
