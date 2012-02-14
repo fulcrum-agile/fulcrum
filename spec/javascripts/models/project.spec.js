@@ -308,7 +308,7 @@ describe('Project model', function() {
     describe("when velocity is not set", function() {
       describe("velocityIsFake", function() {
         it("should be false", function() {
-          expect(this.project.get('velocityIsFake')).toBeFalsy();
+          expect(this.project.velocityIsFake()).toBeFalsy();
         });
       });
 
@@ -326,7 +326,7 @@ describe('Project model', function() {
 
       describe("velocityIsFake", function() {
         it("should be true", function() {
-          expect(this.project.get('velocityIsFake')).toBeTruthy();
+          expect(this.project.velocityIsFake()).toBeTruthy();
         });
       });
 
@@ -349,7 +349,7 @@ describe('Project model', function() {
         });
 
         it("should be false", function() {
-          expect(this.project.get('velocityIsFake')).toBeFalsy();
+          expect(this.project.velocityIsFake()).toBeFalsy();
         });
       });
     });
@@ -367,7 +367,7 @@ describe('Project model', function() {
 
       it("sets velocityIsFake to false", function() {
         this.project.revertVelocity();
-        expect(this.project.get('velocityIsFake')).toBeFalsy();
+        expect(this.project.velocityIsFake()).toBeFalsy();
       });
     });
 
