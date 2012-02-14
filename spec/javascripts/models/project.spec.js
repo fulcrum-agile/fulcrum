@@ -335,7 +335,27 @@ describe('Project model', function() {
       });
     });
 
+    describe("when velocity is set to the same as the real value", function() {
+
+      describe("velocity", function() {
+        beforeEach(function() {
+          this.project.set({'userVelocity': 20, velocityIsFake: true});
+          this.project.calculateVelocity = function() { return 20; };
+          this.project.velocity(20);
+        });
+
+        it("should unset userVelocity", function() {
+          expect(this.project.get('userVelocity')).toBeUndefined();
+        });
+
+        it("should be false", function() {
+          expect(this.project.get('velocityIsFake')).toBeFalsy();
+        });
+      });
+    });
+
   });
+
 
   describe("appendIteration", function() {
 

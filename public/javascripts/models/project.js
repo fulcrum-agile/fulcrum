@@ -166,9 +166,17 @@ var Project = Backbone.Model.extend({
     }
   },
 
+  // Override the calculated velocity with a user defined value.  If this
+  // value is different to the calculated velocity, the velocityIsFake
+  // attribute will be set to true.
   velocity: function(userVelocity) {
     if(userVelocity !== undefined) {
-      this.set({velocityIsFake: true, userVelocity: userVelocity});
+      if(userVelocity === this.calculateVelocity()) {
+        this.unset('userVelocity');
+        this.set({velocityIsFake: false});
+      } else {
+        this.set({velocityIsFake: true, userVelocity: userVelocity});
+      }
     } else {
       if(this.get('userVelocity') && this.get('velocityIsFake')) {
         return this.get('userVelocity');
@@ -201,6 +209,7 @@ var Project = Backbone.Model.extend({
   },
 
   revertVelocity: function() {
+    // FIXME
     this.set({userVelocity: 14, velocityIsFake: false});
   },
 
