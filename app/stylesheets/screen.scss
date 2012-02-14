@@ -147,6 +147,10 @@ ul#primary-nav li.secondary ul li {
         }
       }
     }
+
+    #velocity_value {
+      cursor: pointer;
+    }
   }
 
   div.velocity.fake #velocity_value {
