@@ -1,5 +1,5 @@
 <% content_for :title_bar do %>
-  <h1>Edit <%= resource_name.to_s.humanize %></h1>
+  <h1><%= t('edit') %> <%= resource_name.to_s.humanize %></h1>
 <% end %>
 <div class="form-wrapper">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
@@ -23,7 +23,7 @@
   <div class="field-wrapper">
     <%= f.label :password %>
     <div class="field"><%= f.password_field :password %></div>
-    <div class="help">Leave blank if you don't want to change it</div>
+    <div class="help"><%= t('.leave_blank_if_you_dont_want_to_change_it') %></div>
   </div>
 
   <div class="field-wrapper">
@@ -31,7 +31,7 @@
     <div class="field"><%= f.password_field :password_confirmation %></div>
   </div>
 
-  <h3>Notify me when my stories are:</h3>
+  <h3><%= t('.notify_me_when_my_stories_are') %>:</h3>
   <div class="field">
     <%= f.check_box :email_delivery %>
     <%= f.label :email_delivery, 'delivered' %>
@@ -50,11 +50,9 @@
   <div class="field-wrapper">
     <%= f.label :current_password %>
     <div class="field"><%= f.password_field :current_password %></div>
-    <div class="help">We need your current password to confirm your changes.</div>
+    <div class="help"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></div>
   </div>
 
   <div class="actions"><%= f.submit "Update" %></div>
 <% end %>
-<div class="secondary-actions"><%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %></div>
-
-<%= link_to "Back", :back %>
+<div class="secondary-actions"><%= link_to t(".cancel my account"), registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %></div>

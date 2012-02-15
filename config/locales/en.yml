@@ -9,6 +9,7 @@ en:
   sign up:  "Sign up"
   edit:     "Edit"
   delete:   "Delete"
+  back:     "Back"
 
   author unknown: "Author Unknown"
 
@@ -29,6 +30,11 @@ en:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
 
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Leave blank if you don't want to change it"
+      notify_me_when_my_stories_are: "Notify me when my stories are"
+      we_need_your_current_password_to_confirm_your_changes: "We need your current password to confirm your changes."
 
   time:
     formats:
