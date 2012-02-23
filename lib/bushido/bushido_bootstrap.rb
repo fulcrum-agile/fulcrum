@@ -14,6 +14,7 @@ module Fulcrum
         validates_uniqueness_of :ido_id
 
         after_create :add_all_projects!
+        before_destroy :remove_all_projects!
       end
 
       User.class_eval do
@@ -30,6 +31,10 @@ module Fulcrum
 
         def add_all_projects!
           Project.all.each { |project| project.users << self unless project.users.member?(self) }
+        end
+
+        def remove_all_projects!
+          Project.all.each { |project| project.users.delete(self) if project.users.member?(self) }
         end
       end
     end
