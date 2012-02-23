@@ -22,7 +22,6 @@ gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitio
 gem 'devise_bushido_authenticatable'
 gem 'bushido'
 gem 'tane'
-gem 'pg'
 
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
 gem 'compass', '>= 0.11.5'

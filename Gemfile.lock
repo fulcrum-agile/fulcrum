@@ -79,7 +79,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.17.2)
     orm_adapter (0.0.6)
-    pg (0.13.2)
     polyglot (0.3.3)
     rack (1.2.5)
     rack-mount (0.6.14)
@@ -153,7 +152,6 @@ DEPENDENCIES
   factory_girl_rails
   fastercsv (= 1.5.3)
   jasmine (= 1.1.0)
-  pg
   rails (= 3.0.11)
   sqlite3-ruby
   tane
