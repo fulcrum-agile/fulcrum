@@ -14,9 +14,15 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # PostgreSQL
 # gem 'pg'
 
-gem 'devise', '1.2.1'
+gem 'devise', '~> 1.4.0'
 gem 'cancan', '1.6.1'
 gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitions"]
+
+# Bushido-related deps
+gem 'devise_bushido_authenticatable'
+gem 'bushido'
+gem 'tane'
+gem 'pg'
 
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
 gem 'compass', '>= 0.11.5'
