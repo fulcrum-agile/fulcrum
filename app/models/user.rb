@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
+  # Fulcrum.devise_modules is defined in config/initializers/fulcrum.rb
   devise *Fulcrum.devise_modules
 
   # Setup accessible (or protected) attributes for your model
