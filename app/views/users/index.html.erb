@@ -4,9 +4,13 @@
 <h2>Project members</h2>
 <ul>
   <% @users.each do |user| %>
-    <li><%= user %><%= link_to 'Remove', project_user_path(@project, user),
-      :confirm => "Are you sure you want to remove #{user.email} from this project?",
-      :method => :delete %></li>
+    <li><%= user %>
+      <% unless Devise.on_bushido? %>
+        <%= link_to 'Remove', project_user_path(@project, user),
+        :confirm => "Are you sure you want to remove #{user.email} from this project?",
+        :method => :delete %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 <% unless Devise.on_bushido? %>
