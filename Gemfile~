@@ -5,21 +5,8 @@ gem 'rails', '3.0.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-platforms :jruby do
-  gem 'activerecord-jdbc-adapter', :require => false
-end
-
-group :development, :test do
-  platforms :jruby do
-    gem 'jdbc-sqlite3', :require => false
-  end
-  platforms :ruby do
-    gem 'sqlite3-ruby', :require => 'sqlite3'
-  end
-end
-
 # SQLite
-#gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # MySQL
 # gem 'mysql2', '~> 0.2.6'
