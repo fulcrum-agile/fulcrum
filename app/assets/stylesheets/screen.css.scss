@@ -159,10 +159,11 @@ ul#primary-nav li.secondary ul li {
   }
 
   #add_story {
-    @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
+    @include background(sprite($icons-sprites, feature, 2, 2),
+                        linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
     background-repeat: no-repeat;
     margin: 0;
-    padding: 0.2em 0.3em;
+    padding: 0.2em 0.4em 0.2em 18px;
     @include border-radius(3px);
     border: 1px solid $aluminium-5;
     cursor: pointer;
@@ -171,9 +172,6 @@ ul#primary-nav li.secondary ul li {
     color: white;
     text-shadow:  $aluminium-5 0 1px 0;
     text-decoration: none;
-    span{
-      padding:0 8px;
-    }
   }
 }
 
