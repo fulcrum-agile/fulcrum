@@ -71,14 +71,7 @@ to host it on [Heroku](http://heroku.com/).
 To deploy it to Heroku, make sure you have a local copy of the project; refer
 to the previous section for instructions. Then:
 
-    # Add the Heroku and Postgres gems to your Gemfile
-    gem "heroku"
-    gem "pg"
-
-    # Update your bundle and commit the changes to git
-    $ bundle install
-    $ git add Gemfile Gemfile.lock
-    $ git commit -m "update fulcrum to use postgres on heroku"
+    $ gem install heroku
 
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar
@@ -97,7 +90,7 @@ to the previous section for instructions. Then:
     $ heroku run rake db:setup
 
 Once that's done, you will be able to view your site at
-`http://APPNAME.heroku.com`.
+`http://APPNAME.herokuapp.com`.
 
 Development
 -----------
