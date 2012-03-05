@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
 
       # Eager load this so that we don't have to make multiple db calls when
       # searching for users by full name from the CSV.
-      users = proxy_owner.users
+      users = proxy_association.owner.users
 
       csv = CSV.parse(csv_string, :headers => true)
       csv.map do |row|
@@ -67,7 +67,11 @@ class Project < ActiveRecord::Base
   end
   has_many :changesets, :dependent => :destroy
 
-  attr_accessor_with_default :suppress_notifications, false
+  attr_writer :suppress_notifications
+
+  def suppress_notifications
+    @suppress_notifications || false
+  end
 
   def to_s
     name

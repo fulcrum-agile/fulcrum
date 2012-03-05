@@ -2,7 +2,7 @@
 @import 'scaffold';
 @import 'jquery_gritter';
 @import 'jquery_tagit';
-@import 'twipsy';
+@import 'popover';
 @import 'icons';
 
 $darkgrey:   #6a7176;           // Header color
@@ -59,7 +59,7 @@ a img {
 
 ul#primary-nav {
   text-align: right;
-  background-image: url('/images/logo.png');
+  background-image: image-url('logo.png');
   background-repeat: no-repeat;
   background-position: 13px 6px;
   margin: 0;
@@ -701,5 +701,7 @@ div.loading_screen {
 
 div.spinner {
   margin: 15% 45%;
+  span{
+    padding:50px;
+  }
 }
-

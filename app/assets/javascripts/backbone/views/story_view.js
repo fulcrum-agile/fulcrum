@@ -306,6 +306,7 @@ var StoryView = FormView.extend({
     } else {
       $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
     }
+    this.hoverBox();
     return this;
   },
 
@@ -417,6 +418,54 @@ var StoryView = FormView.extend({
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
     this.model.notes.add();
-  }
+    $(this.el).find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
+  },
 
+  enableForm: function() {
+    $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+  },
+
+  hoverBox: function(){
+    var view  = this;
+    $(this.el).find('.popover-activate').popover({
+      title: function(){
+        return view.model.get("title");
+      },
+      content: function(){
+        return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
+      },
+      // A small delay to stop the popovers triggering whenever the mouse is
+      // moving around
+      delayIn: 200,
+      placement: view.hoverBoxPlacement,
+      html: true,
+      live: true
+    });
+  },
+
+  hoverBoxPlacement: function() {
+    // Gets called from a jQuery context, so this is set to the element that
+    // the popover is bound to.
+    var position = $(this).position();
+    var windowWidth = $(window).width();
+    // If the element is to the right of the vertical half way line in the
+    // viewport, position the popover on the left.
+    if (position.left > (windowWidth / 2)) {
+      return 'left';
+    }
+    return 'right';
+  },
+
+  initTags: function() {
+    var model = this.model;
+    var $input = $(this.el).find("input[name='labels']");
+    $input.tagit({
+      availableTags: model.collection.labels
+    });
+
+    // Manually bind labels for now
+    $input.bind('change', function(){
+      model.set({ labels: $(this).val()});
+    });
+  }
 });

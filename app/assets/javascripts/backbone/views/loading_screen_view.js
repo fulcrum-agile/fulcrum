@@ -4,7 +4,7 @@ var LoadingScreenView = Backbone.View.extend({
 
   template: _.template(
               '<div class="spinner">' +
-              '  <img src="/images/spinner.gif" />' +
+              '  <span class="icons-spinner"></span>' +
               '</div>'
             ),
 

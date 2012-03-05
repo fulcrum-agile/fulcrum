@@ -2,7 +2,7 @@ $icons-spacing:2px;
 $icons-collapse-spacing:6px;
 @import "icons/*.png";
 @include all-icons-sprites;
-//$icon-redo: sprite($icons-sprites, redo);
+
 .icon{
   width:16px;
   height:16px;
@@ -14,7 +14,9 @@ $icons-collapse-spacing:6px;
 .icons-throbber{
   background:image-url('throbber.gif') no-repeat;
 }
-
+.icons-spinner{
+  background:image-url('spinner.gif') no-repeat;
+}
 
 a.expand, a.collapse {
   cursor: pointer;
