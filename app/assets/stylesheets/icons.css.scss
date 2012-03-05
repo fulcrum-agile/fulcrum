@@ -1,7 +1,7 @@
-$icon-spacing:2px;
-$icon-collapse-spacing:4px;
-@import "icon/*.png";
-@include all-icon-sprites;
+$icons-spacing:2px;
+$icons-collapse-spacing:4px;
+@import "icons/*.png";
+@include all-icons-sprites;
 
 .icon{
   width:16px;
@@ -11,7 +11,7 @@ $icon-collapse-spacing:4px;
   text-indent:-9999px;
 }
 
-.icon-throbber{
+.icons-throbber{
   background:image-url('throbber.gif') no-repeat;
 }
 

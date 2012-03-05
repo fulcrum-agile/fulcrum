@@ -418,11 +418,11 @@ var StoryView = FormView.extend({
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
     this.model.notes.add();
-    $(this.el).find('a.collapse,a.expand').removeClass(/icon-/).addClass('icon-throbber');
+    $(this.el).find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
   },
 
   enableForm: function() {
-    $(this.el).find('a.collapse').removeClass(/icon-/).addClass("icon-collapse");
+    $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
   },
 
   hoverBox: function(){

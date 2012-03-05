@@ -2,7 +2,7 @@
 @import 'scaffold';
 @import 'jquery_gritter';
 @import 'jquery_tagit';
-@import 'twipsy';
+@import 'popover';
 @import 'icons';
 
 $darkgrey:   #6a7176;           // Header color
@@ -367,7 +367,7 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  @include icon-sprite(iteration, false, 2px, 3px);
+  @include icons-sprite(iteration, false, 2px, 3px);
   background-color: #000;
   color: #ddd;
   padding: 0.2em 0.2em 0.2em 20px
