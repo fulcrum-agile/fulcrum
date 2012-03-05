@@ -6,7 +6,6 @@ gem 'rails', '~> 3.1.1'
 # gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
 
 # SQLite
-gem 'sqlite3'
 
 # MySQL
 # gem 'mysql2', '~> 0.2.6'
@@ -56,6 +55,7 @@ gem 'fastercsv', '1.5.3', :platforms => :ruby_18
 # end
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'factory_girl_rails'
   gem 'jasmine', '1.1.0'
 end
