@@ -46,7 +46,6 @@ Once you have these:
     # Checkout the project
     $ git clone git://github.com/malclocke/fulcrum.git
     $ cd fulcrum
-    $ git checkout rails3.1
 
     # Install the project dependencies
     $ gem install bundler
