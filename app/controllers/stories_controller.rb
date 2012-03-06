@@ -2,12 +2,14 @@ class StoriesController < ApplicationController
 
   include ActionView::Helpers::TextHelper
 
+  respond_to :json
+  respond_to :html, :only => [:update, :create]
+
   def index
     @project = current_user.projects.find(params[:project_id],
                                           :include => {:stories => :notes})
     @stories = @project.stories
-    respond_to do |format|
-      format.json { render :json => @stories }
+    respond_with @stories do |format|
       format.csv do
         render :csv => @stories, :filename => @project.csv_filename
       end
@@ -17,60 +19,47 @@ class StoriesController < ApplicationController
   def show
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
-    render :json => @story
+    respond_with @story
   end
 
   def update
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
     @story.acting_user = current_user
-    respond_to do |format|
-      if @story.update_attributes(filter_story_params)
-        format.html { redirect_to project_url(@project) }
-        format.js   { render :json => @story }
-      else
-        format.html { render :action => 'edit' }
-        format.js   { render :json => @story, :status => :unprocessable_entity }
-      end
-    end
+    @story.update_attributes(filter_story_params)
+    respond_with @story, :location => project_url(@project)
   end
 
   def destroy
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
     @story.destroy
-    head :ok
+    respond_with @story
   end
 
   def done
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.done
-    render :json => @stories
+    respond_with @stories
   end
+
   def backlog
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.backlog
-    render :json => @stories
+    respond_with @stories
   end
   def in_progress
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.in_progress
-    render :json => @stories
+    respond_with @stories
   end
 
   def create
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.build(filter_story_params)
     @story.requested_by_id = current_user.id unless @story.requested_by_id
-    respond_to do |format|
-      if @story.save
-        format.html { redirect_to project_url(@project) }
-        format.js   { render :json => @story }
-      else
-        format.html { render :action => 'new' }
-        format.js   { render :json => @story, :status => :unprocessable_entity }
-      end
-    end
+    @story.save
+    respond_with @story, :location => project_url(@project)
   end
 
   def start

@@ -1,6 +1,7 @@
+require 'flash_responder'
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
+  self.responder = FlashResponder
   before_filter :authenticate_user!
 
   # Handle unauthorized access with a good old fashioned 'forbidden'

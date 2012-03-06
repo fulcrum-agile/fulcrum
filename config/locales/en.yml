@@ -39,3 +39,18 @@ en:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  flash:
+    actions:
+      create: '%{resource} was successfully created'
+      update: '%{resource} was successfully updated'
+      destroy: '%{resource} was successfully destroyed'
+    projects:
+      actions:
+        create: "Project was successfully created"
+    users:
+      actions:
+        create:
+          existing: "%{email} is already a member of this project"
+          added: "%{email} was added to this project"
+          invited: "%{email} was sent an invite to join this project"
