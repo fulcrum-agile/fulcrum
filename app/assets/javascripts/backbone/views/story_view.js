@@ -128,7 +128,7 @@ var StoryView = FormView.extend({
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
-        App.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({title: "Save error", text: model.errorMessages()});
         that.saveInProgress = false;
         that.render();
       }
@@ -148,7 +148,7 @@ var StoryView = FormView.extend({
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
-        App.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({title: "Save error", text: model.errorMessages()});
         that.saveInProgress = false;
         that.render();
       }
@@ -201,7 +201,7 @@ var StoryView = FormView.extend({
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
         model.set({editing: true, errors: json.story.errors});
-        App.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({title: "Save error", text: model.errorMessages()});
         that.enableForm();
       }
     });
