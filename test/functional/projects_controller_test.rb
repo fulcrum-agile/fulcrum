@@ -3,8 +3,8 @@ require 'test_helper'
 class ProjectsControllerTest < ActionController::TestCase
 
   setup do
-    @project = Factory.create(:project)
-    @user = Factory.create(:user, :projects => [@project])
+    @project = FactoryGirl.create(:project)
+    @user = FactoryGirl.create(:user, :projects => [@project])
   end
 
   test "should not get project list if not logged in" do
@@ -13,7 +13,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    other_project = Factory.create(:project)
+    other_project = FactoryGirl.create(:project)
     sign_in @user
     get :index
     assert_response :success
@@ -55,7 +55,7 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   test "should not show other users project" do
-    other_user = Factory.create(:user)
+    other_user = FactoryGirl.create(:user)
     sign_in other_user
     get :show, :id => @project.to_param
     assert_response :missing
@@ -75,7 +75,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   test "should show update errors" do
     sign_in @user
-    attributes = Factory.attributes_for(:project)
+    attributes = FactoryGirl.attributes_for(:project)
     attributes[:name] = ''
     put :update, :id => @project.to_param, :project => attributes
     assert_response :success

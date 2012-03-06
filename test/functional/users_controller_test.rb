@@ -2,8 +2,8 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   def setup
-    @user = Factory.create(:user)
-    @project = Factory.create(:project, :users => [@user])
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project, :users => [@user])
   end
 
   test "should not get project users if not logged in" do
@@ -31,14 +31,14 @@ class UsersControllerTest < ActionController::TestCase
 
 
   test "should not get other users project users" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     sign_in user
     get :index, :project_id => @project.to_param
     assert_response :missing
   end
 
   test "should add existing user as project member" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     sign_in @user
 
     # Because this user already exists, no new users should be created, but
@@ -90,7 +90,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should not add a user who is already a member" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @project.users << user
 
     sign_in @user
@@ -105,7 +105,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should not create a user for someone elses project" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     sign_in user
 
     assert_no_difference ['User.count', 'ActionMailer::Base.deliveries.size'] do
@@ -117,7 +117,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should remove a project member" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @project.users << user
 
     sign_in @user

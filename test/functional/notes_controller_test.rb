@@ -2,11 +2,11 @@ require 'test_helper'
 
 class NotesControllerTest < ActionController::TestCase
   def setup
-    @user = Factory.create(:user)
-    @project = Factory.create(:project, :users => [@user])
-    @story = Factory.create(:story, :project => @project,
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project, :users => [@user])
+    @story = FactoryGirl.create(:story, :project => @project,
                             :requested_by => @user)
-    @note = Factory.create(:note, :story => @story, :user => @user)
+    @note = FactoryGirl.create(:note, :story => @story, :user => @user)
   end
 
   test "should create a note" do

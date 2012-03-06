@@ -2,11 +2,11 @@ require 'test_helper'
 
 class ChangesetsControllerTest < ActionController::TestCase
   setup do
-    @user = Factory.create(:user)
-    @project = Factory.create(:project, :users => [@user])
-    @story = Factory.create(:story, :project => @project,
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project, :users => [@user])
+    @story = FactoryGirl.create(:story, :project => @project,
                             :requested_by => @user)
-    @changeset = Factory.create(:changeset, :story => @story,
+    @changeset = FactoryGirl.create(:changeset, :story => @story,
                                 :project => @project)
   end
 

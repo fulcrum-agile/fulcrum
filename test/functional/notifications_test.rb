@@ -10,10 +10,10 @@ class NotificationsTest < ActionMailer::TestCase
   end
 
   test "delivered" do
-    requester = Factory.create(:user, :name => "Requester")
-    deliverer = Factory.create(:user, :name => "Deliverer")
-    project = Factory.create(:project, :users => [requester, deliverer])
-    story = Factory.create(:story, :project => project,
+    requester = FactoryGirl.create(:user, :name => "Requester")
+    deliverer = FactoryGirl.create(:user, :name => "Deliverer")
+    project = FactoryGirl.create(:project, :users => [requester, deliverer])
+    story = FactoryGirl.create(:story, :project => project,
                             :requested_by => requester)
 
     mail = Notifications.delivered(story, deliverer)
@@ -26,11 +26,11 @@ class NotificationsTest < ActionMailer::TestCase
   end
 
   test "accepted" do
-    owner = Factory.create(:user, :name => "Owner")
-    accepter = Factory.create(:user, :name => "Accepter")
-    requester = Factory.create(:user, :name => "Requester")
-    project = Factory.create(:project, :users => [owner, accepter, requester])
-    story = Factory.create(:story, :project => project,
+    owner = FactoryGirl.create(:user, :name => "Owner")
+    accepter = FactoryGirl.create(:user, :name => "Accepter")
+    requester = FactoryGirl.create(:user, :name => "Requester")
+    project = FactoryGirl.create(:project, :users => [owner, accepter, requester])
+    story = FactoryGirl.create(:story, :project => project,
                             :requested_by => requester, :owned_by => owner)
 
     mail = Notifications.accepted(story, accepter)
@@ -42,11 +42,11 @@ class NotificationsTest < ActionMailer::TestCase
   end
 
   test "rejected" do
-    owner = Factory.create(:user, :name => "Owner")
-    rejecter = Factory.create(:user, :name => "Rejecter")
-    requester = Factory.create(:user, :name => "Requester")
-    project = Factory.create(:project, :users => [owner, rejecter, requester])
-    story = Factory.create(:story, :project => project,
+    owner = FactoryGirl.create(:user, :name => "Owner")
+    rejecter = FactoryGirl.create(:user, :name => "Rejecter")
+    requester = FactoryGirl.create(:user, :name => "Requester")
+    project = FactoryGirl.create(:project, :users => [owner, rejecter, requester])
+    story = FactoryGirl.create(:story, :project => project,
                             :requested_by => requester, :owned_by => owner)
 
     mail = Notifications.rejected(story, rejecter)

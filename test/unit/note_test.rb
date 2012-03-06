@@ -2,11 +2,11 @@ require 'test_helper'
 
 class NoteTest < ActiveSupport::TestCase
   def setup
-    @user = Factory.create(:user)
-    @project = Factory.create(:project, :users => [@user])
-    @story = Factory.create(:story, :project => @project,
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project, :users => [@user])
+    @story = FactoryGirl.create(:story, :project => @project,
                             :requested_by => @user)
-    @note = Factory.create(:note, :story => @story, :user => @user)
+    @note = FactoryGirl.create(:note, :story => @story, :user => @user)
   end
 
   test "cannot save without a body" do
@@ -16,30 +16,30 @@ class NoteTest < ActiveSupport::TestCase
 
   test "creating a note creates a changeset" do
     assert_difference ['Changeset.count', '@story.changesets.count'] do
-      Factory.create(:note, :story => @story, :user => @user)
+      FactoryGirl.create(:note, :story => @story, :user => @user)
     end
   end
 
   test "creating a note sends a notification" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @project.users << user
     @story.requested_by = user
     assert_difference 'ActionMailer::Base.deliveries.count' do
-      Factory.create(:note, :story => @story, :user => @user)
+      FactoryGirl.create(:note, :story => @story, :user => @user)
     end
     assert_equal [user.email], ActionMailer::Base.deliveries.first.to
     assert_equal [@user.email], ActionMailer::Base.deliveries.first.from
 
     @project.suppress_notifications = true
     assert_no_difference 'ActionMailer::Base.deliveries.count' do
-      Factory.create(:note, :story => @story, :user => @user)
+      FactoryGirl.create(:note, :story => @story, :user => @user)
     end
   end
 
   test "creating a note does not send a notification for the current user" do
     assert_equal [@user], @story.notify_users
     assert_no_difference 'ActionMailer::Base.deliveries.count' do
-      Factory.create(:note, :story => @story, :user => @user)
+      FactoryGirl.create(:note, :story => @story, :user => @user)
     end
   end
 

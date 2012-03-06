@@ -2,7 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   test "should return a string" do

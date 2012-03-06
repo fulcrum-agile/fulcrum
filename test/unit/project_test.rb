@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
   def setup
-    @project = Factory.create(:project)
+    @project = FactoryGirl.create(:project)
   end
 
   test "should not save a project without a name" do
@@ -74,9 +74,9 @@ class ProjectTest < ActiveSupport::TestCase
 
   test "should return the id of the most recent changeset" do
     assert_equal nil, @project.last_changeset_id
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @project.users << user
-    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    story = FactoryGirl.create(:story, :project => @project, :requested_by => @user)
     assert_equal Changeset.last.id, @project.last_changeset_id
   end
 
@@ -90,13 +90,13 @@ class ProjectTest < ActiveSupport::TestCase
 
   test "should set the start date when starting the first story" do
     assert_nil @project.start_date
-    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    story = FactoryGirl.create(:story, :project => @project, :requested_by => @user)
     story.update_attribute :state, 'started'
     assert_equal Date.today, @project.start_date
   end
 
   test "should cascade delete stories" do
-    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    story = FactoryGirl.create(:story, :project => @project, :requested_by => @user)
     assert_equal @project.stories.count, 1
     assert_difference 'Story.count', -1 do
       assert @project.destroy
@@ -104,7 +104,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test "should cascade delete changesets" do
-    story = Factory.create(:story, :project => @project, :requested_by => @user)
+    story = FactoryGirl.create(:story, :project => @project, :requested_by => @user)
     assert_equal @project.changesets.count, 1
     assert_difference 'Changeset.count', -1 do
       assert @project.destroy

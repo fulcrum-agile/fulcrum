@@ -2,9 +2,9 @@ require 'test_helper'
 
 class StoriesControllerTest < ActionController::TestCase
   def setup
-    @user = Factory.create(:user)
-    @project = Factory.create(:project, :users => [@user])
-    @story = Factory.create(:story, :project => @project,
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project, :users => [@user])
+    @story = FactoryGirl.create(:story, :project => @project,
                             :requested_by => @user)
   end
 
@@ -147,7 +147,7 @@ class StoriesControllerTest < ActionController::TestCase
 
     # The fixture CSV stories are all requested by and assigned to 'User 1',
     # so make sure this user is present and a member of the project
-    assigned_user = Factory.create(:user, :name => 'Test User')
+    assigned_user = FactoryGirl.create(:user, :name => 'Test User')
     @project.users << assigned_user
 
     assert_difference 'Story.count', story_count do

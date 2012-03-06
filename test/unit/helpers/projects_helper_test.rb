@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProjectsHelperTest < ActionView::TestCase
   def setup
-    @project = Factory.create(:project)
+    @project = FactoryGirl.create(:project)
   end
 
   test "should return point scale options for select" do

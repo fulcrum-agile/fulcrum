@@ -2,9 +2,9 @@ require 'test_helper'
 
 class StoryTest < ActiveSupport::TestCase
   def setup
-    @user = Factory.create(:user)
-    @project = Factory.create(:project, :users => [@user])
-    @story = Factory.create(:story, :project => @project,
+    @user = FactoryGirl.create(:user)
+    @project = FactoryGirl.create(:project, :users => [@user])
+    @story = FactoryGirl.create(:story, :project => @project,
                             :requested_by => @user)
   end
 
@@ -46,13 +46,13 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "requestor must belong to project" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @story.requested_by = user
     assert !@story.save
   end
 
   test "owner must belong to project" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @story.owned_by = user
     assert !@story.save
   end
@@ -122,12 +122,12 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "should set a new story position to last in list" do
-    project = Factory.create(:project, :users => [@user])
-    story = Factory.create(:story, :project => project, :requested_by => @user)
+    project = FactoryGirl.create(:project, :users => [@user])
+    story = FactoryGirl.create(:story, :project => project, :requested_by => @user)
     assert_equal 1, story.position
-    story = Factory.create(:story, :project => project, :requested_by => @user)
+    story = FactoryGirl.create(:story, :project => project, :requested_by => @user)
     assert_equal 2, story.position
-    story = Factory.create(:story, :project => project, :requested_by => @user,
+    story = FactoryGirl.create(:story, :project => project, :requested_by => @user,
                           :position => 1.5)
     assert_equal 1.5, story.position
   end
@@ -167,12 +167,12 @@ class StoryTest < ActiveSupport::TestCase
 
   test "creating a story should create a new changeset" do
     assert_difference 'Changeset.count' do
-      Factory.create(:story, :project => @project, :requested_by => @user)
+      FactoryGirl.create(:story, :project => @project, :requested_by => @user)
     end
   end
 
   test "delivering a story sends an email to the requestor" do
-    @story.acting_user = Factory.create(:user)
+    @story.acting_user = FactoryGirl.create(:user)
     @project.users << @story.acting_user
     assert_difference 'ActionMailer::Base.deliveries.size' do
       @story.update_attribute :state, 'delivered'
@@ -180,7 +180,7 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "delivering a story does not send an email when notifications are suppressed" do
-    @story.acting_user = Factory.create(:user)
+    @story.acting_user = FactoryGirl.create(:user)
     @project.users << @story.acting_user
     @project.suppress_notifications = true
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
@@ -189,16 +189,16 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "delivering a story does not send an email to the requestor when email_delivery is false" do
-    @story.acting_user = Factory.create(:user)
+    @story.acting_user = FactoryGirl.create(:user)
     @project.users << @story.acting_user
-    @story.requested_by = Factory.create(:user, :email_delivery => false)
+    @story.requested_by = FactoryGirl.create(:user, :email_delivery => false)
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       @story.update_attribute :state, 'delivered'
     end
   end
 
   test "delivering a story sends no email if requested by is not set" do
-    @story.acting_user = Factory.create(:user)
+    @story.acting_user = FactoryGirl.create(:user)
     @project.users << @story.acting_user
     @story.requested_by = nil
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
@@ -223,7 +223,7 @@ class StoryTest < ActiveSupport::TestCase
   ["accept", "reject"].each do |action|
 
     test "#{action}ing a story sends an email to the owner" do
-      @story.acting_user = Factory.create(:user)
+      @story.acting_user = FactoryGirl.create(:user)
       @story.owned_by = @story.requested_by
       @project.users << @story.acting_user
       assert_difference 'ActionMailer::Base.deliveries.size' do
@@ -232,11 +232,11 @@ class StoryTest < ActiveSupport::TestCase
     end
 
     test "#{action}ing a story where the owner has email_#{action} set to false" do
-      @story.acting_user = Factory.create(:user)
+      @story.acting_user = FactoryGirl.create(:user)
       if action == 'accept'
-        @story.owned_by = Factory.create(:user, :email_acceptance => false)
+        @story.owned_by = FactoryGirl.create(:user, :email_acceptance => false)
       else
-        @story.owned_by = Factory.create(:user, :email_rejection => false)
+        @story.owned_by = FactoryGirl.create(:user, :email_rejection => false)
       end
       @project.users << @story.acting_user
       assert_no_difference 'ActionMailer::Base.deliveries.size' do
@@ -253,7 +253,7 @@ class StoryTest < ActiveSupport::TestCase
     end
 
     test "#{action}ing a story sends no email if owned_by is not set" do
-      @story.acting_user = Factory.create(:user)
+      @story.acting_user = FactoryGirl.create(:user)
       @story.owned_by = nil
       @project.users << @story.acting_user
       assert_no_difference 'ActionMailer::Base.deliveries.size' do
@@ -262,7 +262,7 @@ class StoryTest < ActiveSupport::TestCase
     end
 
     test "#{action}ing a story sends no email if owned_by is acting user" do
-      @story.acting_user = Factory.create(:user)
+      @story.acting_user = FactoryGirl.create(:user)
       @project.users << @story.acting_user
       @story.owned_by = @story.acting_user
       assert_no_difference 'ActionMailer::Base.deliveries.size' do
@@ -283,7 +283,7 @@ class StoryTest < ActiveSupport::TestCase
 
   test "should return a story as a CSV row with notes appended" do
     assert_equal 0, @story.notes.size
-    @story.notes << Factory.create(:note, :story => @story)
+    @story.notes << FactoryGirl.create(:note, :story => @story)
     assert_equal 1, @story.notes.size
     assert_equal Story.csv_headers.length + 1, @story.to_csv.length
   end
@@ -293,16 +293,16 @@ class StoryTest < ActiveSupport::TestCase
   end
 
   test "notify_users should include owner" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @project.users << user
     @story.owned_by = user
     assert @story.notify_users.include?(user)
   end
 
   test "notify_users should include users who have added notes" do
-    user = Factory.create(:user)
+    user = FactoryGirl.create(:user)
     @project.users << user
-    Factory.create(:note, :story => @story, :user => user)
+    FactoryGirl.create(:note, :story => @story, :user => user)
     assert @story.notify_users.include?(user)
   end
 

@@ -7,7 +7,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
   test "should be able to change password after confirmation" do
-    user = Factory.create(:user, :reset_password_token => 'fdsedf4343334ik3hhudfug')
+    user = FactoryGirl.create(:user, :reset_password_token => 'fdsedf4343334ik3hhudfug')
     user.confirmed_at = nil
     user.confirmation_token = Devise.friendly_token
     user.confirmation_sent_at = Time.now.utc
