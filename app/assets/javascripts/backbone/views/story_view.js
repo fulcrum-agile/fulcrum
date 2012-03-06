@@ -236,7 +236,7 @@ var StoryView = FormView.extend({
           this.make("a", {'class': "collapse icon icons-collapse"})
         );
       }
-      $(div).append(this.textField("title"));
+      $(div).append(this.textField("title", {'placeholder': 'Story title'}));
       $(this.el).append(div);
 
       div = this.make('div');

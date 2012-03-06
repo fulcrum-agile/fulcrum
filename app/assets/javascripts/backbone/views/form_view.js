@@ -6,8 +6,10 @@ var FormView = Backbone.View.extend({
     return this.make('label', {'for': elem_id}, value);
   },
 
-  textField: function(name) {
-    var el = this.make('input', {type: "text", name: name, value: this.model.get(name)});
+  textField: function(name, extra_opts) {
+    var defaults = {type: "text", name: name, value: this.model.get(name)}
+    this.mergeAttrs(defaults, extra_opts);
+    var el = this.make('input', defaults);
     this.bindElementToAttribute(el, name, "keyup");
     return el;
   }, 
@@ -88,5 +90,9 @@ var FormView = Backbone.View.extend({
       that.model.set(obj, {silent: true});
       return true;
     });
+  },
+
+  mergeAttrs: function(defaults, opts) {
+    return jQuery.extend(defaults, opts);
   }
 });
