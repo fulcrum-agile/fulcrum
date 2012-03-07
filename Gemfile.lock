@@ -121,6 +121,11 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+    rspec-rails (2.8.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.8.0)
     rubyzip (0.9.6.1)
     sass (3.1.15)
     sass-rails (3.1.5)
@@ -165,6 +170,7 @@ DEPENDENCIES
   pg
   rails (~> 3.1.1)
   rails-backbone
+  rspec-rails
   sass-rails (~> 3.1.0)
   sqlite3
   transitions (= 0.0.9)
