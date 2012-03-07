@@ -25,6 +25,15 @@ describe("filtering stories", function() {
     });
 
     it("should hide stories that don't match the keywords", function() {
+      input.val("first keyword");
+      input.trigger(keydown);
+      expect(story2).not.toBeVisible();
+      expect(story1).toBeVisible();
+
+      input.val("second keyword");
+      input.trigger(keydown);
+      expect(story1).not.toBeVisible();
+      expect(story2).toBeVisible();
     });
 
     xit("should unhide stories that match the keywords", function() {});

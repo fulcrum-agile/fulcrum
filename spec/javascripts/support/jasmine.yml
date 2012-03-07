@@ -25,6 +25,7 @@ src_files:
   - app/assets/javascripts/backbone/collections/*.js
   - app/assets/javascripts/backbone/views/*.js
   - app/assets/javascripts/fulcrum.js
+  - app/assets/javascripts/story_filter.js
 
 # stylesheets
 #
