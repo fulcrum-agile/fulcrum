@@ -53,7 +53,9 @@ describe Note do
   describe "#as_json" do
 
     it "returns the right keys" do
-      subject.as_json["note"].keys.should == %w[created_at updated_at errors user_id story_id note]
+      subject.as_json["note"].keys.sort.should == %w[
+        created_at errors id note story_id updated_at user_id
+      ]
     end
 
   end
