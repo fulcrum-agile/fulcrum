@@ -25,24 +25,20 @@ describe("filtering stories", function() {
     });
 
     describe("filtering stories based on keywords", function() {
-      it("should hide stories that don't match the keywords", function() {
-        input.val("first keyword");
-        input.trigger(keydown);
-        expect(story2).not.toBeVisible();
+      $.each(['first keyword', 'FiRst KeyworD'], function(index, keyword) {
+        it("should hide stories that don't match the keywords, ignoring cases", function() {
+          input.val(keyword);
+          input.trigger(keydown);
+          expect(story1).toBeVisible();
+          expect(story2).not.toBeVisible();
+        });
       });
 
-      it("should show stories that match the keywords", function() {
+      it("should show or unhide stories that match the keywords", function() {
         input.val("second keyword");
         input.trigger(keydown);
         expect(story1).not.toBeVisible();
         expect(story2).toBeVisible();
-      });
-
-      it("should be case insensitive", function() {
-        input.val("FiRst keyword");
-        input.trigger(keydown);
-        expect(story1).toBeVisible();
-        expect(story2).not.toBeVisible();
       });
     });
 
