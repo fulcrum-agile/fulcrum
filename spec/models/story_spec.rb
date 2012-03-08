@@ -256,7 +256,8 @@ describe Story do
 
   context "when delivered" do
     before { subject.state = 'delivered' }
-    its(:events)  { should == [:reject, :accept] }
+    its(:events)  { should include(:accept) }
+    its(:events)  { should include(:reject) }
     its(:column)  { should == '#in_progress' }
   end
 
