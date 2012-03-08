@@ -1,7 +1,7 @@
 describe("filtering stories", function() {
   beforeEach(function() {
     keydown = $.Event('keydown');
-    keydown.keycode = 13;
+    keydown.keyCode = 13;
   });
 
   describe("$.filterStories", function() {
@@ -29,19 +29,28 @@ describe("filtering stories", function() {
         it("should hide stories that don't match the keywords, ignoring cases", function() {
           input.val(keyword);
           input.trigger(keydown);
+
           expect(story1).toBeVisible();
           expect(story2).not.toBeVisible();
         });
       });
 
       it("should show or unhide stories that match the keywords", function() {
+        story2.hide();
+
         input.val("second keyword");
         input.trigger(keydown);
+
         expect(story1).not.toBeVisible();
         expect(story2).toBeVisible();
       });
     });
 
-    xit("should show all stories when the filter bar is empty", function() {});
+    it("should show all stories when the filter bar is empty", function() {
+      input.val("");
+      input.trigger(keydown);
+      expect(story1).toBeVisible();
+      expect(story2).toBeVisible();
+    });
   });
 });

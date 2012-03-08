@@ -7,7 +7,7 @@
     var input = this;
 
     input.keydown(function(event) {
-      if(event.keycode == KEYCODES.ENTER) {
+      if(event.keyCode == KEYCODES.ENTER) {
         var stories = $('.stories').find('div.story');
         var pattern = new RegExp(input.val(), 'i');
 
