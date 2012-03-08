@@ -4,7 +4,7 @@ describe("filtering stories", function() {
     keydown.keycode = 13;
   });
 
-  describe("$.filter", function() {
+  describe("$.filterStories", function() {
     var main_container, input, filter;
     var story1, story2;
 
@@ -21,21 +21,31 @@ describe("filtering stories", function() {
       main_container.append(input).append(storiesTable);
       setFixtures(main_container);
 
-      input.filter();
+      input.filterStories();
     });
 
-    it("should hide stories that don't match the keywords", function() {
-      input.val("first keyword");
-      input.trigger(keydown);
-      expect(story2).not.toBeVisible();
-      expect(story1).toBeVisible();
+    describe("filtering stories based on keywords", function() {
+      it("should hide stories that don't match the keywords", function() {
+        input.val("first keyword");
+        input.trigger(keydown);
+        expect(story2).not.toBeVisible();
+      });
 
-      input.val("second keyword");
-      input.trigger(keydown);
-      expect(story1).not.toBeVisible();
-      expect(story2).toBeVisible();
+      it("should show stories that match the keywords", function() {
+        input.val("second keyword");
+        input.trigger(keydown);
+        expect(story1).not.toBeVisible();
+        expect(story2).toBeVisible();
+      });
+
+      it("should be case insensitive", function() {
+        input.val("FiRst keyword");
+        input.trigger(keydown);
+        expect(story1).toBeVisible();
+        expect(story2).not.toBeVisible();
+      });
     });
 
-    xit("should unhide stories that match the keywords", function() {});
+    xit("should show all stories when the filter bar is empty", function() {});
   });
 });

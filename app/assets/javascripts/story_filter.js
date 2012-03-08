@@ -1,5 +1,5 @@
 (function($){
-  $.fn.filter = function() {
+  $.fn.filterStories = function() {
     var KEYCODES = {
       ENTER: 13
     };
@@ -9,7 +9,11 @@
 
     input.keydown(function(event) {
       if(event.keycode == KEYCODES.ENTER) {
-        stories.find('div.story:not(contains(' + input.val() + '))').hide();
+        var pattern = new RegExp(input.val(), 'i');
+
+        stories.find('div.story').filter(function() {
+          return !$(this).html().match(pattern);
+        }).hide();
         stories.find('div.story:contains(' + input.val() + ')').show();
       }
     });
