@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "Projects" do
 
+  include IntegrationHelpers
+
   self.use_transactional_fixtures = false
 
   before(:each) do
@@ -95,10 +97,4 @@ describe "Projects" do
     end
   end
 
-  def sign_in(user, password = 'password')
-    visit root_path
-    fill_in "Email",    :with => user.email
-    fill_in "Password", :with => password
-    click_button 'Sign in'
-  end
 end
