@@ -13,7 +13,7 @@
 
         $.each(stories, function() {
           story = $(this);
-          if (!story.html().match(pattern)) {
+          if (!story.text().match(pattern)) {
             story.hide();
           } else {
             story.show();

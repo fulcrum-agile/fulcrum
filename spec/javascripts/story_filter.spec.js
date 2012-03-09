@@ -46,11 +46,20 @@ describe("filtering stories", function() {
       });
     });
 
-    it("should show all stories when the filter bar is empty", function() {
-      input.val("");
-      input.trigger(keydown);
-      expect(story1).toBeVisible();
-      expect(story2).toBeVisible();
+    describe("edge cases", function() {
+      it("should show all stories when the filter bar is empty", function() {
+        input.val("");
+        input.trigger(keydown);
+        expect(story1).toBeVisible();
+        expect(story2).toBeVisible();
+      });
+
+      it("should not match html code", function() {
+        input.val("div");
+        input.trigger(keydown);
+        expect(story1).not.toBeVisible();
+        expect(story2).not.toBeVisible();
+      });
     });
   });
 });
