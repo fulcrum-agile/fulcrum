@@ -44,6 +44,11 @@ class StoryTest < ActiveSupport::TestCase
     @story.project = nil
     assert !@story.save
   end
+  test "should not save without a valid project_id" do
+    @story.project = nil
+    @story.project_id = "invalid"
+    assert !@story.save
+  end
 
   test "requestor must belong to project" do
     user = FactoryGirl.create(:user)
