@@ -4,7 +4,7 @@
       ENTER: 13
     };
 
-    var input = this;
+    var input = this.find('input#filter_bar');
 
     input.keydown(function(event) {
       if(event.keyCode == KEYCODES.ENTER) {

@@ -9,19 +9,21 @@ describe("filtering stories", function() {
     var story1, story2;
 
     beforeEach(function() {
-      main_container = $('<div></div>');
-
-      input = $('<input id="filter_bar" placeholder="Filter stories..." />');
+      filter_container = $('<div id="filter"></div>');
+      input  = $('<input id="filter_bar" placeholder="Filter stories..." />');
+      cancel = $('<span id="cancel"></span>');
+      filter_container.append(input).append(cancel);
 
       storiesTable = $('<table class="stories"></table>');
       story1 = $('<div id="1" class="story"><div class="story-title">Story with first keyword</div></div>');
       story2 = $('<div id="2" class="story"><div class="story-title">Story with second keyword</div></div>');
-
       storiesTable.append(story1).append(story2);
-      main_container.append(input).append(storiesTable);
+
+      main_container   = $('<div></div>');
+      main_container.append(filter_container).append(storiesTable);
       setFixtures(main_container);
 
-      input.filterStories();
+      filter_container.filterStories();
     });
 
     describe("filtering stories based on keywords", function() {
@@ -59,6 +61,17 @@ describe("filtering stories", function() {
         input.trigger(keydown);
         expect(story1).not.toBeVisible();
         expect(story2).not.toBeVisible();
+      });
+    });
+
+    describe("cancel", function() {
+      xit("should not appear when filter bar is empty", function() {
+      });
+
+      xit("should appear when there are keywords inside the filter bar", function() {
+      });
+
+      xit("should empty the filterbar when clicked", function() {
       });
     });
   });

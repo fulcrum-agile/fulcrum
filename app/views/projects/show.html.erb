@@ -113,7 +113,7 @@ $(function() {
   <%= render :partial => 'projects/nav',
              :locals => {:project => @project, :show_column_toggles => true} %>
   | <a id="add_story" href="#">Add story</a>
-  | <input id="filter_bar" placeholder="Filter stories..." />
+  | <div id="filter"><input id="filter_bar" placeholder="Filter stories..." /><span id="cancel"></span></div>
 <% end %>
 
 <table class="stories" width="100%">
