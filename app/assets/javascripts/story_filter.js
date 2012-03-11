@@ -6,6 +6,7 @@
 
     var input  = this.find('input#filter_bar');
     var cancel = this.find('#cancel');
+    cancel.hide();
 
     input.keydown(function(event) {
       if(event.keyCode == KEYCODES.ENTER) {
@@ -23,6 +24,12 @@
       }
     });
 
-    cancel.hide();
+    input.keyup(function(event) {
+      if(input.val() != "") {
+        cancel.show();
+      } else {
+        cancel.hide();
+      }
+    });
   };
 })(jQuery);

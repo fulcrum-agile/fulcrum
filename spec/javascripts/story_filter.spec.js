@@ -1,4 +1,6 @@
 describe("filtering stories", function() {
+  var keydown;
+
   beforeEach(function() {
     keydown = $.Event('keydown');
     keydown.keyCode = 13;
@@ -65,12 +67,23 @@ describe("filtering stories", function() {
     });
 
     describe("cancel", function() {
-      it("should not appear when filter bar is empty", function() {
-        input.val("");
-        expect(cancel).not.toBeVisible();
+      var keyup;
+
+      beforeEach(function() {
+        keyup   = $.Event('keyup');
+        keyup.keyCode = 8;
       });
 
-      xit("should appear when there are keywords inside the filter bar", function() {
+      it("should only appear when there are keywords inside the filter bar", function() {
+        input.val("somethin");
+        keyup.keyCode = 71; //character 'g'
+        input.trigger(keyup);
+        expect(cancel).toBeVisible();
+
+        input.val(""); //triggerring backspace, does not really erase the input. Faking it for now.
+        keyup.keyCode = 8;
+        input.trigger(keyup);
+        expect(cancel).not.toBeVisible();
       });
 
       xit("should empty the filterbar when clicked", function() {

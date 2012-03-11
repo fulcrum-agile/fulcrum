@@ -10,7 +10,7 @@ $(function() {
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
 
-  $('#filter_bar').filterStories();
+  $('#filter').filterStories();
 
   $('div.sortable').sortable({
     handle: '.story-title', opacity: 0.6,
