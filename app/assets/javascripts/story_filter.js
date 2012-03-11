@@ -4,7 +4,8 @@
       ENTER: 13
     };
 
-    var input = this.find('input#filter_bar');
+    var input  = this.find('input#filter_bar');
+    var cancel = this.find('#cancel');
 
     input.keydown(function(event) {
       if(event.keyCode == KEYCODES.ENTER) {
@@ -21,5 +22,7 @@
         });
       }
     });
+
+    cancel.hide();
   };
 })(jQuery);

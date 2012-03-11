@@ -5,22 +5,22 @@ describe("filtering stories", function() {
   });
 
   describe("$.filterStories", function() {
-    var main_container, input, filter;
+    var main_container, filter_container, input, cancel, stories_table;
     var story1, story2;
 
     beforeEach(function() {
       filter_container = $('<div id="filter"></div>');
       input  = $('<input id="filter_bar" placeholder="Filter stories..." />');
-      cancel = $('<span id="cancel"></span>');
+      cancel = $('<span id="cancel">x</span>');
       filter_container.append(input).append(cancel);
 
-      storiesTable = $('<table class="stories"></table>');
+      stories_table = $('<table class="stories"></table>');
       story1 = $('<div id="1" class="story"><div class="story-title">Story with first keyword</div></div>');
       story2 = $('<div id="2" class="story"><div class="story-title">Story with second keyword</div></div>');
-      storiesTable.append(story1).append(story2);
+      stories_table.append(story1).append(story2);
 
       main_container   = $('<div></div>');
-      main_container.append(filter_container).append(storiesTable);
+      main_container.append(filter_container).append(stories_table);
       setFixtures(main_container);
 
       filter_container.filterStories();
@@ -65,7 +65,9 @@ describe("filtering stories", function() {
     });
 
     describe("cancel", function() {
-      xit("should not appear when filter bar is empty", function() {
+      it("should not appear when filter bar is empty", function() {
+        input.val("");
+        expect(cancel).not.toBeVisible();
       });
 
       xit("should appear when there are keywords inside the filter bar", function() {
