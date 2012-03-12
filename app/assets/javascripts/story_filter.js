@@ -31,5 +31,10 @@
         cancel.hide();
       }
     });
+
+    cancel.click(function() {
+      input.val("");
+      cancel.hide();
+    });
   };
 })(jQuery);

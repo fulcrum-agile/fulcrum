@@ -86,7 +86,13 @@ describe("filtering stories", function() {
         expect(cancel).not.toBeVisible();
       });
 
-      xit("should empty the filterbar when clicked", function() {
+      it("should empty the filterbar when clicked", function() {
+        input.val("something");
+        cancel.show();
+
+        cancel.trigger("click");
+        expect(input).toHaveValue("");
+        expect(cancel).not.toBeVisible();
       });
     });
   });
