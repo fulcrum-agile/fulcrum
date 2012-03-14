@@ -17,9 +17,9 @@
 
         $.each(stories, function() {
           story = $(this);
-          if (!story.text().match(pattern)) {
+          if (story.is(':visible') && !story.text().match(pattern)) {
             story.hide();
-          } else {
+          } else if(story.is(':hidden') && story.text().match(pattern)) {
             story.show();
           }
         });
@@ -30,18 +30,18 @@
       if(input.val() != "") {
         cancel.show();
       } else {
-        cancel.hide();
-        stories = $('.stories div.story:hidden');
-        stories.show();
+        unfilter();
       }
     });
 
     cancel.click(function() {
       input.val("");
-      cancel.hide();
-      stories = $('.stories div.story:hidden');
-
-      stories.show();
+      unfilter();
     });
+
+    var unfilter = function() {
+      cancel.hide();
+      $('.stories div.story:hidden').show();
+    };
   };
 })(jQuery);
