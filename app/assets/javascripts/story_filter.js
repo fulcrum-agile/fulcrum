@@ -31,6 +31,8 @@
         cancel.show();
       } else {
         cancel.hide();
+        stories = $('.stories div.story:hidden');
+        stories.show();
       }
     });
 

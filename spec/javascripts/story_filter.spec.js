@@ -1,16 +1,12 @@
 describe("filtering stories", function() {
-  var keydown;
-
-  beforeEach(function() {
-    keydown = $.Event('keydown');
-    keydown.keyCode = 13;
-  });
-
   describe("$.filterStories", function() {
     var main_container, filter_container, input, cancel, stories_table;
-    var story1, story2;
+    var story1, story2, keydown, keyup;
 
     beforeEach(function() {
+      keydown = $.Event('keydown');
+      keydown.keyCode = 13;
+
       filter_container = $('<div id="filter"></div>');
       input  = $('<input id="filter_bar" placeholder="Filter stories..." />');
       cancel = $('<span class="icon icons-cancel">Cancel</span>');
@@ -67,8 +63,6 @@ describe("filtering stories", function() {
     });
 
     describe("cancel", function() {
-      var keyup;
-
       beforeEach(function() {
         keyup   = $.Event('keyup');
         keyup.keyCode = 8;
@@ -103,6 +97,21 @@ describe("filtering stories", function() {
         story1.hide();
         input.val("");
         cancel.trigger("click");
+
+        expect(story1).toBeVisible();
+        expect(story2).toBeVisible();
+      });
+    });
+
+    describe("backspace", function() {
+      it("should show all hidden stories when pressed when input bar is empty", function() {
+        story1.hide();
+        story2.hide();
+
+        input.val("");
+        keyup   = $.Event('keyup');
+        keyup.keyCode = 8;
+        input.trigger(keyup);
 
         expect(story1).toBeVisible();
         expect(story2).toBeVisible();
