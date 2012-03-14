@@ -83,6 +83,9 @@ describe("filtering stories", function() {
         input.val(""); //triggerring backspace, does not really erase the input. Faking it for now.
         keyup.keyCode = 8;
         input.trigger(keyup);
+        expect(story1).toBeVisible();
+        expect(story2).toBeVisible();
+
         expect(cancel).not.toBeVisible();
       });
 
@@ -91,8 +94,18 @@ describe("filtering stories", function() {
         cancel.show();
 
         cancel.trigger("click");
-        expect(input).toHaveValue("");
         expect(cancel).not.toBeVisible();
+
+        expect(input).toHaveValue("");
+      });
+
+      it("should show all stories when clicked", function() {
+        story1.hide();
+        input.val("");
+        cancel.trigger("click");
+
+        expect(story1).toBeVisible();
+        expect(story2).toBeVisible();
       });
     });
   });

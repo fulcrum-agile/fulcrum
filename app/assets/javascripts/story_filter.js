@@ -6,11 +6,13 @@
 
     var input  = this.find('input#filter_bar');
     var cancel = this.find('.icons-cancel');
+    var stories;
+
     cancel.hide();
 
     input.keydown(function(event) {
+      stories = $('.stories div.story');
       if(event.keyCode == KEYCODES.ENTER) {
-        var stories = $('.stories').find('div.story');
         var pattern = new RegExp(input.val(), 'i');
 
         $.each(stories, function() {
@@ -35,6 +37,9 @@
     cancel.click(function() {
       input.val("");
       cancel.hide();
+      stories = $('.stories div.story:hidden');
+
+      stories.show();
     });
   };
 })(jQuery);
