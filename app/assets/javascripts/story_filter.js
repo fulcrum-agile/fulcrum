@@ -5,7 +5,7 @@
     };
 
     var input  = this.find('input#filter_bar');
-    var cancel = this.find('#cancel');
+    var cancel = this.find('.icons-cancel');
     cancel.hide();
 
     input.keydown(function(event) {

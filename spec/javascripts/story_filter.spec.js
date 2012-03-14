@@ -13,7 +13,7 @@ describe("filtering stories", function() {
     beforeEach(function() {
       filter_container = $('<div id="filter"></div>');
       input  = $('<input id="filter_bar" placeholder="Filter stories..." />');
-      cancel = $('<span id="cancel">x</span>');
+      cancel = $('<span class="icon icons-cancel">Cancel</span>');
       filter_container.append(input).append(cancel);
 
       stories_table = $('<table class="stories"></table>');
