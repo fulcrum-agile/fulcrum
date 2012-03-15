@@ -1,5 +1,8 @@
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 rvm:
   - 1.8.7
   - 1.9.2
   - 1.9.3
-script: "bundle exec rake --trace fulcrum:setup db:drop db:create db:migrate test"
+script: "bundle exec rake --trace fulcrum:setup db:drop db:create db:migrate spec jasmine:ci"
