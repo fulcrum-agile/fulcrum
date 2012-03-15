@@ -6,6 +6,8 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
+![Fulcrum Screenshot](https://github.com/malclocke/fulcrum/raw/master/doc/screenshot.png)
+
 Get involved
 ------------
 
