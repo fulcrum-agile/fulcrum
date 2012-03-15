@@ -45,9 +45,6 @@ describe StoriesController do
       specify do
         xhr :get, :index, :project_id => project.id, :id => story.id
         response.should be_success
-      end
-      specify do
-        xhr :get, :index, :project_id => project.id, :id => story.id
         response.body.should == stories.to_json
       end
     end
@@ -56,13 +53,7 @@ describe StoriesController do
       specify do
         get :import, :project_id => project.id
         response.should be_success
-      end
-      specify do
-        get :import, :project_id => project.id
         assigns[:project].should == project
-      end
-      specify do
-        get :import, :project_id => project.id
         response.should render_template('import')
       end
     end
@@ -77,9 +68,6 @@ describe StoriesController do
         specify do
           post :import_upload, :project_id => project.id
           response.should render_template('import')
-        end
-        specify do
-          post :import_upload, :project_id => project.id
           flash[:alert].should == "You must select a file for import"
         end
       end
@@ -98,21 +86,9 @@ describe StoriesController do
         specify do
           post :import_upload, :project_id => project.id, :csv => csv
           response.should be_success
-        end
-        specify do
-          post :import_upload, :project_id => project.id, :csv => csv
           assigns[:valid_stories].should == [valid_story]
-        end
-        specify do
-          post :import_upload, :project_id => project.id, :csv => csv
           assigns[:invalid_stories].should == [invalid_story]
-        end
-        specify do
-          post :import_upload, :project_id => project.id, :csv => csv
           flash[:notice].should == "Imported 1 story"
-        end
-        specify do
-          post :import_upload, :project_id => project.id, :csv => csv
           response.should render_template('import')
         end
 
@@ -128,13 +104,7 @@ describe StoriesController do
           specify do
             post :import_upload, :project_id => project.id, :csv => csv
             response.should be_success
-          end
-          specify do
-            post :import_upload, :project_id => project.id, :csv => csv
             flash[:alert].should == "Unable to import CSV: Bad CSV!"
-          end
-          specify do
-            post :import_upload, :project_id => project.id, :csv => csv
             response.should render_template('import')
           end
 
@@ -159,9 +129,6 @@ describe StoriesController do
         specify do
           xhr :get, :show, :project_id => project.id, :id => story.id
           response.should be_success
-        end
-        specify do
-          xhr :get, :show, :project_id => project.id, :id => story.id
           response.body.should == story.to_json
         end
       end
@@ -184,10 +151,6 @@ describe StoriesController do
             xhr :get, :update, :project_id => project.id, :id => story.id,
               :story => story_params
             response.should be_success
-          end
-          specify do
-            xhr :get, :update, :project_id => project.id, :id => story.id,
-              :story => story_params
             response.body.should == story.to_json
           end
 
@@ -205,10 +168,6 @@ describe StoriesController do
             xhr :get, :update, :project_id => project.id, :id => story.id,
               :story => story_params
             response.status.should == 422
-          end
-          specify do
-            xhr :get, :update, :project_id => project.id, :id => story.id,
-              :story => story_params
             response.body.should == story.to_json
           end
         end
@@ -237,9 +196,6 @@ describe StoriesController do
           specify do
             xhr :get, action, :project_id => project.id, :id => story.id
             response.should be_success
-          end
-          specify do
-            xhr :get, action, :project_id => project.id, :id => story.id
             response.body.should == scoped_stories.to_json
           end
         end
@@ -264,10 +220,6 @@ describe StoriesController do
             xhr :post, :create, :project_id => project.id, :id => story.id,
               :story => story_params
             response.should be_success
-          end
-          specify do
-            xhr :post, :create, :project_id => project.id, :id => story.id,
-              :story => story_params
             response.body.should == story.to_json
           end
         end
@@ -282,10 +234,6 @@ describe StoriesController do
             xhr :post, :create, :project_id => project.id, :id => story.id,
               :story => story_params
             response.status.should == 422
-          end
-          specify do
-            xhr :post, :create, :project_id => project.id, :id => story.id,
-              :story => story_params
             response.body.should == story.to_json
           end
         end

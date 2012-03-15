@@ -69,30 +69,10 @@ describe NotesController do
         specify do
           xhr :get, :index, request_params
           response.should be_success
-        end
-
-        specify do
-          xhr :get, :index, request_params
           assigns[:project].should == project
-        end
-
-        specify do
-          xhr :get, :index, request_params
           assigns[:story].should == story
-        end
-
-        specify do
-          xhr :get, :index, request_params
           assigns[:notes].should == notes
-        end
-
-        specify do
-          xhr :get, :index, request_params
           response.content_type.should == :json
-        end
-
-        specify do
-          xhr :get, :index, request_params
           response.body.should == notes.to_json
         end
 
@@ -110,30 +90,10 @@ describe NotesController do
         specify do
           xhr :post, :create, request_params
           response.should be_success
-        end
-
-        specify do
-          xhr :post, :create, request_params
           assigns[:project].should == project
-        end
-
-        specify do
-          xhr :post, :create, request_params
           assigns[:story].should == story
-        end
-
-        specify do
-          xhr :post, :create, request_params
           assigns[:note].should == note
-        end
-
-        specify do
-          xhr :post, :create, request_params
           response.content_type.should == :json
-        end
-
-        specify do
-          xhr :post, :create, request_params
           response.body.should == note.to_json
         end
 
@@ -165,30 +125,10 @@ describe NotesController do
         specify do
           xhr :get, :show, request_params
           response.should be_success
-        end
-
-        specify do
-          xhr :get, :show, request_params
           assigns[:project].should == project
-        end
-
-        specify do
-          xhr :get, :show, request_params
           assigns[:story].should == story
-        end
-
-        specify do
-          xhr :get, :show, request_params
           assigns[:note].should == note
-        end
-
-        specify do
-          xhr :get, :show, request_params
           response.content_type.should == :json
-        end
-
-        specify do
-          xhr :get, :show, request_params
           response.body.should == note.to_json
         end
 
@@ -203,25 +143,9 @@ describe NotesController do
         specify do
           xhr :delete, :destroy, request_params
           response.should be_success
-        end
-
-        specify do
-          xhr :delete, :destroy, request_params
           assigns[:project].should == project
-        end
-
-        specify do
-          xhr :delete, :destroy, request_params
           assigns[:story].should == story
-        end
-
-        specify do
-          xhr :delete, :destroy, request_params
           assigns[:note].should == note
-        end
-
-        specify do
-          xhr :delete, :destroy, request_params
           response.body.should be_blank
         end
       end

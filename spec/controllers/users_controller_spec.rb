@@ -41,15 +41,7 @@ describe UsersController do
           specify do
             get :index, :project_id => project.id
             response.should be_success
-          end
-
-          specify do
-            get :index, :project_id => project.id
             assigns[:project].should == project
-          end
-
-          specify do
-            get :index, :project_id => project.id
             assigns[:users].should == users
           end
         end
@@ -58,10 +50,6 @@ describe UsersController do
           specify do
             xhr :get, :index, :project_id => project.id, :format => :json
             response.should be_success
-          end
-
-          specify do
-            xhr :get, :index, :project_id => project.id, :format => :json
             response.body.should == users.to_json
           end
 
@@ -84,9 +72,6 @@ describe UsersController do
         specify do
           post :create, :project_id => project.id, :user => user_params
           assigns[:project].should == project
-        end
-        specify do
-          post :create, :project_id => project.id, :user => user_params
           assigns[:users].should == users
         end
 
@@ -101,17 +86,8 @@ describe UsersController do
           specify do
             post :create, :project_id => project.id, :user => user_params
             user.name.should == user_params["name"]
-          end
-          specify do
-            post :create, :project_id => project.id, :user => user_params
             user.initials.should == user_params["initials"]
-          end
-          specify do
-            post :create, :project_id => project.id, :user => user_params
             user.was_created.should be_true
-          end
-          specify do
-            post :create, :project_id => project.id, :user => user_params
             response.should redirect_to(project_users_url(project))
           end
 

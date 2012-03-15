@@ -32,28 +32,12 @@ describe ChangesetsController do
 
     describe "#index" do
 
-      it "is successful" do
+      specify do
         xhr :get, :index, :project_id => project.id
         response.should be_success
-      end
-
-      it "is assigns @project" do
-        xhr :get, :index, :project_id => project.id
         assigns[:project].should == project
-      end
-
-      it "is assigns @changesets" do
-        xhr :get, :index, :project_id => project.id
         assigns[:changesets].should == changesets
-      end
-
-      it "has content type text/json" do
-        xhr :get, :index, :project_id => project.id
         response.content_type.should == :json
-      end
-
-      it "returns the changesets as JSON" do
-        xhr :get, :index, :project_id => project.id
         response.body.should == '{foo:bar}'
       end
 

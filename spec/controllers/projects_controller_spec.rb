@@ -35,10 +35,6 @@ describe ProjectsController do
         specify do
           get :index
           response.should be_success
-        end
-
-        specify do
-          get :index
           assigns[:projects].should == projects
         end
 
@@ -49,10 +45,6 @@ describe ProjectsController do
         specify do
           get :new
           response.should be_success
-        end
-
-        specify do
-          get :new
           assigns[:project].should be_new_record
         end
 
@@ -80,10 +72,6 @@ describe ProjectsController do
           specify do
             post :create, :project => {}
             response.should redirect_to(project_url(project))
-          end
-
-          specify do
-            post :create, :project => {}
             flash[:notice].should == 'Project was successfully created.'
           end
 
@@ -98,10 +86,6 @@ describe ProjectsController do
           specify do
             post :create, :project => {}
             response.should be_success
-          end
-
-          specify do
-            post :create, :project => {}
             response.should render_template('new')
           end
 
@@ -128,15 +112,7 @@ describe ProjectsController do
           specify do
             get :show, :id => project.id
             response.should be_success
-          end
-
-          specify do
-            get :show, :id => project.id
             assigns[:project].should == project
-          end
-
-          specify do
-            get :show, :id => project.id
             assigns[:story].should == story
           end
 
@@ -147,15 +123,7 @@ describe ProjectsController do
           specify do
             xhr :get, :show, :id => project.id
             response.should be_success
-          end
-
-          specify do
-            xhr :get, :show, :id => project.id
             assigns[:project].should == project
-          end
-
-          specify do
-            xhr :get, :show, :id => project.id
             assigns[:story].should == story
           end
 
@@ -175,10 +143,6 @@ describe ProjectsController do
         specify do
           get :edit, :id => project.id
           response.should be_success
-        end
-
-        specify do
-          get :edit, :id => project.id
           assigns[:project].should == project
         end
 
@@ -213,10 +177,6 @@ describe ProjectsController do
           specify do
             put :update, :id => project.id, :project => {}
             response.should be_success
-          end
-
-          specify do
-            put :update, :id => project.id, :project => {}
             response.should render_template('edit')
           end
 
