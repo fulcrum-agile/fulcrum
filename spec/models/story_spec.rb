@@ -34,9 +34,8 @@ describe Story do
 
     describe "#project" do
       it "cannot be nil" do
-        pending
-        subject.project = nil
-        subject.should have(1).error_on(:project)
+        subject.project_id = nil
+        subject.should have(1).error_on(:project_id)
       end
     end
 
