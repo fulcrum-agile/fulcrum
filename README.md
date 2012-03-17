@@ -6,6 +6,8 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
+![Fulcrum Screenshot](https://github.com/malclocke/fulcrum/raw/master/doc/screenshot.png)
+
 Get involved
 ------------
 
@@ -39,21 +41,21 @@ Fulcrum is still a work in progress, but if you're really keen to try it out
 these instructions will hopefully help you get up and running.
 
 First up, your system will need the
-[prerequisites for running Ruby on Rails 3.0.x installed](http://rubyonrails.org/download)
+[prerequisites for running Ruby on Rails 3.1.x installed](http://rubyonrails.org/download)
 
 Once you have these:
 
     # Checkout the project
     $ git clone git://github.com/malclocke/fulcrum.git
     $ cd fulcrum
-    
+
     # Install the project dependencies
     $ gem install bundler
     $ bundle install
-    
+
     # Set up the development database
     $ bundle exec rake fulcrum:setup db:setup
-    
+
     # Start the local web server
     $ rails server
 
@@ -67,15 +69,14 @@ Heroku setup
 If you wish to host a publicly available copy of Fulcrum, the easiest option is
 to host it on [Heroku](http://heroku.com/).
 
-To deploy it to Heroku, make sure you have a local copy of the project; refer 
-to the previous section for instuctions. Then:
+To deploy it to Heroku, make sure you have a local copy of the project; refer
+to the previous section for instructions. Then:
 
-    # Make sure you have the Heroku gem
     $ gem install heroku
 
     # Create your app. Replace APPNAME with whatever you want to name it.
-    $ heroku create APPNAME --stack bamboo-mri-1.9.2
-   
+    $ heroku create APPNAME --stack cedar
+
     # Define where the user emails will be coming from
     # (This email address does not need to exist)
     $ heroku config:add MAILER_SENDER=noreply@example.org
@@ -87,10 +88,10 @@ to the previous section for instuctions. Then:
     $ git push heroku master
 
     # Set up the database
-    $ heroku rake db:setup
+    $ heroku run rake db:setup
 
-Once that's done, you will be able to view your site at 
-`http://APPNAME.heroku.com`.
+Once that's done, you will be able to view your site at
+`http://APPNAME.herokuapp.com`.
 
 Development
 -----------
@@ -118,9 +119,10 @@ Here are some general guidelines for contributing:
 * All patches changes be covered by tests, and should not break the existing
   tests, unless a current test is invalidated by a code change.  This includes
   Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
-* Run `rake test` to check the Rails test suite is green.  To run the
-  Javascript test suite, run `rake jasmine` and point your browser to
-  `http://localhost:8888/`
+* Run `rake spec` to check the Rails test suite is green. You will need 
+  Firefox with Selenium installed to run the integration tests.
+* To run the Javascript test suite, run `rake jasmine` and point your browser
+  to `http://localhost:8888/`
 * For any UI changes, please try to follow the
   [Tango theme guidelines](http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines).
 

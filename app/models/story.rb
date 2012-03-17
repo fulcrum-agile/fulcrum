@@ -39,7 +39,7 @@ class Story < ActiveRecord::Base
     # not be set.
     def from_csv_row(row)
       # Ensure no email notifications get sent during CSV import
-      project = proxy_owner.project
+      project = proxy_association.owner.project
       project.suppress_notifications
 
       # Each row can have muliple Note headers.  Extract any of them from
@@ -186,6 +186,7 @@ class Story < ActiveRecord::Base
 
   def set_position_to_last
     return true if position
+    return true unless project
     last = project.stories.first(:order => 'position DESC')
     if last
       self.position = last.position + 1

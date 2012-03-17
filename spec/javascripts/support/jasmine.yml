@@ -11,35 +11,20 @@
 #   - dist/**/*.js
 #
 src_files:
+  - spec/javascripts/lib/jquery.js
+  - spec/javascripts/lib/jquery_ujs.js
+  - spec/javascripts/lib/jquery-ui.js
+  - spec/javascripts/lib/underscore.js
+  - spec/javascripts/lib/backbone.js
   - spec/javascripts/support/sinon-1.1.1.js
   - spec/javascripts/support/jasmine-sinon.js
   - spec/javascripts/support/jasmine-jquery-1.2.0.js
-  - public/javascripts/underscore.js
-  - public/javascripts/jquery-1.7.1.min.js
-  - public/javascripts/backbone.js
-  - public/javascripts/jquery-ui-1.8.11.custom.min.js
-  - public/javascripts/jquery.tmpl.min.js
-  - public/javascripts/tag-it.js
-  - public/javascripts/date.format.js
-  - public/javascripts/bootstrap-twipsy.js
-  - public/javascripts/bootstrap-popover.js
-  - public/javascripts/backbone.rails.js
-  - public/javascripts/models/iteration.js
-  - public/javascripts/models/note.js
-  - public/javascripts/models/project.js
-  - public/javascripts/models/story.js
-  - public/javascripts/models/user.js
-  - public/javascripts/collections/note_collection.js
-  - public/javascripts/collections/story_collection.js
-  - public/javascripts/collections/user_collection.js
-  - public/javascripts/views/loading_screen_view.js
-  - public/javascripts/views/form_view.js
-  - public/javascripts/views/note_form.js
-  - public/javascripts/views/note_view.js
-  - public/javascripts/views/story_view.js
-  - public/javascripts/views/iteration_view.js
-  - public/javascripts/views/project_velocity_view.js
-  - public/javascripts/views/project_velocity_override_view.js
+  - vendor/assets/javascripts/bootstrap-twipsy.js
+  - vendor/assets/javascripts/*.js
+  - app/assets/javascripts/backbone/models/*.js
+  - app/assets/javascripts/backbone/collections/*.js
+  - app/assets/javascripts/backbone/views/*.js
+  - app/assets/javascripts/fulcrum.js
 
 # stylesheets
 #

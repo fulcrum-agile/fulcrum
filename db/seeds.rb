@@ -4,7 +4,7 @@ user = User.create! :name => 'Test User', :initials => 'TU',
                     :email => 'test@example.com', :password => 'testpass'
 user.confirm!
 
-project = Project.create! :name => 'Test Project', :users => [user]
+project = Project.create! :name => 'Test Project', :users => [user], :start_date => Time.now
 
 story = project.stories.create! :title => "A user should be able to create features",
   :story_type => 'feature', :requested_by => user, :labels => 'features'

@@ -87,6 +87,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/users
   # GET /projects/1/users.xml
+  # FIXME - Remove this?  Doesn't seem to be routable ...
   def users
     @project = current_user.projects.find(params[:id])
     @users = @project.users

@@ -2,32 +2,11 @@
 <html>
 <head>
   <title><%= t('fulcrum') %></title>
-  <%= csrf_meta_tag %>
+  <%= csrf_meta_tags %>
   <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
-  <%= stylesheet_link_tag 'screen.css', :Media => 'screen, projection' %>
-  <%= javascript_include_tag 'underscore.js', 'jquery-1.7.1.min',
-    'backbone.js', 'jquery-ui-1.8.11.custom.min', 'jquery.tmpl.min.js',
-    'jquery.gritter.min.js', 'jquery.scrollTo-min.js', 'backbone.rails',
-    'rails.js', 'date.format.js', 'bootstrap-twipsy.js', 'bootstrap-popover.js',
-    'tag-it.js',
-    'models/iteration',
-    'models/note',
-    'models/story',
-    'models/project',
-    'models/user',
-    'collections/note_collection',
-    'collections/story_collection',
-    'collections/user_collection',
-    'views/loading_screen_view',
-    'views/form_view',
-    'views/iteration_view',
-    'views/note_form',
-    'views/note_view',
-    'views/project_velocity_override_view',
-    'views/project_velocity_view',
-    'views/project_view',
-    'views/story_view',
-    'fulcrum' %>
+  <%= stylesheet_link_tag :application %>
+  <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css" %>
+  <%= javascript_include_tag :application %>
 </head>
 <body>
 

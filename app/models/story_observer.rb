@@ -10,6 +10,7 @@ class StoryObserver < ActiveRecord::Observer
 
         # Send a 'the story has been delivered' notification if the state has
         # changed to 'delivered'
+        # FIXME Move to predicate on Story
         if story.state == 'delivered' && story.acting_user && story.requested_by && story.requested_by.email_delivery? && story.acting_user != story.requested_by
           notifier = Notifications.delivered(story, story.acting_user)
           notifier.deliver if notifier
@@ -32,6 +33,7 @@ class StoryObserver < ActiveRecord::Observer
       # Set the project start date to today if the project start date is nil
       # and the state is changing to any state other than 'unstarted' or
       # 'unscheduled'
+      # FIXME Make model method on Story
       if story.project && !story.project.start_date && !['unstarted', 'unscheduled'].include?(story.state)
         story.project.update_attribute :start_date, Date.today
       end
