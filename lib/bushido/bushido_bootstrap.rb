@@ -13,6 +13,8 @@ module Fulcrum
         validates_presence_of   :ido_id
         validates_uniqueness_of :ido_id
 
+        attr_accessible :ido_id
+
         after_create :add_all_projects!
         before_destroy :remove_all_projects!
       end
