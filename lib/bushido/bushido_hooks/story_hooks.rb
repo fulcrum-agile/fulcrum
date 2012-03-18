@@ -21,6 +21,10 @@ class ProjectStoryHooks < Bushido::EventObserver
     story.save!
   end
 
+  def project_task_updated
+    project_task_created
+  end
+
   def project_task_imported
     project_task_created
   end
