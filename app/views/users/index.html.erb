@@ -4,30 +4,36 @@
 <h2>Project members</h2>
 <ul>
   <% @users.each do |user| %>
-    <li><%= user %><%= link_to 'Remove', project_user_path(@project, user),
-      :confirm => "Are you sure you want to remove #{user.email} from this project?",
-      :method => :delete %></li>
+    <li><%= user %>
+      <% unless Devise.on_bushido? %>
+        <%= link_to 'Remove', project_user_path(@project, user),
+        :confirm => "Are you sure you want to remove #{user.email} from this project?",
+        :method => :delete %>
+      <% end %>
+    </li>
   <% end %>
 </ul>
-<h2>Add a new member</h2>
-<div class="form-wrapper">
-<%= form_for project_users_path(@project, @user) do |f| %>
-  <% fields_for :user do |u| %>
-    <div class="field-wrapper">
-      <%= u.label :email %>
-      <div class="field"><%= u.text_field :email %></div>
-    </div>
-    <div class="field-wrapper">
-      <%= u.label :name %>
-      <div class="field"><%= u.text_field :name %></div>
-    </div>
-    <div class="field-wrapper">
-      <%= u.label :initials %>
-      <div class="field"><%= u.text_field :initials %></div>
-    </div>
-    <div class="actions">
-    <%= u.submit 'Add user' %>
-    </div>
+<% unless Devise.on_bushido? %>
+  <h2>Add a new member</h2>
+  <div class="form-wrapper">
+  <%= form_for project_users_path(@project, @user) do |f| %>
+    <% fields_for :user do |u| %>
+      <div class="field-wrapper">
+        <%= u.label :email %>
+        <div class="field"><%= u.text_field :email %></div>
+      </div>
+      <div class="field-wrapper">
+        <%= u.label :name %>
+        <div class="field"><%= u.text_field :name %></div>
+      </div>
+      <div class="field-wrapper">
+        <%= u.label :initials %>
+        <div class="field"><%= u.text_field :initials %></div>
+      </div>
+      <div class="actions">
+      <%= u.submit 'Add user' %>
+      </div>
+    <% end %>
   <% end %>
+  </div>
 <% end %>
-</div>

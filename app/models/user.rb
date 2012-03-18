@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # Fulcrum.devise_modules is defined in config/initializers/fulcrum.rb
+  devise *Fulcrum.devise_modules
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :ido_id,
                   :name, :initials, :email_delivery, :email_acceptance, :email_rejection
 
   # Flag used to identify if the user was found or created from find_or_create
@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, :uniq => true
 
-  before_validation :set_random_password_if_blank, :set_reset_password_token
+  before_validation :set_random_password_if_blank, :set_reset_password_token unless ::Bushido::Platform.on_bushido?
 
   validates :name, :presence => true
   validates :initials, :presence => true
