@@ -100,13 +100,16 @@ Fulcrum is currently welcoming contributions.  If you'd like to help:
 
 * Check the [issue queue](http://github.com/malclocke/fulcrum/issues) for a
   list of the major features which are yet to be implemented.  These have the
-  `feature` and `unstarted` labels.  If a feature you'd like isn't there, add
-  an issue.
-* If you'd like to take ownership of one of the features, leave a comment on
-  the issue queue indicating that you're working on it.
-* If you'd like to discuss anything about the issue with other developers,
-  do so on the [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel)
-  mailing list.
+  `feature` and `unstarted` labels.  If a feature you'd like to work on isn't
+  there, add an issue.
+* Leave a description of how you are going to implement the feature.  Failure
+  to do this may lead to you implementing the feature in a way that might
+  conflict with future plans for Fulcrum, and so increase the chances of your
+  work being rejected or needing a rework.
+* If you'd like to discuss anything about the issue in greater detail with
+  other developers, do so on the
+  [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) mailing
+  list.
 
 Here are some general guidelines for contributing:
 
