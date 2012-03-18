@@ -18,7 +18,7 @@ class ProjectStoryHooks < Bushido::EventObserver
     story.project         = Project.find_by_ido_id(data['project_id'])
     story.labels          = data['labels']
 
-    story.save
+    story.save!
   end
 
   def project_task_imported

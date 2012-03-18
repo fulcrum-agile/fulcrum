@@ -11,7 +11,7 @@ class ProjectNoteHooks < Bushido::EventObserver
     note.user     = User.find_by_ido_id( data['author_id'] )
     note.story    = Story.find_by_ido_id( data['story_id'] )
     
-    note.save
+    note.save!
   end
 
   def project_task_note_imported
