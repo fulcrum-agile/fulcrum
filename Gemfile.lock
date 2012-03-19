@@ -176,6 +176,7 @@ DEPENDENCIES
   compass (>= 0.12.alpha.0)
   database_cleaner
   devise
+  ejs
   factory_girl_rails
   fastercsv (= 1.5.3)
   jasmine (= 1.1.0)
