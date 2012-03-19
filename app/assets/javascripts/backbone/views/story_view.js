@@ -1,5 +1,7 @@
 var StoryView = FormView.extend({
 
+  template: JST['templates/story'],
+
   tagName: 'div',
 
   initialize: function() {
@@ -304,7 +306,7 @@ var StoryView = FormView.extend({
       this.renderNotes();
 
     } else {
-      $(this.el).html($('#story_tmpl').tmpl(this.model.toJSON(), {story: this.model, view: this}));
+      $(this.el).html(this.template({story: this.model, view: this}));
     }
     this.hoverBox();
     return this;
@@ -330,37 +332,6 @@ var StoryView = FormView.extend({
 
   enableForm: function() {
     $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
-  },
-
-  hoverBox: function(){
-    var view  = this;
-    $(this.el).find('.popover-activate').popover({
-      title: function(){
-        return view.model.get("title");
-      },
-      content: function(){
-        return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
-      },
-      // A small delay to stop the popovers triggering whenever the mouse is
-      // moving around
-      delayIn: 200,
-      placement: view.hoverBoxPlacement,
-      html: true,
-      live: true
-    });
-  },
-
-  hoverBoxPlacement: function() {
-    // Gets called from a jQuery context, so this is set to the element that
-    // the popover is bound to.
-    var position = $(this).position();
-    var windowWidth = $(window).width();
-    // If the element is to the right of the vertical half way line in the
-    // viewport, position the popover on the left.
-    if (position.left > (windowWidth / 2)) {
-      return 'left';
-    }
-    return 'right';
   },
 
   initTags: function() {
@@ -425,6 +396,7 @@ var StoryView = FormView.extend({
     $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
   },
 
+  // FIXME Move to separate view
   hoverBox: function(){
     var view  = this;
     $(this.el).find('.popover-activate').popover({
@@ -432,7 +404,7 @@ var StoryView = FormView.extend({
         return view.model.get("title");
       },
       content: function(){
-        return $('#story_hover').tmpl(view.model.toJSON(), {story: view.model, view: view});
+        return JST['templates/story_hover']({story: view.model});
       },
       // A small delay to stop the popovers triggering whenever the mouse is
       // moving around

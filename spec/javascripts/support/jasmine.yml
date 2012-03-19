@@ -19,6 +19,7 @@ src_files:
   - spec/javascripts/support/sinon-1.1.1.js
   - spec/javascripts/support/jasmine-sinon.js
   - spec/javascripts/support/jasmine-jquery-1.2.0.js
+  - spec/javascripts/support/jst-stubs.js
   - vendor/assets/javascripts/bootstrap-twipsy.js
   - vendor/assets/javascripts/*.js
   - app/assets/javascripts/backbone/models/*.js

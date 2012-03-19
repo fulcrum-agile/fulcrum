@@ -4,7 +4,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require jquery.tmpl.min
 //= require jquery.gritter.min
 //= require jquery.scrollTo-min
 //= require_self
@@ -12,6 +11,7 @@
 //= require underscore
 //= require backbone
 //= require backbone.rails
+//= require_tree ./templates
 //= require_tree ./backbone/models
 //= require_tree ./backbone/collections
 //= require_tree ./backbone/views
