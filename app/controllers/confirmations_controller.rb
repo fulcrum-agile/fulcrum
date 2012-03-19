@@ -16,7 +16,7 @@ class ConfirmationsController < Devise::ConfirmationsController
   # GET /resource/confirmation/new
   def new
     build_resource({})
-    render_with_scope :new, 'devise/confirmations'
+    render 'devise/confirmations/new'
   end
 
   # POST /resource/confirmation
@@ -27,7 +27,7 @@ class ConfirmationsController < Devise::ConfirmationsController
       set_flash_message :notice, :send_instructions
       redirect_to new_session_path(resource_name)
     else
-      render_with_scope :new, 'devise/confirmations'
+      render 'devise/confirmations/new'
     end
   end
 end
