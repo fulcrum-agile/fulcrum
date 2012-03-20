@@ -1,7 +1,7 @@
 describe("Note", function() {
 
   beforeEach(function() {
-    this.note = new Note();
+    this.note = new Note({});
   });
 
   describe("user", function() {

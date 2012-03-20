@@ -133,7 +133,7 @@ describe('StoryCollection collection', function() {
         labels: sinon.stub(),
         position: function() { return 1; }
       });
-      var story = new Story();
+      var story = new Story({});
       story.labels.returns(["dummy", "labels"]);
       expect(this.stories.labels).toEqual([]);
       this.stories.add(story);

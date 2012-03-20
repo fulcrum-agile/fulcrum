@@ -10,7 +10,7 @@ describe('Story model', function() {
       getIterationNumberForDate: function() { return 999; }
     });
     var collection = {
-      project: new Project(), url: '/foo', remove: function() {},
+      project: new Project({}), url: '/foo', remove: function() {},
       get: function() {}
     };
     var view = new Backbone.View();

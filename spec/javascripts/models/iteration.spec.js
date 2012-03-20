@@ -1,7 +1,7 @@
 describe("iteration", function() {
 
   beforeEach(function() {
-    this.iteration = new Iteration();
+    this.iteration = new Iteration({});
   });
 
   describe("initialize", function() {

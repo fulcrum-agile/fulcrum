@@ -2,7 +2,7 @@ describe("NoteForm", function() {
 
   beforeEach(function() {
     var Note = Backbone.Model.extend({name: 'note', url: '/foo'});
-    this.note = new Note();
+    this.note = new Note({});
     this.view = new NoteForm({model: this.note});
   });
 
