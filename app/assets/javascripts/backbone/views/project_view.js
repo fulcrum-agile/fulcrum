@@ -38,7 +38,6 @@ var ProjectView = Backbone.View.extend({
   },
 
   addAll: function() {
-    var loadingScreen = new LoadingScreenView();
     $(".loading_screen").show();
     var that = this;
 
