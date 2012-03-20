@@ -5,4 +5,4 @@ rvm:
   - 1.8.7
   - 1.9.2
   - 1.9.3
-script: "bundle exec rake --trace fulcrum:setup db:drop db:create db:migrate spec jasmine:ci"
+script: "bundle exec rake --trace fulcrum:setup db:drop db:create db:schema:load spec jasmine:ci"
