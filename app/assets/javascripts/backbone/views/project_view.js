@@ -15,6 +15,13 @@ var ProjectView = Backbone.View.extend({
     $('#title_bar').prepend(this.velocityView.render().el);
   },
 
+  // Triggered when the 'Add Story' button is clicked
+  newStory: function() {
+    this.model.stories.add([{
+      events: [], editing: true
+    }]);
+  },
+
   addStory: function(story, column) {
     // If column is blank determine it from the story.  When the add event
     // is bound on a collection, the callback sends the collection as the
@@ -25,6 +32,7 @@ var ProjectView = Backbone.View.extend({
     }
     var view = new StoryView({model: story});
     $(column).append(view.render().el);
+    view.setFocus();
   },
 
   addIteration: function(iteration) {

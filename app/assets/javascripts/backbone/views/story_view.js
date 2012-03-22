@@ -439,5 +439,11 @@ var StoryView = FormView.extend({
     $input.bind('change', function(){
       model.set({ labels: $(this).val()});
     });
+  },
+
+  setFocus: function() {
+    if (this.model.get('editing') === true ) {
+      this.$('input').first().focus();
+    }
   }
 });

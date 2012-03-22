@@ -1,8 +1,6 @@
 $(function() {
   $('#add_story').click(function() {
-    window.projectView.model.stories.add([{
-      events: [], editing: true
-    }]);
+    window.projectView.newStory();
 
     // Show chilly bin if it's hidden
     $('.hide_chilly_bin.pressed').click();
