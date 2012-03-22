@@ -30,6 +30,7 @@ $(function() {
 </script>
 
 <% content_for :title_bar do %>
+  <div id="velocity" class="velocity"></div>
   <%= render :partial => 'projects/nav',
              :locals => {:project => @project, :show_column_toggles => true} %>
   | <a id="add_story" href="#">Add story</a>

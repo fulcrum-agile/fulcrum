@@ -11,8 +11,9 @@ var ProjectView = Backbone.View.extend({
     this.model.stories.fetch();
 
     // Render the velocity display
-    this.velocityView = new ProjectVelocityView({model: this.model});
-    $('#title_bar').prepend(this.velocityView.render().el);
+    this.velocityView = new ProjectVelocityView({
+      model: this.model, el: $('#velocity')
+    }).render();
   },
 
   // Triggered when the 'Add Story' button is clicked
