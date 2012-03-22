@@ -12,9 +12,9 @@
 //= require backbone
 //= require backbone.rails
 //= require_tree ./templates
-//= require_tree ./backbone/models
-//= require_tree ./backbone/collections
-//= require_tree ./backbone/views
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
 //= require fulcrum
 //= require bootstrap-twipsy
 //= require bootstrap-popover
