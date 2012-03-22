@@ -233,6 +233,11 @@ var Project = Backbone.Model.extend({
     // Clear the project iterations
     this.iterations = [];
 
+    // Reset all story column values.  Required as the story.column values
+    // may have been changed from their default values by a prior run of
+    // this method.
+    this.stories.invoke('setColumn');
+
     var doneIterations = _.groupBy(this.stories.column('#done'),
                                     function(story) {
                                       return story.iterationNumber();
