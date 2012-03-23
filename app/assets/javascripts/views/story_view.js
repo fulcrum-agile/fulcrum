@@ -233,6 +233,7 @@ var StoryView = FormView.extend({
     if(this.model.get('editing') === true) {
 
       this.$el.empty();
+      this.$el.addClass('editing');
 
       this.$el.append(
         this.makeFormControl(function(div) {
@@ -330,6 +331,7 @@ var StoryView = FormView.extend({
       this.renderNotes();
 
     } else {
+      this.$el.removeClass('editing');
       this.$el.html(this.template({story: this.model, view: this}));
     }
     this.hoverBox();

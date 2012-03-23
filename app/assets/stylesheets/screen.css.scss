@@ -255,6 +255,12 @@ div.story {
 div.story:hover {
   background-color: #ddd;
 }
+
+div.story.editing, div.story.editing:hover {
+  background-color: adjust-lightness($butter-1, 20);
+  color: $aluminium-6;
+}
+
 div.story.feature.accepted,
 div.story.bug.accepted,
 div.story.chore.accepted{
