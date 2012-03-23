@@ -159,7 +159,7 @@ var StoryView = FormView.extend({
 
   // Move the story to a new column
   moveColumn: function() {
-    $(this.el).appendTo(this.model.get('column'));
+    this.$el.appendTo(this.model.get('column'));
   },
 
   startEdit: function() {
@@ -223,15 +223,15 @@ var StoryView = FormView.extend({
   highlight: function() {
     if(!this.model.get('editing')) {
       // Workaround for http://bugs.jqueryui.com/ticket/5506
-      if ($(this.el).is(':visible')) {
-        $(this.el).effect("highlight", {}, 3000);
+      if (this.$el.is(':visible')) {
+        this.$el.effect("highlight", {}, 3000);
       }
     }
   },
 
   render: function() {
     if(this.model.get('editing') === true) {
-      $(this.el).empty();
+      this.$el.empty();
       div = this.make('div');
       if (!this.model.isNew()) {
         $(div).append(
@@ -239,7 +239,7 @@ var StoryView = FormView.extend({
         );
       }
       $(div).append(this.textField("title", {'placeholder': 'Story title'}));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.submit());
@@ -247,46 +247,46 @@ var StoryView = FormView.extend({
         $(div).append(this.destroy());
       }
       $(div).append(this.cancel());
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("estimate", "Estimate"));
       $(div).append('<br/>');
 
       $(div).append(this.select("estimate", this.model.point_values(), {blank: 'No estimate'}));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("story_type", "Story Type"));
       $(div).append('<br/>');
       $(div).append(this.select("story_type", ["feature", "chore", "bug", "release"]));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("state", "State"));
       $(div).append('<br/>');
       $(div).append(this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"]));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("requested_by_id", "Requested By"));
       $(div).append('<br/>');
       $(div).append(this.select("requested_by_id",
         this.model.collection.project.users.forSelect(),{blank: '---'}));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("owned_by_id", "Owned By"));
       $(div).append('<br/>');
       $(div).append(this.select("owned_by_id",
         this.model.collection.project.users.forSelect(),{blank: '---'}));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("labels", "Labels"));
       $(div).append('<br/>');
       $(div).append(this.textField("labels"));
-      $(this.el).append(div);
+      this.$el.append(div);
 
       div = this.make('div');
       $(div).append(this.label("description", "Description"));
@@ -300,13 +300,13 @@ var StoryView = FormView.extend({
         $(div).append(description);
         $(description).after('<input id="edit-description" type="button" value="Edit"/>');
       }
-      $(this.el).append(div);
+      this.$el.append(div);
       this.initTags();
 
       this.renderNotes();
 
     } else {
-      $(this.el).html(this.template({story: this.model, view: this}));
+      this.$el.html(this.template({story: this.model, view: this}));
     }
     this.hoverBox();
     return this;
@@ -326,17 +326,17 @@ var StoryView = FormView.extend({
   saveInProgress: false,
 
   disableForm: function() {
-    $(this.el).find('input,select,textarea').attr('disabled', 'disabled');
-    $(this.el).find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
+    this.$el.find('input,select,textarea').attr('disabled', 'disabled');
+    this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
   },
 
   enableForm: function() {
-    $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
   },
 
   initTags: function() {
     var model = this.model;
-    var $input = $(this.el).find("input[name='labels']");
+    var $input = this.$el.find("input[name='labels']");
     $input.tagit({
       availableTags: model.collection.labels
     });
@@ -349,7 +349,7 @@ var StoryView = FormView.extend({
 
   renderNotes: function() {
     if (this.model.notes.length > 0) {
-      var el = $(this.el);
+      var el = this.$el;
       el.append('<hr/>');
       el.append('<h3>Notes</h3>');
       el.append('<div class="notelist"/>');
@@ -389,17 +389,17 @@ var StoryView = FormView.extend({
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
     this.model.notes.add();
-    $(this.el).find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
+    this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
   },
 
   enableForm: function() {
-    $(this.el).find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
   },
 
   // FIXME Move to separate view
   hoverBox: function(){
     var view  = this;
-    $(this.el).find('.popover-activate').popover({
+    this.$el.find('.popover-activate').popover({
       title: function(){
         return view.model.get("title");
       },
@@ -430,7 +430,7 @@ var StoryView = FormView.extend({
 
   initTags: function() {
     var model = this.model;
-    var $input = $(this.el).find("input[name='labels']");
+    var $input = this.$el.find("input[name='labels']");
     $input.tagit({
       availableTags: model.collection.labels
     });

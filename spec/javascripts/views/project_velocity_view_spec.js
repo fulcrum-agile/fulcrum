@@ -28,7 +28,7 @@ describe('ProjectVelocityView', function() {
     });
 
     it("should contain text with the default velocity", function() {
-      expect($(this.view.el).find("span").text()).toEqual('10');
+      expect(this.view.$el.find("span").text()).toEqual('10');
     });
   });
 
@@ -39,11 +39,11 @@ describe('ProjectVelocityView', function() {
 
     describe("when rendered", function() {
       beforeEach(function() {
-        $(this.view.render().el);
+        this.view.render();
       });
 
       it("should contain text with the overridden velocity", function() {
-        expect($(this.view.el).find("span").text()).toEqual('999');
+        expect(this.view.$el.find("span").text()).toEqual('999');
       });
 
     });
@@ -60,7 +60,7 @@ describe('ProjectVelocityView', function() {
       });
 
       it("should contain text with the overridden velocity", function() {
-        expect(parseInt($(this.view.el).find("span").text(), 10)).toEqual(this.project.get('default_velocity'));
+        expect(parseInt(this.view.$el.find("span").text(), 10)).toEqual(this.project.get('default_velocity'));
       });
     });
   });

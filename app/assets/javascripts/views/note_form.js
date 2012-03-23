@@ -46,7 +46,7 @@ var NoteForm = FormView.extend({
 
     var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note'});
     $(div).append(submit);
-    $(this.el).html(div);
+    this.$el.html(div);
 
     return this;
   },

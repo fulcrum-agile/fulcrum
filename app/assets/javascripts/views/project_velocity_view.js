@@ -3,6 +3,7 @@ var ProjectVelocityView = Backbone.View.extend({
   className: 'velocity',
 
   initialize: function() {
+    _.bindAll(this, 'setFakeClass');
     this.override_view = new ProjectVelocityOverrideView({model: this.model});
     this.model.bind('change:userVelocity', this.setFakeClass);
   },
@@ -16,20 +17,20 @@ var ProjectVelocityView = Backbone.View.extend({
               ),
 
   render: function() {
-    $(this.el).html(this.template({project: this.model}));
+    this.$el.html(this.template({project: this.model}));
     this.setFakeClass(this.model);
     return this;
   },
 
   editVelocityOverride: function() {
-    $(this.el).append(this.override_view.render().el);
+    this.$el.append(this.override_view.render().el);
   },
 
   setFakeClass: function(model) {
     if (model.velocityIsFake()) {
-      $(this.el).addClass('fake');
+      this.$el.addClass('fake');
     } else {
-      $(this.el).removeClass('fake');
+      this.$el.removeClass('fake');
     }
   }
 });
