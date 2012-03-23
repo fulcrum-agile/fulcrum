@@ -423,4 +423,53 @@ describe('StoryView', function() {
     });
 
   });
+
+  describe("makeFormControl", function() {
+
+    beforeEach(function() {
+      this.div = {};
+      this.view.make = sinon.stub().returns(this.div);
+    });
+
+    it("calls make('div')", function() {
+      this.view.makeFormControl();
+      expect(this.view.make).toHaveBeenCalled();
+    });
+
+    it("returns the div", function() {
+      expect(this.view.makeFormControl()).toBe(this.div);
+    });
+
+    it("invokes its callback", function() {
+      var callback = sinon.stub();
+      this.view.makeFormControl(callback);
+      expect(callback).toHaveBeenCalledWith(this.div);
+    });
+
+    describe("when passed an object", function() {
+
+      beforeEach(function() {
+        this.content = {name: "foo", label: "Foo", control: "bar"};
+        this.appendSpy = sinon.spy(jQuery.fn, 'append');
+      });
+
+      afterEach(function() {
+        this.appendSpy.restore();
+      });
+
+      it("creates a label", function() {
+        var label = '<label for="foo">Foo</label>';
+        var stub = sinon.stub(this.view, 'label').withArgs('foo', 'Foo').returns(label);
+        this.view.makeFormControl(this.content);
+        expect(this.appendSpy).toHaveBeenCalledWith(label);
+        expect(this.appendSpy).toHaveBeenCalledWith('<br/>');
+      });
+
+      it("appends the control", function() {
+        this.view.makeFormControl(this.content);
+        expect(this.appendSpy).toHaveBeenCalledWith(this.content.control);
+      });
+
+    });
+  });
 });

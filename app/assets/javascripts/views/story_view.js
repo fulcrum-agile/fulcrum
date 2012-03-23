@@ -231,76 +231,100 @@ var StoryView = FormView.extend({
 
   render: function() {
     if(this.model.get('editing') === true) {
+
       this.$el.empty();
-      div = this.make('div');
-      if (!this.model.isNew()) {
-        $(div).append(
-          this.make("a", {'class': "collapse icon icons-collapse"})
-        );
-      }
-      $(div).append(this.textField("title", {'placeholder': 'Story title'}));
-      this.$el.append(div);
 
-      div = this.make('div');
-      $(div).append(this.submit());
-      if (!this.model.isNew()) {
-        $(div).append(this.destroy());
-      }
-      $(div).append(this.cancel());
-      this.$el.append(div);
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          if (!this.model.isNew()) {
+            $(div).append(
+              this.make("a", {'class': "collapse icon icons-collapse"})
+            );
+          }
+          $(div).append(this.textField("title", {'placeholder': 'Story title'}));
+        })
+      );
 
-      div = this.make('div');
-      $(div).append(this.label("estimate", "Estimate"));
-      $(div).append('<br/>');
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          $(div).append(this.submit());
+          if (!this.model.isNew()) {
+            $(div).append(this.destroy());
+          }
+          $(div).append(this.cancel());
+        })
+      );
 
-      $(div).append(this.select("estimate", this.model.point_values(), {blank: 'No estimate'}));
-      this.$el.append(div);
 
-      div = this.make('div');
-      $(div).append(this.label("story_type", "Story Type"));
-      $(div).append('<br/>');
-      $(div).append(this.select("story_type", ["feature", "chore", "bug", "release"]));
-      this.$el.append(div);
 
-      div = this.make('div');
-      $(div).append(this.label("state", "State"));
-      $(div).append('<br/>');
-      $(div).append(this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"]));
-      this.$el.append(div);
+      this.$el.append(
+        this.makeFormControl({
+          name: "estimate",
+          label: "Estimate",
+          control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
+        })
+      );
 
-      div = this.make('div');
-      $(div).append(this.label("requested_by_id", "Requested By"));
-      $(div).append('<br/>');
-      $(div).append(this.select("requested_by_id",
-        this.model.collection.project.users.forSelect(),{blank: '---'}));
-      this.$el.append(div);
+      this.$el.append(
+        this.makeFormControl({
+          name: "story_type",
+          label: "Story Type",
+          control: this.select("story_type", ["feature", "chore", "bug", "release"])
+        })
+      );
 
-      div = this.make('div');
-      $(div).append(this.label("owned_by_id", "Owned By"));
-      $(div).append('<br/>');
-      $(div).append(this.select("owned_by_id",
-        this.model.collection.project.users.forSelect(),{blank: '---'}));
-      this.$el.append(div);
+      this.$el.append(
+        this.makeFormControl({
+          name: "state",
+          label: "State",
+          control: this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"])
+        })
+      );
 
-      div = this.make('div');
-      $(div).append(this.label("labels", "Labels"));
-      $(div).append('<br/>');
-      $(div).append(this.textField("labels"));
-      this.$el.append(div);
+      this.$el.append(
+        this.makeFormControl({
+          name: "requested_by_id",
+          label: "Requested By",
+          control: this.select("requested_by_id",
+            this.model.collection.project.users.forSelect(),{blank: '---'})
+        })
+      );
 
-      div = this.make('div');
-      $(div).append(this.label("description", "Description"));
-      $(div).append('<br/>');
-      if(this.model.isNew() || this.model.get('editingDescription')) {
-        $(div).append(this.textArea("description"));
-      } else {
-        var description = this.make('div');
-        $(description).addClass('description');
-        $(description).text(this.model.get('description'));
-        $(div).append(description);
-        $(description).after('<input id="edit-description" type="button" value="Edit"/>');
-      }
-      this.$el.append(div);
+      this.$el.append(
+        this.makeFormControl({
+          name: "owned_by_id",
+          label: "Owned By",
+          control: this.select("owned_by_id",
+            this.model.collection.project.users.forSelect(),{blank: '---'})
+        })
+      );
+
+      this.$el.append(
+        this.makeFormControl({
+          name: "labels",
+          label: "Labels",
+          control: this.textField("labels")
+        })
+      );
+
+
+
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          $(div).append(this.label("description", "Description"));
+          $(div).append('<br/>');
+          if(this.model.isNew() || this.model.get('editingDescription')) {
+            $(div).append(this.textArea("description"));
+          } else {
+            var description = this.make('div');
+            $(description).addClass('description');
+            $(description).text(this.model.get('description'));
+            $(div).append(description);
+            $(description).after('<input id="edit-description" type="button" value="Edit"/>');
+          }
+        })
+      );
+
       this.initTags();
 
       this.renderNotes();
@@ -445,5 +469,20 @@ var StoryView = FormView.extend({
     if (this.model.get('editing') === true ) {
       this.$('input').first().focus();
     }
+  },
+
+  makeFormControl: function(content) {
+    var div = this.make('div');
+    if (typeof content == 'function') {
+      content.call(this, div);
+    } else if (typeof content == 'object') {
+      var $div = $(div);
+      if (content.label) {
+        $div.append(this.label(content.name, content.label));
+        $div.append('<br/>');
+      }
+      $div.append(content.control);
+    }
+    return div;
   }
 });
