@@ -29,6 +29,8 @@ Fulcrum::Application.routes.draw do
       :registrations => "registrations"
     }
 
+  match 'testcard' => 'static#testcard'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
