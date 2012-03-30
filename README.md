@@ -41,7 +41,7 @@ Fulcrum is still a work in progress, but if you're really keen to try it out
 these instructions will hopefully help you get up and running.
 
 First up, your system will need the
-[prerequisites for running Ruby on Rails 3.1.x installed](http://rubyonrails.org/download)
+[prerequisites for running Ruby on Rails installed](http://rubyonrails.org/download)
 
 Once you have these:
 
