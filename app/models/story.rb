@@ -3,10 +3,10 @@ class Story < ActiveRecord::Base
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
     "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-    "state", "position", "id", "estimated", "labels"
+    "state", "position", "id", "labels"
   ]
   JSON_METHODS = [
-    "estimated", "errors", "notes"
+    "errors", "notes"
   ]
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",

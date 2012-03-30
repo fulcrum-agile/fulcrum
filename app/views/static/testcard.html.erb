@@ -16,7 +16,7 @@ $(function() {
   appendStoryTo(chilly_bin,
     {"id":storyId++,"title":"Unestimated feature"});
   appendStoryTo(chilly_bin, {
-    "id":storyId++,"title":"Estimated feature","estimated":true,"estimate":3
+    "id":storyId++,"title":"Estimated feature","estimate":3
   });
   appendStoryTo(chilly_bin,
     {"id":storyId++,"title":"Example chore","story_type":"chore"});
@@ -26,7 +26,7 @@ $(function() {
     {"id":storyId++,"title":"Example release","story_type":"release"});
 
   view = appendStoryTo(chilly_bin, {
-    "id":storyId++,"title":"Save in progress","estimated":true,"estimate":3
+    "id":storyId++,"title":"Save in progress","estimate":3
   });
   view.saveInProgress = true;
   view.render();
@@ -41,10 +41,9 @@ $(function() {
   appendStoryTo(chilly_bin,
     {"id":storyId++,"title":"Editing release","story_type":"release","editing":true});
 
-  appendStoryTo(backlog,
-    {"id":storyId++,"title":"Unestimated feature"});
+  appendStoryTo(backlog, {"id":storyId++,"title":"Unestimated feature"});
   appendStoryTo(backlog, {
-    "id":storyId++,"title":"Estimated feature","estimated":true,"estimate":3
+    "id":storyId++,"title":"Estimated feature","estimate":3
   });
   appendStoryTo(backlog,
     {"id":storyId++,"title":"Example chore","story_type":"chore"});
@@ -53,7 +52,7 @@ $(function() {
   appendStoryTo(backlog,
     {"id":storyId++,"title":"Example release","story_type":"release"});
   appendStoryTo(backlog, {
-    "id":storyId++,"title":"Estimated feature","estimated":true,"estimate":3
+    "id":storyId++,"title":"Estimated feature","estimate":3
   });
   view = appendStoryTo(backlog,
     {"id":storyId++,"title":"Save in progress","story_type":"release","editing":true});
@@ -61,18 +60,17 @@ $(function() {
   view.render();
   view.disableForm();
 
-  appendStoryTo(in_progress,
-    {"id":storyId++,"title":"Started feature","state":"started","estimate":3,
-      "estimated":true});
-  appendStoryTo(in_progress,
-    {"id":storyId++,"title":"Finished feature","state":"finished",
-      "estimate":3, "estimated":true});
   appendStoryTo(in_progress, {
-    "id":storyId++,"title":"Delivered feature","estimated":true,"estimate":3,
-    "state":"delivered"
+    "id":storyId++,"title":"Started feature","state":"started","estimate":3
   });
   appendStoryTo(in_progress, {
-    "id":storyId++,"title":"Rejected feature","estimated":true,"estimate":3
+    "id":storyId++,"title":"Finished feature","state":"finished", "estimate":3
+  });
+  appendStoryTo(in_progress, {
+    "id":storyId++,"title":"Delivered feature","estimate":3, "state":"delivered"
+  });
+  appendStoryTo(in_progress, {
+    "id":storyId++,"title":"Rejected feature","estimate":3
   });
   appendStoryTo(in_progress,
     {"id":storyId++,"title":"Example chore","story_type":"chore"});
