@@ -105,11 +105,16 @@ var Story = Backbone.Model.extend({
   },
 
   estimable: function() {
-    return this.get('story_type') === 'feature';
+    if (this.get('story_type') === 'feature') {
+      return !this.estimated();
+    } else {
+      return false;
+    }
   },
 
   estimated: function() {
-    return typeof this.get('estimate') !== 'undefined';
+    var estimate = this.get('estimate');
+    return !(estimate === undefined || estimate === null);
   },
 
   point_values: function() {

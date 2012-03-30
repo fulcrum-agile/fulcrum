@@ -137,15 +137,38 @@ describe('Story model', function() {
 
   describe('estimable', function() {
 
-    it('should be estimable if it is a feature', function() {
-      expect(this.story.estimable()).toBeTruthy();
+    describe("when story is a feature", function() {
+      beforeEach(function() {
+        this.story.set({story_type: 'feature'});
+      });
+      it('should be estimable when not estimated', function() {
+        sinon.stub(this.story, 'estimated').returns(false);
+        expect(this.story.estimable()).toBeTruthy();
+      });
+      it('should not be estimable when estimated', function() {
+        sinon.stub(this.story, 'estimated').returns(true);
+        expect(this.story.estimable()).toBeFalsy();
+      });
     });
 
+  });
+
+  describe('estimated', function() {
+
     it('should say if it is estimated or not', function() {
+      this.story.unset('estimate');
       expect(this.story.estimated()).toBeFalsy();
+      this.story.set({estimate: null});
+      expect(this.story.estimated()).toBeFalsy();
+      this.story.set({estimate: 0});
+      expect(this.story.estimated()).toBeTruthy();
       this.story.set({estimate: 1});
       expect(this.story.estimated()).toBeTruthy();
     });
+
+  });
+
+  describe('point_values', function() {
 
     it('should known about its valid points values', function() {
       expect(this.story.point_values()).toEqual([0, 1, 2, 3]);

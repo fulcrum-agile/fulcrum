@@ -1,4 +1,4 @@
-<% if (story.get('estimable')) { %>
+<% if (story.estimable()) { %>
 <div class="state-actions">
   <form>
     <% _.each(story.point_values(), function(value) { %>
