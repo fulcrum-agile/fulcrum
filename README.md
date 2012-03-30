@@ -128,6 +128,9 @@ Here are some general guidelines for contributing:
   to `http://localhost:8888/`
 * For any UI changes, please try to follow the
   [Tango theme guidelines](http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines).
+* The easiest way to test the impact of CSS or view changes is using the
+  'testcard' at `http://localhost:3000/testcard`.  This is a fake project which
+  exposes as many of the view states as possible on one page.
 
 
 Colophon
