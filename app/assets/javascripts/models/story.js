@@ -116,6 +116,29 @@ var Story = Backbone.Model.extend({
     return this.collection.project.get('point_values');
   },
 
+  // List available state transitions for this story
+  events: function() {
+    switch (this.get('state')) {
+      case 'started':
+        return ["finish"];
+        break;
+      case 'finished':
+        return ["deliver"];
+        break;
+      case 'delivered':
+        return ["accept", "reject"];
+        break;
+      case 'rejected':
+        return ["restart"];
+        break;
+      case 'accepted':
+        return [];
+        break;
+      default:
+        return ["start"];
+    }
+  },
+
   // State machine transitions
   start: function() {
     this.set({state: "started"});

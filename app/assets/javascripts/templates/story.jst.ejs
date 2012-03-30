@@ -6,10 +6,10 @@
     <% }); %>
   </form>
 </div>
-<% } else if (story.get('events').length > 0) { %>
+<% } else if (story.events().length > 0) { %>
 <div class="state-actions">
   <form>
-    <% _.each(story.get('events'),  function(value) { %>
+    <% _.each(story.events(),  function(value) { %>
       <input type="button" class="transition <%= value %>" value="<%= value %>"/>
     <% }); %>
   </form>

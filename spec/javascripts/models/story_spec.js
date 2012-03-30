@@ -84,6 +84,37 @@ describe('Story model', function() {
 
   });
 
+  describe("events", function() {
+    it("transitions from unscheduled", function() {
+      this.story.set({state: "unscheduled"});
+      expect(this.story.events()).toEqual(["start"]);
+    });
+    it("transitions from unstarted", function() {
+      this.story.set({state: "unstarted"});
+      expect(this.story.events()).toEqual(["start"]);
+    });
+    it("transitions from started", function() {
+      this.story.set({state: "started"});
+      expect(this.story.events()).toEqual(["finish"]);
+    });
+    it("transitions from finished", function() {
+      this.story.set({state: "finished"});
+      expect(this.story.events()).toEqual(["deliver"]);
+    });
+    it("transitions from delivered", function() {
+      this.story.set({state: "delivered"});
+      expect(this.story.events()).toEqual(["accept", "reject"]);
+    });
+    it("transitions from rejected", function() {
+      this.story.set({state: "rejected"});
+      expect(this.story.events()).toEqual(["restart"]);
+    });
+    it("has no transitions from accepted", function() {
+      this.story.set({state: "accepted"});
+      expect(this.story.events()).toEqual([]);
+    });
+  });
+
   describe("setAcceptedAt", function() {
 
     it("should set accepted at to today's date when accepted", function() {
