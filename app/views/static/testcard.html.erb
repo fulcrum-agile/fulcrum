@@ -12,76 +12,68 @@ $(function() {
   var in_progress = $('#in_progress');
   var done = $('#done');
 
-  var view, storyId = 1;
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Unestimated feature"});
+  var view;
+  appendStoryTo(chilly_bin, {"title":"Unestimated feature"});
+  appendStoryTo(chilly_bin, {"title":"Estimated feature","estimate":3});
+  appendStoryTo(chilly_bin, {"title":"Example chore","story_type":"chore"});
+  appendStoryTo(chilly_bin, {"title":"Example bug","story_type":"bug"});
+  appendStoryTo(chilly_bin, {"title":"Example release","story_type":"release"});
+
+  view = appendStoryTo(chilly_bin, {"title":"Save in progress","estimate":3});
+  view.saveInProgress = true;
+  view.render();
+  view.disableForm();
+
+  appendStoryTo(chilly_bin, {"title":"Editing feature","editing":true});
   appendStoryTo(chilly_bin, {
-    "id":storyId++,"title":"Estimated feature","estimate":3
+    "title":"Editing chore","story_type":"chore","editing":true
   });
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Example chore","story_type":"chore"});
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Example bug","story_type":"bug"});
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Example release","story_type":"release"});
+  appendStoryTo(chilly_bin, {
+    "title":"Editing bug","story_type":"bug","editing":true
+  });
+  appendStoryTo(chilly_bin, {
+    "title":"Editing release","story_type":"release","editing":true
+  });
 
-  view = appendStoryTo(chilly_bin, {
-    "id":storyId++,"title":"Save in progress","estimate":3
+  appendStoryTo(backlog, {"title":"Unestimated feature"});
+  appendStoryTo(backlog, {"title":"Estimated feature","estimate":3});
+  appendStoryTo(backlog, {"title":"Example chore","story_type":"chore"});
+  appendStoryTo(backlog, {"title":"Example bug","story_type":"bug"});
+  appendStoryTo(backlog, {"title":"Example release","story_type":"release"});
+  appendStoryTo(backlog, {"title":"Estimated feature","estimate":3});
+  view = appendStoryTo(backlog, {
+    "title":"Save in progress","story_type":"release","editing":true
   });
   view.saveInProgress = true;
   view.render();
   view.disableForm();
 
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Editing feature","editing":true});
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Editing chore","story_type":"chore","editing":true});
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Editing bug","story_type":"bug","editing":true});
-  appendStoryTo(chilly_bin,
-    {"id":storyId++,"title":"Editing release","story_type":"release","editing":true});
-
-  appendStoryTo(backlog, {"id":storyId++,"title":"Unestimated feature"});
-  appendStoryTo(backlog, {
-    "id":storyId++,"title":"Estimated feature","estimate":3
-  });
-  appendStoryTo(backlog,
-    {"id":storyId++,"title":"Example chore","story_type":"chore"});
-  appendStoryTo(backlog,
-    {"id":storyId++,"title":"Example bug","story_type":"bug"});
-  appendStoryTo(backlog,
-    {"id":storyId++,"title":"Example release","story_type":"release"});
-  appendStoryTo(backlog, {
-    "id":storyId++,"title":"Estimated feature","estimate":3
-  });
-  view = appendStoryTo(backlog,
-    {"id":storyId++,"title":"Save in progress","story_type":"release","editing":true});
-  view.saveInProgress = true;
-  view.render();
-  view.disableForm();
-
   appendStoryTo(in_progress, {
-    "id":storyId++,"title":"Started feature","state":"started","estimate":3
+    "title":"Started feature","state":"started","estimate":1
   });
   appendStoryTo(in_progress, {
-    "id":storyId++,"title":"Finished feature","state":"finished", "estimate":3
+    "title":"Finished feature","state":"finished", "estimate":2
   });
   appendStoryTo(in_progress, {
-    "id":storyId++,"title":"Delivered feature","estimate":3, "state":"delivered"
+    "title":"Delivered feature","estimate":5, "state":"delivered"
   });
   appendStoryTo(in_progress, {
-    "id":storyId++,"title":"Rejected feature","estimate":3
+    "title":"Rejected feature","estimate":8, "state": "rejected"
   });
-  appendStoryTo(in_progress,
-    {"id":storyId++,"title":"Example chore","story_type":"chore"});
-  appendStoryTo(in_progress,
-    {"id":storyId++,"title":"Example bug","story_type":"bug"});
-  appendStoryTo(in_progress,
-    {"id":storyId++,"title":"Example release","story_type":"release"});
+  appendStoryTo(in_progress, {"title":"Example chore","story_type":"chore"});
+  appendStoryTo(in_progress, {"title":"Example bug","story_type":"bug"});
+  appendStoryTo(in_progress, {"title":"Example release","story_type":"release"});
 
   appendIterationTo(done, new Iteration({'number':1, stories:[]}));
 
   function appendStoryTo(el, storyAttributes, view) {
+
+    // Increment the ID on each invocation
+    if (typeof appendStoryTo.id == 'undefined') {
+      appendStoryTo.id = 1;
+    }
+    storyAttributes.id = appendStoryTo.id++;
+
     var story = new Story(storyAttributes);
     //story.collection = window.project.stories;
     window.project.stories.add(story);
