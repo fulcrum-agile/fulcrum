@@ -19,7 +19,7 @@ $(function() {
 
   });
 
-  $('thead a.toggle-column, #column-toggles a').click(function(el){
+  $('.column_header a.toggle-column, #column-toggles a').click(function(el){
     //Find relevant column from class name
     var className = _.detect( el.target.classList, function(elClass){ return elClass.match(/hide_\w+/) });
     $('.'+className.replace(/hide_/,'')+'_column').toggle();

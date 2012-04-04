@@ -218,6 +218,7 @@ table.stories {
 table.stories td {
   vertical-align: top;
   background-color: #ccc;
+  @include border-radius(5px 5px 0 0);
 }
 
 div.storycolumn {
@@ -226,7 +227,8 @@ div.storycolumn {
 }
 
 /* Story columns headers */
-table.stories th {
+.column_header {
+  text-align: center;
   background: $darkgrey;
   @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
   color: #eee;
