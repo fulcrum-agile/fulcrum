@@ -173,6 +173,25 @@ ul#primary-nav li.secondary ul li {
     text-shadow:  $aluminium-5 0 1px 0;
     text-decoration: none;
   }
+
+  #filter {
+    @include border-radius(3px);
+    display: inline-block;
+    background: #fff;
+    padding: 3px 3px 2px 3px;
+    width: 208px;
+
+    #filter_bar {
+      border: 0px;
+      height: 16px;
+      width:  190px;
+      font-size: 12px;
+    }
+
+    #filter_bar:focus {
+      outline: none;
+    }
+  }
 }
 
 #title_bar h1 {

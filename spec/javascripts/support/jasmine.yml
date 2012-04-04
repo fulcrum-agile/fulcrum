@@ -28,6 +28,7 @@ src_files:
   - app/assets/javascripts/collections/*.js
   - app/assets/javascripts/views/*.js
   - app/assets/javascripts/fulcrum.js
+  - app/assets/javascripts/story_filter.js
 
 # stylesheets
 #
