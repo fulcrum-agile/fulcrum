@@ -236,6 +236,8 @@ div.storycolumn {
   font-weight: bold;
   @include border-radius(5px 5px 0 0);
   a.toggle-column{
+    color: #eee;
+    text-decoration: none;
     float: right;
     padding: 0px 5px 1px;
     cursor: pointer;
