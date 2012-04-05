@@ -8,6 +8,7 @@ class BushidoUserHooks < Bushido::EventObserver
     user.email = params['data'].try(:[], 'email')
     user.name = user.email.split('@').first
     user.initials = user.email[0..1].upcase
+    user.active = true
     user.save
 
     # Add the new user to all existing projects
