@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   def set_reset_password_token
     if new_record?
       self.reset_password_token = Devise.friendly_token
+      self.reset_password_sent_at = Time.now
     end
   end
 
