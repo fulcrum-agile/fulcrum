@@ -41,4 +41,8 @@ class User < ActiveRecord::Base
   def as_json(options = {})
     super(:only => JSON_ATTRIBUTES)
   end
+
+  def active_for_authentication?
+    super && active?
+  end
 end
