@@ -7,10 +7,10 @@ $(function() {
   project.stories.fetch = function() {};
   window.project = project;
 
-  var chilly_bin = $('#chilly_bin');
-  var backlog = $('#backlog');
-  var in_progress = $('#in_progress');
-  var done = $('#done');
+  var chilly_bin = new ColumnView({name:'Chilly Bin', el:$('td.chilly_bin_column')}).render();
+  var backlog = new ColumnView({name:'Backlog', el:$('td.backlog_column')}).render();
+  var in_progress = new ColumnView({name:'In Progress', el:$('td.in_progress_column')}).render();
+  var done = new ColumnView({name:'Done', el:$('td.done_column')}).render();
 
   var view;
   appendStoryTo(chilly_bin, {"title":"Unestimated feature"});
@@ -66,7 +66,7 @@ $(function() {
 
   appendIterationTo(done, new Iteration({'number':1, stories:[]}));
 
-  function appendStoryTo(el, storyAttributes, view) {
+  function appendStoryTo(columnView, storyAttributes, view) {
 
     // Increment the ID on each invocation
     if (typeof appendStoryTo.id == 'undefined') {
@@ -81,17 +81,17 @@ $(function() {
       view = new StoryView({model: story});
     }
     view.render();
-    el.append(view.el);
+    columnView.appendView(view);
     return view;
   }
 
-  function appendIterationTo(el, iteration, view) {
+  function appendIterationTo(columnView, iteration, view) {
     iteration.project = window.project;
     if (typeof view == 'undefined') {
       view = new IterationView({model: iteration});
     }
     view.render();
-    el.append(view.el);
+    columnView.appendView(view);
     return view;
   }
 
@@ -116,22 +116,10 @@ $(function() {
 <table class="stories" width="100%">
   <tbody>
     <tr>
-      <td class="done_column" style="width: 25%">
-        <div class="column_header">Done<a href="#" class="toggle-column hide_done" title="Close">&times;</a></div>
-        <div id="done" class="storycolumn"></div>
-      </td>
-      <td class="in_progress_column" style="width: 25%">
-        <div class="column_header">In Progress<a href="#" class="toggle-column hide_in_progress" title="Close">&times;</a></div>
-        <div id="in_progress" class="storycolumn sortable"></div>
-      </td>
-      <td class="backlog_column" style="width: 25%">
-        <div class="column_header">Backlog<a href="#" class="toggle-column hide_backlog" title="Close">&times;</a></div>
-        <div id="backlog" class="storycolumn sortable"></div>
-      </td>
-      <td class="chilly_bin_column" style="width: 25%">
-        <div class="column_header">Chilly Bin<a href="#" class="toggle-column hide_chilly_bin" title="Close">&times;</a></div>
-        <div id="chilly_bin" class="storycolumn sortable"></div>
-      </td>
+      <td class="done_column" style="width: 25%"></td>
+      <td class="in_progress_column" style="width: 25%"></td>
+      <td class="backlog_column" style="width: 25%"></td>
+      <td class="chilly_bin_column" style="width: 25%"></td>
     </tr>
   </tbody>
 </table>

@@ -5,6 +5,20 @@ $(function() {
   var project = new Project(<%= @project.to_json.html_safe %>);
   project.users.reset(<%= @project.users.to_json.html_safe %>);
   project.current_user = new User(<%= current_user.to_json.html_safe %>);
+
+  new ColumnView({
+    id: 'done', name: 'Done', el: $('td.done_column')
+  }).render();
+  new ColumnView({
+    id: 'in_progress', name: 'In Progress', el: $('td.in_progress_column')
+  }).render();
+  new ColumnView({
+    id: 'backlog', name: 'Backlog', el: $('td.backlog_column')
+  }).render();
+  new ColumnView({
+    id: 'chilly_bin', name: 'Chilly Bin', el: $('td.chilly_bin_column')
+  }).render();
+
   window.projectView = new ProjectView({model: project});
   window.projectView.scaleToViewport();
   $(window).resize(projectView.scaleToViewport);
@@ -39,22 +53,10 @@ $(function() {
 <table class="stories" width="100%">
   <tbody>
     <tr>
-      <td class="done_column" style="width: 25%">
-        <div class="column_header">Done<a href="#" class="toggle-column hide_done" title="Close">&times;</a></div>
-        <div id="done" class="storycolumn"></div>
-      </td>
-      <td class="in_progress_column" style="width: 25%">
-        <div class="column_header">In Progress<a href="#" class="toggle-column hide_in_progress" title="Close">&times;</a></div>
-        <div id="in_progress" class="storycolumn sortable"></div>
-      </td>
-      <td class="backlog_column" style="width: 25%">
-        <div class="column_header">Backlog<a href="#" class="toggle-column hide_backlog" title="Close">&times;</a></div>
-        <div id="backlog" class="storycolumn sortable"></div>
-      </td>
-      <td class="chilly_bin_column" style="width: 25%">
-        <div class="column_header">Chilly Bin<a href="#" class="toggle-column hide_chilly_bin" title="Close">&times;</a></div>
-        <div id="chilly_bin" class="storycolumn sortable"></div>
-      </td>
+      <td class="done_column" style="width: 25%"></td>
+      <td class="in_progress_column" style="width: 25%"></td>
+      <td class="backlog_column" style="width: 25%"></td>
+      <td class="chilly_bin_column" style="width: 25%"></td>
     </tr>
   </tbody>
 </table>

@@ -1,6 +1,9 @@
 var ProjectView = Backbone.View.extend({
 
   initialize: function() {
+
+    this.columns = {};
+
     _.bindAll(this, 'addStory', 'addAll', 'render');
 
     this.model.stories.bind('add', this.addStory);
@@ -11,6 +14,7 @@ var ProjectView = Backbone.View.extend({
     this.model.stories.fetch();
 
     // Render the velocity display
+    // FIXME - Move this out of here
     this.velocityView = new ProjectVelocityView({
       model: this.model, el: $('#velocity')
     }).render();
@@ -31,16 +35,20 @@ var ProjectView = Backbone.View.extend({
     if (typeof column === 'undefined' || typeof column !== 'string') {
       column = story.column;
     }
-    var view = new StoryView({model: story});
-    $(column).append(view.render().el);
+    var view = new StoryView({model: story}).render();
+    this.appendViewToColumn(view, column);
     view.setFocus();
+  },
+
+  appendViewToColumn: function(view, columnName) {
+    $(columnName).append(view.el);
   },
 
   addIteration: function(iteration) {
     var that = this;
     var column = iteration.get('column');
-    var view = new IterationView({model: iteration});
-    $(column).append(view.render().el);
+    var view = new IterationView({model: iteration}).render();
+    this.appendViewToColumn(view, column);
     _.each(iteration.stories(), function(story) {
       that.addStory(story, column);
     });
@@ -84,5 +92,9 @@ var ProjectView = Backbone.View.extend({
 
   notice: function(message) {
     $.gritter.add(message);
+  },
+
+  addColumnView: function(id, view) {
+    this.columns[id] = view;
   }
 });
