@@ -1,4 +1,4 @@
-class ProjectHooks < Bushido::EventObserver
+class ProjectHooks < Cloudfuji::EventObserver
   def project_created
     puts params.inspect
     puts "prarm"

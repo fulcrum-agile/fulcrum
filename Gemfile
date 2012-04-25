@@ -14,13 +14,13 @@ end
 gem 'jquery-rails'
 gem 'rails-backbone'
 
-gem 'devise', '~> 1.4.0'
+gem 'devise', '~> 1.5.0'
 gem 'cancan', '1.6.1'
 gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitions"]
 
-# Bushido-related deps
-gem 'devise_bushido_authenticatable'
-gem 'bushido'
+# Cloudfuji-related deps
+gem 'devise_cloudfuji_authenticatable'
+gem 'cloudfuji'
 gem 'tane'
 gem 'airbrake'
 

@@ -25,13 +25,13 @@
         <%- end %>
       </li>
       (<%= current_user.email %>)
-      <% unless Devise.on_bushido? %>
+      <% unless Devise.on_cloudfuji? %>
         <li><%= link_to current_user.email, edit_user_registration_path %></li>
       <% end %>
         <li><%= link_to t('log out'), destroy_user_session_path %></li>
     <% else %>
       <li><%= link_to t('log in'), new_user_session_path %></li>
-      <% unless Devise.on_bushido? %>
+      <% unless Devise.on_cloudfuji? %>
         <li><%= link_to t('sign up'), new_user_registration_path %></li>
       <% end %>
     <% end %>

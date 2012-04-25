@@ -5,7 +5,7 @@
 <ul>
   <% @users.each do |user| %>
     <li><%= user %>
-      <% unless Devise.on_bushido? %>
+      <% unless Devise.on_cloudfuji? %>
         <%= link_to 'Remove', project_user_path(@project, user),
         :confirm => "Are you sure you want to remove #{user.email} from this project?",
         :method => :delete %>
@@ -13,7 +13,7 @@
     </li>
   <% end %>
 </ul>
-<% unless Devise.on_bushido? %>
+<% unless Devise.on_cloudfuji? %>
   <h2>Add a new member</h2>
   <div class="form-wrapper">
   <%= form_for project_users_path(@project, @user) do |f| %>

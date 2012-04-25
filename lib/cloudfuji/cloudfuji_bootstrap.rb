@@ -1,10 +1,10 @@
 module Fulcrum
-  module Bushido
-    def self.enable_bushido!
+  module Cloudfuji
+    def self.enable_cloudfuji!
       self.load_hooks!
       self.extend_user!
       self.extend_project!
-      self.disable_devise_for_bushido_controllers!
+      self.disable_devise_for_cloudfuji_controllers!
     end
 
     def self.extend_user!
@@ -20,7 +20,7 @@ module Fulcrum
       end
 
       User.class_eval do
-        def bushido_extra_attributes(extra_attributes)
+        def cloudfuji_extra_attributes(extra_attributes)
           self.name  = "#{extra_attributes['first_name'].to_s} #{extra_attributes['last_name'].to_s}"
           if extra_attributes['first_name'] && extra_attributes['last_name']
             self.initials  = "#{extra_attributes['first_name'][0].upcase}#{extra_attributes['last_name'][0].upcase}"
@@ -59,29 +59,29 @@ module Fulcrum
     end
 
     def self.load_hooks!
-      Dir["#{Dir.pwd}/lib/bushido/**/*.rb"].each { |file| load file }
+      Dir["#{Dir.pwd}/lib/cloudfuji/**/*.rb"].each { |file| load file }
     end
 
     # Temporary hack because all routes require authentication in
     # Fulcrum
-    def self.disable_devise_for_bushido_controllers!
-      puts "Disabling devise auth protection on bushido controllers"
+    def self.disable_devise_for_cloudfuji_controllers!
+      puts "Disabling devise auth protection on cloudfuji controllers"
 
-      ::Bushido::DataController.instance_eval { before_filter :authenticate_user!, :except => [:index]  }
-      ::Bushido::EnvsController.instance_eval { before_filter :authenticate_user!, :except => [:update] }
-      ::Bushido::MailController.instance_eval { before_filter :authenticate_user!, :except => [:index]  }
+      ::Cloudfuji::DataController.instance_eval { before_filter :authenticate_user!, :except => [:index]  }
+      ::Cloudfuji::EnvsController.instance_eval { before_filter :authenticate_user!, :except => [:update] }
+      ::Cloudfuji::MailController.instance_eval { before_filter :authenticate_user!, :except => [:index]  }
 
-      puts "Devise checks disabled for Bushido controllers"
+      puts "Devise checks disabled for Cloudfuji controllers"
     end
   end
 end
 
-if Bushido::Platform.on_bushido?
-  class BushidoRailtie < Rails::Railtie
+if Cloudfuji::Platform.on_cloudfuji?
+  class CloudfujiRailtie < Rails::Railtie
     config.to_prepare do
-      puts "Enabling Bushido"
-      Fulcrum::Bushido.enable_bushido!
-      puts "Finished enabling Bushido"
+      puts "Enabling Cloudfuji"
+      Fulcrum::Cloudfuji.enable_cloudfuji!
+      puts "Finished enabling Cloudfuji"
     end
   end
 end

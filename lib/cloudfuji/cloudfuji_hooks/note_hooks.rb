@@ -1,4 +1,4 @@
-class ProjectNoteHooks < Bushido::EventObserver
+class ProjectNoteHooks < Cloudfuji::EventObserver
   def project_task_note_created
     data = params['data']
 
@@ -10,6 +10,8 @@ class ProjectNoteHooks < Bushido::EventObserver
     note.note     = data['note']
     note.user     = User.find_by_ido_id( data['author_id'] )
     note.story    = Story.find_by_ido_id( data['story_id'] )
+
+    puts note.inspect
     
     note.save!
   end

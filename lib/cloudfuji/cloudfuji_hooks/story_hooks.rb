@@ -1,4 +1,4 @@
-class ProjectStoryHooks < Bushido::EventObserver
+class ProjectStoryHooks < Cloudfuji::EventObserver
   def project_task_created
     data = params['data']
 

@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, :uniq => true
 
-  before_validation :set_random_password_if_blank, :set_reset_password_token unless ::Bushido::Platform.on_bushido?
+  before_validation :set_random_password_if_blank, :set_reset_password_token unless ::Cloudfuji::Platform.on_cloudfuji?
 
   validates :name, :presence => true
   validates :initials, :presence => true
