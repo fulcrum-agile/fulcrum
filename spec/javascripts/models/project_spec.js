@@ -460,4 +460,19 @@ describe('Project model', function() {
 
   });
 
+  describe("rebuildIterations", function() {
+
+    beforeEach(function() {
+      this.project.stories.invoke = sinon.stub();
+    });
+
+    it("triggers a rebuilt-iterations event", function() {
+      var stub = sinon.stub();
+      this.project.on('rebuilt-iterations', stub);
+      this.project.rebuildIterations();
+      expect(stub).toHaveBeenCalled();
+    });
+
+  });
+
 });

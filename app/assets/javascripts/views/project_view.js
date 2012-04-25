@@ -12,12 +12,6 @@ var ProjectView = Backbone.View.extend({
     this.model.bind('change:userVelocity', this.addAll);
 
     this.model.stories.fetch();
-
-    // Render the velocity display
-    // FIXME - Move this out of here
-    this.velocityView = new ProjectVelocityView({
-      model: this.model, el: $('#velocity')
-    }).render();
   },
 
   // Triggered when the 'Add Story' button is clicked
@@ -64,9 +58,6 @@ var ProjectView = Backbone.View.extend({
     $('#chilly_bin').html("");
 
     this.model.rebuildIterations();
-
-    // Update the velocity display
-    this.velocityView.render();
 
     // Render each iteration
     _.each(this.model.iterations, function(iteration) {

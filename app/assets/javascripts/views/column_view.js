@@ -14,6 +14,9 @@ var ColumnView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.template({id: this.id, name: this.name()}));
+    if (this.options.sortable) {
+      this.setSortable();
+    }
     return this;
   },
 
@@ -30,5 +33,15 @@ var ColumnView = Backbone.View.extend({
   // Append a Backbone.View to this column
   appendView: function(view) {
     this.storyColumn().append(view.el);
+  },
+
+  // Adds the sortable behaviour to the column.
+  setSortable: function() {
+    this.storyColumn().sortable({
+      handle: '.story-title', opacity: 0.6, items: ".story:not(.accepted)",
+      update: function(ev, ui) {
+        ui.item.trigger("sortupdate", ev, ui);
+      }
+    });
   }
 });

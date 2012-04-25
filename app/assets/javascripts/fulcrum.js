@@ -8,17 +8,7 @@ $(function() {
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
 
-  $('div.sortable').sortable({
-    handle: '.story-title', opacity: 0.6,
-
-    items: ".story:not(.accepted)",
-
-    update: function(ev, ui) {
-      ui.item.trigger("sortupdate", ev, ui);
-    }
-
-  });
-
+  // FIXME Move into separate backbone view
   $('.column_header a.toggle-column, #column-toggles a').click(function(el){
     //Find relevant column from class name
     var className = _.detect( el.target.classList, function(elClass){ return elClass.match(/hide_\w+/) });

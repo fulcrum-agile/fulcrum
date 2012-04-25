@@ -76,4 +76,18 @@ describe("ColumnView", function() {
 
   });
 
+  describe("setSortable", function() {
+
+    beforeEach(function() {
+      this.storyColumn = {sortable: sinon.stub()};
+      this.view.storyColumn = sinon.stub().returns(this.storyColumn);
+    });
+
+    it("calls sortable on the story column", function() {
+      this.view.setSortable();
+      expect(this.storyColumn.sortable).toHaveBeenCalled();
+    });
+
+  });
+
 });

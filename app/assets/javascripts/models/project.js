@@ -317,6 +317,8 @@ var Project = Backbone.Model.extend({
     _.each(this.iterations, function(iteration) {
       iteration.project = that;
     });
+
+    this.trigger('rebuilt-iterations');
   },
 
   // Adds an iteration to the project.  Creates empty iterations to fill any
