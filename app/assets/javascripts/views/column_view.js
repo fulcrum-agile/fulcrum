@@ -43,5 +43,10 @@ var ColumnView = Backbone.View.extend({
         ui.item.trigger("sortupdate", ev, ui);
       }
     });
+  },
+
+  // Returns the current visibility state of the column.
+  hidden: function() {
+    return this.$el.is(':hidden');
   }
 });

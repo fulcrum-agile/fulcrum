@@ -8,14 +8,6 @@ $(function() {
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
 
-  // FIXME Move into separate backbone view
-  $('.column_header a.toggle-column, #column-toggles a').click(function(el){
-    //Find relevant column from class name
-    var className = _.detect( el.target.classList, function(elClass){ return elClass.match(/hide_\w+/) });
-    $('.'+className.replace(/hide_/,'')+'_column').toggle();
-    $("#column-toggles").find( "."+className ).toggleClass('pressed');
-  })
-
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
   $('#chilly_bin').sortable('option', 'connectWith', '#backlog,#in_progress');
   $('#in_progress').sortable('option', 'connectWith', '#backlog,#chilly_bin');

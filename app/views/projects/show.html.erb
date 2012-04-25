@@ -6,20 +6,35 @@ $(function() {
   project.users.reset(<%= @project.users.to_json.html_safe %>);
   project.current_user = new User(<%= current_user.to_json.html_safe %>);
 
-  new ColumnView({
+  var doneColumn = new ColumnView({
     id: 'done', name: 'Done', el: $('td.done_column'), sortable: false
   }).render();
-  new ColumnView({
+  $('#column-toggles').append(
+    new ColumnVisibiltyButtonView({columnView: doneColumn}).render().el
+  );
+
+  var inProgressColumn = new ColumnView({
     id: 'in_progress', name: 'In Progress', el: $('td.in_progress_column'),
     sortable: true
   }).render();
-  new ColumnView({
+  $('#column-toggles').append(
+    new ColumnVisibiltyButtonView({columnView: inProgressColumn}).render().el
+  );
+
+  var backlogColumn = new ColumnView({
     id: 'backlog', name: 'Backlog', el: $('td.backlog_column'), sortable: true
   }).render();
-  new ColumnView({
+  $('#column-toggles').append(
+    new ColumnVisibiltyButtonView({columnView: backlogColumn}).render().el
+  );
+
+  var chillyBinColumn = new ColumnView({
     id: 'chilly_bin', name: 'Chilly Bin', el: $('td.chilly_bin_column'),
     sortable: true
   }).render();
+  $('#column-toggles').append(
+    new ColumnVisibiltyButtonView({columnView: chillyBinColumn}).render().el
+  );
 
   window.projectView = new ProjectView({model: project});
   window.projectView.velocityView = new ProjectVelocityView({

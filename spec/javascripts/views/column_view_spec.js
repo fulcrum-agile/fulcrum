@@ -90,4 +90,21 @@ describe("ColumnView", function() {
 
   });
 
+  describe("hidden", function() {
+
+    beforeEach(function() {
+      this.view.$el.is = sinon.stub();
+    });
+      
+    it("returns true if the column is hidden", function() {
+      this.view.$el.is.withArgs(':hidden').returns(true);
+      expect(this.view.hidden()).toEqual(true);
+    });
+
+    it("returns false if the column is visible", function() {
+      this.view.$el.is.withArgs(':hidden').returns(false);
+      expect(this.view.hidden()).toEqual(false);
+    });
+  });
+
 });
