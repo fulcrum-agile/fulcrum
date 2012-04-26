@@ -1,4 +1,4 @@
-describe("ProjectView", function() {
+describe("Fulcrum.ProjectView", function() {
 
   beforeEach(function() {
     this.model = {};
@@ -6,7 +6,7 @@ describe("ProjectView", function() {
     this.model.velocity = sinon.stub();
     this.model.velocityIsFake = sinon.stub();
     this.model.stories = {fetch: sinon.stub(), bind: sinon.stub()};
-    this.view = new ProjectView({model: this.model});
+    this.view = new Fulcrum.ProjectView({model: this.model});
   });
 
   describe("addColumnView", function() {

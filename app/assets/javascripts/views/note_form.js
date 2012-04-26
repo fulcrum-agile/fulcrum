@@ -1,4 +1,8 @@
-var NoteForm = FormView.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.NoteForm = Fulcrum.FormView.extend({
 
   tagName: 'div',
 

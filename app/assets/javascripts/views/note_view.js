@@ -1,4 +1,8 @@
-var NoteView = Backbone.View.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.NoteView = Backbone.View.extend({
 
   template: JST['templates/note'],
 

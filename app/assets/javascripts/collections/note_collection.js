@@ -1,5 +1,9 @@
-var NoteCollection = Backbone.Collection.extend({
-  model: Note,
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.NoteCollection = Backbone.Collection.extend({
+  model: Fulcrum.Note,
 
   url: function() {
     return this.story.url() + '/notes';

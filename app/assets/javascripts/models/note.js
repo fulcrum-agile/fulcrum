@@ -1,4 +1,8 @@
-var Note = Backbone.Model.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.Note = Backbone.Model.extend({
 
   name: 'note',
 

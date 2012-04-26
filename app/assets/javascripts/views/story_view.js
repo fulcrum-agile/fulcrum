@@ -1,4 +1,8 @@
-var StoryView = FormView.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   template: JST['templates/story'],
 
@@ -392,9 +396,9 @@ var StoryView = FormView.extend({
     this.model.notes.each(function(note) {
       var view;
       if (note.isNew()) {
-        view = new NoteForm({model: note});
+        view = new Fulcrum.NoteForm({model: note});
       } else {
-        view = new NoteView({model: note});
+        view = new Fulcrum.NoteView({model: note});
       }
       notelist.append(view.render().el);
     });

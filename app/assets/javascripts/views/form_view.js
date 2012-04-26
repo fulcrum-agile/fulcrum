@@ -1,4 +1,8 @@
-var FormView = Backbone.View.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.FormView = Backbone.View.extend({
   tagName: 'form',
 
   label: function(elem_id, value) {

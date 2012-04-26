@@ -1,7 +1,7 @@
-describe("ColumnView", function() {
+describe("Fulcrum.ColumnView", function() {
 
   beforeEach(function() {
-    this.view = new ColumnView({
+    this.view = new Fulcrum.ColumnView({
       id: 'dummy_column', name: 'Dummy Column'
     });
   });

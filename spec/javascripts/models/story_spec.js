@@ -1,4 +1,4 @@
-describe('Story model', function() {
+describe('Fulcrum.Story', function() {
 
   beforeEach(function() {
     var Project = Backbone.Model.extend({
@@ -14,10 +14,10 @@ describe('Story model', function() {
       get: function() {}
     };
     var view = new Backbone.View();
-    this.story = new Story({
+    this.story = new Fulcrum.Story({
       id: 999, title: 'Test story', position: '2.45'
     });
-    this.new_story = new Story({
+    this.new_story = new Fulcrum.Story({
       title: 'New story'
     });
     this.story.collection = this.new_story.collection = collection;
@@ -393,7 +393,7 @@ describe('Story model', function() {
     });
 
     it("should set a notes collection", function() {
-      var story = new Story({
+      var story = new Fulcrum.Story({
         notes: [{"note":{"text": "Dummy note"}}]
       });
 

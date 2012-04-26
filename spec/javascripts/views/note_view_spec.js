@@ -1,7 +1,7 @@
-describe('NoteView', function() {
+describe('Fulcrum.NoteView', function() {
 
   beforeEach(function() {
-    this.view = new NoteView();
+    this.view = new Fulcrum.NoteView();
   });
 
   it("has div as the tag name", function() {

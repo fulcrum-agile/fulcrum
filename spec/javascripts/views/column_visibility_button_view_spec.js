@@ -1,11 +1,11 @@
-describe("ColumnVisibiltyButtonView", function() {
+describe("Fulcrum.ColumnVisibiltyButtonView", function() {
   
   beforeEach(function() {
     this.columnView = {
       name: sinon.stub().returns('Dummy'),
       bind: sinon.stub()
     };
-    this.view = new ColumnVisibiltyButtonView({columnView: this.columnView});
+    this.view = new Fulcrum.ColumnVisibiltyButtonView({columnView: this.columnView});
   });
 
   it("should have <a> as the tagName",function() {

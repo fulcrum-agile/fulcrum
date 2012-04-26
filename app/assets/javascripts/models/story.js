@@ -1,4 +1,8 @@
-var Story = Backbone.Model.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.Story = Backbone.Model.extend({
   name: 'story',
 
   timestampFormat: 'd mmm yyyy, h:MMtt',
@@ -249,7 +253,7 @@ var Story = Backbone.Model.extend({
 
   // Initialize the notes collection on this story, and populate if necessary
   initNotes: function() {
-    this.notes = new NoteCollection();
+    this.notes = new Fulcrum.NoteCollection();
     this.notes.story = this;
     this.populateNotes();
   },

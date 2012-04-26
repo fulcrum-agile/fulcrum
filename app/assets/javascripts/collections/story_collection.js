@@ -1,5 +1,9 @@
-var StoryCollection = Backbone.Collection.extend({
-  model: Story,
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.StoryCollection = Backbone.Collection.extend({
+  model: Fulcrum.Story,
 
   initialize: function() {
     this.bind('change:position', this.sort);

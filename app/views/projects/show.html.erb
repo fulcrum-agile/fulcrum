@@ -4,42 +4,42 @@
 $(function() {
   window.md = new Markdown.Converter();
 
-  var project = new Project(<%= @project.to_json.html_safe %>);
+  var project = new Fulcrum.Project(<%= @project.to_json.html_safe %>);
   project.users.reset(<%= @project.users.to_json.html_safe %>);
-  project.current_user = new User(<%= current_user.to_json.html_safe %>);
+  project.current_user = new Fulcrum.User(<%= current_user.to_json.html_safe %>);
 
-  var doneColumn = new ColumnView({
+  var doneColumn = new Fulcrum.ColumnView({
     id: 'done', name: 'Done', el: $('td.done_column'), sortable: false
   }).render();
   $('#column-toggles').append(
-    new ColumnVisibiltyButtonView({columnView: doneColumn}).render().el
+    new Fulcrum.ColumnVisibiltyButtonView({columnView: doneColumn}).render().el
   );
 
-  var inProgressColumn = new ColumnView({
+  var inProgressColumn = new Fulcrum.ColumnView({
     id: 'in_progress', name: 'In Progress', el: $('td.in_progress_column'),
     sortable: true
   }).render();
   $('#column-toggles').append(
-    new ColumnVisibiltyButtonView({columnView: inProgressColumn}).render().el
+    new Fulcrum.ColumnVisibiltyButtonView({columnView: inProgressColumn}).render().el
   );
 
-  var backlogColumn = new ColumnView({
+  var backlogColumn = new Fulcrum.ColumnView({
     id: 'backlog', name: 'Backlog', el: $('td.backlog_column'), sortable: true
   }).render();
   $('#column-toggles').append(
-    new ColumnVisibiltyButtonView({columnView: backlogColumn}).render().el
+    new Fulcrum.ColumnVisibiltyButtonView({columnView: backlogColumn}).render().el
   );
 
-  var chillyBinColumn = new ColumnView({
+  var chillyBinColumn = new Fulcrum.ColumnView({
     id: 'chilly_bin', name: 'Chilly Bin', el: $('td.chilly_bin_column'),
     sortable: true
   }).render();
   $('#column-toggles').append(
-    new ColumnVisibiltyButtonView({columnView: chillyBinColumn}).render().el
+    new Fulcrum.ColumnVisibiltyButtonView({columnView: chillyBinColumn}).render().el
   );
 
-  window.projectView = new ProjectView({model: project});
-  window.projectView.velocityView = new ProjectVelocityView({
+  window.projectView = new Fulcrum.ProjectView({model: project});
+  window.projectView.velocityView = new Fulcrum.ProjectVelocityView({
     model: project, el: $('#velocity')
   });
   window.projectView.scaleToViewport();

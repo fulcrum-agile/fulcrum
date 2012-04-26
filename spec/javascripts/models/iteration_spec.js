@@ -1,14 +1,14 @@
 describe("iteration", function() {
 
   beforeEach(function() {
-    this.iteration = new Iteration({});
+    this.iteration = new Fulcrum.Iteration({});
   });
 
   describe("initialize", function() {
 
     it("should assign stories if passed", function() {
       var stories = [1,2,3];
-      var iteration = new Iteration({'stories': stories});
+      var iteration = new Fulcrum.Iteration({'stories': stories});
       expect(iteration.get('stories')).toEqual(stories);
     });
 
@@ -169,51 +169,51 @@ describe("iteration", function() {
   describe("createMissingIterations", function() {
 
     beforeEach(function() {
-      this.start = new Iteration({'number': 1});
+      this.start = new Fulcrum.Iteration({'number': 1});
     });
 
     it("should create a range of iterations", function() {
-      var end = new Iteration({'number': 5});
-      var iterations = Iteration.createMissingIterations('#done', this.start, end);
+      var end = new Fulcrum.Iteration({'number': 5});
+      var iterations = Fulcrum.Iteration.createMissingIterations('#done', this.start, end);
       expect(iterations.length).toEqual(3);
     });
 
     it("should return an empty array when there is no gap between start and end", function() {
-      var end   = new Iteration({'number': 2});
-      var iterations = Iteration.createMissingIterations('#done', this.start, end);
+      var end   = new Fulcrum.Iteration({'number': 2});
+      var iterations = Fulcrum.Iteration.createMissingIterations('#done', this.start, end);
       expect(iterations.length).toEqual(0);
     });
 
     it("should raise an exception if end number is less than or equal to start", function() {
-      var end   = new Iteration({'number': 1});
+      var end   = new Fulcrum.Iteration({'number': 1});
       var that = this;
       expect(function() {
-        Iteration.createMissingIterations('#done', that.start, end);
+        Fulcrum.Iteration.createMissingIterations('#done', that.start, end);
       }).toThrow("end iteration number:1 must be greater than start iteration number:2");
     });
 
     it("should return an empty array when start is undefined and end is number 1", function() {
-      var end   = new Iteration({'number': 1});
-      var iterations = Iteration.createMissingIterations('#done', undefined, end);
+      var end   = new Fulcrum.Iteration({'number': 1});
+      var iterations = Fulcrum.Iteration.createMissingIterations('#done', undefined, end);
       expect(iterations.length).toEqual(0);
     });
 
     it("should return a range of iterations when start is undefined", function() {
-      var end   = new Iteration({'number': 5});
-      var iterations = Iteration.createMissingIterations('#done', undefined, end);
+      var end   = new Fulcrum.Iteration({'number': 5});
+      var iterations = Fulcrum.Iteration.createMissingIterations('#done', undefined, end);
       expect(iterations.length).toEqual(4);
       expect(_.first(iterations).get('number')).toEqual(1);
     });
 
     it("should return an empty array when start is undefined and end is number 1", function() {
-      var end   = new Iteration({'number': 1});
-      var iterations = Iteration.createMissingIterations('#done', undefined, end);
+      var end   = new Fulcrum.Iteration({'number': 1});
+      var iterations = Fulcrum.Iteration.createMissingIterations('#done', undefined, end);
       expect(iterations.length).toEqual(0);
     });
 
     it("should return a range of iterations when start is undefined", function() {
-      var end   = new Iteration({'number': 5});
-      var iterations = Iteration.createMissingIterations('#done', undefined, end);
+      var end   = new Fulcrum.Iteration({'number': 5});
+      var iterations = Fulcrum.Iteration.createMissingIterations('#done', undefined, end);
       expect(iterations.length).toEqual(4);
       expect(_.first(iterations).get('number')).toEqual(1);
     });

@@ -1,9 +1,9 @@
-describe("NoteForm", function() {
+describe("Fulcrum.NoteForm", function() {
 
   beforeEach(function() {
     var Note = Backbone.Model.extend({name: 'note', url: '/foo'});
     this.note = new Note({});
-    this.view = new NoteForm({model: this.note});
+    this.view = new Fulcrum.NoteForm({model: this.note});
   });
 
   it("should have a tag name of div", function() {

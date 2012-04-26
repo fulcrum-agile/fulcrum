@@ -1,4 +1,8 @@
-var Iteration = Backbone.Model.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.Iteration = Backbone.Model.extend({
 
   name: 'iteration',
 

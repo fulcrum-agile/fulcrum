@@ -1,4 +1,4 @@
-describe('IterationView', function() {
+describe('Fulcrum.IterationView', function() {
 
   beforeEach(function() {
     var Iteration = Backbone.Model.extend({
@@ -7,7 +7,7 @@ describe('IterationView', function() {
       startDate: function() { return new Date('2011/09/26'); }
     });
     this.iteration = new Iteration({'number': 1});
-    this.view = new IterationView({model: this.iteration});
+    this.view = new Fulcrum.IterationView({model: this.iteration});
   });
 
   it("should have a div as its top level element", function() {

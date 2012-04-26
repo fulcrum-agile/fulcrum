@@ -1,4 +1,8 @@
-var IterationView = Backbone.View.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.IterationView = Backbone.View.extend({
 
   template: JST['templates/iteration'],
 

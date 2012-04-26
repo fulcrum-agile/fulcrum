@@ -1,4 +1,8 @@
-var ColumnView = Backbone.View.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.ColumnView = Backbone.View.extend({
 
   template: JST['templates/column'],
 

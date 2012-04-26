@@ -1,4 +1,4 @@
-describe('StoryView', function() {
+describe('Fulcrum.StoryView', function() {
 
   beforeEach(function() {
     window.projectView = {
@@ -24,10 +24,10 @@ describe('StoryView', function() {
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
     this.story.notes = this.new_story.notes = new NotesCollection();
-    this.view = new StoryView({
+    this.view = new Fulcrum.StoryView({
       model: this.story
     });
-    this.new_story_view = new StoryView({
+    this.new_story_view = new Fulcrum.StoryView({
       model: this.new_story
     });
 
@@ -77,7 +77,7 @@ describe('StoryView', function() {
   describe("cancel edit", function() {
 
     it("should remove itself when edit cancelled if its new", function() {
-      var view = new StoryView({model: this.new_story});
+      var view = new Fulcrum.StoryView({model: this.new_story});
       var spy = sinon.spy(this.new_story, "clear");
 
       view.cancelEdit();
@@ -346,13 +346,13 @@ describe('StoryView', function() {
 
     it("binds change:notes to renderNotesCollection()", function() {
       var spy = sinon.spy(this.story, 'bind');
-      var view = new StoryView({model: this.story});
+      var view = new Fulcrum.StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotesCollection);
     });
 
     it("binds change:notes to addEmptyNote()", function() {
       var spy = sinon.spy(this.story, 'bind');
-      var view = new StoryView({model: this.story});
+      var view = new Fulcrum.StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.addEmptyNote);
     });
 

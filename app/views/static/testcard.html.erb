@@ -64,7 +64,7 @@ $(function() {
   appendStoryTo(in_progress, {"title":"Example bug","story_type":"bug"});
   appendStoryTo(in_progress, {"title":"Example release","story_type":"release"});
 
-  appendIterationTo(done, new Iteration({'number':1, stories:[]}));
+  appendIterationTo(done, new Fulcrum.Iteration({'number':1, stories:[]}));
 
   function appendStoryTo(columnView, storyAttributes, view) {
 

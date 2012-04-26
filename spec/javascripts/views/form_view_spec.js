@@ -1,7 +1,7 @@
-describe('FormView', function() {
+describe('Fulcrum.FormView', function() {
 
   beforeEach(function() {
-    this.view = new FormView();
+    this.view = new Fulcrum.FormView();
   });
 
   it("should have a form as its top level element", function() {

@@ -1,4 +1,8 @@
-var ColumnVisibiltyButtonView = Backbone.View.extend({
+if (typeof Fulcrum == 'undefined') {
+  Fulcrum = {};
+}
+
+Fulcrum.ColumnVisibiltyButtonView = Backbone.View.extend({
 
   events: {
     'click': 'toggle'
