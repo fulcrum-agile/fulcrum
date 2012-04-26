@@ -4,6 +4,7 @@ describe('StoryView', function() {
     window.projectView = {
       availableTags: []
     };
+    window.md = { makeHtml: sinon.stub() };
     var Note = Backbone.Model.extend({name: 'note'});
     var NotesCollection = Backbone.Collection.extend({model: Note});
     var Story = Backbone.Model.extend({

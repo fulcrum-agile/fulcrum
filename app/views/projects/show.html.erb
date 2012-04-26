@@ -2,6 +2,8 @@
 
 <script type="text/javascript">
 $(function() {
+  window.md = new Markdown.Converter();
+
   var project = new Project(<%= @project.to_json.html_safe %>);
   project.users.reset(<%= @project.users.to_json.html_safe %>);
   project.current_user = new User(<%= current_user.to_json.html_safe %>);

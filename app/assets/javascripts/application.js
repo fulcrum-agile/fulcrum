@@ -11,6 +11,7 @@
 //= require underscore
 //= require backbone
 //= require backbone.rails
+//= require Markdown.Converter
 //= require_tree ./templates
 //= require_tree ./models
 //= require_tree ./collections

@@ -319,7 +319,9 @@ var StoryView = FormView.extend({
           } else {
             var description = this.make('div');
             $(description).addClass('description');
-            $(description).text(this.model.get('description'));
+            $(description).html(
+              window.md.makeHtml(this.model.escape('description'))
+            );
             $(div).append(description);
             $(description).after('<input id="edit-description" type="button" value="Edit"/>');
           }

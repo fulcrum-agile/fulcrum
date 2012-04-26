@@ -15,7 +15,7 @@
 </div>
 <% if (story.get('description')) { %>
   <h4 class="title">Description</h4>
-  <div class="description"><%= story.escape('description') %></div>
+  <div class="description"><%= window.md.makeHtml(story.escape('description')) %></div>
 <% } %>
 <% if (story.hasNotes()) { %>
   <h5 class="title">Notes</h5>
