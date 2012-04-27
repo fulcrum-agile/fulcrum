@@ -16,7 +16,6 @@ describe User do
 
   end
 
-
   describe "#to_s" do
 
     subject { Factory.build(:user, :name => "Dummy User", :initials => "DU",
@@ -36,6 +35,16 @@ describe User do
       subject.as_json['user'].keys.sort.should == %w[email id initials name]
     }
 
+  end
+
+  describe "reset_password_sent_at default" do
+    subject do
+      user = Factory.build(:unconfirmed_user)
+      user.valid?
+      user
+    end
+
+    its(:reset_password_sent_at) { should_not be_nil }
   end
 
 end

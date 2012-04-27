@@ -62,6 +62,17 @@ Once you have these:
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
 You can log in with the test username `test@example.com`, password `testpass`.
 
+Passenger Setup
+---------------
+
+If you are deploying to a production environment under Passenger, you may need to
+pre-compile your assets to avoid errors:
+
+    $ rake assets:precompile
+
+In addition, you will want to configure 'config.action_mailer.default_url_options'
+in config/environments/production.rb and 'config.mailer_sender' in 
+config/initializers/devise.rb to ensure that user signup confirmation emails are sent.
 
 Heroku setup
 ------------
@@ -147,7 +158,7 @@ Fulcrum is built with the following Open Source technologies:
 
 License
 -------
-Copyright 2011, Malcolm Locke.
+Copyright 2012, Malcolm Locke.
 
 Fulcrum is made available under the Affero GPL license version 3, see
 LICENSE.txt.
