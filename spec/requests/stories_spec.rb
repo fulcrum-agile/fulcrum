@@ -55,6 +55,30 @@ describe "Stories" do
 
   end
 
+  describe "delete a story" do
+
+    let(:story) {
+      FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
+                                  :requested_by => user)
+    }
+
+    before do
+      story
+    end
+
+    it "deletes the story", :js => true do
+      visit project_path(project)
+
+      within(story_selector(story)) do
+        click_on 'Expand'
+        click_on 'Delete'
+      end
+
+      page.should_not have_css(story_selector(story))
+    end
+
+  end
+
   describe "show and hide columns" do
 
     before do
@@ -97,6 +121,10 @@ describe "Stories" do
 
       end
     end
+  end
+
+  def story_selector(story)
+    "##{story.id}"
   end
 
 end
