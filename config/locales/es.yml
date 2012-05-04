@@ -21,6 +21,9 @@ es:
     edit project:       "Edita Proyecto"
     project properties: "Propiedades del Proyecto"
 
+    project was successfully created: "El proyecto fue creado exitosamente."
+    project was successfully updated: "El proyecto fue actualizado exitosamente."
+
     index:
       listing projects: "Listado de Proyectos"
       are you sure you want to delete this project: "Estas seguro de querer borrar este proyecto? Esta acción no se puede revertir."

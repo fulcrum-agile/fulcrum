@@ -24,6 +24,9 @@ en:
     edit project:       "Edit Project"
     project properties: "Project Properties"
 
+    project was successfully created: "Project was successfully created."
+    project was successfully updated: "Project was successfully updated."
+
     index:
       listing projects: "Listing Projects"
       are you sure you want to delete this project: "Are you sure you want to delete this project?  This action cannot be undone."
