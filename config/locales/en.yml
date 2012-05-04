@@ -10,6 +10,8 @@ en:
   edit:     "Edit"
   delete:   "Delete"
   back:     "Back"
+  import:   "Import"
+  export:   "Export"
 
   author unknown: "Author Unknown"
 
@@ -36,7 +38,7 @@ en:
 
     show:
       done: "Done"
-      in_progress: "In progress"
+      in_progress: "In Progress"
       backlog: "Backlog"
       icebox: "Chilly Bin"
 
