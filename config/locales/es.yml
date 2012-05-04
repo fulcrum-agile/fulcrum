@@ -27,6 +27,12 @@ es:
       the iteration starts on x with length of x weeks:
         one:    "Las iteraciones empiezane en %{day} con una duración de 1 semana"
         other:    "Las iteraciones empiezane en %{day} con una duración de %{count} semanas"
+  
+    show:
+      done: "Terminadas"
+      in_progress: "En progreso"
+      backlog: "Acumuladas"
+      icebox: "Congelador"
 
   registrations:
     edit:

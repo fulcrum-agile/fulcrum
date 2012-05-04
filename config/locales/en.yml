@@ -30,6 +30,12 @@ en:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
 
+    show:
+      done: "Done"
+      in_progress: "In progress"
+      backlog: "Backlog"
+      icebox: "Chilly Bin"
+
   registrations:
     edit:
       leave_blank_if_you_dont_want_to_change_it: "Leave blank if you don't want to change it"

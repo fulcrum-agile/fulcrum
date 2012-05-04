@@ -9,14 +9,14 @@ $(function() {
   project.current_user = new Fulcrum.User(<%= current_user.to_json.html_safe %>);
 
   var doneColumn = new Fulcrum.ColumnView({
-    id: 'done', name: 'Done', el: $('td.done_column'), sortable: false
+    id: 'done', name: '<%= t('.done') %>', el: $('td.done_column'), sortable: false
   }).render();
   $('#column-toggles').append(
     new Fulcrum.ColumnVisibiltyButtonView({columnView: doneColumn}).render().el
   );
 
   var inProgressColumn = new Fulcrum.ColumnView({
-    id: 'in_progress', name: 'In Progress', el: $('td.in_progress_column'),
+    id: 'in_progress', name: '<%= t('.in_progress') %>', el: $('td.in_progress_column'),
     sortable: true
   }).render();
   $('#column-toggles').append(
@@ -24,14 +24,14 @@ $(function() {
   );
 
   var backlogColumn = new Fulcrum.ColumnView({
-    id: 'backlog', name: 'Backlog', el: $('td.backlog_column'), sortable: true
+    id: 'backlog', name: '<%= t('.backlog') %>', el: $('td.backlog_column'), sortable: true
   }).render();
   $('#column-toggles').append(
     new Fulcrum.ColumnVisibiltyButtonView({columnView: backlogColumn}).render().el
   );
 
   var chillyBinColumn = new Fulcrum.ColumnView({
-    id: 'chilly_bin', name: 'Chilly Bin', el: $('td.chilly_bin_column'),
+    id: 'chilly_bin', name: '<%= t('.icebox') %>', el: $('td.chilly_bin_column'),
     sortable: true
   }).render();
   $('#column-toggles').append(
