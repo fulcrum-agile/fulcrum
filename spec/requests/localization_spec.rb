@@ -15,9 +15,12 @@ describe "localization" do
                               :password => 'password'
   }
 
-  describe "user profile" do
+  # I am pretty sure there is a better way to do this 
+  let(:current_user) {
+    User.where(:email => "user@example.com").first
+  }
 
-    before {user}
+  describe "user profile" do
 
     it "lets user change their locale" do
       visit edit_user_registration_path
@@ -26,7 +29,7 @@ describe "localization" do
       fill_in "Current password", :with => "password"
       click_on "Update"
 
-      user.locale.should == "en"
+      current_user.locale.should == "en"
     end
 
   end
