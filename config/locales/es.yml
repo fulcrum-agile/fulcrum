@@ -1,0 +1,39 @@
+
+es:
+  fulcrum:  "Fulcrum"
+
+  log out:  "Termina session"
+  log in:   "Inicia session"
+  sign up:  "Registrate"
+  edit:     "Edita"
+  delete:   "Borra"
+  back:     "Atras"
+
+  author unknown: "Autor desconocido"
+
+  activerecord:
+    models:
+      user: 'Miembro'
+
+
+  projects:
+    new project:        "Nuevo Proyecto"
+    edit project:       "Edita Proyecto"
+    project properties: "Propiedades del Proyecto"
+
+    index:
+      listing projects: "Listado de Proyectos"
+      are you sure you want to delete this project: "Estas seguro de querer borrar este proyecto? Esta acción no se puede revertir."
+      the iteration starts on x with length of x weeks:
+        one:    "Las iteraciones empiezane en %{day} con una duración de 1 semana"
+        other:    "Las iteraciones empiezane en %{day} con una duración de %{count} semanas"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Dejar en blanco si no quieres cambiarlo"
+      notify_me_when_my_stories_are: "Notificame cuando mis historias estan"
+      we_need_your_current_password_to_confirm_your_changes: "Necesitamos tu password para confirmar tus cambios"
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"
