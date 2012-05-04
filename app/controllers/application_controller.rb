@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :set_locale
 
   # Handle unauthorized access with a good old fashioned 'forbidden'
   rescue_from CanCan::AccessDenied do |exception|
@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
       format.xml do
         render :nothing => true, :status => '404'
       end
+    end
+  end
+
+  private 
+
+  def set_locale
+    if !current_user.nil? && !current_user.locale.nil?
+      I18n.locale = current_user.locale.to_sym 
     end
   end
 end

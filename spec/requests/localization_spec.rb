@@ -20,16 +20,33 @@ describe "localization" do
     User.where(:email => "user@example.com").first
   }
 
+
   describe "user profile" do
 
     it "lets user change their locale" do
-      visit edit_user_registration_path
-
-      select "en", :from => "Locale"
-      fill_in "Current password", :with => "password"
-      click_on "Update"
+      change_locale_to "en"
 
       current_user.locale.should == "en"
+    end
+
+  end
+
+  def change_locale_to new_locale
+    visit edit_user_registration_path
+
+    select new_locale, :from => "Locale"
+    fill_in "Current password", :with => "password"
+    click_on "Update"
+  end
+
+  describe "application" do
+
+    it "sets the locale based on the user locale" do
+      change_locale_to "es"
+
+      visit root_path
+
+      page.should have_selector('h1', :text => 'Listado de Proyectos')
     end
 
   end
