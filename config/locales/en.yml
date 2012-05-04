@@ -16,6 +16,7 @@ en:
   activerecord:
     models:
       user: 'Member'
+      project: 'Project'
 
 
   projects:
