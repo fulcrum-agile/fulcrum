@@ -8,6 +8,8 @@ es:
   edit:     "Edita"
   delete:   "Borra"
   back:     "Atras"
+  import:   "Importa"
+  export:   "Exporta"
 
   author unknown: "Autor desconocido"
 

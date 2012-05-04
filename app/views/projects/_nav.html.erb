@@ -6,6 +6,6 @@
 
 <%= link_to_unless_current Story.model_name.human.pluralize, project_path(project) %> |
 <%= link_to_unless_current User.model_name.human.pluralize, project_users_path(project) %> |
-<%= link_to_unless_current 'Edit', edit_project_path(project) %> |
-<%= link_to_unless_current 'Import', import_project_stories_path(project) %> |
-<%= link_to 'Export', project_stories_path(project, :format => :csv) %>
+<%= link_to_unless_current t('edit'), edit_project_path(project) %> |
+<%= link_to_unless_current t('import'), import_project_stories_path(project) %> |
+<%= link_to t('export'), project_stories_path(project, :format => :csv) %>
