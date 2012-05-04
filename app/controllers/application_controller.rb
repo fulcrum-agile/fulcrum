@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   private 
 
   def set_locale
-    if !current_user.nil? && !current_user.locale.nil?
+    if !current_user.nil? && !current_user.locale.nil? && !current_user.locale.empty?
       I18n.locale = current_user.locale.to_sym 
     end
   end
