@@ -15,7 +15,7 @@
     <li class="root"><%= link_to t('fulcrum'), root_path %></li>
     <% if current_user %>
       <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
-        <%= link_to Project.model_name.human.pluralize, root_path %>
+        <%= link_to t('activerecord.models.project').pluralize, root_path %>
         <%- if current_user.projects.present? -%>
           <ul>
             <%- current_user.projects.each do |project| -%>
