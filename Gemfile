@@ -8,6 +8,7 @@ group :assets do
   gem 'sass-rails', "  ~> 3.2.0"
   gem 'uglifier'
   gem 'compass-rails'
+  gem 'compass_twitter_bootstrap', :git => 'https://github.com/vwall/compass-twitter-bootstrap.git' # http://bit.ly/IMlEkJ
   gem 'ejs'
 end
 
