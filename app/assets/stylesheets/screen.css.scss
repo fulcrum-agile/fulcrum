@@ -19,6 +19,11 @@ a img {
   padding: 0;
   display: inline-block;
   text-indent: -9999px;
+  background-image: image-url('glyphicons-halflings.png');
+}
+
+.icon-white {
+  background-image: image-url('glyphicons-halflings-white.png');
 }
 
 .icon-throbber {
