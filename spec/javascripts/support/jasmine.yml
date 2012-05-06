@@ -18,7 +18,7 @@ src_files:
   - spec/javascripts/lib/backbone.js
   - vendor/assets/javascripts/underscore.js
   - vendor/assets/javascripts/backbone.js
-  - vendor/assets/javascripts/bootstrap-twipsy.js
+  - vendor/assets/javascripts/bootstrap-tooltip.js
   - vendor/assets/javascripts/*.js
   - spec/javascripts/support/sinon-1.1.1.js
   - spec/javascripts/support/jasmine-sinon.js

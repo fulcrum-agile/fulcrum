@@ -11,7 +11,7 @@ config["Fulcrum"] = {
       "vendor/assets/javascripts/underscore.js",
       "vendor/assets/javascripts/backbone.js",
       "vendor/assets/javascripts/backbone.rails.js",
-      "vendor/assets/javascripts/bootstrap-twipsy.js",
+      "vendor/assets/javascripts/bootstrap-tooltip.js",
       "vendor/assets/javascripts/bootstrap-popover.js",
       "vendor/assets/javascripts/tag-it.js",
       "app/assets/javascripts/backbone/models/*.js",

@@ -17,7 +17,7 @@
 //= require_tree ./collections
 //= require_tree ./views
 //= require fulcrum
-//= require bootstrap-twipsy
+//= require bootstrap-tooltip
 //= require bootstrap-popover
 //= require tag-it
 //= require_tree .
