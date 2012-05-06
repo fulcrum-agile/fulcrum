@@ -78,12 +78,9 @@ ul#primary-nav li.secondary ul li {
 }
 
 #title_bar {
-  padding: 5px 10px 3px 10px;
-  line-height: 140%;
-  margin-bottom: 0.5em;
   position: relative;
   margin: 0;
-  padding: 10px 1em;
+  padding: 10px;
 
   div.velocity {
     float: right;
@@ -137,8 +134,7 @@ html.stories, html.stories body, html.stories div#main {
 }
 
 #column-toggles a {
-  margin: 0 0.2em;
-  padding: 3px;
+
 }
 
 #column-toggles a.pressed {
