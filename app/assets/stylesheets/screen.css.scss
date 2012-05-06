@@ -1,7 +1,6 @@
 @import 'compass/css3';
 @import 'jquery_gritter';
 @import 'jquery_tagit';
-@import 'icons';
 
 
 body {
@@ -12,6 +11,26 @@ body {
 
 a img {
   border: 0;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  display: inline-block;
+  text-indent: -9999px;
+}
+
+.icon-throbber {
+  background: image-url('throbber.gif') no-repeat;
+}
+
+.icon-spinner {
+  background: image-url('spinner.gif') no-repeat;
+}
+
+a.expand, a.collapse {
+  cursor: pointer;
 }
 
 #header {
@@ -39,8 +58,6 @@ ul#primary-nav li.root {
 }
 ul#primary-nav li.secondary {
   position: relative;
-  @include icons-sprite(collapse, false, 0px, 6px);
-  background-position-x:right;
   padding: 0.4em 18px 0.4em 0.4em;
 }
 ul#primary-nav li.secondary ul {
@@ -258,8 +275,7 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  @include icons-sprite(iteration, false, 2px, 3px);
-  padding: 0.2em 0.2em 0.2em 20px
+  padding: 0.2em
 }
 .iteration .points {
   float: right;
