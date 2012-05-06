@@ -151,7 +151,7 @@ describe('Fulcrum.StoryView', function() {
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
-      expect($(this.view.el).find('a.collapse').hasClass('icons-throbber')).toBeTruthy();
+      expect($(this.view.el).find('a.collapse').hasClass('icon-throbber')).toBeTruthy();
       this.server.respond();
 
       expect(enable_spy).toHaveBeenCalled();

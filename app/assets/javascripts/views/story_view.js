@@ -243,7 +243,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         this.makeFormControl(function(div) {
           if (!this.model.isNew()) {
             $(div).append(
-              this.make("a", {'class': "collapse icon icons-collapse"})
+              this.make("a", {'class': "collapse icon icon-chevron-down"})
             );
           }
           $(div).append(this.textField("title", {'placeholder': 'Story title'}));
@@ -359,11 +359,11 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   disableForm: function() {
     this.$el.find('input,select,textarea').attr('disabled', 'disabled');
-    this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
+    this.$el.find('a.collapse,a.expand').removeClass(/icon-/).addClass('icon-throbber');
   },
 
   enableForm: function() {
-    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+    this.$el.find('a.collapse').removeClass(/icon-/).addClass("icon-chevron-down");
   },
 
   initTags: function() {
@@ -421,11 +421,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
     this.model.notes.add();
-    this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
-  },
-
-  enableForm: function() {
-    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+    this.$el.find('a.collapse,a.expand').removeClass(/icon-/).addClass('icon-throbber');
   },
 
   // FIXME Move to separate view

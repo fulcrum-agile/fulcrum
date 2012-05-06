@@ -268,6 +268,26 @@ Fulcrum.Story = Backbone.Model.extend({
     return this.notes.any(function(note) {
       return !note.isNew();
     });
+  },
+  
+  // Returns the CSS-class of the bootstrap icon matching this story's type.
+  storyTypeIcon: function() {
+    switch (this.get('story_type')) {
+      case 'feature':
+        return 'icon-star';
+        break;
+      case 'chore':
+        return 'icon-shopping-cart';
+        break;
+      case 'bug':
+        return 'icon-fire';
+        break;
+      case 'release':
+        return 'icon-briefcase';
+        break;
+      default:
+        return 'icon-question-sign';
+    }
   }
 
 });

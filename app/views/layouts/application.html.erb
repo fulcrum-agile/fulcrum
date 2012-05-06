@@ -16,6 +16,7 @@
     <% if current_user %>
       <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
         <%= link_to Project.model_name.human.pluralize, root_path %>
+        <i class="icon-chevron-down"></i>
         <%- if current_user.projects.present? -%>
           <ul>
             <%- current_user.projects.each do |project| -%>
