@@ -110,7 +110,7 @@ $(function() {
   <div id="velocity" class="velocity"></div>
   <%= render :partial => 'projects/nav',
              :locals => {:project => @project, :show_column_toggles => true} %>
-  | <a id="add_story" href="#">Add story</a>
+  <a id="add_story" class="btn btn-success" href="#"><i class="icon-white icon-plus"></i> Add story</a>
 <% end %>
 
 <table class="stories" width="100%">

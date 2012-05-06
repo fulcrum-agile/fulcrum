@@ -1,0 +1,175 @@
+@import 'compass/css3';
+
+
+//---------------------------------------------------------
+//
+// C O L O R S
+//
+//---------------------------------------------------------
+
+$text-color:                    #535353;
+$link-color:                    #0088cc;
+$header-bg-color:               #404446;
+$header-link-color:             #f8f8f8;
+$header-link-hover-color:       #ffe13b;
+$th-bg-color:                   #eaeaea;
+$td-border-color:               #e7e7e7;
+
+$bold-font-weight:              400;
+
+
+
+//---------------------------------------------------------
+//
+// B A S E   C S S
+//
+//---------------------------------------------------------
+
+body {
+  color: $text-color;
+    font-weight: 200;
+}
+
+a {
+  color: $link-color;
+}
+
+h1, h2, h3, h4 {
+  font-weight: $bold-font-weight;
+}
+
+
+
+//---------------------------------------------------------
+//
+// H E A D E R
+//
+//---------------------------------------------------------
+
+#header {
+  background-color: $header-bg-color;
+
+  ul#primary-nav {
+    background-image: image-url('skins/default/logo.png');
+    
+    li.root {
+      font-size: 22px;
+      font-weight: $bold-font-weight;
+      text-transform: lowercase;
+    }
+    
+    li.secondary {
+      
+      i.icon-chevron-down {
+         background-image: image-url('glyphicons-halflings-white.png');
+      }
+    }
+
+  }
+  
+  a {
+    color: $header-link-color;
+    
+    &:hover {
+      color: $header-link-hover-color;
+      text-decoration: none;
+    }
+    
+  }
+}
+
+
+
+//---------------------------------------------------------
+//
+// T I T L E   B A R
+//
+//---------------------------------------------------------
+
+#title_bar {
+  @include clearfix();
+  background-color: $header-link-color;
+  border-bottom: 1px solid $td-border-color;
+  
+  h1 {
+    float: left;
+    margin: 0;
+  }
+  
+}
+
+#project-menu {
+  float: left;
+  clear: left;
+  display: inline-block;
+  line-height: 30px;
+}
+
+a#add_story {
+  float: right;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+#column-toggles {
+  clear: left;
+  
+  // Taken from bootstrap .btn.disabled.
+  a.pressed {
+    cursor: default;
+    background-image: none;
+    background-color: #e6e6e6;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=65);
+    opacity: 0.65;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+  
+}
+
+
+
+//---------------------------------------------------------
+//
+// C O L U M N S
+//
+//---------------------------------------------------------
+
+table.stories {
+  td {
+    border: 1px solid $th-bg-color;
+  }
+}
+
+div.column_header {
+  background-color: $th-bg-color;
+  font-size: 14px;
+  font-weight: $bold-font-weight;
+  line-height: 22px;
+  text-transform: uppercase;
+  
+  a {
+    color: $text-color;
+    
+    &:hover {
+     text-decoration: none;
+     color: #000; 
+    }
+  }
+}
+
+div.iteration {
+  background-color: #d0d5d5;
+  color: #000000;
+  border: 1px 0 solid #dbdbdb;
+  padding: 4px 7px 4px 18px;
+  
+  i.icon-refresh {
+    margin-right: 5px;
+  }
+}
+
+div.story {
+  border-bottom: 1px solid $td-border-color;
+}
