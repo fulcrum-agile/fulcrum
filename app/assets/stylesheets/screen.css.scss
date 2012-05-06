@@ -99,9 +99,6 @@ ul#primary-nav li.secondary ul li {
   }
 
   #add_story {
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0.2em 0.4em 0.2em 18px;
     cursor: pointer;
   }
 }
@@ -270,8 +267,6 @@ span.estimate_8 {
 }
 
 .state-actions input {
-  margin: 0;
-  padding: 0 0.3em;
   cursor: pointer;
 }
 .story.release .state-actions input {
@@ -331,15 +326,6 @@ ul#projects li:hover {
 
 }
 
-a.button {
-  padding: 5px;
-}
-
-
-
-a.button:hover {
-
-}
 .tags{
 
 }

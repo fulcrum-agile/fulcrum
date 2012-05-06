@@ -11,7 +11,7 @@ Fulcrum.FormView = Backbone.View.extend({
   },
 
   textField: function(name, extra_opts) {
-    var defaults = {type: "text", name: name, value: this.model.get(name)}
+    var defaults = {type: "text", name: name, value: this.model.get(name)};
     this.mergeAttrs(defaults, extra_opts);
     var el = this.make('input', defaults);
     this.bindElementToAttribute(el, name, "keyup");
@@ -71,17 +71,17 @@ Fulcrum.FormView = Backbone.View.extend({
   },
 
   submit: function() {
-    var el = this.make('input', {id: "submit", type: "button", value: "Save"});
+    var el = this.make('input', {id: "submit", type: "button", 'class': 'btn btn-mini btn-primary', value: "Save"});
     return el;
   },
 
   destroy: function() {
-    var el = this.make('input', {id: "destroy", type: "button", value: "Delete"});
+    var el = this.make('input', {id: "destroy", type: "button", 'class': 'btn btn-mini btn-danger', value: "Delete"});
     return el;
   },
 
   cancel: function() {
-    var el = this.make('input', {id: "cancel", type: "button", value: "Cancel"});
+    var el = this.make('input', {id: "cancel", type: "button", 'class': 'btn btn-mini', value: "Cancel"});
     return el;
   },
 
