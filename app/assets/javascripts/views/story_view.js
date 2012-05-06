@@ -327,7 +327,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               window.md.makeHtml(this.model.escape('description'))
             );
             $(div).append(description);
-            $(description).after('<input id="edit-description" type="button" value="Edit"/>');
+            $(description).after('<input id="edit-description" type="button" class="btn btn-mini" value="Edit"/>');
           }
         })
       );

@@ -58,6 +58,6 @@
     <div class="help"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></div>
   </div>
 
-  <div class="actions"><%= f.submit "Update" %></div>
+  <div class="actions"><%= f.submit "Update", :class => 'btn' %></div>
 <% end %>
 <div class="secondary-actions"><%= link_to t(".cancel my account"), registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %></div>
