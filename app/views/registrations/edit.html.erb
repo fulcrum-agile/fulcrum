@@ -21,6 +21,11 @@
   </div>
 
   <div class="field-wrapper">
+    <%= f.label :locale %>
+    <div class="field"><%= f.select :locale, I18n.available_locales, :include_blank => true %></div>
+  </div>
+
+  <div class="field-wrapper">
     <%= f.label :password %>
     <div class="field"><%= f.password_field :password %></div>
     <div class="help"><%= t('.leave_blank_if_you_dont_want_to_change_it') %></div>

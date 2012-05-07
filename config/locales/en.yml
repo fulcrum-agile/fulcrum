@@ -10,12 +10,15 @@ en:
   edit:     "Edit"
   delete:   "Delete"
   back:     "Back"
+  import:   "Import"
+  export:   "Export"
 
   author unknown: "Author Unknown"
 
   activerecord:
     models:
       user: 'Member'
+      project: 'Project'
 
 
   projects:
@@ -23,12 +26,21 @@ en:
     edit project:       "Edit Project"
     project properties: "Project Properties"
 
+    project was successfully created: "Project was successfully created."
+    project was successfully updated: "Project was successfully updated."
+
     index:
       listing projects: "Listing Projects"
       are you sure you want to delete this project: "Are you sure you want to delete this project?  This action cannot be undone."
       the iteration starts on x with length of x weeks:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
+
+    show:
+      done: "Done"
+      in_progress: "In Progress"
+      backlog: "Backlog"
+      icebox: "Chilly Bin"
 
   registrations:
     edit:

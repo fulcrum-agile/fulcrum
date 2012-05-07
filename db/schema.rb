@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319114057) do
+ActiveRecord::Schema.define(:version => 20120504152649) do
 
   create_table "changesets", :force => true do |t|
     t.integer  "story_id"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20120319114057) do
     t.boolean  "email_acceptance",                      :default => true
     t.boolean  "email_rejection",                       :default => true
     t.datetime "reset_password_sent_at"
+    t.string   "locale"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
