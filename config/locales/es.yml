@@ -45,9 +45,6 @@ es:
       notify_me_when_my_stories_are: "Notificame cuando mis historias estan"
       we_need_your_current_password_to_confirm_your_changes: "Necesitamos tu password para confirmar tus cambios"
 
-  time:
-    formats:
-      note_date: "%b %d, %Y"
   date:
     abbr_day_names:
     - dom
@@ -244,6 +241,7 @@ es:
       default: ! '%a, %d de %b de %Y a las %H:%M:%S %Z'
       long: ! '%A, %d de %B de %Y a las %I:%M %p'
       short: ! '%d de %b a las %H:%M hrs'
+      note_date: "%b %d, %Y"
     pm: pm
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
