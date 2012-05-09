@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= t('fulcrum') %></title>
+  <title><%= "#{@project.name} - " if @project %><%= t('fulcrum') %></title>
   <%= csrf_meta_tag %>
   <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
   <%= stylesheet_link_tag 'screen.css', :Media => 'screen, projection' %>
