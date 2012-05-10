@@ -304,6 +304,16 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         })
       );
 
+        if( this.model.get('story_type') == 'release'){
+            this.$el.append(
+                this.makeFormControl({
+                    name: "deadline",
+                    label: "Deadline",
+                    control: this.datepicker("deadline")
+                })
+            );
+        }
+
       this.$el.append(
         this.makeFormControl({
           name: "labels",

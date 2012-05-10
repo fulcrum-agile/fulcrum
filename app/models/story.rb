@@ -1,7 +1,7 @@
 class Story < ActiveRecord::Base
 
   JSON_ATTRIBUTES = [
-    "title", "accepted_at", "created_at", "updated_at", "description",
+    "title", "accepted_at", "deadline", "created_at", "updated_at", "description",
     "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
     "state", "position", "id", "labels"
   ]
@@ -18,6 +18,8 @@ class Story < ActiveRecord::Base
   validates_presence_of :project_id
 
   validates :title, :presence => true
+
+  validate :deadline_is_after_project_start
 
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true
@@ -140,7 +142,7 @@ class Story < ActiveRecord::Base
       state,                    # Current State
       created_at,               # Created at
       accepted_at,              # Accepted at
-      nil,                      # Deadline
+      deadline,                 # Deadline
       requested_by.try(:name),  # Requested By
       owned_by.try(:name),      # Owned By
       description,              # Description
@@ -202,6 +204,12 @@ class Story < ActiveRecord::Base
     ([requested_by, owned_by] + notes.map(&:user)).compact.uniq
   end
 
+  def deadline_is_after_project_start
+    puts "#{self.deadline}   #{self.project.start_date}"
+    if (!self.project.start_date.nil? && self.deadline.to_date < self.project.start_date)
+      errors.add(:deadline, "deadline must be after project start")
+    end
+  end
   private
 
     def set_accepted_at
