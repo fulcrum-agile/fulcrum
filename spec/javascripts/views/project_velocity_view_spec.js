@@ -1,90 +1,114 @@
 describe('Fulcrum.ProjectVelocityView', function() {
 
   beforeEach(function() {
-    var Story = Backbone.Model.extend({
-      name: 'story',
-      fetch: function() {},
-      position: function() {},
-      labels: function() { return []; }
-    });
-    this.story = new Story({id: 456});
-
-    this.project = new Fulcrum.Project({
-      id: 999, title: 'Test project', point_values: [0, 1, 2, 3],
-      last_changeset_id: null, iteration_start_day: 1, iteration_length: 1
-    });
-    this.project.stories.add(this.story);
-
-    this.view = new Fulcrum.ProjectVelocityView({model: this.project});
+    this.model = {bind: sinon.stub()};
+    sinon.stub(Fulcrum, 'ProjectVelocityOverrideView');
+    this.overrideView = {};
+    Fulcrum.ProjectVelocityOverrideView.withArgs({model: this.model}).returns(
+      this.overrideView
+    );
+    this.subject = new Fulcrum.ProjectVelocityView({model: this.model});
   });
+
+  afterEach(function() {
+    Fulcrum.ProjectVelocityOverrideView.restore();
+  }); 
 
   it("should have a top level element", function() {
-    expect(this.view.el.nodeName).toEqual('DIV');
+    expect(this.subject.el.nodeName).toEqual('DIV');
   });
 
-  // FIXME - Test too tightly coupled to view rendering
-  xdescribe("when rendered", function() {
+  describe("initialize", function() {
+
+    it("creates the override view", function() {
+      expect(this.subject.override_view).toEqual(this.overrideView);
+    });
+
+    it("binds setFakeClass to change:userVelocity on the model", function() {
+      expect(this.model.bind).toHaveBeenCalledWith(
+        "change:userVelocity", this.subject.setFakeClass
+      );
+    });
+
+    it("binds render to rebuilt-iterations on the model", function() {
+      expect(this.model.bind).toHaveBeenCalledWith(
+        "rebuilt-iterations", this.subject.render
+      );
+    });
+
+  });
+
+  describe("render", function() {
+
     beforeEach(function() {
-      $(this.view.render().el);
+      this.subject.$el.html = sinon.stub();
+      this.subject.setFakeClass = sinon.stub();
+      this.template = {};
+      this.subject.template = sinon.stub().withArgs({project: this.model}).returns(this.template);
     });
 
-    it("should contain text with the default velocity", function() {
-      expect(this.view.$el.find("span").text()).toEqual('10');
+    it("renders the template", function() {
+      this.subject.render();
+      expect(this.subject.$el.html).toHaveBeenCalledWith(this.template);
     });
+
+    it("calls setFakeClass()", function() {
+      this.subject.render();
+      expect(this.subject.setFakeClass).toHaveBeenCalledWith(this.model);
+    });
+
+    it("returns itself", function() {
+      expect(this.subject.render()).toBe(this.subject);
+    });
+
   });
 
-  xdescribe("when velocity is overridden", function() {
+  describe("editVelocityOverride", function() {
+
     beforeEach(function() {
-      this.project.velocity(999);
+      this.el = {};
+      this.subject.override_view.render = sinon.stub();
+      this.subject.override_view.render.returns({el: this.el});
+      this.subject.$el.append = sinon.stub();
     });
 
-    describe("when rendered", function() {
-      beforeEach(function() {
-        this.view.render();
-      });
-
-      it("should contain text with the overridden velocity", function() {
-        expect(this.view.$el.find("span").text()).toEqual('999');
-      });
-
+    it("appends the override view to its $el", function() {
+      this.subject.editVelocityOverride();
+      expect(this.subject.$el.append).toHaveBeenCalled(this.el);
     });
+
   });
 
-  xdescribe("when velocity is reverted", function() {
+  describe("setFakeClass", function() {
+
     beforeEach(function() {
-      this.project.revertVelocity();
+      this.model.velocityIsFake = sinon.stub();
     });
 
-    describe("when rendered", function() {
+    describe("when velocity is fake", function() {
+
       beforeEach(function() {
-        $(this.view.render().el);
+        this.model.velocityIsFake.returns(true);
       });
 
-      it("should contain text with the overridden velocity", function() {
-        expect(parseInt(this.view.$el.find("span").text(), 10)).toEqual(this.project.get('default_velocity'));
-      });
-    });
-  });
-
-  xdescribe("setFakeClass", function() {
-    describe("when velocity is not overridden", function() {
-      beforeEach(function() {
-        this.project.velocityIsFake = function() { return false; };
+      it("adds the fake class to $el", function() {
+        this.subject.setFakeClass(this.model);
+        expect(this.subject.$el).toHaveClass('fake');
       });
 
-      it("doesn't have the fake class", function() {
-        expect($(this.view.render().el)).not.toHaveClass('fake');
-      });
     });
 
-    describe("when velocity is overridden", function() {
+    describe("when velocity is not fake", function() {
+
       beforeEach(function() {
-        this.project.velocityIsFake = function() { return true; };
+        this.model.velocityIsFake.returns(false);
       });
 
-      it("has the fake class", function() {
-        expect($(this.view.render().el)).toHaveClass('fake');
+      it("adds the fake class to $el", function() {
+        this.subject.setFakeClass(this.model);
+        expect(this.subject.$el).not.toHaveClass('fake');
       });
+
     });
   });
 });

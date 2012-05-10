@@ -21,7 +21,7 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
   },
 
   changeVelocity: function() {
-    this.model.velocity(parseInt($("input[name=override]").val(), 10));
+    this.model.velocity(this.requestedVelocityValue());
     this.$el.remove();
     return false;
   },
@@ -30,6 +30,10 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
     this.model.revertVelocity();
     this.$el.remove();
     return false;
+  },
+
+  requestedVelocityValue: function() {
+    return parseInt(this.$("input[name=override]").val(), 10);
   },
 
   keyCapture: function(e) {
