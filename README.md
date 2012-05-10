@@ -24,7 +24,9 @@ There are several communication channels for Fulcrum:
 * You might also find someone in #fulcrum on the Freenode IRC network if you're
   looking for realtime help.
 
-See the *Development* section below for details on contributing to the project.
+See the [Development](#development) section below for details on contributing
+to the project, and [Translating](#translating) for details on how to help
+translate Fulcrum into your native language.
 
 Goals
 -----
@@ -92,6 +94,25 @@ to the previous section for instructions. Then:
 
 Once that's done, you will be able to view your site at
 `http://APPNAME.herokuapp.com`.
+
+Translating
+-----------
+
+Below is an example of how you might go about translating Fulcrum to German.
+
+* Find the name of your locale, in this case we are using `de`
+* Copy the `config/locales/en.yml` file to `config/locales/de.yml`
+* Edit the file and update all the translated strings in quotes on the right
+  hand side.
+
+Thats it!  Ideally you should send your translation as a pull request so you
+get credit for it, but if you do not wish to do this please send the file to
+one of the mailing lists.
+
+If Fulcrum has already been translated for your language, please take the time
+to check the translation database is complete for your language.  You can do
+this by running the `rake i18n:missing_keys` task.  If you find any missing
+keys for your language please add them.
 
 Development
 -----------
