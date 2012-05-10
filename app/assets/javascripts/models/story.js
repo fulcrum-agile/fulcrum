@@ -203,6 +203,9 @@ Fulcrum.Story = Backbone.Model.extend({
     }).join(', ');
   },
 
+    deadline: function(){
+        return this.get('deadline');
+    },
   // Returns the user that owns this Story, or undefined if no user owns
   // the Story
   owned_by: function() {

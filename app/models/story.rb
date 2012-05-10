@@ -205,7 +205,6 @@ class Story < ActiveRecord::Base
   end
 
   def deadline_is_after_project_start
-    puts "#{self.deadline}   #{self.project.start_date}"
     if (!self.project.start_date.nil? && self.deadline.to_date < self.project.start_date)
       errors.add(:deadline, "deadline must be after project start")
     end
