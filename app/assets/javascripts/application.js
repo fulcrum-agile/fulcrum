@@ -13,6 +13,7 @@
 //= require backbone.rails
 //= require Markdown.Converter
 //= require_tree ./templates
+//= require_tree ./mixins
 //= require_tree ./models
 //= require_tree ./collections
 //= require_tree ./views
@@ -20,4 +21,6 @@
 //= require bootstrap-twipsy
 //= require bootstrap-popover
 //= require tag-it
+//= require i18n
+//= require i18n/translations
 //= require_tree .

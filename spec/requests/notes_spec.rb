@@ -8,8 +8,9 @@ describe "Notes" do
 
   before(:each) do
     DatabaseCleaner.clean
-    # FIXME - Something is not quite right with this
-    Capybara.default_wait_time = 6
+    # FIXME - Having to set this really high for the 'adds a note to a story
+    # spec'.  Need to work on making it more responsive.
+    Capybara.default_wait_time = 10
     sign_in user
   end
 

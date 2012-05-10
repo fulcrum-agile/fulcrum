@@ -6,7 +6,7 @@ Fulcrum.FormView = Backbone.View.extend({
   tagName: 'form',
 
   label: function(elem_id, value) {
-    value = value || elem_id;
+    value = value || this.model.humanAttributeName(elem_id);
     return this.make('label', {'for': elem_id}, value);
   },
 

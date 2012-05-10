@@ -75,7 +75,7 @@ $(function() {
   <div id="velocity" class="velocity"></div>
   <%= render :partial => 'projects/nav',
              :locals => {:project => @project, :show_column_toggles => true} %>
-  | <a id="add_story" href="#">Add story</a>
+             | <a id="add_story" href="#"><%= t('add story') %></a>
 <% end %>
 
 <table class="stories" width="100%">

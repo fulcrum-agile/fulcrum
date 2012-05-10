@@ -1,0 +1,11 @@
+<form>
+  <ul>
+    <li><%= I18n.t("override velocity") %>:
+      <input name="override" size=2 value=<%= project.velocity() %> />
+    </li>
+    <li>
+      <button name="revert" value="revert"><%= I18n.t("revert") %></button>
+      <button name="apply" value="apply"><%= I18n.t("apply") %></button>
+    </li>
+  </ul>
+</form>

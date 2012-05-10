@@ -12,13 +12,50 @@ en:
   back:     "Back"
   import:   "Import"
   export:   "Export"
+  revert:   "Revert"
+  apply:    "Apply"
+  velocity: "Velocity"
+  notes:    "Notes"
+  close:    "Close"
+  points:   "Points"
+  saving:   "Saving ..."
+  expand:   "Expand"
 
   author unknown: "Author Unknown"
+  add story: "Add story"
+  save error: "Save error"
+  override velocity: "Override velocity"
+  story title: "Story title"
+
+  requested on date:          'Requested on {{date}}'
+  requested by user on date:  'Requested by {{user}} on {{date}}'
 
   activerecord:
     models:
       user: 'Member'
       project: 'Project'
+
+    attributes:
+      note:
+        note:                 'Note'
+      project:
+        name:                 'Name'
+        point_scale:          'Point scale'
+        start_date:           'Start date'
+        iteration_start_day:  'Iteration start day'
+        iteration_length:     'Iteration length'
+        default_velocity:     'Default velocity'
+      story:
+        title:                'Title'
+        description:          'Description'
+        estimate:             'Estimate'
+        story_type:           'Story type'
+        state:                'State'
+        accepted_at:          'Accepted at'
+        position:             'Position'
+        labels:               'Labels'
+        requested_by:         'Requested by'
+        owned_by:             'Owned by'
 
 
   projects:

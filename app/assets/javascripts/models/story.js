@@ -5,6 +5,8 @@ if (typeof Fulcrum == 'undefined') {
 Fulcrum.Story = Backbone.Model.extend({
   name: 'story',
 
+  i18nScope: 'activerecord.attributes.story',
+
   timestampFormat: 'd mmm yyyy, h:MMtt',
 
   initialize: function(args) {
@@ -184,25 +186,6 @@ Fulcrum.Story = Backbone.Model.extend({
     return className;
   },
 
-  hasErrors: function() {
-    return (typeof this.get('errors') != "undefined");
-  },
-
-  errorsOn: function(field) {
-    if (!this.hasErrors()) {
-      return false;
-    }
-    return (typeof this.get('errors')[field] != "undefined");
-  },
-
-  errorMessages: function() {
-    return _.map(this.get('errors'), function(errors, field) {
-      return _.map(errors, function(error) {
-        return field + " " + error;
-      }).join(', ');
-    }).join(', ');
-  },
-
   // Returns the user that owns this Story, or undefined if no user owns
   // the Story
   owned_by: function() {
@@ -269,5 +252,6 @@ Fulcrum.Story = Backbone.Model.extend({
       return !note.isNew();
     });
   }
-
 });
+
+_.defaults(Fulcrum.Story.prototype, Fulcrum.SharedModelMethods);

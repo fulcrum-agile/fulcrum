@@ -134,7 +134,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
-        window.projectView.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({
+          title: I18n.t("save error"),
+          text: model.errorMessages()
+        });
         that.saveInProgress = false;
         that.render();
       }
@@ -154,7 +157,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
-        window.projectView.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({
+          title: I18n.t("save error"),
+          text: model.errorMessages()
+        });
         that.saveInProgress = false;
         that.render();
       }
@@ -207,7 +213,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
         model.set({editing: true, errors: json.story.errors});
-        window.projectView.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({
+          title: I18n.t("Save error"),
+          text: model.errorMessages()
+        });
         that.enableForm();
       }
     });
@@ -246,7 +255,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               this.make("a", {'class': "collapse icon icons-collapse"})
             );
           }
-          $(div).append(this.textField("title", {'placeholder': 'Story title'}));
+          $(div).append(this.textField("title", {
+            'placeholder': I18n.t('story title')
+          }));
         })
       );
 
@@ -265,7 +276,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl({
           name: "estimate",
-          label: "Estimate",
+          label: true,
           control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
         })
       );
@@ -273,7 +284,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl({
           name: "story_type",
-          label: "Story Type",
+          label: true,
           control: this.select("story_type", ["feature", "chore", "bug", "release"])
         })
       );
@@ -281,7 +292,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl({
           name: "state",
-          label: "State",
+          label: true,
           control: this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"])
         })
       );
@@ -289,7 +300,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl({
           name: "requested_by_id",
-          label: "Requested By",
+          label: true,
           control: this.select("requested_by_id",
             this.model.collection.project.users.forSelect(),{blank: '---'})
         })
@@ -298,7 +309,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl({
           name: "owned_by_id",
-          label: "Owned By",
+          label: true,
           control: this.select("owned_by_id",
             this.model.collection.project.users.forSelect(),{blank: '---'})
         })
@@ -307,7 +318,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl({
           name: "labels",
-          label: "Labels",
+          label: true,
           control: this.textField("labels")
         })
       );
@@ -327,7 +338,13 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               window.md.makeHtml(this.model.escape('description'))
             );
             $(div).append(description);
-            $(description).after('<input id="edit-description" type="button" value="Edit"/>');
+            $(description).after(
+              this.make('input', {
+                id: 'edit-description',
+                type: 'button',
+                value: I18n.t('edit')
+              })
+            );
           }
         })
       );
@@ -383,7 +400,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     if (this.model.notes.length > 0) {
       var el = this.$el;
       el.append('<hr/>');
-      el.append('<h3>Notes</h3>');
+      el.append('<h3>' + I18n.t('notes') + '</h3>');
       el.append('<div class="notelist"/>');
       this.renderNotesCollection();
     }
@@ -486,7 +503,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     } else if (typeof content == 'object') {
       var $div = $(div);
       if (content.label) {
-        $div.append(this.label(content.name, content.label));
+        $div.append(this.label(content.name));
         $div.append('<br/>');
       }
       $div.append(content.control);

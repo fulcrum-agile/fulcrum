@@ -35,7 +35,10 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
         var json = $.parseJSON(response.responseText);
         view.enableForm();
         model.set({errors: json.note.errors});
-        window.projectView.notice({title: "Save error", text: model.errorMessages()});
+        window.projectView.notice({
+          title: I18n.t("save error", {defaultValue: "Save error"}),
+          text: model.errorMessages()
+        });
       }
     });
   },
@@ -44,7 +47,7 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
     var view = this;
 
     div = this.make('div');
-    $(div).append(this.label("note", "Note"));
+    $(div).append(this.label("note"));
     $(div).append('<br/>');
     $(div).append(this.textArea("note"));
 

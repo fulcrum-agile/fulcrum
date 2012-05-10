@@ -50,4 +50,20 @@ describe("Note", function() {
     });
 
   });
+
+  describe('humanAttributeName', function() {
+
+    beforeEach(function() {
+      I18n = {t: sinon.stub()};
+      I18n.t.withArgs('foo_bar').returns('Foo bar');
+    });
+
+    it("returns the translated attribute name", function() {
+      expect(this.note.humanAttributeName('foo_bar')).toEqual('Foo bar');
+    });
+
+    it("strips of the id suffix", function() {
+      expect(this.note.humanAttributeName('foo_bar_id')).toEqual('Foo bar');
+    });
+  });
 });

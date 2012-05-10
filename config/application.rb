@@ -48,6 +48,6 @@ module Fulcrum
     config.assets.version = '1.0'
 
     # Do not initialize the whole Rails stack when precompiling assets
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
   end
 end

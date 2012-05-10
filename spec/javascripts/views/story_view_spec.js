@@ -5,7 +5,10 @@ describe('Fulcrum.StoryView', function() {
       availableTags: []
     };
     window.md = { makeHtml: sinon.stub() };
-    var Note = Backbone.Model.extend({name: 'note'});
+    var Note = Backbone.Model.extend({
+      name: 'note',
+      humanAttributeName: sinon.stub()
+    });
     var NotesCollection = Backbone.Collection.extend({model: Note});
     var Story = Backbone.Model.extend({
       name: 'story', defaults: {story_type: 'feature'},
@@ -17,6 +20,7 @@ describe('Fulcrum.StoryView', function() {
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return [];} } } },
       start: function() {},
+      humanAttributeName: sinon.stub(),
       setAcceptedAt: sinon.spy()
       //moveAfter: function() {},
       //moveBefore: function() {}
@@ -30,6 +34,8 @@ describe('Fulcrum.StoryView', function() {
     this.new_story_view = new Fulcrum.StoryView({
       model: this.new_story
     });
+
+    window.I18n = {t: sinon.stub()};
 
     this.server = sinon.fakeServer.create();
   });
@@ -460,7 +466,7 @@ describe('Fulcrum.StoryView', function() {
 
       it("creates a label", function() {
         var label = '<label for="foo">Foo</label>';
-        var stub = sinon.stub(this.view, 'label').withArgs('foo', 'Foo').returns(label);
+        var stub = sinon.stub(this.view, 'label').withArgs('foo').returns(label);
         this.view.makeFormControl(this.content);
         expect(this.appendSpy).toHaveBeenCalledWith(label);
         expect(this.appendSpy).toHaveBeenCalledWith('<br/>');

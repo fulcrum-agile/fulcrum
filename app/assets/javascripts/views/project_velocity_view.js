@@ -17,9 +17,7 @@ Fulcrum.ProjectVelocityView = Backbone.View.extend({
     "click #velocity_value": "editVelocityOverride"
   },
 
-  template: _.template(
-                'Velocity: <span id="velocity_value"><%= project.velocity() %></span>'
-              ),
+  template: JST['templates/project_velocity'],
 
   render: function() {
     this.$el.html(this.template({project: this.model}));

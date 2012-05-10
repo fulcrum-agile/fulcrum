@@ -24,6 +24,7 @@ src_files:
   - spec/javascripts/support/jasmine-sinon.js
   - spec/javascripts/support/jasmine-jquery-1.2.0.js
   - spec/javascripts/support/jst-stubs.js
+  - app/assets/javascripts/mixins/*.js
   - app/assets/javascripts/models/*.js
   - app/assets/javascripts/collections/*.js
   - app/assets/javascripts/views/*.js

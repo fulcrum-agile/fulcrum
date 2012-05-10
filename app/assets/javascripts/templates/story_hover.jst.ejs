@@ -4,21 +4,22 @@
     <span class="text"><%= story.get('story_type') %></span>
     <% if (story.get('estimated')) { %>
       <span class="estimate estimate_<%= story.get('estimate') %>"><%= story.get('estimate') %></span>
-      <span class="text"><%= story.get('estimate') %> points</span>
+      <span class="text"><%= story.get('estimate') %> <%= I18n.t('points') %></span>
     <% } %>
   </span>
-  <span>Requested
+  <span>
     <% if (story.requested_by()) { %>
-    by <%= story.requested_by().get("name") %>
+      <%= I18n.t("requested by user on date", {user: story.requested_by().get('name'), date: story.created_at()}) %>
+    <% } else { %>
+      <%= I18n.t("requested on date", {date: story.created_at()}) %>
     <% } %>
-    on <%= story.created_at() %></span>
 </div>
 <% if (story.get('description')) { %>
-  <h4 class="title">Description</h4>
+  <h4 class="title"><%= story.humanAttributeName('description') %></h4>
   <div class="description"><%= window.md.makeHtml(story.escape('description')) %></div>
 <% } %>
 <% if (story.hasNotes()) { %>
-  <h5 class="title">Notes</h5>
+  <h5 class="title"><%= I18n.t('notes') %></h5>
   <% _.each(story.notes.saved(), function(note) { %>
   <div class="note"><%= JST['templates/note']({note:note}) %></div>
   <% }); %>
