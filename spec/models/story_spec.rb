@@ -47,6 +47,7 @@ describe Story do
         subject.should have(1).error_on(:deadline)
       end
     end
+
     describe '#estimate' do
       it "must be valid for the project point scale" do
         subject.project.point_scale = 'fibonacci'
