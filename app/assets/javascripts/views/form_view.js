@@ -9,7 +9,6 @@ Fulcrum.FormView = Backbone.View.extend({
     value = value || elem_id;
     return this.make('label', {'for': elem_id}, value);
   },
-
   textField: function(name, extra_opts) {
     var defaults = {type: "text", name: name, value: this.model.get(name)}
     this.mergeAttrs(defaults, extra_opts);

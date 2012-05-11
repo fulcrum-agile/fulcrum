@@ -413,4 +413,13 @@ describe('Fulcrum.Story', function() {
 
   });
 
+  describe("deadline",function(){
+    it("should allow a deadline to be set on a release story",function(){
+        this.story.set({story_type: 'release'});
+        expect(this.story.get('deadline')).toBeFalsy();
+        this.story.set({deadline: '05-09-2012'});
+        expect(this.story.get('deadline')).toEqual('05-09-2012');
+    });
+  });
+
 });

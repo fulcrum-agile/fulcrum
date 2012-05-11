@@ -21,6 +21,28 @@ describe "Stories" do
                                   :users => [user]
   end
 
+  describe "Set deadline on release" do
+
+    before do
+      project
+    end
+
+    it "creates a release story and sets a deadline", :js => true do
+      visit project_path(project)
+
+      click_on 'Add story'
+
+      within('#chilly_bin') do
+        fill_in 'title', :with => 'New story'
+        select "release", :from => 'story_type'
+        find_field('deadline')
+        select "bug", :from => 'story_type'
+        page.should_not have_selector(".hasDatepicker")
+        click_on 'Save'
+      end
+
+    end
+  end
   describe "full story life cycle" do
 
     before do

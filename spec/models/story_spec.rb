@@ -37,8 +37,16 @@ describe Story do
         subject.project_id = nil
         subject.should have(1).error_on(:project_id)
       end
+
     end
 
+    describe '#deadline' do
+      it "should not allow a deadline before start_date" do
+        subject.project.start_date = '05-12-2012'
+        subject.deadline = '05-11-2012'
+        subject.should have(1).error_on(:deadline)
+      end
+    end
     describe '#estimate' do
       it "must be valid for the project point scale" do
         subject.project.point_scale = 'fibonacci'
@@ -66,7 +74,7 @@ describe Story do
   end
 
   describe "#estimated?" do
-    
+
     context "when estimate is nil" do
       before { subject.estimate = nil }
       it { should_not be_estimated }
@@ -112,7 +120,7 @@ describe Story do
       subject.as_json['story'].keys.sort.should == [
         "title", "accepted_at", "created_at", "updated_at", "description",
         "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-        "state", "position", "id", "errors", "labels", "notes"
+        "state", "position", "id", "errors", "labels", "notes", "deadline"
       ].sort
     end
   end
@@ -177,7 +185,7 @@ describe Story do
       end
 
       it "is unset when state changes from 'accepted'" do
-        subject.accepted_at = Date.parse('1999/01/01') 
+        subject.accepted_at = Date.parse('1999/01/01')
         subject.update_attribute :state, 'accepted'
         subject.update_attribute :state, 'started'
         subject.accepted_at.should be_nil

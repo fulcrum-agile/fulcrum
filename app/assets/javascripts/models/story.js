@@ -175,7 +175,6 @@ Fulcrum.Story = Backbone.Model.extend({
   position: function() {
     return parseFloat(this.get('position'));
   },
-
   className: function() {
     var className = 'story ' + this.get('story_type');
     if (this.estimable() && !this.estimated()) {

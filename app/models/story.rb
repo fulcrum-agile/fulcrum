@@ -19,7 +19,7 @@ class Story < ActiveRecord::Base
 
   validates :title, :presence => true
 
-  validate :deadline_is_after_project_start
+  validate :deadline_is_after_project_start, :allow_nil => true
 
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true
@@ -204,12 +204,14 @@ class Story < ActiveRecord::Base
     ([requested_by, owned_by] + notes.map(&:user)).compact.uniq
   end
 
+  private
   def deadline_is_after_project_start
+    #No need to validate if the deadline is nil
+    return if self.deadline.nil?
     if (!self.project.start_date.nil? && self.deadline.to_date < self.project.start_date)
       errors.add(:deadline, "deadline must be after project start")
     end
   end
-  private
 
     def set_accepted_at
       if state_changed?
