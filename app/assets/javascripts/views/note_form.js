@@ -45,7 +45,6 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
 
     div = this.make('div');
     $(div).append(this.label("note", "Note"));
-    $(div).append('<br/>');
     $(div).append(this.textArea("note"));
 
     var submit = this.make('input', {id: 'note_submit', type: 'button', 'class': 'btn btn-mini', value: 'Add note'});

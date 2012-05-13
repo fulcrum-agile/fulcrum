@@ -7,7 +7,7 @@ Fulcrum.FormView = Backbone.View.extend({
 
   label: function(elem_id, value) {
     value = value || elem_id;
-    return this.make('label', {'for': elem_id}, value);
+    return this.make('label', {'for': elem_id, 'class': 'control-label'}, value);
   },
 
   textField: function(name, extra_opts) {

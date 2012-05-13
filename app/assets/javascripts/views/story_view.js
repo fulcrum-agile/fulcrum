@@ -316,8 +316,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl(function(div) {
-          $(div).append(this.label("description", "Description"));
-          $(div).append('<br/>');
+          $(div).before(this.label("description", "Description"));
           if(this.model.isNew() || this.model.get('editingDescription')) {
             $(div).append(this.textArea("description"));
           } else {
@@ -346,7 +345,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   setClassName: function() {
     var className = [
-      'story', this.model.get('story_type'), this.model.get('state')
+      'story', 'form-horizontal', this.model.get('story_type'), this.model.get('state')
     ].join(' ');
     if (this.model.estimable() && !this.model.estimated()) {
       className += ' unestimated';
@@ -476,16 +475,20 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   makeFormControl: function(content) {
-    var div = this.make('div');
+    var div             = this.make('div', {'class': 'control-group'});
+    var controlWrapper  = this.make('div', {'class': 'controls'});
+    var $div            = $(div);
+    var $controlWrapper = $(controlWrapper);
+    $div.append(controlWrapper);
     if (typeof content == 'function') {
-      content.call(this, div);
+      $div.addClass('unlabelled');
+      content.call(this, controlWrapper);
     } else if (typeof content == 'object') {
-      var $div = $(div);
+      $div.addClass(content.name || 'unlabelled');
       if (content.label) {
-        $div.append(this.label(content.name, content.label));
-        $div.append('<br/>');
+        $div.prepend(this.label(content.name, content.label));
       }
-      $div.append(content.control);
+      $controlWrapper.append(content.control);
     }
     return div;
   }
