@@ -450,20 +450,21 @@ describe('Fulcrum.StoryView', function() {
     describe("when passed an object", function() {
 
       beforeEach(function() {
-        this.content = {name: "foo", label: "Foo", control: "bar"};
-        this.appendSpy = sinon.spy(jQuery.fn, 'append');
+        this.content    = {name: "foo", label: "Foo", control: "bar"};
+        this.appendSpy  = sinon.spy(jQuery.fn, 'append');
+        this.prependSpy = sinon.spy(jQuery.fn, 'prepend');
       });
 
       afterEach(function() {
         this.appendSpy.restore();
+        this.prependSpy.restore();
       });
 
       it("creates a label", function() {
         var label = '<label for="foo">Foo</label>';
         var stub = sinon.stub(this.view, 'label').withArgs('foo', 'Foo').returns(label);
         this.view.makeFormControl(this.content);
-        expect(this.appendSpy).toHaveBeenCalledWith(label);
-        expect(this.appendSpy).toHaveBeenCalledWith('<br/>');
+        expect(this.prependSpy).toHaveBeenCalledWith(label);
       });
 
       it("appends the control", function() {
