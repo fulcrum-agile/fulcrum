@@ -8,6 +8,7 @@
 //
 //---------------------------------------------------------
 
+$body-bg-color:                 #fff;
 $text-color:                    #535353;
 $link-color:                    #0088cc;
 $header-bg-color:               #404446;
@@ -41,7 +42,8 @@ $bold-font-weight:              400;
 
 body {
   color: $text-color;
-    font-weight: 200;
+  background-color: $body-bg-color;
+  font-weight: 200;
 }
 
 a {
@@ -192,6 +194,17 @@ div.story {
   border-bottom: 1px solid $td-border-color;
   padding: 3px 6px 3px 3px;
   
+  .tags {
+    font-weight: $bold-font-weight;
+    color: $success-text-color;
+  }
+  
+  .initials {
+    font-weight: $bold-font-weight;
+    color: $info-text-color;
+    text-transform: uppercase;
+  }
+  
   &.accepted {
     background-color: $success-bg-color;
     border-bottom-color: $success-border-color;
@@ -200,6 +213,37 @@ div.story {
   &.unscheduled {
     background-color: $info-bg-color;
     border-bottom-color: $info-border-color;
+  }
+  
+  &.started,
+  &.finished,
+  &.delivered {
+    background-color: $alert-bg-color;
+    border-bottom-color: $alert-border-color;
+  }
+  
+}
+
+.form-horizontal .notelist textarea {
+  width: 96%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.note {
+  border-bottom: 1px solid $td-border-color;
+  padding: 0 3px 0 3px;
+  margin-bottom: 3px;
+}
+  
+.control-group.labels .controls {
+
+  ul.tagit li.tagit-choice {
+    border: 1px solid $info-border-color;
+    background-color: $info-bg-color;
+    color: $info-text-color;
+    background-image: none;    
   }
   
 }
