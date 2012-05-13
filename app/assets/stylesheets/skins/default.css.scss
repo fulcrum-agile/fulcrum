@@ -15,6 +15,19 @@ $header-link-color:             #f8f8f8;
 $header-link-hover-color:       #ffe13b;
 $th-bg-color:                   #eaeaea;
 $td-border-color:               #e7e7e7;
+// These are the regular bootstrap alert colors.
+$alert-bg-color:                #fcf8e3;
+$alert-border-color:            #fbeed5;
+$alert-text-color:              #c09853;
+$error-bg-color:                #f2dede;
+$error-border-color:            #eed3d7;
+$error-text-color:              #b94a48;
+$info-bg-color:                 #d9edf7;
+$info-border-color:             #bce8f1;
+$info-text-color:               #3a87ad;
+$success-bg-color:              #dff0d8;
+$success-border-color:          #d6e9c6;
+$success-text-color:            #468847;
 
 $bold-font-weight:              400;
 
@@ -99,6 +112,11 @@ h1, h2, h3, h4 {
   
 }
 
+#velocity_value {
+  font-weight: $bold-font-weight;
+  font-size: 18px;
+}
+
 #project-menu {
   float: left;
   clear: left;
@@ -146,9 +164,7 @@ table.stories {
 div.column_header {
   background-color: $th-bg-color;
   font-size: 14px;
-  font-weight: $bold-font-weight;
   line-height: 22px;
-  text-transform: uppercase;
   
   a {
     color: $text-color;
@@ -161,16 +177,29 @@ div.column_header {
 }
 
 div.iteration {
-  background-color: #d0d5d5;
-  color: #000000;
-  border: 1px 0 solid #dbdbdb;
-  padding: 4px 7px 4px 18px;
+  background-color: $header-bg-color;
+  color: $header-link-color;
+  padding: 4px 7px 4px 7px;
+  border-bottom: 1px solid $td-border-color;
   
   i.icon-refresh {
-    margin-right: 5px;
+    background-image: image-url('glyphicons-halflings-white.png');
+    margin-right: 7px;
   }
 }
 
 div.story {
   border-bottom: 1px solid $td-border-color;
+  padding: 3px 6px 3px 3px;
+  
+  &.accepted {
+    background-color: $success-bg-color;
+    border-bottom-color: $success-border-color;
+  }
+  
+  &.unscheduled {
+    background-color: $info-bg-color;
+    border-bottom-color: $info-border-color;
+  }
+  
 }
