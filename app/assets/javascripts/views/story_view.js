@@ -57,9 +57,15 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click #destroy": "clear",
     "click #edit-description": "editDescription",
     "sortupdate": "sortUpdate",
-    "change select"  : "render"
+    "change select[name='story_type']"  : "changeStoryType"
   },
 
+    changeStoryType: function(ev, ui){
+        if(ev.target.value != "release"){
+            this.model.set({deadline: null});
+        }
+        this.render();
+    },
   // Triggered whenever a story is dropped to a new position
   sortUpdate: function(ev, ui) {
 

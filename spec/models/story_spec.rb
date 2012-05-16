@@ -43,7 +43,14 @@ describe Story do
     describe '#deadline' do
       it "should not allow a deadline before start_date" do
         subject.project.start_date = '05-12-2012'
+        subject.story_type = "release"
         subject.deadline = '05-11-2012'
+        subject.should have(1).error_on(:deadline)
+      end
+      it "should only allow a deadline on releases" do
+        subject.project.start_date = '05-12-2012'
+        subject.deadline = '06-12-2012'
+        subject.story_type = "bug"
         subject.should have(1).error_on(:deadline)
       end
     end

@@ -19,7 +19,7 @@ class Story < ActiveRecord::Base
 
   validates :title, :presence => true
 
-  validate :deadline_is_after_project_start, :allow_nil => true
+  validate :deadline_is_after_project_start, :deadline_is_only_allowed_for_release, :allow_nil => true
 
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true
@@ -213,6 +213,11 @@ class Story < ActiveRecord::Base
     end
   end
 
+  def deadline_is_only_allowed_for_release
+    if self.story_type != 'release' && !self.deadline.nil?
+      errors.add(:deadline, "deadlines can only be set on for a release")
+    end
+  end
     def set_accepted_at
       if state_changed?
         if state == 'accepted' && accepted_at == nil
