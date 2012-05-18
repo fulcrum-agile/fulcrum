@@ -10,7 +10,7 @@
 <div class="state-actions">
   <form>
     <% _.each(story.events(),  function(value) { %>
-      <input type="button" class="btn btn-mini transition <%= value %>" value="<%= value %>"/>
+      <input type="button" class="btn btn-mini transition <%= value %> <%= story.transitionButtonClass(value) %>" value="<%= value %>"/>
     <% }); %>
   </form>
 </div>
