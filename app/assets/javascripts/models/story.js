@@ -288,6 +288,26 @@ Fulcrum.Story = Backbone.Model.extend({
       default:
         return 'icon-question-sign';
     }
+  },
+  
+  // Returns the CSS-class of the bootstrap icon matching this story's type.
+  transitionButtonClass: function(transitionValue) {
+    switch (transitionValue) {
+      case 'finish':
+        return 'btn-primary';
+        break;
+      case 'accept':
+        return 'btn-success';
+        break;
+      case 'reject':
+        return 'btn-danger';
+        break;
+      case 'deliver':
+        return 'btn-warning';
+        break;
+      default:
+        return '';
+    }
   }
 
 });
