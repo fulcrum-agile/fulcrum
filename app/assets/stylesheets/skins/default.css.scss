@@ -13,7 +13,7 @@ $text-color:                    #535353;
 $link-color:                    #0088cc;
 $header-bg-color:               #404446;
 $header-link-color:             #f8f8f8;
-$header-link-hover-color:       #ffe13b;
+$header-link-hover-color:       #fcf8e3;
 $th-bg-color:                   #eaeaea;
 $td-border-color:               #e7e7e7;
 // These are the regular bootstrap alert colors.
@@ -32,6 +32,27 @@ $success-text-color:            #468847;
 
 $bold-font-weight:              400;
 
+
+//---------------------------------------------------------
+//
+// M I X I N S
+//
+//---------------------------------------------------------
+
+// Adapted from the bootstrap .dropdown-menu class.
+@mixin dropdown {
+  min-width: 160px;
+  padding: 4px 0;
+  margin: 1px 0 0;
+  background-color: $body-bg-color;
+  border: 1px solid td-border-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  @include border-radius(5px);
+  @include box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+  @include background-clip(padding-box);
+}
 
 
 //---------------------------------------------------------
@@ -75,6 +96,21 @@ h1, h2, h3, h4 {
     }
     
     li.secondary {
+    
+      ul {
+        @include dropdown();
+        
+        a {
+          color: $text-color;
+          font-size: 16px;
+          display: block;
+          width: 100%;
+          
+          &:hover {
+            color: $link-color;
+          }
+        }
+      }
       
       i.icon-chevron-down {
          background-image: image-url('glyphicons-halflings-white.png');
@@ -95,7 +131,6 @@ h1, h2, h3, h4 {
 }
 
 
-
 //---------------------------------------------------------
 //
 // T I T L E   B A R
@@ -103,9 +138,9 @@ h1, h2, h3, h4 {
 //---------------------------------------------------------
 
 #title_bar {
-  @include clearfix();
   background-color: $header-link-color;
   border-bottom: 1px solid $td-border-color;
+  height: 66px;
   
   h1 {
     float: left;
@@ -117,6 +152,14 @@ h1, h2, h3, h4 {
 #velocity_value {
   font-weight: $bold-font-weight;
   font-size: 18px;
+}
+
+div.velocity_override_container {
+  @include dropdown();
+  
+  input {
+    width: 50px;
+  }
 }
 
 #project-menu {
