@@ -1,6 +1,16 @@
 <% content_for :title_bar do %>
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
-<h2><%= t('projects.edit project') %></h2>
 
-<%= render 'form' %>
+<div class="container">
+  
+  <div class="row">
+    <div class="span8 offset2">
+      
+      <h2><%= t('projects.edit project') %></h2>
+
+      <%= render 'form' %>
+      
+    </div>
+  </div>
+</div>
