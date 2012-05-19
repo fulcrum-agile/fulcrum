@@ -6,7 +6,10 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  
+  &#projects_show {
+    overflow: hidden;
+  }
 }
 
 a img {
