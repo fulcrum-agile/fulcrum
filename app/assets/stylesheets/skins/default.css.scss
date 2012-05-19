@@ -34,7 +34,6 @@ $devise-bg-color:               #fbfbfc;
 
 $bold-font-weight:              400;
 
-
 //---------------------------------------------------------
 //
 // M I X I N S
@@ -354,31 +353,46 @@ div.story {
     background-color: $success-bg-color;
     border-bottom-color: $success-border-color;
     
+    .icon {
+       background-image: image-url('glyphicons-halflings-success.png');
+    }
+    
     hr, .note {
       border-color: $success-border-color;
     }
   }
   
-  &.unscheduled {
+  &.started,
+  &.finished,
+  &.delivered {
+    background-color: $alert-bg-color;
+    border-bottom-color: $alert-border-color;
+    
+    .icon {
+       background-image: image-url('glyphicons-halflings-alert.png');
+    }
+    
+    hr, .note {
+      border-color: $alert-border-color;
+    }
+  }
+  
+  &.unscheduled,
+  &.release {
     background-color: $info-bg-color;
     border-bottom-color: $info-border-color;
+    
+    .icon {
+       background-image: image-url('glyphicons-halflings-info.png');
+    }
     
     hr, .note {
       border-color: $info-border-color;
     }
   }
   
-  &.started,
-  &.finished,
-  &.delivered,
-  &.editing,
-  &.editing:hover {
-    background-color: $alert-bg-color;
-    border-bottom-color: $alert-border-color;
-    
-    hr, .note {
-      border-color: $alert-border-color;
-    }
+  &.editing .icon-throbber {
+    background: image-url('throbber.gif') no-repeat !important;
   }
   
 }

@@ -283,7 +283,7 @@ Fulcrum.Story = Backbone.Model.extend({
         return 'icon-fire';
         break;
       case 'release':
-        return 'icon-briefcase';
+        return 'icon-flag';
         break;
       default:
         return 'icon-question-sign';
