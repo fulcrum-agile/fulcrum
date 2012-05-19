@@ -41,6 +41,26 @@ hr {
   background: image-url('spinner.gif') no-repeat;
 }
 
+.icon-feature {
+  /* bootstrap icon-star */
+  background-position: -120px 0;
+}
+
+.icon-chore {
+  /* bootstrap icon-shopping-cart */
+  background-position: -360px -120px;
+}
+
+.icon-bug {
+  /* bootstrap icon-fire */
+  background-position: -72px -120px;
+}
+
+.icon-release {
+  /* bootstrap icon-flag */
+  background-position: -312px -24px;
+}
+
 a.expand, a.collapse {
   cursor: pointer;
 }
