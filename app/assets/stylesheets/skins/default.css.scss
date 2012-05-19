@@ -191,6 +191,10 @@ h1, h2, h3, h4 {
   
 }
 
+body#projects_index #title_bar {
+  height: 40px;
+}
+
 #velocity_value {
   font-weight: $bold-font-weight;
   font-size: 18px;
@@ -345,4 +349,19 @@ div.story {
     background-image: none;    
   }
   
+}
+
+
+
+//---------------------------------------------------------
+//
+// P R O J E C T   L I S T
+//
+//---------------------------------------------------------
+ul#projects li {
+  border-bottom: 1px solid $td-border-color;
+}
+
+.project_options a {
+  display: block;
 }
