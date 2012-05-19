@@ -43,23 +43,25 @@
       <%= form_for project_users_path(@project, @user), :html => { :class => 'form-horizontal' } do |f| %>
         <fieldset>
           
-        <%= fields_for :user do |u| %>
-          <div class="control-group">
-            <%= u.label :email, :class => 'control-label' %>
-            <div class="controls"><%= u.text_field :email %></div>
-          </div>
-          <div class="control-group">
-            <%= u.label :name, :class => 'control-label' %>
-            <div class="controls"><%= u.text_field :name %></div>
-          </div>
-          <div class="control-group">
-            <%= u.label :initials, :class => 'control-label' %>
-            <div class="controls"><%= u.text_field :initials %></div>
-          </div>
-          <div class="form-actions">
-          <%= u.submit 'Add user', :class => ['btn', 'btn-primary'] %>
-          </div>
-        <% end %>
+          <%= render 'shared/form_errors', :object => @user if @user.errors.any? %>
+          
+          <%= fields_for :user do |u| %>
+            <div class="control-group">
+              <%= u.label :email, :class => 'control-label' %>
+              <div class="controls"><%= u.text_field :email %></div>
+            </div>
+            <div class="control-group">
+              <%= u.label :name, :class => 'control-label' %>
+              <div class="controls"><%= u.text_field :name %></div>
+            </div>
+            <div class="control-group">
+              <%= u.label :initials, :class => 'control-label' %>
+              <div class="controls"><%= u.text_field :initials %></div>
+            </div>
+            <div class="form-actions">
+            <%= u.submit 'Add user', :class => ['btn', 'btn-primary'] %>
+            </div>
+          <% end %>
         
         </fieldset>
       <% end %>
