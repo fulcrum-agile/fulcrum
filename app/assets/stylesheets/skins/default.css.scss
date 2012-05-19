@@ -139,10 +139,12 @@ h1, h2, h3, h4 {
     
       ul {
         @include dropdown();
+        padding: 8px;
         
         a {
           color: $text-color;
           font-size: 16px;
+          line-height: 26px;
           display: block;
           width: 100%;
           
