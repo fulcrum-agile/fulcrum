@@ -10,6 +10,8 @@
 </head>
 <body>
 
+<%= show_messages %>
+  
 <div id="header">
   <ul id="primary-nav">
     <li class="root"><%= link_to t('fulcrum'), root_path %></li>
@@ -40,7 +42,6 @@
 </div>
 
 <div id="main">
-  <%= show_messages %>
 
   <%= yield %>
 </div>
