@@ -496,19 +496,12 @@ div.note {
   }
 }
 
-#messages .flash-alert {
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-#messages .flash-notice {
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
+#messages .flash-notice,
+#messages .flash-alert,
 #messages .flash-error {
-  padding: 5px;
-  margin-bottom: 10px;
+  padding: 10px 5px;
+  font-size: 16px;
+  text-align: center;
 }
 
 #messages .close {

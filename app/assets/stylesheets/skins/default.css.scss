@@ -75,6 +75,36 @@ h1, h2, h3, h4 {
   font-weight: $bold-font-weight;
 }
 
+.field_with_errors label {
+  font-weight: bold;
+  color: $error-text-color;
+}
+
+.flash-alert,
+.flash-notice,
+.flash-error {
+  font-size: 16px;
+  text-align: center;
+}
+
+.flash-alert {
+  color: $alert-text-color;
+  border-bottom: 1px solid $alert-border-color;
+  background-color: $alert-bg-color;
+}
+
+.flash-notice {
+  color: $success-text-color;
+  border-bottom: 1px solid $success-border-color;
+  background-color: $success-bg-color;
+}
+
+.flash-error {
+  color: $error-text-color;
+  border-bottom: 1px solid $error-border-color;
+  background-color: $error-bg-color;
+}
+
 
 
 //---------------------------------------------------------
