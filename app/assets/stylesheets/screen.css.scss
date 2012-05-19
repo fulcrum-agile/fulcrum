@@ -287,7 +287,7 @@ span.estimate_8 {
 }
 
 /* Story form */
-.control-group {
+.story .control-group {
   
   .control-label {
     width: 90px;
@@ -542,4 +542,16 @@ div.spinner {
   span{
     padding:50px;
   }
+}
+
+/* Project Form */
+
+select#project_start_date_1i,
+select#project_start_date_3i {
+  width: 60px;
+}
+
+select#project_start_date_2i {
+  width: 90px;
+  font-size: 12px;
 }
