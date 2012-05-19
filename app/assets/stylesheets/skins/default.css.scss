@@ -251,18 +251,32 @@ div.story {
   &.accepted {
     background-color: $success-bg-color;
     border-bottom-color: $success-border-color;
+    
+    hr, .note {
+      border-color: $success-border-color;
+    }
   }
   
   &.unscheduled {
     background-color: $info-bg-color;
     border-bottom-color: $info-border-color;
+    
+    hr, .note {
+      border-color: $info-border-color;
+    }
   }
   
   &.started,
   &.finished,
-  &.delivered {
+  &.delivered,
+  &.editing,
+  &.editing:hover {
     background-color: $alert-bg-color;
     border-bottom-color: $alert-border-color;
+    
+    hr, .note {
+      border-color: $alert-border-color;
+    }
   }
   
 }
