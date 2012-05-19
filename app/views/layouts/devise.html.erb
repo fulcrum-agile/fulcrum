@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= "#{@project.name} - " if @project %><%= t('fulcrum') %></title>
+  <%= csrf_meta_tag %>
+  <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
+  <%= stylesheet_link_tag :application %>
+  <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css" %>
+  <%= javascript_include_tag :application %>
+</head>
+<body id="<%= page_id %>">
+
+<%= show_messages %>
+
+<div class="container">
+  <div class="row">
+    <div class="span6 offset3" id="login-wrapper">
+      <h1>
+          <%= image_tag 'logo.png' %>
+          Fulcrum
+      </h1>
+      <div class="alert alert-block">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render :partial => "devise/shared/links" %>
+
+</body>
+</html>
+

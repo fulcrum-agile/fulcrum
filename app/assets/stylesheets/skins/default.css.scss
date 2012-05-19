@@ -29,6 +29,8 @@ $info-text-color:               #3a87ad;
 $success-bg-color:              #dff0d8;
 $success-border-color:          #d6e9c6;
 $success-text-color:            #468847;
+$devise-border-color:           #e1e1e8;
+$devise-bg-color:               #fbfbfc;
 
 $bold-font-weight:              400;
 
@@ -111,10 +113,62 @@ h1, h2, h3, h4 {
     font-size: 16px;
     line-height: 16px;
     margin-bottom: 10px;
+    color: $error-text-color;
+  }
+  
+  ul li {
+    color: $error-text-color;
   }
   
 }
 
+
+//---------------------------------------------------------
+//
+// D E V I S E
+//
+//---------------------------------------------------------
+
+#login-wrapper {
+  margin-top: 150px;
+  
+  h1 {
+    text-transform: lowercase;
+    font-weight: $bold-font-weight;
+    
+    img {
+      float: left;
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .alert-block {
+    background: $devise-bg-color;
+    border: 1px solid $devise-border-color;
+  }
+
+}
+
+.secondary-actions a {
+  display: block;
+  text-align: center;
+}
+
+body#registrations_edit,
+body#registrations_update,
+#login-wrapper {
+  
+  .form-actions {
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+}
 
 
 //---------------------------------------------------------
@@ -191,7 +245,9 @@ h1, h2, h3, h4 {
   
 }
 
-body#projects_index #title_bar {
+body#projects_index #title_bar,
+body#registrations_edit #title_bar,
+body#registrations_update #title_bar {
   height: 40px;
 }
 
