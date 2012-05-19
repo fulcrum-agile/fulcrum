@@ -40,7 +40,7 @@
 
       <h2>Add a new member</h2>
   
-      <%= form_for project_users_path(@project, @user), :html => { :class => 'form-horizontal' } do |f| %>
+      <%= form_for project_users_path(@project, @user), :html => { :class => 'well form-horizontal' } do |f| %>
         <fieldset>
           
           <%= render 'shared/form_errors', :object => @user if @user.errors.any? %>
