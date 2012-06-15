@@ -1,58 +1,71 @@
 @import 'compass/css3';
-@import 'scaffold';
 @import 'jquery_gritter';
 @import 'jquery_tagit';
-@import 'popover';
-@import 'icons';
 
-$darkgrey:   #6a7176;           // Header color
-$orange:     rgb(250,182,155);  // Estimate gauge color
-
-// Tango icon theme pallette
-// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
-$butter-1:      #fce94f;
-$butter-2:      #edd400;
-$butter-3:      #c4a000;
-$orange-1:      #fcaf3e;
-$orange-2:      #f57900;
-$orange-3:      #ce5c00;
-$chocolate-1:   #e9b96e;
-$chocolate-2:   #c17d11;
-$chocolate-3:   #8f5902;
-$chameleon-1:   #8ae234;
-$chameleon-2:   #73d216;
-$chameleon-3:   #4e9a06;
-$sky-blue-1:    #729fcf;
-$sky-blue-2:    #3465a4;
-$sky-blue-3:    #204a87;
-$plum-1:        #ad7fa8;
-$plum-2:        #75507b;
-$plum-3:        #5c3566;
-$scarlet-red-1: #ef2929;
-$scarlet-red-2: #cc0000;
-$scarlet-red-3: #a40000;
-$aluminium-1:   #eeeeec;
-$aluminium-2:   #d3d7cf;
-$aluminium-3:   #babdb6;
-$aluminium-4:   #888a85;
-$aluminium-5:   #555753;
-$aluminium-6:   #2e3436;
 
 body {
   margin: 0;
   padding: 0;
+  
+  &#projects_show {
+    overflow: hidden;
+  }
 }
 
 a img {
   border: 0;
 }
 
+hr {
+  border-bottom: 1px solid transparent;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  display: inline-block;
+  text-indent: -9999px;
+  background-image: image-url('glyphicons-halflings.png');
+}
+
+.icon-white {
+  background-image: image-url('glyphicons-halflings-white.png');
+}
+
+.icon-throbber {
+  background: image-url('throbber.gif') no-repeat;
+}
+
+.icon-spinner {
+  background: image-url('spinner.gif') no-repeat;
+}
+
+.icon-feature {
+  /* bootstrap icon-star */
+  background-position: -120px 0;
+}
+
+.icon-chore {
+  /* bootstrap icon-shopping-cart */
+  background-position: -360px -120px;
+}
+
+.icon-bug {
+  /* bootstrap icon-fire */
+  background-position: -72px -120px;
+}
+
+.icon-release {
+  /* bootstrap icon-flag */
+  background-position: -312px -24px;
+}
+
+a.expand, a.collapse {
+  cursor: pointer;
+}
+
 #header {
-  background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
-  border-bottom: 1px solid $darkgrey*0.7;
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: black 0 1px 0;
   position: relative;
   z-index: 900;
 }
@@ -63,30 +76,21 @@ ul#primary-nav {
   background-repeat: no-repeat;
   background-position: 13px 6px;
   margin: 0;
-  padding: 1em 1em 1em 40px;
-  color: white;
-  font-weight: bold;
+  padding: 1em 1em 1em 32px;
 }
 ul#primary-nav li {
   padding: 0 0.5em;
   display: inline;
 }
 ul#primary-nav li a {
-  color: white;
-  text-decoration: none;
+
 }
 ul#primary-nav li.root {
   float: left;
-  font-size: large;
 }
 ul#primary-nav li.secondary {
   position: relative;
-  @include icons-sprite(collapse, false, 0px, 6px);
-  background-color: #333;
-  background-position-x:right;
   padding: 0.4em 18px 0.4em 0.4em;
-  @include border-radius(5px);
-  text-shadow: black 0 1px 0;
 }
 ul#primary-nav li.secondary ul {
   visibility: hidden;
@@ -98,8 +102,6 @@ ul#primary-nav li.secondary ul {
   padding: 0.3em;
   position: absolute;
   left: 0; top: 1.7em;
-  background-color: #333;
-  @include border-radius(0 5px 5px 5px);
 }
 ul#primary-nav li.secondary ul li {
   white-space: nowrap;
@@ -108,23 +110,11 @@ ul#primary-nav li.secondary ul li {
 }
 
 #title_bar {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
-  border-bottom: 1px solid #ededed;
-  padding: 5px 10px 3px 10px;
-  font-size: 1.0em;
-  font-weight: bold;
-  line-height: 140%;
-  margin-bottom: 0.5em;
-  color: #5e6469;
   position: relative;
   margin: 0;
-  padding: 10px 1em;
+  padding: 10px;
 
   div.velocity {
-    font-size: 1.6em;
     float: right;
     position: relative;
 
@@ -133,10 +123,6 @@ ul#primary-nav li.secondary ul li {
       position: absolute;
       right: 0;
       top: 30px;
-      background: #efefef;
-      border: 1px solid #ccc;
-      @include border-radius(3px);
-      @include single-box-shadow;
       z-index: 1;
 
       ul {
@@ -154,29 +140,15 @@ ul#primary-nav li.secondary ul li {
   }
 
   div.velocity.fake #velocity_value {
-    color: #f00;
-    font-style: italic;
+  
   }
 
   #add_story {
-    @include background(sprite($icons-sprites, feature, 2, 2),
-                        linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0.2em 0.4em 0.2em 18px;
-    @include border-radius(3px);
-    border: 1px solid $aluminium-5;
     cursor: pointer;
-    font-size: small;
-    font-weight: bold;
-    color: white;
-    text-shadow:  $aluminium-5 0 1px 0;
-    text-decoration: none;
   }
 }
 
 #title_bar h1 {
-  font-size: 2em;
   margin: 0.3em 0;
 }
 
@@ -194,18 +166,11 @@ html.stories, html.stories body, html.stories div#main {
 }
 
 #column-toggles a {
-  margin: 0 0.2em;
-  padding: 3px;
-  color: white;
-  background-color: $darkgrey;
-  @include border-radius(3px);
-  text-decoration: none;
-  text-shadow: none;
+
 }
 
 #column-toggles a.pressed {
-  color: $darkgrey;
-  background-color: #cecece;
+
 }
 
 /* stories table */
@@ -217,8 +182,6 @@ table.stories {
 
 table.stories td {
   vertical-align: top;
-  background-color: #ccc;
-  @include border-radius(5px 5px 0 0);
 }
 
 div.storycolumn {
@@ -229,20 +192,13 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   text-align: center;
-  background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
-  color: #eee;
   padding: 0.2em;
-  font-weight: bold;
-  @include border-radius(5px 5px 0 0);
   a.toggle-column{
-    color: #eee;
-    text-decoration: none;
     float: right;
     padding: 0px 5px 1px;
     cursor: pointer;
     &:hover{
-      color:$aluminium-3;
+    
     }
   }
 }
@@ -252,23 +208,22 @@ div.story {
   padding: 0.3em;
   background-repeat: no-repeat;
   background-position: 4px 4px;
-  background-color: #eee;
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #fff;
 }
 div.story:hover {
-  background-color: #ddd;
+
 }
 
 div.story.editing, div.story.editing:hover {
-  background-color: adjust-lightness($butter-1, 20);
-  color: $aluminium-6;
+
+}
+div.story hr {
+  margin-bottom: 9px;
 }
 
 div.story.feature.accepted,
 div.story.bug.accepted,
 div.story.chore.accepted{
-  background-color: adjust-lightness($chameleon-1, 40);
+
 }
 div.story input[type=text],
 div.story textarea {
@@ -285,11 +240,9 @@ div.story-title {
   margin-left: 65px;
 }
 .unestimated div.story-title {
-  font-style: italic;
+
 }
 div.story-title abbr.initials {
-  color: green;
-  font-weight: bold;
   margin-left: 0.2em;
   border: none;
 }
@@ -304,63 +257,46 @@ div.story-title abbr.initials {
 }
 
 span.estimate {
-  border: 1px solid #777;
-  padding: 0 0.2em;
+  padding: 0;
   margin: 0 2px 0 0;
-  @include border-radius(3px);
-  vertical-align: top;
-  font-size: x-small;
-  font-weight: bold;
-  font-style: italic;
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 12px;
 }
 
 span.estimate_1 {
-  @include background(linear-gradient(bottom,
-      $orange 12.5%,
-      white 12.5%));
+
 }
 span.estimate_2 {
-  @include background(linear-gradient(bottom,
-      $orange 25%,
-      white 25%));
+
 }
 span.estimate_3 {
-  @include background(linear-gradient(bottom,
-      $orange 37.5%,
-      white 37.5%));
+
 }
 span.estimate_4 {
-  @include background(linear-gradient(bottom,
-      $orange 50%,
-      white 50%));
+
 }
 span.estimate_5 {
-  @include background(linear-gradient(bottom,
-      $orange 62.5%,
-      white 62.5%));
+
 }
 span.estimate_6 {
-  @include background(linear-gradient(bottom,
-      $orange 75%,
-      white 75%));
+
 }
 span.estimate_7 {
-  @include background(linear-gradient(bottom,
-      $orange 87.5%,
-      white 87.5%));
+
 }
 span.estimate_8 {
-  @include background(linear-gradient(bottom,
-      $orange 100%,
-      white 100%));
+
 }
 
 .story.release {
-  background-color: #333;
-  color: white;
+
 }
 .story.release:hover {
-  background-color: #222;
+
 }
 
 /* Story action buttons */
@@ -373,89 +309,142 @@ span.estimate_8 {
   display: inline;
 }
 
+/* Story form */
+.story .control-group {
+  
+  .control-label {
+    width: 90px;
+    text-align: left;
+  }
+  
+  .controls {
+    margin-left: 110px;    
+  }
+
+  &.unlabelled {
+
+    .controls {
+      margin-left: 0;
+    }
+  
+    .btn {
+      margin-right: 5px
+    }
+    
+    &:nth-of-type(1) {
+      margin-bottom: 5px;
+    }
+    
+  }
+  
+  &.labels {
+    
+    .control-label {
+      float: none;
+    }
+    
+    .controls {
+      margin-left: 0;
+    }
+    
+  }
+  
+  div.description {
+    clear: both;
+  }
+  
+  .ui-autocomplete-input {
+    @include box-shadow(none);
+    font-size: 11px;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+  }
+  
+  ul.tagit li.tagit-choice {
+    font-size: 11px;
+  }
+  
+}
+
+/* Notes */
+.notelist label {
+  display: none;
+}
+
+.notelist textarea,
+.notelist #note_submit {
+  margin-bottom: 5px;
+}
+
+.note_meta {
+  clear: both;
+  overflow: hidden;
+  
+  .user {
+    float: left;
+    font-weight: bold;
+  }
+  
+  .created_at {
+    float: right;
+  }
+}
+
 /* Iteration markers */
 .iteration {
-  @include icons-sprite(iteration, false, 2px, 3px);
-  background-color: #000;
-  color: #ddd;
-  padding: 0.2em 0.2em 0.2em 20px
+  padding: 0.2em
 }
 .iteration .points {
   float: right;
 }
 
 .state-actions input {
-  margin: 0;
-  padding: 0 0.3em;
-  @include border-radius(3px);
-  border: 1px solid #333;
   cursor: pointer;
-  font-size: small;
-  font-weight: bold;
-  color: white;
-  @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-  border-color: $aluminium-5;
-  text-shadow:  $aluminium-5 0 1px 0;
-  @include box-shadow(0 1px 2px #aaaaaa);
 }
 .story.release .state-actions input {
-  @include box-shadow(0 1px 2px #000);
+
 }
 .state-actions input:active {
-  @include box-shadow(none);
+
 }
 
 .state-actions input.finish {
-  @include background(linear-gradient(top, $sky-blue-1, $sky-blue-1*0.75));
-  border-color: $sky-blue-3;
+
 }
 .state-actions input.deliver {
-  @include background(linear-gradient(top, $butter-1, $butter-1*0.75));
-  border-color:     $butter-3;
+
 }
 .state-actions input.accept {
-  @include background(linear-gradient(top, $chameleon-2, $chameleon-2*0.75));
-  border-color: $chameleon-3;
+
 }
 .state-actions input.reject {
-  @include background(linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
-  border-color:     $scarlet-red-3;
+
 }
 .state-actions input.restart {
-  @include background(sprite($icons-sprites,redo),
-                      linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
   background-repeat: no-repeat;
-  border-color: $scarlet-red-3;
   padding-left: 16px;
 }
 
 table#import tr.valid, .notice {
-  color: white;
-  background-color: $chameleon-3;
+
 }
 table#import tr.invalid, .alert {
-  color: white;
-  background-color: $scarlet-red-2;
+
 }
 
 ul#projects {
   list-style: none;
-  width: 50%;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
 }
 
 ul#projects li {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
   margin: 10px 0;
   padding: 10px;
-  border: 1px solid #efefef;
-  border-top: 1px solid #dfe1e2;
 }
 ul#projects li:hover {
-  @include background(linear-gradient(top, darken(#efefef, 10%), darken(#dfe1e2, 10%)));
+
 }
 
 ul#projects li h2 {
@@ -467,32 +456,13 @@ div.project_options {
 }
 
 ul#projects li:hover {
-  background-color: #babdb6;
+
 }
 
-a.button {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
-  padding: 5px;
-  @include border-radius(5px);
-  border: 1px solid $darkgrey*1.5;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-
-
-a.button:hover {
-  @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
-  color: white;
-  text-shadow: $darkgrey 0 1px 0;
-}
 .tags{
-  color:$sky-blue-3;
-  font-size:90%;
+
 }
+
 // Popover Overrides
 // Custom Style Overrides
 .popover{
@@ -509,8 +479,6 @@ a.button:hover {
     padding: 10px 0px 14px;
   }
   .small{
-    color:$aluminium-3;
-    font-size:0.85em;
     padding-left:15px;
     margin: 0 10px 10px 0;
     .icons{
@@ -525,23 +493,18 @@ a.button:hover {
   }
 }
 .ui-widget{
-  font-size:0.9em;
+
 }
 
 // Notes
 div.note {
-  background-color: white;
   margin: 0.3em 0.3em 0.6em;
-  border-left: 4px solid $aluminium-3;
 
   p {
     padding: 0.3em;
   }
 
   div.note_meta {
-    color: $aluminium-4;
-    font-style: italic;
-    font-size: x-small;
     text-align: right;
   }
 }
@@ -556,48 +519,18 @@ div.note {
   }
 }
 
-#messages .flash-alert {
-  background: $butter-1;
-  @include background(linear-gradient(top, $butter-1, $butter-2));
-  border: 1px solid $butter-3*0.75;
-  @include box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255,255,255,0.5));
-  color: $butter-3*0.5;
-  @include border-radius(5px);
-  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-#messages .flash-notice {
-  background: $chameleon-1;
-  @include background(linear-gradient(top, $chameleon-1, $chameleon-2));
-  border: 1px solid $chameleon-3*0.75;
-  @include box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255,255,255,0.5));
-  color: $chameleon-3*0.5;
-  @include border-radius(5px);
-  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
+#messages .flash-notice,
+#messages .flash-alert,
 #messages .flash-error {
-  background: $scarlet-red-1;
-  @include background(linear-gradient(top, $scarlet-red-1, $scarlet-red-2));
-  border: 1px solid $scarlet-red-3*0.75;
-  @include box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255,255,255,0.5));
-  color: rgba(255, 255, 255, 0.85);
-  @include border-radius(5px);
-  text-shadow: $scarlet-red-3*0.5 0 1px 0;
-  padding: 5px;
-  margin-bottom: 10px;
+  padding: 10px 5px;
+  font-size: 16px;
+  text-align: center;
 }
 
 #messages .close {
   padding-right: 5px;
   float: right;
   line-height: 18px;
-  font-weight: bold;
-  text-decoration: none;
   opacity: 0.4;
 
   &:hover {
@@ -606,95 +539,14 @@ div.note {
 }
 
 /* Form Styles */
-.form-wrapper  {
-  padding: 10px;
-
-  h3 {
-    margin-left: 160px;
-  }
-
-  input[type=text],
-  input[type=email],
-  input[type=password],
-  select
-  textarea {
-    @include transition(border linear 0.2s, box-shadow linear 0.2s);
-    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1));
-  }
-
+.form-wrapper,
+.form-horizontal  {
   input[type=text]:focus,
   input[type=email]:focus,
   input[type=password]:focus,
   select:focus,
   textarea:focus {
-    outline: 0;
-    border-color: rgba(114, 159, 207, 0.8);
-    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(114, 159, 207, 0.6));
-  }
-
-  input[type=text],
-  input[type=email],
-  input[type=password],
-  select {
-    display: inline-block;
-    width: 210px;
-    height: 14px;
-    padding: 4px;
-    font-size: 14px;
-    color: gray;
-    border: 1px solid #CCC;
-    @include border-radius(3px);
-  }
-  select {
-    height: 26px;
-    min-width: 220px;
-    width: auto;
-    margin: auto;
-  }
-
-  div.field-wrapper label {
-    width: 150px;
-    text-align: right;
-    display: block;
-    zoom: 1;
-    height: 14px;
-    float: left;
-  }
-
-  div.field-wrapper:before, div.field-wrapper:after {
-    display: table;
-    content: "";
-    zoom: 1;
-  }
-
-  div.field-wrapper:after {
-    clear: both;
-  }
-
-  div.field {
-    margin-left: 160px;
-  }
-
-  div.date-wrapper select {
-    min-width: 0px;
-    width: auto;
-  }
-
-  div.field-wrapper div.help {
-    color: $darkgrey;
-    margin-left: 160px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-    font-size: 0.85em;
-    font-style: italic;
-  }
-
-  div.actions, div.secondary-actions {
-    padding-left: 160px;
-  }
-
-  div.secondary-actions a {
-    display: block;
+    outline: none;
   }
 }
 
@@ -703,7 +555,6 @@ div.loading_screen {
   top:-10px;
   left:-10px;
   z-index: 1000;
-  background: #ccc;
   @include opacity(0.7);
   width: 110%;
   height: 110%;
@@ -714,4 +565,16 @@ div.spinner {
   span{
     padding:50px;
   }
+}
+
+/* Project Form */
+
+select#project_start_date_1i,
+select#project_start_date_3i {
+  width: 60px;
+}
+
+select#project_start_date_2i {
+  width: 90px;
+  font-size: 12px;
 }

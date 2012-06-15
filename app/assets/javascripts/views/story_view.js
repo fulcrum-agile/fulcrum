@@ -243,7 +243,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         this.makeFormControl(function(div) {
           if (!this.model.isNew()) {
             $(div).append(
-              this.make("a", {'class': "collapse icon icons-collapse"})
+              this.make("a", {'class': "collapse icon icon-chevron-down"})
             );
           }
           $(div).append(this.textField("title", {'placeholder': 'Story title'}));
@@ -316,8 +316,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl(function(div) {
-          $(div).append(this.label("description", "Description"));
-          $(div).append('<br/>');
+          $(div).before(this.label("description", "Description"));
           if(this.model.isNew() || this.model.get('editingDescription')) {
             $(div).append(this.textArea("description"));
           } else {
@@ -327,7 +326,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               window.md.makeHtml(this.model.escape('description'))
             );
             $(div).append(description);
-            $(description).after('<input id="edit-description" type="button" value="Edit"/>');
+            $(description).after('<input id="edit-description" type="button" class="btn btn-mini" value="Edit"/>');
           }
         })
       );
@@ -346,7 +345,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   setClassName: function() {
     var className = [
-      'story', this.model.get('story_type'), this.model.get('state')
+      'story', 'form-horizontal', this.model.get('story_type'), this.model.get('state')
     ].join(' ');
     if (this.model.estimable() && !this.model.estimated()) {
       className += ' unestimated';
@@ -359,11 +358,11 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   disableForm: function() {
     this.$el.find('input,select,textarea').attr('disabled', 'disabled');
-    this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
+    this.$el.find('a.collapse,a.expand').removeClass(/icon-/).addClass('icon-throbber');
   },
 
   enableForm: function() {
-    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+    this.$el.find('a.collapse').removeClass(/icon-/).addClass("icon-chevron-down");
   },
 
   initTags: function() {
@@ -421,11 +420,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
     this.model.notes.add();
-    this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
-  },
-
-  enableForm: function() {
-    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
+    this.$el.find('a.collapse,a.expand').removeClass(/icon-/).addClass('icon-throbber');
   },
 
   // FIXME Move to separate view
@@ -447,10 +442,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     });
   },
 
-  hoverBoxPlacement: function() {
+  hoverBoxPlacement: function(box, trigger) {
     // Gets called from a jQuery context, so this is set to the element that
     // the popover is bound to.
-    var position = $(this).position();
+    var position = $(trigger).position();
     var windowWidth = $(window).width();
     // If the element is to the right of the vertical half way line in the
     // viewport, position the popover on the left.
@@ -480,16 +475,20 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   makeFormControl: function(content) {
-    var div = this.make('div');
+    var div             = this.make('div', {'class': 'control-group'});
+    var controlWrapper  = this.make('div', {'class': 'controls'});
+    var $div            = $(div);
+    var $controlWrapper = $(controlWrapper);
+    $div.append(controlWrapper);
     if (typeof content == 'function') {
-      content.call(this, div);
+      $div.addClass('unlabelled');
+      content.call(this, controlWrapper);
     } else if (typeof content == 'object') {
-      var $div = $(div);
+      $div.addClass(content.name || 'unlabelled');
       if (content.label) {
-        $div.append(this.label(content.name, content.label));
-        $div.append('<br/>');
+        $div.prepend(this.label(content.name, content.label));
       }
-      $div.append(content.control);
+      $controlWrapper.append(content.control);
     }
     return div;
   }

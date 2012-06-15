@@ -1,0 +1,437 @@
+@import 'compass/css3';
+@import 'compass/utilities/general/clearfix';
+
+
+//---------------------------------------------------------
+//
+// C O L O R S
+//
+//---------------------------------------------------------
+
+$body-bg-color:                 #fff;
+$text-color:                    #535353;
+$link-color:                    #0088cc;
+$header-bg-color:               #404446;
+$header-link-color:             #f8f8f8;
+$header-link-hover-color:       #fcf8e3;
+$th-bg-color:                   #eaeaea;
+$td-border-color:               #e7e7e7;
+// These are the regular bootstrap alert colors.
+$alert-bg-color:                #fcf8e3;
+$alert-border-color:            #fbeed5;
+$alert-text-color:              #c09853;
+$error-bg-color:                #f2dede;
+$error-border-color:            #eed3d7;
+$error-text-color:              #b94a48;
+$info-bg-color:                 #d9edf7;
+$info-border-color:             #bce8f1;
+$info-text-color:               #3a87ad;
+$success-bg-color:              #dff0d8;
+$success-border-color:          #d6e9c6;
+$success-text-color:            #468847;
+$devise-border-color:           #e1e1e8;
+$devise-bg-color:               #fbfbfc;
+
+$bold-font-weight:              400;
+
+//---------------------------------------------------------
+//
+// M I X I N S
+//
+//---------------------------------------------------------
+
+// Adapted from the bootstrap .dropdown-menu class.
+@mixin dropdown {
+  min-width: 160px;
+  padding: 4px 0;
+  margin: 1px 0 0;
+  background-color: $body-bg-color;
+  border: 1px solid td-border-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  @include border-radius(5px);
+  @include box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+  @include background-clip(padding-box);
+}
+
+
+//---------------------------------------------------------
+//
+// B A S E   C S S
+//
+//---------------------------------------------------------
+
+body {
+  color: $text-color;
+  background-color: $body-bg-color;
+  font-weight: 200;
+}
+
+a {
+  color: $link-color;
+}
+
+h1, h2, h3, h4 {
+  font-weight: $bold-font-weight;
+}
+
+.field_with_errors label {
+  font-weight: bold;
+  color: $error-text-color;
+}
+
+.flash-alert,
+.flash-notice,
+.flash-error {
+  font-size: 16px;
+  text-align: center;
+}
+
+.flash-alert {
+  color: $alert-text-color;
+  border-bottom: 1px solid $alert-border-color;
+  background-color: $alert-bg-color;
+}
+
+.flash-notice {
+  color: $success-text-color;
+  border-bottom: 1px solid $success-border-color;
+  background-color: $success-bg-color;
+}
+
+.flash-error {
+  color: $error-text-color;
+  border-bottom: 1px solid $error-border-color;
+  background-color: $error-bg-color;
+}
+
+#error_explanation {
+  
+  h2 {
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 10px;
+    color: $error-text-color;
+  }
+  
+  ul li {
+    color: $error-text-color;
+  }
+  
+}
+
+
+//---------------------------------------------------------
+//
+// D E V I S E
+//
+//---------------------------------------------------------
+
+#login-wrapper {
+  margin-top: 150px;
+  
+  h1 {
+    text-transform: lowercase;
+    font-weight: $bold-font-weight;
+    
+    img {
+      float: left;
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .alert-block {
+    background: $devise-bg-color;
+    border: 1px solid $devise-border-color;
+  }
+
+}
+
+.secondary-actions a {
+  display: block;
+  text-align: center;
+}
+
+body#registrations_edit,
+body#registrations_update,
+#login-wrapper {
+  
+  .form-actions {
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+}
+
+
+//---------------------------------------------------------
+//
+// H E A D E R
+//
+//---------------------------------------------------------
+
+#header {
+  background-color: $header-bg-color;
+
+  ul#primary-nav {
+    background-image: image-url('skins/default/logo.png');
+    
+    li.root {
+      font-size: 22px;
+      font-weight: $bold-font-weight;
+      text-transform: lowercase;
+    }
+    
+    li.secondary {
+    
+      ul {
+        @include dropdown();
+        padding: 8px;
+        
+        a {
+          color: $text-color;
+          font-size: 16px;
+          line-height: 26px;
+          display: block;
+          width: 100%;
+          
+          &:hover {
+            color: $link-color;
+          }
+        }
+      }
+      
+      i.icon-chevron-down {
+         background-image: image-url('glyphicons-halflings-white.png');
+      }
+    }
+
+  }
+  
+  a {
+    color: $header-link-color;
+    
+    &:hover {
+      color: $header-link-hover-color;
+      text-decoration: none;
+    }
+    
+  }
+}
+
+
+//---------------------------------------------------------
+//
+// T I T L E   B A R
+//
+//---------------------------------------------------------
+
+#title_bar {
+  background-color: $header-link-color;
+  border-bottom: 1px solid $td-border-color;
+  height: 66px;
+  
+  h1 {
+    float: left;
+    margin: 0;
+  }
+  
+}
+
+body#projects_index #title_bar,
+body#registrations_edit #title_bar,
+body#registrations_update #title_bar {
+  height: 40px;
+}
+
+#velocity_value {
+  font-weight: $bold-font-weight;
+  font-size: 18px;
+}
+
+div.velocity_override_container {
+  @include dropdown();
+  
+  input {
+    width: 50px;
+  }
+}
+
+#project-menu {
+  float: left;
+  clear: left;
+  display: inline-block;
+  line-height: 30px;
+}
+
+a#add_story {
+  float: right;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+#column-toggles {
+  clear: left;
+  
+  // Taken from bootstrap .btn.disabled.
+  a.pressed {
+    cursor: default;
+    background-image: none;
+    background-color: #e6e6e6;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=65);
+    opacity: 0.65;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+  
+}
+
+
+
+//---------------------------------------------------------
+//
+// C O L U M N S
+//
+//---------------------------------------------------------
+
+table.stories {
+  td {
+    border: 1px solid $th-bg-color;
+  }
+}
+
+div.column_header {
+  background-color: $th-bg-color;
+  font-size: 14px;
+  line-height: 22px;
+  
+  a {
+    color: $text-color;
+    
+    &:hover {
+     text-decoration: none;
+     color: #000; 
+    }
+  }
+}
+
+div.iteration {
+  background-color: $header-bg-color;
+  color: $header-link-color;
+  padding: 4px 7px 4px 7px;
+  border-bottom: 1px solid $td-border-color;
+  
+  i.icon-refresh {
+    background-image: image-url('glyphicons-halflings-white.png');
+    margin-right: 7px;
+  }
+}
+
+div.story {
+  border-bottom: 1px solid $td-border-color;
+  padding: 3px 6px 3px 3px;
+  
+  .tags {
+    font-weight: $bold-font-weight;
+    color: $success-text-color;
+  }
+  
+  .initials {
+    font-weight: $bold-font-weight;
+    color: $info-text-color;
+    text-transform: uppercase;
+  }
+  
+  &.accepted {
+    background-color: $success-bg-color;
+    border-bottom-color: $success-border-color;
+    
+    .icon {
+       background-image: image-url('glyphicons-halflings-success.png');
+    }
+    
+    hr, .note {
+      border-color: $success-border-color;
+    }
+  }
+  
+  &.started,
+  &.finished,
+  &.delivered {
+    background-color: $alert-bg-color;
+    border-bottom-color: $alert-border-color;
+    
+    .icon {
+       background-image: image-url('glyphicons-halflings-alert.png');
+    }
+    
+    hr, .note {
+      border-color: $alert-border-color;
+    }
+  }
+  
+  &.unscheduled,
+  &.release {
+    background-color: $info-bg-color;
+    border-bottom-color: $info-border-color;
+    
+    .icon {
+       background-image: image-url('glyphicons-halflings-info.png');
+    }
+    
+    hr, .note {
+      border-color: $info-border-color;
+    }
+  }
+  
+  &.editing .icon-throbber {
+    background: image-url('throbber.gif') no-repeat !important;
+  }
+  
+}
+
+.form-horizontal .notelist textarea {
+  width: 96%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.note {
+  border-bottom: 1px solid $td-border-color;
+  padding: 0 3px 0 3px;
+  margin-bottom: 3px;
+}
+  
+.control-group.labels .controls {
+
+  ul.tagit li.tagit-choice {
+    border: 1px solid $info-border-color;
+    background-color: $info-bg-color;
+    color: $info-text-color;
+    background-image: none;    
+  }
+  
+}
+
+
+
+//---------------------------------------------------------
+//
+// P R O J E C T   L I S T
+//
+//---------------------------------------------------------
+ul#projects li {
+  border-bottom: 1px solid $td-border-color;
+}
+
+.project_options a {
+  display: block;
+}

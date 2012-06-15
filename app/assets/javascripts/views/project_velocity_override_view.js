@@ -19,8 +19,8 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
               '      <input name="override" size=2 value=<%= project.velocity() %> />' +
               '    </li>' +
               '    <li>' +
-              '      <button name="revert" value="revert">Revert</button>' +
-              '      <button name="apply" value="apply">Apply</button>' +
+              '      <button name="revert" value="revert" class="btn btn-mini">Revert</button>' +
+              '      <button name="apply" value="apply" class="btn btn-mini btn-primary">Apply</button>' +
               '    </li>' +
               '  </ul>' +
               '</form>'

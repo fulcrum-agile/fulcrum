@@ -2,54 +2,74 @@
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
 
-<h2>Import stories</h2>
+<div class="container">
+  
+  <div class="row">
+    <div class="span8 offset2">
 
-<p>
-You can bulk import stories in comma separated variable (CSV) format.  The
-first line of the CSV must contain the correct headers for the import to
-succeed.  You can download a
-<a href="/Fulcrum_Import_Template.csv">CSV template</a> with the correct
-headers to get you started.
-</p>
-<p>
-Fulcrum will try and match any user names found in the CSV with members of
-your project.  Be sure to add members with the correct names before importing
-if you want these to match up.
-</p>
-<p><em>Note: You can also use a CSV export from Pivotal Tracker.</em></p>
-<%= form_tag import_upload_project_stories_path(@project), :multipart => true %>
-  <%= file_field_tag :csv %>
-  <%= submit_tag :import %>
-</form>
+      <h2>Import stories</h2>
 
-<% if @stories %>
-  <h2>Import results</h2>
+      <p>
+      You can bulk import stories in comma separated variable (CSV) format.  The
+      first line of the CSV must contain the correct headers for the import to
+      succeed.  You can download a
+      <a href="/Fulcrum_Import_Template.csv">CSV template</a> with the correct
+      headers to get you started.
+      </p>
+      <p>
+      Fulcrum will try and match any user names found in the CSV with members of
+      your project.  Be sure to add members with the correct names before importing
+      if you want these to match up.
+      </p>
+      <p><em>Note: You can also use a CSV export from Pivotal Tracker.</em></p>
+      
+      <%= form_tag import_upload_project_stories_path(@project), :multipart => true, :class => ['well', 'form-horizontal'] %>
+        <fieldset>
 
-  <table id="import">
-    <thead>
-      <tr>
-        <th>Row</th>
-        <th>Story</th>
-        <th>Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @stories.each_with_index do |story, index| %>
-        <% if story.valid? %>
-        <tr class="valid">
-          <td><%= index + 1 %></td>
-          <td><%= story.title %></td>
-          <td><%= story.story_type %></td>
-        </tr>
-        <% else %>
-          <tr class="invalid">
-            <td><%= index + 1 %></td>
-            <td colspan="2">
-              <%= story.errors.full_messages.join(', ') %>
-            </td>
-          </tr>
-        <% end %>
+          <div class="control-group">
+            <%= label_tag :csv, 'CSV File', :class => 'control-label' %>
+            <div class="controls"><%= file_field_tag :csv %></div>
+          </div>
+          
+          <div class="form-actions">
+            <%= submit_tag :import, :class => ['btn', 'btn-primary'] %>
+          </div>
+          
+        </fieldset>
+      </form>
+
+      <% if @stories %>
+        <h2>Import results</h2>
+
+        <table id="import" class="table table-striped table-bordered table-condensed">
+          <thead>
+            <tr>
+              <th>Row</th>
+              <th>Story</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @stories.each_with_index do |story, index| %>
+              <% if story.valid? %>
+              <tr class="valid">
+                <td><%= index + 1 %></td>
+                <td><%= story.title %></td>
+                <td><%= story.story_type %></td>
+              </tr>
+              <% else %>
+                <tr class="invalid">
+                  <td><%= index + 1 %></td>
+                  <td colspan="2">
+                    <%= story.errors.full_messages.join(', ') %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
-    </tbody>
-  </table>
-<% end %>
+
+    </div>
+  </div>
+</div>

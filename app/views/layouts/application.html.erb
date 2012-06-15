@@ -8,14 +8,17 @@
   <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css" %>
   <%= javascript_include_tag :application %>
 </head>
-<body>
+<body id="<%= page_id %>">
 
+<%= show_messages %>
+  
 <div id="header">
   <ul id="primary-nav">
     <li class="root"><%= link_to t('fulcrum'), root_path %></li>
     <% if current_user %>
       <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
         <%= link_to Project.model_name.human.pluralize, root_path %>
+        <i class="icon-chevron-down"></i>
         <%- if current_user.projects.present? -%>
           <ul>
             <%- current_user.projects.each do |project| -%>
@@ -39,7 +42,6 @@
 </div>
 
 <div id="main">
-  <%= show_messages %>
 
   <%= yield %>
 </div>

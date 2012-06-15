@@ -1,27 +1,25 @@
 <% content_for :title_bar do %>
   <h1>Sign up</h1>
 <% end %>
-<div class="form-wrapper">
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => 'form-horizontal' }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field-wrapper">
-    <%= f.label :name %>
-    <div class="field"><%= f.text_field :name %></div>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :name %></div>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :initials %>
-    <div class="field"><%= f.text_field :initials %></div>
+  <div class="control-group">
+    <%= f.label :initials, :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :initials %></div>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+  <div class="control-group">
+    <%= f.label :email, :class => 'control-label' %>
+    <div class="controls"><%= f.email_field :email %></div>
   </div>
 
-  <div class="actions"><%= f.submit t('sign up') %></div>
+  <div class="form-actions"><%= f.submit t('sign up'), :class => 'btn' %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
-</div>

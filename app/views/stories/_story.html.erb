@@ -3,14 +3,13 @@
   <% if story.estimable? %>
     <div class="state-actions">
       <% story.project.point_values.each do |points| %>
-        <a class="action-button estimate"><%= points %></a>
+        <a class="btn btn-mini estimate"><%= points %></a>
       <% end %>
     </div>
   <% else  %>
     <% unless story.events.empty? %>
     <div class="state-actions">
       <% story.events.each do |state| %>
-        <!-- <a class="action-button <%= state %>"><%= state.to_s.humanize %></a> -->
         <%= state_transition_button(story, state) %>
       <% end %>
     </div>

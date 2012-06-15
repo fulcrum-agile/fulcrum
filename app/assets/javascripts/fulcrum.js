@@ -14,7 +14,7 @@ $(function() {
 
   // Add close button to flash messages
   $('#messages div').prepend('<a class="close" href="#">×</a>').find('a.close').click(function () {
-    $(this).parent().fadeOut();
+    $(this).parent().slideUp();
     return false;
   });
 });

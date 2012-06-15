@@ -1,33 +1,73 @@
 <% content_for :title_bar do %>
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
-<h2>Project members</h2>
-<ul>
-  <% @users.each do |user| %>
-    <li><%= user %><%= link_to 'Remove', project_user_path(@project, user),
-      :confirm => "Are you sure you want to remove #{user.email} from this project?",
-      :method => :delete %></li>
-  <% end %>
-</ul>
-<h2>Add a new member</h2>
-<div class="form-wrapper">
-<%= form_for project_users_path(@project, @user) do |f| %>
-  <% fields_for :user do |u| %>
-    <div class="field-wrapper">
-      <%= u.label :email %>
-      <div class="field"><%= u.text_field :email %></div>
+
+<div class="container">
+  
+  <div class="row">
+    <div class="span8 offset2">
+  
+      <h2>Project members</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Initials</th>
+            <th>Email</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        </body>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.initials.upcase %></td>
+            <td><%= user.email %></td>
+            <td>
+              <%= link_to 'Remove', project_user_path(@project, user),
+                  :confirm => "Are you sure you want to remove #{user.email} from this project?",
+                  :method => :delete %>
+            </td>
+        <% end %>
+        </tbody>
+      </table>
+    
     </div>
-    <div class="field-wrapper">
-      <%= u.label :name %>
-      <div class="field"><%= u.text_field :name %></div>
+  </div>
+  
+  <div class="row">
+    <div class="span8 offset2">
+
+      <h2>Add a new member</h2>
+  
+      <%= form_for project_users_path(@project, @user), :html => { :class => 'well form-horizontal' } do |f| %>
+        <fieldset>
+          
+          <%= render 'shared/form_errors', :object => @user if @user.errors.any? %>
+          
+          <%= fields_for :user do |u| %>
+            <div class="control-group">
+              <%= u.label :email, :class => 'control-label' %>
+              <div class="controls"><%= u.text_field :email %></div>
+            </div>
+            <div class="control-group">
+              <%= u.label :name, :class => 'control-label' %>
+              <div class="controls"><%= u.text_field :name %></div>
+            </div>
+            <div class="control-group">
+              <%= u.label :initials, :class => 'control-label' %>
+              <div class="controls"><%= u.text_field :initials %></div>
+            </div>
+            <div class="form-actions">
+            <%= u.submit 'Add user', :class => ['btn', 'btn-primary'] %>
+            </div>
+          <% end %>
+        
+        </fieldset>
+      <% end %>
+      
     </div>
-    <div class="field-wrapper">
-      <%= u.label :initials %>
-      <div class="field"><%= u.text_field :initials %></div>
-    </div>
-    <div class="actions">
-    <%= u.submit 'Add user' %>
-    </div>
-  <% end %>
-<% end %>
+  </div>
+
+
 </div>

@@ -2,6 +2,16 @@
   <h1><%= t('projects.new project') %></h1>
 <% end %>
 
-<%= render 'form' %>
+<div class="container">
+  
+  <div class="row">
+    <div class="span8 offset2">
 
-<%= link_to 'Back', projects_path %>
+      <%= render 'form' %>
+      
+      <%= link_to 'Back', projects_path %>
+      
+    </div>
+  </div>
+</div>
+

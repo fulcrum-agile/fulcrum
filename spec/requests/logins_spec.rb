@@ -21,7 +21,7 @@ describe "Logins" do
 
     it "logs in the user", :js => true do
       visit root_path
-      page.should have_selector('h1', :text => 'Sign in')
+      page.should have_selector('input.btn[value="Sign in"]')
 
       fill_in "Email",    :with => "user@example.com"
       fill_in "Password", :with => "password"
@@ -42,7 +42,7 @@ describe "Logins" do
       visit root_path
       click_on 'Log out'
 
-      page.should have_selector('h1', :text => 'Sign in')
+      page.should have_selector('input.btn[value="Sign in"]')
     end
   end
 

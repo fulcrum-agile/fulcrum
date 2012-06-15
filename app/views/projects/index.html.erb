@@ -2,27 +2,39 @@
   <h1><%= t('.listing projects') %></h1>
 <% end %>
 
-<ul id="projects">
-  <% @projects.each do |project| %>
-    <li>
-      <div class="project_options">
-        <%= link_to t('edit'), edit_project_path(project) %>
-        <%= link_to User.model_name.human.pluralize, project_users_path(project) %>
-        <%= link_to t('delete'), project,
-          :confirm => t('.are you sure you want to delete this project'),
-          :method => :delete %>
-      </div>
-      <h2><%= link_to project.name, project %></h2>
-      <%= Project.human_attribute_name('started_at') %>:
-      <%= project.start_date %>
-      <br />
-      <p>
-      <%= t('.the iteration starts on x with length of x weeks',
-            :day    => t('date.day_names')[project.iteration_start_day],
-            :count  => project.iteration_length) %>
-      </p>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  
+  <div class="row">
+    <div class="span8 offset2">
 
-<%= link_to t('projects.new project'), new_project_path, :class => :button %>
+      <ul id="projects">
+        <% @projects.each do |project| %>
+          <li>
+            <div class="project_options">
+              <%= link_to t('edit'), edit_project_path(project) %>
+              <%= link_to User.model_name.human.pluralize, project_users_path(project) %>
+              <%= link_to t('delete'), project,
+                :confirm => t('.are you sure you want to delete this project'),
+                :method => :delete %>
+            </div>
+            <h2><%= link_to project.name, project %></h2>
+            
+            <div class="meta">
+              <%= Project.human_attribute_name('started_at') %>:
+              <%= project.start_date %>
+              <br />
+              <p>
+              <%= t('.the iteration starts on x with length of x weeks',
+                    :day    => t('date.day_names')[project.iteration_start_day],
+                    :count  => project.iteration_length) %>
+              </p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <%= link_to t('projects.new project'), new_project_path, :class => ['btn', 'btn-primary'] %>
+    
+    </div>
+  </div>
+</div>

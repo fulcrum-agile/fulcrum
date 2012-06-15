@@ -11,7 +11,8 @@ Fulcrum.ColumnVisibiltyButtonView = Backbone.View.extend({
   tagName: 'a',
 
   attributes: {
-    href: '#'
+    'href':  '#',
+    'class': 'btn'
   },
 
   initialize: function() {

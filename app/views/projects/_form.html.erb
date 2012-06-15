@@ -1,39 +1,42 @@
-<div class="form-wrapper">
-<%= form_for(@project) do |f| %>
-  <%= render 'shared/form_errors', :object => @project if @project.errors.any? %>
 
-  <div class="field-wrapper">
-    <%= f.label :name %>
-    <div class="field"><%= f.text_field :name %></div>
-  </div>
+<%= form_for @project, :html => { :class => 'well form-horizontal' } do |f| %>
+  <fieldset>
+          
+    <%= render 'shared/form_errors', :object => @project if @project.errors.any? %>
 
-  <div class="field-wrapper">
-    <%= f.label :point_scale %>
-    <div class="field"><%= f.select :point_scale, point_scale_options %></div>
-  </div>
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls"><%= f.text_field :name %></div>
+    </div>
 
-  <div class="field-wrapper">
-    <%= f.label :default_velocity %>
-    <div class="field"><%= f.text_field :default_velocity, :length => 2, :size => 3 %></div>
-  </div>
+    <div class="control-group">
+      <%= f.label :point_scale, :class => 'control-label' %>
+      <div class="controls"><%= f.select :point_scale, point_scale_options %></div>
+    </div>
 
-  <div class="field-wrapper date-wrapper">
-    <%= f.label :start_date %>
-    <div class="field"><%= f.date_select :start_date %></div>
-  </div>
+    <div class="control-group">
+      <%= f.label :default_velocity, :class => 'control-label' %>
+      <div class="controls"><%= f.text_field :default_velocity, :length => 2, :size => 3 %></div>
+    </div>
 
-  <div class="field-wrapper">
-    <%= f.label :iteration_start_day %>
-    <div class="field"><%= f.select :iteration_start_day, day_name_options %></div>
-  </div>
+    <div class="control-group date-wrapper">
+      <%= f.label :start_date, :class => 'control-label' %>
+      <div class="controls"><%= f.date_select :start_date %></div>
+    </div>
 
-  <div class="field-wrapper">
-    <%= f.label :iteration_length %>
-    <div class="field"><%= f.select :iteration_length, iteration_length_options %></div>
-  </div>
+    <div class="control-group">
+      <%= f.label :iteration_start_day, :class => 'control-label' %>
+      <div class="controls"><%= f.select :iteration_start_day, day_name_options %></div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="control-group">
+      <%= f.label :iteration_length, :class => 'control-label' %>
+      <div class="controls"><%= f.select :iteration_length, iteration_length_options %></div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit :class => ['btn', 'btn-primary'] %>
+    </div>
+    
+  </fieldset>
 <% end %>
-</div>
