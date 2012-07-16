@@ -38,6 +38,12 @@ $(function() {
     new Fulcrum.ColumnVisibiltyButtonView({columnView: chillyBinColumn}).render().el
   );
 
+  // FIXME Move to view
+  // Connect up drag and drop behaviour
+  $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
+  $('#chilly_bin').sortable('option', 'connectWith', '#backlog,#in_progress');
+  $('#in_progress').sortable('option', 'connectWith', '#backlog,#chilly_bin');
+
   window.projectView = new Fulcrum.ProjectView({model: project});
   window.projectView.velocityView = new Fulcrum.ProjectVelocityView({
     model: project, el: $('#velocity')
