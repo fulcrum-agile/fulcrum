@@ -60,4 +60,4 @@
 
   <div class="actions"><%= f.submit "Update" %></div>
 <% end %>
-<div class="secondary-actions"><%= link_to t(".cancel my account"), registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %></div>
+<div class="secondary-actions"><%= link_to t(".cancel my account"), registration_path(resource_name), :data => {:confirm => "Are you sure?"}, :method => :delete %></div>

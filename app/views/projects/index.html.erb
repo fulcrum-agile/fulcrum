@@ -9,7 +9,7 @@
         <%= link_to t('edit'), edit_project_path(project) %>
         <%= link_to User.model_name.human.pluralize, project_users_path(project) %>
         <%= link_to t('delete'), project,
-          :confirm => t('.are you sure you want to delete this project'),
+          :data => {:confirm => t('.are you sure you want to delete this project')},
           :method => :delete %>
       </div>
       <h2><%= link_to project.name, project %></h2>
