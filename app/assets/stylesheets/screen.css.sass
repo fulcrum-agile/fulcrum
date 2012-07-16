@@ -85,7 +85,7 @@ ul#primary-nav li.secondary
   +icons-sprite(collapse, false, 0px, 6px)
   background-color: #333
   background-position-x: right
-  padding: 0.4em 18px 0.4em 0.4em
+  padding: 0.4em 22px 0.4em 0.6em
   +border-radius(5px)
   text-shadow: black 0 1px 0
 
@@ -119,7 +119,7 @@ ul#primary-nav li.secondary ul li
   font-weight: bold
   line-height: 140%
   margin-bottom: 0.5em
-  color: #5e6469
+  color: #000
   position: relative
   margin: 0
   padding: 10px 1em
@@ -151,7 +151,7 @@ ul#primary-nav li.secondary ul li
     +background(sprite($icons-sprites, feature, 2, 2), linear-gradient(top, $aluminium-3, $aluminium-3 * 0.75))
     background-repeat: no-repeat
     margin: 0
-    padding: 0.2em 0.4em 0.2em 18px
+    padding: 0.2em 0.6em 0.2em 22px
     +border-radius(3px)
     border: 1px solid $aluminium-5
     cursor: pointer
@@ -163,7 +163,7 @@ ul#primary-nav li.secondary ul li
 
 #title_bar h1
   font-size: 2em
-  margin: 0.3em 0
+  margin: 0.3em 0 0.5em 0
 
 #main
   margin: 1em
@@ -177,7 +177,7 @@ html.stories, html.stories body, html.stories div#main
 
 #column-toggles a
   margin: 0 0.2em
-  padding: 3px
+  padding: 3px 8px
   color: white
   background-color: $darkgrey
   +border-radius(3px)
@@ -197,6 +197,7 @@ table.stories td
   vertical-align: top
   background-color: #ccc
   +border-radius(5px 5px 0 0)
+  background: image-url("stories_td.gif")
 
 div.storycolumn
   overflow: auto
@@ -207,9 +208,11 @@ div.storycolumn
   background: $darkgrey
   +background(linear-gradient(top, $darkgrey, $darkgrey * 0.75))
   color: #eee
-  padding: 0.2em
+  padding: 0.5em 0.3em
   font-weight: bold
   +border-radius(5px 5px 0 0)
+  border: #666 solid 1px
+  margin: -1px 0 0 0
   a.toggle-column
     color: #eee
     text-decoration: none
@@ -220,7 +223,7 @@ div.storycolumn
       color: $aluminium-3
 
 div.story
-  padding: 0.3em
+  padding: 0.5em 0.3em
   background-repeat: no-repeat
   background-position: 4px 4px
   background-color: #eee
@@ -318,10 +321,10 @@ span.estimate_8
   display: inline
 
 .iteration
-  +icons-sprite(iteration, false, 2px, 3px)
+  +icons-sprite(iteration, false, 2px, 5px)
   background-color: #000
   color: #ddd
-  padding: 0.2em 0.2em 0.2em 20px
+  padding: 0.5em 0.3em 0.5em 22px
 
 .iteration .points
   float: right
