@@ -1,0 +1,590 @@
+@import compass/css3
+@import scaffold
+@import jquery_gritter
+@import jquery_tagit
+@import popover
+@import icons
+
+$darkgrey: #6a7176
+
+// Header color
+$orange: rgb(250, 182, 155)
+
+// Estimate gauge color
+
+// Tango icon theme pallette
+// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
+$butter-1: #fce94f
+$butter-2: #edd400
+$butter-3: #c4a000
+$orange-1: #fcaf3e
+$orange-2: #f57900
+$orange-3: #ce5c00
+$chocolate-1: #e9b96e
+$chocolate-2: #c17d11
+$chocolate-3: #8f5902
+$chameleon-1: #8ae234
+$chameleon-2: #73d216
+$chameleon-3: #4e9a06
+$sky-blue-1: #729fcf
+$sky-blue-2: #3465a4
+$sky-blue-3: #204a87
+$plum-1: #ad7fa8
+$plum-2: #75507b
+$plum-3: #5c3566
+$scarlet-red-1: #ef2929
+$scarlet-red-2: #cc0000
+$scarlet-red-3: #a40000
+$aluminium-1: #eeeeec
+$aluminium-2: #d3d7cf
+$aluminium-3: #babdb6
+$aluminium-4: #888a85
+$aluminium-5: #555753
+$aluminium-6: #2e3436
+
+body
+  margin: 0
+  padding: 0
+
+a img
+  border: 0
+
+#header
+  background: $darkgrey
+  +background(linear-gradient(top, $darkgrey, $darkgrey * 0.75))
+  border-bottom: 1px solid $darkgrey * 0.7
+  +box-shadow(0 1px 2px #aaaaaa)
+  text-shadow: black 0 1px 0
+  position: relative
+  z-index: 900
+
+ul#primary-nav
+  text-align: right
+  background-image: image-url("logo.png")
+  background-repeat: no-repeat
+  background-position: 13px 6px
+  margin: 0
+  padding: 1em 1em 1em 40px
+  color: white
+  font-weight: bold
+
+ul#primary-nav li
+  padding: 0 0.5em
+  display: inline
+
+ul#primary-nav li a
+  color: white
+  text-decoration: none
+
+ul#primary-nav li.root
+  float: left
+  font-size: large
+
+ul#primary-nav li.secondary
+  position: relative
+  +icons-sprite(collapse, false, 0px, 6px)
+  background-color: #333
+  background-position-x: right
+  padding: 0.4em 18px 0.4em 0.4em
+  +border-radius(5px)
+  text-shadow: black 0 1px 0
+
+ul#primary-nav li.secondary ul
+  visibility: hidden
+
+ul#primary-nav li.secondary:hover ul
+  visibility: visible
+
+ul#primary-nav li.secondary ul
+  padding: 0.3em
+  position: absolute
+  left: 0
+  top: 1.7em
+  background-color: #333
+  +border-radius(0 5px 5px 5px)
+
+ul#primary-nav li.secondary ul li
+  white-space: nowrap
+  text-align: left
+  display: block
+
+#title_bar
+  background: #efefef
+  +background(linear-gradient(top, #efefef, #dfe1e2))
+  +box-shadow(0 1px 2px #aaaaaa)
+  text-shadow: white 0 1px 0
+  border-bottom: 1px solid #ededed
+  padding: 5px 10px 3px 10px
+  font-size: 1.0em
+  font-weight: bold
+  line-height: 140%
+  margin-bottom: 0.5em
+  color: #5e6469
+  position: relative
+  margin: 0
+  padding: 10px 1em
+  div.velocity
+    font-size: 1.6em
+    float: right
+    position: relative
+    div.velocity_override_container
+      width: 220px
+      position: absolute
+      right: 0
+      top: 30px
+      background: #efefef
+      border: 1px solid #ccc
+      +border-radius(3px)
+      +single-box-shadow
+      z-index: 1
+      ul
+        margin: 10px
+        padding: 0
+        li
+          list-style-type: none
+    #velocity_value
+      cursor: pointer
+  div.velocity.fake #velocity_value
+    color: #f00
+    font-style: italic
+  #add_story
+    +background(sprite($icons-sprites, feature, 2, 2), linear-gradient(top, $aluminium-3, $aluminium-3 * 0.75))
+    background-repeat: no-repeat
+    margin: 0
+    padding: 0.2em 0.4em 0.2em 18px
+    +border-radius(3px)
+    border: 1px solid $aluminium-5
+    cursor: pointer
+    font-size: small
+    font-weight: bold
+    color: white
+    text-shadow: $aluminium-5 0 1px 0
+    text-decoration: none
+
+#title_bar h1
+  font-size: 2em
+  margin: 0.3em 0
+
+#main
+  margin: 1em
+  position: relative
+
+html.stories, html.stories body, html.stories div#main
+  height: 100%
+
+#column-toggles
+  float: right
+
+#column-toggles a
+  margin: 0 0.2em
+  padding: 3px
+  color: white
+  background-color: $darkgrey
+  +border-radius(3px)
+  text-decoration: none
+  text-shadow: none
+
+#column-toggles a.pressed
+  color: $darkgrey
+  background-color: #cecece
+
+table.stories
+  width: 100%
+  height: 100%
+  border-spacing: 5px 0
+
+table.stories td
+  vertical-align: top
+  background-color: #ccc
+  +border-radius(5px 5px 0 0)
+
+div.storycolumn
+  overflow: auto
+  padding-bottom: 80px
+
+.column_header
+  text-align: center
+  background: $darkgrey
+  +background(linear-gradient(top, $darkgrey, $darkgrey * 0.75))
+  color: #eee
+  padding: 0.2em
+  font-weight: bold
+  +border-radius(5px 5px 0 0)
+  a.toggle-column
+    color: #eee
+    text-decoration: none
+    float: right
+    padding: 0px 5px 1px
+    cursor: pointer
+    &:hover
+      color: $aluminium-3
+
+div.story
+  padding: 0.3em
+  background-repeat: no-repeat
+  background-position: 4px 4px
+  background-color: #eee
+  border-bottom: 1px solid #ddd
+  border-top: 1px solid #fff
+
+div.story:hover
+  background-color: #ddd
+
+div.story.editing, div.story.editing:hover
+  background-color: adjust-lightness($butter-1, 20)
+  color: $aluminium-6
+
+div.story.feature.accepted,
+div.story.bug.accepted,
+div.story.chore.accepted
+  background-color: adjust-lightness($chameleon-1, 40)
+
+div.story input[type=text],
+div.story textarea
+  width: 99%
+
+div.story textarea
+  height: 50px
+
+div.story-icons
+  float: left
+
+div.story-title
+  margin-left: 65px
+
+.unestimated div.story-title
+  font-style: italic
+
+div.story-title abbr.initials
+  color: green
+  font-weight: bold
+  margin-left: 0.2em
+  border: none
+
+#in_progress div.story-title,
+#backlog div.story-title,
+#chilly_bin div.story-title
+  cursor: move
+
+#in_progress div.story.accepted div.story-title
+  cursor: inherit
+
+span.estimate
+  border: 1px solid #777
+  padding: 0 0.2em
+  margin: 0 2px 0 0
+  +border-radius(3px)
+  vertical-align: top
+  font-size: x-small
+  font-weight: bold
+  font-style: italic
+
+span.estimate_1
+  +background(linear-gradient(bottom, $orange 12.5%, white 12.5%))
+
+span.estimate_2
+  +background(linear-gradient(bottom, $orange 25%, white 25%))
+
+span.estimate_3
+  +background(linear-gradient(bottom, $orange 37.5%, white 37.5%))
+
+span.estimate_4
+  +background(linear-gradient(bottom, $orange 50%, white 50%))
+
+span.estimate_5
+  +background(linear-gradient(bottom, $orange 62.5%, white 62.5%))
+
+span.estimate_6
+  +background(linear-gradient(bottom, $orange 75%, white 75%))
+
+span.estimate_7
+  +background(linear-gradient(bottom, $orange 87.5%, white 87.5%))
+
+span.estimate_8
+  +background(linear-gradient(bottom, $orange 100%, white 100%))
+
+.story.release
+  background-color: #333
+  color: white
+
+.story.release:hover
+  background-color: #222
+
+.state-actions
+  float: right
+  margin-left: 0.2em
+
+.state-actions form div, .state-actions form
+  display: inline
+
+.iteration
+  +icons-sprite(iteration, false, 2px, 3px)
+  background-color: #000
+  color: #ddd
+  padding: 0.2em 0.2em 0.2em 20px
+
+.iteration .points
+  float: right
+
+.state-actions input
+  margin: 0
+  padding: 0 0.3em
+  +border-radius(3px)
+  border: 1px solid #333
+  cursor: pointer
+  font-size: small
+  font-weight: bold
+  color: white
+  +background(linear-gradient(top, $aluminium-3, $aluminium-3 * 0.75))
+  border-color: $aluminium-5
+  text-shadow: $aluminium-5 0 1px 0
+  +box-shadow(0 1px 2px #aaaaaa)
+
+.story.release .state-actions input
+  +box-shadow(0 1px 2px black)
+
+.state-actions input:active
+  +box-shadow(none)
+
+.state-actions input.finish
+  +background(linear-gradient(top, $sky-blue-1, $sky-blue-1 * 0.75))
+  border-color: $sky-blue-3
+
+.state-actions input.deliver
+  +background(linear-gradient(top, $butter-1, $butter-1 * 0.75))
+  border-color: $butter-3
+
+.state-actions input.accept
+  +background(linear-gradient(top, $chameleon-2, $chameleon-2 * 0.75))
+  border-color: $chameleon-3
+
+.state-actions input.reject
+  +background(linear-gradient(top, $scarlet-red-1, $scarlet-red-1 * 0.75))
+  border-color: $scarlet-red-3
+
+.state-actions input.restart
+  +background(sprite($icons-sprites, redo), linear-gradient(top, $scarlet-red-1, $scarlet-red-1 * 0.75))
+  background-repeat: no-repeat
+  border-color: $scarlet-red-3
+  padding-left: 16px
+
+table#import tr.valid, .notice
+  color: white
+  background-color: $chameleon-3
+
+table#import tr.invalid, .alert
+  color: white
+  background-color: $scarlet-red-2
+
+ul#projects
+  list-style: none
+  width: 50%
+  padding-left: 0
+
+ul#projects li
+  background: #efefef
+  +background(linear-gradient(top, #efefef, #dfe1e2))
+  +box-shadow(0 1px 2px #aaaaaa)
+  text-shadow: white 0 1px 0
+  margin: 10px 0
+  padding: 10px
+  border: 1px solid #efefef
+  border-top: 1px solid #dfe1e2
+
+ul#projects li:hover
+  +background(linear-gradient(top, darken(#efefef, 10%), darken(#dfe1e2, 10%)))
+
+ul#projects li h2
+  display: inline
+
+div.project_options
+  float: right
+
+ul#projects li:hover
+  background-color: #babdb6
+
+a.button
+  background: #efefef
+  +background(linear-gradient(top, #efefef, #dfe1e2))
+  +box-shadow(0 1px 2px #aaaaaa)
+  text-shadow: white 0 1px 0
+  padding: 5px
+  +border-radius(5px)
+  border: 1px solid $darkgrey * 1.5
+  text-decoration: none
+  font-weight: bold
+
+a.button:hover
+  +background(linear-gradient(top, $chameleon-2, $chameleon-3))
+  color: white
+  text-shadow: $darkgrey 0 1px 0
+
+.tags
+  color: $sky-blue-3
+  font-size: 90%
+
+.popover
+  p
+    margin-top: 0px
+  .title
+    margin: 0px
+  .inner
+    padding: 2px
+  .content
+    padding: 10px 0px 14px
+  .small
+    color: $aluminium-3
+    font-size: 0.85em
+    padding-left: 15px
+    margin: 0 10px 10px 0
+    .icons
+      float: right
+      .text
+        vertical-align: top
+  .description
+    padding: 10px 15px 0px
+
+.ui-widget
+  font-size: 0.9em
+
+div.note
+  background-color: white
+  margin: 0.3em 0.3em 0.6em
+  border-left: 4px solid $aluminium-3
+  p
+    padding: 0.3em
+  div.note_meta
+    color: $aluminium-4
+    font-style: italic
+    font-size: x-small
+    text-align: right
+
+.note_form
+  input.saving
+    padding-left: 16px
+    background-image: url("/images/throbber.gif")
+    background-repeat: no-repeat
+    background-position: left center
+
+#messages .flash-alert
+  background: $butter-1
+  +background(linear-gradient(top, $butter-1, $butter-2))
+  border: 1px solid $butter-3 * 0.75
+  +box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255, 255, 255, 0.5))
+  color: $butter-3 * 0.5
+  +border-radius(5px)
+  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0
+  padding: 5px
+  margin-bottom: 10px
+
+#messages .flash-notice
+  background: $chameleon-1
+  +background(linear-gradient(top, $chameleon-1, $chameleon-2))
+  border: 1px solid $chameleon-3 * 0.75
+  +box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255, 255, 255, 0.5))
+  color: $chameleon-3 * 0.5
+  +border-radius(5px)
+  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0
+  padding: 5px
+  margin-bottom: 10px
+
+#messages .flash-error
+  background: $scarlet-red-1
+  +background(linear-gradient(top, $scarlet-red-1, $scarlet-red-2))
+  border: 1px solid $scarlet-red-3 * 0.75
+  +box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255, 255, 255, 0.5))
+  color: rgba(255, 255, 255, 0.85)
+  +border-radius(5px)
+  text-shadow: $scarlet-red-3 * 0.5 0 1px 0
+  padding: 5px
+  margin-bottom: 10px
+
+#messages .close
+  padding-right: 5px
+  float: right
+  line-height: 18px
+  font-weight: bold
+  text-decoration: none
+  opacity: 0.4
+  &:hover
+    opacity: 1
+
+.form-wrapper
+  padding: 10px
+  h3
+    margin-left: 160px
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  select textarea
+    +transition(border linear 0.2s, box-shadow linear 0.2s)
+    +box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1))
+  input[type=text]:focus,
+  input[type=email]:focus,
+  input[type=password]:focus,
+  select:focus,
+  textarea:focus
+    outline: 0
+    border-color: rgba(114, 159, 207, 0.8)
+    +box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(114, 159, 207, 0.6))
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  select
+    display: inline-block
+    width: 210px
+    height: 14px
+    padding: 4px
+    font-size: 14px
+    color: gray
+    border: 1px solid #CCC
+    +border-radius(3px)
+  select
+    height: 26px
+    min-width: 220px
+    width: auto
+    margin: auto
+  div.field-wrapper label
+    width: 150px
+    text-align: right
+    display: block
+    zoom: 1
+    height: 14px
+    float: left
+  div.field-wrapper:before, div.field-wrapper:after
+    display: table
+    content: ""
+    zoom: 1
+  div.field-wrapper:after
+    clear: both
+  div.field
+    margin-left: 160px
+  div.date-wrapper select
+    min-width: 0px
+    width: auto
+  div.field-wrapper div.help
+    color: $darkgrey
+    margin-left: 160px
+    margin-top: -10px
+    margin-bottom: 10px
+    font-size: 0.85em
+    font-style: italic
+  div.actions, div.secondary-actions
+    padding-left: 160px
+  div.secondary-actions a
+    display: block
+
+div.loading_screen
+  position: absolute
+  top: -10px
+  left: -10px
+  z-index: 1000
+  background: #ccc
+  +opacity(0.7)
+  width: 110%
+  height: 110%
+
+div.spinner
+  margin: 15% 45%
+  span
+    padding: 50px
