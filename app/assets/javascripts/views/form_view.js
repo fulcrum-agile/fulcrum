@@ -9,20 +9,28 @@ Fulcrum.FormView = Backbone.View.extend({
     value = value || elem_id;
     return this.make('label', {'for': elem_id}, value);
   },
-
   textField: function(name, extra_opts) {
     var defaults = {type: "text", name: name, value: this.model.get(name)}
     this.mergeAttrs(defaults, extra_opts);
     var el = this.make('input', defaults);
     this.bindElementToAttribute(el, name, "keyup");
     return el;
-  }, 
+  },
+  datepicker: function(name, extra_opts) {
+    var defaults = {type: "text", name: name, value: this.model.get(name)}
+    this.mergeAttrs(defaults, extra_opts);
+    var el = this.make('input', defaults);
+      $(el).datepicker({dateFormat:"yy-mm-dd",
+                        onSelect: function(dateText,inst){this.val=dateText;$(this).change();}});
+    this.bindElementToAttribute(el, name);
+    return el;
+  },
 
   hiddenField: function(name) {
     var el = this.make('input', {type: "hidden", name: name, value: this.model.get(name)});
     this.bindElementToAttribute(el, name);
     return el;
-  }, 
+  },
 
   textArea: function(name) {
     var el = this.make('textarea', {name: name, value: this.model.get(name)});

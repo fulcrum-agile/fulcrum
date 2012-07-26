@@ -23,7 +23,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.model.bind("change:position", this.highlight);
     this.model.bind("change:estimate", this.highlight);
     this.model.bind("change:story_type", this.highlight);
-
     this.model.bind("change:column", this.moveColumn);
 
     this.model.bind("change:estimate", this.setClassName);
@@ -57,9 +56,16 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click input.estimate": "estimate",
     "click #destroy": "clear",
     "click #edit-description": "editDescription",
-    "sortupdate": "sortUpdate"
+    "sortupdate": "sortUpdate",
+    "change select[name='story_type']"  : "changeStoryType"
   },
 
+    changeStoryType: function(ev, ui){
+        if(ev.target.value != "release"){
+            this.model.set({deadline: null});
+        }
+        this.render();
+    },
   // Triggered whenever a story is dropped to a new position
   sortUpdate: function(ev, ui) {
 
@@ -303,6 +309,16 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
             this.model.collection.project.users.forSelect(),{blank: '---'})
         })
       );
+
+        if( this.model.get('story_type') == 'release'){
+            this.$el.append(
+                this.makeFormControl({
+                    name: "deadline",
+                    label: "Deadline",
+                    control: this.datepicker("deadline")
+                })
+            );
+        }
 
       this.$el.append(
         this.makeFormControl({

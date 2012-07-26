@@ -1,7 +1,7 @@
 class Story < ActiveRecord::Base
 
   JSON_ATTRIBUTES = [
-    "title", "accepted_at", "created_at", "updated_at", "description",
+    "title", "accepted_at", "deadline", "created_at", "updated_at", "description",
     "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
     "state", "position", "id", "labels"
   ]
@@ -18,6 +18,8 @@ class Story < ActiveRecord::Base
   validates_presence_of :project_id
 
   validates :title, :presence => true
+
+  validate :deadline_is_after_project_start, :deadline_is_only_allowed_for_release, :allow_nil => true
 
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true
@@ -140,7 +142,7 @@ class Story < ActiveRecord::Base
       state,                    # Current State
       created_at,               # Created at
       accepted_at,              # Accepted at
-      nil,                      # Deadline
+      deadline,                 # Deadline
       requested_by.try(:name),  # Requested By
       owned_by.try(:name),      # Owned By
       description,              # Description
@@ -203,7 +205,19 @@ class Story < ActiveRecord::Base
   end
 
   private
+  def deadline_is_after_project_start
+    #No need to validate if the deadline is nil
+    return if self.deadline.nil?
+    if (!self.project.start_date.nil? && self.deadline.to_date < self.project.start_date)
+      errors.add(:deadline, "deadline must be after project start")
+    end
+  end
 
+  def deadline_is_only_allowed_for_release
+    if self.story_type != 'release' && !self.deadline.nil?
+      errors.add(:deadline, "deadlines can only be set on for a release")
+    end
+  end
     def set_accepted_at
       if state_changed?
         if state == 'accepted' && accepted_at == nil
