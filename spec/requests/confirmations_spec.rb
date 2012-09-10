@@ -25,7 +25,6 @@ describe "Confirmations" do
     # their confirmation token from the database.
     ActionMailer::Base.deliveries.last.to.should include 'test@example.com'
     user = User.find_by_email('test@example.com')
-    user.update_attribute(:reset_password_sent_at, Time.now)
     visit '/users/confirmation?confirmation_token=' + user.confirmation_token
     page.should have_content('Your account was successfully confirmed')
 
