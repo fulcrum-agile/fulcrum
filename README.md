@@ -79,6 +79,10 @@ to the previous section for instructions. Then:
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar
 
+    # Set APP_NAME heroku config so outbound emails have a proper host
+    # Replace MYAPPNAME below with the value from `heroku create`
+    $ heroku config:add APP_NAME=MYAPPNAME
+
     # Define where the user emails will be coming from
     # (This email address does not need to exist)
     $ heroku config:add MAILER_SENDER=noreply@example.org
