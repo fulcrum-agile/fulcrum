@@ -79,13 +79,13 @@ to the previous section for instructions. Then:
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar
 
-    # Set APP_NAME heroku config so outbound emails have a proper host
-    # Replace MYAPPNAME below with the value from `heroku create`
-    $ heroku config:add APP_NAME=MYAPPNAME
+    # Set APP_HOST heroku config so outbound emails have a proper host
+    # Replace APPNAME below with the value from `heroku create`
+    $ heroku config:set APP_HOST=APPNAME.herokuapp.com
 
     # Define where the user emails will be coming from
     # (This email address does not need to exist)
-    $ heroku config:add MAILER_SENDER=noreply@example.org
+    $ heroku config:set MAILER_SENDER=noreply@example.org
 
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
@@ -98,6 +98,19 @@ to the previous section for instructions. Then:
 
 Once that's done, you will be able to view your site at
 `http://APPNAME.herokuapp.com`.
+
+Deploying to other platforms
+----------------------------
+
+Fulcrum can be deployed to any platform that can host Rails.  Setting this
+up is beyond the scope of this document, but for the most part Fulcrum does
+not have any special operational requirements and can be deployed as a normal
+Rails application.
+
+You will need to set up some custom configuration, to do this copy the file
+`config/fulcrum.example.rb` to `config/fulcrum.rb` and edit to your
+requirements, or ensure the relevant environment variables are set for the
+application as described in the file above.
 
 Translating
 -----------
