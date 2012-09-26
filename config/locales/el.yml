@@ -243,8 +243,8 @@ el:
   activerecord:
     models:
       user: 'μέλος'
-      project: 'Πρότζεκτ'
-
+      project: 'πρότζεκτ'
+      story: 'ιστορίες'
     attributes:
       user:
         locale:                 Γλώσσα

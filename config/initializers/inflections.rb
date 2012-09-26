@@ -5,5 +5,6 @@
 # (all these examples are active by default):
 ActiveSupport::Inflector.inflections do |inflect|
    inflect.irregular 'μέλος', 'μέλη'
+   inflect.irregular 'ιστορία', 'ιστορίες'
    inflect.uncountable %w( πρότζεκτ )
 end
