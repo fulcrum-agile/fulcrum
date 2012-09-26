@@ -65,7 +65,6 @@ ul#primary-nav {
   margin: 0;
   padding: 1em 1em 1em 40px;
   color: white;
-  font-weight: bold;
 }
 ul#primary-nav li {
   padding: 0 0.5em;
@@ -115,7 +114,6 @@ ul#primary-nav li.secondary ul li {
   border-bottom: 1px solid #ededed;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
-  font-weight: bold;
   line-height: 140%;
   margin-bottom: 0.5em;
   color: #5e6469;
@@ -150,6 +148,7 @@ ul#primary-nav li.secondary ul li {
 
     #velocity_value {
       cursor: pointer;
+      font-weight:bold;
     }
   }
 
@@ -168,7 +167,6 @@ ul#primary-nav li.secondary ul li {
     border: 1px solid $aluminium-5;
     cursor: pointer;
     font-size: small;
-    font-weight: bold;
     color: white;
     text-shadow:  $aluminium-5 0 1px 0;
     text-decoration: none;
@@ -228,12 +226,12 @@ div.storycolumn {
 
 /* Story columns headers */
 .column_header {
-  text-align: center;
+  text-align: left;
   background: $darkgrey;
   @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
   color: #eee;
-  padding: 0.2em;
-  font-weight: bold;
+  padding: 0.2em 0.2em 0.2em 1em;
+  text-transform:capitalize;
   @include border-radius(5px 5px 0 0);
   a.toggle-column{
     color: #eee;
@@ -386,12 +384,11 @@ span.estimate_8 {
 
 .state-actions input {
   margin: 0;
-  padding: 0 0.3em;
+  padding: .2em .5em;
   @include border-radius(3px);
   border: 1px solid #333;
   cursor: pointer;
-  font-size: small;
-  font-weight: bold;
+  font-size: x-small;
   color: white;
   @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
   border-color: $aluminium-5;
@@ -479,7 +476,6 @@ a.button {
   @include border-radius(5px);
   border: 1px solid $darkgrey*1.5;
   text-decoration: none;
-  font-weight: bold;
 }
 
 
@@ -491,7 +487,7 @@ a.button:hover {
 }
 .tags{
   color:$sky-blue-3;
-  font-size:90%;
+  font-size:84%;
 }
 // Popover Overrides
 // Custom Style Overrides
