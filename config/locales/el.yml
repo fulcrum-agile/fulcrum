@@ -211,31 +211,31 @@ el:
   # FULCRUM TRANSLATIONS
   fulcrum:  Fulcrum
 
-  log out:  Αποσύνδεση
-  log in:   Σύνδεση
-  sign up:  Εγγραφή
-  edit:     Επεξεργασία
-  delete:   Διαγραφή
-  back:     Πίσω
-  import:   Εισαγωγή
-  export:   Εξαγωγή
-  revert:   Επαναφορά
-  apply:    Εφαρμογή
-  velocity: Ταχύτητα
-  notes:    Σημειώσεις
-  close:    Κλείσιμο
-  points:   Πόντοι
-  saving:   Αποθήκευση ...
-  expand:   Άνοιγμα
+  log out:  αποσύνδεση
+  log in:   σύνδεση
+  sign up:  εγγραφή
+  edit:     επεξεργασία
+  delete:   διαγραφή
+  back:     πίσω
+  import:   εισαγωγή
+  export:   εξαγωγή
+  revert:   επαναφορά
+  apply:    εφαρμογή
+  velocity: ταχύτητα
+  notes:    σημειώσεις
+  close:    κλείσιμο
+  points:   πόντοι
+  saving:   αποθήκευση ...
+  expand:   ανοιγμα
   accepted: γίνουν αποδεκτές
   rejected: απορριφθούν
   delivered: παραδοθούν
 
-  author unknown: "Άγνωστος"
-  add story: "Νέα ιστορία"
+  author unknown: "αγνωστος"
+  add story: "νέα ιστορία"
   save error: "Πρόβλημα κατά την αποθήκευση"
-  override velocity: "Επικάλυψη ταχύτητας"
-  story title: "Τίτλος"
+  override velocity: "επικάλυψη ταχύτητας"
+  story title: "τίτλος"
 
   requested on date:          'Ζητήθηκε στις {{date}}'
   requested by user on date:  'Ζητήθηκε απο {{user}} στις {{date}}'
@@ -297,10 +297,10 @@ el:
         other:  "Οι κύκλοι ξεκινούν %{day} και διαρκούν %{count} εβδομάδες"
 
     show:
-      done: "Ολοκληρωμένες"
-      in_progress: "Σε εξέλιξη"
-      backlog: "Σε αναμονή"
-      icebox: "Ψυγείο"
+      done: "ολοκληρωμένες"
+      in_progress: "σε εξέλιξη"
+      backlog: "σε αναμονή"
+      icebox: "ψυγείο"
 
   registrations:
     edit:
