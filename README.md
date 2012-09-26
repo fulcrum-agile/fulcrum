@@ -6,9 +6,9 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
-![Fulcrum Screenshot](https://github.com/malclocke/fulcrum/raw/master/doc/screenshot.png)
+![Fulcrum Screenshot](https://github.com/Achillefs/fulcrum/raw/master/doc/screenshot.png)
 
-Humbuckers' fork features a slightly different and -in our opinion- less cluttered CSS, greek localization and a few other minor stylistical modifications
+Humbuckers' fork features a slightly different and -in our opinion- less cluttered CSS, greek localization and a few other minor stylistical modifications.
 
 Get involved
 ------------
