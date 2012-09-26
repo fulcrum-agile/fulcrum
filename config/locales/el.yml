@@ -1,0 +1,309 @@
+el:
+  # RAILS DEFAULTS
+  time:
+    formats:
+      note_date: "%d %b, %Y"
+      date:
+        abbr_day_names:
+        - Κυρ
+        - Δευ
+        - Τρι
+        - Τετ
+        - Πεμ
+        - Παρ
+        - Σαβ
+        abbr_month_names:
+        - 
+        - Ιαν.
+        - Φεβ.
+        - Μαρ.
+        - Απρ.
+        - Μαι.
+        - Ιουν.
+        - Ιούλ.
+        - Αυγ.
+        - Σεπ.
+        - Οκτ.
+        - Νοε.
+        - Δεκ.
+        day_names:
+        - Κυριακή
+        - Δευτέρα
+        - Τρίτη
+        - Τετάρτη
+        - Πέμπτη
+        - Παρασκευή
+        - Σάββατο
+        formats:
+          default: ! '%d/%m/%Y'
+          long: ! '%e %B %Y'
+          short: ! '%d %b'
+        month_names:
+        - 
+        - Ιανουάριος
+        - Φεβρουάριος
+        - Μάρτιος
+        - Απρίλιος
+        - Μάιος
+        - Ιούνιος
+        - Ιούλιος
+        - Αύγουστος
+        - Σεπτέμβριος
+        - Οκτώβριος
+        - Νοέμβριος
+        - Δεκέμβριος
+        order:
+        - :day
+        - :month
+        - :year
+      datetime:
+        distance_in_words:
+          about_x_hours:
+            one: περίπου μία ώρα
+            other: περίπου %{count} ώρες
+          about_x_months:
+            one: περίπου ένα μήνα
+            other: περίπου %{count} μήνες
+          about_x_years:
+            one: περίπου ένα χρόνο
+            other: περίπου %{count} χρόνια
+          almost_x_years:
+            one: σχεδόν ένα χρόνο
+            other: σχεδόν %{count} χρόνια
+          half_a_minute: μισό λεπτό
+          less_than_x_minutes:
+            one: λιγότερο από ένα λεπτό
+            other: λιγότερο από %{count} λεπτά
+          less_than_x_seconds:
+            one: λιγότερο από ένα δευτερόλεπτο
+            other: λιγότερο από %{count} δευτερόλεπτα
+          over_x_years:
+            one: πάνω από ένα χρόνο
+            other: πάνω από %{count} χρόνια
+          x_days:
+            one: 1 μέρα
+            other: ! '%{count} μέρες'
+          x_minutes:
+            one: 1 λεπτό
+            other: ! '%{count} λεπτά'
+          x_months:
+            one: 1 μήνα
+            other: ! '%{count} μήνες'
+          x_seconds:
+            one: 1 δευτερόλεπτο
+            other: ! '%{count} δευτερόλεπτα'
+        prompts:
+          day: Ημέρα
+          hour: Ώρα
+          minute: Λεπτό
+          month: Μήνας
+          second: Δευτερόλεπτο
+          year: Έτος
+      errors: &errors
+        format: ! '%{attribute} %{message}'
+        messages:
+          accepted: πρέπει να είναι αποδεκτό
+          blank: δεν πρέπει να είναι κενό
+          confirmation: δεν ταιριάζει με την επικύρωση
+          empty: δεν πρέπει να είναι άδειο
+          equal_to: πρέπει να είναι ίσο με %{count}
+          even: πρέπει να είναι άρτιος
+          exclusion: είναι δεσμευμένο
+          greater_than: πρέπει να είναι μεγαλύτερο από %{count}
+          greater_than_or_equal_to: πρέπει να είναι μεγαλύτερο ή ίσο με %{count}
+          inclusion: δεν συμπεριλαμβάνεται στη λίστα
+          invalid: είναι άκυρο
+          less_than: πρέπει να είναι λιγότερο από %{count}
+          less_than_or_equal_to: πρέπει να είναι λιγότερο ή ίσο με %{count}
+          not_a_number: δεν είναι αριθμός
+          not_an_integer: πρέπει να είναι ακέραιος αριθμός
+          odd: πρέπει να είναι περιττός
+          record_invalid: ! 'Επικύρωση απέτυχε: %{errors}'
+          taken: το έχουν ήδη χρησιμοποιήσει
+          too_long:
+            one: είναι πολύ μεγάλο (το μέγιστο μήκος είναι 1 χαρακτήρας)
+            other: είναι πολύ μεγάλο (το μέγιστο μήκος είναι %{count} χαρακτήρες)
+          too_short:
+            one: είναι πολύ μικρό (το ελάχιστο μήκος είναι 1 χαρακτήρας)
+            other: είναι πολύ μικρό (το ελάχιστο μήκος είναι %{count} χαρακτήρες)
+          wrong_length:
+            one: έχει λανθασμένο μήκος (πρέπει να είναι 1 χαρακτήρας)
+            other: έχει λανθασμένο μήκος (πρέπει να είναι %{count} χαρακτήρες)
+        template:
+          body: ! 'Υπήρξαν προβλήματα με τα ακόλουθα πεδία:'
+          header:
+            one: 1 λάθος εμπόδισε αυτό το %{model} να αποθηκευθεί.
+            other: ! '%{count} λάθη εμπόδισαν αυτό το %{model} να αποθηκευτεί.'
+      helpers:
+        select:
+          prompt: Παρακαλώ επιλέξτε
+        submit:
+          create: Δημιουργήστε %{model}
+          submit: Αποθηκεύστε %{model}
+          update: Ενημερώστε %{model}
+      number:
+        currency:
+          format:
+            delimiter: ! ','
+            format: ! '%n %u'
+            precision: 2
+            separator: .
+            significant: false
+            strip_insignificant_zeros: false
+            unit: €
+        format:
+          delimiter: .
+          precision: 3
+          separator: ! ','
+          significant: false
+          strip_insignificant_zeros: false
+        human:
+          decimal_units:
+            format: ! '%n %u'
+            units:
+              billion: δισεκατομμύριο
+              million: εκατομμύριο
+              quadrillion: τετράκις εκατομμύριο
+              thousand: χίλια
+              trillion: τρισεκατομμύριο
+              unit: ''
+          format:
+            delimiter: ''
+            precision: 1
+            significant: true
+            strip_insignificant_zeros: true
+          storage_units:
+            format: ! '%n %u'
+            units:
+              byte:
+                one: byte
+                other: bytes
+              gb: GB
+              kb: KB
+              mb: MB
+              tb: TB
+        percentage:
+          format:
+            delimiter: ''
+        precision:
+          format:
+            delimiter: ''
+      support:
+        array:
+          last_word_connector: ! ' και '
+          two_words_connector: ! ' και '
+          words_connector: ! ', '
+      time:
+        am: πμ
+        formats:
+          default: ! '%d %B %Y %H:%M'
+          long: ! '%A %d %B %Y %H:%M:%S %Z'
+          short: ! '%d %b %H:%M'
+        pm: μμ
+      # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+      activemodel:
+        errors:
+          <<: *errors
+      activerecord:
+        errors:
+          <<: *errors
+          
+  # FULCRUM TRANSLATIONS
+  fulcrum:  Fulcrum
+
+  log out:  Αποσύνδεση
+  log in:   Σύνδεση
+  sign up:  Εγγραφή
+  edit:     Επεξεργασία
+  delete:   Διαγραφή
+  back:     Πίσω
+  import:   Εισαγωγή
+  export:   Εξαγωγή
+  revert:   Επαναφορά
+  apply:    Εφαρμογή
+  velocity: Ταχύτητα
+  notes:    Σημειώσεις
+  close:    Κλείσιμο
+  points:   Πόντοι
+  saving:   Αποθήκευση ...
+  expand:   Άνοιγμα
+  accepted: γίνουν αποδεκτές
+  rejected: απορριφθούν
+  delivered: παραδοθούν
+
+  author unknown: "Άγνωστος"
+  add story: "Νέα ιστορία"
+  save error: "Πρόβλημα κατά την αποθήκευση"
+  override velocity: "Επικάλυψη ταχύτητας"
+  story title: "Τίτλος"
+
+  requested on date:          'Ζητήθηκε στις {{date}}'
+  requested by user on date:  'Ζητήθηκε απο {{user}} στις {{date}}'
+
+  activerecord:
+    models:
+      user: 'μέλος'
+      project: 'Πρότζεκτ'
+
+    attributes:
+      user:
+        locale:                 Γλώσσα
+        name:                   Όνομα
+        initials:               Αρχικά
+        password:               Κωδικός
+        password_confirmation:  Κωδικός ξανά
+        current_password:       παρών κωδικός
+      note:
+        note:                 'Σημείωση'
+      project:
+        name:                 'Όνομα'
+        point_scale:          'Βαθμολογική κλίμακα'
+        start_date:           'Έναρξη'
+        iteration_start_day:  'Εκκίνηση κύκλων'
+        iteration_length:     'Μήκως κύκλων'
+        default_velocity:     'Προκαθορισμένη Ταχύτητα'
+        started_at:           'Ξεκίνησε στις'
+        created_at:           'Δημιουργήθηκε στις'
+        updated_at:           'Ανανεώθηκε στις'
+      story:
+        title:                'Τίτλος'
+        description:          'Περιγραφή'
+        estimate:             'Εκτίμηση'
+        story_type:           'Τύπος ιστορίας'
+        state:                'Κατάσταση'
+        accepted_at:          'Αποδοχή στις'
+        position:             'Θέση'
+        labels:               'Ετικέτες'
+        requested_by:         'Ζητήθηκε από'
+        owned_by:             'Ανήκει σε'
+        started_at:           'Ξεκίνησε στις'
+        created_at:           'Δημιουργήθηκε στις'
+        updated_at:           'Ανανεώθηκε στις'
+
+
+  projects:
+    new project:        "Νέο πρότζεκτ"
+    edit project:       "Επεξεργασία προτζεκτ"
+    project properties: "Ρυθμίσεις πρότζεκτ"
+
+    project was successfully created: "Το πρότζεκτ δημιουργήθηκε με επιτυχία."
+    project was successfully updated: "Το πρότζεκτ ανανεώθηκε με επιτυχία."
+
+    index:
+      listing projects: "Κατάλογος πρότζεκτ"
+      are you sure you want to delete this project: "Είσαι σίγουρος ότι θέλεις να διαγράψεις το πρότζεκτ; Δεν υπάρχει undo!"
+      the iteration starts on x with length of x weeks:
+        one:    "Οι κύκλοι ξεκινούν %{day} και διαρκούν 1 εβδομάδα"
+        other:  "Οι κύκλοι ξεκινούν %{day} και διαρκούν %{count} εβδομάδες"
+
+    show:
+      done: "Ολοκληρωμένες"
+      in_progress: "Σε εξέλιξη"
+      backlog: "Σε αναμονή"
+      icebox: "Ψυγείο"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Άφησε κενό αν δεν θές να το αλλάξεις"
+      notify_me_when_my_stories_are: "Ειδοποίησέ με όταν οι ιστορίες μου"
+      we_need_your_current_password_to_confirm_your_changes: "Ο παρών κωδικός μου"

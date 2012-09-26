@@ -1,0 +1,50 @@
+# Additional translations at http://github.com/plataformatec/devise/wiki/I18n
+
+el:
+  errors:
+    messages:
+      expired: "έχει λήξει, παρακαλώ ζητείστε καινούργιο"
+      not_found: "δεν βρέθηκε"
+      already_confirmed: "έχει ήδη ενεργοποιηθεί, παρακαλώ δοκιμάστε να συνδεθείτε"
+      not_locked: "δεν είναι κλειδωμένος"
+      not_saved:
+        one: "1 λάθος εμπόδισε αυτό το %{resource} να αποθηκευθεί:"
+        other: "%{count} λάθη εμπόδισαν αυτό το %{resource} να αποθηκευθεί."
+
+  devise:
+    failure:
+      already_authenticated: 'Είστε ήδη συνδεδεμένος.'
+      unauthenticated: 'Πρέπει να συνδεθείτε για να συνεχίσετε.'
+      unconfirmed: 'Πρέπει να επιβεβαιώσετε το λογαριασμό σας για να συνεχίσετε.'
+      locked: 'Ο λογαριασμός σας είναι κλειδωμένος.'
+      invalid: 'Άκυρη ηλ. διεύθυνση ή κωδικός.'
+      invalid_token: 'Άκυρο σύμβολο αυθεντικοποίησης.'
+      timeout: 'Η συνεδρεία σας έχει λήξη, παρακαλώ επανασυνδεθείτε για να συνεχίσετε.'
+      inactive: 'Ο λογαριασμός σας δεν έχει ενεργοποιηθεί.'
+    sessions:
+      signed_in: 'Επιτυχής σύνδεση.'
+      signed_out: 'Επιτυχής αποσύνδεση.'
+    passwords:
+      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
+      updated: 'Your password was changed successfully. You are now signed in.'
+    confirmations:
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+    registrations:
+      signed_up: 'Καλωσήρθατε! Έχετε συνδεθεί με επιτυχία.'
+      inactive_signed_up: 'Έχετε συνδεθεί με επιτυχία. Δυστυχώς όμως, δεν μπορείτε να συνεχίσετε γιατί %{reason}.'
+      updated: 'Οι αλλαγές στο λογαριασμό σας αποθηκεύτηκαν με επιτυχία.'
+      destroyed: 'Γειά χαρά! Ο λογαριασμός σας ακυρώθηκε με επιτυχία.'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+    omniauth_callbacks:
+      success: 'Successfully authorized from %{kind} account.'
+      failure: 'Could not authorize you from %{kind} because "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Οδηγίες ενεργοποίησης'
+      reset_password_instructions:
+        subject: 'Οδηγίες ανάκτησης κωδικού'
+      unlock_instructions:
+        subject: 'Οδηγίες ξεκλειδώματος λογαριασμού'

@@ -1,5 +1,5 @@
 <div id="error_explanation">
-  <h2><%= pluralize(object.errors.count, "error") %> prohibited this <%= object.class.name.humanize %> from being saved:</h2>
+  <h2><%= t('errors.template.header'), :count => object.errors.count, :model => object.class.name.humanize %></h2>
 
   <ul>
   <% object.errors.full_messages.each do |msg| %>

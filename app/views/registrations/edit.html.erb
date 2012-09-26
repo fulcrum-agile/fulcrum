@@ -1,5 +1,5 @@
 <% content_for :title_bar do %>
-  <h1><%= t('edit') %> <%= resource_name.to_s.humanize %></h1>
+  <h1><%= t('edit') %> <%= resource.class.name.humanize %></h1>
 <% end %>
 <div class="form-wrapper">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
@@ -39,17 +39,17 @@
   <h3><%= t('.notify_me_when_my_stories_are') %>:</h3>
   <div class="field">
     <%= f.check_box :email_delivery %>
-    <%= f.label :email_delivery, 'delivered' %>
+    <%= f.label :email_delivery, t('delivered') %>
   </div>
 
   <div class="field">
     <%= f.check_box :email_acceptance %>
-    <%= f.label :email_acceptance, 'accepted' %>
+    <%= f.label :email_acceptance, t('accepted') %>
   </div>
 
   <div class="field">
     <%= f.check_box :email_rejection %>
-    <%= f.label :email_rejection, 'rejected' %>
+    <%= f.label :email_rejection, t('rejected') %>
   </div>
 
   <div class="field-wrapper">
