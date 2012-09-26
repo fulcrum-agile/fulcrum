@@ -1,5 +1,5 @@
-Fulcrum
-=======
+Fulcrum - Humbucker fork
+========================
 
 Fulcrum is an application to provide a user story based backlog management
 system for agile development teams.  See
@@ -7,6 +7,8 @@ system for agile development teams.  See
 details.
 
 ![Fulcrum Screenshot](https://github.com/malclocke/fulcrum/raw/master/doc/screenshot.png)
+
+Humbuckers' fork features a slightly different and -in our opinion- less cluttered CSS, greek localization and a few other minor stylistical modifications
 
 Get involved
 ------------
