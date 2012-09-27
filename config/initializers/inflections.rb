@@ -4,7 +4,7 @@
 # Add new inflection rules using the following format
 # (all these examples are active by default):
 ActiveSupport::Inflector.inflections do |inflect|
-   inflect.irregular 'μέλος', 'μέλη'
-   inflect.irregular 'ιστορία', 'ιστορίες'
+   inflect.plural /^(μέλ)ος/ui, '\1η'
+   inflect.plural /^(ιστορί)α/ui, '\1ες'
    inflect.uncountable %w( πρότζεκτ )
 end
