@@ -2,14 +2,6 @@ require 'spec_helper'
 
 describe "Logins" do
 
-  include IntegrationHelpers
-
-  self.use_transactional_fixtures = false
-
-  before(:each) do
-    DatabaseCleaner.clean
-  end
-
   let(:user)  {
     FactoryGirl.create :user, :email => 'user@example.com',
                               :password => 'password'

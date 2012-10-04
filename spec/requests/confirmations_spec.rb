@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe "Confirmations" do
 
-  self.use_transactional_fixtures = false
-
   before(:each) do
-    DatabaseCleaner.clean
     ActionMailer::Base.deliveries = []
   end
 

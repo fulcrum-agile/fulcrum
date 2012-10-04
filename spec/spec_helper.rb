@@ -30,10 +30,23 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
   end
 
+  config.before(:type => :request) do
+    DatabaseCleaner.clean
+  end
+
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  config.include Devise::TestHelpers, :type => :controller
+  config.include Devise::TestHelpers,           :type => :controller
+  config.include IntegrationHelpers,            :type => :request
+
+  # Turn this off in all request specs
+  module DisableTransactionalFixtures
+    def self.included(base)
+      base.use_transactional_fixtures = false
+    end
+  end
+  config.include DisableTransactionalFixtures,  :type => :request
 end

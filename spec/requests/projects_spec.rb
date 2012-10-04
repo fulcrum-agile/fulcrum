@@ -2,12 +2,7 @@ require 'spec_helper'
 
 describe "Projects" do
 
-  include IntegrationHelpers
-
-  self.use_transactional_fixtures = false
-
   before(:each) do
-    DatabaseCleaner.clean
     sign_in user
   end
 
