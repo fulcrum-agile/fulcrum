@@ -1298,7 +1298,7 @@ else
                 if (match == "~D") // escape for dollar
                     return "%24";
                 if (match == ":") {
-                    if (offset == len - 1 || /[0-9\/]/.test(url.charAt(offset + 1)))
+                    if (offset == len - 1 || /[0-9\/]/.test(url.charAt(offset + 1)) || url.substr(offset + 1, 6) === '&#x2F;')
                         return ":"
                 }
                 return "%" + match.charCodeAt(0).toString(16);
