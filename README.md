@@ -17,10 +17,8 @@ the project.
 There are several communication channels for Fulcrum:
 
 * [Follow @fulcrumagile on Twitter](https://twitter.com/fulcrumagile)
-* [Fulcrum Users](http://groups.google.com/group/fulcrum-users) - A general
-  discussion group for users of Fulcrum.
-* [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) - Discussion
-  on the development of Fulcrum.
+* [Fulcrum Users](http://groups.google.com/group/fulcrum-users) - A
+  discussion group for users and developers of Fulcrum.
 * You might also find someone in #fulcrum on the Freenode IRC network if you're
   looking for realtime help.
 
