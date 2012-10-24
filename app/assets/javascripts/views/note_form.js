@@ -23,7 +23,6 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
 	},
 	
 	saveEdit: function() {
-    this.model.set(this.changed_attributes);
     this.disableForm();
 
     var view = this;
