@@ -14,12 +14,12 @@ describe "Notes" do
                               :password => 'password'
   }
 
-  let(:project) do
+  let!(:project) do
     FactoryGirl.create :project,  :name => 'Test Project',
                                   :users => [user]
   end
 
-  let(:story) do
+  let!(:story) do
     FactoryGirl.create :story,  :title => 'Test Story',
                                 :state => 'started',
                                 :project => project,
@@ -27,10 +27,6 @@ describe "Notes" do
   end
 
   describe "full story life cycle" do
-
-    before do
-      story
-    end
 
     it "adds a note to a story", :js => true do
       visit project_path(project)
