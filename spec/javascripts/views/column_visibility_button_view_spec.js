@@ -15,6 +15,10 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
   it("should set its content from the ColumnView title", function() {
     expect(this.view.render().$el.html()).toEqual(this.columnView.name());
   });
+  
+  it("should set its class from the ColumnView id", function() {
+    expect(this.view.render().$el.attr('class')).toEqual('hide_' + this.columnView.id);
+  });
 
   describe('toggle', function() {
     
