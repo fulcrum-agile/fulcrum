@@ -7,3 +7,4 @@ tmp/
 .rvmrc
 .sass-cache/
 *.tmproj
+.DS_Store
