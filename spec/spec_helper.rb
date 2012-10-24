@@ -31,6 +31,7 @@ RSpec.configure do |config|
   end
 
   config.before(:type => :request) do
+    Capybara.javascript_driver = :webkit
     DatabaseCleaner.clean
   end
 
