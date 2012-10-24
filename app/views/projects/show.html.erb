@@ -12,7 +12,7 @@ $(function() {
     id: 'done', name: '<%= t('.done') %>', el: $('td.done_column'), sortable: false
   }).render();
   $('#column-toggles').append(
-    new Fulcrum.ColumnVisibiltyButtonView({columnView: doneColumn}).render().el
+    new Fulcrum.ColumnVisibilityButtonView({columnView: doneColumn}).render().el
   );
 
   var inProgressColumn = new Fulcrum.ColumnView({
@@ -20,14 +20,14 @@ $(function() {
     sortable: true
   }).render();
   $('#column-toggles').append(
-    new Fulcrum.ColumnVisibiltyButtonView({columnView: inProgressColumn}).render().el
+    new Fulcrum.ColumnVisibilityButtonView({columnView: inProgressColumn}).render().el
   );
 
   var backlogColumn = new Fulcrum.ColumnView({
     id: 'backlog', name: '<%= t('.backlog') %>', el: $('td.backlog_column'), sortable: true
   }).render();
   $('#column-toggles').append(
-    new Fulcrum.ColumnVisibiltyButtonView({columnView: backlogColumn}).render().el
+    new Fulcrum.ColumnVisibilityButtonView({columnView: backlogColumn}).render().el
   );
 
   var chillyBinColumn = new Fulcrum.ColumnView({
@@ -35,7 +35,7 @@ $(function() {
     sortable: true
   }).render();
   $('#column-toggles').append(
-    new Fulcrum.ColumnVisibiltyButtonView({columnView: chillyBinColumn}).render().el
+    new Fulcrum.ColumnVisibilityButtonView({columnView: chillyBinColumn, elementId: 'chilly_bin'}).render().el
   );
 
   // FIXME Move to view

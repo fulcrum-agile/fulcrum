@@ -2,7 +2,7 @@ if (typeof Fulcrum == 'undefined') {
   Fulcrum = {};
 }
 
-Fulcrum.ColumnVisibiltyButtonView = Backbone.View.extend({
+Fulcrum.ColumnVisibilityButtonView = Backbone.View.extend({
 
   events: {
     'click': 'toggle'
