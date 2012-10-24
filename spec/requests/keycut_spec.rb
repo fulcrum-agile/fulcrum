@@ -16,13 +16,13 @@ describe "Keycuts" do
   
   describe "?" do
     it 'shows help', :js => true do
-      find('html').native.send_keys '?'
+      send_keys '?'
       page.should have_css("#keycut-help")
       page.should have_css("#keycut-help a.close")
     end
 
     it 'can close help', :js => true do
-      find('html').native.send_keys '?'
+      send_keys '?'
       within '#keycut-help' do
         click_on 'close'
       end
@@ -30,8 +30,8 @@ describe "Keycuts" do
     end
     
     it 'can close help with ?', :js => true do
-      find('html').native.send_keys '?'
-      find('html').native.send_keys '?'
+      send_keys '?'
+      send_keys '?'
       page.should_not have_css("#keycut-help")
     end
   end
@@ -40,7 +40,7 @@ describe "Keycuts" do
     before { visit project_path(project) }
     
     it 'adds story (a)', :js => true do
-      find('html').native.send_keys 'a'
+      send_keys 'a'
       page.should have_css('.story.feature.unscheduled.unestimated.editing')
     end
     
@@ -49,18 +49,34 @@ describe "Keycuts" do
       within('#chilly_bin') do
         fill_in 'title', :with => 'New story'
       end
-      find('html').native.send_keys :pause # this is equivalent to keycode 19, or ctl+s (at least on my machine)
+      send_keys :pause # this is equivalent to keycode 19, or ctl+s (at least on my machine)
       page.should_not have_css('.story.editing')
     end
     
-    it 'toggles backlog (<shift> + b)'
-
-    it 'toggles done (<shift> + d)'
-
-    it 'toggles chilly bin (<shift> + i)'
-
-    it 'toggles current (<shift> + c)'
+    it 'toggles columns (<shift> b|c|d|p)', :js => true do
+      send_keys "B"
+      page.should have_css('.hide_backlog.pressed')
+      send_keys "B"
+      page.should_not have_css('.hide_backlog.pressed')
+      
+      send_keys "C"
+      page.should have_css('.hide_chilly_bin.pressed')
+      send_keys "C"
+      page.should_not have_css('.hide_chilly_bin.pressed')
+      
+      send_keys "D"
+      page.should have_css('.hide_done.pressed')
+      send_keys "D"
+      page.should_not have_css('.hide_done.pressed')
+      
+      send_keys "P"
+      page.should have_css('.hide_in_progress.pressed')
+      send_keys "P"
+      page.should_not have_css('.hide_in_progress.pressed')
+    end
     
-    it 'saves comment being edited (<shift> + enter)'
+    it 'saves comment being edited (enter)', :js => true do
+      send_keys :enter
+    end
   end
 end

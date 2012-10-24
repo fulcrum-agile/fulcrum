@@ -29,10 +29,31 @@ $(function() {
             };
           };
           break;
+        case 66: // B | Should only work without a focused element
+          if (!$(':focus').length) {
+            $('a.hide_backlog').first().click();
+          };
+          break;
+        case 67: // C | Should only work without a focused element
+          if (!$(':focus').length) {
+            $('a.hide_chilly_bin').first().click();
+          };
+          break;
+        case 68: // D | Should only work without a focused element
+          if (!$(':focus').length) {
+            $('a.hide_done').first().click();
+          };
+          break;
+        case 80: // P | Should only work without a focused element
+          if (!$(':focus').length) {
+            $('a.hide_in_progress').first().click();
+          };
+          break;
+        
         case 97: // a | Should only work without a focused element
           if (!$(':focus').length && window.projectView) {
             window.projectView.newStory();
-            $('.hide_chilly_bin.pressed').click();
+            $('.hide_chilly_bin.pressed').first().click();
             var newStoryElement = $('#chilly_bin div.story:last');
             $('#chilly_bin').scrollTo(newStoryElement, 100);
             return false;
