@@ -18,11 +18,12 @@ $(function() {
   $('html').keypress(function(event){
     var keyCode = event.which || event.keyCode;
     var keyChar = String.fromCharCode(keyCode);
-    switch (keyChar) {
-      case '?':
+    alert(keyChar + ":" + keyCode);
+    switch (keyCode) {
+      case 63: // ?
         new Fulcrum.KeycutView().render();
         break;
-      case 'a':
+      case 97: // a
         if (window.projectView) {
           window.projectView.newStory();
           $('.hide_chilly_bin.pressed').click();
@@ -32,7 +33,7 @@ $(function() {
         };
         break;
       default:
-        alert(keyChar + ":" + keyCode);
+        // whatever
     };
   });
 });
