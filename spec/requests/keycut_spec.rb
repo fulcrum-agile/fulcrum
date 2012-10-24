@@ -37,15 +37,21 @@ describe "Keycuts" do
   end
   
   describe 'in project scope' do
-    before { project }
+    before { visit project_path(project) }
     
     it 'adds story (a)', :js => true do
-      visit project_path(project)
       find('html').native.send_keys 'a'
       page.should have_css('.story.feature.unscheduled.unestimated.editing')
     end
     
-    it 'saves currently open story (<cmd> + s)'
+    it 'saves currently open story (<cmd> + s)', :js => true do
+      click_on 'Add story'
+      within('#chilly_bin') do
+        fill_in 'title', :with => 'New story'
+      end
+      find('html').native.send_keys :pause # this is equivalent to keycode 19, or ctl+s (at least on my machine)
+      page.should_not have_css('.story.editing')
+    end
     
     it 'toggles backlog (<shift> + b)'
 
