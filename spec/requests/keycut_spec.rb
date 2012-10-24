@@ -15,8 +15,6 @@ describe "Keycuts" do
   let(:user) { FactoryGirl.create :user, :email => 'user@example.com', :password => 'password' }
   let(:project) { FactoryGirl.create :project,  :name => 'Test Project', :users => [user] }
   
-  xit 'can search with /'
-  
   describe "help" do
     it 'shows help with ?', :js => true do
       find('html').native.send_keys '?'
