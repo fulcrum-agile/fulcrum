@@ -21,11 +21,17 @@ describe "Keycuts" do
       page.should have_css("#keycut-help a.close")
     end
 
-    it 'can hide help', :js => true do
+    it 'can close help', :js => true do
       find('html').native.send_keys '?'
       within '#keycut-help' do
         click_on 'close'
       end
+      page.should_not have_css("#keycut-help")
+    end
+    
+    it 'can close help with ?', :js => true do
+      find('html').native.send_keys '?'
+      find('html').native.send_keys '?'
       page.should_not have_css("#keycut-help")
     end
   end

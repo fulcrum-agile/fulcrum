@@ -18,10 +18,14 @@ $(function() {
   $('html').keypress(function(event){
     var keyCode = event.which || event.keyCode;
     var keyChar = String.fromCharCode(keyCode);
-    alert(keyChar + ":" + keyCode);
+    //alert(keyChar + ":" + keyCode);
     switch (keyCode) {
       case 63: // ?
-        new Fulcrum.KeycutView().render();
+        if ($('#keycut-help').length) {
+          $('#keycut-help').fadeOut(function(){$('#keycut-help').remove();});
+        } else {
+          new Fulcrum.KeycutView().render();
+        };
         break;
       case 97: // a
         if (window.projectView) {
