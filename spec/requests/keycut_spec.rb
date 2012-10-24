@@ -75,8 +75,6 @@ describe "Keycuts" do
       page.should_not have_css('.hide_in_progress.pressed')
     end
     
-    it 'saves comment being edited (enter)', :js => true do
-      send_keys :enter
-    end
+    it 'saves comment being edited (enter)'
   end
 end
