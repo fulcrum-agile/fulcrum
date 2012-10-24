@@ -23,12 +23,16 @@ $(function() {
         new Fulcrum.KeycutView().render();
         break;
       case 'a':
+        if (window.projectView) {
           window.projectView.newStory();
           $('.hide_chilly_bin.pressed').click();
           var newStoryElement = $('#chilly_bin div.story:last');
           $('#chilly_bin').scrollTo(newStoryElement, 100);
           return false;
+        };
         break;
-    }
+      default:
+        alert(keyChar + ":" + keyCode);
+    };
   });
 });

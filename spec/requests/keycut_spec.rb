@@ -30,37 +30,25 @@ describe "Keycuts" do
     end
   end
   
-  describe "a" do
+  describe 'in project scope' do
     before { project }
     
-    it 'adds story', :js => true do
+    it 'adds story (a)', :js => true do
       visit project_path(project)
       find('html').native.send_keys 'a'
       page.should have_css('.story.feature.unscheduled.unestimated.editing')
     end
+    
+    it 'saves currently open story (<cmd> + s)'
+    
+    it 'toggles backlog (<shift> + b)'
+
+    it 'toggles done (<shift> + d)'
+
+    it 'toggles chilly bin (<shift> + i)'
+
+    it 'toggles current (<shift> + c)'
+    
+    it 'saves comment being edited (<shift> + enter)'
   end
-
-  it 'saves currently open story with <Cmd> + s'
-
-  it 'saves comment being edited with <Shift> + enter'
-
-  it 'toggles backlog with <Shift> + b'
-
-  it 'toggles charts (graphs) with <Shift> + g'
-
-  it 'toggles done with <Shift> + d'
-
-  it 'toggles history with <Shift> + h'
-
-  it 'toggles icebox with <Shift> + i'
-
-  it 'toggles my work with <Shift> + w'
-
-  it 'toggles labels & searches with <Shift> + l'
-
-  it 'toggles current with <Shift> + c'
-
-  xit 'adds epic with e'
-
-  xit 'toggles epics panel with <Shift> + e'
 end
