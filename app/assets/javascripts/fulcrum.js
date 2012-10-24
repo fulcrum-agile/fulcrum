@@ -18,7 +18,6 @@ $(function() {
   $('html').keypress(function(event){
       var code = event.which || event.keyCode;
       var keyChar = String.fromCharCode(code);
-      console.log(keyChar + ":" + code);
       switch (code) {
         case 63: // ? | Should only work without a focused element
           if (!$(':focus').length) {
