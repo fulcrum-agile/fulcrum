@@ -29,7 +29,21 @@ en:
 
   requested on date:          'Requested on {{date}}'
   requested by user on date:  'Requested by {{user}} on {{date}}'
-
+  
+  keycuts:
+    keyboard_shortcuts: Keyboard shortcuts
+    help: Help (this)
+    add_story: Add story
+    save_currently_open_story: Save currently open story
+    save_comment_being_edited: Save comment being edited
+    toggle_backlog: Toggle backlog
+    toggle_done: Toggle done
+    toggle_history: Toggle history
+    toggle_icebox: Toggle chilly bin
+    toggle_my_work: Toggle my work
+    toggle_labels_searches: Toggle labels &amp; searches
+    toggle_current: Toggle current
+  
   activerecord:
     models:
       user: 'Member'

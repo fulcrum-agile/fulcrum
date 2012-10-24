@@ -13,4 +13,15 @@ $(function() {
     $(this).parent().fadeOut();
     return false;
   });
+  
+  // keycut listener
+  $('html').keypress(function(event){
+    var keyCode = event.which || event.keyCode;
+    var keyChar = String.fromCharCode(keyCode);
+    switch (keyChar) {
+      case '?':
+        new Fulcrum.KeycutView().render();
+        break;
+    }
+  });
 });
