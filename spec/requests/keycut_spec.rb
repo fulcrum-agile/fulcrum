@@ -74,7 +74,5 @@ describe "Keycuts" do
       send_keys "P"
       page.should_not have_css('.hide_in_progress.pressed')
     end
-    
-    it 'saves comment being edited (enter)'
   end
 end
