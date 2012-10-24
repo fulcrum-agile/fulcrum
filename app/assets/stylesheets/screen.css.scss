@@ -546,7 +546,7 @@ div.note {
   // The submit button while the server is saving the note.
   input.saving {
     padding-left: 16px;
-    background-image: url('/images/throbber.gif');
+    background-image: url('throbber.gif');
     background-repeat: no-repeat;
     background-position: left center;
   }
