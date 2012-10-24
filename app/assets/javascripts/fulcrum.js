@@ -22,6 +22,13 @@ $(function() {
       case '?':
         new Fulcrum.KeycutView().render();
         break;
+      case 'a':
+          window.projectView.newStory();
+          $('.hide_chilly_bin.pressed').click();
+          var newStoryElement = $('#chilly_bin div.story:last');
+          $('#chilly_bin').scrollTo(newStoryElement, 100);
+          return false;
+        break;
     }
   });
 });

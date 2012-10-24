@@ -9,14 +9,13 @@ describe "Keycuts" do
   before(:each) do
     DatabaseCleaner.clean
     sign_in user
-    project
   end
   
   let(:user) { FactoryGirl.create :user, :email => 'user@example.com', :password => 'password' }
   let(:project) { FactoryGirl.create :project,  :name => 'Test Project', :users => [user] }
   
-  describe "help" do
-    it 'shows help with ?', :js => true do
+  describe "?" do
+    it 'shows help', :js => true do
       find('html').native.send_keys '?'
       page.should have_css("#keycut-help")
       page.should have_css("#keycut-help a.close")
@@ -30,8 +29,16 @@ describe "Keycuts" do
       page.should_not have_css("#keycut-help")
     end
   end
-
-  it 'add story with a'
+  
+  describe "a" do
+    before { project }
+    
+    it 'adds story', :js => true do
+      visit project_path(project)
+      find('html').native.send_keys 'a'
+      page.should have_css('.story.feature.unscheduled.unestimated.editing')
+    end
+  end
 
   it 'saves currently open story with <Cmd> + s'
 
