@@ -7,6 +7,21 @@ describe "Logins" do
                               :password => 'password'
   }
 
+  describe "disable registration" do
+    before do
+      Configuration.for('fulcrum') do
+        disable_registration true
+      end
+    end
+
+    it "removes the sign up link" do
+      visit root_path
+      page.should have_selector('h1', :text => 'Sign in')
+
+      page.should_not have_selector('a', :text => 'Sign up')
+    end
+  end
+
   describe "successful login" do
 
     before { user }
