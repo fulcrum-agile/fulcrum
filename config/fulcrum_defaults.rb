@@ -4,4 +4,7 @@ Configuration.for('fulcrum') do
 
   # The address which system emails will originate from.
   mailer_sender ENV['MAILER_SENDER'] || 'noreply@example.com'
+
+  # Disable registration pages
+  disable_registration ENV['DISABLE_REGISTRATION'] || false
 end

@@ -5,4 +5,7 @@ Configuration.for('fulcrum') do
   # The email address that notification emails will be sent from.  Env var
   # MAILER_SENDER
   #mailer_sender 'noreply@example.com'
+
+  # Disable registration pages
+  #disable_registration false
 end
