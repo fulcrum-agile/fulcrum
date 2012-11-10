@@ -24,13 +24,10 @@ Fulcrum::Application.routes.draw do
     end
   end
 
-  devise_skip = []
-  devise_skip << :registrations if Fulcrum::Application.config.fulcrum.disable_registration
-
   devise_for :users, :controllers => { 
       :confirmations => "confirmations", 
       :registrations => "registrations"
-    }, :skip => devise_skip
+    }
 
   if Rails.env.development?
     match 'testcard' => 'static#testcard'
