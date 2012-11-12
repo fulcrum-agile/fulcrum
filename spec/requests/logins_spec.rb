@@ -14,6 +14,12 @@ describe "Logins" do
       end
     end
 
+    after do
+      Configuration.for('fulcrum') do
+        disable_registration false
+      end
+    end
+
     it "removes the sign up link" do
       visit root_path
       page.should have_selector('h1', :text => 'Sign in')
