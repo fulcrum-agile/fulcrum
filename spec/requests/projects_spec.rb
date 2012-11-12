@@ -68,6 +68,18 @@ describe "Projects" do
       page.should have_selector('h1', :text => 'New Project Name')
       current_path.should == project_path(project)
     end
+
+    it "shows form errors" do
+      visit projects_path
+      within('#projects .project_options') do
+        click_on 'Edit'
+      end
+
+      fill_in 'Name', :with => ''
+      click_on 'Update Project'
+
+      page.should have_content("Name can't be blank")
+    end
   end
 
   describe "delete project" do
