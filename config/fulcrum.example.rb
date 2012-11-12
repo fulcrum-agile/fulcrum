@@ -6,6 +6,8 @@ Configuration.for('fulcrum') do
   # MAILER_SENDER
   #mailer_sender 'noreply@example.com'
 
-  # Disable registration pages
+  # Disable registration pages.  If set to true, users will need to be invited
+  # to a project rather than being able to self sign-up.
+  # Env var DISABLE_REGISTRATION
   #disable_registration false
 end
