@@ -41,6 +41,21 @@ describe "Notes" do
 
     end
 
+  	it "deletes a note from a story", :js => true do
+      FactoryGirl.create :note, :user => user,
+                                :story => story,
+                                :note => 'Delete me please'
+
+      visit project_path(project)
+
+      within('#in_progress .story') do
+        click_on 'Expand'
+        within('.notelist') do
+          click_on 'Delete'
+        end
+      end
+      find('#in_progress .story .notelist').should_not have_content('Delete me please')
+	end
   end
 
 end
