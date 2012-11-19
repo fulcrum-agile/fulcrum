@@ -541,6 +541,11 @@ div.note {
     text-align: right;
   }
 }
+.popover div.note {
+ a.delete-note {
+    display: none;
+  }
+}
 
 .note_form {
   // The submit button while the server is saving the note.
