@@ -3,9 +3,8 @@
 <head>
   <title><%= "#{@project.name} - " if @project %><%= t('fulcrum') %></title>
   <%= csrf_meta_tag %>
-  <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
+  <%= stylesheet_link_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css" %>
   <%= stylesheet_link_tag :application %>
-  <%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css" %>
   <%= javascript_include_tag :application %>
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";

@@ -84,17 +84,4 @@ class ProjectsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-  # GET /projects/1/users
-  # GET /projects/1/users.xml
-  # FIXME - Remove this?  Doesn't seem to be routable ...
-  def users
-    @project = current_user.projects.find(params[:id])
-    @users = @project.users
-
-    respond_to do |format|
-      format.html # users.html.erb
-      format.xml  { render :xml => @project }
-    end
-  end
 end
