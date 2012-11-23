@@ -34,3 +34,17 @@ group :development, :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
 end
+
+
+if ENV['TRAVIS'] == 'true'
+  group :test do
+    case ENV['DB']
+    when'mysql'
+      gem 'mysql2'
+    when 'postgresql'
+      gem 'pg'
+    else
+      gem 'sqlite3'
+    end
+  end   
+end
