@@ -36,8 +36,8 @@ describe "Logins" do
       visit root_path
       page.should have_selector('h1', :text => 'Sign in')
 
-      fill_in "Email",    :with => "user@example.com"
-      fill_in "Password", :with => "password"
+      fill_in "user_email",    :with => "user@example.com"
+      fill_in "user_password", :with => "password"
       click_button 'Sign in'
 
       page.should have_selector('h1', :text => 'Listing Projects')

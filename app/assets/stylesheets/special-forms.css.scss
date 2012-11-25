@@ -1,0 +1,80 @@
+.form-wrapper.special {
+  width: 360px;
+  margin: 0px auto;
+
+  form {
+    @include border-radius(3px);
+    background: #F9F9F9;
+    @include background(linear-gradient(top, #F9F9F9, #EAEBEC));
+    @include box-shadow(0 1px 2px #aaaaaa);
+    text-shadow: white 0 1px 0;
+    border: 1px solid #ededed;
+    padding: 30px;
+  }
+
+  .field-wrapper .field input {
+    padding: 6px; 
+    height: 32px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  } 
+
+  .field {
+    margin-left: 0px;
+  }
+
+  div.actions,
+  div.secondary-actions {
+    padding-left: 0px;
+  }
+  
+  div.secondary-actions {
+    font-size: 0.9em;
+    text-align: right;
+    padding-top: 30px;   
+    
+    a {
+      color: #aaa;
+      
+      &:hover {
+        color: #666;
+      }
+    }
+    
+  }
+  
+  div.actions  {
+    margin-bottom: 0px;
+   
+    input[type=submit] {
+      font-size: 100%;
+      margin: 3px 0px;
+      background: #efefef;
+      @include background(linear-gradient(top, #efefef, #dfe1e2));
+      @include box-shadow(0 1px 2px #aaaaaa);
+      text-shadow: white 0 1px 0;
+      padding: 5px 15px;
+      @include border-radius(3px);
+      border: 1px solid $darkgrey*1.5;
+      text-decoration: none;
+    
+      &:hover {
+        @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+        border: 1px solid $chameleon-3;
+        color: white;
+        text-shadow: $darkgrey 0 1px 0;
+      }
+      
+      &:active { 
+        margin: 6px 0px 0px;
+        @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+        border: 1px solid $chameleon-3;
+        color: white;
+        text-shadow: $darkgrey 0 1px 0;
+        @include box-shadow(0 -1px 2px #aaaaaa, 0 3px 10px rgba(255, 255, 255, 0.5) inset);    
+      }
+    }
+  }
+}

@@ -21,6 +21,13 @@ en:
   saving:   "Saving ..."
   expand:   "Expand"
 
+  email:    "Email"
+  password: "Password"
+  name:     "Name"
+  initials: "Initials"
+  new password: "New password"
+  confirm new password: "Confirm new password"
+
   author unknown: "Author Unknown"
   add story: "Add story"
   save error: "Save error"

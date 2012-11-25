@@ -1,13 +1,12 @@
 <% content_for :title_bar do %>
   <h1>Resend confirmation instructions</h1>
 <% end %>
-<div class="form-wrapper">
+<div class="form-wrapper special">
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+    <div class="field"><%= f.email_field :email, :placeholder => t('email') %></div>
   </div>
 
   <div class="actions"><%= f.submit "Resend confirmation instructions" %></div>
