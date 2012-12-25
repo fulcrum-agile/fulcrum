@@ -239,7 +239,21 @@ el:
 
   requested on date:          'Ζητήθηκε στις {{date}}'
   requested by user on date:  'Ζητήθηκε απο {{user}} στις {{date}}'
-
+  
+  keycuts:
+    keyboard_shortcuts: Πλήκτρα συντομεύσεων
+    help: Βοήθεια (την βλέπεις τώρα)
+    add_story: Νέα ιστορία
+    save_currently_open_story: Αποθήκευση ενεργής ιστορίας
+    save_comment_being_edited: Αποθήκευση ενεργού σχολίου
+    toggle_backlog: Σε αναμονή
+    toggle_done: Ολοκληρωμένες ιστορίες
+    toggle_history: Ιστορικό
+    toggle_icebox: Ψυγείο
+    toggle_my_work: Η δουλειά μου
+    toggle_labels_searches: Ετικέτες / Αναζήτηση
+    toggle_current: Σε εξέλιξη
+  
   activerecord:
     models:
       user: 'μέλος'

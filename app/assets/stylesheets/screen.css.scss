@@ -716,3 +716,21 @@ div.spinner {
     padding:50px;
   }
 }
+
+div#keycut-help { 
+  top: 1em; left: 1em; 
+  position: absolute; opacity:0.8; 
+  background:black; color:yellow;
+  @include border-radius(5px);
+  
+  a.close {
+    color:yellow; text-align:right; display:block; margin:1em;
+  }
+  h4 { margin:0.8em; }
+  p {
+    margin:0.33em 1em; text-align:right; font-size:0.9em;
+    span {
+      display:inline-block; color:white; margin-right:0.8em; float:left;
+    }
+  }
+}
