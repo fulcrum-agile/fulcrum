@@ -1,0 +1,90 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+de:
+  fulcrum:  "Fulcrum"
+
+  log out:  "Abmelden"
+  log in:   "Anmelden"
+  sign up:  "Registrieren"
+  edit:     "Barbeiten"
+  delete:   "Löschen"
+  back:     "Zurück"
+  import:   "Importieren"
+  export:   "Exportieren"
+  revert:   "Zurücksetzen"
+  apply:    "Anwenden"
+  velocity: "Geschwindigkeit"
+  notes:    "Notizen"
+  close:    "Schliessen"
+  points:   "Punkte"
+  saving:   "Speichern ..."
+  expand:   "Expandieren"
+
+  author unknown: "Unbekanter Autor"
+  add story: "Story Hinzufügen"
+  save error: "Speicher Fehler"
+  override velocity: "Geschwindigkeit Erzwingen"
+  story title: "Titel"
+
+  requested on date:          'Beantragt am {{date}}'
+  requested by user on date:  'Beantragt bei {{user}} am {{date}}'
+
+  activerecord:
+    models:
+      user: 'Mitglied'
+      project: 'Projekt'
+
+    attributes:
+      note:
+        note:                 'Notiz'
+      project:
+        name:                 'Name'
+        point_scale:          'Punkte Scala'
+        start_date:           'Startdatum'
+        iteration_start_day:  'Iterationsstarttag'
+        iteration_length:     'Iterationslänge'
+        default_velocity:     'Standard Geschwindigkeit'
+      story:
+        title:                'Titel'
+        description:          'Beschreibung'
+        estimate:             'Schätzung'
+        story_type:           'Story-Typ'
+        state:                'Zustand'
+        accepted_at:          'Angenommen am'
+        position:             'Position'
+        labels:               'Labels'
+        requested_by:         'Beantragt von'
+        owned_by:             'Besitzt von'
+
+
+  projects:
+    new project:        "Neues Projekt"
+    edit project:       "Projekt Bearbeiten"
+    project properties: "Projekt Eigentschaften"
+
+    project was successfully created: "Projekt wurde erfolgreich erzeugt."
+    project was successfully updated: "Projekt wurde erfolgreich aktualisiert."
+
+    index:
+      listing projects: "Listing Projects"
+      are you sure you want to delete this project: "Sind Sie sicher das sie das Projekt löschen wollen? Diese Aktion kann nicht rückgänig gemacht werden."
+      the iteration starts on x with length of x weeks:
+        one:    "Iteration fängt am %{day} mit der länge einer Woche"
+        other:  "Iteration fängt am %{day} mit der länge von %{count} Wochen"
+
+    show:
+      done: "Fertig"
+      in_progress: "Laufend"
+      backlog: "Rückstand"
+      icebox: "Kalte Kiste"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Lassen Sie es leer wenn Sie es nicht barbeiten wollen."
+      notify_me_when_my_stories_are: "Benachrichtige mich wenn meine Stories"
+      we_need_your_current_password_to_confirm_your_changes: "Wir brauchen dein aktuelles Passwort um die Änderungen zu bestätigen."
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"
