@@ -117,10 +117,14 @@ class StoriesController < ApplicationController
         @valid_stories    = @stories.select(&:valid?)
         @invalid_stories  = @stories.reject(&:valid?)
 
-        flash[:notice] = "Imported #{pluralize(@valid_stories.count, "story")}"
+        flash[:notice] = I18n.t(
+          'imported n stories', :count => @valid_stories.count
+        )
 
         unless @invalid_stories.empty?
-          flash[:alert] = "#{pluralize(@invalid_stories.count, "story")} failed to import"
+          flash[:alert] = I18n.t(
+            'n stories failed to import', :count => @invalid_stories.count
+          )
         end
       rescue CSV::MalformedCSVError => e
         flash[:alert] = "Unable to import CSV: #{e.message}"

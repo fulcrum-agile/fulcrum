@@ -30,10 +30,29 @@ en:
   requested on date:          'Requested on {{date}}'
   requested by user on date:  'Requested by {{user}} on {{date}}'
 
+  imported n stories:
+    one: 'Imported 1 story'
+    other: 'Importer %{count} stories'
+
+  n stories failed to import:
+    one: '1 story failed to import'
+    other: '%{count} stories failed to import'
+
+  n weeks:
+    one: '1 week'
+    other: '%{count} weeks'
+
   activerecord:
     models:
-      user: 'Member'
-      project: 'Project'
+      user:
+        one: 'Member'
+        other: 'Members'
+      project:
+        one: 'Project'
+        other: 'Projects'
+      story:
+        one: 'Story'
+        other: 'Stories'
 
     attributes:
       note:
