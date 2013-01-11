@@ -29,11 +29,31 @@ de:
 
   requested on date:          'Beantragt am {{date}}'
   requested by user on date:  'Beantragt bei {{user}} am {{date}}'
+  
+  imported n stories:
+    one: '1 Story Importiert'
+    other: '%{count} Stories Importiert'
+
+  n stories failed to import:
+    one: '1 Story scheiterte beim Import'
+    other: '%{count} Stories scheiterte beim Import'
+
+  n weeks:
+    one: '1 Woche'
+    other: '%{count} Wochen'
 
   activerecord:
     models:
-      user: 'Mitglied'
-      project: 'Projekt'
+      user:
+        one: 'Mitglied'
+        other: 'Mitglieder'
+      project:
+        one: 'Projekt'
+        other: 'Projekte'
+      story:
+        one: 'Story'
+        other: 'Stories'
+
 
     attributes:
       note:
