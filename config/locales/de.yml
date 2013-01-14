@@ -62,9 +62,9 @@ de:
         name:                 'Name'
         point_scale:          'Punkte Scala'
         start_date:           'Startdatum'
-        iteration_start_day:  'Iterationsstarttag'
+        iteration_start_day:  'Iterationsstart'
         iteration_length:     'Iterationslänge'
-        default_velocity:     'Standard Geschwindigkeit'
+        default_velocity:     'Std. Geschwindigkeit'
       story:
         title:                'Titel'
         description:          'Beschreibung'
@@ -108,3 +108,57 @@ de:
   time:
     formats:
       note_date: "%b %d, %Y"
+      
+  date:
+    abbr_day_names:
+    - So
+    - Mo
+    - Di
+    - Mi
+    - Do
+    - Fr
+    - Sa
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Okt
+    - Nov
+    - Dez
+    day_names:
+    - Sonntag
+    - Montag
+    - Dienstag
+    - Mittwoch
+    - Donnerstag
+    - Freitag
+    - Samstag
+    formats:
+      default: ! '%d.%m.%Y'
+      long: ! '%A den %d %B %Y'
+      short: ! '%d %b'
+    month_names:
+    - 
+    - Januar
+    - Februar
+    - März
+    - April
+    - May
+    - Juni
+    - Juli
+    - August
+    - September
+    - Oktober
+    - November
+    - Dezember
+    order:
+    - :day
+    - :month
+    - :year
