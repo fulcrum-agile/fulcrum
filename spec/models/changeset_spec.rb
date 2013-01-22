@@ -6,9 +6,26 @@ describe Changeset do
 
     it "must have a story" do
       subject.story = nil
-      subject.should have(1).error_on(:story_id)
+      subject.should have(1).error_on(:story)
     end
 
+    describe "associations" do
+      let(:user)    { Factory.create(:user) }
+      let(:project) { Factory.create(:project, :users => [user]) }
+      let(:story)   { Factory.create(:story, :project => project,
+                                     :requested_by => user) }
+      let(:changeset) { Factory.create :changeset, :story => story, :project => project }
+
+      it "must have a valid project" do
+        changeset.project_id = "invalid"
+        changeset.should have(1).errors_on(:project)
+      end
+
+      it "must have a valid story" do
+        changeset.story_id = "invalid"
+        changeset.should have(1).errors_on(:story)
+      end
+    end
   end
 
   describe "#project_id" do
@@ -21,10 +38,10 @@ describe Changeset do
                                      :requested_by => user) }
 
       subject do
-        Factory.create :changeset, :story => story, :project_id => nil
+        Factory.create :changeset, :story => story, :project => nil
       end
 
-      it { should have(0).errors_on(:project_id) }
+      it { should have(0).errors_on(:project) }
       its(:project) { should == project }
 
     end
