@@ -263,6 +263,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl(function(div) {
           $(div).append(this.textField("title", {
+            'class' : 'title',
             'placeholder': I18n.t('story title')
           }));
         })
@@ -489,7 +490,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   setFocus: function() {
     if (this.model.get('editing') === true ) {
-      this.$('input').first().focus();
+      this.$('input.title').first().focus();
     }
   },
 
