@@ -49,8 +49,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   events: {
-    "click a.expand": "startEdit",
-    "click a.collapse": "saveEdit",
+    "click": "startEdit",
     "click #submit": "saveEdit",
     "click #cancel": "cancelEdit",
     "click .transition": "transition",
@@ -172,8 +171,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.$el.appendTo(this.model.get('column'));
   },
 
-  startEdit: function() {
-    this.model.set({editing: true, editingDescription: false});
+  startEdit: function(e) {
+    if(!$(e.target).is('input')) {
+      this.model.set({editing: true, editingDescription: false});
+    }
   },
 
   cancelEdit: function() {
@@ -250,24 +251,20 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl(function(div) {
-          if (!this.model.isNew()) {
-            $(div).append(
-              this.make("a", {'class': "collapse icon icons-collapse"})
-            );
-          }
-          $(div).append(this.textField("title", {
-            'placeholder': I18n.t('story title')
-          }));
-        })
-      );
-
-      this.$el.append(
-        this.makeFormControl(function(div) {
+          $(div).addClass('story-controls');
           $(div).append(this.submit());
           if (!this.model.isNew()) {
             $(div).append(this.destroy());
           }
           $(div).append(this.cancel());
+        })
+      );
+
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          $(div).append(this.textField("title", {
+            'placeholder': I18n.t('story title')
+          }));
         })
       );
 

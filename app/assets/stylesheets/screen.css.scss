@@ -261,6 +261,7 @@ div.story:hover {
 div.story.editing, div.story.editing:hover {
   background-color: adjust-lightness($butter-1, 20);
   color: $aluminium-6;
+  cursor: default !important;
 }
 
 div.story.feature.accepted,
@@ -279,8 +280,11 @@ div.story textarea {
 div.story-icons {
   float: left;
 }
+div.story-controls {
+  padding: 10px 0;
+}
 div.story-title {
-  margin-left: 65px;
+  margin-left: 45px;
 }
 .unestimated div.story-title {
   font-style: italic;
@@ -292,12 +296,12 @@ div.story-title abbr.initials {
   border: none;
 }
 
-#in_progress div.story-title,
-#backlog div.story-title,
-#chilly_bin div.story-title {
+#in_progress div.story,
+#backlog div.story,
+#chilly_bin div.story {
   cursor: move;
 }
-#in_progress div.story.accepted div.story-title {
+#in_progress div.story.accepted div.story {
   cursor: inherit;
 }
 

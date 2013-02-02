@@ -15,13 +15,20 @@
   </form>
 </div>
 <% } %>
-<div class="story-icons"><% if (view.saveInProgress) { %><a
-  class="icon icons-throbber" title="<%= I18n.t('saving') %>"></a><% } else { %><a
-  href="#" class="icon icons-expand expand" title="<%= I18n.t('expand') %>"></a><% } %><span class="popover-activate"><span
-  class="icon icons-<%= story.get('story_type') %> story_type"
-  title="<%= story.story_type %>: <%= story.id %>"><%= story.story_type %></span><% if (story.estimated()) { %><span
-  class="estimate estimate_<%= story.get('estimate') %>"><%= story.get('estimate') %></span><% } %><% if (story.hasDetails()) { %><span
-  class="icon icons-details"></span><% } %></span></div>
+<div class="story-icons">
+  <% if (view.saveInProgress) { %>
+  <a class="icon icons-throbber" title="<%= I18n.t('saving') %>"></a>
+  <% } %>
+  <span class="popover-activate">
+    <span class="icon icons-<%= story.get('story_type') %> story_type" title="<%= story.story_type %>: <%= story.id %>"><%= story.story_type %></span>
+    <% if (story.estimated()) { %>
+    <span class="estimate estimate_<%= story.get('estimate') %>"><%= story.get('estimate') %></span>
+    <% } %>
+    <% if (story.hasDetails()) { %>
+    <span class="icon icons-details"></span>
+    <% } %>
+  </span>
+</div>
 <div class="story-title">
   <% if (story.get('labels')) { %><span class="tags"><%= story.escape('labels') %></span><% } %>
   <%= story.escape('title') %>
