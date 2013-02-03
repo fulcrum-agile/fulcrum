@@ -172,8 +172,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   startEdit: function(e) {
-    //TODO Refactor this
-    if((!$(e.target).is('.estimate')) && (!this.model.get('editing')) && (!$(e.target).is('input'))) {
+    //TODO Looks weird
+    if((!this.model.get('editing')) && (!$(e.target).is('input'))) {
       this.model.set({editing: true, editingDescription: false});
     }
   },
