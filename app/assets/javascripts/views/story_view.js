@@ -175,6 +175,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     //TODO Looks weird
     if((!this.model.get('editing')) && (!$(e.target).is('input'))) {
       this.model.set({editing: true, editingDescription: false});
+      $('.popover').remove();
     }
   },
 
