@@ -34,6 +34,7 @@ module Fulcrum
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.i18n.available_locales = ['de', 'el', 'en', 'es', 'nl']
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
