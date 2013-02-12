@@ -1,7 +1,8 @@
 namespace :fulcrum do
   desc "Set up database yaml."
   task :setup do
-    example_database_config = Rails.root.join('config',"database.yml.example")
+    db = ENV['DB'] || 'sqlite'
+    example_database_config = Rails.root.join('config',"database.yml.#{db}")
     database_config = Rails.root.join('config',"database.yml")
 
     unless File.exists?(database_config)

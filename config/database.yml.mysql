@@ -1,0 +1,30 @@
+# MySQL
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: fulcrum_development
+  pool: 5
+  username:
+  password:
+  host: localhost
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: fulcrum_test
+  pool: 5
+  username:
+  password:
+  host: localhost
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: fulcrum_production
+  pool: 5
+  username:
+  password:
+  host: localhost
