@@ -2,8 +2,8 @@ class Changeset < ActiveRecord::Base
   belongs_to :project
   belongs_to :story
 
-  validates :project_id, :presence => true
-  validates :story_id, :presence => true
+  validates :project, :presence => true
+  validates :story, :presence => true
 
   before_validation :assign_project_from_story
 

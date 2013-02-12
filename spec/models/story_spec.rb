@@ -35,7 +35,17 @@ describe Story do
     describe "#project" do
       it "cannot be nil" do
         subject.project_id = nil
-        subject.should have(1).error_on(:project_id)
+        subject.should have(1).error_on(:project)
+      end
+
+      it "must have a valid project_id" do
+        subject.project_id = "invalid"
+        subject.should have(1).error_on(:project)
+      end
+
+      it "must have a project" do
+        subject.project =  nil
+        subject.should have(1).error_on(:project)
       end
     end
 
