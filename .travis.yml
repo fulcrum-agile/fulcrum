@@ -6,7 +6,6 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - "bundle exec rake --trace fulcrum:setup db:setup"
 rvm:
-  - 1.8.7
   - 1.9.2
   - 1.9.3
 script:
