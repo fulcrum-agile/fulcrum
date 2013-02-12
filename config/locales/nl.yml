@@ -1,0 +1,106 @@
+nl:
+  fulcrum:  "Fulcrum"
+
+  log out:  "Log uit"
+  log in:   "Log in"
+  sign up:  "Aanmelden"
+  edit:     "Wijzig"
+  delete:   "Verwijder"
+  back:     "Terug"
+  import:   "Import"
+  export:   "Export"
+  revert:   "Ongedaan maken"
+  apply:    "Bevestigen"
+  velocity: "Snelheid"
+  notes:    "Notities"
+  close:    "Sluiten"
+  points:   "Punten"
+  saving:   "Opslaan ..."
+  expand:   "Uitvouwen"
+
+  author unknown: "Auteur Onbekend"
+  add story: "Voeg verhaal toe"
+  save error: "Oplaan fout"
+  override velocity: "Overschijf snelheid"
+  story title: "Verhaal titel"
+
+  requested on date:          'Aangevraagd op {{date}}'
+  requested by user on date:  'Aangevraagd door {{user}} op {{date}}'
+
+  imported n stories:
+    one: '1 verhaal geimporteerd'
+    other: '%{count} verhalen geimporteerd'
+
+  n stories failed to import:
+    one: '1 verhaal kon niet worden geimporteerd'
+    other: '%{count} verhalen kon niet worden geimporteerd'
+
+  n weeks:
+    one: '1 week'
+    other: '%{count} weken'
+
+  activerecord:
+    models:
+      user:
+        one: 'Gebruiker'
+        other: 'Gebruikers'
+      project:
+        one: 'Project'
+        other: 'Projecten'
+      story:
+        one: 'Verhaal'
+        other: 'Verhalen'
+
+    attributes:
+      note:
+        note:                 'Notitie'
+      project:
+        name:                 'Naam'
+        point_scale:          'Punten schaal'
+        start_date:           'Start datum'
+        iteration_start_day:  'Iteratie start dag'
+        iteration_length:     'Iteratie lengte'
+        default_velocity:     'Standaard snelheid'
+      story:
+        title:                'Titel'
+        description:          'Omschrijving'
+        estimate:             'Inschatting'
+        story_type:           'Verhaal type'
+        state:                'Status'
+        accepted_at:          'Geaccepteerd op'
+        position:             'Positie'
+        labels:               'Labels'
+        requested_by:         'Aangevraagd door'
+        owned_by:             'In bezit door'
+
+
+  projects:
+    new project:        "Nieuw Project"
+    edit project:       "Wijzig Project"
+    project properties: "Project Eigenschappen"
+
+    project was successfully created: "Project is met succes aangemaakt."
+    project was successfully updated: "Project is met succes gewijzigd"
+
+    index:
+      listing projects: "Projecten overzicht"
+      are you sure you want to delete this project: "Weet u zeker dat u dit project wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden!"
+      the iteration starts on x with length of x weeks:
+        one:    "Iteraties starten op %{day} met een lengte van 1 week"
+        other:  "Iteraties starten op %{day} met een lengte van %{count} weken"
+
+    show:
+      done: "Klaar"
+      in_progress: "In Behandeling"
+      backlog: "Backlog"
+      icebox: "Ijskast"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Laat dit veld leeg als u het niet wilt wijzigen"
+      notify_me_when_my_stories_are: "Laat me weten wanneer mijn verhalen zijn"
+      we_need_your_current_password_to_confirm_your_changes: "We hebben uw huidige wachtwoord in om uw wijzigingen te bevestigen."
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"
