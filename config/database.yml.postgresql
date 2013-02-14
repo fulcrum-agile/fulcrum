@@ -1,0 +1,24 @@
+# PostgreSQL
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: fulcrum_development
+  pool: 5
+  username: postgres
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: fulcrum_test
+  pool: 5
+  username: postgres
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: fulcrum_production
+  pool: 5
+  username: postgres
+  password:

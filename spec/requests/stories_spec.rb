@@ -65,7 +65,7 @@ describe "Stories" do
       visit project_path(project)
 
       within(story_selector(story)) do
-        click_on 'Expand'
+        find('.story-title').click
         click_on 'Delete'
       end
 

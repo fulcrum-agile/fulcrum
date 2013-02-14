@@ -237,16 +237,6 @@ describe('Fulcrum.Story', function() {
       expect(view_spy).toHaveBeenCalled();
     });
 
-    it("should not call destroy if its a new object", function() {
-      var spy = sinon.spy(this.new_story, 'destroy');
-      var view_spy = sinon.spy(this.new_story.view, "remove");
-
-      this.new_story.clear();
-
-      expect(spy).not.toHaveBeenCalled();
-      expect(view_spy).toHaveBeenCalled();
-    });
-
   });
 
   describe("errors", function() {

@@ -32,7 +32,7 @@ describe "Notes" do
       visit project_path(project)
 
       within('#in_progress .story') do
-        click_on 'Expand'
+        find('.story-title').click
         fill_in 'note', :with => 'Adding a new note'
         click_on 'Add note'
       end
@@ -49,13 +49,14 @@ describe "Notes" do
       visit project_path(project)
 
       within('#in_progress .story') do
-        click_on 'Expand'
+        find('.story-title').click
         within('.notelist') do
           click_on 'Delete'
         end
       end
       find('#in_progress .story .notelist').should_not have_content('Delete me please')
-	end
+    end
+
   end
 
 end

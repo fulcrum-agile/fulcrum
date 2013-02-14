@@ -1,0 +1,56 @@
+# Additional translations at http://github.com/plataformatec/devise/wiki/I18n
+nl:
+  errors:
+    messages:
+      expired: "is verlopen, vraag een nieuwe aan"
+      not_found: "niet gevonden"
+      already_confirmed: "is reeds bevestigd"
+      not_locked: "is niet gesloten"
+      not_saved:
+        one: "Kon de %{resource} niet opslaan:"
+        other: "Kon de %{resource} niet opslaan:"
+
+  devise:
+    failure:
+      already_authenticated: 'Je bent al ingelogd.'
+      unauthenticated: 'Je dient in te loggen of je in te schrijven.'
+      unconfirmed: 'Je dient eerst je account te bevestigen.'
+      locked: 'Je account is gelocked.'
+      invalid: 'Ongeldig e-mail of wachtwoord.'
+      invalid_token: 'Invalide authenticiteit token.'
+      timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
+      inactive: 'Je account is nog niet geactiveerd.'
+    sessions:
+      signed_in: 'Je bent succesvol ingelogd.'
+      signed_out: 'Je bent succesvol uitgelogd.'
+    passwords:
+      send_instructions: 'Je ontvangt via e-mail instructies hoe je je wachtwoord moet resetten.'
+      send_paranoid_instructions: 'Als je e-mailadres bestaat in de database, ontvang je via e-mail instructies hoe je je wachtwoord moet resetten.'
+      updated: 'Je wachtwoord is gewijzigd. Je bent nu ingelogd.'
+      updated_not_active: 'Je wachtwoord is gewijzigd.'
+    confirmations:
+      send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan bevestigen.'
+      send_paranoid_instructions: 'Als je e-mailadres bestaat in de database, ontvang je via e-mail instructies hoe je je account kan bevestigen.'
+      confirmed: 'Je account is bevestigd.'
+    registrations:
+      signed_up_but_unconfirmed: 'Je ontvangt via e-mail instructies hoe je je account kunt activeren.'
+      signed_up_but_inactive: 'Je bent inschreven. Je kon alleen niet automatisch ingelogd worden omdat je account nog niet geactoveerd is.'
+      signed_up_but_locked: 'Je bent inschreven. Je kon alleen niet automatisch ingelogd worden omdat je account geblokkeerd is.'
+      signed_up: 'Je bent inschreven.'
+      update_needs_confirmation: 'Je hebt je e-mailadres succesvol gewijzigd, maar we moeten je nieuwe mailadres nog verifiëren. Controleer je e-mail en klik op de link in de mail om je mailadres te verifiëren.'
+      updated: 'Je account gegevens zijn opgeslagen.'
+      destroyed: 'Je account is verwijderd, wellicht tot ziens!'
+    unlocks:
+      send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan unlocken.'
+      unlocked: 'Je account is ge-unlocked. Je kan nu weer inloggen.'
+      send_paranoid_instructions: 'Als je e-mailadres bestaat in de database, ontvang je via e-mail instructies hoe je je account kan unlocken.'
+    omniauth_callbacks:
+      success: 'Successvol aangemeld met je %{kind} account.'
+      failure: 'Kon je niet aanmelden met je %{kind} account, omdat "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Bevestiging mailadres'
+      reset_password_instructions:
+        subject: 'Wachtwoord resetten'
+      unlock_instructions:
+        subject: 'Unlock instructies'

@@ -103,9 +103,7 @@ Fulcrum.Story = Backbone.Model.extend({
   },
 
   clear: function() {
-    if (!this.isNew()) {
-      this.destroy();
-    }
+    this.destroy();
     this.view.remove();
   },
 

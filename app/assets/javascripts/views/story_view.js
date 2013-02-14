@@ -49,8 +49,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   events: {
-    "click a.expand": "startEdit",
-    "click a.collapse": "saveEdit",
+    "click": "startEdit",
     "click #submit": "saveEdit",
     "click #cancel": "cancelEdit",
     "click .transition": "transition",
@@ -172,8 +171,22 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.$el.appendTo(this.model.get('column'));
   },
 
-  startEdit: function() {
-    this.model.set({editing: true, editingDescription: false});
+  startEdit: function(e) {
+    if (this.eventShouldExpandStory(e)) {
+      this.model.set({editing: true, editingDescription: false});
+      this.removeHoverbox();
+    }
+  },
+
+  // When a story is clicked, this method is used to check whether the
+  // corresponding click event should expand the story into its form view.
+  eventShouldExpandStory: function(e) {
+    // Shouldn't expand if it's already expanded.
+    if (this.model.get('editing')) {
+      return false;
+    }
+    // Should expand if the click wasn't on one of the buttons.
+    return !$(e.target).is('input');
   },
 
   cancelEdit: function() {
@@ -250,24 +263,21 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl(function(div) {
-          if (!this.model.isNew()) {
-            $(div).append(
-              this.make("a", {'class': "collapse icon icons-collapse"})
-            );
-          }
-          $(div).append(this.textField("title", {
-            'placeholder': I18n.t('story title')
-          }));
-        })
-      );
-
-      this.$el.append(
-        this.makeFormControl(function(div) {
+          $(div).addClass('story-controls');
           $(div).append(this.submit());
           if (!this.model.isNew()) {
             $(div).append(this.destroy());
           }
           $(div).append(this.cancel());
+        })
+      );
+
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          $(div).append(this.textField("title", {
+            'class' : 'title',
+            'placeholder': I18n.t('story title')
+          }));
         })
       );
 
@@ -477,6 +487,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     return 'right';
   },
 
+  removeHoverbox: function() {
+    $('.popover').remove();
+  },
+
   initTags: function() {
     var model = this.model;
     var $input = this.$el.find("input[name='labels']");
@@ -492,7 +506,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   setFocus: function() {
     if (this.model.get('editing') === true ) {
-      this.$('input').first().focus();
+      this.$('input.title').first().focus();
     }
   },
 
