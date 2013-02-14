@@ -279,6 +279,9 @@ div.story textarea {
 
 div.story-icons {
   float: left;
+  span.popover-activate {
+    font-size: 0;
+  }
 }
 div.story-controls {
   padding: 10px 0;
