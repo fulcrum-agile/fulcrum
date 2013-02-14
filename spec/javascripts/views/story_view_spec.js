@@ -80,6 +80,75 @@ describe('Fulcrum.StoryView', function() {
 
   });
 
+  describe('startEdit', function() {
+    beforeEach(function() {
+      this.e = {};
+      this.view.model.set = sinon.stub();
+      this.view.removeHoverbox = sinon.stub();
+    });
+
+    describe('when event should expand story', function() {
+
+      beforeEach(function() {
+        this.view.eventShouldExpandStory = sinon.stub();
+        this.view.eventShouldExpandStory.withArgs(this.e).returns(true);
+      });
+
+      it('sets the model attributes correctly', function() {
+        this.view.startEdit(this.e);
+        expect(this.view.model.set).toHaveBeenCalledWith({
+          editing: true, editingDescription: false
+        });
+      });
+
+      it('removes the hoverBox', function() {
+        this.view.startEdit(this.e);
+        expect(this.view.removeHoverbox).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('eventShouldExpandStory', function() {
+
+    beforeEach(function() {
+      this.e = {target: '<input>'};
+    });
+
+    describe('when model is being edited', function() {
+
+      beforeEach(function() {
+        this.view.model.set({editing: true});
+      });
+
+      it("returns false", function() {
+        expect(this.view.eventShouldExpandStory(this.e)).toBeFalsy();
+      });
+
+    });
+
+    describe('when model is not being edited', function() {
+
+      beforeEach(function() {
+        this.view.model.set({editing: false});
+      });
+
+      describe('and e.target is an input', function() {
+        it("returns false", function() {
+          expect(this.view.eventShouldExpandStory(this.e)).toBeFalsy();
+        });
+      });
+
+      describe('and e.target is not an input', function() {
+        it("returns true", function() {
+          this.e.target = '<span>';
+          expect(this.view.eventShouldExpandStory(this.e)).toBeTruthy();
+        });
+      });
+
+    });
+
+  });
+
   describe("cancel edit", function() {
 
     it("should remove itself when edit cancelled if its new", function() {
@@ -157,7 +226,6 @@ describe('Fulcrum.StoryView', function() {
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
-      expect($(this.view.el).find('a.collapse').hasClass('icons-throbber')).toBeTruthy();
       this.server.respond();
 
       expect(enable_spy).toHaveBeenCalled();
@@ -421,12 +489,6 @@ describe('Fulcrum.StoryView', function() {
       this.view.model.isNew = sinon.stub().returns(false);
       this.view.editDescription();
       expect(this.view.model.get('editingDescription')).toBeTruthy();
-    });
-
-    it('is reset to false after startEdit is called', function() {
-      this.view.model.set({editingDescription: true});
-      this.view.startEdit();
-      expect(this.view.model.get('editingDescription')).toBeFalsy();
     });
 
   });

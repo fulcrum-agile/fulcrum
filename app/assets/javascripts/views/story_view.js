@@ -172,11 +172,21 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   startEdit: function(e) {
-    //TODO Looks weird
-    if((!this.model.get('editing')) && (!$(e.target).is('input'))) {
+    if (this.eventShouldExpandStory(e)) {
       this.model.set({editing: true, editingDescription: false});
-      $('.popover').remove();
+      this.removeHoverbox();
     }
+  },
+
+  // When a story is clicked, this method is used to check whether the
+  // corresponding click event should expand the story into its form view.
+  eventShouldExpandStory: function(e) {
+    // Shouldn't expand if it's already expanded.
+    if (this.model.get('editing')) {
+      return false;
+    }
+    // Should expand if the click wasn't on one of the buttons.
+    return !$(e.target).is('input');
   },
 
   cancelEdit: function() {
@@ -475,6 +485,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       return 'left';
     }
     return 'right';
+  },
+
+  removeHoverbox: function() {
+    $('.popover').remove();
   },
 
   initTags: function() {
