@@ -32,7 +32,7 @@ en:
 
   imported n stories:
     one: 'Imported 1 story'
-    other: 'Importer %{count} stories'
+    other: 'Imported %{count} stories'
 
   n stories failed to import:
     one: '1 story failed to import'
