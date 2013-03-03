@@ -1,0 +1,109 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ja:
+  fulcrum:  "Fulcrum"
+
+  log out:  "ログアウト"
+  log in:   "ログイン"
+  sign up:  "サインアップ"
+  edit:     "編集"
+  delete:   "削除"
+  back:     "戻る"
+  import:   "インポート"
+  export:   "エクスポート"
+  revert:   "戻す"
+  apply:    "適用"
+  velocity: "ベロシティ"
+  notes:    "ノート"
+  close:    "閉じる"
+  points:   "ポイント"
+  saving:   "保存中…"
+  expand:   "広げる"
+
+  author unknown: "作者不明"
+  add story: "ストーリー追加"
+  save error: "保存エラー"
+  override velocity: "ベロシティを上書きする"
+  story title: "ストーリータイトル"
+
+  requested on date:          '依頼日 {{date}}'
+  requested by user on date:  '依頼者: {{user}} 依頼日: {{date}}'
+
+  imported n stories:
+    one: '1個のストーリをインポートしました'
+    other: '%{count}個のストーリーをインポートしました'
+
+  n stories failed to import:
+    one: '1個のストーリーのインポートに失敗しました'
+    other: '%{count}個のストーリーのインポートに失敗しました'
+
+  n weeks:
+    one: '1週間'
+    other: '%{count}週間'
+
+  activerecord:
+    models:
+      user:
+        one: 'メンバー'
+        other: 'メンバー'
+      project:
+        one: 'プロジェクト'
+        other: 'プロジェクト'
+      story:
+        one: 'ストーリー'
+        other: 'ストーリー'
+
+    attributes:
+      note:
+        note:                 'ノート'
+      project:
+        name:                 'プロジェクト名'
+        point_scale:          'ポイントスケール'
+        start_date:           '開始日'
+        iteration_start_day:  'イテレーション開始日'
+        iteration_length:     'イテレーションの長さ'
+        default_velocity:     'デフォルトのベロシティ'
+      story:
+        title:                'タイトル'
+        description:          '説明'
+        estimate:             '見積り'
+        story_type:           'ストーリータイプ'
+        state:                'ステータス'
+        accepted_at:          '承認日'
+        position:             '位置'
+        labels:               'ラベル'
+        requested_by:         '依頼者'
+        owned_by:             '担当者'
+
+
+  projects:
+    new project:        "新規プロジェクト"
+    edit project:       "プロジェクト編集"
+    project properties: "プロジェクト詳細"
+
+    project was successfully created: "プロジェクトの作成に成功しました。"
+    project was successfully updated: "プロジェクトの更新に成功しました。"
+
+    index:
+      listing projects: "プロジェクト一覧"
+      are you sure you want to delete this project: "このプロジェクトを削除してよろしいですか？この動作は元に戻すことができません。"
+      the iteration starts on x with length of x weeks:
+        one:    "イテレーションは%{day}にスタートし、長さは1週間です"
+        other:  "イテレーションは%{day}にスタートし、長さは%{count}週間です"
+
+    show:
+      done: "完了"
+      in_progress: "作業中"
+      backlog: "未処理"
+      icebox: "アイスボックス"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "変更しない場合は空白にしてください"
+      notify_me_when_my_stories_are: "自分のストーリーが下記だったら知らせる"
+      we_need_your_current_password_to_confirm_your_changes: "変更するには現在のパスワードが必要です。"
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"

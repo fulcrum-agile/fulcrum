@@ -1,0 +1,41 @@
+ja:
+  errors:
+    messages:
+      not_found: "は見つかりませんでした"
+      already_confirmed: "は既に登録済みですのでログインしてください"
+      not_locked: "はロックされていません"
+
+  devise:
+    failure:
+      unauthenticated: 'ログインしてください。'
+      unconfirmed: '本登録を行なってください。'
+      locked: 'あなたのアカウントはロックされています。'
+      invalid: 'メールアドレスがパスワードが違います。'
+      invalid_token: '認証キーが不正です。'
+      timeout: 'セッションがタイムアウトしました。もう一度ログインしてください。'
+      inactive: 'アカウントがアクティベートされていません。'
+    sessions:
+      signed_in: 'ログインしました。'
+      signed_out: 'ログアウトしました。'
+    passwords:
+      send_instructions: 'パスワードのリセット方法を数分以内にメールでご連絡します。'
+      updated: 'パスワードを変更しました。'
+    confirmations:
+      send_instructions: '登録方法を数分以内にメールでご連絡します。'
+      confirmed: 'アカウントを登録しました。'
+      invalid_token: '認証キーが不正です。'
+    registrations:
+      signed_up: 'アカウント登録を受け付けました。'
+      signed_up_but_unconfirmed: '本人確認用のメールがあなたのEメールアドレスに送られました。メール内のリンクからアカウントを有効化させてください。'
+      updated: 'アカウント情報を変更しました。'
+      destroyed: 'アカウントを削除しました。またのご利用をお待ちしております。'
+    unlocks:
+      send_instructions: 'アカウントのロック解除情報を数分以内に メールでご連絡します。'
+      unlocked: 'アカウントをロック解除しました。ログインしています。'
+    mailer:
+      confirmation_instructions:
+        subject: 'アカウントの登録方法'
+      reset_password_instructions:
+        subject: 'パスワードの再設定'
+      unlock_instructions:
+        subject: 'アカウントのロック解除'
