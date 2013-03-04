@@ -125,6 +125,7 @@ Below is an example of how you might go about translating Fulcrum to German.
   hand side.
 * Add your new locale to `config.i18n.available_locales` in
   `config/application.rb`
+* Run `rake i18n:js:export` to build the Javascript translations.
 
 Thats it!  Ideally you should send your translation as a pull request so you
 get credit for it, but if you do not wish to do this please send the file to
