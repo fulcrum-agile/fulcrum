@@ -237,7 +237,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   // Delete the story and remove it's view element
   clear: function() {
-    this.model.clear();
+    if (confirm("Are you sure you want to destroy this story?"))
+      this.model.clear();
   },
 
   editDescription: function() {
