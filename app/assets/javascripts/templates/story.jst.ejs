@@ -22,7 +22,7 @@
   <span class="popover-activate"><span class="icon icons-<%= story.get('story_type') %> story_type" title="<%= story.story_type %>: <%= story.id %>"><%= story.story_type %></span><% if (story.estimated()) { %><span class="estimate estimate_<%= story.get('estimate') %>"><%= story.get('estimate') %></span><% } %><% if (story.hasDetails()) { %><span class="icon icons-details"></span><% } %></span>
 </div>
 <div class="story-title">
-  <% if (story.get('labels')) { %><span class="tags"><%= story.escape('labels') %></span><% } %>
+  <% if (story.get('labels')) { %><span class='tags'><%= story.labels().join(', ') %></span><% } %>
   <%= story.escape('title') %>
   <% if (story.owned_by()) { %>
     <abbr class="initials" title="<%= story.owned_by().escape('name') %>">
