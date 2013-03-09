@@ -53,7 +53,7 @@ GEM
       compass (>= 0.12.2, < 0.14)
     configuration (1.3.2)
     database_cleaner (0.7.1)
-    devise (2.0.4)
+    devise (2.0.5)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       railties (~> 3.1)
@@ -72,7 +72,7 @@ GEM
     ffi (1.0.11)
     fssm (0.2.9)
     hike (1.2.1)
-    i18n (0.6.1)
+    i18n (0.6.4)
     i18n-js (2.1.2)
       i18n
     jasmine (1.1.0)
@@ -93,9 +93,9 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.21)
-    multi_json (1.5.1)
+    multi_json (1.6.1)
     nokogiri (1.5.2)
-    orm_adapter (0.0.6)
+    orm_adapter (0.0.7)
     pg (0.14.1)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -123,7 +123,7 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
-    rdoc (3.12.1)
+    rdoc (3.12.2)
       json (~> 1.4)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
@@ -156,7 +156,7 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
     thor (0.17.0)
-    tilt (1.3.3)
+    tilt (1.3.5)
     transitions (0.0.9)
     treetop (1.4.12)
       polyglot
@@ -179,7 +179,7 @@ DEPENDENCIES
   compass-rails
   configuration
   database_cleaner
-  devise
+  devise (~> 2.0.5)
   ejs
   factory_girl_rails
   fastercsv (= 1.5.3)
