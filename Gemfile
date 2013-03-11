@@ -18,6 +18,7 @@ gem 'transitions', '0.0.9', :require => ["transitions", "active_record/transitio
 gem 'i18n-js'
 gem 'rails-i18n'
 gem 'configuration'
+gem 'sqlite3'
 
 gem 'fastercsv', '1.5.3', :platforms => :ruby_18
 # (using standard csv lib if ruby version is 1.9)
@@ -27,7 +28,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'jasmine', '1.1.0'
