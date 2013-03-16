@@ -190,7 +190,7 @@ Fulcrum is built with the following Open Source technologies:
 
 License
 -------
-Copyright 2013, Malcolm Locke.
+Copyright 2011-2013, Malcolm Locke.
 
 Fulcrum is made available under the Affero GPL license version 3, see
 LICENSE.txt.
