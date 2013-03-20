@@ -20,8 +20,7 @@ class User < ActiveRecord::Base
 
   before_validation :set_random_password_if_blank, :set_reset_password_token
 
-  validates :name, :presence => true
-  validates :initials, :presence => true
+  validates :name, :initials, :presence => true
 
   def to_s
     "#{name} (#{initials}) <#{email}>"

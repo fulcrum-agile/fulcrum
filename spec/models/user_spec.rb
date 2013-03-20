@@ -3,17 +3,8 @@ require 'spec_helper'
 describe User do
 
   describe "validations" do
-    
-    it "requires a name" do
-      subject.name = ''
-      subject.should have(1).error_on(:name)
-    end
-
-    it "requires initials" do
-      subject.initials = ''
-      subject.should have(1).error_on(:initials)
-    end
-
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:initials) }
   end
 
 
