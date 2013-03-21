@@ -8,7 +8,7 @@ describe RegistrationsController do
 
   describe "disable registration" do
     before do
-      Configuration.for('fulcrum') do
+      ::Configuration.for('fulcrum') do
         disable_registration true
       end
     end
@@ -30,7 +30,7 @@ describe RegistrationsController do
 
   describe "enable registration" do
     before do
-      Configuration.for('fulcrum') do
+      ::Configuration.for('fulcrum') do
         disable_registration false
       end
     end
