@@ -2,50 +2,47 @@ require 'spec_helper'
 
 describe Note do
 
-  let(:project) { mock_model(Project, :suppress_notifications => true) }
-  let(:user)    { mock_model(User) }
-  let(:story)   { mock_model(Story, :project => project) }
+  let(:user)    { Factory.create(:user) }
+  let(:project) { Factory.create(:project, :users => [user]) }
+  let(:story)   { Factory.create(:story, :project => project, :requested_by => user) }
+  let(:mailer)  { mock("mailer") }
 
-  subject { Factory.build :note, :story => story, :user => user }
+  subject(:note) { Factory.build(:note, :story => story, :user => user) }
 
   describe "validations" do
-
-    describe "#name" do
-      before { subject.note = '' }
-      it { should have(1).error_on(:note) }
-    end
-
+    it { should validate_presence_of(:note) }
   end
 
-  describe "#create_changeset" do
+  describe "when saved" do
 
-    let(:changesets)  { mock("changesets" ) }
-
-    before do
-      changesets.should_receive(:create!)
-      story.stub(:changesets  => changesets)
-      story.stub(:project     => project)
+    it "executes the callback :create_changeset" do
+      note.should_receive(:create_changeset)
+      note.save
     end
 
     it "creates a changeset on the story" do
-      subject.create_changeset
+      expect{ note.save }.to change(story.changesets, :count).by(1)
     end
 
-    context "when suppress_notifications is off" do
+    it "sends notifications to all the stakeholders except the user who made the note." do
+      other_user = Factory.create(:user)
+      other_note = Factory.create(:note, :story => story, :user => other_user)
 
-      let(:user1)         { mock_model(User) }
-      let(:notify_users)  { [user, user1] }
-      let(:mailer)        { mock("mailer") }
+      Notifications.should_receive(:new_note).with(note, [other_user]).and_return(mailer)
+      mailer.should_receive(:deliver)
+      note.save
+    end
 
-      before do
-        project.stub(:suppress_notifications => false)
-        story.stub(:notify_users => notify_users)
-        Notifications.should_receive(:new_note).with(subject, [user1]).and_return(mailer)
-        mailer.should_receive(:deliver)
-      end
+    it "does not send notifications if the user who made the note is the only stakeholder" do
+      Notifications.should_not_receive(:new_note)
+      note.save
+    end
 
-      it "sends notifications" do
-        subject.create_changeset
+    context "with project notifications turned OFF" do
+      it "does not send notifications" do
+        project.suppress_notifications = true
+        Notifications.should_not_receive(:new_note)
+        note.save
       end
     end
   end
