@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
 
   def set_reset_password_token
     if new_record?
-      generate_reset_password_token!
+      generate_reset_password_token
     end
   end
 
