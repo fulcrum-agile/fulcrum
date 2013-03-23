@@ -1,10 +1,9 @@
-
 es:
   fulcrum:  "Fulcrum"
 
-  log out:  "Termina session"
-  log in:   "Inicia session"
-  sign up:  "Registrate"
+  log out:  "Termina sesión"
+  log in:   "Inicia sesión"
+  sign up:  "Regístrate"
   edit:     "Edita"
   delete:   "Borra"
   back:     "Atras"
@@ -28,10 +27,10 @@ es:
 
     index:
       listing projects: "Listado de Proyectos"
-      are you sure you want to delete this project: "Estas seguro de querer borrar este proyecto? Esta acción no se puede revertir."
+      are you sure you want to delete this project: "¿Estas seguro de querer borrar este proyecto? Esta acción no se puede deshacer."
       the iteration starts on x with length of x weeks:
-        one:    "Las iteraciones empiezane en %{day} con una duración de 1 semana"
-        other:    "Las iteraciones empiezane en %{day} con una duración de %{count} semanas"
+        one:    "Las iteraciones empiezan en %{day} con una duración de 1 semana"
+        other:    "Las iteraciones empiezan en %{day} con una duración de %{count} semanas"
   
     show:
       done: "Terminadas"
