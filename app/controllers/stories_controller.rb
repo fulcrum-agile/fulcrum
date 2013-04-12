@@ -9,7 +9,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.json { render :json => @stories }
       format.csv do
-        render :csv => @stories, :filename => @project.csv_filename
+        render :csv => @stories.order(:position), :filename => @project.csv_filename
       end
     end
   end
