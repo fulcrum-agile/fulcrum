@@ -1,0 +1,48 @@
+@mixin flash-message($color) {
+  background: lighten($color, 20%);
+  @include background(linear-gradient(top, lighten($color, 20%), lighten($color, 15%)));
+  border: 1px solid darken($color, 10%);
+  @include border-radius(5px);
+  @include box-shadow(0px 1px 3px transparentize(darken($color, 40%), 0.8));
+  color: darken($color, 40%);
+  margin-bottom: 10px;
+  padding: 5px;
+  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0;
+}
+
+#messages {  
+  .flash-alert {
+    @include flash-message($butter-1);
+  }
+  
+  .flash-notice {
+    @include flash-message($chameleon-1);
+  }
+  
+  .flash-error {
+    @include flash-message($scarlet-red-1);
+  }
+  
+  .flash-alert, .flash-notice, .flash-error {
+    padding: 5px 10px;
+    
+    .close {
+      float: right;
+      line-height: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      opacity: 0.4;
+    
+      &:hover {
+        opacity: 1;
+      }
+    }
+    
+    ul, ul li {
+      list-style: none;
+      display: block;
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+}

@@ -1,13 +1,12 @@
 <% content_for :title_bar do %>
   <h1>Forgot your password?</h1>
 <% end %>
-<div class="form-wrapper">
+<div class="form-wrapper special">
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+    <div class="field"><%= f.email_field :email, :placeholder => t('email') %></div>
   </div>
 
   <div class="actions"><%= f.submit "Send me reset password instructions" %></div>

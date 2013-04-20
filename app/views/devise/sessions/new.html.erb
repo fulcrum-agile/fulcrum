@@ -1,16 +1,14 @@
 <% content_for :title_bar do %>
   <h1>Sign in</h1>
 <% end %>
-<div class="form-wrapper">
+<div class="form-wrapper special">
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+    <div class="field"><%= f.email_field :email, :placeholder => t('email') %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :password %>
-    <div class="field"><%= f.password_field :password %></div>
+    <div class="field"><%= f.password_field :password, :placeholder => t('password') %></div>
   </div>
 
 

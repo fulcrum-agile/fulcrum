@@ -11,9 +11,9 @@ describe "Confirmations" do
     click_link 'Sign up'
 
     # Sign the user up for an account
-    fill_in 'Name', :with => 'Test User'
-    fill_in 'Initials', :with => 'TU'
-    fill_in 'Email', :with => 'test@example.com'
+    fill_in 'user_name', :with => 'Test User'
+    fill_in 'user_initials', :with => 'TU'
+    fill_in 'user_email', :with => 'test@example.com'
     click_button 'Sign up'
 
     page.should have_content('A confirmation was sent to your e-mail')
@@ -26,8 +26,8 @@ describe "Confirmations" do
     page.should have_content('Your account was successfully confirmed')
 
     # User should at this point be prompted to set a password
-    fill_in 'New password', :with => 'password'
-    fill_in 'Confirm new password', :with => 'password'
+    fill_in 'user_password', :with => 'password'
+    fill_in 'user_password_confirmation', :with => 'password'
     click_on 'Change my password'
 
     current_path.should == root_path
@@ -44,7 +44,7 @@ describe "Confirmations" do
     visit '/'
     click_link "Didn't receive confirmation instructions?"
 
-    fill_in 'Email', :with => user.email
+    fill_in 'user_email', :with => user.email
     click_button 'Resend confirmation instructions'
 
     page.should have_content('You will receive an email with instructions about how to confirm your account in a few minutes')
