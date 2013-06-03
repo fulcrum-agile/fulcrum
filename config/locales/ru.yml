@@ -52,8 +52,8 @@ ru:
     toggle_done: Переключиться на выполненные
     toggle_history: Переключиться на историю
     toggle_icebox: Переключиться на запланированные
-    toggle_my_work: Toggle my work
-    toggle_labels_searches: Toggle labels &amp; searches
+    toggle_my_work: Переключиться к своим задачам
+    toggle_labels_searches: Переключиться к поискку по &amp; меткам
     toggle_current: Переключиться на текущую
   
   activerecord:
@@ -85,8 +85,8 @@ ru:
         story_type:           'Тип задачи'
         state:                'Статус'
         accepted_at:          'Принята'
-        position:             'Position'
-        labels:               'Ярлыки'
+        position:             'Статус'
+        labels:               'Метки'
         requested_by:         'Назначил'
         owned_by:             'Исполнитель'
 
