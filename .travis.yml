@@ -12,6 +12,3 @@ rvm:
 script:
   - "bundle exec rspec spec"
   - "bundle exec rake --trace jasmine:ci"
-matrix:
-  allow_failures:
-    - rvm: 2.0.0
