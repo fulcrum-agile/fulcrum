@@ -81,10 +81,17 @@ $(function() {
 <table class="stories" width="100%">
   <tbody>
     <tr>
+    <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
       <td class="done_column" style="width: 25%"></td>
       <td class="in_progress_column" style="width: 25%"></td>
       <td class="backlog_column" style="width: 25%"></td>
       <td class="chilly_bin_column" style="width: 25%"></td>
+    <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
+      <td class="chilly_bin_column" style="width: 25%"></td>
+      <td class="backlog_column" style="width: 25%"></td>
+      <td class="in_progress_column" style="width: 25%"></td>
+      <td class="done_column" style="width: 25%"></td>
+    <% end %>
     </tr>
   </tbody>
 </table>
