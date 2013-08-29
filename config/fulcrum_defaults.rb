@@ -11,5 +11,5 @@ Configuration.for('fulcrum') do
   # column order:
   # progress_to_right: chilly bin, backlog, in progress, done
   # progress_to_left: done, in progress, backlog, chilly bin
-  column_order 'progress_to_left'
+  column_order 'progress_to_right'
 end
