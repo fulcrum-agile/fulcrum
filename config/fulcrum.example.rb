@@ -10,4 +10,9 @@ Configuration.for('fulcrum') do
   # to a project rather than being able to self sign-up.
   # Env var DISABLE_REGISTRATION
   #disable_registration false
+
+  # Project column order:
+  # progress_to_right: chilly bin, backlog, in progress, done
+  # progress_to_left: done, in progress, backlog, chilly bin
+  #column_order 'progress_to_left'
 end
