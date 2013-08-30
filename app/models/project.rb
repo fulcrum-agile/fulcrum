@@ -54,7 +54,8 @@ class Project < ActiveRecord::Base
           :owned_by     => users.detect {|u| u.name == row["Owned By"]},
           :accepted_at  => row_attrs["Accepted at"],
           :estimate     => row_attrs["Estimate"],
-          :labels       => row_attrs["Labels"]
+          :labels       => row_attrs["Labels"],
+          :description  => row_attrs["Description"]
         })
 
         # Generate notes for this story if any are present
