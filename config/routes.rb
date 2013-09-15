@@ -2,6 +2,12 @@ Fulcrum::Application.routes.draw do
 
   get "story/new"
 
+  namespace :api do
+    namespace :v1 do
+      resources :projects
+    end
+  end
+
   resources :projects do
     resources :users, :only => [:index, :create, :destroy]
     resources :changesets, :only => [:index]

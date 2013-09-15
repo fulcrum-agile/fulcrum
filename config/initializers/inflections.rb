@@ -7,4 +7,5 @@ ActiveSupport::Inflector.inflections do |inflect|
    inflect.plural /^(μέλ)ος/ui, '\1η'
    inflect.plural /^(ιστορί)α/ui, '\1ες'
    inflect.uncountable %w( πρότζεκτ )
+   inflect.acronym 'API'
 end
