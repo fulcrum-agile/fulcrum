@@ -4,3 +4,10 @@
 <h2><%= t('projects.edit project') %></h2>
 
 <%= render 'form' %>
+
+<script type="text/javascript">
+  var project = new Fulcrum.Project(<%= @project.to_json.html_safe %>);
+  window.apiTokenView = new Fulcrum.ApiTokenView({
+    model: project, el: $('#api-token')
+  }).render();
+</script>

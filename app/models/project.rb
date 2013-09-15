@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
 
   JSON_ATTRIBUTES = [
     "id", "iteration_length", "iteration_start_day", "start_date",
-    "default_velocity"
+    "default_velocity", "api_token"
   ]
   JSON_METHODS = ["last_changeset_id", "point_values"]
 
