@@ -1,0 +1,8 @@
+<div class="field-wrapper">
+  <label>API Token</label>
+  <% if(api_token==null) { %>
+    <div class="field">No API token yet <button class="api_token_button" type="button">Generate</button></div>
+  <% } else { %>
+    <div class="field"><%= api_token %>  <button class="api_token_button" type="button">Regenerate</button></div>
+  <% } %>
+</div>

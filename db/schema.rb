@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120504152649) do
+ActiveRecord::Schema.define(:version => 20130914203349) do
 
   create_table "changesets", :force => true do |t|
     t.integer  "story_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20120504152649) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "default_velocity",    :default => 10
+    t.string   "api_token"
   end
 
   create_table "projects_users", :id => false, :force => true do |t|
