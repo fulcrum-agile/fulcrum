@@ -41,6 +41,7 @@ GEM
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.2.9)
+    coderay (1.0.9)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -95,6 +96,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.2)
     mime-types (1.25)
     mini_portile (0.5.2)
     minitest (4.7.5)
@@ -104,8 +106,10 @@ GEM
     orm_adapter (0.4.0)
     pg (0.17.0)
     polyglot (0.3.3)
-    protected_attributes (1.0.5)
-      activemodel (>= 4.0.1, < 5.0)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -154,6 +158,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0.0)
       websocket (~> 1.0.4)
+    slop (3.4.6)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -201,7 +206,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
-  protected_attributes
+  pry
   rails (= 4.0.1)
   rails-i18n
   rails-observers (~> 0.1.2)

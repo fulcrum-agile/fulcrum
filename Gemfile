@@ -14,7 +14,7 @@ gem 'i18n-js'
 gem 'rails-i18n'
 gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
-gem 'protected_attributes'
+# gem 'protected_attributes'
 gem 'jquery-ui-rails'
 
 group :production do
