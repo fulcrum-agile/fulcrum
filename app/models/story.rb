@@ -77,10 +77,10 @@ class Story < ActiveRecord::Base
   before_save :set_accepted_at
 
   # Scopes for the different columns in the UI
-  scope :done, where(:state => :accepted)
-  scope :in_progress, where(:state => [:started, :finished, :delivered])
-  scope :backlog, where(:state => :unstarted)
-  scope :chilly_bin, where(:state => :unscheduled)
+  scope :done, -> { where(:state => :accepted) }
+  scope :in_progress, -> { where(:state => [:started, :finished, :delivered]) }
+  scope :backlog, -> { where(:state => :unstarted) }
+  scope :chilly_bin, -> { where(:state => :unscheduled) }
 
   include ActiveRecord::Transitions
   state_machine do

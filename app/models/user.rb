@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   # Flag used to identify if the user was found or created from find_or_create
   attr_accessor :was_created
 
-  has_and_belongs_to_many :projects, :uniq => true
+  has_and_belongs_to_many :projects, -> { uniq }
 
   before_validation :set_random_password_if_blank, :set_reset_password_token
 
