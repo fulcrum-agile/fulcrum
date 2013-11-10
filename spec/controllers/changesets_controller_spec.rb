@@ -19,8 +19,8 @@ describe ChangesetsController do
       FactoryGirl.create :user
     end
 
-    let(:projects)    { mock("projects") }
-    let(:changesets)  { mock("changesets", :to_json => '{foo:bar}') }
+    let(:projects)    { double("projects") }
+    let(:changesets)  { double("changesets", :to_json => '{foo:bar}') }
 
     before do
       sign_in user
@@ -37,7 +37,7 @@ describe ChangesetsController do
         response.should be_success
         assigns[:project].should == project
         assigns[:changesets].should == changesets
-        response.content_type.should == :json
+        response.content_type.should == "application/json"
         response.body.should == '{foo:bar}'
       end
 

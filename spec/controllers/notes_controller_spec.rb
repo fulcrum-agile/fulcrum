@@ -72,7 +72,7 @@ describe NotesController do
           assigns[:project].should == project
           assigns[:story].should == story
           assigns[:notes].should == notes
-          response.content_type.should == :json
+          response.content_type.should == "application/json"
           response.body.should == notes.to_json
         end
 
@@ -93,7 +93,7 @@ describe NotesController do
           assigns[:project].should == project
           assigns[:story].should == story
           assigns[:note].should == note
-          response.content_type.should == :json
+          response.content_type.should == "application/json"
           response.body.should == note.to_json
         end
 
@@ -128,7 +128,7 @@ describe NotesController do
           assigns[:project].should == project
           assigns[:story].should == story
           assigns[:note].should == note
-          response.content_type.should == :json
+          response.content_type.should == "application/json"
           response.body.should == note.to_json
         end
 
