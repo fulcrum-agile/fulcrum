@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
 
 
-  subject { Factory.build :project }
+  subject { FactoryGirl.build :project }
 
 
   describe "validations" do
@@ -81,9 +81,9 @@ describe Project do
   describe "cascade deletes" do
 
     before do
-      @user     = Factory.create(:user)
-      @project  = Factory.create(:project, :users => [@user])
-      @story    = Factory.create(:story, :project => @project,
+      @user     = FactoryGirl.create(:user)
+      @project  = FactoryGirl.create(:project, :users => [@user])
+      @story    = FactoryGirl.create(:story, :project => @project,
                                  :requested_by => @user)
     end
 
@@ -103,7 +103,7 @@ describe Project do
 
 
   describe "#to_s" do
-    subject { Factory.build :project, :name => 'Test Name' }
+    subject { FactoryGirl.build :project, :name => 'Test Name' }
 
     its(:to_s) { should == 'Test Name' }
   end
@@ -123,7 +123,7 @@ describe Project do
 
     context "when there are changesets" do
 
-      let(:changeset) { mock("changeset", :id => 42) }
+      let(:changeset) { double("changeset", :id => 42) }
 
       before do
         subject.stub(:changesets).and_return([nil, nil, changeset])
@@ -134,16 +134,16 @@ describe Project do
   end
 
   describe "#csv_filename" do
-    subject { Factory.build(:project, :name => 'Test Project') }
+    subject { FactoryGirl.build(:project, :name => 'Test Project') }
 
     its(:csv_filename) { should match(/^Test Project-\d{8}_\d{4}\.csv$/) }
   end
 
   describe "#as_json" do
-    subject { Factory.create :project }
+    subject { FactoryGirl.create :project }
 
     (Project::JSON_ATTRIBUTES + Project::JSON_METHODS).each do |key|
-      its(:as_json) { subject['project'].should have_key(key) }
+      its(:as_json) { subject.as_json['project'].should have_key(key) }
     end
   end
 

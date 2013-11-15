@@ -10,11 +10,11 @@ describe Changeset do
     end
 
     describe "associations" do
-      let(:user)    { Factory.create(:user) }
-      let(:project) { Factory.create(:project, :users => [user]) }
-      let(:story)   { Factory.create(:story, :project => project,
+      let(:user)    { FactoryGirl.create(:user) }
+      let(:project) { FactoryGirl.create(:project, :users => [user]) }
+      let(:story)   { FactoryGirl.create(:story, :project => project,
                                      :requested_by => user) }
-      let(:changeset) { Factory.create :changeset, :story => story, :project => project }
+      let(:changeset) { FactoryGirl.create :changeset, :story => story, :project => project }
 
       it "must have a valid project" do
         changeset.project_id = "invalid"
@@ -32,13 +32,13 @@ describe Changeset do
 
     context "when project_id is blank" do
 
-      let(:user)    { Factory.create(:user) }
-      let(:project) { Factory.create(:project, :users => [user]) }
-      let(:story)   { Factory.create(:story, :project => project,
+      let(:user)    { FactoryGirl.create(:user) }
+      let(:project) { FactoryGirl.create(:project, :users => [user]) }
+      let(:story)   { FactoryGirl.create(:story, :project => project,
                                      :requested_by => user) }
 
       subject do
-        Factory.create :changeset, :story => story, :project => nil
+        FactoryGirl.create :changeset, :story => story, :project => nil
       end
 
       it { should have(0).errors_on(:project) }
