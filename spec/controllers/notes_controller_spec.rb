@@ -81,7 +81,7 @@ describe NotesController do
       describe "#create" do
 
         before do
-          request_params[:note] = {'foo' => 'bar'}
+          request_params[:note] = {'note' => 'bar'}
           notes.should_receive(:build).with(request_params[:note]).and_return(note)
           note.should_receive(:user=).with(user)
           note.stub(:save => true)
@@ -107,7 +107,7 @@ describe NotesController do
             xhr :post, :create, request_params
             response.status.should == 422
           end
-          
+
         end
 
       end
@@ -116,7 +116,7 @@ describe NotesController do
 
     describe "member actions" do
 
-      let(:request_params) { 
+      let(:request_params) {
         {:id => note.id, :project_id => project.id, :story_id => story.id}
       }
 
