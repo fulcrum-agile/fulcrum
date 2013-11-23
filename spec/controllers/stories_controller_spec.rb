@@ -23,8 +23,8 @@ describe StoriesController do
     let(:user)      { FactoryGirl.create(:user) }
     let(:project)   { mock_model(Project, :id => 99, :stories => stories) }
     let(:story)     { mock_model(Story, :id => 42) }
-    let(:projects)  { mock("projects") }
-    let(:stories)   { mock("stories", :to_json => '{foo:bar}') }
+    let(:projects)  { double("projects") }
+    let(:stories)   { double("stories", :to_json => '{foo:bar}') }
 
     before do
       subject.stub(:current_user) { user }
@@ -185,7 +185,7 @@ describe StoriesController do
 
       %w[done backlog in_progress].each do |action|
 
-        let(:scoped_stories)  { mock("scoped_stories", :to_json => '{scoped:y}') }
+        let(:scoped_stories)  { double("scoped_stories", :to_json => '{scoped:y}') }
 
         describe action do
 

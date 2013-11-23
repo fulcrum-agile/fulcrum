@@ -5,9 +5,9 @@ describe NotesController do
   let(:user)            { FactoryGirl.create :user }
   let(:project)         { mock_model(Project, :id => 42) }
   let(:story)           { mock_model(Story, :id => 99) }
-  let(:projects)        { mock("projects") }
-  let(:stories)         { mock("stories") }
-  let(:notes)           { mock("notes", :to_json => '{foo:bar}') }
+  let(:projects)        { double("projects") }
+  let(:stories)         { double("stories") }
+  let(:notes)           { double("notes", :to_json => '{foo:bar}') }
   let(:note)            { mock_model(Note, :id => 66, :to_json => '{foo:bar}') }
   let(:request_params)  { {:project_id => project.id, :story_id => story.id } }
 

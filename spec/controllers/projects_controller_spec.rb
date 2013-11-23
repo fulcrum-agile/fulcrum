@@ -20,7 +20,7 @@ describe ProjectsController do
   context "when logged in" do
 
     let(:user)      { FactoryGirl.create :user }
-    let(:projects)  { mock("projects") }
+    let(:projects)  { double("projects") }
 
     before do
       sign_in user
@@ -53,7 +53,7 @@ describe ProjectsController do
       describe "#create" do
 
         let(:project) { mock_model(Project) }
-        let(:users)   { mock("users") }
+        let(:users)   { double("users") }
 
         before do
           projects.stub(:build).with({}) { project }
@@ -133,7 +133,7 @@ describe ProjectsController do
 
       describe "#edit" do
 
-        let(:users) { mock("users") }
+        let(:users) { double("users") }
 
         before do
           project.stub(:users => users)
