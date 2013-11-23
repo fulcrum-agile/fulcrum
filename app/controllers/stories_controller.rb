@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
     @story = @project.stories.find(params[:id])
     @story.acting_user = current_user
     respond_to do |format|
-      if @story.update_attributes(filter_story_params)
+      if @story.update_attributes(allowed_params)
         format.html { redirect_to project_url(@project) }
         format.js   { render :json => @story }
       else
@@ -60,7 +60,7 @@ class StoriesController < ApplicationController
 
   def create
     @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.build(filter_story_params)
+    @story = @project.stories.build(allowed_params)
     @story.requested_by_id = current_user.id unless @story.requested_by_id
     respond_to do |format|
       if @story.save
@@ -146,16 +146,7 @@ class StoriesController < ApplicationController
     redirect_to project_url(@project)
   end
 
-  # Removes all unwanted keys from the params hash passed for Backbone
-  def filter_story_params
-    allowed = [
-      :title, :description, :estimate, :story_type, :state, :requested_by_id,
-      :owned_by_id, :position, :labels
-    ]
-    filtered = {}
-    params[:story].each do |key, value|
-      filtered[key.to_sym] = value if allowed.include?(key.to_sym)
-    end
-    filtered
+  def allowed_params
+    params.require(:story).permit(:title, :description, :estimate, :story_type, :state, :requested_by_id, :owned_by_id, :position, :labels)
   end
 end
