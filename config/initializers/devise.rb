@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = Rails.application.config.fulcrum.mailer_sender
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -96,6 +96,7 @@ Devise.setup do |config|
 
   # Setup a pepper to generate the encrypted password.
   # config.pepper = '234dacf64e9311e54a3d41d650c0280f8d418615d8d7eb155c8d50a86ea11dea5f4b6265df5e7299693cc0db3a4970b58351254f3d210145cb56ef4e2ec17a22'
+  config.pepper = "9f492a1986b28d42a42da845757a3a84ddf6f22c1900093fa0323dd9eccc26fe64bf891635eab04c4e698611f91a09e8ac9ac4c5b3fd9c97f9f47ee88e860f34"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -117,7 +118,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed new email is stored in
   # unconfirmed email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
