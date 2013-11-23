@@ -13,10 +13,19 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, -> { uniq }
 
-  before_validation :set_random_password_if_blank, :set_reset_password_token
+  before_validation :set_random_password_if_blank, :set_reset_password_token 
 
   validates :name, :presence => true
   validates :initials, :presence => true
+
+  def password_required?
+    # Password is required if it is being set, but not for new records
+    if !persisted?
+      false
+    else
+      !password.nil? || !password_confirmation.nil?
+    end
+  end
 
   def to_s
     "#{name} (#{initials}) <#{email}>"
@@ -24,13 +33,13 @@ class User < ActiveRecord::Base
 
   def set_random_password_if_blank
     if new_record? && self.password.blank? && self.password_confirmation.blank?
-      self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,6]
+      self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,8]
     end
   end
 
   def set_reset_password_token
     if new_record?
-      # self.send_reset_password_instructions 
+      self.reset_password_token
     end
   end
 
