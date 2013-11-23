@@ -37,8 +37,9 @@ describe StoriesController do
 
       before do
         projects.unstub(:find)
-        projects.stub(:find).with(
-          project.id.to_s, {:include=>{:stories=>:notes}}
+        projects.stub(:stories_notes)
+        projects.stub_chain(:with_stories_notes, :find).with(
+          project.id.to_s
         ) { project }
       end
 

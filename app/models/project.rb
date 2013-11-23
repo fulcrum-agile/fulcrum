@@ -71,6 +71,8 @@ class Project < ActiveRecord::Base
 
   attr_writer :suppress_notifications
 
+  scope :with_stories_notes, -> { includes(stories: :notes) }
+
   def suppress_notifications
     @suppress_notifications || false
   end
