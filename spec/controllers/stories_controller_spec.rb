@@ -143,7 +143,7 @@ describe StoriesController do
 
           before do
             story.should_receive(:update_attributes).with(
-              {:title => 'New Title'}
+              {'title' => 'New Title'}
             ) { true }
           end
 
@@ -157,10 +157,10 @@ describe StoriesController do
         end
 
         context "when update fails" do
-          
+
           before do
             story.should_receive(:update_attributes).with(
-              {:title => 'New Title'}
+              {'title' => 'New Title'}
             ) { false }
           end
 
@@ -205,7 +205,7 @@ describe StoriesController do
 
         before do
           stories.should_receive(:build).with(
-            {:title => 'New Title'}
+            {'title' => 'New Title'}
           ) { story }
           story.should_receive(:requested_by_id=).with(user.id)
         end
