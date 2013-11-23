@@ -30,7 +30,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
   end
 
-  config.before(:type => :request) do
+  config.before(:type => :feature) do
     Capybara.javascript_driver = :webkit
     DatabaseCleaner.clean
   end
@@ -41,7 +41,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
 
   config.include Devise::TestHelpers,           :type => :controller
-  config.include IntegrationHelpers,            :type => :request
+  config.include IntegrationHelpers,            :type => :feature
 
   # Turn this off in all request specs
   module DisableTransactionalFixtures
@@ -49,5 +49,5 @@ RSpec.configure do |config|
       base.use_transactional_fixtures = false
     end
   end
-  config.include DisableTransactionalFixtures,  :type => :request
+  config.include DisableTransactionalFixtures,  :type => :feature
 end
