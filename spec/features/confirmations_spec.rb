@@ -8,8 +8,7 @@ describe "Confirmations" do
 
   it "sends a confirmation token" do
     visit '/'
-    click_link 'Sign up'
-
+    first(:link, 'Sign up').click
     # Sign the user up for an account
     fill_in 'Name', :with => 'Test User'
     fill_in 'Initials', :with => 'TU'
