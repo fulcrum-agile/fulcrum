@@ -187,7 +187,7 @@ class Story < ActiveRecord::Base
   def set_position_to_last
     return true if position
     return true unless project
-    last = project.stories.first(:order => 'position DESC')
+    last = project.stories.order(position: :desc).first
     if last
       self.position = last.position + 1
     else
