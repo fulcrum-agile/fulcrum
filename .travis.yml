@@ -1,6 +1,8 @@
 env:
   - "DB=mysql"
   - "DB=postgresql"
+  global:
+    - "JASMINE_PORT=8888"
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
@@ -9,5 +11,4 @@ rvm:
   - 1.9.3
   - 2.0.0
 script:
-  - "bundle exec rspec spec"
-  - "bundle exec rake --trace jasmine:ci"
+  - "bundle exec travis"
