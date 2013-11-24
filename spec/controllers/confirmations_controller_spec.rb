@@ -20,6 +20,7 @@ describe ConfirmationsController do
       before do
         user.stub(:valid? => true)
         user.stub(:reset_password_token => '123')
+        user.stub(:set_reset_password_token => '123')
         User.stub(:confirm_by_token).with('abc').and_return(user)
       end
 

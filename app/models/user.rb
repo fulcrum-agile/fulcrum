@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :projects, -> { uniq }
 
-  before_validation :set_random_password_if_blank, :set_reset_password_token 
+  before_validation :set_random_password_if_blank
 
   validates :name, :presence => true
   validates :initials, :presence => true
@@ -37,10 +37,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Sets :reset_password_token encrypted by Devise
+  # returns the raw token to pass into mailer
   def set_reset_password_token
-    if new_record?
-      self.reset_password_token
-    end
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token   = enc
+    self.reset_password_sent_at = Time.now.utc
+    self.save(:validate => false)
+    raw
   end
 
   def as_json(options = {})
