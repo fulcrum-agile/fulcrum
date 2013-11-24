@@ -27,7 +27,7 @@ describe ChangesetsController do
       subject.stub(:current_user => user)
       user.stub(:projects => projects)
       projects.stub(:find).with(project.id.to_s).and_return(project)
-      project.stub_chain(:changesets, :scoped).and_return(changesets)
+      project.stub(:changesets).and_return(changesets)
     end
 
     describe "#index" do
@@ -42,12 +42,12 @@ describe ChangesetsController do
       end
 
       it "scopes on :to parameter" do
-        changesets.should_receive(:where).with('id <= ?', '99')
+        changesets.should_receive(:until).with('99')
         xhr :get, :index, :project_id => project.id, :to => 99
       end
 
       it "scopes on :from parameter" do
-        changesets.should_receive(:where).with('id > ?', '99')
+        changesets.should_receive(:since).with('99')
         xhr :get, :index, :project_id => project.id, :from => 99
       end
 

@@ -9,7 +9,8 @@ class Changeset < ActiveRecord::Base
 
   default_scope { order(:id) }
 
-  scope :since, lambda {|since_id| where("id > ?", since_id)}
+  scope :since, lambda {|id| where("id > ?", id)}
+  scope :until, lambda {|id| where('id <= ?', id)}
 
   protected
 
