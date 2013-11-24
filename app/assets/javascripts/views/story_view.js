@@ -257,6 +257,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   render: function() {
+    this.$el.attr('id','story-' + this.id);
+
     if(this.model.get('editing') === true) {
 
       this.$el.empty();
@@ -281,8 +283,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           }));
         })
       );
-
-
 
       this.$el.append(
         this.makeFormControl({
