@@ -31,6 +31,9 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+group :travis do
+  gem 'mysql2'
+end
 
 if ENV['TRAVIS'] == 'true'
   group :test do
