@@ -14,8 +14,6 @@ src_files:
   - spec/javascripts/lib/jquery.js
   - spec/javascripts/lib/jquery_ujs.js
   - spec/javascripts/lib/jquery-ui.js
-  - spec/javascripts/lib/underscore.js
-  - spec/javascripts/lib/backbone.js
   - vendor/assets/javascripts/underscore.js
   - vendor/assets/javascripts/backbone.js
   - vendor/assets/javascripts/bootstrap-twipsy.js
