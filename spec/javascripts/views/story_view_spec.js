@@ -75,7 +75,7 @@ describe('Fulcrum.StoryView', function() {
 
     it("should have an id", function() {
       expect(this.view.id).toEqual(this.view.model.id);
-      expect($(this.view.el)).toHaveId(this.view.model.id);
+      expect($(this.view.el)).toHaveId("story-" + this.view.model.id);
     });
 
   });

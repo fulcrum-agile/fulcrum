@@ -39,6 +39,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
     if (this.model.id) {
       this.id = this.el.id = this.model.id;
+      this.$el.attr('id', 'story-' + this.id);
     }
 
     // Set up CSS classes for the view
@@ -257,8 +258,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   render: function() {
-    this.$el.attr('id','story-' + this.id);
-
     if(this.model.get('editing') === true) {
 
       this.$el.empty();
