@@ -6,7 +6,7 @@ describe Note do
   let(:user)    { mock_model(User) }
   let(:story)   { mock_model(Story, :project => project) }
 
-  subject { Factory.build :note, :story => story, :user => user }
+  subject { FactoryGirl.build :note, :story => story, :user => user }
 
   describe "validations" do
 
@@ -19,7 +19,7 @@ describe Note do
 
   describe "#create_changeset" do
 
-    let(:changesets)  { mock("changesets" ) }
+    let(:changesets)  { double("changesets" ) }
 
     before do
       changesets.should_receive(:create!)
@@ -35,7 +35,7 @@ describe Note do
 
       let(:user1)         { mock_model(User) }
       let(:notify_users)  { [user, user1] }
-      let(:mailer)        { mock("mailer") }
+      let(:mailer)        { double("mailer") }
 
       before do
         project.stub(:suppress_notifications => false)

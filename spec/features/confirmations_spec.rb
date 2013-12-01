@@ -8,8 +8,7 @@ describe "Confirmations" do
 
   it "sends a confirmation token" do
     visit '/'
-    click_link 'Sign up'
-
+    first(:link, 'Sign up').click
     # Sign the user up for an account
     fill_in 'Name', :with => 'Test User'
     fill_in 'Initials', :with => 'TU'
@@ -20,9 +19,13 @@ describe "Confirmations" do
 
     # The user will be sent a confirmation email.  Bypass that and just pull
     # their confirmation token from the database.
-    ActionMailer::Base.deliveries.last.to.should include 'test@example.com'
+
+    email = ActionMailer::Base.deliveries.last
+    email.to.should include('test@example.com')
+    confirmation_token = get_confirmation_token_from_mail(email)
+
     user = User.find_by_email('test@example.com')
-    visit '/users/confirmation?confirmation_token=' + user.confirmation_token
+    visit '/users/confirmation?confirmation_token=' + confirmation_token
     page.should have_content('Your account was successfully confirmed')
 
     # User should at this point be prompted to set a password

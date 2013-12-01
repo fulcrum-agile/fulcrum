@@ -8,20 +8,24 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name, :initials, :email_delivery, :email_acceptance, 
-                  :email_rejection, :locale
-
   # Flag used to identify if the user was found or created from find_or_create
   attr_accessor :was_created
 
-  has_and_belongs_to_many :projects, :uniq => true
+  has_and_belongs_to_many :projects, -> { uniq }
 
-  before_validation :set_random_password_if_blank, :set_reset_password_token
+  before_validation :set_random_password_if_blank
 
   validates :name, :presence => true
   validates :initials, :presence => true
+
+  def password_required?
+    # Password is required if it is being set, but not for new records
+    if !persisted?
+      false
+    else
+      !password.nil? || !password_confirmation.nil?
+    end
+  end
 
   def to_s
     "#{name} (#{initials}) <#{email}>"
@@ -29,14 +33,18 @@ class User < ActiveRecord::Base
 
   def set_random_password_if_blank
     if new_record? && self.password.blank? && self.password_confirmation.blank?
-      self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,6]
+      self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,8]
     end
   end
 
+  # Sets :reset_password_token encrypted by Devise
+  # returns the raw token to pass into mailer
   def set_reset_password_token
-    if new_record?
-      generate_reset_password_token
-    end
+    raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+    self.reset_password_token   = enc
+    self.reset_password_sent_at = Time.now.utc
+    self.save(:validate => false)
+    raw
   end
 
   def as_json(options = {})

@@ -23,8 +23,8 @@ describe StoriesController do
     let(:user)      { FactoryGirl.create(:user) }
     let(:project)   { mock_model(Project, :id => 99, :stories => stories) }
     let(:story)     { mock_model(Story, :id => 42) }
-    let(:projects)  { mock("projects") }
-    let(:stories)   { mock("stories", :to_json => '{foo:bar}') }
+    let(:projects)  { double("projects") }
+    let(:stories)   { double("stories", :to_json => '{foo:bar}') }
 
     before do
       subject.stub(:current_user) { user }
@@ -37,8 +37,9 @@ describe StoriesController do
 
       before do
         projects.unstub(:find)
-        projects.stub(:find).with(
-          project.id.to_s, {:include=>{:stories=>:notes}}
+        projects.stub(:stories_notes)
+        projects.stub_chain(:with_stories_notes, :find).with(
+          project.id.to_s
         ) { project }
       end
 
@@ -143,7 +144,7 @@ describe StoriesController do
 
           before do
             story.should_receive(:update_attributes).with(
-              {:title => 'New Title'}
+              {'title' => 'New Title'}
             ) { true }
           end
 
@@ -157,10 +158,10 @@ describe StoriesController do
         end
 
         context "when update fails" do
-          
+
           before do
             story.should_receive(:update_attributes).with(
-              {:title => 'New Title'}
+              {'title' => 'New Title'}
             ) { false }
           end
 
@@ -185,7 +186,7 @@ describe StoriesController do
 
       %w[done backlog in_progress].each do |action|
 
-        let(:scoped_stories)  { mock("scoped_stories", :to_json => '{scoped:y}') }
+        let(:scoped_stories)  { double("scoped_stories", :to_json => '{scoped:y}') }
 
         describe action do
 
@@ -205,7 +206,7 @@ describe StoriesController do
 
         before do
           stories.should_receive(:build).with(
-            {:title => 'New Title'}
+            {'title' => 'New Title'}
           ) { story }
           story.should_receive(:requested_by_id=).with(user.id)
         end

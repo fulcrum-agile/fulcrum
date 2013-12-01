@@ -5,9 +5,9 @@ describe NotesController do
   let(:user)            { FactoryGirl.create :user }
   let(:project)         { mock_model(Project, :id => 42) }
   let(:story)           { mock_model(Story, :id => 99) }
-  let(:projects)        { mock("projects") }
-  let(:stories)         { mock("stories") }
-  let(:notes)           { mock("notes", :to_json => '{foo:bar}') }
+  let(:projects)        { double("projects") }
+  let(:stories)         { double("stories") }
+  let(:notes)           { double("notes", :to_json => '{foo:bar}') }
   let(:note)            { mock_model(Note, :id => 66, :to_json => '{foo:bar}') }
   let(:request_params)  { {:project_id => project.id, :story_id => story.id } }
 
@@ -72,7 +72,7 @@ describe NotesController do
           assigns[:project].should == project
           assigns[:story].should == story
           assigns[:notes].should == notes
-          response.content_type.should == :json
+          response.content_type.should == "application/json"
           response.body.should == notes.to_json
         end
 
@@ -81,7 +81,7 @@ describe NotesController do
       describe "#create" do
 
         before do
-          request_params[:note] = {'foo' => 'bar'}
+          request_params[:note] = {'note' => 'bar'}
           notes.should_receive(:build).with(request_params[:note]).and_return(note)
           note.should_receive(:user=).with(user)
           note.stub(:save => true)
@@ -93,7 +93,7 @@ describe NotesController do
           assigns[:project].should == project
           assigns[:story].should == story
           assigns[:note].should == note
-          response.content_type.should == :json
+          response.content_type.should == "application/json"
           response.body.should == note.to_json
         end
 
@@ -107,7 +107,7 @@ describe NotesController do
             xhr :post, :create, request_params
             response.status.should == 422
           end
-          
+
         end
 
       end
@@ -116,7 +116,7 @@ describe NotesController do
 
     describe "member actions" do
 
-      let(:request_params) { 
+      let(:request_params) {
         {:id => note.id, :project_id => project.id, :story_id => story.id}
       }
 
@@ -128,7 +128,7 @@ describe NotesController do
           assigns[:project].should == project
           assigns[:story].should == story
           assigns[:note].should == note
-          response.content_type.should == :json
+          response.content_type.should == "application/json"
           response.body.should == note.to_json
         end
 

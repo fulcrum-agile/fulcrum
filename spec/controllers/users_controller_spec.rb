@@ -22,7 +22,7 @@ describe UsersController do
   context "when logged in" do
 
     let(:user)  { FactoryGirl.create(:user) }
-    let(:projects)  { mock("projects") }
+    let(:projects)  { double("projects") }
     let(:users) { [user] }
 
     before do

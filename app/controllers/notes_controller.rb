@@ -25,7 +25,7 @@ class NotesController < ApplicationController
   def create
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:story_id])
-    @note = @story.notes.build(params[:note])
+    @note = @story.notes.build(allowed_params)
     @note.user = current_user
     if @note.save
       render :json => @note
@@ -33,4 +33,11 @@ class NotesController < ApplicationController
       render :json => @note, :status => :unprocessable_entity
     end
   end
+
+  protected
+
+  def allowed_params
+    params.fetch(:note).permit(:note)
+  end
+
 end

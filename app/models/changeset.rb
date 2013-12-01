@@ -7,9 +7,10 @@ class Changeset < ActiveRecord::Base
 
   before_validation :assign_project_from_story
 
-  default_scope order(:id)
+  default_scope { order(:id) }
 
-  scope :since, lambda {|since_id| where("id > ?", since_id)}
+  scope :since, lambda {|id| where("id > ?", id)}
+  scope :until, lambda {|id| where('id <= ?', id)}
 
   protected
 

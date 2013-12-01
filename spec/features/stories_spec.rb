@@ -119,7 +119,7 @@ describe "Stories" do
   end
 
   def story_selector(story)
-    "##{story.id}"
+    "#story-#{story.id}"
   end
 
 end

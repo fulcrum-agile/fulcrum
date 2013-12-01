@@ -5,7 +5,7 @@ describe StoryObserver do
   subject { StoryObserver.instance }
 
   let(:story) do
-    mock_model(Story, :changesets     => mock("changesets"),
+    mock_model(Story, :changesets     => double("changesets"),
                :state_changed?        => false,
                :accepted_at_changed?  => false)
   end
@@ -48,7 +48,7 @@ describe StoryObserver do
         let(:requested_by)  { mock_model(User, :email_delivery? => true) }
         let(:owned_by)      { mock_model(User, :email_acceptance? => true,
                                                :email_rejection? => true) }
-        let(:notifier)      { mock("notifier") }
+        let(:notifier)      { double("notifier") }
 
         before do
           story.stub(:acting_user => acting_user)

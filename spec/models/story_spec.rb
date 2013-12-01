@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Story do
 
-  subject { Factory.build :story }
+  subject { FactoryGirl.build :story }
 
   describe "validations" do
 
@@ -139,7 +139,7 @@ describe Story do
     end
 
     context "when there are no other stories" do
-      before { subject.stub_chain(:project, :stories, :first).and_return(nil) }
+      before { subject.stub_chain(:project, :stories, :order, :first).and_return(nil) }
 
       it "sets position to 1" do
         subject.set_position_to_last
@@ -152,7 +152,7 @@ describe Story do
       let(:last_story) { mock_model(Story, :position => 41) }
 
       before do
-        subject.stub_chain(:project, :stories, :first).and_return(last_story)
+        subject.stub_chain(:project, :stories, :order, :first).and_return(last_story)
       end
 
       it "incrememnts the position by 1" do

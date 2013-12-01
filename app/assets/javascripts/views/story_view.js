@@ -39,6 +39,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
     if (this.model.id) {
       this.id = this.el.id = this.model.id;
+      this.$el.attr('id', 'story-' + this.id);
     }
 
     // Set up CSS classes for the view
@@ -281,8 +282,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           }));
         })
       );
-
-
 
       this.$el.append(
         this.makeFormControl({

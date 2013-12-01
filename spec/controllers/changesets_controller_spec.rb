@@ -19,15 +19,15 @@ describe ChangesetsController do
       FactoryGirl.create :user
     end
 
-    let(:projects)    { mock("projects") }
-    let(:changesets)  { mock("changesets", :to_json => '{foo:bar}') }
+    let(:projects)    { double("projects") }
+    let(:changesets)  { double("changesets", :to_json => '{foo:bar}') }
 
     before do
       sign_in user
       subject.stub(:current_user => user)
       user.stub(:projects => projects)
       projects.stub(:find).with(project.id.to_s).and_return(project)
-      project.stub_chain(:changesets, :scoped).and_return(changesets)
+      project.stub(:changesets).and_return(changesets)
     end
 
     describe "#index" do
@@ -37,17 +37,17 @@ describe ChangesetsController do
         response.should be_success
         assigns[:project].should == project
         assigns[:changesets].should == changesets
-        response.content_type.should == :json
+        response.content_type.should == "application/json"
         response.body.should == '{foo:bar}'
       end
 
       it "scopes on :to parameter" do
-        changesets.should_receive(:where).with('id <= ?', '99')
+        changesets.should_receive(:until).with('99')
         xhr :get, :index, :project_id => project.id, :to => 99
       end
 
       it "scopes on :from parameter" do
-        changesets.should_receive(:where).with('id > ?', '99')
+        changesets.should_receive(:since).with('99')
         xhr :get, :index, :project_id => project.id, :from => 99
       end
 

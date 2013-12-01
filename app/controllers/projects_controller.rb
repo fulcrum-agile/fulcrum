@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.xml
   def create
-    @project = current_user.projects.build(params[:project])
+    @project = current_user.projects.build(allowed_params)
     @project.users << current_user
 
     respond_to do |format|
@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.find(params[:id])
 
     respond_to do |format|
-      if @project.update_attributes(params[:project])
+      if @project.update_attributes(allowed_params)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully updated')) }
         format.xml  { head :ok }
       else
@@ -84,4 +84,11 @@ class ProjectsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  protected
+
+  def allowed_params
+    params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length)
+  end
+
 end
