@@ -25,7 +25,17 @@ src_files:
   - app/assets/javascripts/mixins/*.js
   - app/assets/javascripts/models/*.js
   - app/assets/javascripts/collections/*.js
-  - app/assets/javascripts/views/*.js
+  - app/assets/javascripts/views/column_view.js
+  - app/assets/javascripts/views/column_visibility_button_view.js
+  - app/assets/javascripts/views/form_view.js
+  - app/assets/javascripts/views/iteration_view.js
+  - app/assets/javascripts/views/keycut_view.js
+  - app/assets/javascripts/views/note_form.js
+  - app/assets/javascripts/views/note_view.js
+  - app/assets/javascripts/views/project_velocity_override_view.js
+  - app/assets/javascripts/views/project_velocity_view.js
+  - app/assets/javascripts/views/project_view.js
+  - app/assets/javascripts/views/story_view.js
   - app/assets/javascripts/fulcrum.js
 
 # stylesheets
