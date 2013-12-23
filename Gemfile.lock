@@ -29,6 +29,9 @@ GEM
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
+    byebug (2.5.0)
+      columnize (~> 0.3.6)
+      debugger-linecache (~> 1.2.0)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -51,6 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -59,6 +63,7 @@ GEM
       compass (>= 0.12.2, < 0.14)
     configuration (1.3.2)
     database_cleaner (1.2.0)
+    debugger-linecache (1.2.0)
     devise (3.2.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -213,6 +218,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   capybara
   capybara-webkit
   coffee-rails (~> 4.0.1)

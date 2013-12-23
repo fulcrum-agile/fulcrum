@@ -22,6 +22,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'byebug'
   gem 'sqlite3'
   gem 'guard-rspec'
   gem 'rspec-rails'
