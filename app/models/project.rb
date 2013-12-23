@@ -48,7 +48,7 @@ class Project < ActiveRecord::Base
       csv.map do |row|
         row_attrs = row.to_hash
         story = create({
-          :state        => row_attrs["Current State"],
+          :state        => row_attrs["Current State"].downcase,
           :title        => row_attrs["Story"],
           :story_type   => row_attrs["Story Type"],
           :requested_by => users.detect {|u| u.name == row["Requested By"]},

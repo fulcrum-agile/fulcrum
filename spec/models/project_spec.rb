@@ -133,6 +133,22 @@ describe Project do
     end
   end
 
+  describe 'CSV import' do
+    it 'converts state to lowercase before creating the story' do
+      project = FactoryGirl.create :project
+      user = FactoryGirl.create :user
+      project.users << user
+
+      csv_string = <<-CSV
+Title,Requested By,Owned By,Current State
+My Story,#{user.name},#{user.name},Accepted
+      CSV
+
+      project.stories.from_csv csv_string
+      project.stories.first.state.should == 'accepted'
+    end
+  end
+
   describe "#csv_filename" do
     subject { FactoryGirl.build(:project, :name => 'Test Project') }
 
