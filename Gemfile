@@ -23,6 +23,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'guard-rspec'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'jasmine', '~> 1.3.2'
