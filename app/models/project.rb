@@ -50,7 +50,7 @@ class Project < ActiveRecord::Base
         story = create({
           :state        => row_attrs["Current State"].downcase,
           :title        => row_attrs["Story"],
-          :story_type   => row_attrs["Story Type"],
+          :story_type   => row_attrs["Story Type"].downcase,
           :requested_by => users.detect {|u| u.name == row["Requested By"]},
           :owned_by     => users.detect {|u| u.name == row["Owned By"]},
           :accepted_at  => row_attrs["Accepted at"],
