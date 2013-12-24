@@ -346,7 +346,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
             var description = this.make('div');
             $(description).addClass('description');
             $(description).html(
-              window.md.makeHtml(this.model.escape('description'))
+              window.md.makeHtml(this.model.get('description'))
             );
             $(div).append(description);
             $(description).after(

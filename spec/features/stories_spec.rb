@@ -118,6 +118,38 @@ describe "Stories" do
     end
   end
 
+  describe 'formatting' do
+    before do
+      Capybara.ignore_hidden_elements = true
+      visit project_path project
+    end
+
+    describe 'description', js: true do
+      let(:title) { 'My story' }
+      let(:expand_story) { find('.story-title', text: 'My story').click }
+
+      before do
+        click_on 'Add story'
+        fill_in 'title', with: title
+      end
+
+      it 'shows *italics*' do
+        fill_in 'description', with: 'Text with *italics*.'
+        within('.story-controls') { click_on 'Save' }
+        expand_story
+        page.should have_css :em, text: 'italics'
+      end
+
+      it 'autolinks URLs' do
+        url = 'http://www.google.com'
+        fill_in 'description', with: "Text with a URL: #{url}"
+        within('.story-controls') { click_on 'Save' }
+        expand_story
+        page.should have_css "a[href='#{url}']", text: url
+      end
+    end
+  end
+
   def story_selector(story)
     "#story-#{story.id}"
   end
