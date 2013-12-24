@@ -25,6 +25,7 @@ group :development, :test do
   gem 'byebug'
   gem 'sqlite3'
   gem 'guard-rspec'
+  gem 'guard-jasmine'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'jasmine', '~> 1.3.2'
