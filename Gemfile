@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-# If you really want to use 1.9.3 then change this below.
+# Uncomment this if deploying to heroku. Actually why use 1.9.3 anyway?
 # Heroku likes you to define your Ruby version in the Gemfile now
 # https://devcenter.heroku.com/articles/rails4#ruby-version
-ruby '2.0.0'
+# ruby '2.0.0'
 
 gem 'rails', '4.0.1'
 gem 'sass-rails', '~> 4.0.1'
