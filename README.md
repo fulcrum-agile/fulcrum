@@ -92,11 +92,24 @@ to the previous section for instructions. Then:
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
 
+    # In the Gemfile uncomment the ruby '2.0.0' bit at the top
+    ruby '2.0.0'
+    
+    # Also uncomment rails_12factor gem
+    gem 'rails_12factor', group: :production
+    
+    # Commit any modifications you've made
+    $ git -am 'Enables deployment to Heroku'
+
     # Deploy the first version
     $ git push heroku master
 
     # Set up the database
-    $ heroku run rake db:setup
+    $ heroku run rake db:migrate
+
+	# If you want a test project and test user in there populate
+    # the database with seed data
+    $ heroku run rake db:seed
 
 Once that's done, you will be able to view your site at
 `http://APPNAME.herokuapp.com`.
@@ -165,7 +178,7 @@ Here are some general guidelines for contributing:
 * All patches changes be covered by tests, and should not break the existing
   tests, unless a current test is invalidated by a code change.  This includes
   Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
-* Run `rake spec` to check the Rails test suite is green. You will need 
+* Run `rake spec` to check the Rails test suite is green. You will need
   Firefox with Selenium installed to run the integration tests.
 * To run the Javascript test suite, run `rake jasmine` and point your browser
   to `http://localhost:8888/`
