@@ -3,8 +3,12 @@ class ChangesetsController < ApplicationController
     @project = current_user.projects.find(params[:project_id])
     # FIXME extract method to model
     @changesets = @project.changesets
-    @changesets.since(params[:from]) if params[:from]
-    @changesets.until(params[:to]) if params[:to]
+    @changesets = @changesets.since(params[:from]) if allowed_params.has_key?(:from)
+    @changesets = @changesets.until(params[:to]) if allowed_params.has_key?(:to)
     render :json => @changesets
+  end
+
+  def allowed_params
+    params.permit(:from,:to,:project_id)
   end
 end

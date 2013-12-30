@@ -1,5 +1,10 @@
 source 'http://rubygems.org'
 
+# Uncomment this if deploying to heroku. Actually why use 1.9.3 anyway?
+# Heroku likes you to define your Ruby version in the Gemfile now
+# https://devcenter.heroku.com/articles/rails4#ruby-version
+# ruby '2.0.0'
+
 gem 'rails', '4.0.1'
 gem 'sass-rails', '~> 4.0.1'
 gem 'uglifier', '>= 1.3.0'
@@ -7,7 +12,7 @@ gem 'coffee-rails', '~> 4.0.1'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'ejs'
-gem "compass-rails", "~> 2.0.alpha.0"
+gem "compass-rails", "~> 1.1.2"
 gem "devise", "~> 3.2.0"
 gem 'transitions', '0.1.9', :require => ["transitions", "active_record/transitions"]
 gem 'i18n-js'
@@ -16,6 +21,12 @@ gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
 # gem 'protected_attributes'
 gem 'jquery-ui-rails'
+
+# If you're deploying to heroku you'll want to uncomment this gem.
+# It helps with serving assets and log files on the heroku platform.
+# See https://github.com/heroku/rails_12factor
+# https://devcenter.heroku.com/articles/rails4#logging-and-assets
+# gem 'rails_12factor', group: :production
 
 group :production do
   gem 'pg'
