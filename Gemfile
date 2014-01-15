@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+ruby '2.0.0'
+
 gem 'rails', '4.0.1'
 gem 'sass-rails', '~> 4.0.1'
 gem 'uglifier', '>= 1.3.0'
@@ -7,7 +9,7 @@ gem 'coffee-rails', '~> 4.0.1'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
 gem 'ejs'
-gem "compass-rails", "~> 2.0.alpha.0"
+gem "compass-rails", "~> 1.1.2"
 gem "devise", "~> 3.2.0"
 gem 'transitions', '0.1.9', :require => ["transitions", "active_record/transitions"]
 gem 'i18n-js'
@@ -19,6 +21,10 @@ gem 'jquery-ui-rails'
 
 group :production do
   gem 'pg'
+  # This helps with serving assets and log files on the heroku platform.
+  # See https://github.com/heroku/rails_12factor
+  # https://devcenter.heroku.com/articles/rails4#logging-and-assets
+  gem 'rails_12factor'
 end
 
 group :development, :test do
