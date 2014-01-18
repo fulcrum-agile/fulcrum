@@ -296,8 +296,8 @@ describe('Fulcrum.StoryView', function() {
 
       this.story.set({'state':'unscheduled'});
 
-      var html = $('<td id="backlog"><div id="1"></div></td>');
-      var ev = {target: html.find('#1')};
+      var html = $('<td id="backlog"><div id="story-1"></div></td>');
+      var ev = {target: html.find('#story-1')};
 
       this.view.sortUpdate(ev);
 
@@ -308,8 +308,8 @@ describe('Fulcrum.StoryView', function() {
 
       this.story.set({'state':'unscheduled'});
 
-      var html = $('<td id="in_progress"><div id="1"></div></td>');
-      var ev = {target: html.find('#1')};
+      var html = $('<td id="in_progress"><div id="story-1"></div></td>');
+      var ev = {target: html.find('#story-1')};
 
       this.view.sortUpdate(ev);
 
@@ -320,8 +320,8 @@ describe('Fulcrum.StoryView', function() {
 
       this.story.set({'state':'finished'});
 
-      var html = $('<td id="in_progress"><div id="1"></div></td>');
-      var ev = {target: html.find('#1')};
+      var html = $('<td id="in_progress"><div id="story-1"></div></td>');
+      var ev = {target: html.find('#story-1')};
 
       this.view.sortUpdate(ev);
 
@@ -332,8 +332,8 @@ describe('Fulcrum.StoryView', function() {
 
       this.story.set({'state':'unstarted'});
 
-      var html = $('<td id="chilly_bin"><div id="1"></div></td>');
-      var ev = {target: html.find('#1')};
+      var html = $('<td id="chilly_bin"><div id="story-1"></div></td>');
+      var ev = {target: html.find('#story-1')};
 
       this.view.sortUpdate(ev);
 
@@ -341,38 +341,38 @@ describe('Fulcrum.StoryView', function() {
     });
 
     it("should move after the previous story in the column", function() {
-      var html = $('<div id="1" class="story"></div><div id="2" class="story"></div>');
+      var html = $('<div id="story-1" data-story-id="1" class="story"></div><div id="story-2" data-story-id="2" class="story"></div>');
       var ev = {target: html[1]};
 
       this.story.moveAfter = sinon.spy();
       this.view.sortUpdate(ev);
 
-      expect(this.story.moveAfter).toHaveBeenCalledWith("1");
+      expect(this.story.moveAfter).toHaveBeenCalledWith(1);
     });
 
     it("should move before the next story in the column", function() {
-      var html = $('<div id="1" class="story"></div><div id="2" class="story"></div>');
+      var html = $('<div id="story-1" data-story-id="1" class="story"></div><div id="story-2" data-story-id="2" class="story"></div>');
       var ev = {target: html[0]};
 
       this.story.moveBefore = sinon.spy();
       this.view.sortUpdate(ev);
 
-      expect(this.story.moveBefore).toHaveBeenCalledWith("2");
+      expect(this.story.moveBefore).toHaveBeenCalledWith(2);
     });
 
     it("should move before the next story in the column", function() {
-      var html = $('<div id="foo"></div><div id="1" class="story"></div><div id="2" class="story"></div>');
+      var html = $('<div id="foo"></div><div id="story-1" data-story-id="1" class="story"></div><div id="story-2" data-story-id="2" class="story"></div>');
       var ev = {target: html[1]};
 
       this.story.moveBefore = sinon.spy();
       this.view.sortUpdate(ev);
 
-      expect(this.story.moveBefore).toHaveBeenCalledWith("2");
+      expect(this.story.moveBefore).toHaveBeenCalledWith(2);
     });
 
     it("should move into an empty chilly bin", function() {
-      var html = $('<td id="backlog"><div id="1"></div></td><td id="chilly_bin"><div id="2"></div></td>');
-      var ev = {target: html.find('#2')};
+      var html = $('<td id="backlog"><div id="story-1" data-story-id="1"></div></td><td id="chilly_bin"><div id="story-2" data-story-id="2"></div></td>');
+      var ev = {target: html.find('#story-2')};
 
       this.story.moveAfter = sinon.spy();
       this.view.sortUpdate(ev);
