@@ -177,6 +177,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     if (this.eventShouldExpandStory(e)) {
       this.model.set({editing: true, editingDescription: false});
       this.removeHoverbox();
+      this.setupMentions();
     }
   },
 
@@ -490,6 +491,28 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   removeHoverbox: function() {
     $('.popover').remove();
+  },
+
+  getUserNames: function() {
+    return this.model.collection.project.users.pluck("name");
+  },
+
+  setupMentions: function() {
+    var mentions = this.getUserNames();
+    $('textarea[name=note]').textcomplete([
+      {
+        match: /\B@(\w*)$/,
+        search: function (term, callback) {
+            callback($.map(mentions, function (mention) {
+                return mention.indexOf(term) === 0 ? mention : null;
+            }));
+        },
+        index: 1,
+        replace: function (mention) {
+            return '@' + mention + ' ';
+        }
+    }
+  ]);
   },
 
   initTags: function() {

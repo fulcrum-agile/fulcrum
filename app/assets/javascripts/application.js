@@ -7,6 +7,7 @@
 //= require jquery-ui-1.8.23
 //= require jquery.gritter.min
 //= require jquery.scrollTo-min
+//= require jquery.textcomplete
 //= require date.format
 //= require underscore
 //= require backbone
