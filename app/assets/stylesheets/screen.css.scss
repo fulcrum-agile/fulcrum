@@ -552,7 +552,7 @@ div.note {
   }
 }
 
-.note_form {
+.note_form, .task_form {
   // The submit button while the server is saving the note.
   input.saving {
     padding-left: 16px;

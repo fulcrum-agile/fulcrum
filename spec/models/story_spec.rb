@@ -122,7 +122,7 @@ describe Story do
       subject.as_json['story'].keys.sort.should == [
         "title", "accepted_at", "created_at", "updated_at", "description",
         "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-        "state", "position", "id", "errors", "labels", "notes"
+        "state", "position", "id", "errors", "labels", "notes", "tasks"
       ].sort
     end
   end

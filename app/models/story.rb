@@ -6,7 +6,7 @@ class Story < ActiveRecord::Base
     "state", "position", "id", "labels"
   ]
   JSON_METHODS = [
-    "errors", "notes"
+    "errors", "notes", "tasks"
   ]
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",
@@ -61,6 +61,8 @@ class Story < ActiveRecord::Base
     end
 
   end
+
+  has_many :tasks
 
   # This attribute is used to store the user who is acting on a story, for
   # example delivering or modifying it.  Usually set by the controller.

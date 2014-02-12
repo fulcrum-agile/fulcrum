@@ -20,6 +20,7 @@ en:
   points:   "Points"
   saving:   "Saving ..."
   expand:   "Expand"
+  tasks:    "Tasks"
 
   author unknown: "Author Unknown"
   add story: "Add story"
@@ -89,6 +90,7 @@ en:
         labels:               'Labels'
         requested_by:         'Requested by'
         owned_by:             'Owned by'
+        tasks:                'Tasks'
 
 
   projects:

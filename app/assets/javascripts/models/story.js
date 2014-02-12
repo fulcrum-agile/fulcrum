@@ -17,6 +17,7 @@ Fulcrum.Story = Backbone.Model.extend({
     this.maybeUnwrap(args);
 
     this.initNotes();
+    this.initTasks();
     this.setColumn();
 
   },
@@ -249,6 +250,17 @@ Fulcrum.Story = Backbone.Model.extend({
     return this.notes.any(function(note) {
       return !note.isNew();
     });
+  },
+
+  initTasks: function() {
+    this.tasks = new Fulcrum.TaskCollection();
+    this.tasks.story = this;
+    this.populateTasks();
+  },
+
+  populateTasks: function() {
+    var tasks = this.get("tasks") || [];
+    this.tasks.reset(tasks);
   }
 });
 
