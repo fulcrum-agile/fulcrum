@@ -36,4 +36,9 @@ FactoryGirl.define do
     n.association :user
   end
 
+  factory :task do |t|
+    t.task 'Test task'
+    t.association :story
+  end
+
 end

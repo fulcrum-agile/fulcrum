@@ -30,8 +30,10 @@ src_files:
   - app/assets/javascripts/views/form_view.js
   - app/assets/javascripts/views/iteration_view.js
   - app/assets/javascripts/views/keycut_view.js
-  - app/assets/javascripts/views/note_form.js
   - app/assets/javascripts/views/note_view.js
+  - app/assets/javascripts/views/note_form.js
+  - app/assets/javascripts/views/task_view.js
+  - app/assets/javascripts/views/task_form.js
   - app/assets/javascripts/views/project_velocity_override_view.js
   - app/assets/javascripts/views/project_velocity_view.js
   - app/assets/javascripts/views/project_view.js

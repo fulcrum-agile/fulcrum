@@ -9,7 +9,12 @@ describe('Fulcrum.StoryView', function() {
       name: 'note',
       humanAttributeName: sinon.stub()
     });
+    var Task = Backbone.Model.extend({
+      name: 'task',
+      humanAttributeName: sinon.stub()
+    });
     var NotesCollection = Backbone.Collection.extend({model: Note});
+    var TasksCollection = Backbone.Collection.extend({model: Task});
     var Story = Backbone.Model.extend({
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true; },
@@ -28,6 +33,7 @@ describe('Fulcrum.StoryView', function() {
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
     this.story.notes = this.new_story.notes = new NotesCollection();
+    this.story.tasks = this.new_story.tasks = new TasksCollection();
     this.view = new Fulcrum.StoryView({
       model: this.story
     });
