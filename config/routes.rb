@@ -1,6 +1,7 @@
 Fulcrum::Application.routes.draw do
 
   get "story/new"
+  get "locales" => "application#locales"
 
   resources :projects do
     resources :users, :only => [:index, :create, :destroy]
