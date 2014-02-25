@@ -40,6 +40,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     if (this.model.id) {
       this.id = this.el.id = this.model.id;
       this.$el.attr('id', 'story-' + this.id);
+      this.$el.data('story-id', this.id);
     }
 
     // Set up CSS classes for the view
@@ -70,8 +71,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     // by just searching up above and below in the DOM of the column position
     // the story was dropped on.  The case where the column is empty is
     // handled below.
-    var previous_story_id = target.prev('.story').attr('id');
-    var next_story_id = target.next('.story').attr('id');
+    var previous_story_id = target.prev('.story').data('story-id');
+    var next_story_id = target.next('.story').data('story-id');
 
     // Set the story state if drop column is chilly_bin or backlog
     var column = target.parent().attr('id');
