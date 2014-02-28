@@ -12,6 +12,7 @@ describe "Stories" do
   end
 
   before(:each) do
+    Capybara.ignore_hidden_elements = true
     sign_in user
   end
 
@@ -42,21 +43,30 @@ describe "Stories" do
     end
   end
 
-  describe 'expanded story tile', js: true do
+  describe 'ID display', js: true do
     context 'saved story' do
-      it 'shows the story ID' do
-        story = FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user
+      let!(:story) { FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user }
+      let(:story_div) { "#story-#{story.id}" }
 
-        visit project_path project
-        within("#story-#{story.id}") do
+      before(:each) { visit project_path project }
+
+      it 'shows the story ID in the expanded tile' do
+        within(story_div) do
           find('*', text: story.title).click
           page.should have_selector('.story-id', text: "ID: #{story.id}")
         end
       end
+
+      it 'shows the story ID in the hover balloon' do
+        within(story_div) do
+          find('.popover-activate').hover
+        end
+        page.should have_selector('.popover .content', text: "ID: #{story.id}")
+      end
     end
 
     context 'unsaved story' do
-      it 'does not show the story id' do
+      it 'does not show the story id in the expanded tile' do
         visit project_path project
         click_on 'Add story'
         within '.story.editing' do
@@ -83,10 +93,6 @@ describe "Stories" do
   end
 
   describe "show and hide columns" do
-    before do
-      Capybara.ignore_hidden_elements = true
-    end
-
     it "hides and shows the columns", :js => true do
       visit project_path(project)
 
