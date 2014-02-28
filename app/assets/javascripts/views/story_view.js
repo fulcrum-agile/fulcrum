@@ -277,7 +277,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       if(!this.model.isNew()) {
         this.$el.append(
-          $('<div/>').addClass('story-id').html("ID: " + this.model.escape('id'))
+          $('<div/>').addClass('story-id').html(I18n.t('activerecord.attributes.story.id') + ": " + this.model.escape('id'))
         );
       }
 

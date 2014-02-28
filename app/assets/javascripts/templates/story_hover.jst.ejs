@@ -8,8 +8,9 @@
     <% } %>
   </span>
   <span>
-    ID: <%= story.get('id') %>
+    <%= story.humanAttributeName('id') %>: <%= story.get('id') %>
   </span>
+  <br/>
   <span>
     <% if (story.requested_by()) { %>
       <%= I18n.t("requested by user on date", {user: story.requested_by().get('name'), date: story.created_at()}) %>

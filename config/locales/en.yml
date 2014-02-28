@@ -41,7 +41,7 @@ en:
   n weeks:
     one: '1 week'
     other: '%{count} weeks'
-  
+
   keycuts:
     keyboard_shortcuts: Keyboard shortcuts
     help: Help (this)
@@ -55,7 +55,7 @@ en:
     toggle_my_work: Toggle my work
     toggle_labels_searches: Toggle labels &amp; searches
     toggle_current: Toggle current
-  
+
   activerecord:
     models:
       user:
@@ -79,6 +79,7 @@ en:
         iteration_length:     'Iteration length'
         default_velocity:     'Default velocity'
       story:
+        id:                   'ID'
         title:                'Title'
         description:          'Description'
         estimate:             'Estimate'
