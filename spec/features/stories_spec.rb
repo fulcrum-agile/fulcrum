@@ -16,13 +16,13 @@ describe "Stories" do
                                   :users => [user]
   end
 
-  describe "full story life cycle" do
+  describe "full story life cycle", js: true do
 
     before do
       project
     end
 
-    it "steps through the full story life cycle", :js => true do
+    it "steps through the full story life cycle" do
       visit project_path(project)
 
       click_on 'Add story'
@@ -46,6 +46,16 @@ describe "Stories" do
 
       find('#in_progress .story.accepted .story-title').should have_content('New story')
 
+    end
+
+    it "shows the story ID in the story tile" do
+      story = FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user
+
+      visit project_path(project)
+      within("#story-#{story.id}") do
+        find('*', text: story.title).click
+        page.should have_selector('.story-id', text: "ID: #{story.id}")
+      end
     end
 
   end
