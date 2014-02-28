@@ -16,13 +16,13 @@ describe "Stories" do
                                   :users => [user]
   end
 
-  describe "full story life cycle", js: true do
+  describe "full story life cycle" do
 
     before do
       project
     end
 
-    it "steps through the full story life cycle" do
+    it "steps through the full story life cycle", js: true do
       visit project_path(project)
 
       click_on 'Add story'
@@ -48,16 +48,32 @@ describe "Stories" do
 
     end
 
-    it "shows the story ID in the story tile" do
-      story = FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user
+  end
 
-      visit project_path(project)
-      within("#story-#{story.id}") do
-        find('*', text: story.title).click
-        page.should have_selector('.story-id', text: "ID: #{story.id}")
+  describe 'expanded story tile', js: true do
+    before(:each) { project }
+
+    context 'saved story' do
+      it 'shows the story ID' do
+        story = FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user
+
+        visit project_path project
+        within("#story-#{story.id}") do
+          find('*', text: story.title).click
+          page.should have_selector('.story-id', text: "ID: #{story.id}")
+        end
       end
     end
 
+    context 'unsaved story' do
+      it 'does not show the story id' do
+        visit project_path project
+        click_on 'Add story'
+        within '.story.editing' do
+          page.should_not have_text 'ID:'
+        end
+      end
+    end
   end
 
   describe "delete a story" do

@@ -275,9 +275,11 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         })
       );
 
-      this.$el.append(
-        $('<div/>').addClass('story-id').html("ID: " + this.model.escape('id'))
-      );
+      if(!this.model.isNew()) {
+        this.$el.append(
+          $('<div/>').addClass('story-id').html("ID: " + this.model.escape('id'))
+        );
+      }
 
       this.$el.append(
         this.makeFormControl(function(div) {
