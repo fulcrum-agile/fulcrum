@@ -11,17 +11,12 @@ describe "Stories" do
                               :password => 'password'
   }
 
-  let(:project) do
+  let!(:project) do
     FactoryGirl.create :project,  :name => 'Test Project',
                                   :users => [user]
   end
 
   describe "full story life cycle" do
-
-    before do
-      project
-    end
-
     it "steps through the full story life cycle", js: true do
       visit project_path(project)
 
@@ -51,8 +46,6 @@ describe "Stories" do
   end
 
   describe 'expanded story tile', js: true do
-    before(:each) { project }
-
     context 'saved story' do
       it 'shows the story ID' do
         story = FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user
@@ -101,9 +94,7 @@ describe "Stories" do
   end
 
   describe "show and hide columns" do
-
     before do
-      project
       Capybara.ignore_hidden_elements = true
     end
 
