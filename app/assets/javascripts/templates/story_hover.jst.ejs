@@ -17,6 +17,7 @@
     <% } else { %>
       <%= I18n.t("requested on date", {date: story.created_at()}) %>
     <% } %>
+  </span>
 </div>
 <% if (story.get('description')) { %>
   <h4 class="title"><%= story.humanAttributeName('description') %></h4>
