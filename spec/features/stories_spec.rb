@@ -67,16 +67,10 @@ describe "Stories" do
   end
 
   describe "delete a story" do
-    let(:story) {
-      FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
-                                  :requested_by => user)
-    }
-
-    before do
-      story
-    end
-
     it "deletes the story", :js => true do
+      story = FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
+                                  :requested_by => user)
+
       visit project_path(project)
 
       within(story_selector(story)) do
@@ -86,7 +80,6 @@ describe "Stories" do
 
       page.should_not have_css(story_selector(story))
     end
-
   end
 
   describe "show and hide columns" do
