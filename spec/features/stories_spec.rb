@@ -11,7 +11,7 @@ describe "Stories" do
                               :password => 'password'
   }
 
-  let!(:project) do
+  let(:project) do
     FactoryGirl.create :project,  :name => 'Test Project',
                                   :users => [user]
   end
