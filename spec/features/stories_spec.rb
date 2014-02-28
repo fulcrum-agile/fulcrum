@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe "Stories" do
-  let(:user)  {
+  let(:user) do
     FactoryGirl.create :user, :email => 'user@example.com',
                               :password => 'password'
-  }
+  end
 
   let(:project) do
     FactoryGirl.create :project,  :name => 'Test Project',
