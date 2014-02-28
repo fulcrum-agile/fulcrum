@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe "Stories" do
-
-  before(:each) do
-    sign_in user
-  end
-
   let(:user)  {
     FactoryGirl.create :user, :email => 'user@example.com',
                               :password => 'password'
@@ -14,6 +9,10 @@ describe "Stories" do
   let(:project) do
     FactoryGirl.create :project,  :name => 'Test Project',
                                   :users => [user]
+  end
+
+  before(:each) do
+    sign_in user
   end
 
   describe "full story life cycle" do
@@ -40,9 +39,7 @@ describe "Stories" do
       end
 
       find('#in_progress .story.accepted .story-title').should have_content('New story')
-
     end
-
   end
 
   describe 'expanded story tile', js: true do
@@ -70,7 +67,6 @@ describe "Stories" do
   end
 
   describe "delete a story" do
-
     let(:story) {
       FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
                                   :requested_by => user)
@@ -99,7 +95,6 @@ describe "Stories" do
     end
 
     it "hides and shows the columns", :js => true do
-
       visit project_path(project)
 
       columns = {
@@ -130,7 +125,6 @@ describe "Stories" do
           click_link 'Close'
         end
         page.should_not have_css(selector)
-
       end
     end
   end
@@ -138,5 +132,4 @@ describe "Stories" do
   def story_selector(story)
     "#story-#{story.id}"
   end
-
 end
