@@ -12,7 +12,6 @@ describe "Stories" do
   end
 
   before(:each) do
-    Capybara.ignore_hidden_elements = true
     sign_in user
   end
 
@@ -58,14 +57,12 @@ describe "Stories" do
       end
 
       it 'shows the story ID in the hover balloon' do
-        within(story_div) do
-          find('.popover-activate').hover
-        end
+        find(story_div).find('.popover-activate').hover
         page.should have_selector('.popover .content', text: "ID: #{story.id}")
       end
     end
 
-    context 'unsaved story' do
+    context 'unsaved story', js: true do
       it 'does not show the story id in the expanded tile' do
         visit project_path project
         click_on 'Add story'
@@ -94,6 +91,8 @@ describe "Stories" do
 
   describe "show and hide columns" do
     it "hides and shows the columns", :js => true do
+      Capybara.ignore_hidden_elements = true
+
       visit project_path(project)
 
       columns = {
