@@ -119,33 +119,39 @@ describe "Stories" do
   end
 
   describe 'formatting' do
+    let(:title) { 'My story' }
+    let!(:story) { FactoryGirl.create :story, title: title, description: description, project: project, requested_by: user }
+
     before do
       Capybara.ignore_hidden_elements = true
       visit project_path project
     end
 
     describe 'description', js: true do
-      let(:title) { 'My story' }
-      let(:expand_story) { find('.story-title', text: 'My story').click }
+      let(:expand_story) { find('.story-title', text: title).click }
 
-      before do
-        click_on 'Add story'
-        fill_in 'title', with: title
+      describe '*italics*' do
+        let(:description) { 'Text with *italics*.' }
+
+        specify 'edit form' do
+          expand_story
+          page.should have_css :em, text: 'italics'
+        end
       end
 
-      it 'shows *italics*' do
-        fill_in 'description', with: 'Text with *italics*.'
-        within('.story-controls') { click_on 'Save' }
-        expand_story
-        page.should have_css :em, text: 'italics'
-      end
+      describe 'autolink URLs' do
+        let(:url) { 'http://www.google.com' }
+        let(:description) { "Text with a URL: #{url}" }
 
-      it 'autolinks URLs' do
-        url = 'http://www.google.com'
-        fill_in 'description', with: "Text with a URL: #{url}"
-        within('.story-controls') { click_on 'Save' }
-        expand_story
-        page.should have_css "a[href='#{url}']", text: url
+        specify 'edit form' do
+          expand_story
+          page.should have_css "a[href='#{url}']", text: url
+        end
+
+        xspecify 'hover' do
+          find('.popover-activate').hover
+          page.should have_css "a[href='#{url}']", text: url
+        end
       end
     end
   end
