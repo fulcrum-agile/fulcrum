@@ -148,7 +148,7 @@ describe "Stories" do
           page.should have_css "a[href='#{url}']", text: url
         end
 
-        xspecify 'hover' do
+        specify 'hover' do
           find('.popover-activate').hover
           page.should have_css "a[href='#{url}']", text: url
         end
