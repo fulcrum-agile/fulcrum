@@ -129,6 +129,7 @@ describe "Stories" do
 
     describe 'description', js: true do
       let(:expand_story) { find('.story-title', text: title).click }
+      let(:hover_story) { find('.popover-activate').hover }
 
       describe '*italics*' do
         let(:description) { 'Text with *italics*.' }
@@ -149,8 +150,17 @@ describe "Stories" do
         end
 
         specify 'hover' do
-          find('.popover-activate').hover
+          hover_story
           page.should have_css "a[href='#{url}']", text: url
+        end
+      end
+
+      describe 'handle blank correctly' do
+        let(:description) { nil }
+
+        specify 'edit form' do
+          expand_story
+          page.should have_css '.description'
         end
       end
     end
