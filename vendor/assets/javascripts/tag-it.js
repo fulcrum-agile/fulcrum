@@ -208,7 +208,6 @@
                     that.createTag(that._cleanedInput());
                 });
 
-
             // Autocomplete.
             if (this.options.availableTags || this.options.tagSource) {
                 this._tagInput.autocomplete({
@@ -229,6 +228,7 @@
                     }
                 });
             }
+            this._tagInput.focus();
         },
 
         _cleanedInput: function() {
