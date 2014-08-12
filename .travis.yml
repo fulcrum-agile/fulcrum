@@ -6,6 +6,6 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - "bundle exec rake --trace fulcrum:setup db:setup"
 rvm:
-  - 2.0.0
+  - 2.1.2
 script:
   - "bundle exec rake travis"
