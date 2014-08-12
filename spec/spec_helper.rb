@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -18,6 +19,8 @@ RSpec.configure do |config|
   # config.mock_with :rr
   config.mock_with :rspec
 
+  config.infer_spec_type_from_file_location!
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures/"
 
@@ -31,7 +34,7 @@ RSpec.configure do |config|
   end
 
   config.before(:type => :feature) do
-    Capybara.javascript_driver = :webkit
+    Capybara.javascript_driver = :poltergeist
     DatabaseCleaner.clean
   end
 

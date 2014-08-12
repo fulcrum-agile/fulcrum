@@ -28,7 +28,7 @@ module IntegrationHelpers
     end
     element = options[:element] ? options.delete(:element) : 'body'
     keypress_script = "var e = jQuery.Event('keypress', { keyCode: #{keycode} }); jQuery('#{element}').trigger(e);"
-    page.driver.browser.execute_script(keypress_script)
+    page.execute_script(keypress_script)
   end
 
   # FIXME this is a bit brittle but the Devise now stores encrypted tokens
