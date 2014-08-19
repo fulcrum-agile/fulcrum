@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def create
     @project = current_user.projects.find(params[:project_id])
     @users = @project.users
-    @user = User.find_or_create_by_email(params[:user][:email]) do |u|
+    @user = User.find_or_create_by(email: params[:user][:email]) do |u|
       # Set to true if the user was not found
       u.was_created = true
       u.name = params[:user][:name]
