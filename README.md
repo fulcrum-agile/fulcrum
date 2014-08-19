@@ -6,11 +6,11 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
-[![Build Status](https://travis-ci.org/malclocke/fulcrum.png?branch=master)](https://travis-ci.org/malclocke/fulcrum)
+[![Build Status](https://travis-ci.org/fulcrum-agile/fulcrum.png?branch=master)](https://travis-ci.org/fulcrum-agile/fulcrum)
 
 
 
-![Fulcrum Screenshot](https://github.com/malclocke/fulcrum/raw/master/doc/screenshot.png)
+![Fulcrum Screenshot](https://github.com/fulcrum-agile/fulcrum/raw/master/doc/screenshot.png)
 
 Get involved
 ------------
@@ -50,7 +50,7 @@ First up, your system will need the
 Once you have these:
 
     # Checkout the project
-    $ git clone git://github.com/malclocke/fulcrum.git
+    $ git clone git://github.com/fulcrum-agile/fulcrum.git
     $ cd fulcrum
 
     # Install the project dependencies
@@ -141,7 +141,7 @@ Development
 
 Fulcrum is currently welcoming contributions.  If you'd like to help:
 
-* Check the [issue queue](http://github.com/malclocke/fulcrum/issues) for a
+* Check the [issue queue](http://github.com/fulcrum-agile/fulcrum/issues) for a
   list of the major features which are yet to be implemented.  These have the
   `feature` and `unstarted` labels.  If a feature you'd like to work on isn't
   there, add an issue.
