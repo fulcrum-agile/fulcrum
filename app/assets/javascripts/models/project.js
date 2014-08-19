@@ -64,6 +64,9 @@ Fulcrum.Project = Backbone.Model.extend({
       from = 0;
     }
     var to = this.get('last_changeset_id');
+    if (to === null) {
+      to = 0;
+    }
 
     var model = this;
     var options = {

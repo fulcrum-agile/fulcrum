@@ -23,7 +23,9 @@ describe "Projects" do
 
       page.should have_selector('h1', :text => 'Listing Projects')
 
-      click_on 'Test Project'
+      within('#projects') do
+        click_on 'Test Project'
+      end
 
       page.should have_selector('h1', :text => 'Test Project')
     end

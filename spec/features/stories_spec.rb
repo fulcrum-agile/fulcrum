@@ -65,7 +65,7 @@ describe "Stories" do
       visit project_path(project)
 
       within(story_selector(story)) do
-        find('.story-title').click
+        find('.story-title').trigger 'click'
         click_on 'Delete'
       end
 
