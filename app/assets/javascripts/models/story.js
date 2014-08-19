@@ -123,6 +123,14 @@ Fulcrum.Story = Backbone.Model.extend({
   point_values: function() {
     return this.collection.project.get('point_values');
   },
+  story_types: function() {
+   var types = ["feature", "chore", "bug", "release"];
+   return types.map(function(t) { return I18n.t('story.types.' + t);});
+  },
+  states: function() {
+    var statuses = ['unscheduled','unstarted','started','finished', 'delivered','accepted','rejected'];
+    return statuses.map(function(s) { return I18n.t('story.states.' + s);});
+  },
 
   // List available state transitions for this story
   events: function() {

@@ -15,6 +15,8 @@ describe('Fulcrum.StoryView', function() {
       estimable: function() { return true; },
       estimated: function() { return false; },
       point_values: function() { return [0,1,2]; },
+      story_types: function() { return ["feature", "chore", "bug", "release"];},
+      states: function() { return  ['unscheduled','unstarted','started','finished', 'delivered','accepted','rejected'];},
       hasErrors: function() { return false; },
       errorsOn: function() { return false; },
       url: '/path/to/story',

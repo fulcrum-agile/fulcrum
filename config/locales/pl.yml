@@ -1,0 +1,144 @@
+pl:
+  fulcrum:  "Fulcrum"
+
+  log out:  "Wyloguj"
+  log in:   "Zaloguj"
+  sign up:  "Zarejestrj"
+  edit:     "Edycja"
+  delete:   "Usuń"
+  back:     "Powrót"
+  import:   "Import"
+  export:   "Eksport"
+  revert:   "Przywróć"
+  apply:    "Zastosuj"
+  velocity: "Prędkość"
+  notes:    "Notatki"
+  close:    "Zamknij"
+  points:   "Punkty"
+  saving:   "Zapisuje ..."
+  expand:   "Rozwiń"
+  save:     "Zapisz"
+  cancel:   "Anuluj"
+
+  author unknown: "Nieznany Autor"
+  add story: "Dodaj zadanie"
+  add_note: 'Dodaj notatkę'
+  save error: "Błąd Zapisu"
+  override velocity: "Nadpisz Prędkość"
+  story title: "Tytuł zadania"
+  no_estimate: "Nieoszacowane"
+
+  requested on date:          'Zgłoszono {{date}}'
+  requested by user on date:  'Zgłoszone przez {{user}} {{date}}'
+
+  imported n stories:
+    one: 'Zaimportowano 1 zadanie'
+    few: 'Zaimportowano %{count} zadania'
+    other: 'Zapmoprtowano %{count} zadań'
+
+  n stories failed to import:
+    one: 'Niepowiódł się import 1 zadania'
+    other: 'Niepowiódł się import %{count} zadań'
+
+  n weeks:
+    one: '1 tydzień'
+    few: '%{count} tygodnie'
+    other: '%{count} tygodni'
+
+  keycuts:
+    keyboard_shortcuts: 'Skróty klawiaturowe'
+    help: 'Pomoc'
+    add_story: 'Dodaj zadanie'
+    save_currently_open_story: 'Zapisz otwarte zadanie'
+    save_comment_being_edited: 'Zapisz edytowany komentarz'
+    toggle_backlog: 'Włącz/Wyłącz Zaległości'
+    toggle_done: 'Włącz/Wyłącz Zakończone'
+    toggle_history: 'Włącz/Wyłącz Historię'
+    toggle_icebox: 'Włącz/Wyłącz Poczekalnie'
+    toggle_my_work: 'Włącz/Wyłącz Moje zadania'
+    toggle_labels_searches: 'Włącz/Wyłącz Wyszukiwanie etykiet'
+    toggle_current: 'Włącz/Wyłącz Bieżące zadania'
+
+  activerecord:
+    models:
+      user:
+        one: 'Uczestnik'
+        few: 'Uczestnicy'
+        other: 'Uczestnicy'
+      project:
+        one: 'Projekt'
+        few: 'Projekty'
+        other: 'Projekty'
+      story:
+        one: 'Zadanie'
+        few: 'Zadania'
+        other: 'Zadań'
+
+    attributes:
+      note:
+        note:                 'Notatka'
+      project:
+        name:                 'Nazwa'
+        point_scale:          'Skala punktów'
+        start_date:           'Data rozpoczęcia'
+        iteration_start_day:  'Dzień rozpoczęcia iteracji'
+        iteration_length:     'Czas trwania iteracji'
+        default_velocity:     'Domyślna prędkość'
+      story:
+        title:                'Tytuł'
+        description:          'Opis'
+        estimate:             'Oszacowanie'
+        story_type:           'Typ zadania'
+        state:                'Stan'
+        accepted_at:          'Akceptowane'
+        position:             'Pozycja'
+        labels:               'Etykiety'
+        requested_by:         'Zgłoszone przez'
+        owned_by:             'Należy do'
+
+  projects:
+    new project:        "Nowy Projekt"
+    edit project:       "Edytuj Projekt"
+    project properties: "Właściwości Projektu"
+
+    project was successfully created: "Utworzenie projektu zakończone sukcesem."
+    project was successfully updated: "Uaktualnienie projektu zakończone sukcesem."
+
+    index:
+      listing projlisting projectsects: "Lista Projektów"
+      are you sure you want to delete this project: "Czy na pewno chcesz usunąć ten projekt?  Tej akcji nie można cofnąć."
+      the iteration starts on x with length of x weeks:
+        one:    "Iteracja zaczyna się %{day} i potrwa 1 tydzień"
+        few:  "Iteracja zaczyna się %{day} i potrwa %{count} tygodnie"
+        other:  "Iteracja zaczyna się %{day} i potrwa %{count} tygodni"
+
+    show:
+      done: "Zakończone"
+      in_progress: "W toku"
+      backlog: "Zaległości"
+      icebox: "Poczekalnia"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Pozostaw puste, jeżeli nie chesz wprowadzić zmian"
+      notify_me_when_my_stories_are: "Powiadom mnie gdy moje zadania są"
+      we_need_your_current_password_to_confirm_your_changes: "Aby potwierdzić zmiany, potrzebujemy twojego hasła."
+
+  story:
+    states:
+      unscheduled:          'Niezaplanowane'
+      unstarted:            'Nierozpoczęte'
+      started:              'Rozpoczęte'
+      finished:             'Zakończone'
+      delivered:            'Dostarczone'
+      accepted:             'Zaakceptowane'
+      rejected:             'Odrzucone'
+    types:
+      feature:              'funkcjonalność'
+      chore:                'utrzymanie'
+      bug:                  'błąd'
+      release:              'wdrożenie'
+
+  time:
+    formats:
+      note_date: "%d.%m.%Yr"

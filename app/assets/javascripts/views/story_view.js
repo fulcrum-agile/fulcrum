@@ -288,7 +288,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         this.makeFormControl({
           name: "estimate",
           label: true,
-          control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
+          control: this.select("estimate", this.model.point_values(), {blank: I18n.t('no_estimate')})
         })
       );
 
@@ -296,7 +296,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         this.makeFormControl({
           name: "story_type",
           label: true,
-          control: this.select("story_type", ["feature", "chore", "bug", "release"])
+          control: this.select("story_type", this.model.story_types())
         })
       );
 
@@ -304,7 +304,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         this.makeFormControl({
           name: "state",
           label: true,
-          control: this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"])
+          control: this.select("state", this.model.states())
         })
       );
 
@@ -338,7 +338,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl(function(div) {
-          $(div).append(this.label("description", "Description"));
+          $(div).append(this.label("description", I18n.t('activerecord.attributes.story.description')));
           $(div).append('<br/>');
           if(this.model.isNew() || this.model.get('editingDescription')) {
             $(div).append(this.textArea("description"));

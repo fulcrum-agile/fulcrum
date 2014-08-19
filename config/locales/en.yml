@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   fulcrum:  "Fulcrum"
 
@@ -20,12 +17,16 @@ en:
   points:   "Points"
   saving:   "Saving ..."
   expand:   "Expand"
+  save:     "Save"
+  cancel:   "Cancel"
 
   author unknown: "Author Unknown"
   add story: "Add story"
+  add_note: 'Add note'
   save error: "Save error"
   override velocity: "Override velocity"
   story title: "Story title"
+  no_estimate: "No estimate"
 
   requested on date:          'Requested on {{date}}'
   requested by user on date:  'Requested by {{user}} on {{date}}'
@@ -41,7 +42,7 @@ en:
   n weeks:
     one: '1 week'
     other: '%{count} weeks'
-  
+
   keycuts:
     keyboard_shortcuts: Keyboard shortcuts
     help: Help (this)
@@ -55,7 +56,7 @@ en:
     toggle_my_work: Toggle my work
     toggle_labels_searches: Toggle labels &amp; searches
     toggle_current: Toggle current
-  
+
   activerecord:
     models:
       user:
@@ -100,7 +101,7 @@ en:
     project was successfully updated: "Project was successfully updated."
 
     index:
-      listing projects: "Listing Projects"
+      listing projlisting projectsects: "Listing Projects"
       are you sure you want to delete this project: "Are you sure you want to delete this project?  This action cannot be undone."
       the iteration starts on x with length of x weeks:
         one:    "Iterations start on %{day} with a length of 1 week"
@@ -117,6 +118,21 @@ en:
       leave_blank_if_you_dont_want_to_change_it: "Leave blank if you don't want to change it"
       notify_me_when_my_stories_are: "Notify me when my stories are"
       we_need_your_current_password_to_confirm_your_changes: "We need your current password to confirm your changes."
+
+  story:
+    states:
+      unscheduled:          'Unscheduled'
+      unstarted:            'Unstarted'
+      started:              'Started'
+      finished:             'Finished'
+      delivered:            'Delivered'
+      accepted:             'Accepted'
+      rejected:             'Rejected'
+    types:
+      feature:              'feature'
+      chore:                'chore'
+      bug:                  'bug'
+      release:              'release'
 
   time:
     formats:
