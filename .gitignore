@@ -8,3 +8,4 @@ tmp/
 .sass-cache/
 *.DS_Store
 config/deploy.rb
+*.swp
