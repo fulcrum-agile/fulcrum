@@ -297,6 +297,38 @@ div.story-title abbr.initials {
   border: none;
 }
 
+.fa-star {
+  color: #FFE000;
+}
+.fa-star-o {
+  color: #726904;
+}
+.fa-icon-overlay {
+  position: relative;
+}
+.fa-icon-overlay .fa {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fa-icon-overlay .fa:first-child {
+  position: initial;
+}
+.fa-comment {
+  color: white;
+}
+.fa-comment-o {
+  color: gray;
+}
+.fa-bug {
+  color: #C20B0B;
+}
+.fa-cog {
+  color: #5E5C5C;
+}
+
+
+
 #in_progress div.story,
 #backlog div.story,
 #chilly_bin div.story {
