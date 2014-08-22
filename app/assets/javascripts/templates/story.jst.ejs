@@ -1,8 +1,12 @@
 <% if (story.estimable()) { %>
-<div class="state-actions">
+<div class="state-actions estimates">
   <form>
     <% _.each(story.point_values(), function(value) { %>
-    <input type="button" class="estimate" value="<%= value %>"/>
+      <span class="estimate input" data-value="<%= value %>">
+        <% if (value == 0) { %>[]<% } else { %>
+          <% _.times(value, function() { %>|<% }) %>
+        <% } %>
+      </span>
     <% }); %>
   </form>
 </div>
@@ -20,16 +24,53 @@
   <a class="icon icons-throbber" title="<%= I18n.t('saving') %>"></a>
   <% } %>
   <span class="popover-activate">
-    <span class="icon icons-<%= story.get('story_type') %> story_type" title="<%= story.story_type %>: <%= story.id %>">
-      <%= story.story_type %>
-    </span>
-    <% if (story.estimated()) { %>
-    <span class="estimate estimate_<%= story.get('estimate') %>">
-      <%= story.get('estimate') %>
-    </span>
+
+
+    <% if (story.get('story_type') == 'feature') { %>
+      <span class="fa-icon-overlay">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+      </span>
     <% } %>
+    <% if (story.get('story_type') == 'chore') { %>
+      <i class="fa fa-cog"></i>
+    <% } %>
+    <% if (story.get('story_type') == 'bug') { %>
+      <i class="fa fa-bug"></i>
+    <% } %>
+
+    <!-- TODO make it accessible
+      <%= story.story_type %>
+
+      <% if (story.estimated()) { %>
+        <span class="estimate estimate_<%= story.get('estimate') %>">
+          <%= story.get('estimate') %>
+        </span>
+      <% } %>
+    -->
+
+    <% if (story.estimated()) { %>
+      <span class="estimate estimate_<%= story.get('estimate') %>">
+        <% if (story.get("estimate") == 1) {  %> |  <% } %>
+        <% if (story.get("estimate") == 2) {  %> ||  <% } %>
+        <% if (story.get("estimate") == 3) {  %> |||  <% } %>
+        <% if (story.get("estimate") == 4) {  %> ||||  <% } %>
+        <% if (story.get("estimate") == 5) {  %> |||||  <% } %>
+        <% if (story.get("estimate") == 6) {  %> ||||||  <% } %>
+        <% if (story.get("estimate") == 7) {  %> |||||||  <% } %>
+        <% if (story.get("estimate") == 8) {  %> ||||||||  <% } %>
+        <% if (story.get("estimate") == 9) {  %> |||||||||  <% } %>
+        <% if (story.get("estimate") == 10) { %> ||||||||||  <% } %>
+        <% if (story.get("estimate") == 11) { %> |||||||||||  <% } %>
+        <% if (story.get("estimate") == 12) { %> ||||||||||||  <% } %>
+      </span>
+    <% } %>
+
     <% if (story.hasDetails()) { %>
-    <span class="icon icons-details"></span>
+      <span class="fa-icon-overlay">
+        <i class="fa fa-comment"></i>
+        <i class="fa fa-comment-o"></i>
+      </span>
     <% } %>
   </span>
 </div>

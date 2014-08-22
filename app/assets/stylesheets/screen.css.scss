@@ -306,6 +306,44 @@ div.story-title abbr.initials {
   cursor: inherit;
 }
 
+.estimate {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  display: inline-block;
+  letter-spacing: -1px;
+  width: 20px;
+  margin-left: -2px;
+  margin-right: -6px;
+  text-align: right;
+  top: -7px;
+  position: relative;
+  color: #3556AA;
+  height: 17px;
+  -webkit-font-smoothing: none;
+}
+.estimates {
+  padding-left: 10px;
+  padding-right: 2px;
+}
+.estimates .estimate {
+  font-weight: normal;
+  border-radius: none;
+  margin-left: -3px;
+  border-right: 1px solid #858484;
+  padding-right: 2px;
+  top: -3px;
+  background: transparent;
+  line-height: 15px;
+}
+
+/*
 span.estimate {
   border: 1px solid #777;
   padding: 0 0.2em;
@@ -357,6 +395,7 @@ span.estimate_8 {
       $orange 100%,
       white 100%));
 }
+*/
 
 .story.release {
   background-color: #333;
