@@ -179,7 +179,7 @@ ul#primary-nav li.secondary ul li {
 }
 
 #main {
-  margin: 1em;
+  margin: 12px 5px;
   position: relative;
 }
 
@@ -227,12 +227,11 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   text-align: left;
-  background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
+  background: #444;
   color: #eee;
-  padding: 0.2em 0.2em 0.2em 1em;
-  text-transform:capitalize;
-  @include border-radius(5px 5px 0 0);
+  padding: 0.4em 0.2em 0.3em 0.7em;
+  text-transform: uppercase;
+  @include border-radius(2px 2px 0 0);
   a.toggle-column{
     color: #eee;
     text-decoration: none;
@@ -279,7 +278,6 @@ div.story textarea {
 
 div.story-icons {
   float: left;
-  font-size: 0;
 }
 div.story-controls {
   padding: 10px 0;
@@ -430,7 +428,7 @@ span.estimate_8 {
 */
 
 .story.release {
-  background-color: #333;
+  background-color: #444;
   color: white;
 }
 .story.release:hover {
@@ -449,10 +447,10 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  @include icons-sprite(iteration, false, 2px, 3px);
-  background-color: #000;
-  color: #ddd;
-  padding: 0.2em 0.2em 0.2em 20px
+  background-color: #707C8B;
+  color: #f5f5f5;
+  padding: 0.2em 0.7em 0.2em 20px;
+  font-size: 12px;
 }
 .iteration .points {
   float: right;
@@ -460,46 +458,55 @@ span.estimate_8 {
 
 .state-actions input {
   margin: 0;
-  padding: .2em .5em;
-  @include border-radius(3px);
-  border: 1px solid #333;
+  padding: .3em .8em;
+  @include border-radius(2px);
+  text-transform: capitalize;
   cursor: pointer;
   font-size: x-small;
   color: white;
-  @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-  border-color: $aluminium-5;
-  text-shadow:  $aluminium-5 0 1px 0;
-  @include box-shadow(0 1px 2px #aaaaaa);
+  background: #999;
+  border: 1px solid #777;
+  position: relative;
+  top: -1px;
+  /*
+    border: 1px solid #333;
+    @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
+    border-color: $aluminium-5;
+    text-shadow:  $aluminium-5 0 1px 0;
+    @include box-shadow(0 1px 2px #aaaaaa);
+  */
 }
 .story.release .state-actions input {
   @include box-shadow(0 1px 2px #000);
+}
+.story.release .tags {
+  color: #C1D4F1;
 }
 .state-actions input:active {
   @include box-shadow(none);
 }
 
 .state-actions input.finish {
-  @include background(linear-gradient(top, $sky-blue-1, $sky-blue-1*0.75));
-  border-color: $sky-blue-3;
+  background: $sky-blue-2;
+  border: 1px solid #1B3B64;
 }
 .state-actions input.deliver {
   @include background(linear-gradient(top, $butter-1, $butter-1*0.75));
-  border-color:     $butter-3;
+  background: #E4BB07;
+  border: 1px solid #A2960C;
+  text-shadow: 0px 0px 1px #550;
 }
 .state-actions input.accept {
-  @include background(linear-gradient(top, $chameleon-2, $chameleon-2*0.75));
-  border-color: $chameleon-3;
+  background: $chameleon-3;
+  border: 1px solid #19790B;
 }
 .state-actions input.reject {
-  @include background(linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
-  border-color:     $scarlet-red-3;
+  background:     $scarlet-red-2;
+  border: 1px solid #8F210D;
 }
 .state-actions input.restart {
-  @include background(sprite($icons-sprites,redo),
-                      linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
-  background-repeat: no-repeat;
-  border-color: $scarlet-red-3;
-  padding-left: 16px;
+  background:     $scarlet-red-2;
+  border: 1px solid #8F210D;
 }
 
 table#import tr.valid, .notice {
