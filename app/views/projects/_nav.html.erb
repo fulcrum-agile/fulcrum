@@ -1,9 +1,3 @@
-<h1><%= project.name %></h1>
-
-<%- if defined? show_column_toggles -%>
-<div id="column-toggles"></div>
-<%- end -%>
-
 <%= link_to_unless_current Story.model_name.human(:count => 2), project_path(project) %> |
 <%= link_to_unless_current User.model_name.human(:count => 2), project_users_path(project) %> |
 <%= link_to_unless_current t('edit'), edit_project_path(project) %> |

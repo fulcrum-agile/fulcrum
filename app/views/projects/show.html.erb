@@ -73,9 +73,17 @@ $(function() {
 
 <% content_for :title_bar do %>
   <div id="velocity" class="velocity"></div>
-  <%= render :partial => 'projects/nav',
-             :locals => {:project => @project, :show_column_toggles => true} %>
-             | <a id="add_story" href="#"><%= t('add story') %></a>
+  <div class="project_nav">
+    <%= render :partial => 'projects/nav',
+               :locals => {:project => @project } %>
+               | <a id="add_story" class="btn btn-default" href="#">
+                  <i class="fa fa-plus"></i>
+                  <%= t('add story') %>
+                </a>
+    <div class="column-toggles-wrap">
+      <div id="column-toggles"></div>
+    </div>
+  </div>
 <% end %>
 
 <table class="stories" width="100%">

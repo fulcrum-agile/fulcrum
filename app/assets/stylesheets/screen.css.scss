@@ -48,11 +48,7 @@ a img {
 }
 
 #header {
-  background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
-  border-bottom: 1px solid $darkgrey*0.7;
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: black 0 1px 0;
+  background: #3E6A9E;
   position: relative;
   z-index: 900;
 }
@@ -107,11 +103,8 @@ ul#primary-nav li.secondary ul li {
 }
 
 #title_bar {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
-  border-bottom: 1px solid #ededed;
+  background: #E9E9E9;
+  border-bottom: 1px solid #d5d5d5;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
   line-height: 140%;
@@ -122,7 +115,7 @@ ul#primary-nav li.secondary ul li {
   padding: 10px 1em;
 
   div.velocity {
-    font-size: 1.6em;
+    font-size: 1.2em;
     float: right;
     position: relative;
 
@@ -157,20 +150,31 @@ ul#primary-nav li.secondary ul li {
     font-style: italic;
   }
 
-  #add_story {
-    @include background(sprite($icons-sprites, feature, 2, 2),
-                        linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0.2em 0.4em 0.2em 18px;
-    @include border-radius(3px);
-    border: 1px solid $aluminium-5;
-    cursor: pointer;
-    font-size: small;
-    color: white;
-    text-shadow:  $aluminium-5 0 1px 0;
-    text-decoration: none;
+  h1 {
+    display: inline;
   }
+  .project_nav {
+    display: inline;
+  }
+  .column-toggles-wrap {
+    float: right;
+    margin-right: 10px;
+  }
+
+}
+
+.btn.btn-default {
+  background: #999;
+  margin: 0;
+  padding: 0.2em 0.4em;
+  @include border-radius(2px);
+  border: 1px solid #777;
+  cursor: pointer;
+  font-size: small;
+  color: white;
+  text-shadow: none;
+  text-decoration: none;
+  margin: 0 2px;
 }
 
 #title_bar h1 {
@@ -179,7 +183,7 @@ ul#primary-nav li.secondary ul li {
 }
 
 #main {
-  margin: 12px 5px;
+  margin: 10px 5px;
   position: relative;
 }
 
@@ -191,19 +195,9 @@ html.stories, html.stories body, html.stories div#main {
   float: right;
 }
 
-#column-toggles a {
-  margin: 0 0.2em;
-  padding: 3px;
-  color: white;
-  background-color: $darkgrey;
-  @include border-radius(3px);
-  text-decoration: none;
-  text-shadow: none;
-}
-
 #column-toggles a.pressed {
-  color: $darkgrey;
-  background-color: #cecece;
+  color: #636363;
+  background-color: #E2E2E2;
 }
 
 /* stories table */
@@ -373,60 +367,6 @@ div.story-title abbr.initials {
   line-height: 15px;
 }
 
-/*
-span.estimate {
-  border: 1px solid #777;
-  padding: 0 0.2em;
-  margin: 0 2px 0 0;
-  @include border-radius(3px);
-  vertical-align: top;
-  font-size: x-small;
-  font-weight: bold;
-  font-style: italic;
-}
-
-span.estimate_1 {
-  @include background(linear-gradient(bottom,
-      $orange 12.5%,
-      white 12.5%));
-}
-span.estimate_2 {
-  @include background(linear-gradient(bottom,
-      $orange 25%,
-      white 25%));
-}
-span.estimate_3 {
-  @include background(linear-gradient(bottom,
-      $orange 37.5%,
-      white 37.5%));
-}
-span.estimate_4 {
-  @include background(linear-gradient(bottom,
-      $orange 50%,
-      white 50%));
-}
-span.estimate_5 {
-  @include background(linear-gradient(bottom,
-      $orange 62.5%,
-      white 62.5%));
-}
-span.estimate_6 {
-  @include background(linear-gradient(bottom,
-      $orange 75%,
-      white 75%));
-}
-span.estimate_7 {
-  @include background(linear-gradient(bottom,
-      $orange 87.5%,
-      white 87.5%));
-}
-span.estimate_8 {
-  @include background(linear-gradient(bottom,
-      $orange 100%,
-      white 100%));
-}
-*/
-
 .story.release {
   background-color: #444;
   color: white;
@@ -468,13 +408,6 @@ span.estimate_8 {
   border: 1px solid #777;
   position: relative;
   top: -1px;
-  /*
-    border: 1px solid #333;
-    @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-    border-color: $aluminium-5;
-    text-shadow:  $aluminium-5 0 1px 0;
-    @include box-shadow(0 1px 2px #aaaaaa);
-  */
 }
 .story.release .state-actions input {
   @include box-shadow(0 1px 2px #000);

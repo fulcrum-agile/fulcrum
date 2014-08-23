@@ -15,7 +15,13 @@
 
 <div id="header">
   <ul id="primary-nav">
-    <li class="root"><%= link_to t('fulcrum'), root_path %></li>
+    <li class="root">
+      <%= link_to t('fulcrum'), root_path %>
+      <% if @project %>
+        &raquo;
+        <%= @project.name %>
+      <% end %>
+    </li>
     <% if current_user %>
       <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
         <%= link_to Project.model_name.human(:count => 2), root_path %>
@@ -27,7 +33,7 @@
           </ul>
         <%- end %>
       </li>
-      <li><%= link_to current_user.email, edit_user_registration_path %></li>
+      <li><%= link_to current_user.name, edit_user_registration_path %></li>
       <li><%= link_to t('log out'), destroy_user_session_path,
                       :method => :delete %></li>
     <% else %>
