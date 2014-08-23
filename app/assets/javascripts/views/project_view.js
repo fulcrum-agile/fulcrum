@@ -78,7 +78,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
   },
 
   scaleToViewport: function() {
-    var storyTableTop = $('table.stories tbody').offset().top;
+    var storyTableTop = $('table.stories tbody').offset().top + 20;
     // Extra for the bottom padding and the
     var extra = 100;
     var height = $(window).height() - (storyTableTop + extra);

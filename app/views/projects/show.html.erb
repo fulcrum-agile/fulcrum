@@ -50,6 +50,9 @@ $(function() {
   });
   window.projectView.scaleToViewport();
   $(window).resize(projectView.scaleToViewport);
+  // hack: has to be resized one more time to fit perfectly
+  setTimeout(projectView.scaleToViewport, 100);
+
 
   setInterval(function() {
    window.projectView.model.fetch();
