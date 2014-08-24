@@ -1,0 +1,120 @@
+pt-BR:
+  fulcrum:  "Fulcrum"
+
+  log out:  "Sair"
+  log in:   "Entrar"
+  sign up:  "Inscreva-se"
+  edit:     "Editar"
+  delete:   "Excluir"
+  back:     "Voltar"
+  import:   "Importar"
+  export:   "Exportar"
+  revert:   "Reverter"
+  apply:    "Aplicar"
+  velocity: "Velocidade"
+  notes:    "Notas"
+  close:    "Fechar"
+  points:   "Pontos"
+  saving:   "Salvando ..."
+  expand:   "Expandir"
+
+  author unknown: "Autor Desconhecido"
+  add story: "Adicionar história"
+  save error: "Salvar erro"
+  override velocity: "Velocidade Ultrapassada"
+  story title: "Título da história"
+
+  requested on date:          'Solicitado em {{date}}'
+  requested by user on date:  'Solicitado por {{user}} em {{date}}'
+
+  imported n stories:
+    one: 'Importada 1 história'
+    other: 'Importadas %{count} história'
+
+  n stories failed to import:
+    one: '1 história falhou na importação'
+    other: '%{count} histórias falharam na importação'
+
+  n weeks:
+    one: '1 semana'
+    other: '%{count} semanas'
+  
+  keycuts:
+    keyboard_shortcuts: Atalhos de teclado
+    help: Ajuda (this)
+    add_story: Adicionar história
+    save_currently_open_story: Salvar a história aberta
+    save_comment_being_edited: Salvar comentário que está sendo editado
+    toggle_backlog: Alternar backlog
+    toggle_done: Alternado
+    toggle_history: Alternar história
+    toggle_icebox: Alternar chilly bin
+    toggle_my_work: Alternar meu trabalho
+    toggle_labels_searches: Alternar etiquetas &amp; pesquisadas
+    toggle_current: Alternar atual
+  
+  activerecord:
+    models:
+      user:
+        one: 'Membro'
+        other: 'Membros'
+      project:
+        one: 'Projeto'
+        other: 'Projetos'
+      story:
+        one: 'História'
+        other: 'Histórias'
+
+    attributes:
+      note:
+        note:                 'Nota'
+      project:
+        name:                 'Nome'
+        point_scale:          'Ponto de escala'
+        start_date:           'Data de início'
+        iteration_start_day:  'Dia de início da iteração'
+        iteration_length:     'Duração da iteração'
+        default_velocity:     'Velocidade padrão'
+      story:
+        title:                'Título'
+        description:          'Descrição'
+        estimate:             'Estimativa'
+        story_type:           'Tipo da história'
+        state:                'Estado'
+        accepted_at:          'Aceita em'
+        position:             'Posição'
+        labels:               'Etiquetas'
+        requested_by:         'Solicitada por'
+        owned_by:             'Pertence à'
+
+
+  projects:
+    new project:        "Novo Projeto"
+    edit project:       "Editar Projeto"
+    project properties: "Propriedades do Projeto"
+
+    project was successfully created: "Projeto criado com sucesso."
+    project was successfully updated: "Projeto atualizado com sucesso."
+
+    index:
+      listing projects: "Listando Projetos"
+      are you sure you want to delete this project: "Tem certeza de que deseja excluir este projeto? Esta ação não pode ser desfeita."
+      the iteration starts on x with length of x weeks:
+        one:    "Iteração começa em %{day} com a duração de 1 semana"
+        other:  "Iterações começam em %{day} com a duração de %{count} semanas"
+
+    show:
+      done: "Concluido"
+      in_progress: "Em Progresso"
+      backlog: "Backlog"
+      icebox: "Chilly Bin"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Deixe em branco se você não quiser mudá-lo"
+      notify_me_when_my_stories_are: "Notifique-me quando minhas histórias são"
+      we_need_your_current_password_to_confirm_your_changes: "Nós precisamos de sua senha atual para confirmar as alterações."
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"
