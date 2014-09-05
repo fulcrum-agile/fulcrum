@@ -9,43 +9,50 @@ describe Story do
     describe '#title' do
       it "is required" do
         subject.title = ''
-        subject.should have(1).error_on(:title)
+        subject.valid?
+        expect(subject.errors[:title].size).to eq(1)
       end
     end
 
     describe '#story_type' do
       it "is required" do
         subject.story_type = nil
-        subject.should have(1).error_on(:story_type)
+        subject.valid?
+        expect(subject.errors[:story_type].size).to eq(1)
       end
 
       it "is must be a valid story type" do
         subject.story_type = 'flum'
-        subject.should have(1).error_on(:story_type)
+        subject.valid?
+        expect(subject.errors[:story_type].size).to eq(1)
       end
     end
 
     describe '#state' do
       it "must be a valid state" do
         subject.state = 'flum'
-        subject.should have(1).error_on(:state)
+        subject.valid?
+        expect(subject.errors[:state].size).to eq(1)
       end
     end
 
     describe "#project" do
       it "cannot be nil" do
         subject.project_id = nil
-        subject.should have(1).error_on(:project)
+        subject.valid?
+        expect(subject.errors[:project].size).to eq(1)
       end
 
       it "must have a valid project_id" do
         subject.project_id = "invalid"
-        subject.should have(1).error_on(:project)
+        subject.valid?
+        expect(subject.errors[:project].size).to eq(1)
       end
 
       it "must have a project" do
         subject.project =  nil
-        subject.should have(1).error_on(:project)
+        subject.valid?
+        expect(subject.errors[:project].size).to eq(1)
       end
     end
 
@@ -53,7 +60,8 @@ describe Story do
       it "must be valid for the project point scale" do
         subject.project.point_scale = 'fibonacci'
         subject.estimate = 4 # not in the fibonacci series
-        subject.should have(1).error_on(:estimate)
+        subject.valid?
+        expect(subject.errors[:estimate].size).to eq(1)
       end
     end
 
@@ -133,7 +141,7 @@ describe Story do
       before { subject.position = 42 }
 
       it "does nothing" do
-        subject.set_position_to_last.should be_true
+        subject.set_position_to_last.should be true
         subject.position = 42
       end
     end

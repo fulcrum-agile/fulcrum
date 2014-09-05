@@ -10,57 +10,71 @@ describe Project do
 
     describe "#name" do
       before { subject.name = '' }
-      it { should have(1).error_on(:name) }
+      it "should have an error on name" do
+        subject.valid?
+        expect(subject.errors[:name].size).to eq(1)
+      end
     end
 
     describe "#default_velocity" do
       it "must be greater than 0" do
         subject.default_velocity = 0
-        subject.should have(1).error_on(:default_velocity)
+        subject.valid?
+        expect(subject.errors[:default_velocity].size).to eq(1)
       end
 
       it "must be an integer" do
         subject.default_velocity = 0
-        subject.should have(1).error_on(:default_velocity)
+        subject.valid?
+        expect(subject.errors[:default_velocity].size).to eq(1)
       end
     end
 
     describe "#point_scale" do
       before { subject.point_scale = 'invalid_point_scale' }
-      it { should have(1).error_on(:point_scale) }
+      it "has an error on point scale" do
+        subject.valid?
+        expect(subject.errors[:point_scale].size).to eq(1)
+      end
     end
 
     describe "#iteration_length" do
       it "must be greater than 0" do
         subject.iteration_length = 0
-        subject.should have(1).error_on(:iteration_length)
+        subject.valid?
+        expect(subject.errors[:iteration_length].size).to eq(1)
       end
 
       it "must be less than 5" do
         subject.iteration_length = 0
-        subject.should have(1).error_on(:iteration_length)
+        subject.valid?
+        expect(subject.errors[:iteration_length].size).to eq(1)
       end
 
       it "must be an integer" do
         subject.iteration_length = 2.5
-        subject.should have(1).error_on(:iteration_length)
+        subject.valid?
+        expect(subject.errors[:iteration_length].size).to eq(1)
       end
     end
 
     describe "#iteration_start_day" do
       it "must be greater than -1" do
         subject.iteration_start_day = -1
-        subject.should have(1).error_on(:iteration_start_day)
+        subject.valid?
+        expect(subject.errors[:iteration_start_day].size).to eq(1)
       end
 
       it "must be less than 6" do
         subject.iteration_start_day = 7
-        subject.should have(1).error_on(:iteration_start_day)
+        subject.valid?
+        expect(subject.errors[:iteration_start_day].size).to eq(1)
       end
 
       it "must be an integer" do
         subject.iteration_start_day = 2.5
-        subject.should have(1).error_on(:iteration_start_day)
+        subject.valid?
+        expect(subject.errors[:iteration_start_day].size).to eq(1)
       end
     end
 

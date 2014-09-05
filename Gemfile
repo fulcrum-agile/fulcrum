@@ -33,6 +33,8 @@ group :development, :test do
   gem 'pry'
   gem 'sqlite3'
   gem 'rspec-rails', '~> 2.99.0'
+  gem 'rspec-its'
+  gem 'rspec-activemodel-mocks'
   gem 'factory_girl_rails'
   gem 'jasmine', '~> 1.3.2'
   gem 'capybara'
