@@ -89,6 +89,9 @@ to the previous section for instructions. Then:
     # (This email address does not need to exist)
     $ heroku config:set MAILER_SENDER=noreply@example.org
 
+    # Tell Heroku to exclude parts of the Gemfile
+    $ heroku config:set BUNDLE_WITHOUT='development:test:travis'
+
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
 
