@@ -30,7 +30,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
     // is bound on a collection, the callback sends the collection as the
     // second argument, so also check that column is a string and not an
     // object for those cases.
-    if (typeof column === 'undefined' || typeof column !== 'string') {
+    if (typeof column === 'undefined' || !_.isString(column)) {
       column = story.column;
     }
     var view = new Fulcrum.StoryView({model: story}).render();
