@@ -60,11 +60,11 @@ Fulcrum.Project = Backbone.Model.extend({
   // to be loaded.
   updateChangesets: function() {
     var from = this.previous('last_changeset_id');
-    if (from === null) {
+    if (_.isNull(from)) {
       from = 0;
     }
     var to = this.get('last_changeset_id');
-    if (to === null) {
+    if (_.isNull(to)) {
       to = 0;
     }
 

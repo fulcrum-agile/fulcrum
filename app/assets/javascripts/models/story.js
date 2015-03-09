@@ -117,7 +117,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   estimated: function() {
     var estimate = this.get('estimate');
-    return !(estimate === undefined || estimate === null);
+    return !(estimate === undefined || _.isNull(estimate));
   },
 
   point_values: function() {
