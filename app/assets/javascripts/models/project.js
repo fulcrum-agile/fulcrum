@@ -175,7 +175,7 @@ Fulcrum.Project = Backbone.Model.extend({
   // value is different to the calculated velocity, the velocityIsFake
   // attribute will be set to true.
   velocity: function(userVelocity) {
-    if(userVelocity !== undefined) {
+    if(!_.isUndefined(userVelocity)) {
 
       if(userVelocity < 1) {
         userVelocity = 1;
@@ -195,7 +195,7 @@ Fulcrum.Project = Backbone.Model.extend({
   },
 
   velocityIsFake: function() {
-    return (this.get('userVelocity') !== undefined);
+    return (!_.isUndefined(this.get('userVelocity')));
   },
 
   calculateVelocity: function() {

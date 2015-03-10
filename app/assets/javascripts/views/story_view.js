@@ -85,7 +85,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     // If both of these are unset, the story has been dropped on an empty
     // column, which will be either the backlog or the chilly bin as these
     // are the only columns that can receive drops from other columns.
-    if (typeof previous_story_id == 'undefined' && typeof next_story_id == 'undefined') {
+    if (_.isUndefined(previous_story_id) && _.isUndefined(next_story_id)) {
 
       var beforeSearchColumns = this.model.collection.project.columnsBefore('#' + column);
       var afterSearchColumns  = this.model.collection.project.columnsAfter('#' + column);
@@ -101,9 +101,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       }
     }
 
-    if (typeof previous_story_id != 'undefined') {
+    if (!_.isUndefined(previous_story_id)) {
       this.model.moveAfter(previous_story_id);
-    } else if (typeof next_story_id != 'undefined') {
+    } else if (!_.isUndefined(next_story_id)) {
       this.model.moveBefore(next_story_id);
     } else {
       // The only possible scenario that we should reach this point under
