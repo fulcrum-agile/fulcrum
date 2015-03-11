@@ -19,13 +19,13 @@ Fulcrum.SharedModelMethods = {
   },
 
   hasErrors: function() {
-    return (typeof this.get('errors') != "undefined");
+    return (!_.isUndefined(this.get('errors')));
   },
 
   errorsOn: function(field) {
     if (!this.hasErrors()) {
       return false;
     }
-    return (typeof this.get('errors')[field] != "undefined");
+    return (!_.isUndefined(this.get('errors')[field]));
   }
 };
