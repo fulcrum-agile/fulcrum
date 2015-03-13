@@ -87,7 +87,7 @@ describe UsersController do
             post :create, :project_id => project.id, :user => user_params
             user.name.should == user_params["name"]
             user.initials.should == user_params["initials"]
-            user.was_created.should be_true
+            user.was_created.should be true
             response.should redirect_to(project_users_url(project))
           end
 
@@ -114,7 +114,7 @@ describe UsersController do
 
           specify do
             post :create, :project_id => project.id, :user => user_params
-            user.was_created.should be_false
+            user.was_created.should be_falsey
           end
         end
 

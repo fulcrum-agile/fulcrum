@@ -6,7 +6,8 @@ describe Changeset do
 
     it "must have a story" do
       subject.story = nil
-      subject.should have(1).error_on(:story)
+      subject.valid?
+      expect(subject.errors[:story].size).to eq(1)
     end
 
     describe "associations" do
@@ -18,12 +19,14 @@ describe Changeset do
 
       it "must have a valid project" do
         changeset.project_id = "invalid"
-        changeset.should have(1).errors_on(:project)
+        changeset.valid?
+        expect(changeset.errors[:project].size).to eq(1)
       end
 
       it "must have a valid story" do
         changeset.story_id = "invalid"
-        changeset.should have(1).errors_on(:story)
+        changeset.valid?
+        expect(changeset.errors[:story].size).to eq(1)
       end
     end
   end
@@ -41,7 +44,11 @@ describe Changeset do
         FactoryGirl.create :changeset, :story => story, :project => nil
       end
 
-      it { should have(0).errors_on(:project) }
+      it "shouldn't have any errors on project" do
+        story.valid?
+        expect(story.errors[:project].size).to eq(0)
+      end
+
       its(:project) { should == project }
 
     end

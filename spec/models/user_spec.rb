@@ -6,12 +6,14 @@ describe User do
     
     it "requires a name" do
       subject.name = ''
-      subject.should have(1).error_on(:name)
+      subject.valid?
+      expect(subject.errors[:name].size).to eq(1)
     end
 
     it "requires initials" do
       subject.initials = ''
-      subject.should have(1).error_on(:initials)
+      subject.valid?
+      expect(subject.errors[:initials].size).to eq(1)
     end
 
   end

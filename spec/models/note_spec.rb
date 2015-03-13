@@ -12,7 +12,10 @@ describe Note do
 
     describe "#name" do
       before { subject.note = '' }
-      it { should have(1).error_on(:note) }
+      it "should have an error on note" do
+        subject.valid?
+        expect(subject.errors[:note].size).to eq(1)
+      end
     end
 
   end
