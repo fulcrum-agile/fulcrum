@@ -89,6 +89,9 @@ to the previous section for instructions. Then:
     # (This email address does not need to exist)
     $ heroku config:set MAILER_SENDER=noreply@example.org
 
+    # Tell Heroku to exclude parts of the Gemfile
+    $ heroku config:set BUNDLE_WITHOUT='development:test:travis'
+
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
 
@@ -165,7 +168,7 @@ Here are some general guidelines for contributing:
 * All patches changes be covered by tests, and should not break the existing
   tests, unless a current test is invalidated by a code change.  This includes
   Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
-* Run `rake spec` to check the Rails test suite is green. You will need 
+* Run `rake spec` to check the Rails test suite is green. You will need
   Firefox with Selenium installed to run the integration tests.
 * To run the Javascript test suite, run `rake jasmine` and point your browser
   to `http://localhost:8888/`
