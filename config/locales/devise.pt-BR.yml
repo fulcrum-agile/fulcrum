@@ -1,0 +1,41 @@
+pt-BR:
+  errors:
+    messages:
+      not_found: "não encontrado"
+      already_confirmed: "já foi confirmado"
+      not_locked: "não foi bloqueado"
+
+  devise:
+    failure:
+      unauthenticated: 'Você precisa fazer login ou se inscrever antes de continuar.'
+      unconfirmed: 'Você tem que confirmar a sua conta antes de continuar.'
+      locked: 'Sua conta está bloqueada.'
+      invalid: 'E-mail ou senha inválida.'
+      invalid_token: 'Token de autenticação inválido.'
+      timeout: 'A sua sessão expirou, por favor entre novamente para continuar.'
+      inactive: 'Sua conta ainda não foi ativada.'
+    sessions:
+      signed_in: 'Cadastrado com sucesso.'
+      signed_out: 'Saiu com sucesso.'
+    passwords:
+      send_instructions: 'Você receberá um e-mail com instruções sobre como redefinir sua senha em alguns minutos.'
+      updated: 'Sua senha foi alterada com sucesso. Você agora está conectado.'
+    confirmations:
+      send_instructions: 'Você receberá um e-mail com instruções sobre como confirmar sua conta em poucos minutos.'
+      confirmed: 'Sua conta foi confirmada com sucesso. Por favor, defina uma senha para concluir o processo de inscrição.'
+      invalid_token: 'Token de confirmação inválido.'
+    registrations:
+      signed_up: 'Você se inscreveu com sucesso. A confirmação foi enviado para o seu e-mail.'
+      signed_up_but_unconfirmed: 'Você se inscreveu com sucesso. A confirmação foi enviado para o seu e-mail. Por favor, siga as instruções contidas nele para ativar sua conta.'
+      updated: 'Você atualizou sua conta com sucesso.'
+      destroyed: 'Adeus! A sua conta foi cancelada com sucesso. Nós esperamos vê-lo novamente em breve.'
+    unlocks:
+      send_instructions: 'Você receberá um e-mail com instruções sobre como desbloquear a sua conta em poucos minutos.'
+      unlocked: 'Sua conta foi desbloqueada com sucesso. Você agora está conectado.'
+    mailer:
+      confirmation_instructions:
+        subject: 'Instruções de confirmação'
+      reset_password_instructions:
+        subject: 'Instruções de redefinição de senha'
+      unlock_instructions:
+        subject: 'Instruções de desbloqueio'
