@@ -1,7 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-// TODO R4 should require newer version of jquery but there's issues with
-// some of the bootstrap libs like twipsy
+// NOTE: bootstrap.js only includes tooltips and popovers.
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
@@ -18,8 +17,7 @@
 //= require_tree ./collections
 //= require_tree ./views
 //= require fulcrum
-//= require bootstrap-twipsy
-//= require bootstrap-popover
+//= require bootstrap
 //= require tag-it
 //= require i18n
 //= require locales
