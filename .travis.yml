@@ -1,3 +1,6 @@
+language: ruby
+cache: bundler
+sudo: false
 env:
   - "DB=mysql"
   - "DB=postgresql"
