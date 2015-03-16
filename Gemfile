@@ -36,6 +36,7 @@ group :development, :test do
   gem 'jasmine-rails'
   gem 'sinon-rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'quiet_assets'
