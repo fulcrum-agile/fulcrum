@@ -170,8 +170,8 @@ Here are some general guidelines for contributing:
   Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
 * Run `rake spec` to check the Rails test suite is green. You will need
   Firefox with Selenium installed to run the integration tests.
-* To run the Javascript test suite, run `rake jasmine` and point your browser
-  to `http://localhost:8888/`
+* To run the Javascript test suite, run `rails server` and point your browser
+  to `http://localhost:3000/specs` or run `rake spec:javascripts`
 * For any UI changes, please try to follow the
   [Tango theme guidelines](http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines).
 * The easiest way to test the impact of CSS or view changes is using the
@@ -188,7 +188,7 @@ Fulcrum is built with the following Open Source technologies:
 * [Backbone.js](http://documentcloud.github.com/backbone/)
 * [jQuery](http://jquery.com/)
 * [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
-* [Jasmine](http://pivotal.github.com/jasmine/)
+* [Jasmine](http://jasmine.github.io/)
 * [Sinon](http://sinonjs.org/)
 
 License

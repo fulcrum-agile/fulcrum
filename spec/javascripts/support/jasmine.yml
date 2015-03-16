@@ -1,136 +1,22 @@
-# src_files
-#
-# Return an array of filepaths relative to src_dir to include before jasmine specs.
-# Default: []
-#
-# EXAMPLE:
-#
-# src_files:
-#   - lib/source1.js
-#   - lib/source2.js
-#   - dist/**/*.js
-#
+include_dir:
+ - "spec/javascripts/extra"
+# path to parent directory of src_files
+# relative path from Rails.root
+# defaults to app/assets/javascripts
+src_dir: "app/assets/javascripts"
+# list of file expressions to include as source files
+# relative path from scr_dir
 src_files:
-  - spec/javascripts/lib/jquery.js
-  - spec/javascripts/lib/jquery_ujs.js
-  - spec/javascripts/lib/jquery-ui.js
-  - vendor/assets/javascripts/underscore.js
-  - vendor/assets/javascripts/backbone.js
-  - vendor/assets/javascripts/bootstrap-twipsy.js
-  - vendor/assets/javascripts/*.js
-  - spec/javascripts/support/sinon-1.1.1.js
-  - spec/javascripts/support/jasmine-sinon.js
-  - spec/javascripts/support/jasmine-jquery-1.2.0.js
-  - spec/javascripts/support/jst-stubs.js
-  - app/assets/javascripts/mixins/*.js
-  - app/assets/javascripts/models/*.js
-  - app/assets/javascripts/collections/*.js
-  - app/assets/javascripts/views/column_view.js
-  - app/assets/javascripts/views/column_visibility_button_view.js
-  - app/assets/javascripts/views/form_view.js
-  - app/assets/javascripts/views/iteration_view.js
-  - app/assets/javascripts/views/keycut_view.js
-  - app/assets/javascripts/views/note_form.js
-  - app/assets/javascripts/views/note_view.js
-  - app/assets/javascripts/views/project_velocity_override_view.js
-  - app/assets/javascripts/views/project_velocity_view.js
-  - app/assets/javascripts/views/project_view.js
-  - app/assets/javascripts/views/story_view.js
-  - app/assets/javascripts/fulcrum.js
-
-# stylesheets
-#
-# Return an array of stylesheet filepaths relative to src_dir to include before jasmine specs.
-# Default: []
-#
-# EXAMPLE:
-#
-# stylesheets:
-#   - css/style.css
-#   - stylesheets/*.css
-#
-stylesheets:
-  - stylesheets/**/*.css
-
-# helpers
-#
-# Return an array of filepaths relative to spec_dir to include before jasmine specs.
-# Default: ["helpers/**/*.js"]
-#
-# EXAMPLE:
-#
-# helpers:
-#   - helpers/**/*.js
-#
+ - "application.js"
+# path to parent directory of spec_files
+# relative path from Rails.root
+# defaults to spec/javascripts
+spec_dir: "spec/javascripts"
+# list of file expressions to include as helpers into spec runner
+# relative path from spec_dir
 helpers:
-  - helpers/**/*.js
-
-# spec_files
-#
-# Return an array of filepaths relative to spec_dir to include.
-# Default: ["**/*[sS]pec.js"]
-#
-# EXAMPLE:
-#
-# spec_files:
-#   - **/*[sS]pec.js
-#
+  - "helpers/**/*.js"
+# list of file expressions to include as specs into spec runner
+# relative path from spec_dir
 spec_files:
-  - "**/*[sS]pec.js"
-
-# src_dir
-#
-# Source directory path. Your src_files must be returned relative to this path. Will use root if left blank.
-# Default: project root
-#
-# EXAMPLE:
-#
-# src_dir: public
-#
-src_dir:
-
-# spec_dir
-#
-# Spec directory path. Your spec_files must be returned relative to this path.
-# Default: spec/javascripts
-#
-# EXAMPLE:
-#
-# spec_dir: spec/javascripts
-#
-spec_dir: spec/javascripts
-
-# spec_helper
-#
-# Ruby file that Jasmine server will require before starting.
-# Returned relative to your root path
-# Default spec/javascripts/support/jasmine_helper.rb
-#
-# EXAMPLE:
-#
-# spec_helper: spec/javascripts/support/jasmine_helper.rb
-#
-spec_helper: spec/javascripts/support/jasmine_helper.rb
-
-# boot_dir
-#
-# Boot directory path. Your boot_files must be returned relative to this path.
-# Default: Built in boot file
-#
-# EXAMPLE:
-#
-# boot_dir: spec/javascripts/support/boot
-#
-boot_dir:
-
-# boot_files
-#
-# Return an array of filepaths relative to boot_dir to include in order to boot Jasmine
-# Default: Built in boot file
-#
-# EXAMPLE
-#
-# boot_files:
-#   - '**/*.js'
-#
-boot_files:
+  - "**/*[Ss]pec.js"

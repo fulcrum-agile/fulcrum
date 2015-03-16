@@ -2,7 +2,8 @@ describe('Fulcrum.StoryView', function() {
 
   beforeEach(function() {
     window.projectView = {
-      availableTags: []
+      availableTags: [],
+      notice: sinon.stub()
     };
     window.md = { makeHtml: sinon.stub() };
     var Note = Backbone.Model.extend({
@@ -21,13 +22,13 @@ describe('Fulcrum.StoryView', function() {
       collection: { project: { users: { forSelect: function() {return [];} } } },
       start: function() {},
       humanAttributeName: sinon.stub(),
-      setAcceptedAt: sinon.spy()
-      //moveAfter: function() {},
-      //moveBefore: function() {}
+      setAcceptedAt: sinon.spy(),
+      errorMessages: sinon.stub()
     });
     this.story = new Story({id: 999, title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
     this.story.notes = this.new_story.notes = new NotesCollection();
+    Fulcrum.StoryView.prototype.template = sinon.stub();
     this.view = new Fulcrum.StoryView({
       model: this.story
     });
@@ -382,29 +383,6 @@ describe('Fulcrum.StoryView', function() {
 
   });
 
-  describe("hover box placement", function() {
-
-    it("should return right if element is in the left half of the page", function() {
-      var positionStub = sinon.stub(jQuery.fn, 'position');
-      var widthStub = sinon.stub(jQuery.fn, 'width');
-      positionStub.returns({'left': 25, 'top': 25});
-      widthStub.returns(100);
-      expect(this.view.hoverBoxPlacement()).toEqual('right');
-      positionStub.restore();
-      widthStub.restore();
-    });
-
-    it("should return left if element is in the right half of the page", function() {
-      var positionStub = sinon.stub(jQuery.fn, 'position');
-      var widthStub = sinon.stub(jQuery.fn, 'width');
-      positionStub.returns({'left': 75, 'top': 75});
-      widthStub.returns(100);
-      expect(this.view.hoverBoxPlacement()).toEqual('left');
-      positionStub.restore();
-      widthStub.restore();
-    });
-
-  });
   describe("labels", function() {
 
     it("should initialize tagit on edit", function() {
@@ -519,11 +497,12 @@ describe('Fulcrum.StoryView', function() {
 
       beforeEach(function() {
         this.content = {name: "foo", label: "Foo", control: "bar"};
-        this.appendSpy = sinon.spy(jQuery.fn, 'append');
+        this._jquery_append = jQuery.fn.append;
+        this.appendSpy = spyOn(jQuery.fn, 'append');
       });
 
       afterEach(function() {
-        this.appendSpy.restore();
+        jQuery.fn.append = this._jquery_append;
       });
 
       it("creates a label", function() {

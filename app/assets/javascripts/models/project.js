@@ -133,6 +133,10 @@ Fulcrum.Project = Backbone.Model.extend({
     return this.getIterationNumberForDate(new Date());
   },
 
+  today: function() {
+    return new Date()
+  },
+
   startDate: function() {
 
     var start_date;
@@ -147,7 +151,7 @@ Fulcrum.Project = Backbone.Model.extend({
 
       start_date = new Date(year, month, day);
     } else {
-      start_date = new Date();
+      start_date = this.today();
     }
 
     // Is the specified project start date the same week day as the iteration

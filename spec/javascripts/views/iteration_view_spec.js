@@ -7,6 +7,7 @@ describe('Fulcrum.IterationView', function() {
       startDate: function() { return new Date('2011/09/26'); }
     });
     this.iteration = new Iteration({'number': 1});
+    Fulcrum.IterationView.prototype.template = sinon.stub();
     this.view = new Fulcrum.IterationView({model: this.iteration});
   });
 

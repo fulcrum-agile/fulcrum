@@ -2,6 +2,7 @@ describe('Fulcrum.ProjectVelocityOverrideView', function() {
 
   beforeEach(function() {
     this.project = {};
+    Fulcrum.ProjectVelocityOverrideView.prototype.template = sinon.stub();
     this.subject = new Fulcrum.ProjectVelocityOverrideView({model: this.project});
   });
 
