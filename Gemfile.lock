@@ -150,7 +150,7 @@ GEM
     rspec-its (1.0.1)
       rspec-core (>= 2.99.0.beta1)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-mocks (2.99.2)
+    rspec-mocks (2.99.3)
     rspec-rails (2.99.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
