@@ -3,6 +3,7 @@ describe("Fulcrum.NoteForm", function() {
   beforeEach(function() {
     var Note = Backbone.Model.extend({name: 'note', url: '/foo'});
     this.note = new Note({});
+    Fulcrum.NoteForm.prototype.template = sinon.stub();
     this.view = new Fulcrum.NoteForm({model: this.note});
   });
 

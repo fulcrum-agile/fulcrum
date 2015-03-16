@@ -5,6 +5,7 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
       name: sinon.stub().returns('Dummy'),
       bind: sinon.stub()
     };
+    Fulcrum.ColumnVisibilityButtonView.prototype.template = sinon.stub();
     this.view = new Fulcrum.ColumnVisibilityButtonView({columnView: this.columnView});
   });
 

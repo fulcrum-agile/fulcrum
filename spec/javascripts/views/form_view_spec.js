@@ -1,6 +1,7 @@
 describe('Fulcrum.FormView', function() {
 
   beforeEach(function() {
+    Fulcrum.FormView.prototype.template = sinon.stub();
     this.view = new Fulcrum.FormView();
   });
 

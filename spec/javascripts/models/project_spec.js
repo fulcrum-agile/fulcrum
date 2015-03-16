@@ -244,11 +244,9 @@ describe('Project model', function() {
       var fake_today = new Date('2011/07/29');
       // Stop JSHINT complaining about overriding Date
       /*global Date: true*/
-      orig_date = Date;
-      Date = sinon.stub().returns(fake_today);
+      this.project.today = sinon.stub().returns(fake_today);
       this.project.unset('start_date');
       expect(this.project.startDate()).toEqual(expected_date);
-      Date = orig_date;
     });
   });
 

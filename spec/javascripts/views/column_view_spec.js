@@ -1,6 +1,7 @@
 describe("Fulcrum.ColumnView", function() {
 
   beforeEach(function() {
+    Fulcrum.ColumnView.prototype.template = sinon.stub();
     this.view = new Fulcrum.ColumnView({
       id: 'dummy_column', name: 'Dummy Column'
     });

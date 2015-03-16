@@ -1,3 +1,6 @@
+language: ruby
+cache: bundler
+sudo: false
 env:
   - "DB=mysql"
   - "DB=postgresql"
@@ -6,6 +9,6 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - "bundle exec rake --trace fulcrum:setup db:setup"
 rvm:
-  - 2.1.2
+  - 2.2.1
 script:
   - "bundle exec rake travis"

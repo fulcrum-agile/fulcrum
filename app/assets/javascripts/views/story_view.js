@@ -468,24 +468,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       },
       // A small delay to stop the popovers triggering whenever the mouse is
       // moving around
-      delayIn: 200,
-      placement: view.hoverBoxPlacement,
+      delay: 200,
       html: true,
-      live: true
+      trigger: 'hover'
     });
-  },
-
-  hoverBoxPlacement: function() {
-    // Gets called from a jQuery context, so this is set to the element that
-    // the popover is bound to.
-    var position = $(this).position();
-    var windowWidth = $(window).width();
-    // If the element is to the right of the vertical half way line in the
-    // viewport, position the popover on the left.
-    if (position.left > (windowWidth / 2)) {
-      return 'left';
-    }
-    return 'right';
   },
 
   removeHoverbox: function() {

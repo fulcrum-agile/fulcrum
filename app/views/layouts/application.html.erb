@@ -3,7 +3,6 @@
 <head>
   <title><%= "#{@project.name} - " if @project %><%= t('fulcrum') %></title>
   <%= csrf_meta_tag %>
-  <%= stylesheet_link_tag "//ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css" %>
   <%= stylesheet_link_tag :application %>
   <%= javascript_include_tag :application %>
   <%= javascript_tag do %>
