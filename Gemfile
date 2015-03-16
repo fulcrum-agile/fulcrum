@@ -7,7 +7,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 2.5.3'
 gem 'jquery-rails'
 gem 'ejs'
-gem 'compass-rails', '~> 2.0.0'
+gem 'compass-rails'
 gem 'devise', '~> 3.2.4'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 gem 'rails-i18n'

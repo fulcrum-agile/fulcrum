@@ -208,7 +208,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
-  compass-rails (~> 2.0.0)
+  compass-rails
   configuration
   database_cleaner
   devise (~> 3.2.4)
