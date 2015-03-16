@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe UsersController do
 
@@ -109,7 +109,7 @@ describe UsersController do
 
           before do
             user.stub(:new_record? => false)
-            User.stub(:find_or_create_by_email).with(user_params["email"]) { user }
+            User.stub(:find_or_create_by).with(email: user_params["email"]) { user }
           end
 
           specify do
