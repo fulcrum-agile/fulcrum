@@ -121,7 +121,7 @@ Fulcrum.Story = Backbone.Model.extend({
   },
 
   point_values: function() {
-    return this.collection.project.get('point_values');
+    return this.collection.project.get('point_values').slice(0, 6);
   },
 
   // List available state transitions for this story

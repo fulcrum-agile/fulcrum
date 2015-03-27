@@ -9,9 +9,9 @@ class Project < ActiveRecord::Base
   # These are the valid point scalse for a project.  These represent
   # the set of valid points estimate values for a story in this project.
   POINT_SCALES = {
-    'fibonacci'     => [0,1,2,3,5,8],
-    'powers_of_two' => [0,1,2,4,8],
-    'linear'        => [0,1,2,3,4,5],
+    'fibonacci'     => [0,1,2,3,5,8,10,12,16,24,32,40],
+    'powers_of_two' => (0..40).step(2).to_a,
+    'linear'        => (0..20).step(1).to_a,
   }
   validates_inclusion_of :point_scale, :in => POINT_SCALES.keys,
     :message => "%{value} is not a valid estimation scheme"
