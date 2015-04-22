@@ -33,7 +33,7 @@ describe "Notes" do
 
       within('#in_progress .story') do
         find('.story-title').click
-        fill_in 'note', :with => 'Adding a new note'
+        fill_in 'note[note]', :with => 'Adding a new note'
         click_on 'Add note'
       end
 

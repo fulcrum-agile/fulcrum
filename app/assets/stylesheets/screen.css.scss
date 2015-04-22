@@ -539,6 +539,11 @@ div.note {
     padding: 0.3em;
   }
 
+  .file a {
+    display: inline-block;
+    padding: 0 5px;
+  }
+
   div.note_meta {
     color: $aluminium-4;
     font-style: italic;
@@ -554,6 +559,10 @@ div.note {
 
 .note_form {
   // The submit button while the server is saving the note.
+  .note-attachment {
+    margin: 10px 0;
+  }
+
   input.saving {
     padding-left: 16px;
     background-image: url('throbber.gif');

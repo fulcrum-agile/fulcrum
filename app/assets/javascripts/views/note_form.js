@@ -19,14 +19,21 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
 	},
 
 	events: {
-    "click input": "saveEdit"
+    "click .note-submit": "saveEdit"
 	},
-	
+
 	saveEdit: function() {
+    var fileObject = $(this.el).find('.note-attachment')[0].files[0];
+    if (fileObject !== undefined) {
+      this.model.set('attachment', fileObject);
+    }
     this.disableForm();
 
     var view = this;
     this.model.save(null, {
+      // therefore is not possible to send file object as a part of JSON,
+      // it is better to always save backbone model info as a form object
+      formData: true,
       success: function(model, response) {
         //view.model.set({editing: false});
       },
@@ -48,9 +55,11 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
     div = this.make('div');
     $(div).append(this.label("note"));
     $(div).append('<br/>');
-    $(div).append(this.textArea("note"));
+    $(div).append(this.textArea("note[note]"));
 
-    var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note'});
+    var attachment = this.make('input', {id:'note_attachment', class:'note-attachment', name: 'attachment', type: 'file'})
+    var submit = this.make('input', {id: 'note_submit', class:'note-submit', type: 'button', value: 'Add note'});
+    $(div).append(attachment);
     $(div).append(submit);
     this.$el.html(div);
 
