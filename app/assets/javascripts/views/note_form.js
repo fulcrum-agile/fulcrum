@@ -23,7 +23,8 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
 	},
 
 	saveEdit: function() {
-    var fileObject = $(this.el).find('.note-attachment')[0].files[0];
+    var fileInput = $(this.el).find('.note-attachment')[0];
+    var fileObject = fileInput && fileInput.files[0];
     if (fileObject !== undefined) {
       this.model.set('attachment', fileObject);
     }
