@@ -37,6 +37,8 @@ describe "Notes" do
         click_on 'Add note'
       end
 
+      wait_for_ajax
+
       find('#in_progress .story .notelist .note').should have_content('Adding a new note')
 
     end
@@ -54,6 +56,9 @@ describe "Notes" do
           click_on 'Delete'
         end
       end
+
+      wait_for_ajax
+
       find('#in_progress .story .notelist').should_not have_content('Delete me please')
     end
 
