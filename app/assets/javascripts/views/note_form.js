@@ -27,6 +27,7 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
     var fileObject = fileInput && fileInput.files[0];
     if (fileObject !== undefined) {
       this.model.set('attachment', fileObject);
+      $(this.el).append('<div class="progress-value" style="">5%</div>');
     }
     this.disableForm();
 
@@ -48,6 +49,7 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
         });
       }
     });
+    this.model.on('progress', _.bind(this._handleProgress, this));
   },
 
   render: function() {
@@ -77,5 +79,12 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
   enableForm: function() {
     this.$('input,textarea').removeAttr('disabled');
     this.$('input[type="button"]').removeClass('saving');
+  },
+
+  _handleProgress: function(value) {
+    var progressValue =  this.$el.find('.progress-value');
+    if (progressValue.length !== 0) {
+      progressValue.html(parseInt(value * 100)+"%");
+    }
   }
 });
