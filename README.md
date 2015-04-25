@@ -79,7 +79,7 @@ to the previous section for instructions. Then:
     $ gem install heroku
 
     # Create your app. Replace APPNAME with whatever you want to name it.
-    $ heroku create APPNAME --stack cedar
+    $ heroku create APPNAME --stack cedar-14
 
     # Set APP_HOST heroku config so outbound emails have a proper host
     # Replace APPNAME below with the value from `heroku create`
@@ -90,7 +90,7 @@ to the previous section for instructions. Then:
     $ heroku config:set MAILER_SENDER=noreply@example.org
 
     # Tell Heroku to exclude parts of the Gemfile
-    $ heroku config:set BUNDLE_WITHOUT='development:test:travis'
+    $ heroku config:set BUNDLE_WITHOUT='development:test:travis:mysql:sqlite'
 
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
