@@ -1,10 +1,10 @@
 Configuration.for('fulcrum') do
   # Set this to the domain name of your installation.  Env var APP_HOST
-  app_host 'codeminer42.com'
+  app_host ENV['MAIN_HOST']
 
   # The email address that notification emails will be sent from.  Env var
   # MAILER_SENDER
-  mailer_sender 'noreply@codeminer42.com'
+  mailer_sender ENV['MAILER_SENDER']
 
   # Disable registration pages.  If set to true, users will need to be invited
   # to a project rather than being able to self sign-up.
