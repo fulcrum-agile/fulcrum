@@ -4,13 +4,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require jquery.gritter.min
-//= require jquery.scrollTo-min
+//= require jquery.gritter
+//= require jquery.scrollTo
 //= require date.format
 //= require underscore
 //= require backbone
 //= require backbone.rails
 //= require Markdown.Converter
+//= require backbone.compat
 //= require_tree ./templates
 //= require_tree ./mixins
 //= require_tree ./models
@@ -20,5 +21,6 @@
 //= require bootstrap
 //= require tag-it
 //= require i18n
+//= require i18n/translations
 //= require locales
 //= require_tree .
