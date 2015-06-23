@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.2.1'
 
-gem 'rails', '~> 4.1.9'
+gem 'rails', '~> 4.1.11'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 2.5.3'
 gem 'jquery-rails'
@@ -15,11 +15,15 @@ gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
 gem 'jquery-ui-rails'
 
-gem 'pg', group: :postgres
-gem 'mysql2', group: :mysql
-gem 'sqlite3', group: :sqlite
+gem 'pg'
+gem 'puma'
 
 group :production do
+  gem 'dalli'
+  gem 'rack-timeout'
+  gem 'rack-cache'
+  gem 'kgio'
+  gem 'newrelic_rpm'
   gem 'rails_12factor'
 end
 
