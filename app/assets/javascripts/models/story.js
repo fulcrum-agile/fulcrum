@@ -10,8 +10,10 @@ Fulcrum.Story = Backbone.Model.extend({
   timestampFormat: 'd mmm yyyy, h:MMtt',
 
   initialize: function(args) {
-    this.bind('change:state', this.changeState);
-    this.bind('change:notes', this.populateNotes);
+    _.bindAll(this, 'changeState', 'populateNotes');
+
+    this.on('change:state', this.changeState);
+    this.on('change:notes', this.populateNotes);
 
     // FIXME Call super()?
     this.maybeUnwrap(args);

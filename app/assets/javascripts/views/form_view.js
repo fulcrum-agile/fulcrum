@@ -88,7 +88,7 @@ Fulcrum.FormView = Backbone.View.extend({
   bindElementToAttribute: function(el, name, eventType) {
     var that = this;
     eventType = typeof(eventType) != 'undefined' ? eventType : "change";
-    $(el).bind(eventType, function() {
+    $(el).on(eventType, function() {
       var obj = {};
       obj[name] = $(el).val();
       that.model.set(obj, {silent: true});

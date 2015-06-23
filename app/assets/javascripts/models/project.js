@@ -9,7 +9,9 @@ Fulcrum.Project = Backbone.Model.extend({
 
     this.maybeUnwrap(args);
 
-    this.bind('change:last_changeset_id', this.updateChangesets);
+    _.bindAll(this, 'updateChangesets');
+
+    this.on('change:last_changeset_id', this.updateChangesets);
 
     this.stories = new Fulcrum.StoryCollection();
     this.stories.url = this.url() + '/stories';

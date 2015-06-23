@@ -10,12 +10,18 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
     _.bindAll(this, 'addStory', 'addAll', 'render');
 
-    this.model.stories.bind('add', this.addStory);
-    this.model.stories.bind('reset', this.addAll);
-    this.model.stories.bind('all', this.render);
-    this.model.bind('change:userVelocity', this.addAll);
+    this.model.stories.on('add', this.addStory);
+    this.model.stories.on('reset', this.addAll);
+    this.model.stories.on('all', this.render);
+    this.model.on('change:userVelocity', this.addAll);
 
-    this.model.stories.fetch();
+    var that = this;
+
+    this.model.stories.fetch({
+      success: function() {
+        that.addAll();
+      }
+    });
   },
 
   // Triggered when the 'Add Story' button is clicked

@@ -3,7 +3,7 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
   beforeEach(function() {
     this.columnView = {
       name: sinon.stub().returns('Dummy'),
-      bind: sinon.stub()
+      on: sinon.stub()
     };
     Fulcrum.ColumnVisibilityButtonView.prototype.template = sinon.stub();
     this.view = new Fulcrum.ColumnVisibilityButtonView({columnView: this.columnView});
@@ -48,7 +48,7 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
     });
 
     it("is bound to the columnView visibilityChanged event", function() {
-      expect(this.columnView.bind).toHaveBeenCalledWith(
+      expect(this.columnView.on).toHaveBeenCalledWith(
         'visibilityChanged', this.view.setClassName
       );
     });

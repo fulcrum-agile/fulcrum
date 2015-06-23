@@ -11,28 +11,28 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   initialize: function() {
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
-      "renderNotesCollection", "addEmptyNote");
+      "renderNotesCollection", "addEmptyNote", "hoverBox");
 
     // Rerender on any relevant change to the views story
-    this.model.bind("change", this.render);
+    this.model.on("change", this.render);
 
-    this.model.bind("change:title", this.highlight);
-    this.model.bind("change:description", this.highlight);
-    this.model.bind("change:column", this.highlight);
-    this.model.bind("change:state", this.highlight);
-    this.model.bind("change:position", this.highlight);
-    this.model.bind("change:estimate", this.highlight);
-    this.model.bind("change:story_type", this.highlight);
+    this.model.on("change:title", this.highlight);
+    this.model.on("change:description", this.highlight);
+    this.model.on("change:column", this.highlight);
+    this.model.on("change:state", this.highlight);
+    this.model.on("change:position", this.highlight);
+    this.model.on("change:estimate", this.highlight);
+    this.model.on("change:story_type", this.highlight);
 
-    this.model.bind("change:column", this.moveColumn);
+    this.model.on("change:column", this.moveColumn);
 
-    this.model.bind("change:estimate", this.setClassName);
-    this.model.bind("change:state", this.setClassName);
+    this.model.on("change:estimate", this.setClassName);
+    this.model.on("change:state", this.setClassName);
 
-    this.model.bind("change:notes", this.addEmptyNote);
-    this.model.bind("change:notes", this.renderNotesCollection);
+    this.model.on("change:notes", this.addEmptyNote);
+    this.model.on("change:notes", this.renderNotesCollection);
 
-    this.model.bind("render", this.hoverBox());
+    this.model.on("render", this.hoverBox);
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
     this.model.view = this;
@@ -402,7 +402,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     });
 
     // Manually bind labels for now
-    $input.bind('change', function(){
+    $input.on('change', function(){
       model.set({ labels: $(this).val()});
     });
   },
@@ -448,7 +448,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
     // Add a new unsaved note to the collection.  This will be rendered
     // as a form which will allow the user to add a new note to the story.
-    this.model.notes.add();
+    this.model.notes.add({});
     this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
   },
 
@@ -486,7 +486,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     });
 
     // Manually bind labels for now
-    $input.bind('change', function(){
+    $input.on('change', function(){
       model.set({ labels: $(this).val()});
     });
   },

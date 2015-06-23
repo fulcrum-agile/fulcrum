@@ -76,14 +76,14 @@ describe('Fulcrum.StoryCollection', function() {
 
     it("should reset whenever a models position attr changes", function() {
       var spy = sinon.spy();
-      this.stories.bind("reset", spy);
+      this.stories.on("reset", spy);
       this.story1.set({position: 0.5});
       expect(spy).toHaveBeenCalled();
     });
 
     it("should reset whenever a models state changes", function() {
       var spy = sinon.spy();
-      this.stories.bind("reset", spy);
+      this.stories.on("reset", spy);
       this.story1.set({state: 'unstarted'});
       expect(spy).toHaveBeenCalled();
     });

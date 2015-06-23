@@ -397,13 +397,13 @@ describe('Fulcrum.StoryView', function() {
   describe("notes", function() {
 
     it("binds change:notes to renderNotesCollection()", function() {
-      var spy = sinon.spy(this.story, 'bind');
+      var spy = sinon.spy(this.story, 'on');
       var view = new Fulcrum.StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotesCollection);
     });
 
     it("binds change:notes to addEmptyNote()", function() {
-      var spy = sinon.spy(this.story, 'bind');
+      var spy = sinon.spy(this.story, 'on');
       var view = new Fulcrum.StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.addEmptyNote);
     });
