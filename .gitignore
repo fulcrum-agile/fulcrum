@@ -1,5 +1,4 @@
 config/database.yml
-config/fulcrum.rb
 .bundle
 db/*.sqlite3
 log/*.log
