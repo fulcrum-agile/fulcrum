@@ -1,6 +1,6 @@
 @import 'compass/css3';
 @import 'scaffold';
-@import 'jquery_gritter';
+@import 'jquery.gritter';
 @import 'jquery_tagit';
 @import 'bootstrap';
 @import 'icons';
@@ -211,6 +211,7 @@ table.stories {
   width: 100%;
   height: 100%;
   border-spacing: 5px 0;
+  border-collapse: separate;
 }
 
 table.stories td {
@@ -394,6 +395,7 @@ span.estimate_8 {
   border: 1px solid #333;
   cursor: pointer;
   font-size: x-small;
+  line-height: 14px;
   color: white;
   @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
   border-color: $aluminium-5;
@@ -644,7 +646,6 @@ div.note {
   select {
     display: inline-block;
     width: 210px;
-    height: 14px;
     padding: 4px;
     font-size: 14px;
     color: gray;
