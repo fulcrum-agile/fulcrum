@@ -1,6 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-// NOTE: bootstrap.js only includes tooltips and popovers.
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
@@ -23,4 +20,15 @@
 //= require i18n
 //= require i18n/translations
 //= require locales
+//= require jquery.ui.widget
+//= require jquery.iframe-transport
+//= require jquery.fileupload
+//= require cloudinary/jquery.cloudinary
+//= require attachinary
 //= require_tree .
+
+$(function() {
+  return $('.attachinary-input').attachinary({
+    template: "<ul>\n  <% for(var i=0; i<files.length; i++){ %>\n    <li>\n      <% if(files[i].resource_type == \"raw\") { %>\n        <div class=\"raw-file\"><%= files[i].original_filename %></div>\n      <% } else { %>\n        <img\n          src=\"<%= $.cloudinary.url(files[i].public_id, { \"version\": files[i].version, \"format\": 'jpg', \"crop\": 'fill', \"width\": 75, \"height\": 75 }) %>\"\n          alt=\"\" width=\"75\" height=\"75\" />\n      <% } %>\n      <a href=\"#\" data-remove=\"<%= files[i].public_id %>\">Remove</a>\n    </li>\n  <% } %>\n</ul>"
+  });
+});

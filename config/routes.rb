@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
+  mount Attachinary::Engine => "/attachinary"
+
   get 'story/new'
   get 'locales' => 'application#locales'
 
   resources :projects do
+    member do
+      get :import
+      patch :import_upload
+    end
     resources :users, only: [:index, :create, :destroy]
     resources :changesets, only: [:index]
     resources :stories, only: [:index, :create, :update, :destroy, :show] do
@@ -11,8 +17,6 @@ Rails.application.routes.draw do
         get :done
         get :in_progress
         get :backlog
-        get :import
-        post :import_upload
       end
       member do
         put :start

@@ -5,6 +5,7 @@
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag :application %>
   <%= javascript_include_tag :application %>
+  <%= cloudinary_js_config %>
   <%= javascript_tag do %>
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";

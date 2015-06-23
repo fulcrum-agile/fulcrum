@@ -92,49 +92,6 @@ class StoriesController < ApplicationController
     state_change(:reject!)
   end
 
-  # CSV import form
-  def import
-    @project = current_user.projects.find(params[:project_id])
-  end
-
-  # CSV import
-  def import_upload
-
-    @project = current_user.projects.find(params[:project_id])
-
-    # Do not send any email notifications during the import process
-    @project.suppress_notifications = true
-
-    if params[:csv].blank?
-
-      flash[:alert] = "You must select a file for import"
-
-    else
-
-      begin
-        @stories = @project.stories.from_csv(File.read(params[:csv].path))
-        @valid_stories    = @stories.select(&:valid?)
-        @invalid_stories  = @stories.reject(&:valid?)
-
-        flash[:notice] = I18n.t(
-          'imported n stories', :count => @valid_stories.count
-        )
-
-        unless @invalid_stories.empty?
-          flash[:alert] = I18n.t(
-            'n stories failed to import', :count => @invalid_stories.count
-          )
-        end
-      rescue CSV::MalformedCSVError => e
-        flash[:alert] = "Unable to import CSV: #{e.message}"
-      end
-
-    end
-
-    render 'import'
-
-  end
-
   private
   def state_change(transition)
     @project = current_user.projects.find(params[:project_id])

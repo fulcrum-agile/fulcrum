@@ -3,7 +3,7 @@ require 'rails_helper'
 describe StoriesController do
 
   describe "when logged out" do
-    %w[index done backlog in_progress create import import_upload].each do |action|
+    %w[index done backlog in_progress create].each do |action|
       specify do
         get action, :project_id => 99
         response.should redirect_to(new_user_session_url)
@@ -47,70 +47,6 @@ describe StoriesController do
         xhr :get, :index, :project_id => project.id, :id => story.id
         response.should be_success
         response.body.should == stories.to_json
-      end
-    end
-
-    describe "#import" do
-      specify do
-        get :import, :project_id => project.id
-        response.should be_success
-        assigns[:project].should == project
-        response.should render_template('import')
-      end
-    end
-
-    describe "#import_upload" do
-
-      before do
-        project.should_receive(:suppress_notifications=).with(true)
-      end
-
-      context "when csv file is missing" do
-        specify do
-          post :import_upload, :project_id => project.id
-          response.should render_template('import')
-          flash[:alert].should == "You must select a file for import"
-        end
-      end
-
-      context "when csv file is present" do
-
-        let(:csv)             { fixture_file_upload('csv/stories.csv') }
-        let(:valid_story)     { mock_model(Story, :valid? => true) }
-        let(:invalid_story)   { mock_model(Story, :valid? => false) }
-        let(:import_stories)  { [valid_story, invalid_story] }
-
-        before do
-          stories.stub(:from_csv) { import_stories }
-        end
-
-        specify do
-          post :import_upload, :project_id => project.id, :csv => csv
-          response.should be_success
-          assigns[:valid_stories].should == [valid_story]
-          assigns[:invalid_stories].should == [invalid_story]
-          flash[:notice].should == "Imported 1 story"
-          response.should render_template('import')
-        end
-
-        context "when a csv parse error occurs" do
-
-          before do
-            stories.unstub(:from_csv)
-            stories.stub(:from_csv).and_raise(
-              CSV::MalformedCSVError.new("Bad CSV!")
-            )
-          end
-
-          specify do
-            post :import_upload, :project_id => project.id, :csv => csv
-            response.should be_success
-            flash[:alert].should == "Unable to import CSV: Bad CSV!"
-            response.should render_template('import')
-          end
-
-        end
-
       end
     end
 

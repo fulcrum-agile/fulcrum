@@ -21,6 +21,8 @@ describe ProjectsController do
 
     let(:user)      { FactoryGirl.create :user }
     let(:projects)  { double("projects") }
+    let(:project)   { mock_model(Project, :id => 99, :stories => stories) }
+    let(:stories)   { double("stories", :to_json => '{foo:bar}') }
 
     before do
       sign_in user
@@ -193,6 +195,75 @@ describe ProjectsController do
         specify do
           delete :destroy, :id => project.id
           response.should redirect_to(projects_url)
+        end
+
+      end
+
+      describe "#import" do
+        specify do
+          get :import, :id => project.id
+          response.should be_success
+          assigns[:project].should == project
+          response.should render_template('import')
+        end
+      end
+
+      describe "#import_upload" do
+
+        before do
+          project.should_receive(:suppress_notifications=).with(true)
+        end
+
+        context "when csv file is missing" do
+          specify do
+            put :import_upload, :id => project.id, :project => { :import => "" }
+            response.should render_template('import')
+            flash[:alert].should == "You must select a file for import"
+          end
+        end
+
+        context "when csv file is present" do
+
+          let(:csv)             { fixture_file_upload('csv/stories.csv') }
+          let(:valid_story)     { mock_model(Story, :valid? => true) }
+          let(:invalid_story)   { mock_model(Story, :valid? => false) }
+          let(:import_stories)  { [valid_story, invalid_story] }
+          let(:import)          { mock_model(Attachinary::File, fullpath: csv )}
+
+          before do
+            allow(project).to receive(:update_attributes).and_return(true)
+            allow(project).to receive(:import) { import }
+            allow(stories).to receive(:from_csv) { import_stories }
+            allow(project).to receive(:stories).and_return(stories)
+          end
+
+          specify do
+            put :import_upload, :id => project.id, :project => { :import => csv }
+            response.should be_success
+            assigns[:valid_stories].should == [valid_story]
+            assigns[:invalid_stories].should == [invalid_story]
+            flash[:notice].should == "Imported 1 story"
+            response.should render_template('import')
+          end
+
+          context "when a csv parse error occurs" do
+
+            before do
+              stories.unstub(:from_csv)
+              stories.stub(:from_csv).and_raise(
+                CSV::MalformedCSVError.new("Bad CSV!")
+              )
+            end
+
+            specify do
+              put :import_upload, :id => project.id, :project => { :import => csv }
+              response.should be_success
+              flash[:alert].should == "Unable to import CSV: Bad CSV!"
+              response.should render_template('import')
+            end
+
+          end
+
         end
 
       end

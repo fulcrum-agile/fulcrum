@@ -17,10 +17,10 @@ your project.  Be sure to add members with the correct names before importing
 if you want these to match up.
 </p>
 <p><em>Note: You can also use a CSV export from Pivotal Tracker.</em></p>
-<%= form_tag import_upload_project_stories_path(@project), :multipart => true %>
-  <%= file_field_tag :csv %>
-  <%= submit_tag :import %>
-</form>
+<%= form_for [:import_upload, @project] do |f| %>
+  <%= f.attachinary_file_field :import %>
+  <%= f.submit 'import' %>
+<% end %>
 
 <% if @stories %>
   <h2>Import results</h2>

@@ -76,6 +76,8 @@ class Project < ActiveRecord::Base
 
   scope :with_stories_notes, -> { includes(stories: :notes) }
 
+  has_attachment :import, accept: [:raw]
+
   def suppress_notifications
     @suppress_notifications || false
   end

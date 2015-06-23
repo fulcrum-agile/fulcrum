@@ -3,18 +3,24 @@ source 'http://rubygems.org'
 ruby '2.2.1'
 
 gem 'rails', '~> 4.1.11'
+
 gem 'devise', '~> 3.2.4'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 gem 'rails-i18n'
 gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
 
+gem 'dotenv-rails'
+
 gem 'pg'
 gem 'puma'
+gem 'cloudinary'
+gem 'attachinary'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 2.5.3'
 gem 'compass-rails'
+gem 'coffee-rails'
 
 gem 'jquery-rails'
 gem 'ejs'

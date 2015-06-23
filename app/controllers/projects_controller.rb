@@ -1,3 +1,4 @@
+require 'open-uri'
 class ProjectsController < ApplicationController
 
   # GET /projects
@@ -85,10 +86,54 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # CSV import form
+  def import
+    @project = current_user.projects.find(params[:id])
+  end
+
+  # CSV import
+  def import_upload
+
+    @project = current_user.projects.find(params[:id])
+
+    # Do not send any email notifications during the import process
+    @project.suppress_notifications = true
+
+    if params[:project][:import].blank?
+
+      flash[:alert] = "You must select a file for import"
+
+    else
+
+      begin
+        @project.update_attributes(allowed_params)
+        @stories = @project.stories.from_csv(open(@project.import.fullpath).read)
+        @valid_stories    = @stories.select(&:valid?)
+        @invalid_stories  = @stories.reject(&:valid?)
+
+        flash[:notice] = I18n.t(
+          'imported n stories', :count => @valid_stories.count
+        )
+
+        unless @invalid_stories.empty?
+          flash[:alert] = I18n.t(
+            'n stories failed to import', :count => @invalid_stories.count
+          )
+        end
+      rescue CSV::MalformedCSVError => e
+        flash[:alert] = "Unable to import CSV: #{e.message}"
+      end
+
+    end
+
+    render 'import'
+
+  end
+
   protected
 
   def allowed_params
-    params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length)
+    params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import)
   end
 
 end
