@@ -3,20 +3,32 @@ source 'http://rubygems.org'
 ruby '2.2.1'
 
 gem 'rails', '~> 4.1.11'
-gem 'sass-rails', '~> 4.0.3'
-gem 'uglifier', '>= 2.5.3'
-gem 'jquery-rails'
-gem 'ejs'
-gem 'compass-rails'
 gem 'devise', '~> 3.2.4'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 gem 'rails-i18n'
 gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
-gem 'jquery-ui-rails'
 
 gem 'pg'
 gem 'puma'
+
+gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier', '>= 2.5.3'
+gem 'compass-rails'
+
+gem 'jquery-rails'
+gem 'ejs'
+gem 'jquery-ui-rails'
+gem "i18n-js", ">= 3.0.0.rc8" 
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-backbone'
+  gem 'rails-assets-underscore'
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-jquery.gritter'
+  gem 'rails-assets-jquery.scrollTo'
+  gem 'rails-assets-date.format'
+end
 
 group :production do
   gem 'dalli'
