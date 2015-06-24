@@ -2,7 +2,8 @@
 @import 'scaffold';
 @import 'jquery.gritter';
 @import 'jquery_tagit';
-@import 'bootstrap';
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import 'bootstrap_overrides';
 @import 'icons';
 
@@ -149,7 +150,7 @@ ul#primary-nav li.secondary ul li {
 
     #velocity_value {
       cursor: pointer;
-      font-weight:bold;
+      font-weight: bold;
     }
   }
 
@@ -158,19 +159,16 @@ ul#primary-nav li.secondary ul li {
     font-style: italic;
   }
 
+  .project-action {
+    @extend .btn;
+    @extend .btn-link;
+    @extend .btn-xs;
+  }
+
   #add_story {
-    @include background(sprite($icons-sprites, feature, 2, 2),
-                        linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0.2em 0.4em 0.2em 18px;
-    @include border-radius(3px);
-    border: 1px solid $aluminium-5;
-    cursor: pointer;
-    font-size: small;
-    color: white;
-    text-shadow:  $aluminium-5 0 1px 0;
-    text-decoration: none;
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-xs;
   }
 }
 
@@ -193,18 +191,15 @@ html.stories, html.stories body, html.stories div#main {
 }
 
 #column-toggles a {
+  @extend .btn;
+  @extend .btn-xs;
+  @extend .btn-primary;
+
   margin: 0 0.2em;
-  padding: 3px;
-  color: white;
-  background-color: $darkgrey;
-  @include border-radius(3px);
-  text-decoration: none;
-  text-shadow: none;
 }
 
 #column-toggles a.pressed {
-  color: $darkgrey;
-  background-color: #cecece;
+  @extend .btn-default;
 }
 
 /* stories table */
@@ -230,7 +225,6 @@ div.storycolumn {
 .column_header {
   text-align: left;
   background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
   color: #eee;
   padding: 0.2em 0.2em 0.2em 1em;
   text-transform:capitalize;
@@ -249,7 +243,7 @@ div.storycolumn {
 
 /* Story types */
 div.story {
-  padding: 0.3em;
+  padding: 0.3em 0.3em 0.7em;
   background-repeat: no-repeat;
   background-position: 4px 4px;
   background-color: #eee;
@@ -277,6 +271,7 @@ div.story textarea {
 }
 div.story textarea {
   height: 50px;
+  resize: none;
 }
 
 div.story-icons {
@@ -285,6 +280,13 @@ div.story-icons {
 }
 div.story-controls {
   padding: 10px 0;
+  @extend .btn-group;
+
+  input {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-sm;
+  }
 }
 div.story-title {
   margin-left: 50px;
@@ -390,18 +392,8 @@ span.estimate_8 {
 }
 
 .state-actions input {
-  margin: 0;
-  padding: .2em .5em;
-  @include border-radius(3px);
-  border: 1px solid #333;
-  cursor: pointer;
-  font-size: x-small;
-  line-height: 14px;
-  color: white;
-  @include background(linear-gradient(top, $aluminium-3, $aluminium-3*0.75));
-  border-color: $aluminium-5;
-  text-shadow:  $aluminium-5 0 1px 0;
-  @include box-shadow(0 1px 2px #aaaaaa);
+  @extend .btn;
+  @extend .btn-xs;
 }
 .story.release .state-actions input {
   @include box-shadow(0 1px 2px #000);
@@ -409,29 +401,27 @@ span.estimate_8 {
 .state-actions input:active {
   @include box-shadow(none);
 }
-
+.state-actions input.start {
+  @extend .btn-default;
+}
 .state-actions input.finish {
-  @include background(linear-gradient(top, $sky-blue-1, $sky-blue-1*0.75));
-  border-color: $sky-blue-3;
+  @extend .btn-primary;
 }
 .state-actions input.deliver {
-  @include background(linear-gradient(top, $butter-1, $butter-1*0.75));
-  border-color:     $butter-3;
+  @extend .btn-warning;
 }
 .state-actions input.accept {
-  @include background(linear-gradient(top, $chameleon-2, $chameleon-2*0.75));
-  border-color: $chameleon-3;
+  @extend .btn-success;
 }
 .state-actions input.reject {
-  @include background(linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
-  border-color:     $scarlet-red-3;
+  @extend .btn-danger;
 }
 .state-actions input.restart {
-  @include background(sprite($icons-sprites,redo),
-                      linear-gradient(top, $scarlet-red-1, $scarlet-red-1*0.75));
+  @extend .btn-danger;
+  background-image: sprite-url($icons-sprites);
+  background-position: sprite-position($icons-sprites, redo, 0, 2px);
   background-repeat: no-repeat;
-  border-color: $scarlet-red-3;
-  padding-left: 16px;
+  padding-left: 20px;
 }
 
 table#import tr.valid, .notice {
@@ -496,6 +486,7 @@ a.button:hover {
 .tags{
   color:$sky-blue-3;
   font-size:84%;
+  margin: 0 0.2em;
 }
 // Popover Overrides
 // Custom Style Overrides
@@ -616,71 +607,25 @@ div.note {
 
 /* Form Styles */
 .form-wrapper  {
+  @extend .form-horizontal;
+  @extend .clearfix;
+
   padding: 10px;
 
-  h3 {
-    margin-left: 160px;
-  }
-
   input[type=text],
   input[type=email],
   input[type=password],
-  select
+  select,
   textarea {
-    @include transition(border linear 0.2s, box-shadow linear 0.2s);
-    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1));
+    @extend .form-control;
   }
 
-  input[type=text]:focus,
-  input[type=email]:focus,
-  input[type=password]:focus,
-  select:focus,
-  textarea:focus {
-    outline: 0;
-    border-color: rgba(114, 159, 207, 0.8);
-    @include box-shadow(inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(114, 159, 207, 0.6));
-  }
-
-  input[type=text],
-  input[type=email],
-  input[type=password],
-  select {
-    display: inline-block;
-    width: 210px;
-    padding: 4px;
-    font-size: 14px;
-    color: gray;
-    border: 1px solid #CCC;
-    @include border-radius(3px);
-  }
-  select {
-    height: 26px;
-    min-width: 220px;
-    width: auto;
-    margin: auto;
+  div.field-wrapper {
+    @extend .form-group;
   }
 
   div.field-wrapper label {
-    width: 150px;
-    text-align: right;
-    display: block;
-    zoom: 1;
-    height: 14px;
-    float: left;
-  }
-
-  div.field-wrapper:before, div.field-wrapper:after {
-    display: table;
-    content: "";
-    zoom: 1;
-  }
-
-  div.field-wrapper:after {
-    clear: both;
-  }
-
-  div.field {
-    margin-left: 160px;
+    @extend .control-label;
   }
 
   div.date-wrapper select {
@@ -759,4 +704,44 @@ div#keycut-help {
     }
 
   }
+}
+
+#edit-description {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+}
+
+.add-note {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+  @extend .pull-right;
+  margin-top: 10px;
+}
+
+.members-list,
+.add-member,
+.edit-project,
+.edit-user {
+  width: 550px;
+}
+
+.members-list {
+  .member-name {
+    float: left;
+    margin-top: 5px;
+  }
+}
+
+.edit-user .checkbox {
+  margin-left: 50px;
+}
+
+.date-select-wrapper select {
+  display: inline-block;
+}
+
+.current-password {
+  margin-top: 20px;
 }
