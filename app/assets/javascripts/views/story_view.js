@@ -278,7 +278,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl(function(div) {
           $(div).append(this.textField("title", {
-            'class' : 'title',
+            'class' : 'title form-control',
             'placeholder': I18n.t('story title')
           }));
         })
@@ -286,7 +286,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl({
-          name: "estimate",
+          name: 'estimate',
           label: true,
           control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
         })
@@ -330,11 +330,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         this.makeFormControl({
           name: "labels",
           label: true,
-          control: this.textField("labels")
+          control: this.textField("labels"),
+          class: 'form-control'
         })
       );
-
-
 
       this.$el.append(
         this.makeFormControl(function(div) {
@@ -498,7 +497,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   makeFormControl: function(content) {
-    var div = this.make('div');
+    var div = this.make('div', {
+      class: 'form-group'
+    });
     if (typeof content == 'function') {
       content.call(this, div);
     } else if (typeof content == 'object') {
