@@ -2,31 +2,37 @@
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
 <h2>Project members</h2>
-<ul>
+<ul class="list-group members-list">
   <% @users.each do |user| %>
-    <li><%= user %><%= link_to 'Remove', project_user_path(@project, user),
+    <li class="list-group-item clearfix">
+      <div class="member-name">
+        <%= user %>
+      </div>
+      <%= link_to 'Remove', project_user_path(@project, user),
       :confirm => "Are you sure you want to remove #{user.email} from this project?",
-      :method => :delete %></li>
+      :method => :delete,
+      class: 'btn btn-danger btn-sm pull-right' %>
+    </li>
   <% end %>
 </ul>
 <h2>Add a new member</h2>
-<div class="form-wrapper">
+<div class="form-wrapper add-member">
 <%= form_for project_users_path(@project, @user) do |f| %>
   <% fields_for :user do |u| %>
     <div class="field-wrapper">
-      <%= u.label :email %>
-      <div class="field"><%= u.text_field :email %></div>
+      <%= u.label :email, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10"><%= u.text_field :email %></div>
     </div>
     <div class="field-wrapper">
-      <%= u.label :name %>
-      <div class="field"><%= u.text_field :name %></div>
+      <%= u.label :name, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10"><%= u.text_field :name %></div>
     </div>
     <div class="field-wrapper">
-      <%= u.label :initials %>
-      <div class="field"><%= u.text_field :initials %></div>
+      <%= u.label :initials, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10"><%= u.text_field :initials %></div>
     </div>
     <div class="actions">
-    <%= u.submit 'Add user' %>
+      <%= u.submit 'Add user', class: 'btn btn-primary pull-right' %>
     </div>
   <% end %>
 <% end %>
