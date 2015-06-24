@@ -25,12 +25,12 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'ejs'
 gem 'jquery-ui-rails'
-gem "i18n-js", ">= 3.0.0.rc8" 
+gem 'i18n-js', '>= 3.0.0.rc8'
+gem 'bootstrap-sass', '~> 3.3.5'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-underscore'
-  gem 'rails-assets-bootstrap'
   gem 'rails-assets-jquery.gritter'
   gem 'rails-assets-jquery.scrollTo'
   gem 'rails-assets-date.format'

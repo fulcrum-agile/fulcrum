@@ -15,7 +15,7 @@
 //= require_tree ./collections
 //= require_tree ./views
 //= require fulcrum
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require tag-it
 //= require i18n
 //= require i18n/translations
