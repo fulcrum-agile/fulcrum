@@ -19,7 +19,7 @@ if you want these to match up.
 <p><em>Note: You can also use a CSV export from Pivotal Tracker.</em></p>
 <%= form_for [:import_upload, @project] do |f| %>
   <%= f.attachinary_file_field :import %>
-  <%= f.submit 'import' %>
+  <%= f.submit 'import', class: 'btn btn-primary' %>
 <% end %>
 
 <% if @stories %>
