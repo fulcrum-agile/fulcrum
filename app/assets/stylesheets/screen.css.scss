@@ -3,6 +3,7 @@
 @import 'jquery.gritter';
 @import 'jquery_tagit';
 @import 'bootstrap';
+@import 'bootstrap_overrides';
 @import 'icons';
 
 $darkgrey:   #6a7176;           // Header color
@@ -118,7 +119,7 @@ ul#primary-nav li.secondary ul li {
   margin-bottom: 0.5em;
   color: #5e6469;
   position: relative;
-  margin: 0;
+  margin: -20px 0 0;
   padding: 10px 1em;
 
   div.velocity {
@@ -738,5 +739,24 @@ div#keycut-help {
     span {
       display:inline-block; color:white; margin-right:0.8em; float:left;
     }
+  }
+}
+
+.projects-list {
+
+  .item {
+    
+    .item-title-wrapper {
+      margin-top: 4px;
+    }
+
+    .item-title {
+      display: inline;
+    }
+
+    .item-since {
+      margin-left: 10px;
+    }
+
   }
 }
