@@ -1,5 +1,8 @@
 $icons-spacing:2px;
 $icons-collapse-spacing:6px;
+@import"compass/utilities/sprites";
+$icon-layout: smart;
+$icon-sprite-dimensions: true;
 @import "icons/*.png";
 @include all-icons-sprites;
 
