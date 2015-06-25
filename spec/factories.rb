@@ -17,6 +17,7 @@ FactoryGirl.define do
 
   factory :project do |p|
     p.name 'Test Project'
+    p.start_date { Time.current }
   end
 
   factory :story do |s|

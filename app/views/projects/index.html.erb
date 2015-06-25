@@ -2,7 +2,7 @@
   <h1><%= t('.listing projects') %></h1>
 <% end %>
 
-<div class="projects-list">
+<div id="projects" class="projects-list">
   <% @projects.each do |project| %>
     <div class="row item">
       <div class="col-md-4">
@@ -21,7 +21,7 @@
 
 
 
-            <div class="btn-group pull-right">
+            <div class="project_options btn-group pull-right">
               <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
 
               <%= link_to User.model_name.human(count: 2), project_users_path(project), class: 'btn btn-default btn-sm' %>
