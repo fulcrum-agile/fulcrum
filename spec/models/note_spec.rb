@@ -57,7 +57,7 @@ describe Note do
 
     it "returns the right keys" do
       subject.as_json["note"].keys.sort.should == %w[
-        created_at errors id note story_id updated_at user_id
+        created_at errors id note story_id updated_at user_id user_name
       ]
     end
 

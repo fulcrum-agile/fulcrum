@@ -2,6 +2,7 @@ class Note < ActiveRecord::Base
   belongs_to :user
   belongs_to :story
 
+  before_save :cache_user_name
   after_save :create_changeset
 
   validates :note, :presence => true
@@ -31,4 +32,10 @@ class Note < ActiveRecord::Base
     created_date = I18n.l created_at, :format => :note_date
     note_string = note_string + " (" + user_name + " - " + created_date + ")"
   end
+
+  private
+
+    def cache_user_name
+      self.user_name = user.name if user.present?
+    end
 end

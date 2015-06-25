@@ -50,7 +50,7 @@ class Project < ActiveRecord::Base
       csv = CSV.parse(csv_string, :headers => true)
       csv.map do |row|
         row_attrs = row.to_hash
-        story = create({
+        story = build({
           :state        => row_attrs["Current State"].downcase,
           :title        => row_attrs["Title"] || row_attrs["Story"],
           :story_type   => (row_attrs["Type"] || row_attrs["Story Type"]).downcase,

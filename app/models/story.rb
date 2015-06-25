@@ -2,7 +2,8 @@ class Story < ActiveRecord::Base
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
-    "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
+    "project_id", "story_type", "owned_by_id", "requested_by_id",
+    "owned_by_name", "owned_by_initials",  "requested_by_name", "estimate",
     "state", "position", "id", "labels"
   ]
   JSON_METHODS = [
@@ -75,6 +76,7 @@ class Story < ActiveRecord::Base
 
   before_validation :set_position_to_last
   before_save :set_accepted_at
+  before_save :cache_user_names
 
   # Scopes for the different columns in the UI
   scope :done, -> { where(:state => :accepted) }
@@ -141,8 +143,8 @@ class Story < ActiveRecord::Base
       created_at,               # Created at
       accepted_at,              # Accepted at
       nil,                      # Deadline
-      requested_by.try(:name),  # Requested By
-      owned_by.try(:name),      # Owned By
+      requested_by_name,        # Requested By
+      owned_by_name,            # Owned By
       description,              # Description
       nil                       # URL
     ].concat(notes.map(&:to_s))
@@ -213,6 +215,14 @@ class Story < ActiveRecord::Base
           # Unset accepted at when changing from accepted to something else
           self.accepted_at = nil
         end
+      end
+    end
+
+    def cache_user_names
+      self.requested_by_name = requested_by.name unless requested_by.nil?
+      if owned_by.present?
+        self.owned_by_name     = owned_by.name
+        self.owned_by_initials = owned_by.initials
       end
     end
 end

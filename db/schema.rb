@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623185240) do
+ActiveRecord::Schema.define(version: 20150625143900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150623185240) do
     t.integer  "story_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_name"
   end
 
   create_table "projects", force: true do |t|
@@ -67,8 +68,8 @@ ActiveRecord::Schema.define(version: 20150623185240) do
     t.string   "title"
     t.text     "description"
     t.integer  "estimate"
-    t.string   "story_type",      default: "feature"
-    t.string   "state",           default: "unstarted"
+    t.string   "story_type",        default: "feature"
+    t.string   "state",             default: "unstarted"
     t.date     "accepted_at"
     t.integer  "requested_by_id"
     t.integer  "owned_by_id"
@@ -77,6 +78,9 @@ ActiveRecord::Schema.define(version: 20150623185240) do
     t.datetime "updated_at"
     t.decimal  "position"
     t.string   "labels"
+    t.string   "requested_by_name"
+    t.string   "owned_by_name"
+    t.string   "owned_by_initials"
   end
 
   create_table "users", force: true do |t|
