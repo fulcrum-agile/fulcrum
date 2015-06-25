@@ -25,7 +25,7 @@ Fulcrum.FormView = Backbone.View.extend({
   }, 
 
   textArea: function(name) {
-    var el = this.make('textarea', {name: name, value: this.model.get(name), class: 'form-control'});
+    var el = this.make('textarea', {name: name, class: 'form-control'}, this.model.get(name));
     this.bindElementToAttribute(el, name);
     return el;
   },
