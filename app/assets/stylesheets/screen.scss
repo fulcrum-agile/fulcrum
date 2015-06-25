@@ -424,11 +424,11 @@ span.estimate_8 {
   padding-left: 20px;
 }
 
-table#import tr.valid, .notice {
+table#import tr.valid, table#import .notice {
   color: white;
   background-color: $chameleon-3;
 }
-table#import tr.invalid, .alert {
+table#import tr.invalid, table#import .alert {
   color: white;
   background-color: $scarlet-red-2;
 }
@@ -524,53 +524,23 @@ div.note {
   }
 }
 
+#messages .flash-alert,
+#messages .flash-notice,
+#messages .flash-error {
+  @extend .alert;
+  @extend .alert-dismissible;
+}
+
 #messages .flash-alert {
-  background: $butter-1;
-  @include background(linear-gradient(top, $butter-1, $butter-2));
-  border: 1px solid $butter-3*0.75;
-  @include box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255,255,255,0.5));
-  color: $butter-3*0.5;
-  @include border-radius(5px);
-  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0;
-  padding: 5px;
-  margin-bottom: 10px;
+  @extend .alert-warning;
 }
 
 #messages .flash-notice {
-  background: $chameleon-1;
-  @include background(linear-gradient(top, $chameleon-1, $chameleon-2));
-  border: 1px solid $chameleon-3*0.75;
-  @include box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255,255,255,0.5));
-  color: $chameleon-3*0.5;
-  @include border-radius(5px);
-  text-shadow: rgba(255, 255, 255, 0.35) 0 1px 0;
-  padding: 5px;
-  margin-bottom: 10px;
+  @extend .alert-info;
 }
 
 #messages .flash-error {
-  background: $scarlet-red-1;
-  @include background(linear-gradient(top, $scarlet-red-1, $scarlet-red-2));
-  border: 1px solid $scarlet-red-3*0.75;
-  @include box-shadow(0 1px 2px $darkgrey, inset 0 1px 2px rgba(255,255,255,0.5));
-  color: rgba(255, 255, 255, 0.85);
-  @include border-radius(5px);
-  text-shadow: $scarlet-red-3*0.5 0 1px 0;
-  padding: 5px;
-  margin-bottom: 10px;
-}
-
-#messages .close {
-  padding-right: 5px;
-  float: right;
-  line-height: 18px;
-  font-weight: bold;
-  text-decoration: none;
-  opacity: 0.4;
-
-  &:hover {
-    opacity: 1;
-  }
+  @extend .alert-danger;
 }
 
 /* Form Styles */
@@ -691,6 +661,7 @@ div#keycut-help {
 .members-list,
 .add-member,
 .edit-project,
+.add-user,
 .edit-user,
 .sign-in {
   width: 550px;
