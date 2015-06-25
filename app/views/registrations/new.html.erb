@@ -1,26 +1,28 @@
 <% content_for :title_bar do %>
   <h1>Sign up</h1>
 <% end %>
-<div class="form-wrapper">
+<div class="form-wrapper add-user">
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field-wrapper">
-    <%= f.label :name %>
-    <div class="field"><%= f.text_field :name %></div>
+    <%= f.label :name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.text_field :name %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :initials %>
-    <div class="field"><%= f.text_field :initials %></div>
+    <%= f.label :initials, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.text_field :initials %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+    <%= f.label :email, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.email_field :email %></div>
   </div>
 
-  <div class="actions"><%= f.submit t('sign up') %></div>
+  <div class="actions clearfix">
+    <%= f.submit t('sign up'), class: 'btn btn-primary pull-right' %>
+  </div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
