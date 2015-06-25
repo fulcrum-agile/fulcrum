@@ -61,6 +61,16 @@ class Project < ActiveRecord::Base
           :labels       => row_attrs["Labels"],
           :description  => row_attrs["Description"]
         })
+        story.requested_by_name = row["Requested By"]
+        story.owned_by_name = row["Owned By"]
+        story.owned_by_initials = ( row["Owned By"] || "" ).split(' ').map { |n| n[0].upcase }.join('')
+
+        tasks = []
+        row.each do |header, value|
+          tasks << "* #{value}" if header == 'Task' && value
+        end
+        story.description = "#{story.description}\n\nTasks:\n\n#{tasks.join("\n")}" unless tasks.empty?
+        story.save
 
         # Generate notes for this story if any are present
         story.notes.from_csv_row(row)

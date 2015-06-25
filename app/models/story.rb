@@ -48,10 +48,12 @@ class Story < ActiveRecord::Base
       notes = []
       row.each do |header, value|
         if %w{Note Comment}.include?(header) && value
+          next if value.blank? || value =~ /^Commit by/
           note = build(:note => value)
           if matches = /(.*)\((.*) - (.*)\)$/.match(value)
             note.note = matches[1].strip
             note.user = project.users.find_by_name(matches[2])
+            note.user_name = matches[2]
             note.created_at = matches[3]
           end
           note.save
