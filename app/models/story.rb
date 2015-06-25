@@ -26,8 +26,8 @@ class Story < ActiveRecord::Base
   belongs_to :owned_by, :class_name => 'User'
   validates :owned_by_id, :belongs_to_project => true
 
-  has_many :changesets
-  has_many :notes do
+  has_many :changesets, :dependent => :destroy
+  has_many :notes, :dependent => :destroy do
 
     # Creates a collection of rows on this story from a CSV::Row instance
     # Each 'Note' field in the CSV will usually be in the following format:
@@ -190,11 +190,7 @@ class Story < ActiveRecord::Base
     return true if position
     return true unless project
     last = project.stories.order(position: :desc).first
-    if last
-      self.position = last.position + 1
-    else
-      self.position = 1
-    end
+    self.position = last ? ( last.position + 1 ) : 1
   end
 
   # The list of users that should be notified when a new note is added to this
