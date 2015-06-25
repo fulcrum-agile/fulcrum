@@ -105,6 +105,7 @@ describe ProjectsController do
       before do
         projects.stub(:find).with(project.id.to_s) { project }
         project.stub_chain(:stories, :build) { story }
+        project.stub(:"import=").and_return(nil)
       end
 
       describe "#show" do

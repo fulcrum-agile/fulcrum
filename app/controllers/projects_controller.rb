@@ -89,6 +89,7 @@ class ProjectsController < ApplicationController
   # CSV import form
   def import
     @project = current_user.projects.find(params[:id])
+    @project.import = nil # erase the last uploaded file
   end
 
   # CSV import
