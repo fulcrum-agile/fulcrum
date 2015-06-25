@@ -17,7 +17,7 @@ gem 'puma'
 gem 'cloudinary'
 gem 'attachinary'
 
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'uglifier', '>= 2.5.3'
 gem 'compass-rails'
 gem 'coffee-rails'
