@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.friendly.find(params[:id])
     @story = @project.stories.build
 
     respond_to do |format|
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.friendly.find(params[:id])
     @project.users.build
   end
 
@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.friendly.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(allowed_params)
@@ -77,7 +77,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.friendly.find(params[:id])
     @project.destroy
 
     respond_to do |format|
@@ -88,14 +88,14 @@ class ProjectsController < ApplicationController
 
   # CSV import form
   def import
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.friendly.find(params[:id])
     @project.import = nil # erase the last uploaded file
   end
 
   # CSV import
   def import_upload
 
-    @project = current_user.projects.find(params[:id])
+    @project = current_user.projects.friendly.find(params[:id])
 
     # Do not send any email notifications during the import process
     @project.suppress_notifications = true

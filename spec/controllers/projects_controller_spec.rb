@@ -103,7 +103,7 @@ describe ProjectsController do
       let(:story)   { mock_model(Story) }
 
       before do
-        projects.stub(:find).with(project.id.to_s) { project }
+        projects.stub_chain(:friendly, :find).with(project.id.to_s) { project }
         project.stub_chain(:stories, :build) { story }
         project.stub(:"import=").and_return(nil)
       end

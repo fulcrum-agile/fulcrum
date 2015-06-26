@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   JSON_ATTRIBUTES = [
     "id", "iteration_length", "iteration_start_day", "start_date",

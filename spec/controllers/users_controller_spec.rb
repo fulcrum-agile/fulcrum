@@ -29,7 +29,7 @@ describe UsersController do
       sign_in user
       subject.stub(:current_user => user)
       user.stub(:projects => projects)
-      projects.stub(:find).with(project.id.to_s) { project }
+      projects.stub_chain(:friendly, :find).with(project.id.to_s) { project }
       project.stub(:users => users)
     end
 
