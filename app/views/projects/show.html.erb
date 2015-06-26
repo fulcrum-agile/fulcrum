@@ -1,4 +1,5 @@
 <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+<%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents).to_json}" %>
 
 <script type="text/javascript">
 $(function() {

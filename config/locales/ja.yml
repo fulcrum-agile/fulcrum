@@ -57,6 +57,7 @@ ja:
     attributes:
       note:
         note:                 'ノート'
+        documents:            '添付ファイル'
       project:
         name:                 'プロジェクト名'
         point_scale:          'ポイントスケール'
@@ -75,6 +76,7 @@ ja:
         labels:               'ラベル'
         requested_by:         '依頼者'
         owned_by:             '担当者'
+        documents:            '添付ファイル'
 
 
   projects:

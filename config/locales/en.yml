@@ -71,6 +71,7 @@ en:
     attributes:
       note:
         note:                 'Note'
+        documents:            'Attachments'
       project:
         name:                 'Name'
         point_scale:          'Point scale'
@@ -89,6 +90,7 @@ en:
         labels:               'Labels'
         requested_by:         'Requested by'
         owned_by:             'Owned by'
+        documents:            'Attachments'
 
 
   projects:

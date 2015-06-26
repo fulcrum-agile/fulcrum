@@ -7,13 +7,15 @@ class Story < ActiveRecord::Base
     "state", "position", "id", "labels"
   ]
   JSON_METHODS = [
-    "errors", "notes"
+    "errors", "notes", "documents"
   ]
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",
     "Story Type","Estimate","Current State","Created at","Accepted at",
     "Deadline","Requested By","Owned By","Description","URL"
   ]
+
+  has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls], maximum: 10
 
   belongs_to :project
   validates_presence_of :project

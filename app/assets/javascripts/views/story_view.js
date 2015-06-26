@@ -359,6 +359,23 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         })
       );
 
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          var random = (Math.floor(Math.random() * 10000) + 1);
+          var progress_element_id = "documents_progress_" + random;
+          var attachinary_container_id = "attachinary_container_" + random;
+
+          $(div).append(this.fileField("documents", progress_element_id, attachinary_container_id));
+          $(div).append("<span id='" + progress_element_id + "'>0%</span>");
+          $(div).append('<div id="' + attachinary_container_id + '"></div>');
+
+          // FIXME: refactor to a separated AttachmentView or similar
+          // must run the plugin after the element is available in the DOM, not before, hence, the setTimeout
+          clearTimeout(window.executeAttachinaryTimeout);
+          window.executeAttachinaryTimeout = setTimeout(executeAttachinary, 1000);
+        })
+      );
+
       this.initTags();
 
       this.renderNotes();

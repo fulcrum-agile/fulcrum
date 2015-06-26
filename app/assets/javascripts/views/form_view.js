@@ -16,16 +16,41 @@ Fulcrum.FormView = Backbone.View.extend({
     var el = this.make('input', defaults);
     this.bindElementToAttribute(el, name, "keyup");
     return el;
-  }, 
+  },
 
   hiddenField: function(name) {
     var el = this.make('input', {type: "hidden", name: name, value: this.model.get(name)});
     this.bindElementToAttribute(el, name);
     return el;
-  }, 
+  },
 
   textArea: function(name) {
     var el = this.make('textarea', {name: name, class: 'form-control'}, this.model.get(name));
+    this.bindElementToAttribute(el, name);
+    return el;
+  },
+
+  fileField: function(name, progress_element_id, attachinary_container_id) {
+    var field_name = name + ( ATTACHINARY_OPTIONS['html']['multiple'] ? '[]' : '' );
+    var files = this.model.get('documents');
+    if(files) {
+      files = files.map(function(d) { return d.file });
+    }
+    var options = $.extend(ATTACHINARY_OPTIONS['attachinary'], {
+      files_container_selector: '#' + attachinary_container_id, 'files': files });
+    var el = this.make('input', {name: field_name, type: "file", class: 'attachinary-input',
+                       'data-attachinary': JSON.stringify(options),
+                       'data-form-data': JSON.stringify(ATTACHINARY_OPTIONS['html']['data']['form_data']),
+                       'data-url': ATTACHINARY_OPTIONS['html']['data']['url'],
+                       'multiple': ( ATTACHINARY_OPTIONS['html']['multiple'] ? 'multiple' : '' ),
+                       });
+
+    $(el).bind('fileuploadprogressall', (function(_this, _progress_element_id) {
+      return function(e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        return $('#' + progress_element_id).html(progress + "%");
+      };
+    })(this, progress_element_id));
     this.bindElementToAttribute(el, name);
     return el;
   },

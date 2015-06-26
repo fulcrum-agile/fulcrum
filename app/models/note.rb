@@ -7,6 +7,8 @@ class Note < ActiveRecord::Base
 
   validates :note, :presence => true
 
+  has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls], maximum: 5
+
   # FIXME move to observer
   def create_changeset
     story.changesets.create!

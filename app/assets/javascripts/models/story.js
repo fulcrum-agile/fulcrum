@@ -251,6 +251,14 @@ Fulcrum.Story = Backbone.Model.extend({
     return this.notes.any(function(note) {
       return !note.isNew();
     });
+  },
+
+  sync: function(method, model, options) {
+    var documents = $('#story-' + model.get('id')).find('[type="hidden"][name="documents[]"]');
+    if(documents.length > 0) {
+      model.set('documents', JSON.parse(documents.val()));
+    }
+    Backbone.sync(method, model, options);
   }
 });
 

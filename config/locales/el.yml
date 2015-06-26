@@ -269,6 +269,7 @@ el:
         current_password:       παρών κωδικός
       note:
         note:                 'Σημείωση'
+        documents:            'συνημμένα'
       project:
         name:                 'Όνομα'
         point_scale:          'Βαθμολογική κλίμακα'
@@ -293,6 +294,7 @@ el:
         started_at:           'Ξεκίνησε στις'
         created_at:           'Δημιουργήθηκε στις'
         updated_at:           'Ανανεώθηκε στις'
+        documents:            'συνημμένα'
 
 
   projects:

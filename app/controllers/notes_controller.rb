@@ -37,7 +37,7 @@ class NotesController < ApplicationController
   protected
 
   def allowed_params
-    params.fetch(:note).permit(:note)
+    params.fetch(:note).permit(:note, :documents)
   end
 
 end

@@ -54,6 +54,7 @@ nl:
     attributes:
       note:
         note:                 'Notitie'
+        documents:            'Toebehoren'
       project:
         name:                 'Naam'
         point_scale:          'Punten schaal'
@@ -72,6 +73,7 @@ nl:
         labels:               'Labels'
         requested_by:         'Aangevraagd door'
         owned_by:             'In bezit door'
+        documents:            'Toebehoren'
 
 
   projects:

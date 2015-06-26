@@ -68,6 +68,7 @@ pt-BR:
     attributes:
       note:
         note:                 'Nota'
+        documents:            'Anexos'
       project:
         name:                 'Nome'
         point_scale:          'Ponto de escala'
@@ -86,6 +87,7 @@ pt-BR:
         labels:               'Etiquetas'
         requested_by:         'Solicitada por'
         owned_by:             'Pertence à'
+        documents:            'Anexos'
 
 
   projects:
