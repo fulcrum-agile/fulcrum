@@ -49,6 +49,7 @@ class Story < ActiveRecord::Base
       row.each do |header, value|
         if %w{Note Comment}.include?(header) && value
           next if value.blank? || value =~ /^Commit by/
+          value.gsub!("\n", "")
           note = build(:note => value)
           if matches = /(.*)\((.*) - (.*)\)$/.match(value)
             note.note = matches[1].strip
