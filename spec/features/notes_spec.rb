@@ -28,11 +28,11 @@ describe "Notes" do
 
   describe "full story life cycle" do
 
-    it "adds a note to a story", js: true, driver: :selenium do
+    it "adds a note to a story", js: true, driver: :poltergeist do
       visit project_path(project)
 
       within('#in_progress .story') do
-        find('.story-title').click
+        find('.story-title').trigger('click')
         fill_in 'note', :with => 'Adding a new note'
         click_on 'Add note'
       end
@@ -41,7 +41,7 @@ describe "Notes" do
 
     end
 
-  	it "deletes a note from a story", js: true, driver: :selenium do
+  	it "deletes a note from a story", js: true, driver: :poltergeist do
       FactoryGirl.create :note, :user => user,
                                 :story => story,
                                 :note => 'Delete me please'
@@ -49,7 +49,7 @@ describe "Notes" do
       visit project_path(project)
 
       within('#in_progress .story') do
-        find('.story-title').click
+        find('.story-title').trigger('click')
         within('.notelist') do
           click_on 'Delete'
         end

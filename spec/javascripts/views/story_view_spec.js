@@ -10,7 +10,7 @@ describe('Fulcrum.StoryView', function() {
         "multiple":true,
         "data":{"attachinary":{"accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
         "form_data":{"timestamp":1435347909,"callback":"http://localhost:3000/attachinary/cors","tags":"development_env,attachinary_tmp","signature":"db3b029ed02431b1dccac45cc8b2159a280fd334","api_key":"893592954749395"},
-        "url":"https://api.cloudinary.com/v1_1/hq5e5afno/auto/upload"};
+        "url":"https://api.cloudinary.com/v1_1/hq5e5afno/auto/upload"} } };
     window.projectView = {
       availableTags: [],
       notice: sinon.stub()
@@ -28,6 +28,7 @@ describe('Fulcrum.StoryView', function() {
       point_values: function() { return [0,1,2]; },
       hasErrors: function() { return false; },
       errorsOn: function() { return false; },
+      documents: function() { return [{"file":{"id":25,"public_id":"ikhhkie4ygljblsleqie.diff","version":"1435342626","format":null,"resource_type":"raw","path":"v1435342626/ikhhkie4ygljblsleqie.diff"}},{"file":{"id":26,"public_id":"zvjhfvramk76ebgvhioa.csv","version":"1435342608","format":null,"resource_type":"raw","path":"v1435342608/zvjhfvramk76ebgvhioa.csv"}},{"file":{"id":27,"public_id":"rythcrivxemvnbyh5mjb","version":"1435346191","format":"png","resource_type":"image","path":"v1435346191/rythcrivxemvnbyh5mjb.png"}}] },
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return [];} } } },
       start: function() {},
@@ -78,10 +79,6 @@ describe('Fulcrum.StoryView', function() {
       expect($(this.view.el)).toHaveClass('unestimated');
       this.view.model.set({state: 'accepted'});
       expect($(this.view.el)).toHaveClass('accepted');
-    });
-
-    it('should have the attachinary class', function() {
-      expect($(this.view.el)).toHaveClass('attachinary-input');
     });
 
   });

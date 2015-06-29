@@ -255,7 +255,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   sync: function(method, model, options) {
     var documents = $('#story-' + model.get('id')).find('[type="hidden"][name="documents[]"]');
-    if(documents.length > 0) {
+    if(documents.length > 0 && documents.val()) {
       model.set('documents', JSON.parse(documents.val()));
     }
     Backbone.sync(method, model, options);
