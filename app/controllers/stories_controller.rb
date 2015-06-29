@@ -5,7 +5,11 @@ class StoriesController < ApplicationController
 
   def index
     @project = current_user.projects.with_stories_notes.find(params[:project_id])
-    @stories = @project.stories
+    @stories = if ENV['STORIES_CEILING']
+                 @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
+               else
+                 @project.stories
+               end
     respond_to do |format|
       format.json { render :json => @stories }
       format.csv do
