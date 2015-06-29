@@ -209,7 +209,7 @@ el:
           <<: *errors
           
   # FULCRUM TRANSLATIONS
-  fulcrum:  Fulcrum
+  fulcrum:  "CM42 κεντρικός"
 
   log out:  αποσύνδεση
   log in:   σύνδεση
