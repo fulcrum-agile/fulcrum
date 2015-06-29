@@ -50,4 +50,8 @@ class User < ActiveRecord::Base
   def as_json(options = {})
     super(:only => JSON_ATTRIBUTES)
   end
+
+  def admin?
+    is_admin
+  end
 end

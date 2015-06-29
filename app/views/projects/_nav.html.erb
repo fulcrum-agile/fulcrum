@@ -5,7 +5,11 @@
 <%- end -%>
 
 <%= link_to_unless_current Story.model_name.human(:count => 2), project_path(project), class: 'project-action' %> |
-<%= link_to_unless_current User.model_name.human(:count => 2), project_users_path(project), class: 'project-action' %> |
-<%= link_to_unless_current t('edit'), edit_project_path(project), class: 'project-action' %> |
-<%= link_to_unless_current t('import'), import_project_path(project), class: 'project-action' %> |
+<% if can? :manage, User %>
+  <%= link_to_unless_current User.model_name.human(:count => 2), project_users_path(project), class: 'project-action' %> |
+<% end %>
+<% if can? :manage, project %>
+  <%= link_to_unless_current t('edit'), edit_project_path(project), class: 'project-action' %> |
+  <%= link_to_unless_current t('import'), import_project_path(project), class: 'project-action' %> |
+<% end %>
 <%= link_to t('export'), project_stories_path(project, :format => :csv), class: 'project-action' %>

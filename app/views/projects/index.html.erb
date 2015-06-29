@@ -17,19 +17,23 @@
                   <%= l project.start_date, format: :long %>
                 </span>
               </span>
-            </div> 
-
-
+            </div>
 
             <div class="project_options btn-group pull-right">
-              <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
+              <% if can? :update, project %>
+                <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
+              <% end %>
 
-              <%= link_to User.model_name.human(count: 2), project_users_path(project), class: 'btn btn-default btn-sm' %>
+              <% if can? :update, User %>
+                <%= link_to User.model_name.human(count: 2), project_users_path(project), class: 'btn btn-default btn-sm' %>
+              <% end %>
 
-              <%= link_to t('delete'), project,
-                data: {confirm: t('.are you sure you want to delete this project')},
-                method: :delete,
-                class: 'btn btn-danger btn-sm' %>
+              <% if can? :destroy, project %>
+                <%= link_to t('delete'), project,
+                  data: {confirm: t('.are you sure you want to delete this project')},
+                  method: :delete,
+                  class: 'btn btn-danger btn-sm' %>
+              <% end %>
             </div>
           </div>
           <div class="panel-body">

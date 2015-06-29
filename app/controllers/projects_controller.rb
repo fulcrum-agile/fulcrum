@@ -1,10 +1,12 @@
 require 'open-uri'
 class ProjectsController < ApplicationController
+  authorize_resource
 
   # GET /projects
   # GET /projects.xml
   def index
     @projects = current_user.projects
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @projects }
@@ -94,7 +96,6 @@ class ProjectsController < ApplicationController
 
   # CSV import
   def import_upload
-
     @project = current_user.projects.friendly.find(params[:id])
 
     # Do not send any email notifications during the import process

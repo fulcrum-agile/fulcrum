@@ -1,4 +1,5 @@
 class StoriesController < ApplicationController
+  authorize_resource
 
   include ActionView::Helpers::TextHelper
 
@@ -46,11 +47,13 @@ class StoriesController < ApplicationController
     @stories = @project.stories.done
     render :json => @stories
   end
+
   def backlog
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.backlog
     render :json => @stories
   end
+
   def in_progress
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.in_progress
@@ -103,7 +106,6 @@ class StoriesController < ApplicationController
   end
 
   def allowed_params
-    params.require(:story).permit(:title, :description, :estimate, :story_type, :state, :requested_by_id, :owned_by_id, :position, :labels,
-                                  documents: [ :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ])
+    params.require(:story).permit(:title, :description, :estimate, :story_type, :state, :requested_by_id, :owned_by_id, :position, :labels, documents: [ :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ])
   end
 end
