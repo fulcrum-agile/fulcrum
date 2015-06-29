@@ -482,6 +482,27 @@ describe('Fulcrum.StoryView', function() {
 
   });
 
+  describe("attachinary", function() {
+
+    beforeEach(function() {
+      this.view.model.set({editing: true});
+    });
+
+    afterEach(function() {
+      this.view.model.set({editing: false});
+    });
+
+    it("has its element defined when story is new", function() {
+      this.view.model.isNew = sinon.stub().returns(true);
+      this.view.render();
+      expect(this.view.$('.attachinary-input').length).toEqual(1);
+      expect(this.view.$('.attachinary-input').siblings().length).toEqual(2);
+      expect(this.view.$('.attachinary-input').siblings()[0].id).toContain('documents_progress');
+      expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('attachinary_container');
+    });
+
+  });
+
   describe("makeFormControl", function() {
 
     beforeEach(function() {
