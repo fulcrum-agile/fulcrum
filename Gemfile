@@ -17,6 +17,7 @@ gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions'
 
 gem 'pg'
 gem 'puma'
+gem 'sidekiq'
 
 gem 'sass-rails'
 gem 'uglifier', '>= 2.5.3'
