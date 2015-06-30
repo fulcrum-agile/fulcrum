@@ -80,7 +80,10 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1.xml
   def destroy
     @project = current_user.projects.friendly.find(params[:id])
-    @project.destroy
+    # because of dependent => destroy it can take a very long time to delete a project
+    # FIXME instead of deleting we should add something like Papertrail to
+    # implement an 'Archive'-like feature instead
+    @project.delay.destroy
 
     respond_to do |format|
       format.html { redirect_to(projects_url) }
