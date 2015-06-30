@@ -91,45 +91,54 @@ class ProjectsController < ApplicationController
   # CSV import form
   def import
     @project = current_user.projects.friendly.find(params[:id])
-    @project.import = nil # erase the last uploaded file
+
+    if session[:import_job]
+      if job_result = Rails.cache.read(session[:import_job][:id])
+        session[:import_job] = nil
+        if job_result[:errors]
+          flash[:alert] = "Unable to import CSV: #{job_result[:errors].message}"
+        else
+          @stories = job_result[:stories]
+          @valid_stories    = @stories.select(&:valid?)
+          @invalid_stories  = @stories.reject(&:valid?)
+
+          flash[:notice] = I18n.t(
+            'imported n stories', :count => @valid_stories.count
+          )
+
+          unless @invalid_stories.empty?
+            flash[:alert] = I18n.t(
+              'n stories failed to import', :count => @invalid_stories.count
+            )
+          end
+        end
+      else
+        minutes_ago = (Time.current - session[:import_job][:created_at]) / 1.minute
+        if minutes_ago > 60
+          session[:import_job] = nil
+        end
+      end
+    end
   end
 
   # CSV import
   def import_upload
     @project = current_user.projects.friendly.find(params[:id])
 
-    # Do not send any email notifications during the import process
-    @project.suppress_notifications = true
-
     if params[:project][:import].blank?
-
       flash[:alert] = "You must select a file for import"
-
     else
+      session[:import_job] = {
+        id: "import_upload/#{SecureRandom.base64(15).tr('+/=', 'xyz')}",
+        created_at: Time.current }
 
-      begin
-        @project.update_attributes(allowed_params)
-        @stories = @project.stories.from_csv(open(@project.import.fullpath).read)
-        @valid_stories    = @stories.select(&:valid?)
-        @invalid_stories  = @stories.reject(&:valid?)
+      @project.update_attributes(allowed_params)
+      ImportWorker.perform_async(session[:import_job][:id], params[:id])
 
-        flash[:notice] = I18n.t(
-          'imported n stories', :count => @valid_stories.count
-        )
-
-        unless @invalid_stories.empty?
-          flash[:alert] = I18n.t(
-            'n stories failed to import', :count => @invalid_stories.count
-          )
-        end
-      rescue CSV::MalformedCSVError => e
-        flash[:alert] = "Unable to import CSV: #{e.message}"
-      end
-
+      flash[:notice] = "Your upload is being processed."
     end
 
-    render 'import'
-
+    redirect_to [:import, @project]
   end
 
   protected

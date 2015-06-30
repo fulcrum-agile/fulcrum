@@ -201,24 +201,86 @@ describe ProjectsController do
       end
 
       describe "#import" do
-        specify do
-          get :import, :id => project.id
-          response.should be_success
-          assigns[:project].should == project
-          response.should render_template('import')
+        context "when no job is running" do
+          specify do
+            get :import, :id => project.id
+            response.should be_success
+            assigns[:project].should == project
+            response.should render_template('import')
+          end
+        end
+
+        context "when there is a job registered" do
+
+          context "still unprocessed" do
+            before do
+              session[:import_job] = { id: 'foo', created_at: 10.minutes.ago }
+            end
+
+            specify do
+              get :import, :id => project.id
+              assigns[:stories].should be_nil
+              session[:import_job].should_not be_nil
+              response.should render_template('import')
+            end
+          end
+
+          context "unprocessed for more than 60 minutes" do
+            before do
+              session[:import_job] = { id: 'foo', created_at: 2.hours.ago }
+            end
+
+            specify do
+              get :import, :id => project.id
+              assigns[:stories].should be_nil
+              session[:import_job].should be_nil
+              response.should render_template('import')
+            end
+          end
+
+          context "finished with errors" do
+            let(:error) { CSV::MalformedCSVError.new("Bad CSV!") }
+            before do
+              error.should_receive(:message).and_return("Bad CSV!")
+              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
+              Rails.cache.should_receive(:read).with('foo').and_return({ stories: [], errors: error })
+            end
+            specify do
+              get :import, :id => project.id
+              assigns[:stories].should be_nil
+              flash[:alert].should == "Unable to import CSV: Bad CSV!"
+              session[:import_job].should be_nil
+              response.should render_template('import')
+            end
+          end
+
+          context "finished with success" do
+            let(:valid_story) { mock_model(Story, :valid? => true) }
+            let(:invalid_story) { mock_model(Story, :valid? => false) }
+            let(:stories) { [valid_story, invalid_story] }
+            before do
+              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
+              Rails.cache.should_receive(:read).with('foo').and_return({ stories: stories, errors: nil })
+            end
+
+            specify do
+              get :import, :id => project.id
+              assigns[:stories].should == stories
+              assigns[:valid_stories].should == [valid_story]
+              assigns[:invalid_stories].should == [invalid_story]
+              flash[:notice].should == "Imported 1 story"
+              session[:import_job].should be_nil
+              response.should render_template('import')
+            end
+          end
         end
       end
 
       describe "#import_upload" do
-
-        before do
-          project.should_receive(:suppress_notifications=).with(true)
-        end
-
         context "when csv file is missing" do
           specify do
             put :import_upload, :id => project.id, :project => { :import => "" }
-            response.should render_template('import')
+            response.should redirect_to(import_project_path(project.id))
             flash[:alert].should == "You must select a file for import"
           end
         end
@@ -226,43 +288,18 @@ describe ProjectsController do
         context "when csv file is present" do
 
           let(:csv)             { fixture_file_upload('csv/stories.csv') }
-          let(:valid_story)     { mock_model(Story, :valid? => true) }
-          let(:invalid_story)   { mock_model(Story, :valid? => false) }
-          let(:import_stories)  { [valid_story, invalid_story] }
           let(:import)          { mock_model(Attachinary::File, fullpath: csv )}
 
           before do
             allow(project).to receive(:update_attributes).and_return(true)
             allow(project).to receive(:import) { import }
-            allow(stories).to receive(:from_csv) { import_stories }
-            allow(project).to receive(:stories).and_return(stories)
           end
 
           specify do
+            ImportWorker.should_receive(:perform_async)
             put :import_upload, :id => project.id, :project => { :import => csv }
-            response.should be_success
-            assigns[:valid_stories].should == [valid_story]
-            assigns[:invalid_stories].should == [invalid_story]
-            flash[:notice].should == "Imported 1 story"
-            response.should render_template('import')
-          end
-
-          context "when a csv parse error occurs" do
-
-            before do
-              stories.unstub(:from_csv)
-              stories.stub(:from_csv).and_raise(
-                CSV::MalformedCSVError.new("Bad CSV!")
-              )
-            end
-
-            specify do
-              put :import_upload, :id => project.id, :project => { :import => csv }
-              response.should be_success
-              flash[:alert].should == "Unable to import CSV: Bad CSV!"
-              response.should render_template('import')
-            end
-
+            flash[:notice].should == "Your upload is being processed."
+            response.should redirect_to(import_project_path(project.id))
           end
 
         end
