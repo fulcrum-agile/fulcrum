@@ -1,4 +1,5 @@
 class Notifications < ActionMailer::Base
+  include Sidekiq::Mailer if Rails.env.production?
 
   def delivered(story, delivered_by)
     @story = story
