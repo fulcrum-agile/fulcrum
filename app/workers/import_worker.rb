@@ -2,7 +2,13 @@ class ImportWorker
   include Sidekiq::Worker
 
   MEMCACHED_POOL = ConnectionPool.new(:size => 10, :timeout => 3) do
-                     Rails.cache.try(:dalli) || Dalli::Client.new
+                     Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
+                             :username => ENV["MEMCACHIER_USERNAME"],
+                             :password => ENV["MEMCACHIER_PASSWORD"],
+                             :failover => true,
+                             :socket_timeout => 1.5,
+                             :socket_failure_delay => 0.2,
+                             :value_max_bytes => 10485760)
                    end
 
   def perform(job_id, project_id)
