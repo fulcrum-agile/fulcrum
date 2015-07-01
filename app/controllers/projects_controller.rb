@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.order("updated_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
