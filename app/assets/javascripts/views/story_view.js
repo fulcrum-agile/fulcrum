@@ -285,44 +285,41 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       );
 
       this.$el.append(
-        this.makeFormControl({
-          name: 'estimate',
-          label: true,
-          control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
+        this.makeFormControl(function(div) {
+          $(div).addClass('form-inline');
+          $(div).append(this.makeFormControl({
+            name: 'estimate',
+            label: true,
+            control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
+          }));
+          $(div).append(this.makeFormControl({
+            name: "story_type",
+            label: true,
+            control: this.select("story_type", ["feature", "chore", "bug", "release"])
+          }));
+          $(div).append(this.makeFormControl({
+            name: "state",
+            label: true,
+            control: this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"])
+          }));
         })
       );
 
       this.$el.append(
-        this.makeFormControl({
-          name: "story_type",
-          label: true,
-          control: this.select("story_type", ["feature", "chore", "bug", "release"])
-        })
-      );
-
-      this.$el.append(
-        this.makeFormControl({
-          name: "state",
-          label: true,
-          control: this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"])
-        })
-      );
-
-      this.$el.append(
-        this.makeFormControl({
-          name: "requested_by_id",
-          label: true,
-          control: this.select("requested_by_id",
-            this.model.collection.project.users.forSelect(),{blank: '---'})
-        })
-      );
-
-      this.$el.append(
-        this.makeFormControl({
-          name: "owned_by_id",
-          label: true,
-          control: this.select("owned_by_id",
-            this.model.collection.project.users.forSelect(),{blank: '---'})
+        this.makeFormControl(function(div) {
+          $(div).addClass('form-inline');
+          $(div).append(this.makeFormControl({
+            name: "requested_by_id",
+            label: true,
+            control: this.select("requested_by_id",
+              this.model.collection.project.users.forSelect(),{blank: '---'})
+          }));
+          $(div).append(this.makeFormControl({
+            name: "owned_by_id",
+            label: true,
+            control: this.select("owned_by_id",
+              this.model.collection.project.users.forSelect(),{blank: '---'})
+          }));
         })
       );
 
@@ -427,7 +424,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     if (this.model.notes.length > 0) {
       var el = this.$el;
       el.append('<hr/>');
-      el.append('<h3>' + I18n.t('notes') + '</h3>');
       el.append('<div class="notelist"/>');
       this.renderNotesCollection();
     }
