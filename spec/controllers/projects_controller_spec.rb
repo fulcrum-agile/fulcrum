@@ -239,9 +239,8 @@ describe ProjectsController do
           end
 
           context "finished with errors" do
-            let(:error) { CSV::MalformedCSVError.new("Bad CSV!") }
+            let(:error) { "Bad CSV!" }
             before do
-              error.should_receive(:message).and_return("Bad CSV!")
               session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
               Rails.cache.should_receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
             end
