@@ -105,9 +105,8 @@ class ProjectsController < ApplicationController
         if job_result[:errors]
           flash[:alert] = "Unable to import CSV: #{job_result[:errors].message}"
         else
-          @stories = job_result[:stories]
-          @valid_stories    = @stories.select(&:valid?)
-          @invalid_stories  = @stories.reject(&:valid?)
+          @valid_stories    = @project.stories
+          @invalid_stories  = job_result[:invalid_stories]
 
           flash[:notice] = I18n.t(
             'imported n stories', :count => @valid_stories.count

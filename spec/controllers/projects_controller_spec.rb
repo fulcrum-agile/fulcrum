@@ -219,7 +219,7 @@ describe ProjectsController do
 
             specify do
               get :import, :id => project.id
-              assigns[:stories].should be_nil
+              assigns[:valid_stories].should be_nil
               session[:import_job].should_not be_nil
               response.should render_template('import')
             end
@@ -232,7 +232,7 @@ describe ProjectsController do
 
             specify do
               get :import, :id => project.id
-              assigns[:stories].should be_nil
+              assigns[:valid_stories].should be_nil
               session[:import_job].should be_nil
               response.should render_template('import')
             end
@@ -243,11 +243,11 @@ describe ProjectsController do
             before do
               error.should_receive(:message).and_return("Bad CSV!")
               session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
-              Rails.cache.should_receive(:read).with('foo').and_return({ stories: [], errors: error })
+              Rails.cache.should_receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
             end
             specify do
               get :import, :id => project.id
-              assigns[:stories].should be_nil
+              assigns[:valid_stories].should be_nil
               flash[:alert].should == "Unable to import CSV: Bad CSV!"
               session[:import_job].should be_nil
               response.should render_template('import')
@@ -256,16 +256,15 @@ describe ProjectsController do
 
           context "finished with success" do
             let(:valid_story) { mock_model(Story, :valid? => true) }
-            let(:invalid_story) { mock_model(Story, :valid? => false) }
-            let(:stories) { [valid_story, invalid_story] }
+            let(:invalid_story) { { title: 'hello', errors: 'bad cookie'} }
             before do
+              project.should_receive(:stories).and_return([valid_story])
               session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
-              Rails.cache.should_receive(:read).with('foo').and_return({ stories: stories, errors: nil })
+              Rails.cache.should_receive(:read).with('foo').and_return({ invalid_stories: [invalid_story], errors: nil })
             end
 
             specify do
               get :import, :id => project.id
-              assigns[:stories].should == stories
               assigns[:valid_stories].should == [valid_story]
               assigns[:invalid_stories].should == [invalid_story]
               flash[:notice].should == "Imported 1 story"

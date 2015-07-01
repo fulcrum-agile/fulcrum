@@ -12,18 +12,22 @@ class ImportWorker
                    end
 
   def perform(job_id, project_id)
-    set_cache(job_id, nil)
     @project = Project.friendly.find(project_id)
 
     # Do not send any email notifications during the import process
     @project.suppress_notifications = true
 
+    csv_body = open(@project.import.fullpath).read
+    csv_body.force_encoding("utf-8")
     Project.transaction do
-      @stories = @project.stories.from_csv(open(@project.import.fullpath).read)
-      set_cache(job_id, { stories: @stories, errors: nil })
+      @stories = @project.stories.from_csv(csv_body)
+      invalid_stories = @stories.reject(&:valid?).map do |s|
+        { title: s.title, errors: s.errors.full_messages.join(', ') }
+      end
+      set_cache(job_id, { invalid_stories: invalid_stories, errors: nil })
     end
   rescue => e
-    set_cache(job_id, { stories: [], errors: e })
+    set_cache(job_id, { invalid_stories: [], errors: e })
   end
 
   private

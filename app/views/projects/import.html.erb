@@ -38,7 +38,7 @@
   <% end %>
 <% end %>
 
-<% if @stories %>
+<% if @valid_stories %>
   <h2>Import results</h2>
 
   <table id="import">
@@ -50,21 +50,21 @@
       </tr>
     </thead>
     <tbody>
-      <% @stories.each_with_index do |story, index| %>
-        <% if story.valid? %>
+      <% @valid_stories.each_with_index do |story, index| %>
         <tr class="valid">
           <td><%= index + 1 %></td>
           <td><%= story.title %></td>
           <td><%= story.story_type %></td>
         </tr>
-        <% else %>
-          <tr class="invalid">
-            <td><%= index + 1 %></td>
-            <td colspan="2">
-              <%= story.errors.full_messages.join(', ') %>
-            </td>
-          </tr>
-        <% end %>
+      <% end %>
+
+      <% @invalid_stories.each_with_index do |errors, index| %>
+        <tr class="invalid">
+          <td><%= index + 1 %></td>
+          <td colspan="2">
+            <%= errors[:title] %> - <%= errors[:errors] %>
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>
