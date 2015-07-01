@@ -52,14 +52,12 @@ class Story < ActiveRecord::Base
         if %w{Note Comment}.include?(header) && value
           next if value.blank? || value =~ /^Commit by/
           value.gsub!("\n", "")
-          note = build(:note => value)
-          if matches = /(.*)\((.*) - (.*)\)$/.match(value)
-            note.note = matches[1].strip
-            note.user = project.users.find_by_name(matches[2])
-            note.user_name = matches[2]
-            note.created_at = matches[3]
-          end
-          note.save
+          next unless matches = /(.*)\((.*) - (.*)\)$/.match(value)
+          next if matches[1].strip.blank?
+          note = build(:note => matches[1].strip,
+            :user => project.users.find_by_name(matches[2]),
+            :user_name => matches[2],
+            :created_at => matches[3])
           notes << note
         end
       end
