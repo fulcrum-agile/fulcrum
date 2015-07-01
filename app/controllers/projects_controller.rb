@@ -103,7 +103,7 @@ class ProjectsController < ApplicationController
       if job_result = Rails.cache.read(session[:import_job][:id])
         session[:import_job] = nil
         if job_result[:errors]
-          flash[:alert] = "Unable to import CSV: #{job_result[:errors].message}"
+          flash[:alert] = "Unable to import CSV: #{job_result[:errors]}"
         else
           @valid_stories    = @project.stories
           @invalid_stories  = job_result[:invalid_stories]

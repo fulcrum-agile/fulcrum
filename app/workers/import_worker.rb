@@ -33,7 +33,7 @@ class ImportWorker
       set_cache(job_id, { invalid_stories: invalid_stories, errors: nil })
     end
   rescue => e
-    set_cache(job_id, { invalid_stories: [], errors: e })
+    set_cache(job_id, { invalid_stories: [], errors: e.message })
   end
 
   private
