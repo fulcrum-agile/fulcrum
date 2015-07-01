@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629170320) do
+ActiveRecord::Schema.define(version: 20150701173921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,17 @@ ActiveRecord::Schema.define(version: 20150629170320) do
     t.datetime "updated_at"
   end
 
+  create_table "memberships", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["project_id", "user_id"], name: "index_memberships_on_project_id_and_user_id", unique: true, using: :btree
+  add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+
   create_table "notes", force: true do |t|
     t.text     "note"
     t.integer  "user_id"
@@ -58,14 +69,11 @@ ActiveRecord::Schema.define(version: 20150629170320) do
     t.datetime "updated_at"
     t.integer  "default_velocity",    default: 10
     t.string   "slug"
+    t.integer  "stories_count",       default: 0
+    t.integer  "memberships_count",   default: 0
   end
 
   add_index "projects", ["slug"], name: "index_projects_on_slug", unique: true, using: :btree
-
-  create_table "projects_users", id: false, force: true do |t|
-    t.integer "project_id"
-    t.integer "user_id"
-  end
 
   create_table "stories", force: true do |t|
     t.string   "title"
@@ -111,6 +119,7 @@ ActiveRecord::Schema.define(version: 20150629170320) do
     t.datetime "reset_password_sent_at"
     t.string   "locale"
     t.boolean  "is_admin",                           default: false
+    t.integer  "memberships_count",                  default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

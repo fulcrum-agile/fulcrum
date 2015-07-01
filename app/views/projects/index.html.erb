@@ -10,7 +10,7 @@
         <div class="panel-heading clearfix">
           <div class="panel-title pull-left item-title-wrapper">
             <h4 class="item-title">
-              <%= link_to project.name, project %>
+              <%= link_to project.name, project %> (<%= project.stories_count %>)
             </h4>
           </div>
 
@@ -20,7 +20,7 @@
             <% end %>
 
             <% if can? :update, User %>
-              <%= link_to User.model_name.human(count: 2), project_users_path(project), class: 'btn btn-default btn-sm' %>
+              <%= link_to "#{User.model_name.human(count: 2)} (#{project.memberships_count})", project_users_path(project), class: 'btn btn-default btn-sm' %>
             <% end %>
 
             <% if can? :destroy, project %>
