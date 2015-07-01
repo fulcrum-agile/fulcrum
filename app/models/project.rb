@@ -55,7 +55,7 @@ class Project < ActiveRecord::Base
         row_attrs = row.to_hash
         story = build({
           :state        => row_attrs["Current State"].downcase,
-          :title        => row_attrs["Title"] || row_attrs["Story"],
+          :title        => ( row_attrs["Title"] || row_attrs["Story"] || "").truncate(255, omission: '...'),
           :story_type   => (row_attrs["Type"] || row_attrs["Story Type"]).downcase,
           :requested_by => users.detect {|u| u.name == row["Requested By"]},
           :owned_by     => users.detect {|u| u.name == row["Owned By"]},
@@ -64,8 +64,8 @@ class Project < ActiveRecord::Base
           :labels       => row_attrs["Labels"],
           :description  => row_attrs["Description"]
         })
-        story.requested_by_name = row["Requested By"]
-        story.owned_by_name = row["Owned By"]
+        story.requested_by_name = ( row["Requested By"] || "").truncate(255)
+        story.owned_by_name = ( row["Owned By"] || "").truncate(255)
         story.owned_by_initials = ( row["Owned By"] || "" ).split(' ').map { |n| n[0].upcase }.join('')
 
         tasks = []
