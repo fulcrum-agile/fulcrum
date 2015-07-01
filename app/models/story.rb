@@ -15,7 +15,7 @@ class Story < ActiveRecord::Base
     "Deadline","Requested By","Owned By","Description","URL"
   ]
 
-  has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls], maximum: 10
+  has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls, :pdf], maximum: 10
 
   belongs_to :project
   validates_presence_of :project
