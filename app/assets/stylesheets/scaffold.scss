@@ -1,9 +1,9 @@
 body { background-color: #fff; color: #333; }
 
 body, p, ol, ul, td {
-  font-family: arial, verdana, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+  font-family: helvetica, verdana, arial, sans-serif;
+  font-size:   11px;
+  line-height: 15px;
 }
 
 pre {
@@ -13,7 +13,6 @@ pre {
 }
 
 a { color: #000; }
-a:visited { color: #666; }
 
 div.field, div.actions {
   margin-bottom: 10px;

@@ -124,7 +124,7 @@ ul#primary-nav li.secondary ul li {
   padding: 10px 1em;
 
   div.velocity {
-    font-size: 1.6em;
+    font-size: 1.4em;
     float: right;
     position: relative;
 
@@ -173,7 +173,7 @@ ul#primary-nav li.secondary ul li {
 }
 
 #title_bar h1 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin: 0.3em 0;
 }
 
@@ -363,7 +363,7 @@ span.estimate_8 {
 }
 
 .story.release {
-  background-color: #333;
+  background-color: darkgrey;
   color: white;
 }
 .story.release:hover {
@@ -607,12 +607,12 @@ div.spinner {
   }
 }
 
-div#keycut-help { 
-  top: 1em; left: 1em; 
-  position: absolute; opacity:0.8; 
+div#keycut-help {
+  top: 1em; left: 1em;
+  position: absolute; opacity:0.8;
   background:black; color:yellow;
   @include border-radius(5px);
-  
+
   a.close {
     color:yellow; text-align:right; display:block; margin:1em;
   }
@@ -628,7 +628,7 @@ div#keycut-help {
 .projects-list {
 
   .item {
-    
+
     .item-title-wrapper {
       margin-top: 4px;
     }
