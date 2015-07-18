@@ -4,7 +4,7 @@ class StoriesController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def index
-    @project = current_user.projects.with_stories_notes.find(params[:project_id])
+    @project = current_user.projects.with_stories_notes.friendly.find(params[:project_id])
     @stories = if ENV['STORIES_CEILING']
                  @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
                else

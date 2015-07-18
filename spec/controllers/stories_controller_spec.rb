@@ -38,7 +38,7 @@ describe StoriesController do
       before do
         projects.unstub(:find)
         projects.stub(:stories_notes)
-        projects.stub_chain(:with_stories_notes, :find).with(
+        projects.stub_chain(:with_stories_notes, :friendly, :find).with(
           project.id.to_s
         ) { project }
       end
