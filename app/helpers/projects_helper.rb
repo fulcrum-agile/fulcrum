@@ -3,7 +3,7 @@ module ProjectsHelper
   # use in a select helper.
   def point_scale_options
     Project::POINT_SCALES.collect do |name,values|
-      ["#{name.humanize} (#{values.join(',')})", name]
+      ["#{name.humanize} (#{values.first(6).join(',')})", name]
     end
   end
 
