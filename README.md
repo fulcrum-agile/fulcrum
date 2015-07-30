@@ -61,7 +61,7 @@ Once you have these:
     $ bundle exec rake fulcrum:setup db:setup
 
     # Start the local web server
-    $ rails server
+    $ bundle exec foreman start -f Procfile.development
 
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
 You can log in with the test username `test@example.com`, password `testpass`.
