@@ -12,6 +12,7 @@ gem 'devise', '~> 3.2.4'
 gem 'devise-async'
 gem 'dotenv-rails'
 gem 'friendly_id', '~> 5.1.0'
+gem 'foreman'
 gem 'rails-i18n'
 gem 'rails-observers', '~> 0.1.2'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
