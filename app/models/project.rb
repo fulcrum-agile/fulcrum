@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
 
   JSON_METHODS = ["last_changeset_id", "point_values"].freeze
 
-  # These are the valid point scalse for a project.  These represent
+  # These are the valid point scales for a project. These represent
   # the set of valid points estimate values for a story in this project.
   POINT_SCALES = {
     'fibonacci'     => [0,1,2,3,5,8].freeze,
