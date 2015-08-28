@@ -65,6 +65,7 @@ ja:
         iteration_start_day:  'イテレーション開始日'
         iteration_length:     'イテレーションの長さ'
         default_velocity:     'デフォルトのベロシティ'
+        archived:             'アーカイブ'
       story:
         title:                'タイトル'
         description:          '説明'

@@ -280,6 +280,7 @@ el:
         started_at:           'Ξεκίνησε στις'
         created_at:           'Δημιουργήθηκε στις'
         updated_at:           'Ανανεώθηκε στις'
+        archived:             'αρχειοθετημένα'
       story:
         title:                'Τίτλος'
         description:          'Περιγραφή'

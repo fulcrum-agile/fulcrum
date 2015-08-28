@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.not_archived
 
     respond_to do |format|
       format.html # index.html.erb
@@ -150,7 +150,7 @@ class ProjectsController < ApplicationController
   protected
 
   def allowed_params
-    params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import)
+    params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import, :archived)
   end
 
 end

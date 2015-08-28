@@ -79,6 +79,7 @@ en:
         iteration_start_day:  'Iteration start day'
         iteration_length:     'Iteration length'
         default_velocity:     'Default velocity'
+        archived:             'Archived'
       story:
         title:                'Title'
         description:          'Description'

@@ -62,6 +62,7 @@ nl:
         iteration_start_day:  'Iteratie start dag'
         iteration_length:     'Iteratie lengte'
         default_velocity:     'Standaard snelheid'
+        archived:             'Aearchiveerd'
       story:
         title:                'Titel'
         description:          'Omschrijving'

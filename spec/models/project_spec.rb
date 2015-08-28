@@ -185,4 +185,19 @@ describe Project do
     end
   end
 
+  describe "#archive" do
+    subject { FactoryGirl.build :project }
+
+    it 'sets the archived_at datetime' do
+      subject.update_attributes(archived: "1")
+      expect(subject.archived_at).to_not be_nil
+    end
+
+    it 'resets the archived_at datetime' do
+      subject.update_attributes(archived_at: Time.zone.now)
+      subject.update_attributes(archived: "0")
+      expect(subject.archived_at).to be_nil
+    end
+  end
+
 end

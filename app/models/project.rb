@@ -92,6 +92,7 @@ class Project < ActiveRecord::Base
   attr_writer :suppress_notifications
 
   scope :with_stories_notes, -> { includes(stories: :notes) }
+  scope :not_archived, -> { where(archived_at: nil) }
 
   has_attachment :import, accept: [:raw]
 
@@ -118,5 +119,17 @@ class Project < ActiveRecord::Base
 
   def csv_filename
     "#{name}-#{Time.now.strftime('%Y%m%d_%I%M')}.csv"
+  end
+
+  def archived
+    !!(archived_at)
+  end
+
+  def archived=(value)
+    if !value || value == "0"
+      self.archived_at = nil
+    else
+      self.archived_at = Time.zone.now
+    end
   end
 end

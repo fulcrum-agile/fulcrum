@@ -28,6 +28,7 @@ describe ProjectsController do
       sign_in user
       subject.stub(:current_user => user)
       user.stub(:projects => projects)
+      user.stub_chain(:projects, :not_archived) { projects }
     end
 
     describe "collection actions" do

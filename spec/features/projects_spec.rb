@@ -16,6 +16,9 @@ describe "Projects" do
     before do
       FactoryGirl.create :project,  :name => 'Test Project',
                                     :users => [user]
+      FactoryGirl.create :project,  :name => 'Archived Project',
+                                    :users => [user],
+                                    :archived => "1"
     end
 
     it "shows the project list", :js => true do
@@ -28,6 +31,7 @@ describe "Projects" do
       end
 
       page.should have_selector('h1', :text => 'Test Project')
+      page.should_not have_selector('h1', :text => 'Archived Project')
     end
 
   end

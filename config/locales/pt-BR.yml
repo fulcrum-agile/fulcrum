@@ -76,6 +76,7 @@ pt-BR:
         iteration_start_day:  'Dia de início da iteração'
         iteration_length:     'Duração da iteração'
         default_velocity:     'Velocidade padrão'
+        archived:             'Arquivado'
       story:
         title:                'Título'
         description:          'Descrição'
