@@ -69,7 +69,7 @@ Rails.application.configure do
   config.static_cache_control = "public, max-age=2592000"
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "http://central-cdn.cm42.io"
+  config.action_controller.asset_host = "http://dtfdj8ezhnenv.cloudfront.net"
   config.font_assets.origin = 'http://central.cm42.io'
 
   # Ignore bad email addresses and do not raise email delivery errors.
