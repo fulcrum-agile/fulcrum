@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/ericallam/font_assets.git
+  revision: 457dcfddc4318e83679e9a0935612924b7717085
+  branch: master
+  specs:
+    font_assets (0.1.11)
+      rack
+
 GEM
   remote: http://rubygems.org/
   remote: https://rails-assets.org/
@@ -320,6 +328,7 @@ DEPENDENCIES
   dotenv-rails
   ejs
   factory_girl_rails
+  font_assets!
   foreman
   friendly_id (~> 5.1.0)
   i18n-js (>= 3.0.0.rc8)
