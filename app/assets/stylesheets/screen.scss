@@ -71,41 +71,41 @@ ul#primary-nav {
 ul#primary-nav li {
   padding: 0 0.5em;
   display: inline;
-}
-ul#primary-nav li a {
-  color: white;
-  text-decoration: none;
-}
-ul#primary-nav li.root {
-  float: left;
-  font-size: large;
-}
-ul#primary-nav li.secondary {
-  position: relative;
-  @include icons-sprite(collapse, false, 0px, 6px);
-  background-color: #333;
-  background-position-x:right;
-  padding: 0.4em 18px 0.4em 0.4em;
-  @include border-radius(5px);
-  text-shadow: black 0 1px 0;
-}
-ul#primary-nav li.secondary ul {
-  visibility: hidden;
-}
-ul#primary-nav li.secondary:hover ul {
-  visibility: visible;
-}
-ul#primary-nav li.secondary ul {
-  padding: 0.3em;
-  position: absolute;
-  left: 0; top: 1.7em;
-  background-color: #333;
-  @include border-radius(0 5px 5px 5px);
-}
-ul#primary-nav li.secondary ul li {
-  white-space: nowrap;
-  text-align: left;
-  display: block;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  &.root {
+    float: left;
+    font-size: large;
+  }
+  &.secondary {
+    position: relative;
+    @include icons-sprite(collapse, false, 0px, 6px);
+    background-color: #333;
+    background-position-x:right;
+    padding: 0.4em 18px 0.4em 0.4em;
+    @include border-radius(5px);
+    text-shadow: black 0 1px 0;
+    ul {
+      visibility: hidden;
+    }
+  }
+  .secondary:hover ul {
+    visibility: visible;
+  }
+  &.secondary ul {
+    padding: 0.3em;
+    position: absolute;
+    left: 0; top: 1.7em;
+    background-color: #333;
+    @include border-radius(0 5px 5px 5px);
+    li {
+      white-space: nowrap;
+      text-align: left;
+      display: block;
+    }
+  }
 }
 
 #title_bar {
@@ -188,18 +188,16 @@ html.stories, html.stories body, html.stories div#main {
 
 #column-toggles {
   float: right;
-}
+  a {
+    @extend .btn;
+    @extend .btn-xs;
+    @extend .btn-primary;
 
-#column-toggles a {
-  @extend .btn;
-  @extend .btn-xs;
-  @extend .btn-primary;
-
-  margin: 0 0.2em;
-}
-
-#column-toggles a.pressed {
-  @extend .btn-default;
+    margin: 0 0.2em;
+  }
+  a.pressed {
+    @extend .btn-default;
+  }
 }
 
 /* stories table */
