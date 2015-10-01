@@ -98,6 +98,12 @@ nl:
       backlog: "Backlog"
       icebox: "Ijskast"
 
+  admin:
+    users:
+      edit user: "Wijzig Gebruiker"
+      index:
+        are you sure you want to delete this user: "Weet u zeker dat u dit Gebruiker wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden!"
+
   registrations:
     edit:
       leave_blank_if_you_dont_want_to_change_it: "Laat dit veld leeg als u het niet wilt wijzigen"

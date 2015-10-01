@@ -40,6 +40,7 @@
             <%- end -%>
           </ul>
         </li>
+        <li><%= link_to User.model_name.human(:count => 2), admin_users_path %></li>
         <li><%= link_to current_user.email, edit_user_registration_path %></li>
         <li><%= link_to t('log out'), destroy_user_session_path,
                         :method => :delete %></li>

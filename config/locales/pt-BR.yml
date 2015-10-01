@@ -112,6 +112,12 @@ pt-BR:
       backlog: "Backlog"
       icebox: "Chilly Bin"
 
+  admin:
+    users:
+      edit user: "Editar Usuário"
+      index:
+        are you sure you want to delete this user: "Tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita."
+
   registrations:
     edit:
       leave_blank_if_you_dont_want_to_change_it: "Deixe em branco se você não quiser mudá-lo"
