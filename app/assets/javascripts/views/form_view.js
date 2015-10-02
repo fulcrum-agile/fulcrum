@@ -25,7 +25,13 @@ Fulcrum.FormView = Backbone.View.extend({
   },
 
   textArea: function(name) {
-    var el = this.make('textarea', {name: name, class: 'form-control'}, this.model.get(name));
+    var el = this.make('textarea', {name: name, class: 'form-control' }, this.model.get(name));
+    $(el).attr('style', 'height:100px;overflow-y:hidden;');
+    $(el).on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+
     this.bindElementToAttribute(el, name);
     return el;
   },
