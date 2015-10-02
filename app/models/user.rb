@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 
   before_validation :set_random_password_if_blank
 
+  before_destroy :remove_story_association
+
   validates :name, :presence => true
   validates :initials, :presence => true
 
@@ -54,5 +56,13 @@ class User < ActiveRecord::Base
 
   def admin?
     is_admin
+  end
+
+  private
+
+  def remove_story_association
+    Story.where(requested_by_id: id).update_all(requested_by_id: nil, requested_by_name: nil)
+    Story.where(owned_by_id: id).update_all(owned_by_id: nil, owned_by_name: nil)
+    Membership.where(user_id: id).delete_all
   end
 end

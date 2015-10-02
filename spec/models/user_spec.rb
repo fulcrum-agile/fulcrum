@@ -40,4 +40,25 @@ describe User do
 
   end
 
+  describe "#remove_story_association" do
+    let(:user) { FactoryGirl.create :user}
+    let(:project) { FactoryGirl.build :project }
+    let(:story) { FactoryGirl.build :story, project: project }
+
+    before do
+      project.users << user
+      project.save
+      story.owned_by = user
+      story.requested_by = user
+      story.save
+    end
+
+    it 'removes the story owner and requester when the user is destroyed' do
+      expect{ user.destroy }.to change{Membership.count}.by(-1)
+      story.reload
+      story.owned_by.should be_nil
+      story.requested_by.should be_nil
+    end
+  end
+
 end
