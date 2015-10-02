@@ -66,6 +66,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
     $('#in_progress').html("");
     $('#backlog').html("");
     $('#chilly_bin').html("");
+    $('#search_results').html("");
 
     this.model.rebuildIterations();
 

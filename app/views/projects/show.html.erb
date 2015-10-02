@@ -39,6 +39,14 @@ $(function() {
     new Fulcrum.ColumnVisibilityButtonView({columnView: chillyBinColumn, elementId: 'chilly_bin'}).render().el
   );
 
+  var searchResultsColumn = new Fulcrum.ColumnView({
+    id: 'search_results', name: '<%= t('.search_results') %>', el: $('td.search_results_column'),
+    sortable: true
+  }).render();
+  $('#column-toggles').append(
+    new Fulcrum.ColumnVisibilityButtonView({columnView: searchResultsColumn, elementId: 'search_results'}).render().el
+  );
+
   // FIXME Move to view
   // Connect up drag and drop behaviour
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
@@ -83,16 +91,17 @@ $(function() {
   <tbody>
     <tr>
     <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
-      <td class="done_column" style="width: 25%"></td>
-      <td class="in_progress_column" style="width: 25%"></td>
-      <td class="backlog_column" style="width: 25%"></td>
-      <td class="chilly_bin_column" style="width: 25%"></td>
+      <td class="done_column" style="width: 20%"></td>
+      <td class="in_progress_column" style="width: 20%"></td>
+      <td class="backlog_column" style="width: 20%"></td>
+      <td class="chilly_bin_column" style="width: 20%"></td>
     <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
-      <td class="chilly_bin_column" style="width: 25%"></td>
-      <td class="backlog_column" style="width: 25%"></td>
-      <td class="in_progress_column" style="width: 25%"></td>
-      <td class="done_column" style="width: 25%"></td>
+      <td class="chilly_bin_column" style="width: 20%"></td>
+      <td class="backlog_column" style="width: 20%"></td>
+      <td class="in_progress_column" style="width: 20%"></td>
+      <td class="done_column" style="width: 20%"></td>
     <% end %>
+    <td class="search_results_column" style="width: 20%; display: none;"></td>
     </tr>
   </tbody>
 </table>

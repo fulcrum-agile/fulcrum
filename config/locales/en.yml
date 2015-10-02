@@ -113,6 +113,7 @@ en:
       in_progress: "In Progress"
       backlog: "Backlog"
       icebox: "Chilly Bin"
+      search_results: "Search Results"
 
   admin:
     users:

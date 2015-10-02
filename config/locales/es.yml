@@ -37,6 +37,7 @@ es:
       in_progress: "En progreso"
       backlog: "Acumuladas"
       icebox: "Congelador"
+      search_results: "Resultados de la búsqueda"
 
   admin:
     users:

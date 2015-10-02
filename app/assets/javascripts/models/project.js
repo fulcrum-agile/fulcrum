@@ -33,7 +33,7 @@ Fulcrum.Project = Backbone.Model.extend({
   },
 
   // The ids of the columns, in the order that they appear by story weight
-  columnIds: ['#done', '#in_progress', '#backlog', '#chilly_bin'],
+  columnIds: ['#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results'],
 
   // Return an array of the columns that appear after column, or an empty
   // array if the column is the last

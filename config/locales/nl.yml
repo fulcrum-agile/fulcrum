@@ -97,6 +97,7 @@ nl:
       in_progress: "In Behandeling"
       backlog: "Backlog"
       icebox: "Ijskast"
+      search_results: "Zoekresultaten"
 
   admin:
     users:

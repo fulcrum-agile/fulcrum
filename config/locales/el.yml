@@ -318,6 +318,7 @@ el:
       in_progress: "σε εξέλιξη"
       backlog: "σε αναμονή"
       icebox: "ψυγείο"
+      search_results: "Αποτελέσματα Αναζήτησης"
 
   admin:
     users:

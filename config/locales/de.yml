@@ -100,6 +100,13 @@ de:
       in_progress: "Laufend"
       backlog: "Rückstand"
       icebox: "Kalte Kiste"
+      search_results: "Suchergebnisse"
+
+  admin:
+    users:
+      edit user: "Mitglied bearbeiten"
+      index:
+        are you sure you want to delete this user: "Sind Sie sicher, dass Sie das Mitglied löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
 
   registrations:
     edit:

@@ -22,6 +22,7 @@ Fulcrum.ColumnVisibilityButtonView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(this.options.columnView.name());
+    this.setClassName();
     return this;
   },
 

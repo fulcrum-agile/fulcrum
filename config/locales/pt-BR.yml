@@ -111,6 +111,7 @@ pt-BR:
       in_progress: "Em Progresso"
       backlog: "Backlog"
       icebox: "Chilly Bin"
+      search_results: "Resultados da Busca"
 
   admin:
     users:
