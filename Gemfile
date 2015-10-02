@@ -19,6 +19,7 @@ gem 'rails-observers', '~> 0.1.2'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 
 gem 'pg'
+gem 'pg_search'
 gem 'puma'
 gem 'sidekiq'
 gem 'sidekiq_mailer'

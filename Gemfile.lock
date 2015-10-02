@@ -160,6 +160,10 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.18.2)
+    pg_search (0.7.8)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     phantomjs (1.9.8.0)
     poltergeist (1.6.0)
       capybara (~> 2.1)
@@ -339,6 +343,7 @@ DEPENDENCIES
   letter_opener
   newrelic_rpm
   pg
+  pg_search
   poltergeist
   pry-rails
   puma
