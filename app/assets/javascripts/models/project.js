@@ -21,6 +21,10 @@ Fulcrum.Project = Backbone.Model.extend({
     this.users.url = this.url() + '/users';
     this.users.project = this;
 
+    this.search = new Fulcrum.StoryCollection();
+    this.search.url = this.url() + '/stories';
+    this.search.project = this;
+
     this.iterations = [];
   },
 

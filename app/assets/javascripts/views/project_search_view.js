@@ -31,7 +31,7 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
     $('#search_results').html("");
     $('.search_results_column').show();
 
-    this.model.stories.each(function(story) {
+    this.model.search.each(function(story) {
       that.addStory(story, '#search_results');
     });
     $(".loading_screen").hide();
@@ -40,7 +40,7 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
   doSearch: function(e) {
     e.preventDefault();
     var that = this;
-    this.model.stories.fetch({
+    this.model.search.fetch({
       data: {
         q: this.$el.find('input[type=text]').val()
       },
