@@ -52,12 +52,12 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   events: {
     "click": "startEdit",
-    "click #submit": "saveEdit",
-    "click #cancel": "cancelEdit",
+    "click .submit": "saveEdit",
+    "click .cancel": "cancelEdit",
     "click .transition": "transition",
     "click input.estimate": "estimate",
-    "click #destroy": "clear",
-    "click #edit-description": "editDescription",
+    "click .destroy": "clear",
+    "click .edit-description": "editDescription",
     "sortupdate": "sortUpdate"
   },
 
@@ -348,7 +348,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
             $(div).append(description);
             $(description).after(
               this.make('input', {
-                id: 'edit-description',
+                class: 'edit-description',
                 type: 'button',
                 value: I18n.t('edit')
               })
