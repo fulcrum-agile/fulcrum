@@ -12,6 +12,9 @@ Fulcrum.Story = Backbone.Model.extend({
   initialize: function(args) {
     _.bindAll(this, 'changeState', 'populateNotes');
 
+    this.views = [];
+    this.isSearchResult = false;
+
     this.on('change:state', this.changeState);
     this.on('change:notes', this.populateNotes);
 
@@ -106,7 +109,9 @@ Fulcrum.Story = Backbone.Model.extend({
 
   clear: function() {
     this.destroy();
-    this.view.remove();
+    _.each(this.views, function(view) {
+      view.remove();
+    });
   },
 
   estimable: function() {

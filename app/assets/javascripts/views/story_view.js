@@ -35,10 +35,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.model.on("render", this.hoverBox);
     // Supply the model with a reference to it's own view object, so it can
     // remove itself from the page when destroy() gets called.
-    this.model.view = this;
+    this.model.views.push(this);
 
     if (this.model.id) {
-      this.id = this.el.id = this.model.id;
+      this.id = this.el.id = (this.model.isSearchResult ? 'search-result-' : '') + this.model.id;
       this.$el.attr('id', 'story-' + this.id);
       this.$el.data('story-id', this.id);
     }
@@ -392,6 +392,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     ].join(' ');
     if (this.model.estimable() && !this.model.estimated()) {
       className += ' unestimated';
+    }
+    if (this.model.isSearchResult) {
+      className += ' searchResult';
     }
     this.className = this.el.className = className;
     return this;
