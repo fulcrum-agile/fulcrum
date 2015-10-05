@@ -60,6 +60,10 @@ $(function() {
   window.projectView.scaleToViewport();
   $(window).resize(projectView.scaleToViewport);
 
+  window.projectView.searchView = new Fulcrum.ProjectSearchView({
+    model: project, el: $('#form_search')
+  });
+
   setInterval(function() {
    window.projectView.model.fetch();
   }, 5000);

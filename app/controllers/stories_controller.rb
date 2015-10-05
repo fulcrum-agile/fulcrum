@@ -1,15 +1,20 @@
 class StoriesController < ApplicationController
+  SEARCH_RESULTS_LIMIT = 30
   authorize_resource
 
   include ActionView::Helpers::TextHelper
 
   def index
     @project = current_user.projects.with_stories_notes.friendly.find(params[:project_id])
-    @stories = if ENV['STORIES_CEILING']
+
+    @stories = if params[:q]
+                 @project.stories.includes(:notes).search(params[:q]).limit(SEARCH_RESULTS_LIMIT)
+               elsif ENV['STORIES_CEILING']
                  @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
                else
                  @project.stories
                end
+
     respond_to do |format|
       format.json { render :json => @stories }
       format.csv do

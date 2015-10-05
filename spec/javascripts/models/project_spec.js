@@ -420,7 +420,7 @@ describe('Project model', function() {
 
     it("should define the columns", function() {
       expect(this.project.columnIds).toEqual([
-        '#done', '#in_progress', '#backlog', '#chilly_bin'
+        '#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results'
       ]);
     });
 

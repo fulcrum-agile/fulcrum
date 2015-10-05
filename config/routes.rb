@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       get :import
       patch :import_upload
+      get :search
     end
     resources :users, only: [:index, :create, :destroy]
     resources :changesets, only: [:index]
