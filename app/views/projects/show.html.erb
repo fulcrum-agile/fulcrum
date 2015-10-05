@@ -41,7 +41,7 @@ $(function() {
 
   var searchResultsColumn = new Fulcrum.ColumnView({
     id: 'search_results', name: '<%= t('.search_results') %>', el: $('td.search_results_column'),
-    sortable: true
+    sortable: false
   }).render();
   $('#column-toggles').append(
     new Fulcrum.ColumnVisibilityButtonView({columnView: searchResultsColumn, elementId: 'search_results'}).render().el
