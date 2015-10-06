@@ -32,9 +32,12 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
     $('#search_results').html("");
     $('.search_results_column').show();
 
-    this.model.search.each(function(story) {
-      that.addStory(story, '#search_results');
+    var search_results_ids = this.model.search.pluck("id");
+    var stories = this.model.stories;
+    _.each(search_results_ids, function(id) {
+      that.addStory(stories.get(id), '#search_results');
     });
+
     $(".loading_screen").hide();
   },
 

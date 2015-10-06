@@ -8,7 +8,7 @@ class StoriesController < ApplicationController
     @project = current_user.projects.with_stories_notes.friendly.find(params[:project_id])
 
     @stories = if params[:q]
-                 @project.stories.includes(:notes).search(params[:q]).limit(SEARCH_RESULTS_LIMIT)
+                 @project.stories.search(params[:q]).limit(SEARCH_RESULTS_LIMIT)
                elsif ENV['STORIES_CEILING']
                  @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
                else
