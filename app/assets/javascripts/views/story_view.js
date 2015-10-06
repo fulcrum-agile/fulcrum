@@ -189,7 +189,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   startEdit: function(e) {
-    console.log(this.$el);
     if (this.eventShouldExpandStory(e)) {
       this.model.set({editing: true, editingDescription: false, clickFromSearchResult: this.$el.hasClass('searchResult')});
       this.removeHoverbox();
