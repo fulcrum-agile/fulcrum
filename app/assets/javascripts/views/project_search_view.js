@@ -11,10 +11,13 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
     "submit": "doSearch"
   },
 
+  addBar: function(column) {
+    var that = this;
+    var view = new Fulcrum.SearchResultsBarView({model: this.model}).render();
+    this.appendViewToColumn(view, column);
+  },
+
   addStory: function(story, column) {
-    if (_.isUndefined(story)) {
-      return;
-    }
     var view = new Fulcrum.StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
@@ -30,6 +33,8 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
 
     $('#search_results').html("");
     $('.search_results_column').show();
+
+    this.addBar('#search_results');
 
     var search_results_ids = this.model.search.pluck("id");
     var stories = this.model.stories;
@@ -51,7 +56,10 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
         that.addAll();
       },
       error: function(e) {
-        console.log('error ' + e);
+        window.projectView.notice({
+          title: 'Search Error',
+          text: e
+        });
       }
     });
   },
