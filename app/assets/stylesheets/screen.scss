@@ -206,6 +206,7 @@ table.stories {
   height: 100%;
   border-spacing: 5px 0;
   border-collapse: separate;
+  table-layout: fixed;
 }
 
 table.stories td {

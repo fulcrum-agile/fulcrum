@@ -95,17 +95,17 @@ $(function() {
   <tbody>
     <tr>
     <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
-      <td class="done_column" style="width: 20%"></td>
-      <td class="in_progress_column" style="width: 20%"></td>
-      <td class="backlog_column" style="width: 20%"></td>
-      <td class="chilly_bin_column" style="width: 20%"></td>
+      <td class="done_column"></td>
+      <td class="in_progress_column"></td>
+      <td class="backlog_column"></td>
+      <td class="chilly_bin_column"></td>
     <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
-      <td class="chilly_bin_column" style="width: 20%"></td>
-      <td class="backlog_column" style="width: 20%"></td>
-      <td class="in_progress_column" style="width: 20%"></td>
-      <td class="done_column" style="width: 20%"></td>
+      <td class="chilly_bin_column"></td>
+      <td class="backlog_column"></td>
+      <td class="in_progress_column"></td>
+      <td class="done_column"></td>
     <% end %>
-    <td class="search_results_column" style="width: 20%; display: none;"></td>
+    <td class="search_results_column" style="display: none;"></td>
     </tr>
   </tbody>
 </table>
