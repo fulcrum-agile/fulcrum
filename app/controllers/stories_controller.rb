@@ -1,5 +1,4 @@
 class StoriesController < ApplicationController
-  SEARCH_RESULTS_LIMIT = 30
   authorize_resource
 
   include ActionView::Helpers::TextHelper
@@ -8,7 +7,7 @@ class StoriesController < ApplicationController
     @project = current_user.projects.with_stories_notes.friendly.find(params[:project_id])
 
     @stories = if params[:q]
-                 @project.stories.search(params[:q]).limit(SEARCH_RESULTS_LIMIT)
+                 StorySearch.new(@project, params[:q]).search
                elsif ENV['STORIES_CEILING']
                  @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
                else

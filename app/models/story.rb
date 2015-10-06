@@ -1,9 +1,18 @@
 class Story < ActiveRecord::Base
   include PgSearch
-  pg_search_scope :search, :against => {
-    title: 'A',
-    description: 'B'
-  }, :using => { :tsearch => {:prefix => true, :negation => true, :dictionary => "portuguese"} }
+  pg_search_scope :search,
+    :against => {
+      title: 'A',
+      description: 'B'
+    },
+    :using => {
+      :tsearch => {
+        :prefix     => true,
+        :negation   => true,
+        :any_word   => true,
+        :dictionary => "portuguese"
+      }
+    }
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
