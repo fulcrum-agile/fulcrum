@@ -59,7 +59,7 @@ $(function() {
           };
           break;
         case 19: // <cmd> + s
-          $('.story.editing').find('#submit').click()
+          $('.story.editing').find('.submit').click()
         default:
           // whatever
       };
