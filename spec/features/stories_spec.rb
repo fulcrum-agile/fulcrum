@@ -74,6 +74,42 @@ describe "Stories" do
 
   end
 
+  describe "search a story" do
+    let(:story) {
+      FactoryGirl.create(:story, :title => 'Search for me', :project => project,
+                                  :requested_by => user)
+    }
+
+    before do
+      story
+    end
+
+    it 'finds the story', :js => true do
+      visit project_path(project)
+
+      # should not have any search results by default
+      page.should_not have_css('.searchResult')
+
+      # fill in the search form
+      within('#form_search') do
+        fill_in 'q', :with => 'Search'
+      end
+      page.execute_script("$('#form_search').submit()")
+
+      # should return at least one story in the result column
+      page.should have_css('.searchResult')
+
+      within(story_selector(story)) do
+        find('.story-title').trigger 'click'
+        click_on 'Delete'
+      end
+
+      # when the story is delete in the results column it should also disappear from other columns
+      page.should_not have_css(story_search_result_selector(story))
+      page.should_not have_css(story_selector(story))
+    end
+  end
+
   describe "show and hide columns" do
 
     before do
@@ -116,10 +152,33 @@ describe "Stories" do
 
       end
     end
+
+    it 'starts with hidden search results column', js: true do
+      visit project_path(project)
+
+      selector = "table.stories td.search_results_column"
+      page.should_not have_css(selector)
+
+      # Show the column
+      within('#column-toggles') do
+        click_on "Search Results"
+      end
+      page.should have_css(selector)
+
+      # Hide the column with the 'close' button in the column header
+      within("#{selector} .column_header") do
+        click_link 'Close'
+      end
+      page.should_not have_css(selector)
+    end
   end
 
   def story_selector(story)
     "#story-#{story.id}"
+  end
+
+  def story_search_result_selector(story)
+    "#story-search-result-#{story.id}"
   end
 
 end
