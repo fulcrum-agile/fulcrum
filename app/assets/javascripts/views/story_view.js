@@ -8,7 +8,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   tagName: 'div',
 
-  initialize: function() {
+  initialize: function(options) {
+    _.extend(this, _.pick(options, "isSearchResult"));
+
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
       "renderNotesCollection", "addEmptyNote", "hoverBox");
@@ -38,7 +40,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.model.views.push(this);
 
     if (this.model.id) {
-      this.id = this.el.id = (this.model.isSearchResult ? 'search-result-' : '') + this.model.id;
+      this.id = this.el.id = (this.isSearchResult ? 'search-result-' : '') + this.model.id;
       this.$el.attr('id', 'story-' + this.id);
       this.$el.data('story-id', this.id);
     }
@@ -168,14 +170,28 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     });
   },
 
+  canEdit: function() {
+    var isEditable = this.model.get('editing');
+    var isSearchResultContainer = this.$el.hasClass('searchResult');
+    var clickFromSearchResult = this.model.get('clickFromSearchResult');
+    if ( clickFromSearchResult && isSearchResultContainer ) {
+      return isEditable;
+    } else if ( !clickFromSearchResult && !isSearchResultContainer ) {
+      return isEditable;
+    } else {
+      return false;
+    }
+  },
+
   // Move the story to a new column
   moveColumn: function() {
     this.$el.appendTo(this.model.get('column'));
   },
 
   startEdit: function(e) {
+    console.log(this.$el);
     if (this.eventShouldExpandStory(e)) {
-      this.model.set({editing: true, editingDescription: false});
+      this.model.set({editing: true, editingDescription: false, clickFromSearchResult: this.$el.hasClass('searchResult')});
       this.removeHoverbox();
     }
   },
@@ -184,7 +200,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   // corresponding click event should expand the story into its form view.
   eventShouldExpandStory: function(e) {
     // Shouldn't expand if it's already expanded.
-    if (this.model.get('editing')) {
+    if (this.canEdit()) {
       return false;
     }
     // Should expand if the click wasn't on one of the buttons.
@@ -259,7 +275,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   render: function() {
-    if(this.model.get('editing') === true) {
+    if(this.canEdit()) {
 
       this.$el.empty();
       this.$el.addClass('editing');
@@ -393,7 +409,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     if (this.model.estimable() && !this.model.estimated()) {
       className += ' unestimated';
     }
-    if (this.model.isSearchResult) {
+    if (this.isSearchResult) {
       className += ' searchResult';
     }
     this.className = this.el.className = className;

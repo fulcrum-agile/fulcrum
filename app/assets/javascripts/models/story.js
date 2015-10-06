@@ -13,7 +13,7 @@ Fulcrum.Story = Backbone.Model.extend({
     _.bindAll(this, 'changeState', 'populateNotes');
 
     this.views = [];
-    this.isSearchResult = false;
+    this.clickFromSearchResult = false;
 
     this.on('change:state', this.changeState);
     this.on('change:notes', this.populateNotes);

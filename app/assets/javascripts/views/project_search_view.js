@@ -15,8 +15,7 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
     if (_.isUndefined(story)) {
       return;
     }
-    story.isSearchResult = true;
-    var view = new Fulcrum.StoryView({model: story}).render();
+    var view = new Fulcrum.StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
   },
