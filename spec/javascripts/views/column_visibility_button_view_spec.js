@@ -3,6 +3,7 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
   beforeEach(function() {
     this.columnView = {
       name: sinon.stub().returns('Dummy'),
+      hidden: sinon.stub().returns(false),
       on: sinon.stub()
     };
     Fulcrum.ColumnVisibilityButtonView.prototype.template = sinon.stub();

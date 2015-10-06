@@ -171,9 +171,13 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   },
 
   canEdit: function() {
-    var isEditable = this.model.get('editing');
+    var isEditable              = this.model.get('editing');
     var isSearchResultContainer = this.$el.hasClass('searchResult');
-    var clickFromSearchResult = this.model.get('clickFromSearchResult');
+    var clickFromSearchResult   = this.model.get('clickFromSearchResult');
+    if (_.isUndefined(isEditable))
+      isEditable = false;
+    if (_.isUndefined(clickFromSearchResult))
+      clickFromSearchResult = false;
     if ( clickFromSearchResult && isSearchResultContainer ) {
       return isEditable;
     } else if ( !clickFromSearchResult && !isSearchResultContainer ) {

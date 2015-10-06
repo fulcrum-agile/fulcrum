@@ -426,13 +426,13 @@ describe('Project model', function() {
 
     it("should return the columns after a given column", function() {
       expect(this.project.columnsAfter('#done')).toEqual([
-        '#in_progress', '#backlog', '#chilly_bin'
+        '#in_progress', '#backlog', '#chilly_bin', '#search_results'
       ]);
       expect(this.project.columnsAfter('#in_progress')).toEqual([
-        '#backlog', '#chilly_bin'
+        '#backlog', '#chilly_bin', '#search_results'
       ]);
-      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin']);
-      expect(this.project.columnsAfter('#chilly_bin')).toEqual([]);
+      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin', '#search_results']);
+      expect(this.project.columnsAfter('#chilly_bin')).toEqual(['#search_results']);
 
       var project = this.project;
       expect(function() {project.columnsAfter('#foobar');}).toThrow(

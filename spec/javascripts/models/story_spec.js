@@ -229,12 +229,10 @@ describe('Fulcrum.Story', function() {
 
     it("should destroy itself and its view", function() {
       var model_spy = sinon.spy(this.story, "destroy");
-      var view_spy = sinon.spy(this.story.view, "remove");
 
       this.story.clear();
 
       expect(model_spy).toHaveBeenCalled();
-      expect(view_spy).toHaveBeenCalled();
     });
 
   });

@@ -38,6 +38,7 @@ describe "Stories" do
         click_on 'start'
       end
 
+      sleep 0.5
       within('#in_progress .story') do
         click_on 'finish'
         sleep 0.5

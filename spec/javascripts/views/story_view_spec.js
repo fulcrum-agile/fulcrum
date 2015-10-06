@@ -34,9 +34,12 @@ describe('Fulcrum.StoryView', function() {
       start: function() {},
       humanAttributeName: sinon.stub(),
       setAcceptedAt: sinon.spy(),
-      errorMessages: sinon.stub()
+      errorMessages: sinon.stub(),
+      views: [],
+      clickFromSearchResult: false,
+      isSearchResult: false,
     });
-    this.story = new Story({id: 999, title: 'Story'});
+    this.story = new Story({id: '999', title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
     this.story.notes = this.new_story.notes = new NotesCollection();
     Fulcrum.StoryView.prototype.template = sinon.stub();
@@ -109,7 +112,7 @@ describe('Fulcrum.StoryView', function() {
       it('sets the model attributes correctly', function() {
         this.view.startEdit(this.e);
         expect(this.view.model.set).toHaveBeenCalledWith({
-          editing: true, editingDescription: false
+          editing: true, editingDescription: false, clickFromSearchResult: false
         });
       });
 
@@ -460,10 +463,11 @@ describe('Fulcrum.StoryView', function() {
 
     it("is text area when story is new", function() {
       this.view.model.isNew = sinon.stub().returns(true);
+      this.view.canEdit = sinon.stub().returns(true)
       this.view.render();
       expect(this.view.$('textarea[name="description"]').length).toEqual(1);
       expect(this.view.$('div.description').length).toEqual(0);
-      expect(this.view.$('input#edit-description').length).toEqual(0);
+      expect(this.view.$('input.edit-description').length).toEqual(0);
     });
 
     it("isn't text area when story isn't new", function() {
@@ -471,10 +475,10 @@ describe('Fulcrum.StoryView', function() {
       this.view.render();
       expect(this.view.$('textarea[name="description"]').length).toEqual(0);
       expect(this.view.$('div.description').length).toEqual(1);
-      expect(this.view.$('input#edit-description').length).toEqual(1);
+      expect(this.view.$('input.edit-description').length).toEqual(1);
     });
 
-    it('is a text area after #edit-description is clicked', function() {
+    it('is a text area after .edit-description is clicked', function() {
       this.view.model.isNew = sinon.stub().returns(false);
       this.view.editDescription();
       expect(this.view.model.get('editingDescription')).toBeTruthy();
