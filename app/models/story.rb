@@ -12,7 +12,8 @@ class Story < ActiveRecord::Base
         :any_word   => true,
         :dictionary => "portuguese"
       }
-    }
+    },
+    :ignoring => :accents
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
