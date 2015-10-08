@@ -29,6 +29,7 @@
 
 $(function() {
   return executeAttachinary();
+  $('.tag-tooltip').tooltip();
 });
 
 function executeAttachinary() {
