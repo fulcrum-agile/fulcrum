@@ -228,6 +228,16 @@ div.storycolumn {
   padding: 0.2em 0.2em 0.2em 1em;
   text-transform:capitalize;
   @include border-radius(5px 5px 0 0);
+  a.toggle-title{
+    color: white;
+    text-decoration: none;
+    &:visited{
+      color: white;
+    }
+    &:hover{
+      text-decoration: underline;
+    }
+  }
   a.toggle-column{
     color: #eee;
     text-decoration: none;
