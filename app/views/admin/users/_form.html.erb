@@ -17,6 +17,11 @@
     <div class="col-sm-10"><%= f.text_field :initials %></div>
   </div>
 
+  <div class="field-wrapper">
+    <%= f.label :is_admin, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.check_box :is_admin %></div>
+  </div>
+
   <div class="actions">
     <%= f.submit nil, class: 'btn btn-primary pull-right' %>
   </div>
