@@ -27,7 +27,6 @@ Fulcrum.ColumnView = Backbone.View.extend({
 
   toggleAll: function() {
     var stories = this.$el.children('.storycolumn').children('.story');
-    console.log(stories.length);
     _.each(stories, function(item) {
       $(item).toggle();
     });
