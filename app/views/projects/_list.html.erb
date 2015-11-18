@@ -1,0 +1,45 @@
+<div id="projects" class="projects-list">
+  <div class="row item">
+  <% projects.each do |project| %>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <div class="panel-title pull-left item-title-wrapper">
+            <h4 class="item-title">
+              <%= link_to truncate(project.name, length: 18), project, class: 'tag-tooltip',
+                data: {toggle: "tooltip"}, title: project.name %> (<%= project.stories_count %>)
+            </h4>
+          </div>
+
+          <div class="project_options btn-group pull-right">
+            <% if can? :update, project %>
+              <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
+            <% end %>
+
+            <% if can? :update, User %>
+              <%= link_to "#{User.model_name.human(count: 2)} (#{project.memberships_count})", project_users_path(project), class: 'btn btn-default btn-sm' %>
+            <% end %>
+
+            <% if can? :destroy, project %>
+              <%= link_to t('delete'), project,
+                data: {confirm: t('projects.index.are you sure you want to delete this project')},
+                method: :delete,
+                class: 'btn btn-danger btn-sm' %>
+            <% end %>
+          </div>
+        </div>
+        <div class="panel-body">
+          <span class="item-since">
+            <span class="badge">
+              <%= l project.start_date, format: :long %>
+            </span>
+          </span>
+          <%= t('projects.index.the iteration starts on x with length of x weeks',
+            day: t('date.day_names')[project.iteration_start_day],
+            count: project.iteration_length) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

@@ -97,6 +97,7 @@ en:
     new project:        "New Project"
     edit project:       "Edit Project"
     project properties: "Project Properties"
+    archived projects:  "Archived Projects"
 
     project was successfully created: "Project was successfully created."
     project was successfully updated: "Project was successfully updated."

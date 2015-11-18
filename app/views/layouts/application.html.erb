@@ -35,6 +35,8 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
+            <li><%= link_to t('projects.archived projects'), projects_archived_path %></li>
+            <li role="separator" class="divider"></li>
             <%- current_user.projects.each do |project| -%>
               <li><%= link_to project, project %></li>
             <%- end -%>

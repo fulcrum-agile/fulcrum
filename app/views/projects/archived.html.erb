@@ -1,0 +1,5 @@
+<% content_for :title_bar do %>
+  <h1><%= t('projects.archived projects') %></h1>
+<% end %>
+
+<%= render 'list', projects: @archived_projects %>

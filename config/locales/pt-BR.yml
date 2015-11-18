@@ -95,6 +95,7 @@ pt-BR:
     new project:        "Novo Projeto"
     edit project:       "Editar Projeto"
     project properties: "Propriedades do Projeto"
+    archived projects:  "Projetos Arquivados"
 
     project was successfully created: "Projeto criado com sucesso."
     project was successfully updated: "Projeto atualizado com sucesso."

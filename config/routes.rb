@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get 'story/new'
   get 'locales' => 'application#locales'
+  get 'projects/archived' => 'projects#archived'
 
   resources :projects do
     member do

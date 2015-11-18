@@ -147,6 +147,10 @@ class ProjectsController < ApplicationController
     redirect_to [:import, @project]
   end
 
+  def archived
+    @archived_projects = Project.archived
+  end
+
   protected
 
   def allowed_params

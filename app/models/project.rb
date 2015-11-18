@@ -93,6 +93,7 @@ class Project < ActiveRecord::Base
 
   scope :with_stories_notes, -> { includes(stories: :notes) }
   scope :not_archived, -> { where(archived_at: nil) }
+  scope :archived, -> { where.not(archived_at: nil) }
 
   has_attachment :import, accept: [:raw]
 
