@@ -24,10 +24,6 @@ Rails.application.configure do
     address: ENV['MAIL_SMTP_HOST'],
     port: ENV['MAIL_SMTP_PORT']
   }
- 
-  config.action_mailer.default_url_options = {
-    host: ENV['APP_HOST']
-  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
