@@ -200,4 +200,19 @@ describe Project do
     end
   end
 
+  describe '.archived' do
+    let(:normal_project) { FactoryGirl.create :project }
+    let(:archived_project) { FactoryGirl.create :project,
+      archived_at: Time.current }
+    subject { described_class.archived }
+
+    it 'includes archived projects' do
+      expect(subject).to include archived_project
+    end
+
+    it 'excludes non-archived projects' do
+      expect(subject).not_to include normal_project
+    end
+  end
+
 end

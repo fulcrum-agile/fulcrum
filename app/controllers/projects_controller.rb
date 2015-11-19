@@ -148,7 +148,7 @@ class ProjectsController < ApplicationController
   end
 
   def archived
-    @archived_projects = Project.archived
+    @projects = Project.archived
   end
 
   protected

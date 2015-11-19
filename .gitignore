@@ -10,4 +10,3 @@ tmp/
 config/deploy.rb
 *.swp
 .env
-dump.rdb

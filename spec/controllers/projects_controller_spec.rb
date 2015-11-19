@@ -96,6 +96,23 @@ describe ProjectsController do
 
       end
 
+      describe "#archived" do
+        let(:archived_project) { FactoryGirl.create :project,
+          archived_at: Time.current }
+        
+        before do
+          get :archived
+        end
+
+        it "returns success" do
+          expect(response).to be_success
+        end
+
+        it "assigns projects" do
+          expect(assigns[:projects]).to include archived_project
+        end
+      end
+
     end
 
     describe "member actions" do

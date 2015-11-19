@@ -2,6 +2,10 @@
   <h1><%= t('.listing projects') %></h1>
 <% end %>
 
-<%= render "list", projects: @projects %>
+<div id="projects" class="projects-list">
+  <div class="row item">
+    <%= render @projects %>
+  </div>
+</div>
 
 <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
