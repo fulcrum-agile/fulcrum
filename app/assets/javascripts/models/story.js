@@ -127,6 +127,11 @@ Fulcrum.Story = Backbone.Model.extend({
     return !(_.isUndefined(estimate) || _.isNull(estimate));
   },
 
+  notEstimable: function () {
+    var storyType = this.get('story_type');
+    return (storyType !== 'feature' && storyType !== 'release');
+  },
+
   point_values: function() {
     return this.collection.project.get('point_values');
   },

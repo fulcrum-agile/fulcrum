@@ -25,6 +25,7 @@ describe('Fulcrum.StoryView', function() {
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true; },
       estimated: function() { return false; },
+      notEstimable: function () { return true },
       point_values: function() { return [0,1,2]; },
       hasErrors: function() { return false; },
       errorsOn: function() { return false; },
@@ -554,6 +555,16 @@ describe('Fulcrum.StoryView', function() {
         expect(this.appendSpy).toHaveBeenCalledWith(this.content.control);
       });
 
+    });
+  });
+
+  describe('disableEstimate', function () {
+    it('disables estimate field when story is not estimable', function () {
+      this.view.model.notEstimable = sinon.stub().returns(true);
+      this.view.canEdit = sinon.stub().returns(true);
+      this.view.render();
+
+      expect(this.view.$('.story_estimate')).toBeDisabled();
     });
   });
 });

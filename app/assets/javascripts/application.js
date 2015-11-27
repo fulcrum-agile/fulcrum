@@ -28,8 +28,8 @@
 //= require_tree .
 
 $(function() {
-  return executeAttachinary();
   $('.tag-tooltip').tooltip();
+  return executeAttachinary();
 });
 
 function executeAttachinary() {

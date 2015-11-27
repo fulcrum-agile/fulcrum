@@ -168,6 +168,26 @@ describe('Fulcrum.Story', function() {
 
   });
 
+  describe('notEstimable', function () {
+    it('should not be estimable when story type is bug', function () {
+      this.story.set({story_type: 'bug'});
+
+      expect(this.story.notEstimable()).toBeTruthy();
+    });
+
+    it('should not be estimable when story type is chore', function () {
+      this.story.set({story_type: 'chore'});
+
+      expect(this.story.notEstimable()).toBeTruthy();
+    });
+
+    it('should be estimable when story type is feature or release', function () {
+      this.story.set({story_type: 'feature'});
+
+      expect(this.story.notEstimable()).toBeFalsy();
+    });
+  });
+
   describe('point_values', function() {
 
     it('should known about its valid points values', function() {

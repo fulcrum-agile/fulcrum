@@ -62,13 +62,19 @@ Fulcrum.FormView = Backbone.View.extend({
   },
 
   select: function(name, select_options, options) {
-    var select = this.make('select', {name: name, class: 'form-control'});
-    var view = this;
-    var model = this.model;
-
     if (typeof options == 'undefined') {
       options = {};
     }
+
+    options = _.defaults(options, { attrs: { class: [] } });
+
+    options.attrs.class = 'form-control ' +options.attrs.class.join(' ');
+
+    var select = this.make('select', _.extend({name: name}, options.attrs));
+
+    var view = this;
+    var model = this.model;
+
 
     if (options.blank) {
       $(select).append(this.make('option', {value: ''}, options.blank));

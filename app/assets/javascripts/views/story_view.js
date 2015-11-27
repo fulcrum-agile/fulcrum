@@ -58,6 +58,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click .cancel": "cancelEdit",
     "click .transition": "transition",
     "click input.estimate": "estimate",
+    "change select.story_type": "disableEstimate",
     "click .destroy": "clear",
     "click .edit-description": "editDescription",
     "sortupdate": "sortUpdate"
@@ -168,6 +169,17 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         that.render();
       }
     });
+  },
+
+  disableEstimate: function () {
+    var $storyEstimate = this.$el.find('.story_estimate');
+
+    if (this.model.notEstimable()) {
+      this.model.set({estimate: null});
+      $storyEstimate.attr('disabled', 'disabled');
+    } else {
+      $storyEstimate.removeAttr('disabled');
+    }
   },
 
   canEdit: function() {
@@ -310,12 +322,23 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           $(div).append(this.makeFormControl({
             name: 'estimate',
             label: true,
-            control: this.select("estimate", this.model.point_values(), {blank: 'No estimate'})
+            control: this.select("estimate", this.model.point_values(), {
+              blank: 'No estimate',
+              attrs: {
+                class: ['story_estimate'],
+                disabled: this.model.notEstimable()
+              }
+            })
           }));
           $(div).append(this.makeFormControl({
             name: "story_type",
             label: true,
-            control: this.select("story_type", ["feature", "chore", "bug", "release"])
+            disabled: true,
+            control: this.select("story_type", ["feature", "chore", "bug", "release"], {
+              attrs: {
+                class: ['story_type']
+              }
+            })
           }));
           $(div).append(this.makeFormControl({
             name: "state",
