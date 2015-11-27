@@ -57,11 +57,29 @@ describe Story do
     end
 
     describe '#estimate' do
+      before do
+        subject.project.users = [ subject.requested_by ]
+      end
+
       it "must be valid for the project point scale" do
         subject.project.point_scale = 'fibonacci'
         subject.estimate = 4 # not in the fibonacci series
         subject.valid?
         expect(subject.errors[:estimate].size).to eq(1)
+      end
+
+      it "must be invalid for bug stories" do
+        subject.story_type = 'bug'
+        subject.estimate = 2
+
+        expect(subject).to_not be_valid
+      end
+
+      it "must be invalid for chore stories" do
+        subject.story_type = 'chore'
+        subject.estimate = 1
+
+        expect(subject).to_not be_valid
       end
     end
 

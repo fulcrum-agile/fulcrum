@@ -35,6 +35,7 @@ class Story < ActiveRecord::Base
   validates_presence_of :project
 
   validates :title, :presence => true
+  validate :bug_chore_estimation
 
   belongs_to :requested_by, :class_name => 'User'
   validates :requested_by_id, :belongs_to_project => true
@@ -236,6 +237,12 @@ class Story < ActiveRecord::Base
       if owned_by.present?
         self.owned_by_name     = owned_by.name
         self.owned_by_initials = owned_by.initials
+      end
+    end
+
+    def bug_chore_estimation
+      if story_type != 'feature' && story_type != 'release' && estimated?
+        errors.add(:estimate, "Bug or Chore stories can't be estimated")
       end
     end
 end
