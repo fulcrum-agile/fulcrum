@@ -88,6 +88,11 @@ class Story < ActiveRecord::Base
   STORY_TYPES = [
     'feature', 'chore', 'bug', 'release'
   ]
+
+  ESTIMABLE_TYPES = [
+    'feature', 'release'
+  ]
+
   validates :story_type, :inclusion => STORY_TYPES
 
   validates :estimate, :estimate => true, :allow_nil => true
@@ -241,8 +246,8 @@ class Story < ActiveRecord::Base
     end
 
     def bug_chore_estimation
-      if story_type != 'feature' && story_type != 'release' && estimated?
-        errors.add(:estimate, "Bug or Chore stories can't be estimated")
+      if !ESTIMABLE_TYPES.include?(story_type) && estimated?
+        errors.add(:estimate, :cant_estimate)
       end
     end
 end

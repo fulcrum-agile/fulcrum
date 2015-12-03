@@ -55,7 +55,7 @@ en:
     toggle_my_work: Toggle my work
     toggle_labels_searches: Toggle labels &amp; searches
     toggle_current: Toggle current
-  
+
   activerecord:
     models:
       user:
@@ -92,6 +92,13 @@ en:
         requested_by:         'Requested by'
         owned_by:             'Owned by'
         documents:            'Attachments'
+
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug or Chore stories can't be estimated"
 
   projects:
     new project:        "New Project"

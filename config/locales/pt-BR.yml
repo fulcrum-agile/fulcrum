@@ -90,6 +90,12 @@ pt-BR:
         owned_by:             'Pertence à'
         documents:            'Anexos'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Histórias do tipo bug ou chore não podem ser estimadas"
 
   projects:
     new project:        "Novo Projeto"
