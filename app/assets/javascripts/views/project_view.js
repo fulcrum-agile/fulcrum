@@ -33,6 +33,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
     if (_.isUndefined(column) || !_.isString(column)) {
       column = story.column;
     }
+
     var view = new Fulcrum.StoryView({model: story}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
