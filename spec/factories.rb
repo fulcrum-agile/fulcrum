@@ -7,7 +7,7 @@ FactoryGirl.define do
     u.sequence(:email) {|n| "user#{n}@example.com"}
     u.password 'password'
     u.password_confirmation 'password'
-    u.after(:build) {|user| user.confirm!}
+    u.after(:build) {|user| user.confirm }
   end
 
   factory :unconfirmed_user, :class => User do |u|

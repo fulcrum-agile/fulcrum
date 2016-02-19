@@ -18,6 +18,6 @@ namespace :fulcrum do
       :email => args.email, :name => args.name, :initials => args.initials,
       :password => args.password, :password_confirmation => args.password
     )
-    user.confirm!
+    user.confirm
   end
 end
