@@ -5,7 +5,7 @@ describe "Notes" do
   before(:each) do
     # FIXME - Having to set this really high for the 'adds a note to a story
     # spec'.  Need to work on making it more responsive.
-    Capybara.default_wait_time = 10
+    Capybara.default_max_wait_time = 10
     sign_in user
   end
 

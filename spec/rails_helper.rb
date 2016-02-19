@@ -29,11 +29,6 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-# Fix for Rails 4.1.14.x https://github.com/rspec/rspec-rails/issues/1532#issuecomment-174679485
-RSpec::Rails::ViewRendering::EmptyTemplatePathSetDecorator.class_eval do  
-  alias_method :find_all_anywhere, :find_all
-end
-
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
