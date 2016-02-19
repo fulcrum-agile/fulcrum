@@ -41,6 +41,7 @@ describe StoriesController do
         projects.stub_chain(:with_stories_notes, :friendly, :find).with(
           project.id.to_s
         ) { project }
+        stories.stub_chain(:order, :limit) { stories }
       end
 
       specify do
