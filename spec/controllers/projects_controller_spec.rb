@@ -6,13 +6,13 @@ describe ProjectsController do
     %W[index new create].each do |action|
       specify do
         get action
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
     %W[show edit update destroy].each do |action|
       specify do
         get action, :id => 42
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -26,9 +26,9 @@ describe ProjectsController do
 
     before do
       sign_in user
-      subject.stub(:current_user => user)
-      user.stub(:projects => projects)
-      user.stub_chain(:projects, :not_archived) { projects }
+      allow(subject).to receive_messages(:current_user => user)
+      allow(user).to receive_messages(:projects => projects)
+      allow(user).to receive_message_chain(:projects, :not_archived) { projects }
     end
 
     describe "collection actions" do
@@ -37,8 +37,8 @@ describe ProjectsController do
 
         specify do
           get :index
-          response.should be_success
-          assigns[:projects].should == projects
+          expect(response).to be_success
+          expect(assigns[:projects]).to eq(projects)
         end
 
       end
@@ -47,8 +47,8 @@ describe ProjectsController do
 
         specify do
           get :new
-          response.should be_success
-          assigns[:project].should be_new_record
+          expect(response).to be_success
+          expect(assigns[:project]).to be_new_record
         end
 
       end
@@ -59,23 +59,23 @@ describe ProjectsController do
         let(:users)   { double("users") }
 
         before do
-          projects.stub(:build).with({}) { project }
-          project.stub(:users => users)
-          users.should_receive(:<<).with(user)
-          project.stub(:save => true)
+          allow(projects).to receive(:build).with({}) { project }
+          allow(project).to receive_messages(:users => users)
+          expect(users).to receive(:<<).with(user)
+          allow(project).to receive_messages(:save => true)
         end
 
         specify do
           post :create, :project => {}
-          assigns[:project].should == project
+          expect(assigns[:project]).to eq(project)
         end
 
         context "when save succeeds" do
 
           specify do
             post :create, :project => {}
-            response.should redirect_to(project_url(project))
-            flash[:notice].should == 'Project was successfully created.'
+            expect(response).to redirect_to(project_url(project))
+            expect(flash[:notice]).to eq('Project was successfully created.')
           end
 
         end
@@ -83,13 +83,13 @@ describe ProjectsController do
         context "when save fails" do
 
           before do
-            project.stub(:save => false)
+            allow(project).to receive_messages(:save => false)
           end
 
           specify do
             post :create, :project => {}
-            response.should be_success
-            response.should render_template('new')
+            expect(response).to be_success
+            expect(response).to render_template('new')
           end
 
         end
@@ -121,9 +121,9 @@ describe ProjectsController do
       let(:story)   { mock_model(Story) }
 
       before do
-        projects.stub_chain(:friendly, :find).with(project.id.to_s) { project }
-        project.stub_chain(:stories, :build) { story }
-        project.stub(:"import=").and_return(nil)
+        allow(projects).to receive_message_chain(:friendly, :find).with(project.id.to_s) { project }
+        allow(project).to receive_message_chain(:stories, :build) { story }
+        allow(project).to receive(:"import=").and_return(nil)
       end
 
       describe "#show" do
@@ -132,9 +132,9 @@ describe ProjectsController do
 
           specify do
             get :show, :id => project.id
-            response.should be_success
-            assigns[:project].should == project
-            assigns[:story].should == story
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(assigns[:story]).to eq(story)
           end
 
         end
@@ -143,9 +143,9 @@ describe ProjectsController do
 
           specify do
             xhr :get, :show, :id => project.id
-            response.should be_success
-            assigns[:project].should == project
-            assigns[:story].should == story
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(assigns[:story]).to eq(story)
           end
 
         end
@@ -157,14 +157,14 @@ describe ProjectsController do
         let(:users) { double("users") }
 
         before do
-          project.stub(:users => users)
-          users.should_receive(:build)
+          allow(project).to receive_messages(:users => users)
+          expect(users).to receive(:build)
         end
 
         specify do
           get :edit, :id => project.id
-          response.should be_success
-          assigns[:project].should == project
+          expect(response).to be_success
+          expect(assigns[:project]).to eq(project)
         end
 
       end
@@ -172,19 +172,19 @@ describe ProjectsController do
       describe "#update" do
 
         before do
-          project.stub(:update_attributes).with({}) { true }
+          allow(project).to receive(:update_attributes).with({}) { true }
         end
 
         specify do
           put :update, :id => project.id, :project => {}
-          assigns[:project].should == project
+          expect(assigns[:project]).to eq(project)
         end
 
         context "when update succeeds" do
 
           specify do
             put :update, :id => project.id, :project => {}
-            response.should redirect_to(project_url(project))
+            expect(response).to redirect_to(project_url(project))
           end
 
         end
@@ -192,13 +192,13 @@ describe ProjectsController do
         context "when update fails" do
 
           before do
-            project.stub(:update_attributes).with({}) { false }
+            allow(project).to receive(:update_attributes).with({}) { false }
           end
 
           specify do
             put :update, :id => project.id, :project => {}
-            response.should be_success
-            response.should render_template('edit')
+            expect(response).to be_success
+            expect(response).to render_template('edit')
           end
 
         end
@@ -208,12 +208,12 @@ describe ProjectsController do
       describe "#destroy" do
 
         before do
-          project.should_receive(:destroy)
+          expect(project).to receive(:destroy)
         end
 
         specify do
           delete :destroy, :id => project.id
-          response.should redirect_to(projects_url)
+          expect(response).to redirect_to(projects_url)
         end
 
       end
@@ -222,9 +222,9 @@ describe ProjectsController do
         context "when no job is running" do
           specify do
             get :import, :id => project.id
-            response.should be_success
-            assigns[:project].should == project
-            response.should render_template('import')
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(response).to render_template('import')
           end
         end
 
@@ -237,9 +237,9 @@ describe ProjectsController do
 
             specify do
               get :import, :id => project.id
-              assigns[:valid_stories].should be_nil
-              session[:import_job].should_not be_nil
-              response.should render_template('import')
+              expect(assigns[:valid_stories]).to be_nil
+              expect(session[:import_job]).not_to be_nil
+              expect(response).to render_template('import')
             end
           end
 
@@ -250,9 +250,9 @@ describe ProjectsController do
 
             specify do
               get :import, :id => project.id
-              assigns[:valid_stories].should be_nil
-              session[:import_job].should be_nil
-              response.should render_template('import')
+              expect(assigns[:valid_stories]).to be_nil
+              expect(session[:import_job]).to be_nil
+              expect(response).to render_template('import')
             end
           end
 
@@ -260,14 +260,14 @@ describe ProjectsController do
             let(:error) { "Bad CSV!" }
             before do
               session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
-              Rails.cache.should_receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
+              expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
             end
             specify do
               get :import, :id => project.id
-              assigns[:valid_stories].should be_nil
-              flash[:alert].should == "Unable to import CSV: Bad CSV!"
-              session[:import_job].should be_nil
-              response.should render_template('import')
+              expect(assigns[:valid_stories]).to be_nil
+              expect(flash[:alert]).to eq("Unable to import CSV: Bad CSV!")
+              expect(session[:import_job]).to be_nil
+              expect(response).to render_template('import')
             end
           end
 
@@ -275,18 +275,18 @@ describe ProjectsController do
             let(:valid_story) { mock_model(Story, :valid? => true) }
             let(:invalid_story) { { title: 'hello', errors: 'bad cookie'} }
             before do
-              project.should_receive(:stories).and_return([valid_story])
+              expect(project).to receive(:stories).and_return([valid_story])
               session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
-              Rails.cache.should_receive(:read).with('foo').and_return({ invalid_stories: [invalid_story], errors: nil })
+              expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [invalid_story], errors: nil })
             end
 
             specify do
               get :import, :id => project.id
-              assigns[:valid_stories].should == [valid_story]
-              assigns[:invalid_stories].should == [invalid_story]
-              flash[:notice].should == "Imported 1 story"
-              session[:import_job].should be_nil
-              response.should render_template('import')
+              expect(assigns[:valid_stories]).to eq([valid_story])
+              expect(assigns[:invalid_stories]).to eq([invalid_story])
+              expect(flash[:notice]).to eq("Imported 1 story")
+              expect(session[:import_job]).to be_nil
+              expect(response).to render_template('import')
             end
           end
         end
@@ -296,8 +296,8 @@ describe ProjectsController do
         context "when csv file is missing" do
           specify do
             put :import_upload, :id => project.id, :project => { :import => "" }
-            response.should redirect_to(import_project_path(project.id))
-            flash[:alert].should == "You must select a file for import"
+            expect(response).to redirect_to(import_project_path(project.id))
+            expect(flash[:alert]).to eq("You must select a file for import")
           end
         end
 
@@ -312,10 +312,10 @@ describe ProjectsController do
           end
 
           specify do
-            ImportWorker.should_receive(:perform_async)
+            expect(ImportWorker).to receive(:perform_async)
             put :import_upload, :id => project.id, :project => { :import => csv }
-            flash[:notice].should == "Your upload is being processed."
-            response.should redirect_to(import_project_path(project.id))
+            expect(flash[:notice]).to eq("Your upload is being processed.")
+            expect(response).to redirect_to(import_project_path(project.id))
           end
 
         end

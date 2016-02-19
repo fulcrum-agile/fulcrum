@@ -35,7 +35,7 @@ describe User do
     end
 
     specify {
-      subject.as_json['user'].keys.sort.should == %w[email id initials name]
+      expect(subject.as_json['user'].keys.sort).to eq(%w[email id initials name])
     }
 
   end
@@ -56,8 +56,8 @@ describe User do
     it 'removes the story owner and requester when the user is destroyed' do
       expect{ user.destroy }.to change{Membership.count}.by(-1)
       story.reload
-      story.owned_by.should be_nil
-      story.requested_by.should be_nil
+      expect(story.owned_by).to be_nil
+      expect(story.requested_by).to be_nil
     end
   end
 

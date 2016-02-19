@@ -6,13 +6,13 @@ describe Admin::UsersController do
     %W[index].each do |action|
       specify do
         get action
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
     %W[edit update destroy].each do |action|
       specify do
         get action, :id => 42
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
@@ -31,8 +31,8 @@ describe Admin::UsersController do
 
         specify do
           get :index
-          response.should be_success
-          assigns[:users].should == User.all
+          expect(response).to be_success
+          expect(assigns[:users]).to eq(User.all)
         end
 
       end
@@ -45,8 +45,8 @@ describe Admin::UsersController do
 
         specify do
           get :edit, :id => user.id
-          response.should be_success
-          assigns[:user].should == user
+          expect(response).to be_success
+          expect(assigns[:user]).to eq(user)
         end
 
       end
@@ -54,19 +54,19 @@ describe Admin::UsersController do
       describe "#update" do
 
         before do
-          user.stub(:update_attributes).with({}) { true }
+          allow(user).to receive(:update_attributes).with({}) { true }
         end
 
         specify do
           put :update, :id => user.id, :user => {}
-          assigns[:user].should == user
+          expect(assigns[:user]).to eq(user)
         end
 
         context "when update succeeds" do
 
           specify do
             put :update, :id => user.id, :user => {}
-            response.should redirect_to(admin_users_path)
+            expect(response).to redirect_to(admin_users_path)
           end
 
         end
@@ -74,12 +74,12 @@ describe Admin::UsersController do
         context "when update fails" do
 
           before do
-            user.stub(:update_attributes).with({}) { false }
+            allow(user).to receive(:update_attributes).with({}) { false }
           end
 
           specify do
             put :update, :id => user.id, :user => {}
-            response.should redirect_to(admin_users_path)
+            expect(response).to redirect_to(admin_users_path)
           end
 
         end
@@ -90,7 +90,7 @@ describe Admin::UsersController do
 
         specify do
           expect { delete :destroy, :id => user.id }.to change{User.count}.by(-1)
-          response.should redirect_to(admin_users_path)
+          expect(response).to redirect_to(admin_users_path)
         end
 
       end

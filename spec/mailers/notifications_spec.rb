@@ -20,9 +20,9 @@ describe Notifications do
     its(:to)      { [requested_by.email] }
     its(:from)    { [delivered_by.email] }
 
-    specify { subject.body.encoded.should match("Deliverer has delivered your story 'Test story'.") }
-    specify { subject.body.encoded.should match("You can now review the story, and either accept or reject it.") }
-    specify { subject.body.encoded.should match(project_url(project)) }
+    specify { expect(subject.body.encoded).to match("Deliverer has delivered your story 'Test story'.") }
+    specify { expect(subject.body.encoded).to match("You can now review the story, and either accept or reject it.") }
+    specify { expect(subject.body.encoded).to match(project_url(project)) }
 
   end
 
@@ -36,8 +36,8 @@ describe Notifications do
     its(:to)      { [owned_by.email] }
     its(:from)    { [accepted_by.email] }
 
-    specify { subject.body.encoded.should match("Accepter has accepted the story 'Test story'.") }
-    specify { subject.body.encoded.should match(project_url(project)) }
+    specify { expect(subject.body.encoded).to match("Accepter has accepted the story 'Test story'.") }
+    specify { expect(subject.body.encoded).to match(project_url(project)) }
 
   end
 
@@ -51,8 +51,8 @@ describe Notifications do
     its(:to)      { [owned_by.email] }
     its(:from)    { [rejected_by.email] }
 
-    specify { subject.body.encoded.should match("Rejecter has rejected the story 'Test story'.") }
-    specify { subject.body.encoded.should match(project_url(project)) }
+    specify { expect(subject.body.encoded).to match("Rejecter has rejected the story 'Test story'.") }
+    specify { expect(subject.body.encoded).to match(project_url(project)) }
 
   end
 
@@ -68,6 +68,6 @@ describe Notifications do
     its(:to)      { ['foo@example.com'] }
     its(:from)    { [user.email] }
 
-    specify { subject.body.encoded.should match("Note User added the following comment to the story") }
+    specify { expect(subject.body.encoded).to match("Note User added the following comment to the story") }
   end
 end

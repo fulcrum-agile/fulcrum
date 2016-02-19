@@ -47,7 +47,7 @@ describe "Stories" do
         click_on 'accept'
       end
 
-      find('#in_progress .story.accepted .story-title').should have_content('New story')
+      expect(find('#in_progress .story.accepted .story-title')).to have_content('New story')
 
     end
 
@@ -72,7 +72,7 @@ describe "Stories" do
         click_on 'Delete'
       end
 
-      page.should_not have_css(story_selector(story))
+      expect(page).not_to have_css(story_selector(story))
     end
 
   end
@@ -91,7 +91,7 @@ describe "Stories" do
       visit project_path(project)
 
       # should not have any search results by default
-      page.should_not have_css('.searchResult')
+      expect(page).not_to have_css('.searchResult')
 
       # fill in the search form
       within('#form_search') do
@@ -100,7 +100,7 @@ describe "Stories" do
       page.execute_script("$('#form_search').submit()")
 
       # should return at least one story in the result column
-      page.should have_css('.searchResult')
+      expect(page).to have_css('.searchResult')
 
       within(story_selector(story)) do
         find('.story-title').trigger 'click'
@@ -108,8 +108,8 @@ describe "Stories" do
       end
 
       # when the story is delete in the results column it should also disappear from other columns
-      page.should_not have_css(story_search_result_selector(story))
-      page.should_not have_css(story_selector(story))
+      expect(page).not_to have_css(story_search_result_selector(story))
+      expect(page).not_to have_css(story_selector(story))
     end
   end
 
@@ -133,25 +133,25 @@ describe "Stories" do
 
       columns.each do |column, button_text|
         selector = "table.stories td.#{column}_column"
-        page.should have_css(selector)
+        expect(page).to have_css(selector)
 
         # Hide the column
         within('#column-toggles') do
           click_on button_text
         end
-        page.should_not have_css(selector)
+        expect(page).not_to have_css(selector)
 
         # Show the column
         within('#column-toggles') do
           click_on button_text
         end
-        page.should have_css(selector)
+        expect(page).to have_css(selector)
 
         # Hide the column with the 'close' button in the column header
         within("#{selector} .column_header") do
           click_link 'Close'
         end
-        page.should_not have_css(selector)
+        expect(page).not_to have_css(selector)
 
       end
     end
@@ -160,19 +160,19 @@ describe "Stories" do
       visit project_path(project)
 
       selector = "table.stories td.search_results_column"
-      page.should_not have_css(selector)
+      expect(page).not_to have_css(selector)
 
       # Show the column
       within('#column-toggles') do
         click_on "Search Results"
       end
-      page.should have_css(selector)
+      expect(page).to have_css(selector)
 
       # Hide the column with the 'close' button in the column header
       within("#{selector} .column_header") do
         click_link 'Close'
       end
-      page.should_not have_css(selector)
+      expect(page).not_to have_css(selector)
     end
   end
 

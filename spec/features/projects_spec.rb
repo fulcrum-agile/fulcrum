@@ -24,14 +24,14 @@ describe "Projects" do
     it "shows the project list", :js => true do
       visit projects_path
 
-      page.should have_selector('h1', :text => 'Listing Projects')
+      expect(page).to have_selector('h1', :text => 'Listing Projects')
 
       within('#projects') do
         click_on 'Test Project'
       end
 
-      page.should have_selector('h1', :text => 'Test Project')
-      page.should_not have_selector('h1', :text => 'Archived Project')
+      expect(page).to have_selector('h1', :text => 'Test Project')
+      expect(page).not_to have_selector('h1', :text => 'Archived Project')
     end
 
   end
@@ -45,8 +45,8 @@ describe "Projects" do
       fill_in 'Name', :with => 'New Project'
       click_on 'Create Project'
 
-      page.should have_selector('h1', :text => 'New Project')
-      current_path.should == project_path(Project.find_by_name('New Project'))
+      expect(page).to have_selector('h1', :text => 'New Project')
+      expect(current_path).to eq(project_path(Project.find_by_name('New Project')))
     end
 
   end
@@ -71,8 +71,8 @@ describe "Projects" do
       fill_in 'Name', :with => 'New Project Name'
       click_on 'Update Project'
 
-      page.should have_selector('h1', :text => 'New Project Name')
-      current_path.should == project_path(project)
+      expect(page).to have_selector('h1', :text => 'New Project Name')
+      expect(current_path).to eq(project_path(project))
     end
 
     it "shows form errors" do
@@ -84,7 +84,7 @@ describe "Projects" do
       fill_in 'Name', :with => ''
       click_on 'Update Project'
 
-      page.should have_content("Name can't be blank")
+      expect(page).to have_content("Name can't be blank")
     end
   end
 
@@ -105,8 +105,8 @@ describe "Projects" do
         click_on 'Delete'
       end
 
-      page.should_not have_content('Test Project')
-      Project.count.should == 0
+      expect(page).not_to have_content('Test Project')
+      expect(Project.count).to eq(0)
     end
   end
 

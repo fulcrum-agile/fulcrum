@@ -16,14 +16,14 @@ describe RegistrationsController do
     describe "#new" do
       specify do
         get :new
-        response.status.should eq 404
+        expect(response.status).to eq 404
       end
     end
 
     describe "#create" do
       specify do
         post :create, :user => {:name => 'Test User', :initials => 'TU', :email => 'test_user@example.com'}
-        response.status.should eq 404
+        expect(response.status).to eq 404
       end
     end
   end
@@ -38,18 +38,18 @@ describe RegistrationsController do
     describe "#new" do
       specify do
         get :new
-        response.status.should eq 200
+        expect(response.status).to eq 200
       end
     end
 
     describe "#create" do
       specify do
         post :create, :user => {:name => 'Test User', :initials => 'TU', :email => 'test_user@example.com'}
-        response.should redirect_to(new_user_session_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
       specify do
         post :create, :user => {:name => 'Test User', :initials => 'TU', :email => 'test_user@example.com'}
-        flash[:notice].should == 'You have signed up successfully. A confirmation was sent to your e-mail. Please follow the contained instructions to activate your account.'
+        expect(flash[:notice]).to eq('You have signed up successfully. A confirmation was sent to your e-mail. Please follow the contained instructions to activate your account.')
       end
     end
 

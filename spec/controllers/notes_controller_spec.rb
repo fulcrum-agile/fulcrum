@@ -17,12 +17,12 @@ describe NotesController do
 
       specify "#index" do
         xhr :get, :index, request_params
-        response.status.should == 401
+        expect(response.status).to eq(401)
       end
 
       specify "#create" do
         xhr :post, :create, request_params
-        response.status.should == 401
+        expect(response.status).to eq(401)
       end
 
     end
@@ -35,12 +35,12 @@ describe NotesController do
 
       specify "#show" do
         xhr :get, :show, request_params
-        response.status.should == 401
+        expect(response.status).to eq(401)
       end
 
       specify "#destroy" do
         xhr :delete, :destroy, request_params
-        response.status.should == 401
+        expect(response.status).to eq(401)
       end
 
     end
@@ -51,13 +51,13 @@ describe NotesController do
 
 
     before do
-      user.stub(:projects => projects)
-      projects.stub(:find).with(project.id.to_s).and_return(project)
-      project.stub(:stories => stories)
-      stories.stub(:find).with(story.id.to_s).and_return(story)
-      story.stub(:notes => notes)
-      notes.stub(:find).with(note.id.to_s).and_return(note)
-      subject.stub(:current_user => user)
+      allow(user).to receive_messages(:projects => projects)
+      allow(projects).to receive(:find).with(project.id.to_s).and_return(project)
+      allow(project).to receive_messages(:stories => stories)
+      allow(stories).to receive(:find).with(story.id.to_s).and_return(story)
+      allow(story).to receive_messages(:notes => notes)
+      allow(notes).to receive(:find).with(note.id.to_s).and_return(note)
+      allow(subject).to receive_messages(:current_user => user)
 
       sign_in user
     end
@@ -68,12 +68,12 @@ describe NotesController do
 
         specify do
           xhr :get, :index, request_params
-          response.should be_success
-          assigns[:project].should == project
-          assigns[:story].should == story
-          assigns[:notes].should == notes
-          response.content_type.should == "application/json"
-          response.body.should == notes.to_json
+          expect(response).to be_success
+          expect(assigns[:project]).to eq(project)
+          expect(assigns[:story]).to eq(story)
+          expect(assigns[:notes]).to eq(notes)
+          expect(response.content_type).to eq("application/json")
+          expect(response.body).to eq(notes.to_json)
         end
 
       end
@@ -82,30 +82,30 @@ describe NotesController do
 
         before do
           request_params[:note] = {'note' => 'bar'}
-          notes.should_receive(:build).with(request_params[:note]).and_return(note)
-          note.should_receive(:user=).with(user)
-          note.stub(:save => true)
+          expect(notes).to receive(:build).with(request_params[:note]).and_return(note)
+          expect(note).to receive(:user=).with(user)
+          allow(note).to receive_messages(:save => true)
         end
 
         specify do
           xhr :post, :create, request_params
-          response.should be_success
-          assigns[:project].should == project
-          assigns[:story].should == story
-          assigns[:note].should == note
-          response.content_type.should == "application/json"
-          response.body.should == note.to_json
+          expect(response).to be_success
+          expect(assigns[:project]).to eq(project)
+          expect(assigns[:story]).to eq(story)
+          expect(assigns[:note]).to eq(note)
+          expect(response.content_type).to eq("application/json")
+          expect(response.body).to eq(note.to_json)
         end
 
         context "when save fails" do
 
           before do
-            note.stub(:save => false)
+            allow(note).to receive_messages(:save => false)
           end
 
           specify do
             xhr :post, :create, request_params
-            response.status.should == 422
+            expect(response.status).to eq(422)
           end
 
         end
@@ -124,12 +124,12 @@ describe NotesController do
 
         specify do
           xhr :get, :show, request_params
-          response.should be_success
-          assigns[:project].should == project
-          assigns[:story].should == story
-          assigns[:note].should == note
-          response.content_type.should == "application/json"
-          response.body.should == note.to_json
+          expect(response).to be_success
+          expect(assigns[:project]).to eq(project)
+          expect(assigns[:story]).to eq(story)
+          expect(assigns[:note]).to eq(note)
+          expect(response.content_type).to eq("application/json")
+          expect(response.body).to eq(note.to_json)
         end
 
       end
@@ -137,16 +137,16 @@ describe NotesController do
       describe "#destroy" do
 
         before do
-          note.should_receive(:destroy)
+          expect(note).to receive(:destroy)
         end
 
         specify do
           xhr :delete, :destroy, request_params
-          response.should be_success
-          assigns[:project].should == project
-          assigns[:story].should == story
-          assigns[:note].should == note
-          response.body.should be_blank
+          expect(response).to be_success
+          expect(assigns[:project]).to eq(project)
+          expect(assigns[:story]).to eq(story)
+          expect(assigns[:note]).to eq(note)
+          expect(response.body).to be_blank
         end
       end
 
