@@ -44,7 +44,7 @@ class Story < ActiveRecord::Base
   validates :owned_by_id, :belongs_to_project => true
 
   has_many :changesets, :dependent => :destroy
-  has_many :notes, :dependent => :destroy do
+  has_many :notes, -> { order(:created_at) }, :dependent => :destroy do
 
     # Creates a collection of rows on this story from a CSV::Row instance
     # Each 'Note' field in the CSV will usually be in the following format:
