@@ -29,7 +29,7 @@ pt-BR:
 
   imported n stories:
     one: 'Importada 1 história'
-    other: 'Importadas %{count} história'
+    other: 'Importadas %{count} histórias'
 
   n stories failed to import:
     one: '1 história falhou na importação'
@@ -38,7 +38,7 @@ pt-BR:
   n weeks:
     one: '1 semana'
     other: '%{count} semanas'
-  
+
   keycuts:
     keyboard_shortcuts: Atalhos de teclado
     help: Ajuda (this)
@@ -52,7 +52,7 @@ pt-BR:
     toggle_my_work: Alternar meu trabalho
     toggle_labels_searches: Alternar etiquetas &amp; pesquisadas
     toggle_current: Alternar atual
-  
+
   activerecord:
     models:
       user:
@@ -104,7 +104,7 @@ pt-BR:
         other:  "Iterações começam em %{day} com a duração de %{count} semanas"
 
     show:
-      done: "Concluido"
+      done: "Concluído"
       in_progress: "Em Progresso"
       backlog: "Backlog"
       icebox: "Chilly Bin"
