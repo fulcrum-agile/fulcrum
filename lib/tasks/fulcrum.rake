@@ -1,7 +1,7 @@
 namespace :fulcrum do
   desc "Set up database yaml."
   task :setup do
-    db = ENV['DB'] || 'sqlite'
+    db = ENV['DB'] || 'postgresql'
     example_database_config = Rails.root.join('config',"database.yml.#{db}")
     database_config = Rails.root.join('config',"database.yml")
 
