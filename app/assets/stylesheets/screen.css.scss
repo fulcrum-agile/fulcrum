@@ -121,9 +121,18 @@ ul#primary-nav li.secondary ul li {
   margin: 0;
   padding: 10px 1em;
 
-  div.velocity {
-    font-size: 1.6em;
+  #right-side {
     float: right;
+  }
+
+  #search {
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  div.velocity {
+    display: inline-block;
+    font-size: 1.6em;
     position: relative;
 
     div.velocity_override_container {
@@ -490,7 +499,7 @@ a.button:hover {
   color: white;
   text-shadow: $darkgrey 0 1px 0;
 }
-.tags{
+.tag{
   color:$sky-blue-3;
   font-size:84%;
 }

@@ -38,6 +38,10 @@ $(function() {
     new Fulcrum.ColumnVisibilityButtonView({columnView: chillyBinColumn, elementId: 'chilly_bin'}).render().el
   );
 
+  new Fulcrum.SearchView({
+    el: $('#search')
+  }).render();
+
   // FIXME Move to view
   // Connect up drag and drop behaviour
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
@@ -68,11 +72,17 @@ $(function() {
       image: '<%= image_path('dialog-warning.png') %>'
     });
   <% end %>
+
+  Backbone.history.start();
 });
 </script>
 
 <% content_for :title_bar do %>
-  <div id="velocity" class="velocity"></div>
+  <div id="right-side">
+    <div id="search"></div>
+    <div id="velocity" class="velocity"></div>
+  </div>
+
   <%= render :partial => 'projects/nav',
              :locals => {:project => @project, :show_column_toggles => true} %>
              | <a id="add_story" href="#"><%= t('add story') %></a>

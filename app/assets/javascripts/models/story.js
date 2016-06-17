@@ -21,6 +21,30 @@ Fulcrum.Story = Backbone.Model.extend({
 
   },
 
+  matchesSearch: function(params) {
+    var matchesTags = true;
+    var matchesText = true;
+
+    if (params.tags) {
+      var myTags = this.labels();
+
+      matchesTags = _.every(params.tags.split(','), function(tag) {
+        return _.contains(myTags, tag);
+      })
+    }
+
+    if (params.text) {
+      var description = this.get('description');
+      var title = this.get('title');
+      var text = params.text.toLowerCase();
+
+      matchesText = (description && description.toLowerCase().indexOf(text) > -1) ||
+                    (title && title.toLowerCase().indexOf(text) > -1);
+    }
+
+    return matchesTags && matchesText;
+  },
+
   changeState: function(model, new_value) {
     if (new_value == "started" && !this.get('owned_by_id')) {
       model.set({owned_by_id: model.collection.project.current_user.id}, true);

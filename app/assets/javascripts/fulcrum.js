@@ -1,3 +1,20 @@
+_.mixin({
+  queryParams: function(queryString) {
+    var params = {};
+    var queries;
+    var temp;
+
+    queries = queryString.split('&');
+
+    for (var i = 0, l = queries.length; i < l; i++) {
+      temp = queries[i].split('=');
+      params[temp[0]] = decodeURIComponent(temp[1].replace(/\+/g, ' '));
+    }
+
+    return params;
+  }
+});
+
 $(function() {
   $('#add_story').click(function() {
     window.projectView.newStory();
