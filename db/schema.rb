@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827211718) do
+ActiveRecord::Schema.define(version: 20160616195841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,16 @@ ActiveRecord::Schema.define(version: 20150827211718) do
     t.string   "owned_by_name"
     t.string   "owned_by_initials"
   end
+
+  create_table "tasks", force: true do |t|
+    t.integer  "story_id"
+    t.string   "name"
+    t.boolean  "done",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                              default: "",    null: false

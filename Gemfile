@@ -53,21 +53,25 @@ group :production do
   gem 'rails_12factor'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'rspec-its'
+  gem 'rspec-activemodel-mocks'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+end
+
 group :development do
   gem 'letter_opener'
 end
 
 group :development, :test do
-  gem 'capybara'
-  gem 'capybara-screenshot'
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
   gem 'jasmine-rails'
-  gem 'poltergeist'
   gem 'pry-rails'
   gem 'quiet_assets'
-  gem 'rspec-rails'
-  gem 'rspec-its'
-  gem 'rspec-activemodel-mocks'
   gem 'sinon-rails'
 end

@@ -38,4 +38,13 @@ FactoryGirl.define do
     n.association :user
   end
 
+  factory :membership do |m|
+    m.association :project
+    m.association :user
+  end
+
+  factory :task do |t|
+    t.name 'Test task'
+    t.association :story
+  end
 end
