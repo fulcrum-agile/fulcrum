@@ -47,6 +47,10 @@ $(function() {
     new Fulcrum.ColumnVisibilityButtonView({columnView: searchResultsColumn, elementId: 'search_results'}).render().el
   );
 
+  window.epicColumn = new Fulcrum.ColumnView({
+    id: 'epic', name: 'Epic', el: $('td.epic_column'), sortable: true
+  }).render();
+
   // FIXME Move to view
   // Connect up drag and drop behaviour
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
@@ -105,6 +109,7 @@ $(function() {
       <td class="in_progress_column"></td>
       <td class="done_column"></td>
     <% end %>
+    <td class="epic_column" style="display: none;"></td>
     <td class="search_results_column" style="display: none;"></td>
     </tr>
   </tbody>

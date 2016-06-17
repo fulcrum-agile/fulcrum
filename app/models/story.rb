@@ -106,6 +106,8 @@ class Story < ActiveRecord::Base
   scope :in_progress, -> { where(:state => [:started, :finished, :delivered]) }
   scope :backlog, -> { where(:state => :unstarted) }
   scope :chilly_bin, -> { where(:state => :unscheduled) }
+  scope :by_label, -> (label) { find_by_sql ["select s.* from stories s, (select regexp_split_to_table(labels, ',') l, id from stories)
+      AS labels where labels.l = ? and labels.id = s.id;", label] }
 
   include ActiveRecord::Transitions
   state_machine do

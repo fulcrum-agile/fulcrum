@@ -4,6 +4,21 @@ describe Story do
 
   subject { FactoryGirl.build :story }
 
+  describe 'scopes' do
+    let!(:story) { FactoryGirl.create(:story, labels: 'feature,test') }
+    let!(:dummy_story) { FactoryGirl.create(:story, labels: 'something') }
+
+    describe '#by_label' do
+      it 'find when label contains in story labels' do
+        expect(described_class.by_label('test')).to include story
+      end
+
+      it 'return empty when label is not included in story labels' do
+        expect(described_class.by_label('test')).to_not include dummy_story
+      end
+    end
+  end
+
   describe "validations" do
 
     describe '#title' do
@@ -118,7 +133,7 @@ describe Story do
   end
 
   describe "#estimated?" do
-    
+
     context "when estimate is nil" do
       before { subject.estimate = nil }
       it { is_expected.not_to be_estimated }
@@ -163,7 +178,7 @@ describe Story do
     specify do
       expect(subject.as_json['story'].keys.sort).to eq([
         "title", "accepted_at", "created_at", "updated_at", "description",
-        "project_id", "story_type", "owned_by_id", "requested_by_id", 
+        "project_id", "story_type", "owned_by_id", "requested_by_id",
         "requested_by_name", "owned_by_name", "owned_by_initials", "estimate",
         "state", "position", "id", "errors", "labels", "notes", "documents"
       ].sort)
@@ -230,7 +245,7 @@ describe Story do
       end
 
       it "is unset when state changes from 'accepted'" do
-        subject.accepted_at = Date.parse('1999/01/01') 
+        subject.accepted_at = Date.parse('1999/01/01')
         subject.update_attribute :state, 'accepted'
         subject.update_attribute :state, 'started'
         expect(subject.accepted_at).to be_nil

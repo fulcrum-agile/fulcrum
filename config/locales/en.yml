@@ -122,6 +122,7 @@ en:
       backlog: "Backlog"
       icebox: "Chilly Bin"
       search_results: "Search Results"
+      epic: 'Epic'
 
   admin:
     users:

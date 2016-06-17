@@ -8,6 +8,8 @@ class StoriesController < ApplicationController
 
     @stories = if params[:q]
                  StorySearch.new(@project, params[:q]).search
+               elsif params[:label]
+                 Story.by_label(params[:label])
                elsif ENV['STORIES_CEILING']
                  @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
                else

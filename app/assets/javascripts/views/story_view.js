@@ -54,6 +54,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   events: {
     "click": "startEdit",
+    "click .epic-link": "openEpic",
     "click .submit": "saveEdit",
     "click .cancel": "cancelEdit",
     "click .transition": "transition",
@@ -209,6 +210,12 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.model.set({editing: true, editingDescription: false, clickFromSearchResult: this.$el.hasClass('searchResult')});
       this.removeHoverbox();
     }
+  },
+
+  openEpic: function(e){
+    e.stopPropagation();
+    var label = $(e.target).text();
+    new Fulcrum.EpicView({model: this.model.collection.project, label: label});
   },
 
   // When a story is clicked, this method is used to check whether the
