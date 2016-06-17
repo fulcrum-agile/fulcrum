@@ -34,7 +34,13 @@
   </span>
 </div>
 <div class="story-title">
-  <% if (story.get('labels')) { %><span class="tags"><%= story.escape('labels') %></span><% } %>
+  <% if (story.get('labels')) { %>
+    <span class="tags">
+      <% _.each(story.labels(), function(value) { %>
+        <a href="#" class='epic-link' title="<%= value %>"><%= value %></a>
+      <% }); %>
+    </span>
+  <% } %>
   <%= story.escape('title') %>
   <% if (story.get('owned_by_name')) { %>
     <abbr class="initials" title="<%= story.escape('owned_by_name') %>">
