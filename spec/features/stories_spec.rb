@@ -32,6 +32,8 @@ describe "Stories" do
         click_on 'Save'
       end
 
+      wait_for_ajax
+
       # Estimate the story
       within('#chilly_bin .story') do
         click_on '1'

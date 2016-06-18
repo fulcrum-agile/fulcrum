@@ -1,10 +1,13 @@
 class Note < ActiveRecord::Base
+
   belongs_to :user
   belongs_to :story
 
   after_save :create_changeset
 
-  validates :note, :presence => true
+  validates :note, presence: true, if: "attachment.blank?"
+
+  mount_uploader :attachment, NoteAttachmentUploader
 
   # FIXME move to observer
   def create_changeset

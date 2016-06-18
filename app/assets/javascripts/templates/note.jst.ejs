@@ -1,4 +1,9 @@
 <%= window.md.makeHtml(note.escape("note")) %>
+<% if (note.attachmentUrl() != "" ) { %>
+  <div class="file">
+    <a href="<%= note.attachmentUrl() %>" target="_blank"><%= note.attachmentFileName() %></a>
+  </div>
+<% } %>
 <div class="note_meta">
   <span class="user"><%= note.userName() %></span> -
   <span class="created_at"><%= note.get("created_at") %></span> -

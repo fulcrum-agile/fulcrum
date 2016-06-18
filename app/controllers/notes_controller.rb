@@ -37,7 +37,9 @@ class NotesController < ApplicationController
   protected
 
   def allowed_params
-    params.fetch(:note).permit(:note)
+    _params = params.fetch(:note, {}).permit(:note)
+    _params = _params.merge(attachment: params[:attachment]) if params[:attachment].present?
+    _params
   end
 
 end
