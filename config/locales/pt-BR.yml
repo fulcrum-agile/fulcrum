@@ -13,6 +13,7 @@ pt-BR:
   apply:    "Aplicar"
   velocity: "Velocidade"
   notes:    "Notas"
+  tasks:    "Tarefas"
   close:    "Fechar"
   points:   "Pontos"
   saving:   "Salvando ..."
@@ -20,6 +21,7 @@ pt-BR:
 
   author unknown: "Autor Desconhecido"
   add story: "Adicionar história"
+  add task: 'Adicionar tarefa'
   save error: "Salvar erro"
   override velocity: "Velocidade Ultrapassada"
   story title: "Título da história"
@@ -89,6 +91,9 @@ pt-BR:
         requested_by:         'Solicitada por'
         owned_by:             'Pertence à'
         documents:            'Anexos'
+        tasks:                'Tarefas'
+      task:
+        name:                 'Nome'
 
     errors:
       models:

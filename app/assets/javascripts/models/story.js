@@ -10,18 +10,20 @@ Fulcrum.Story = Backbone.Model.extend({
   timestampFormat: 'd mmm yyyy, h:MMtt',
 
   initialize: function(args) {
-    _.bindAll(this, 'changeState', 'populateNotes');
+    _.bindAll(this, 'changeState', 'populateNotes', 'populateTasks');
 
     this.views = [];
     this.clickFromSearchResult = false;
 
     this.on('change:state', this.changeState);
     this.on('change:notes', this.populateNotes);
+    this.on('change:tasks', this.populateTasks);
 
     // FIXME Call super()?
     this.maybeUnwrap(args);
 
     this.initNotes();
+    this.initTasks();
     this.setColumn();
 
   },
@@ -261,6 +263,18 @@ Fulcrum.Story = Backbone.Model.extend({
     return this.notes.any(function(note) {
       return !note.isNew();
     });
+  },
+
+  // Initialize the tasks collection on this story, and populate if necessary
+  initTasks: function() {
+    this.tasks = new Fulcrum.TaskCollection();
+    this.tasks.story = this;
+    this.populateTasks();
+  },
+
+  populateTasks: function() {
+    var tasks = this.get('tasks') || [];
+    this.tasks.reset(tasks);
   },
 
   sync: function(method, model, options) {
