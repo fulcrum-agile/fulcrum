@@ -35,7 +35,7 @@ class StoriesController < ApplicationController
     @story = @project.stories.find(params[:id])
     @story.acting_user = current_user
     respond_to do |format|
-      if @story.update_attributes(allowed_params)
+      if @story.update_attributes(allowed_params.to_hash)
         format.html { redirect_to project_url(@project) }
         format.js   { render :json => @story }
       else
