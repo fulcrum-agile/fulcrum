@@ -118,6 +118,54 @@ describe "Stories" do
     end
   end
 
+  describe 'formatting' do
+    let(:title) { 'My story' }
+    let!(:story) { FactoryGirl.create :story, title: title, description: description, project: project, requested_by: user }
+
+    before do
+      Capybara.ignore_hidden_elements = true
+      visit project_path project
+    end
+
+    describe 'description', js: true do
+      let(:expand_story) { find('.story-title', text: title).click }
+      let(:hover_story) { find('.popover-activate').hover }
+
+      describe '*italics*' do
+        let(:description) { 'Text with *italics*.' }
+
+        specify 'edit form' do
+          expand_story
+          page.should have_css :em, text: 'italics'
+        end
+      end
+
+      describe 'autolink URLs' do
+        let(:url) { 'http://www.google.com' }
+        let(:description) { "Text with a URL: #{url}" }
+
+        specify 'edit form' do
+          expand_story
+          page.should have_css "a[href='#{url}']", text: url
+        end
+
+        specify 'hover' do
+          hover_story
+          page.should have_css "a[href='#{url}']", text: url
+        end
+      end
+
+      describe 'handle blank correctly' do
+        let(:description) { nil }
+
+        specify 'edit form' do
+          expand_story
+          page.should have_css '.description'
+        end
+      end
+    end
+  end
+
   def story_selector(story)
     "#story-#{story.id}"
   end
