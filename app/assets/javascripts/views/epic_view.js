@@ -3,20 +3,21 @@ if (typeof Fulcrum == 'undefined') {
 }
 
 Fulcrum.EpicView = Backbone.View.extend({
+
   initialize: function(options) {
     this.options = options;
     $('td.epic_column').css('display', 'table-cell');
     this.doSearch();
   },
 
-  render: function() {
-    this.$el.html(this.options.columnView.name());
-    this.setClassName();
-    return this;
+  addBar: function(column) {
+    var that = this;
+    var view = new Fulcrum.EpicBarView({model: this.model}).render();
+    this.appendViewToColumn(view, column);
   },
 
   addStory: function(story, column) {
-    var view = new Fulcrum.StoryView({model: story}).render();
+    var view = new Fulcrum.StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
   },
@@ -30,6 +31,7 @@ Fulcrum.EpicView = Backbone.View.extend({
 
     $('#epic').html("");
     $('td.epic_column').show();
+    this.addBar('#epic');
 
     var search_results_ids = this.model.search.pluck("id");
     var stories = this.model.stories;
