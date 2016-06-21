@@ -16,6 +16,13 @@ class TasksController < ApplicationController
     head :ok
   end
 
+  def update
+    @task = @story.tasks.find(params[:id])
+    @task.update_attributes(allowed_params)
+
+    head :ok
+  end
+
   private
 
   def find_current_story

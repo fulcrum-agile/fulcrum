@@ -16,6 +16,7 @@ en:
   apply:    "Apply"
   velocity: "Velocity"
   notes:    "Notes"
+  tasks:    "Tasks"
   close:    "Close"
   points:   "Points"
   saving:   "Saving ..."
@@ -23,6 +24,7 @@ en:
 
   author unknown: "Author Unknown"
   add story: "Add story"
+  add task: 'Add task'
   save error: "Save error"
   override velocity: "Override velocity"
   story title: "Story title"

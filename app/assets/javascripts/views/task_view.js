@@ -11,7 +11,8 @@ Fulcrum.TaskView = Fulcrum.FormView.extend({
   className: 'task',
 
   events: {
-    "click a.delete-task": "removeTask"
+    "click a.delete-task": "removeTask",
+    "change input": "updateTask"
   },
 
   render: function() {
@@ -29,6 +30,12 @@ Fulcrum.TaskView = Fulcrum.FormView.extend({
     this.model.destroy();
     this.$el.remove();
     return false;
+  },
+
+  updateTask: function() {
+    var done = this.$el.find("input").is(":checked");
+    this.model.set('done', done);
+    this.model.save(null);
   }
 
 });

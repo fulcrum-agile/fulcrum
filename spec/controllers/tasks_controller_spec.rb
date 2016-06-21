@@ -22,6 +22,13 @@ describe TasksController do
         is_expected.to respond_with 401
       end
     end
+
+    context '#update' do
+      specify do
+        xhr :put, :update, request_params.merge(id: 1, done: true)
+        is_expected.to respond_with 401
+      end
+    end
   end
 
   context 'when logged in' do
@@ -55,6 +62,19 @@ describe TasksController do
         task = create(:task, story: story)
 
         xhr :delete, :destroy, request_params.merge(id: task.id)
+        expect(response).to be_success
+        expect(assigns[:project]).to eq(project)
+        expect(assigns[:story]).to eq(story)
+        expect(assigns[:task]).to eq(task)
+        expect(response.body).to be_blank
+      end
+    end
+
+    describe '#update' do
+      specify do
+        task = create(:task, story: story)
+
+        xhr :put, :update, request_params.merge(id: task.id, task: {done: true })
         expect(response).to be_success
         expect(assigns[:project]).to eq(project)
         expect(assigns[:story]).to eq(story)

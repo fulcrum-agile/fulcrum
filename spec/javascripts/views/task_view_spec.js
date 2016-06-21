@@ -28,4 +28,12 @@ describe('Fulcrum.TaskView', function() {
       expect(removeSpy).toHaveBeenCalled();
     });
   });
+
+  describe("updateTask", function() {
+    it("should call save on the model", function() {
+      var updateSpy = sinon.spy(this.view.model, 'save');
+      this.view.updateTask();
+      expect(updateSpy).toHaveBeenCalled();
+    });
+  });
 });
