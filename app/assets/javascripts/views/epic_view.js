@@ -26,7 +26,6 @@ Fulcrum.EpicView = Backbone.View.extend({
   },
 
   addAll: function() {
-    $(".loading_screen").show();
     var that = this;
 
     $('#epic').html("");
@@ -42,6 +41,7 @@ Fulcrum.EpicView = Backbone.View.extend({
   },
 
   doSearch: function(e) {
+    $(".loading_screen").show();
     var that = this;
     this.model.search.fetch({
       reset: true,
