@@ -24,7 +24,10 @@ FactoryGirl.define do
   factory :story do |s|
     s.title 'Test story'
     s.association :requested_by, factory: :user
-    after(:build) { |object| object.project = FactoryGirl.create(:project, users: [object.requested_by]) }
+
+    trait :with_project do
+      after(:build) { |object| object.project = FactoryGirl.create(:project, users: [object.requested_by]) }
+    end
   end
 
   factory :changeset do |c|

@@ -176,6 +176,40 @@ describe "Stories" do
     end
   end
 
+  describe 'filter by label' do
+    let!(:story) { FactoryGirl.create(:story, :title => 'Task 1', :project => project,
+      :requested_by => user, :labels => 'epic1') }
+    let!(:story2) { FactoryGirl.create(:story, :title => 'Task 2', :project => project,
+      :requested_by => user, :labels => 'epic1') }
+    let!(:story3) { FactoryGirl.create(:story, :title => 'Task 3', :project => project,
+      :requested_by => user, :labels => 'epic2') }
+
+    it 'show epic by label', :js => true, driver: :poltergeist do
+      visit project_path(project)
+
+      expect(page).not_to have_css('.epic_column')
+      expect(page).to have_content 'Task 1'
+      expect(page).to have_content 'Task 2'
+      expect(page).to have_content 'Task 3'
+
+      first(:link, 'epic1').click
+
+      within '.epic_column' do
+        expect(page).to have_content 'Task 1'
+        expect(page).to have_content 'Task 2'
+        expect(page).to_not have_content 'Task 3'
+      end
+
+      first(:link, 'epic2').click
+
+      within '.epic_column' do
+        expect(page).to_not have_content 'Task 1'
+        expect(page).to_not have_content 'Task 2'
+        expect(page).to have_content 'Task 3'
+      end
+    end
+  end
+
   def story_selector(story)
     "#story-#{story.id}"
   end
