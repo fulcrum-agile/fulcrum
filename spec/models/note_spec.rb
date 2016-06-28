@@ -20,39 +20,6 @@ describe Note do
 
   end
 
-  describe "#create_changeset" do
-
-    let(:changesets)  { double("changesets" ) }
-
-    before do
-      expect(changesets).to receive(:create!)
-      allow(story).to receive_messages(:changesets  => changesets)
-      allow(story).to receive_messages(:project     => project)
-    end
-
-    it "creates a changeset on the story" do
-      subject.create_changeset
-    end
-
-    context "when suppress_notifications is off" do
-
-      let(:user1)         { mock_model(User) }
-      let(:notify_users)  { [user, user1] }
-      let(:mailer)        { double("mailer") }
-
-      before do
-        allow(project).to receive_messages(:suppress_notifications => false)
-        allow(story).to receive_messages(:notify_users => notify_users)
-        expect(Notifications).to receive(:new_note).with(subject, [user1]).and_return(mailer)
-        expect(mailer).to receive(:deliver)
-      end
-
-      it "sends notifications" do
-        subject.create_changeset
-      end
-    end
-  end
-
   describe "#as_json" do
 
     it "returns the right keys" do

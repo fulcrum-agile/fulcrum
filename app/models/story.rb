@@ -222,7 +222,7 @@ class Story < ActiveRecord::Base
   # The list of users that should be notified when a new note is added to this
   # story.  Includes the requestor, the owner, and any other users who have
   # added notes to the story.
-  def notify_users
+  def stakeholders_users
     ([requested_by, owned_by] + notes.map(&:user)).compact.uniq
   end
 

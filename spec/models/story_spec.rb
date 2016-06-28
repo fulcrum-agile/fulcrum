@@ -180,7 +180,7 @@ describe Story do
         "title", "accepted_at", "created_at", "updated_at", "description",
         "project_id", "story_type", "owned_by_id", "requested_by_id",
         "requested_by_name", "owned_by_name", "owned_by_initials", "estimate",
-        "state", "position", "id", "errors", "labels", "notes", "documents"
+        "state", "position", "id", "errors", "labels", "notes", "tasks", "documents"
       ].sort)
     end
   end
@@ -265,7 +265,7 @@ describe Story do
     end
   end
 
-  describe "#notify_users" do
+  describe "#stakeholders_users" do
 
     let(:requested_by)  { mock_model(User) }
     let(:owned_by)      { mock_model(User) }
@@ -279,20 +279,20 @@ describe Story do
     end
 
     specify do
-      expect(subject.notify_users).to include(requested_by)
+      expect(subject.stakeholders_users).to include(requested_by)
     end
 
     specify do
-      expect(subject.notify_users).to include(owned_by)
+      expect(subject.stakeholders_users).to include(owned_by)
     end
 
     specify do
-      expect(subject.notify_users).to include(note_user)
+      expect(subject.stakeholders_users).to include(note_user)
     end
 
     it "strips out nil values" do
       subject.requested_by = subject.owned_by = nil
-      expect(subject.notify_users).not_to include(nil)
+      expect(subject.stakeholders_users).not_to include(nil)
     end
   end
 
