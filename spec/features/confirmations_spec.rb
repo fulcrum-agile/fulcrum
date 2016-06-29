@@ -12,6 +12,7 @@ describe "Confirmations" do
     # Sign the user up for an account
     fill_in 'Name', :with => 'Test User'
     fill_in 'Initials', :with => 'TU'
+    fill_in 'Username', :with => 'testuser'
     fill_in 'Email', :with => 'test@example.com'
     click_button 'Sign up'
 

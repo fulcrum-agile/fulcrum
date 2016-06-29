@@ -44,11 +44,11 @@ describe RegistrationsController do
 
     describe "#create" do
       specify do
-        post :create, :user => {:name => 'Test User', :initials => 'TU', :email => 'test_user@example.com'}
+        post :create, user: build(:unconfirmed_user).attributes
         expect(response).to redirect_to(new_user_session_path)
       end
       specify do
-        post :create, :user => {:name => 'Test User', :initials => 'TU', :email => 'test_user@example.com'}
+        post :create, user: build(:unconfirmed_user).attributes
         expect(flash[:notice]).to eq('You have signed up successfully. A confirmation was sent to your e-mail. Please follow the contained instructions to activate your account.')
       end
     end

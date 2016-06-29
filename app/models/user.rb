@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   # FIXME - DRY up, repeated in Story model
-  JSON_ATTRIBUTES = ["id", "name", "initials", "email"]
+  JSON_ATTRIBUTES = ["id", "name", "initials", "username", "email"]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
 
   before_destroy :remove_story_association
 
-  validates :name, :presence => true
-  validates :initials, :presence => true
+  validates :name, :username, :initials, presence: true
+  validates :username, uniqueness: true
 
   def password_required?
     # Password is required if it is being set, but not for new records
