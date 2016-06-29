@@ -25,6 +25,21 @@ describe NoteCreationService do
 
           NoteCreationService.create(note)
         end
+
+        context 'when note message has a valid username' do
+          it 'also sends notification for the found username' do
+            username_user = project.users.create(
+              build(:unconfirmed_user, username: 'username').attributes
+            )
+            note = story.notes.build(note: 'name @username', user: build(:user))
+
+            expect(Notifications).to receive(:new_note).
+              with(note, [user, username_user]).and_return(mailer)
+            expect(mailer).to receive(:deliver)
+
+            NoteCreationService.create(note)
+          end
+        end
       end
     end
 

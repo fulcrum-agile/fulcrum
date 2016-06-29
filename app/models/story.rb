@@ -44,6 +44,7 @@ class Story < ActiveRecord::Base
   validates :owned_by_id, :belongs_to_project => true
 
   has_many :changesets, :dependent => :destroy
+  has_many :users, through: :project
   has_many :tasks, :dependent => :destroy
   has_many :notes, -> { order(:created_at) }, :dependent => :destroy do
 
@@ -81,6 +82,8 @@ class Story < ActiveRecord::Base
     end
 
   end
+
+  delegate :suppress_notifications, to: :project
 
   # This attribute is used to store the user who is acting on a story, for
   # example delivering or modifying it.  Usually set by the controller.

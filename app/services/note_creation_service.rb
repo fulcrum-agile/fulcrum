@@ -27,11 +27,18 @@ class NoteCreationService
   def notify_users
     return if user.nil?
 
-     users_to_notify = story.stakeholders_users
+    users_to_notify = (story.stakeholders_users + users_from_note).uniq
      users_to_notify.delete(user)
 
-     if users_to_notify.any? && !story.project.suppress_notifications
+     if users_to_notify.any? && !story.suppress_notifications
       Notifications.new_note(note, users_to_notify).deliver
     end
+  end
+
+  def users_from_note
+    usernames = UsernameParser.parse(note.note)
+    return [] if usernames.empty?
+
+    story.users.where(username: usernames).all
   end
 end
