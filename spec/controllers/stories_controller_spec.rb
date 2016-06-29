@@ -10,7 +10,7 @@ describe StoriesController do
       end
     end
 
-    %w[show update destroy start finish deliver accept reject].each do |action|
+    %w[show update destroy].each do |action|
       specify do
         get action, :project_id => 99, :id => 42
         expect(response).to redirect_to(new_user_session_url)
@@ -174,23 +174,7 @@ describe StoriesController do
             expect(response.body).to eq(story.to_json)
           end
         end
-
       end
-
-      %w[start finish deliver accept reject].each do |action|
-
-        describe action do
-          before do
-            expect(story).to receive("#{action}!")
-          end
-          specify do
-            xhr :put, action, :project_id => project.id, :id => story.id
-            expect(response).to redirect_to(project_url(project))
-          end
-        end
-
-      end
-
     end
   end
 end

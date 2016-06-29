@@ -22,13 +22,6 @@ Rails.application.routes.draw do
         get :in_progress
         get :backlog
       end
-      member do
-        put :start
-        put :finish
-        put :deliver
-        put :accept
-        put :reject
-      end
     end
   end
 

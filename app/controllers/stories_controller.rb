@@ -85,35 +85,7 @@ class StoriesController < ApplicationController
     end
   end
 
-  def start
-    state_change(:start!)
-  end
-
-  def finish
-    state_change(:finish!)
-  end
-
-  def deliver
-    state_change(:deliver!)
-  end
-
-  def accept
-    state_change(:accept!)
-  end
-
-  def reject
-    state_change(:reject!)
-  end
-
   private
-  def state_change(transition)
-    @project = current_user.projects.find(params[:project_id])
-
-    @story = @project.stories.find(params[:id])
-    @story.send(transition)
-
-    redirect_to project_url(@project)
-  end
 
   def allowed_params
     params.require(:story).permit(:title, :description, :estimate, :story_type, :state, :requested_by_id, :owned_by_id, :position, :labels, documents: [ :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ])
