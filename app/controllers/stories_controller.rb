@@ -72,7 +72,7 @@ class StoriesController < ApplicationController
 
   def create
     @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.build(allowed_params)
+    @story = @project.stories.build(allowed_params.to_hash)
     @story.requested_by_id = current_user.id unless @story.requested_by_id
     respond_to do |format|
       if @story.save

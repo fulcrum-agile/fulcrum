@@ -254,7 +254,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     }
   },
 
-  saveEdit: function() {
+  saveEdit: function(event) {
     this.disableForm();
 
     // Call this here to ensure the story gets it's accepted_at date set
@@ -264,7 +264,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.model.setAcceptedAt();
 
     var that = this;
-    this.model.save(null, {
+    documents = $(event.currentTarget).closest('.story').find("[type='hidden'][name='documents[]']");
+
+    this.model.save(null, { documents: documents,
       success: function(model, response) {
         that.model.set({editing: false});
         that.enableForm();
@@ -418,6 +420,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           var progress_element_id = "documents_progress_" + random;
           var attachinary_container_id = "attachinary_container_" + random;
 
+          $(div).addClass('uploads');
           $(div).append(this.fileField("documents", progress_element_id, attachinary_container_id));
           $(div).append("<span id='" + progress_element_id + "'>0%</span>");
           $(div).append('<div id="' + attachinary_container_id + '"></div>');
