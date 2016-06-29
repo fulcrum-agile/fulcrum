@@ -5,19 +5,12 @@ describe StoryObserver do
   subject { StoryObserver.instance }
 
   let(:story) do
-    mock_model(Story, :changesets     => double("changesets"),
-               :state_changed?        => false,
-               :accepted_at_changed?  => false)
+    mock_model(Story, state_changed?: false, accepted_at_changed?: false)
   end
 
   # FIXME - Better coverage needed
   describe "#after_save" do
 
-    before do
-      # Should always create a changeset
-      expect(story.changesets).to receive(:create!)
-    end
-    
     context "when story state changed" do
 
       let(:project) { mock_model(Project) }

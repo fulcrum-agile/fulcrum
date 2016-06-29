@@ -35,7 +35,7 @@ class StoriesController < ApplicationController
     @story = @project.stories.find(params[:id])
     @story.acting_user = current_user
     respond_to do |format|
-      if @story.update_attributes(allowed_params.to_hash)
+      if @story = StoryUpdaterService.save(@story, allowed_params.to_hash)
         format.html { redirect_to project_url(@project) }
         format.js   { render :json => @story }
       else
@@ -72,10 +72,10 @@ class StoriesController < ApplicationController
 
   def create
     @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.build(allowed_params.to_hash)
+    @story = @project.stories.new
     @story.requested_by_id = current_user.id unless @story.requested_by_id
     respond_to do |format|
-      if @story.save
+      if @story = StoryUpdaterService.save(@story, allowed_params.to_hash)
         format.html { redirect_to project_url(@project) }
         format.js   { render :json => @story }
       else

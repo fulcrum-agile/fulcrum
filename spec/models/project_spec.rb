@@ -106,13 +106,6 @@ describe Project do
         @project.destroy
       end.to change(Story, :count).by(-1)
     end
-
-    specify "changesets" do
-      expect do
-        @project.destroy
-      end.to change(Changeset, :count).by(-1)
-    end
-
   end
 
 

@@ -35,4 +35,12 @@ class Notifications < ActionMailer::Base
     mail :to => @notify_emails, :from => @note.user.email,
       :subject => "[#{@story.project.name}] New comment on '#{@story.title}'"
   end
+
+  def story_mention(story, users_to_notify)
+    @story = story
+    notify_users.map(&:email)
+
+    mail to: users_to_notify.map(&:email), from: @story.requested_by.email,
+      subject: "[#{@story.project.name}] New mention on '#{@story.title}'"
+  end
 end

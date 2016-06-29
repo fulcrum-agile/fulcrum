@@ -2,8 +2,6 @@ class StoryObserver < ActiveRecord::Observer
 
   # Create a new changeset whenever the story is changed
   def after_save(story)
-    story.changesets.create!
-
     if story.state_changed?
 
       unless story.project.suppress_notifications
