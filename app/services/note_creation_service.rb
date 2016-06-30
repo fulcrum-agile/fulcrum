@@ -39,6 +39,6 @@ class NoteCreationService
     usernames = UsernameParser.parse(note.note)
     return [] if usernames.empty?
 
-    story.users.where(username: usernames).all
+    story.users.where(username: usernames)
   end
 end
