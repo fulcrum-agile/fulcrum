@@ -38,13 +38,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
   config.before(:type => :feature) do
     Capybara.javascript_driver = :poltergeist
-    DatabaseCleaner.clean
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

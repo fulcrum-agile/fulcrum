@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe Story do
 
-  subject { FactoryGirl.build :story }
+  subject { build :story, :with_project }
 
   describe 'scopes' do
-    let!(:story) { FactoryGirl.create(:story, labels: 'feature,test') }
-    let!(:dummy_story) { FactoryGirl.create(:story, labels: 'something') }
+    let!(:story) { create(:story, :with_project, labels: 'feature,test') }
+    let!(:dummy_story) { create(:story, :with_project, labels: 'something') }
 
     describe '#by_label' do
       it 'find when label contains in story labels' do
