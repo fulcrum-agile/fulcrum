@@ -4,15 +4,17 @@ describe Notifications do
 
   let(:requested_by) { mock_model(User) }
   let(:owned_by) { mock_model(User) }
-  let(:project) { mock_model(Project, :name => 'Test Project') }
+  let(:project) { mock_model(Project, name: 'Test Project') }
   let(:story) do
-    mock_model(Story, :title => 'Test story', :requested_by => requested_by,
-                      :owned_by => owned_by, :project => project)
+    mock_model(
+      Story, title: 'Test story', requested_by: requested_by,
+      owned_by: owned_by, project: project, project_name: project.name
+    )
   end
 
   describe "#delivered" do
 
-    let(:delivered_by) { mock_model(User, :name => 'Deliverer') }
+    let(:delivered_by) { mock_model(User, name: 'Deliverer') }
 
     subject  { Notifications.delivered(story, delivered_by) }
 
@@ -28,7 +30,7 @@ describe Notifications do
 
   describe "#accepted" do
 
-    let(:accepted_by) { mock_model(User, :name => 'Accepter') }
+    let(:accepted_by) { mock_model(User, name: 'Accepter') }
 
     subject  { Notifications.accepted(story, accepted_by) }
 
@@ -43,7 +45,7 @@ describe Notifications do
 
   describe "#rejected" do
 
-    let(:rejected_by) { mock_model(User, :name => 'Rejecter') }
+    let(:rejected_by) { mock_model(User, name: 'Rejecter') }
 
     subject  { Notifications.rejected(story, rejected_by) }
 
@@ -58,9 +60,9 @@ describe Notifications do
 
   describe "#new_note" do
 
-    let(:notify_users)  { [mock_model(User, :email => 'foo@example.com')] }
-    let(:user)          { mock_model(User, :name => 'Note User') }
-    let(:note)          { mock_model(Note, :story => story, :user => user) }
+    let(:notify_users)  { [mock_model(User, email: 'foo@example.com')] }
+    let(:user)          { mock_model(User, name: 'Note User') }
+    let(:note)          { mock_model(Note, story: story, user: user) }
 
     subject { Notifications.new_note(note, notify_users) }
 
