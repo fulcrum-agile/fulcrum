@@ -10,8 +10,8 @@ describe NoteCreationService do
     context 'with valid params' do
       subject { ->{NoteCreationService.create(story.notes.build(note: 'name'))} }
 
-      it { is_expected.to change {Note.count} }
-      it { is_expected.to change {Changeset.count} }
+      it { is_expected.to change(Note, :count) }
+      it { is_expected.to change(Changeset, :count) }
       it { expect(subject.call).to be_eql Note.last }
 
       context 'when suppress_notifications is off' do
@@ -46,7 +46,7 @@ describe NoteCreationService do
     context 'with invalid params' do
       subject { ->{NoteCreationService.create(story.notes.build(note: ''))} }
 
-      it { is_expected.to_not change {Note.count} }
+      it { is_expected.to_not change(Note, :count) }
       it { expect(subject.call).to be_falsy }
       it { expect(Notifications).to_not receive(:new_note) }
     end
