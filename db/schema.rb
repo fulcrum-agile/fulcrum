@@ -106,12 +106,12 @@ ActiveRecord::Schema.define(version: 20160628195845) do
   add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                              default: "",    null: false
-    t.string   "encrypted_password",     limit: 128, default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
-    t.string   "remember_token"
+    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -119,19 +119,18 @@ ActiveRecord::Schema.define(version: 20160628195845) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "password_salt"
+    t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "initials"
-    t.boolean  "email_delivery",                     default: true
-    t.boolean  "email_acceptance",                   default: true
-    t.boolean  "email_rejection",                    default: true
-    t.datetime "reset_password_sent_at"
+    t.boolean  "email_delivery",         default: true
+    t.boolean  "email_acceptance",       default: true
+    t.boolean  "email_rejection",        default: true
     t.string   "locale"
-    t.boolean  "is_admin",                           default: false
-    t.integer  "memberships_count",                  default: 0
-    t.string   "username",                           default: "",    null: false
+    t.boolean  "is_admin",               default: false
+    t.integer  "memberships_count",      default: 0
+    t.string   "username",               default: "",    null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
