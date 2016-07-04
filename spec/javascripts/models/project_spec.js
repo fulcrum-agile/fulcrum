@@ -420,19 +420,19 @@ describe('Project model', function() {
 
     it("should define the columns", function() {
       expect(this.project.columnIds).toEqual([
-        '#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results'
+        '#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results', '#epic'
       ]);
     });
 
     it("should return the columns after a given column", function() {
       expect(this.project.columnsAfter('#done')).toEqual([
-        '#in_progress', '#backlog', '#chilly_bin', '#search_results'
+        '#in_progress', '#backlog', '#chilly_bin', '#search_results', '#epic'
       ]);
       expect(this.project.columnsAfter('#in_progress')).toEqual([
-        '#backlog', '#chilly_bin', '#search_results'
+        '#backlog', '#chilly_bin', '#search_results', '#epic'
       ]);
-      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin', '#search_results']);
-      expect(this.project.columnsAfter('#chilly_bin')).toEqual(['#search_results']);
+      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin', '#search_results', '#epic']);
+      expect(this.project.columnsAfter('#chilly_bin')).toEqual(['#search_results', '#epic']);
 
       var project = this.project;
       expect(function() {project.columnsAfter('#foobar');}).toThrow(
@@ -448,6 +448,14 @@ describe('Project model', function() {
       ]);
       expect(this.project.columnsBefore('#chilly_bin')).toEqual([
         '#done', '#in_progress', '#backlog'
+      ]);
+
+      expect(this.project.columnsBefore('#search_results')).toEqual([
+        '#done', '#in_progress', '#backlog', '#chilly_bin'
+      ]);
+
+      expect(this.project.columnsBefore('#epic')).toEqual([
+        '#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results'
       ]);
 
       var project = this.project;

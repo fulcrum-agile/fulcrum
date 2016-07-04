@@ -194,6 +194,9 @@ describe('Fulcrum.StoryView', function() {
   });
 
   describe("save edit", function() {
+    beforeEach(function() {
+      this.e = {currentTarget: ''};
+    });
 
     it("should call save", function() {
       this.server.respondWith(
@@ -203,7 +206,7 @@ describe('Fulcrum.StoryView', function() {
         ]
       );
       this.story.set({editing: true});
-      this.view.saveEdit();
+      this.view.saveEdit(this.e);
       expect(this.story.get('editing')).toBeTruthy();
       expect(this.server.requests.length).toEqual(1);
 
@@ -221,7 +224,7 @@ describe('Fulcrum.StoryView', function() {
         ]
       );
 
-      this.view.saveEdit();
+      this.view.saveEdit(this.e);
       expect(this.server.responses.length).toEqual(1);
       expect(this.server.responses[0].method).toEqual("PUT");
       expect(this.server.responses[0].url).toEqual("/path/to/story");
@@ -244,7 +247,7 @@ describe('Fulcrum.StoryView', function() {
       var enable_spy = sinon.spy(this.view, 'enableForm');
 
       this.story.set({editing: true});
-      this.view.saveEdit();
+      this.view.saveEdit(this.e);
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
@@ -290,7 +293,7 @@ describe('Fulcrum.StoryView', function() {
     });
 
     it("should call setAcceptedAt on the story", function() {
-      this.view.saveEdit();
+      this.view.saveEdit(this.e);
       expect(this.story.setAcceptedAt).toHaveBeenCalledOnce();
     });
   });
