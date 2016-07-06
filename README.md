@@ -63,6 +63,21 @@ Once you have these:
     # Start the local web server
     $ bundle exec foreman start -f Procfile.development
 
+Or using docker:
+
+    # Checkout the project
+    $ git clone git://github.com/fulcrum-agile/fulcrum.git
+    $ cd fulcrum
+
+    # Prepare container
+    $ docker-compose build
+    $ docker-compose run rake db:create
+    $ docker-compose run rake db:migrate
+    $ docker-compose run rake db:seeds
+
+    # Up container
+    $ docker-compose up
+
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
 You can log in with the test username `test@example.com`, password `testpass`.
 
