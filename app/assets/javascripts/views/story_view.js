@@ -275,6 +275,12 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         })
       );
 
+      if(!this.model.isNew()) {
+        this.$el.append(
+          $('<div/>').addClass('story-id').html(I18n.t('activerecord.attributes.story.id') + ": " + this.model.escape('id'))
+        );
+      }
+
       this.$el.append(
         this.makeFormControl(function(div) {
           $(div).append(this.textField("title", {
