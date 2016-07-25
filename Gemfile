@@ -16,6 +16,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'foreman'
 gem 'rails-i18n'
 gem 'rails-observers', '~> 0.1.2'
+gem 'therubyracer'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 
 gem 'pg'
