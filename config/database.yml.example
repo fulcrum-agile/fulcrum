@@ -12,6 +12,7 @@ test:
   encoding: unicode
   database: fulcrum_test
   pool: 5
+  host: postgres
   username: postgres
   password:
 
