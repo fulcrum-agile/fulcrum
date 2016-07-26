@@ -36,6 +36,7 @@ gem 'ejs'
 gem 'i18n-js', '>= 3.0.0.rc8'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'dalli'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
@@ -46,7 +47,6 @@ source 'https://rails-assets.org' do
 end
 
 group :production do
-  gem 'dalli'
   gem 'kgio'
   gem 'newrelic_rpm'
   gem 'rack-cache'
