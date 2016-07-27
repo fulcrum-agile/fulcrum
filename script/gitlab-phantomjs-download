@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
 if ! which phantomjs > /dev/null; then
-  if ! [ -x bin/phantomjs ]; then
-    : ${PHANTOM_JS:=phantomjs-2.1.1-linux-x86_64}
-    pushd bin
+  if ! [ -x .gitlab_cache/phantomjs ]; then
+    PHANTOM_JS=phantomjs-1.9.8-linux-x86_64
+    mkdir -p .gitlab_cache
+    pushd .gitlab_cache
     curl -OL https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
     tar xf $PHANTOM_JS.tar.bz2
     mv $PHANTOM_JS phantomjs
     popd
   fi
 
-  ln -s ~+/bin/phantomjs/bin/phantomjs /usr/bin/phantomjs
+  ln -s ~+/.gitlab_cache/phantomjs/bin/phantomjs /usr/bin/phantomjs
 fi
 
 phantomjs --version

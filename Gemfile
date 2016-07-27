@@ -71,7 +71,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'jasmine-rails'
+  gem 'jasmine-rails', '~> 0.12.6'
+  gem 'phantomjs', '~> 1.9'
   gem 'pry-rails'
   gem 'quiet_assets'
   gem 'sinon-rails'

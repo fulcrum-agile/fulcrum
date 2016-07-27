@@ -11,22 +11,20 @@ services:
 
 cache:
   key: CM-Fulcrum
-  untracked: true
+  paths:
+    - .gitlab_cache/
 
 variables:
-  DISPLAY: :99.0
-  PHANTOM_JS: phantomjs-2.1.1-linux-x86_64
+  RAILS_ENV: 'test'
 
-# This is a basic example for a gem or script which doesn't use
-# services such as redis or postgres
 before_script:
   - ruby -v
   - npm -v
   - script/gitlab-phantomjs-download
-  - bundle install --without development production -j $(nproc) --path /cache
+  - bundle install --without development production -j $(nproc) --path .gitlab_cache
   - cp .env.sample .env
   - cp config/database.yml.example config/database.yml
-  - RAILS_ENV=test bundle exec rake --trace fulcrum:setup db:setup
+  - bundle exec rake --trace fulcrum:setup db:setup
 
 test:
   script:
