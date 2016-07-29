@@ -1,27 +1,21 @@
-# This file is a template, and might need editing before it works on your project.
-# Official language image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/ruby/tags/
-image: starefossen/ruby-node:2-5
+image: codeminer/ruby:2.3
 
-# Pick zero or more services to be used on all builds.
-# Only needed when using a docker container to run your tests in.
-# Check out: http://docs.gitlab.com/ce/ci/docker/using_docker_images.html#what-is-service
 services:
   - postgres:latest
 
 cache:
   key: CM-Fulcrum
   paths:
-    - .gitlab_cache/
+    - .ci_cache/
 
 variables:
-  RAILS_ENV: 'test'
+  RAILS_ENV: test
+  DATABASE_URL: postgresql://postgres@postgres
 
 before_script:
   - ruby -v
   - npm -v
-  - script/gitlab-phantomjs-download
-  - bundle install --without development production -j $(nproc) --path .gitlab_cache
+  - bundle install --without development production -j $(nproc) --path .ci_cache
   - cp .env.sample .env
   - cp config/database.yml.example config/database.yml
   - bundle exec rake --trace fulcrum:setup db:setup
