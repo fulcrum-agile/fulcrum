@@ -5,6 +5,7 @@ services:
 
 cache:
   key: CM-Fulcrum
+  untracked: true
   paths:
     - .ci_cache/
 
