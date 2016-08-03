@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   before_destroy :remove_story_association
 
-  validates :name, :username, :initials, presence: true
+  validates :name, :initials, presence: true
   validates :username, uniqueness: true
 
   def password_required?
