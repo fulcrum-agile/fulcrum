@@ -1,4 +1,4 @@
-image: codeminer/ruby:2.3
+image: codeminer42/ruby:2.3
 
 services:
   - postgres:latest
