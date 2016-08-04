@@ -65,6 +65,8 @@ GEM
     cloudinary (1.1.7)
       aws_cf_signer
       rest-client
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -104,6 +106,7 @@ GEM
     devise-async (0.10.2)
       devise (>= 3.2, < 4.0)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
@@ -275,6 +278,11 @@ GEM
       actionmailer (>= 3.0)
       activesupport (>= 3.0)
       sidekiq (>= 2.3)
+    simplecov (0.11.1)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -321,6 +329,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   cloudinary
+  codeclimate-test-reporter
   coffee-rails
   compass-rails
   configuration

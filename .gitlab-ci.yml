@@ -12,6 +12,7 @@ cache:
 variables:
   RAILS_ENV: test
   DATABASE_URL: postgresql://postgres@postgres
+  CODECLIMATE_REPO_TOKEN: 73f76178ea50d9bb1db84b0be3eb7095fba5021b2deb899818915a4ad222a3d9
 
 before_script:
   - ruby -v

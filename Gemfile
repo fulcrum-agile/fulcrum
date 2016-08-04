@@ -64,6 +64,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 group :development do
