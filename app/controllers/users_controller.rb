@@ -18,6 +18,7 @@ class UsersController < ApplicationController
       u.was_created = true
       u.name = params[:user][:name]
       u.initials = params[:user][:initials]
+      u.username = params[:user][:username]
     end
 
     if @user.new_record? && !@user.save
