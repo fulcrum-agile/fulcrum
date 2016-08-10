@@ -6,11 +6,11 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
-[![Build Status](https://travis-ci.org/Codeminer42/fulcrum.svg)](https://travis-ci.org/Codeminer42/fulcrum)
+[![Build Status](https://travis-ci.org/Codeminer42/cm42-central.svg?branch=master)](https://travis-ci.org/Codeminer42/fulcrum)
 
 
 
-![Fulcrum Screenshot](https://github.com/fulcrum-agile/fulcrum/raw/master/doc/screenshot.png)
+![Fulcrum Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/screenshot.png)
 
 
 The Codeminer 42 Fork Feature Set
