@@ -12,6 +12,32 @@ details.
 
 ![Fulcrum Screenshot](https://github.com/fulcrum-agile/fulcrum/raw/master/doc/screenshot.png)
 
+
+The Codeminer 42 Fork Feature Set
+---------------------------------
+
+- [x] General project cleanup
+  - [x] upgrading gems
+  - [x] using rails-assets
+  - [x] refactoring views to use Bootstrap elements
+  - [x] fixing failing migrations
+  - [x] fixing failing tests, including javascript tests
+  - [x] adding phantomjs for feature tests
+- [x] Adding superadmin role to manage projects and users
+  - [x] proper users CRUD section
+  - [ ] Reorganize the user administration
+- [x] Fixing Pivotal Tracker project CSV import to properly get the Notes
+- [x] Adding Cloudinary/Attachinary support to upload assets to Stories and Notes
+  - [ ] Uploading is working but it is not showing properly yet
+- [x] Improved UI
+  - [x] A little bit better icon set
+  - [x] Textarea in Story editing can now auto-resize
+  - [x] Can collapse sprint groups
+  - [x] Bugs and Chores shouldn't be estimated
+  - [x] Basic task system inside a Story
+  - [x] Labels work as "Epic" grouping
+
+
 Get involved
 ------------
 
@@ -52,6 +78,9 @@ Once you have these:
     # Checkout the project
     $ git clone git://github.com/fulcrum-agile/fulcrum.git
     $ cd fulcrum
+
+    # copy and edit the configuration
+    $ cp .env.sample .env
 
     # Install the project dependencies
     $ gem install bundler
@@ -107,6 +136,18 @@ to the previous section for instructions. Then:
     # Tell Heroku to exclude parts of the Gemfile
     $ heroku config:set BUNDLE_WITHOUT='development:test:travis:mysql:sqlite'
 
+    # How many stories a project will load at once (so very old, done stories, stay out of the first load), (optional, default is 300)
+    $ heroku config:set STORIES_CEILING=300
+
+    # CDN URL - Go to AWS and create a CloudFront configuration (optional)
+    $ heroku config:set CDN_URL=http://xpto.cloudfront.net
+
+    # Font Asset - domain of your app
+    $ heroku config:set FONT_ASSET=http://APPNAME.herokuapp.com
+
+    # Add memcache to speed things up (optional)
+    $ heroku addons:add memcachier:dev
+
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
 
@@ -118,6 +159,8 @@ to the previous section for instructions. Then:
 
 Once that's done, you will be able to view your site at
 `http://APPNAME.herokuapp.com`.
+
+The recommendation is to create a proper domain and add the herokuapp URL as the CNAME.
 
 Deploying to other platforms
 ----------------------------

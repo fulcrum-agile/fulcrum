@@ -24,7 +24,7 @@ module Fulcrum
     config.i18n.available_locales = ['de', 'el', 'en', 'es', 'nl', 'ja', 'pt-BR']
 
     config.autoload_paths += %W(#{config.root}/lib/)
-  
+
     config.active_record.observers = :story_observer
 
     load Rails.root.join('config','fulcrum_defaults.rb')

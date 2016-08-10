@@ -12,6 +12,7 @@ run gem install bundler
 workdir /tmp
 copy Gemfile Gemfile
 copy Gemfile.lock Gemfile.lock
+copy .env.sample .env
 
 run bundle install
 
