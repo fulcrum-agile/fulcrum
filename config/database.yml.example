@@ -4,7 +4,7 @@ development:
   encoding: unicode
   database: fulcrum_development
   pool: 5
-  username: postgres
+  username:
   password:
 
 test:
@@ -12,7 +12,7 @@ test:
   encoding: unicode
   database: fulcrum_test
   pool: 5
-  username: postgres
+  username:
   password:
 
 production:
@@ -20,5 +20,5 @@ production:
   encoding: unicode
   database: fulcrum_production
   pool: 5
-  username: postgres
+  username:
   password:
