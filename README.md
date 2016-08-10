@@ -6,7 +6,7 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
-[![Build Status](https://travis-ci.org/fulcrum-agile/fulcrum.png?branch=master)](https://travis-ci.org/fulcrum-agile/fulcrum)
+[![Build Status](https://travis-ci.org/Codeminer42/fulcrum.svg)](https://travis-ci.org/Codeminer42/fulcrum)
 
 
 
@@ -16,6 +16,14 @@ details.
 The Codeminer 42 Fork Feature Set
 ---------------------------------
 
+- [x] Fixing Pivotal Tracker project CSV import to properly get the Notes
+- [x] Added stories search through Pg_Search (low priority: maybe add option for Elastic)
+- [x] Adding superadmin role to manage projects and users
+  - [x] proper users CRUD section
+  - [ ] Reorganize the user administration
+- [x] Adding Cloudinary/Attachinary support to upload assets to Stories and Notes
+  - [ ] Uploading is working but it is not showing properly yet
+  - [ ] Add uploads to Notes
 - [x] General project cleanup
   - [x] upgrading gems
   - [x] using rails-assets
@@ -23,12 +31,12 @@ The Codeminer 42 Fork Feature Set
   - [x] fixing failing migrations
   - [x] fixing failing tests, including javascript tests
   - [x] adding phantomjs for feature tests
-- [x] Adding superadmin role to manage projects and users
-  - [x] proper users CRUD section
-  - [ ] Reorganize the user administration
-- [x] Fixing Pivotal Tracker project CSV import to properly get the Notes
-- [x] Adding Cloudinary/Attachinary support to upload assets to Stories and Notes
-  - [ ] Uploading is working but it is not showing properly yet
+  - [ ] remove StoryObserver
+  - [ ] (low priority) replace the polling system for a websockets channel and listener
+  - [ ] more markdown javascript to assets
+  - [ ] (low priority) the initial project loads all stories (up to the STORIES_CEILING), need to asynchronously load the past
+  - [ ] needs more testing and tweaking for tablets
+  - [ ] Backbone code needs more refactoring and cleanup
 - [x] Improved UI
   - [x] A little bit better icon set
   - [x] Textarea in Story editing can now auto-resize
@@ -36,6 +44,8 @@ The Codeminer 42 Fork Feature Set
   - [x] Bugs and Chores shouldn't be estimated
   - [x] Basic task system inside a Story
   - [x] Labels work as "Epic" grouping
+  - [ ] (bug) dragging a task to the begging of a sprint is not saving the new priority
+  - [ ] (bug) raising error when trying to change state of story from 'started' to 'unstarted'
 
 
 Get involved
