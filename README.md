@@ -132,6 +132,9 @@ to the previous section for instructions. Then:
 
     $ gem install heroku
 
+    # Define secret tokens
+    $ heroku config:set SECRET_TOKEN=`rake secret` SECRET_KEY_BASE=`rake secret`
+
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar-14
 
