@@ -533,25 +533,6 @@ div.note {
   }
 }
 
-#messages .flash-alert,
-#messages .flash-notice,
-#messages .flash-error {
-  @extend .alert;
-  @extend .alert-dismissible;
-}
-
-#messages .flash-alert {
-  @extend .alert-warning;
-}
-
-#messages .flash-notice {
-  @extend .alert-info;
-}
-
-#messages .flash-error {
-  @extend .alert-danger;
-}
-
 /* Form Styles */
 .form-wrapper  {
   @extend .form-horizontal;
@@ -667,8 +648,6 @@ div#keycut-help {
   margin-top: 10px;
 }
 
-.members-list,
-.add-member,
 .edit-project,
 .add-user,
 .edit-user,

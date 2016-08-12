@@ -41,6 +41,7 @@ gem 'dalli'
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-date.format'
+  gem 'rails-assets-jquery', '~> 1.8'
   gem 'rails-assets-jquery.gritter'
   gem 'rails-assets-jquery.scrollTo'
   gem 'rails-assets-underscore'
