@@ -8,12 +8,6 @@ $(function() {
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
 
-  // Add close button to flash messages
-  $('#messages div').prepend('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>').find('.close').click(function () {
-    $(this).parent().fadeOut();
-    return false;
-  });
-  
   // keycut listener
   $('html').keypress(function(event){
       var code = event.which || event.keyCode;
@@ -48,7 +42,7 @@ $(function() {
             $('a.hide_in_progress').first().click();
           };
           break;
-        
+
         case 97: // a | Should only work without a focused element
           if (!$(':focus').length && window.projectView) {
             window.projectView.newStory();
