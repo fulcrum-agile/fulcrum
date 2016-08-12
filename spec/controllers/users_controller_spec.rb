@@ -42,7 +42,6 @@ describe UsersController do
             get :index, :project_id => project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
-            expect(assigns[:users]).to eq(users)
           end
         end
 
@@ -72,7 +71,7 @@ describe UsersController do
         specify do
           post :create, :project_id => project.id, :user => user_params
           expect(assigns[:project]).to eq(project)
-          expect(assigns[:users]).to eq(users)
+          expect(response).to redirect_to(project_users_url(project))
         end
 
         context "when user does not exist" do
