@@ -40,13 +40,14 @@ describe StoryObserver do
         let(:requested_by)  { mock_model(User, :email_delivery? => true) }
         let(:owned_by)      { mock_model(User, :email_acceptance? => true,
                                                :email_rejection? => true) }
-        let(:notifier)      { double("notifier") }
+        let(:notifier)      { double("notifier", subject: "hello") }
 
         before do
           allow(story).to receive_messages(:acting_user => acting_user)
           allow(story).to receive_messages(:requested_by => requested_by)
           allow(story).to receive_messages(:owned_by => owned_by)
           allow(project).to receive_messages(:start_date => true)
+          allow(project).to receive_message_chain(:integrations, :count).and_return(1)
           expect(notifier).to receive(:deliver)
         end
 
@@ -55,6 +56,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:started).with(story, acting_user) {
             notifier
           }
+          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
           subject.after_save(story)
         end
         it "sends 'delivered' email notification" do
@@ -62,6 +64,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:delivered).with(story, acting_user) {
             notifier
           }
+          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
           subject.after_save(story)
         end
         it "sends 'accepted' email notification" do
@@ -69,6 +72,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:accepted).with(story, acting_user) {
             notifier
           }
+          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
           subject.after_save(story)
         end
         it "sends 'rejected' email notification" do
@@ -76,6 +80,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:rejected).with(story, acting_user) {
             notifier
           }
+          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
           subject.after_save(story)
         end
       end
