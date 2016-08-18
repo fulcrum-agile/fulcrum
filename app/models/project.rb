@@ -78,6 +78,7 @@ class Project < ActiveRecord::Base
           tasks << "* #{value}" if header == 'Task' && value
         end
         story.description = "#{story.description}\n\nTasks:\n\n#{tasks.join("\n")}" unless tasks.empty?
+        story.project.suppress_notifications = true # otherwise the import will generate massive notifications!
         story.save
 
         # Generate notes for this story if any are present

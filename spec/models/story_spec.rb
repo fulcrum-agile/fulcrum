@@ -3,6 +3,9 @@ require 'rails_helper'
 describe Story do
 
   subject { build :story, :with_project }
+  before {
+    subject.acting_user = FactoryGirl.build(:user)
+  }
 
   describe 'scopes' do
     let!(:story) { create(:story, :with_project, labels: 'feature,test') }

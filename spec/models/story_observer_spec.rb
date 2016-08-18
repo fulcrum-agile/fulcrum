@@ -5,7 +5,7 @@ describe StoryObserver do
   subject { StoryObserver.instance }
 
   let(:story) do
-    mock_model(Story, state_changed?: false, accepted_at_changed?: false)
+    mock_model(Story, title: "Test Story", acting_user: FactoryGirl.build(:user), state_changed?: false, accepted_at_changed?: false)
   end
 
   # FIXME - Better coverage needed
@@ -13,7 +13,7 @@ describe StoryObserver do
 
     context "when story state changed" do
 
-      let(:project) { mock_model(Project) }
+      let(:project) { mock_model(Project, id: 1, name: "Test Project") }
 
       before do
         allow(project).to receive_messages(:suppress_notifications => false)
@@ -56,7 +56,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:started).with(story, acting_user) {
             notifier
           }
-          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
+          expect(IntegrationWorker).to receive(:perform_async).with(1, "[Test Project] The story 'Test Story' has been started.")
           subject.after_save(story)
         end
         it "sends 'delivered' email notification" do
@@ -64,7 +64,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:delivered).with(story, acting_user) {
             notifier
           }
-          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
+          expect(IntegrationWorker).to receive(:perform_async).with(1, "[Test Project] The story 'Test Story' has been delivered for acceptance.")
           subject.after_save(story)
         end
         it "sends 'accepted' email notification" do
@@ -72,7 +72,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:accepted).with(story, acting_user) {
             notifier
           }
-          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
+          expect(IntegrationWorker).to receive(:perform_async).with(1, "[Test Project]  ACCEPTED your story 'Test Story'.")
           subject.after_save(story)
         end
         it "sends 'rejected' email notification" do
@@ -80,7 +80,7 @@ describe StoryObserver do
           expect(Notifications).to receive(:rejected).with(story, acting_user) {
             notifier
           }
-          expect(IntegrationWorker).to receive(:perform_async).with(story.project_id, "hello")
+          expect(IntegrationWorker).to receive(:perform_async).with(1, "[Test Project]  REJECTED your story 'Test Story'.")
           subject.after_save(story)
         end
       end
