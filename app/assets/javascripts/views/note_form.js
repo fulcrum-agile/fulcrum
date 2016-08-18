@@ -49,7 +49,6 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
       class: 'clearfix'
     });
 
-    $(div).append(this.label("note"));
     $(div).append('<br/>');
     $(div).append(this.textArea("note"));
 

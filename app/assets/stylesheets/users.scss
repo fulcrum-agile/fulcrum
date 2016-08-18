@@ -10,3 +10,26 @@
   display: inline;
   padding: 0;
 }
+
+.attachinary_progress_bar {
+  display: none;
+  background-color: green;
+  width: 2px;
+  height: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.attachinary_finished_message {
+  display: none;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.attachinary_images_list {
+  list-style: none;
+  margin-top: 5px;
+  li {
+    margin-bottom: 5px;
+  }
+}

@@ -5,7 +5,8 @@ describe('Fulcrum.StoryView', function() {
       "attachinary":{
         "accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
         "cloudinary":{
-          "tags":["development_env","attachinary_tmp"]},
+          "tags":["development_env","attachinary_tmp"],
+          "use_filename": true},
         "html":{"class":["attachinary-input"],"accept":"image/jpeg,image/png,image/vnd.adobe.photoshop,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/excel",
         "multiple":true,
         "data":{"attachinary":{"accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
@@ -510,9 +511,10 @@ describe('Fulcrum.StoryView', function() {
       this.view.model.isNew = sinon.stub().returns(true);
       this.view.render();
       expect(this.view.$('.attachinary-input').length).toEqual(1);
-      expect(this.view.$('.attachinary-input').siblings().length).toEqual(2);
-      expect(this.view.$('.attachinary-input').siblings()[0].id).toContain('documents_progress');
-      expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('attachinary_container');
+      expect(this.view.$('.attachinary-input').siblings().length).toEqual(4);
+      expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('documents_progress');
+      expect(this.view.$('.attachinary-input').siblings()[2].id).toContain('documents_finished');
+      expect(this.view.$('.attachinary-input').siblings()[3].id).toContain('attachinary_container');
     });
 
   });

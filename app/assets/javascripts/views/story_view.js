@@ -67,6 +67,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click input.estimate": "estimate",
     "change select.story_type": "disableEstimate",
     "click .destroy": "clear",
+    "click .description": "editDescription",
     "click .edit-description": "editDescription",
     "sortupdate": "sortUpdate"
   },
@@ -403,39 +404,45 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               window.md.makeHtml(this.model.escape('description'))
             );
             $(div).append(description);
-            $(description).after(
-              this.make('input', {
-                class: 'edit-description',
-                type: 'button',
-                value: I18n.t('edit')
-              })
-            );
+            if (!this.model.get('description') || 0 === this.model.get('description').length) {
+              $(description).after(
+                this.make('input', {
+                  class: 'edit-description',
+                  type: 'button',
+                  value: I18n.t('edit')
+                })
+              );
+            }
           }
         })
       );
+
+      this.renderTasks();
 
       this.$el.append(
         this.makeFormControl(function(div) {
           var random = (Math.floor(Math.random() * 10000) + 1);
           var progress_element_id = "documents_progress_" + random;
+          var finished_element_id = "documents_finished_" + random;
           var attachinary_container_id = "attachinary_container_" + random;
 
+          $(div).append(this.label('attachments', 'Attachments'));
           $(div).addClass('uploads');
-          $(div).append(this.fileField("documents", progress_element_id, attachinary_container_id));
-          $(div).append("<span id='" + progress_element_id + "'>0%</span>");
+          $(div).append(this.fileField("documents", progress_element_id, finished_element_id, attachinary_container_id));
+          $(div).append("<div id='" + progress_element_id + "' class='attachinary_progress_bar'></div>");
+          $(div).append('<div id="' + finished_element_id + '" class="attachinary_finished_message">Click the "save" button above!</div>');
           $(div).append('<div id="' + attachinary_container_id + '"></div>');
 
           // FIXME: refactor to a separated AttachmentView or similar
           // must run the plugin after the element is available in the DOM, not before, hence, the setTimeout
           clearTimeout(window.executeAttachinaryTimeout);
-          window.executeAttachinaryTimeout = setTimeout(executeAttachinary, 1000);
+          window.executeAttachinaryTimeout = setTimeout(executeAttachinary, 500);
         })
       );
 
       this.initTags();
 
       this.renderNotes();
-      this.renderTasks();
 
     } else {
       this.$el.removeClass('editing');
@@ -486,7 +493,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   renderNotes: function() {
     if (this.model.notes.length > 0) {
       var el = this.$el;
-      el.append('<hr/>');
+      el.append(this.label('notes', 'Notes'));
       el.append('<div class="notelist"/>');
       this.renderNotesCollection();
     }
@@ -495,8 +502,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   renderTasks: function() {
     if (this.model.tasks.length > 0) {
       var el = this.$el;
-      el.append('<hr />');
-      el.append('<h3>' + I18n.t('tasks') + '</h3>');
+      el.append(this.label('tasks', 'Tasks'));
       el.append('<div class="tasklist"/>');
       this.renderTasksCollection();
     }
