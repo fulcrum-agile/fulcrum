@@ -9,6 +9,11 @@ class StoryObserver < ActiveRecord::Observer
         # Send a 'the story has been delivered' notification if the state has
         # changed to 'delivered'
         # FIXME Move to predicate on Story
+        if story.state == 'started' && story.acting_user && story.requested_by && story.requested_by.email_delivery? && story.acting_user != story.requested_by
+          notifier = Notifications.started(story, story.acting_user)
+          notifier.deliver if notifier
+        end
+
         if story.state == 'delivered' && story.acting_user && story.requested_by && story.requested_by.email_delivery? && story.acting_user != story.requested_by
           notifier = Notifications.delivered(story, story.acting_user)
           notifier.deliver if notifier

@@ -50,6 +50,13 @@ describe StoryObserver do
           expect(notifier).to receive(:deliver)
         end
 
+        it "sends 'started' email notification" do
+          allow(story).to receive_messages(:state => 'started')
+          expect(Notifications).to receive(:started).with(story, acting_user) {
+            notifier
+          }
+          subject.after_save(story)
+        end
         it "sends 'delivered' email notification" do
           allow(story).to receive_messages(:state => 'delivered')
           expect(Notifications).to receive(:delivered).with(story, acting_user) {
