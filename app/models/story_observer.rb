@@ -45,10 +45,6 @@ class StoryObserver < ActiveRecord::Observer
 
       end
 
-      # FIXME move this code to some other service that concentrates both sending email and pushing integrations
-      if notifier && story.project.integrations.count > 0
-      end
-
       # Set the project start date to today if the project start date is nil
       # and the state is changing to any state other than 'unstarted' or
       # 'unscheduled'
