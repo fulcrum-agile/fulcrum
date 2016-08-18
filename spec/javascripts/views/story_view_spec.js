@@ -5,7 +5,8 @@ describe('Fulcrum.StoryView', function() {
       "attachinary":{
         "accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
         "cloudinary":{
-          "tags":["development_env","attachinary_tmp"]},
+          "tags":["development_env","attachinary_tmp"],
+          "use_filename": true},
         "html":{"class":["attachinary-input"],"accept":"image/jpeg,image/png,image/vnd.adobe.photoshop,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/excel",
         "multiple":true,
         "data":{"attachinary":{"accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
