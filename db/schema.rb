@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 20160818013050) do
     t.string   "locale"
     t.boolean  "is_admin",               default: false
     t.integer  "memberships_count",      default: 0
-    t.string   "username",               default: "",    null: false
+    t.string   "username",                               null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
