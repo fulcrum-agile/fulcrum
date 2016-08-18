@@ -68,6 +68,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "change select.story_type": "disableEstimate",
     "click .destroy": "clear",
     "click .description": "editDescription",
+    "click .edit-description": "editDescription",
     "sortupdate": "sortUpdate"
   },
 
@@ -403,6 +404,15 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               window.md.makeHtml(this.model.escape('description'))
             );
             $(div).append(description);
+            if (!this.model.get('description') || 0 === this.model.get('description').length) {
+              $(description).after(
+                this.make('input', {
+                  class: 'edit-description',
+                  type: 'button',
+                  value: I18n.t('edit')
+                })
+              );
+            }
           }
         })
       );
