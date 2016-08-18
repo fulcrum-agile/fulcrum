@@ -1,6 +1,8 @@
 <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
 
+<%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
+
 <script type="text/javascript">
 $(function() {
   window.md = new Markdown.Converter();
