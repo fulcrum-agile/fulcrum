@@ -396,7 +396,12 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           $(div).append(this.label("description", "Description"));
           $(div).append('<br/>');
           if(this.model.isNew() || this.model.get('editingDescription')) {
-            $(div).append(this.textArea("description"));
+            var textarea = this.textArea("description");
+            $(textarea).atwho({
+              at: "@",
+              data: window.PROJECT_MEMBERS
+            })
+            $(div).append(textarea);
           } else {
             var description = this.make('div');
             $(description).addClass('description');

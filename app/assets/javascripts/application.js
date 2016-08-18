@@ -3,6 +3,7 @@
 //= require jquery-ui
 //= require jquery.gritter
 //= require jquery.scrollTo
+//= require jquery.atwho
 //= require date.format
 //= require underscore
 //= require backbone

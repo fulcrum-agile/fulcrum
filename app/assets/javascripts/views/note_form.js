@@ -49,8 +49,14 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
       class: 'clearfix'
     });
 
+    var textarea = this.textArea("note");
+    $(textarea).atwho({
+        at: "@",
+        data: window.PROJECT_MEMBERS
+    })
+
     $(div).append('<br/>');
-    $(div).append(this.textArea("note"));
+    $(div).append(textarea);
 
     var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note', class: 'add-note'});
     $(div).append(submit);

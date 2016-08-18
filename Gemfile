@@ -38,6 +38,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'dalli'
 
+gem 'jquery-atwho-rails'
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-date.format'
