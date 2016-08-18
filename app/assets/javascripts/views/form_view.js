@@ -36,7 +36,7 @@ Fulcrum.FormView = Backbone.View.extend({
     return el;
   },
 
-  fileField: function(name, progress_element_id, attachinary_container_id) {
+  fileField: function(name, progress_element_id, finished_element_id, attachinary_container_id) {
     var field_name = name + ( ATTACHINARY_OPTIONS['html']['multiple'] ? '[]' : '' );
     var files = this.model.get('documents');
     if(files) {
@@ -51,12 +51,23 @@ Fulcrum.FormView = Backbone.View.extend({
                        'multiple': ( ATTACHINARY_OPTIONS['html']['multiple'] ? 'multiple' : '' ),
                        });
 
-    $(el).bind('fileuploadprogressall', (function(_this, _progress_element_id) {
+    $(el).bind('fileuploadprogressall', (function(_this, _progress_element_id, _finished_element_id) {
       return function(e, data) {
+        var el_progress = $('#' + _progress_element_id);
+        if ( el_progress.css('display') == 'none' )
+          el_progress.show();
+
         var progress = parseInt(data.loaded / data.total * 100, 10);
-        return $('#' + progress_element_id).html(progress + "%");
+        el_progress.css('width', progress + "%");
+
+        if (progress == 100) {
+          el_progress.css('width', "1px");
+          el_progress.hide();
+
+          $('#' + _finished_element_id).show();
+        }
       };
-    })(this, progress_element_id));
+    })(this, progress_element_id, finished_element_id));
     this.bindElementToAttribute(el, name);
     return el;
   },
