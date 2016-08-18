@@ -1,5 +1,8 @@
 language: ruby
 cache: bundler
+services:
+  - postgresql
+  - redis-server
 sudo: false
 env:
   - "DB=postgresql"
