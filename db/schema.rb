@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628195845) do
+ActiveRecord::Schema.define(version: 20160818013050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "attachinary_files", force: true do |t|
     t.integer  "attachinariable_id"
@@ -38,6 +39,16 @@ ActiveRecord::Schema.define(version: 20160628195845) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "integrations", force: true do |t|
+    t.integer  "project_id"
+    t.string   "kind",       null: false
+    t.hstore   "data",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "integrations", ["data"], name: "index_integrations_on_data", using: :gin
 
   create_table "memberships", force: true do |t|
     t.integer  "project_id"

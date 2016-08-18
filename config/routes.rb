@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get :search
     end
     resources :users, only: [:index, :create, :destroy]
+    resources :integrations, only: [:index, :create, :destroy]
     resources :changesets, only: [:index]
     resources :stories, only: [:index, :create, :update, :destroy, :show] do
       resources :notes, only: [:index, :create, :show, :destroy]

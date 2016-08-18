@@ -33,5 +33,10 @@ module Fulcrum
       load Rails.root.join('config','fulcrum.rb')
     end
     config.fulcrum = ::Configuration.for 'fulcrum'
+
+    #FIXME this shouldn't be necessary in Rails 4 but the generator was falling back to test_unit
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end
