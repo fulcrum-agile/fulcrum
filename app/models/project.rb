@@ -36,6 +36,7 @@ class Project < ActiveRecord::Base
   validates_numericality_of :default_velocity, :greater_than => 0,
                             :only_integer => true
 
+  has_many :integrations, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :users, -> { uniq }, through: :memberships
 

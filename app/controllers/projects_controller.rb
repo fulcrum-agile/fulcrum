@@ -41,6 +41,7 @@ class ProjectsController < ApplicationController
   def edit
     @project = current_user.projects.friendly.find(params[:id])
     @project.users.build
+    @integration = Integration.new
   end
 
   # POST /projects
