@@ -1,39 +1,78 @@
-<div class="form-wrapper">
+<div class="form-wrapper edit-project">
 <%= form_for(@project) do |f| %>
   <%= render 'shared/form_errors', :object => @project if @project.errors.any? %>
 
   <div class="field-wrapper">
-    <%= f.label :name %>
-    <div class="field"><%= f.text_field :name %></div>
+    <%= f.label :name, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.text_field :name %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :point_scale %>
-    <div class="field"><%= f.select :point_scale, point_scale_options %></div>
+    <%= f.label :point_scale, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.select :point_scale, point_scale_options %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :default_velocity %>
-    <div class="field"><%= f.text_field :default_velocity, :length => 2, :size => 3 %></div>
+    <%= f.label :default_velocity, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.text_field :default_velocity, :length => 2, :size => 3 %></div>
   </div>
 
   <div class="field-wrapper date-wrapper">
-    <%= f.label :start_date %>
-    <div class="field"><%= f.date_select :start_date %></div>
+    <%= f.label :start_date, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8 date-select-wrapper"><%= f.date_select :start_date %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :iteration_start_day %>
-    <div class="field"><%= f.select :iteration_start_day, day_name_options %></div>
+    <%= f.label :iteration_start_day, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.select :iteration_start_day, day_name_options %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :iteration_length %>
-    <div class="field"><%= f.select :iteration_length, iteration_length_options %></div>
+    <%= f.label :iteration_length, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.select :iteration_length, iteration_length_options %></div>
+  </div>
+
+  <div class="field-wrapper">
+    <%= f.label :archived, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.check_box :archived %></div>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit nil, class: 'btn btn-primary pull-right' %>
   </div>
 <% end %>
 </div>
+
+<% unless @project.new_record? %>
+  <% if @project.integrations.count > 0 %>
+    <h2>Integrations</h2>
+    <ul class="list-group members-list">
+      <% @project.integrations.each do |integration| %>
+        <li class="list-group-item clearfix">
+          <%= integration.kind %> - <%= integration.data %>
+          <%= link_to 'Remove', project_integration_path(@project, integration),
+          :confirm => "Are you sure you want to remove '#{integration.kind}' integration from this project?",
+          :method => :delete,
+          class: 'btn btn-danger btn-sm pull-right' %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  <h2>Add a new integration</h2>
+  <div class="form-wrapper add-member">
+  <%= form_for [@project, @integration] do |i| %>
+    <div class="field-wrapper">
+      <%= i.label :kind, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10"><%= i.select :kind, Integration::VALID_INTEGRATIONS %></div>
+    </div>
+    <div class="field-wrapper">
+      <%= i.label :data, class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10"><%= i.text_field :data %>
+      <br/>ex: { "channel":"testing-mentions", "bot_username":"marvin", "private_uri":"https://mm42.com.br/hooks/private_token" }</div>
+    </div>
+    <div class="actions">
+      <%= i.submit 'Add integration', class: 'btn btn-primary pull-right' %>
+    </div>
+  <% end %>
+  </div>
+<% end %>

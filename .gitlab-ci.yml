@@ -1,0 +1,28 @@
+image: codeminer42/ci-ruby:2.3
+
+services:
+  - postgres:latest
+
+cache:
+  key: CM-Fulcrum
+  untracked: true
+  paths:
+    - .ci_cache/
+
+variables:
+  RAILS_ENV: test
+  DATABASE_URL: postgresql://postgres@postgres
+  CODECLIMATE_REPO_TOKEN: 73f76178ea50d9bb1db84b0be3eb7095fba5021b2deb899818915a4ad222a3d9
+
+before_script:
+  - ruby -v
+  - npm -v
+  - bundle install --without development production -j $(nproc) --path .ci_cache
+  - cp .env.sample .env
+  - cp config/database.yml.example config/database.yml
+  - bundle exec rake --trace fulcrum:setup db:setup
+
+test:
+  script:
+    - bundle exec rspec
+    - bundle exec rake --trace spec:javascripts

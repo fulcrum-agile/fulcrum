@@ -1,7 +1,7 @@
 describe('Fulcrum.ProjectVelocityView', function() {
 
   beforeEach(function() {
-    this.model = {bind: sinon.stub()};
+    this.model = {on: sinon.stub()};
     sinon.stub(Fulcrum, 'ProjectVelocityOverrideView');
     this.overrideView = {};
     Fulcrum.ProjectVelocityOverrideView.withArgs({model: this.model}).returns(
@@ -26,13 +26,13 @@ describe('Fulcrum.ProjectVelocityView', function() {
     });
 
     it("binds setFakeClass to change:userVelocity on the model", function() {
-      expect(this.model.bind).toHaveBeenCalledWith(
+      expect(this.model.on).toHaveBeenCalledWith(
         "change:userVelocity", this.subject.setFakeClass
       );
     });
 
     it("binds render to rebuilt-iterations on the model", function() {
-      expect(this.model.bind).toHaveBeenCalledWith(
+      expect(this.model.on).toHaveBeenCalledWith(
         "rebuilt-iterations", this.subject.render
       );
     });

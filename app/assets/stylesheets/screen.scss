@@ -1,0 +1,703 @@
+@import 'compass/css3';
+@import 'scaffold';
+@import 'jquery.gritter';
+@import 'jquery_tagit';
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import 'bootstrap_overrides';
+@import 'icons';
+
+$darkgrey:   #6a7176;           // Header color
+$orange:     rgb(250,182,155);  // Estimate gauge color
+
+// Tango icon theme pallette
+// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
+$butter-1:      #fce94f;
+$butter-2:      #edd400;
+$butter-3:      #c4a000;
+$orange-1:      #fcaf3e;
+$orange-2:      #f57900;
+$orange-3:      #ce5c00;
+$chocolate-1:   #e9b96e;
+$chocolate-2:   #c17d11;
+$chocolate-3:   #8f5902;
+$chameleon-1:   #8ae234;
+$chameleon-2:   #73d216;
+$chameleon-3:   #4e9a06;
+$sky-blue-1:    #729fcf;
+$sky-blue-2:    #3465a4;
+$sky-blue-3:    #204a87;
+$plum-1:        #ad7fa8;
+$plum-2:        #75507b;
+$plum-3:        #5c3566;
+$scarlet-red-1: #ef2929;
+$scarlet-red-2: #cc0000;
+$scarlet-red-3: #a40000;
+$aluminium-1:   #eeeeec;
+$aluminium-2:   #d3d7cf;
+$aluminium-3:   #babdb6;
+$aluminium-4:   #888a85;
+$aluminium-5:   #555753;
+$aluminium-6:   #2e3436;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a img {
+  border: 0;
+}
+
+#header {
+  background: $darkgrey;
+  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
+  border-bottom: 1px solid $darkgrey*0.7;
+  @include box-shadow(0 1px 2px #aaaaaa);
+  text-shadow: black 0 1px 0;
+  position: relative;
+  z-index: 900;
+}
+
+ul#primary-nav {
+  text-align: right;
+  background-image: image-url('logo.png');
+  background-repeat: no-repeat;
+  background-position: 13px 6px;
+  margin: 0;
+  padding: 1em 1em 1em 40px;
+  color: white;
+}
+ul#primary-nav li {
+  padding: 0 0.5em;
+  display: inline;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  &.root {
+    float: left;
+    font-size: large;
+  }
+  &.secondary {
+    position: relative;
+    @include icons-sprite(collapse, false, 0px, 6px);
+    background-color: #333;
+    background-position-x:right;
+    padding: 0.4em 18px 0.4em 0.4em;
+    @include border-radius(5px);
+    text-shadow: black 0 1px 0;
+    ul {
+      visibility: hidden;
+    }
+  }
+  .secondary:hover ul {
+    visibility: visible;
+  }
+  &.secondary ul {
+    padding: 0.3em;
+    position: absolute;
+    left: 0; top: 1.7em;
+    background-color: #333;
+    @include border-radius(0 5px 5px 5px);
+    li {
+      white-space: nowrap;
+      text-align: left;
+      display: block;
+    }
+  }
+}
+
+#title_bar {
+  background: #efefef;
+  @include background(linear-gradient(top, #efefef, #dfe1e2));
+  @include box-shadow(0 1px 2px #aaaaaa);
+  text-shadow: white 0 1px 0;
+  border-bottom: 1px solid #ededed;
+  padding: 5px 10px 3px 10px;
+  font-size: 1.0em;
+  line-height: 140%;
+  margin-bottom: 0.5em;
+  color: #5e6469;
+  position: relative;
+  margin: -20px 0 0;
+  padding: 10px 1em;
+
+  div.velocity {
+    font-size: 1.4em;
+    float: right;
+    position: relative;
+
+    div.velocity_override_container {
+      width: 220px;
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background: #efefef;
+      border: 1px solid #ccc;
+      @include border-radius(3px);
+      @include single-box-shadow;
+      z-index: 1;
+
+      ul {
+        margin: 10px;
+        padding: 0;
+        li {
+          list-style-type: none;
+        }
+      }
+    }
+
+    #velocity_value {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+  div.velocity.fake #velocity_value {
+    color: #f00;
+    font-style: italic;
+  }
+
+  .project-action {
+    @extend .btn;
+    @extend .btn-link;
+    @extend .btn-xs;
+  }
+
+  #add_story {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-xs;
+  }
+}
+
+#title_bar h1 {
+  font-size: 1.5em;
+  margin: 0.3em 0;
+}
+
+#main {
+  margin: 1em;
+  position: relative;
+}
+
+html.stories, html.stories body, html.stories div#main {
+  height: 100%;
+}
+
+#column-toggles {
+  float: right;
+  a {
+    @extend .btn;
+    @extend .btn-xs;
+    @extend .btn-primary;
+
+    margin: 0 0.2em;
+  }
+  a.pressed {
+    @extend .btn-default;
+  }
+}
+
+/* stories table */
+table.stories {
+  width: 100%;
+  height: 100%;
+  border-spacing: 5px 0;
+  border-collapse: separate;
+  table-layout: fixed;
+}
+
+table.stories td {
+  vertical-align: top;
+  background-color: #ccc;
+  @include border-radius(5px 5px 0 0);
+}
+
+div.storycolumn {
+  overflow: auto;
+  padding-bottom: 80px;
+}
+
+/* Story columns headers */
+.column_header {
+  text-align: left;
+  background: $darkgrey;
+  color: #eee;
+  padding: 0.2em 0.2em 0.2em 1em;
+  text-transform:capitalize;
+  @include border-radius(5px 5px 0 0);
+  a.toggle-title{
+    color: white;
+    text-decoration: none;
+    &:visited{
+      color: white;
+    }
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  a.toggle-column{
+    color: #eee;
+    text-decoration: none;
+    float: right;
+    padding: 0px 5px 1px;
+    cursor: pointer;
+    &:hover{
+      color:$aluminium-3;
+    }
+  }
+}
+
+/* Story types */
+div.story {
+  padding: 0.3em 0.3em 0.7em;
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #fff;
+}
+div.story:hover {
+  background-color: #ddd;
+}
+
+div.story.editing, div.story.editing:hover {
+  background-color: adjust-lightness($butter-1, 20);
+  color: $aluminium-6;
+  cursor: default !important;
+}
+
+div.story.feature.accepted,
+div.story.bug.accepted,
+div.story.chore.accepted{
+  background-color: adjust-lightness($chameleon-1, 40);
+}
+div.story input[type=text],
+div.story textarea {
+  width: 99%;
+}
+div.story textarea {
+  height: 50px;
+  resize: none;
+}
+
+div.story-icons {
+  float: left;
+  font-size: 0;
+}
+div.story-controls {
+  padding: 10px 0;
+  @extend .btn-group;
+
+  input {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-sm;
+  }
+}
+div.story-title {
+  margin-left: 50px;
+}
+.unestimated div.story-title {
+  font-style: italic;
+}
+div.story-title abbr.initials {
+  color: green;
+  font-weight: bold;
+  margin-left: 0.2em;
+  border: none;
+}
+
+#in_progress div.story,
+#backlog div.story,
+#chilly_bin div.story {
+  cursor: move;
+}
+#in_progress div.story.accepted div.story {
+  cursor: inherit;
+}
+
+span.estimate {
+  border: 1px solid #777;
+  padding: 0 0.2em;
+  margin: 0 2px 0 0;
+  @include border-radius(3px);
+  vertical-align: top;
+  font-size: x-small;
+  font-weight: bold;
+  font-style: italic;
+}
+
+span.estimate_1 {
+  @include background(linear-gradient(bottom,
+      $orange 12.5%,
+      white 12.5%));
+}
+span.estimate_2 {
+  @include background(linear-gradient(bottom,
+      $orange 25%,
+      white 25%));
+}
+span.estimate_3 {
+  @include background(linear-gradient(bottom,
+      $orange 37.5%,
+      white 37.5%));
+}
+span.estimate_4 {
+  @include background(linear-gradient(bottom,
+      $orange 50%,
+      white 50%));
+}
+span.estimate_5 {
+  @include background(linear-gradient(bottom,
+      $orange 62.5%,
+      white 62.5%));
+}
+span.estimate_6 {
+  @include background(linear-gradient(bottom,
+      $orange 75%,
+      white 75%));
+}
+span.estimate_7 {
+  @include background(linear-gradient(bottom,
+      $orange 87.5%,
+      white 87.5%));
+}
+span.estimate_8 {
+  @include background(linear-gradient(bottom,
+      $orange 100%,
+      white 100%));
+}
+
+.story.release {
+  background-color: darkgrey;
+  color: white;
+}
+.story.release:hover {
+  background-color: #222;
+}
+
+/* Story action buttons */
+.state-actions {
+  float: right;
+  margin-left: 0.2em;
+}
+
+.state-actions form div, .state-actions form {
+  display: inline;
+}
+
+/* Iteration markers */
+.iteration {
+  @include icons-sprite(iteration, false, 2px, 3px);
+  background-color: #000;
+  color: #ddd;
+  padding: 0.2em 0.2em 0.2em 20px
+}
+.iteration .points {
+  float: right;
+}
+
+.state-actions input {
+  @extend .btn;
+  @extend .btn-xs;
+}
+.story.release .state-actions input {
+  @include box-shadow(0 1px 2px #000);
+}
+.state-actions input:active {
+  @include box-shadow(none);
+}
+.state-actions input.start {
+  @extend .btn-default;
+}
+.state-actions input.finish {
+  @extend .btn-primary;
+}
+.state-actions input.deliver {
+  @extend .btn-warning;
+}
+.state-actions input.accept {
+  @extend .btn-success;
+}
+.state-actions input.reject {
+  @extend .btn-danger;
+}
+.state-actions input.restart {
+  @extend .btn-danger;
+  background-image: sprite-url($icons-sprites);
+  background-position: sprite-position($icons-sprites, redo, 0, 2px);
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+
+table#import tr.valid, table#import .notice {
+  color: white;
+  background-color: $chameleon-3;
+}
+table#import tr.invalid, table#import .alert {
+  color: white;
+  background-color: $scarlet-red-2;
+}
+
+a.button {
+  background: #efefef;
+  @include background(linear-gradient(top, #efefef, #dfe1e2));
+  @include box-shadow(0 1px 2px #aaaaaa);
+  text-shadow: white 0 1px 0;
+  padding: 5px;
+  @include border-radius(5px);
+  border: 1px solid $darkgrey*1.5;
+  text-decoration: none;
+}
+
+
+
+a.button:hover {
+  @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+  color: white;
+  text-shadow: $darkgrey 0 1px 0;
+}
+.tags{
+  color:$sky-blue-3;
+  font-size:84%;
+  margin: 0 0.2em;
+}
+// Popover Overrides
+// Custom Style Overrides
+.popover{
+  p{
+    margin-top:0px;
+  }
+  .title{
+    margin:0px;
+  }
+  .inner{
+    padding:2px ;
+  }
+  .content{
+    padding: 10px 0px 14px;
+  }
+  .small{
+    color:$aluminium-3;
+    font-size:0.85em;
+    padding-left:15px;
+    margin: 0 10px 10px 0;
+    .icons{
+      float:right;
+      .text{
+        vertical-align:top;
+      }
+    }
+  }
+  .description{
+    padding:10px 15px 0px;
+  }
+}
+.ui-widget{
+  font-size:0.9em;
+}
+
+// Notes
+div.note {
+  background-color: white;
+  margin: 0.3em 0.3em 0.6em;
+  border-left: 4px solid $aluminium-3;
+
+  p {
+    padding: 0.3em;
+  }
+
+  div.note_meta {
+    color: $aluminium-4;
+    font-style: italic;
+    font-size: x-small;
+    text-align: right;
+  }
+}
+.popover div.note {
+ a.delete-note {
+    display: none;
+  }
+}
+
+.note_form, .task_form {
+  // The submit button while the server is saving the note.
+  input.saving {
+    padding-left: 16px;
+    background-image: url('throbber.gif');
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+}
+
+#messages .flash-alert,
+#messages .flash-notice,
+#messages .flash-error {
+  @extend .alert;
+  @extend .alert-dismissible;
+}
+
+#messages .flash-alert {
+  @extend .alert-warning;
+}
+
+#messages .flash-notice {
+  @extend .alert-info;
+}
+
+#messages .flash-error {
+  @extend .alert-danger;
+}
+
+/* Form Styles */
+.form-wrapper  {
+  @extend .form-horizontal;
+  @extend .clearfix;
+
+  padding: 10px;
+
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  select,
+  textarea {
+    @extend .form-control;
+  }
+
+  div.field-wrapper {
+    @extend .form-group;
+  }
+
+  div.field-wrapper label {
+    @extend .control-label;
+  }
+
+  div.date-wrapper select {
+    min-width: 0px;
+    width: auto;
+  }
+
+  div.field-wrapper div.help {
+    color: $darkgrey;
+    margin-left: 160px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 0.85em;
+    font-style: italic;
+  }
+
+  div.actions, div.secondary-actions {
+    padding-left: 160px;
+  }
+
+  div.secondary-actions a {
+    display: block;
+  }
+}
+
+div.loading_screen {
+  position: absolute;
+  top:-10px;
+  left:-10px;
+  z-index: 1000;
+  background: #ccc;
+  @include opacity(0.7);
+  width: 110%;
+  height: 110%;
+}
+
+div.spinner {
+  margin: 15% 45%;
+  span{
+    padding:50px;
+  }
+}
+
+div#keycut-help {
+  top: 1em; left: 1em;
+  position: absolute; opacity:0.8;
+  background:black; color:yellow;
+  @include border-radius(5px);
+
+  a.close {
+    color:yellow; text-align:right; display:block; margin:1em;
+  }
+  h4 { margin:0.8em; }
+  p {
+    margin:0.33em 1em; text-align:right; font-size:0.9em;
+    span {
+      display:inline-block; color:white; margin-right:0.8em; float:left;
+    }
+  }
+}
+
+.projects-list {
+
+  .item {
+
+    .item-title-wrapper {
+      margin-top: 4px;
+    }
+
+    .item-title {
+      display: inline;
+    }
+
+    .item-since {
+      margin-right: 10px;
+    }
+
+  }
+}
+
+#edit-description {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+}
+
+.add-note, .add-task {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+  @extend .pull-right;
+  margin-top: 10px;
+}
+
+.members-list,
+.add-member,
+.edit-project,
+.add-user,
+.edit-user,
+.sign-in {
+  width: 550px;
+}
+
+.members-list {
+  .member-name {
+    float: left;
+    margin-top: 5px;
+  }
+}
+
+.edit-user .checkbox,
+.sign-in .checkbox {
+  margin-left: 50px;
+}
+
+.date-select-wrapper select {
+  display: inline-block;
+}
+
+.current-password {
+  margin-top: 20px;
+}
+
+#form_search {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}

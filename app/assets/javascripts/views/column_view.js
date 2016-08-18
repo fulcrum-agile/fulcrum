@@ -9,6 +9,7 @@ Fulcrum.ColumnView = Backbone.View.extend({
   tagName: 'td',
 
   events: {
+    'click a.toggle-title': 'toggleAll',
     'click a.toggle-column': 'toggle'
   },
 
@@ -22,6 +23,13 @@ Fulcrum.ColumnView = Backbone.View.extend({
       this.setSortable();
     }
     return this;
+  },
+
+  toggleAll: function() {
+    var stories = this.$el.children('.storycolumn').children('.story');
+    _.each(stories, function(item) {
+      $(item).toggle();
+    });
   },
 
   toggle: function() {

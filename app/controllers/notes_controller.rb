@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  authorize_resource
 
   def index
     @project = current_user.projects.find(params[:project_id])
@@ -27,7 +28,7 @@ class NotesController < ApplicationController
     @story = @project.stories.find(params[:story_id])
     @note = @story.notes.build(allowed_params)
     @note.user = current_user
-    if @note.save
+    if @note = NoteCreationService.create(@note)
       render :json => @note
     else
       render :json => @note, :status => :unprocessable_entity
@@ -37,7 +38,7 @@ class NotesController < ApplicationController
   protected
 
   def allowed_params
-    params.fetch(:note).permit(:note)
+    params.fetch(:note).permit(:note, :documents)
   end
 
 end

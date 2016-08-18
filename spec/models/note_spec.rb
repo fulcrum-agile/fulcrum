@@ -20,45 +20,12 @@ describe Note do
 
   end
 
-  describe "#create_changeset" do
-
-    let(:changesets)  { double("changesets" ) }
-
-    before do
-      changesets.should_receive(:create!)
-      story.stub(:changesets  => changesets)
-      story.stub(:project     => project)
-    end
-
-    it "creates a changeset on the story" do
-      subject.create_changeset
-    end
-
-    context "when suppress_notifications is off" do
-
-      let(:user1)         { mock_model(User) }
-      let(:notify_users)  { [user, user1] }
-      let(:mailer)        { double("mailer") }
-
-      before do
-        project.stub(:suppress_notifications => false)
-        story.stub(:notify_users => notify_users)
-        Notifications.should_receive(:new_note).with(subject, [user1]).and_return(mailer)
-        mailer.should_receive(:deliver)
-      end
-
-      it "sends notifications" do
-        subject.create_changeset
-      end
-    end
-  end
-
   describe "#as_json" do
 
     it "returns the right keys" do
-      subject.as_json["note"].keys.sort.should == %w[
-        created_at errors id note story_id updated_at user_id
-      ]
+      expect(subject.as_json["note"].keys.sort).to eq(%w[
+        created_at errors id note story_id updated_at user_id user_name
+      ])
     end
 
   end
@@ -67,7 +34,7 @@ describe Note do
     before do
       subject.note = "Test note"
       subject.created_at = "Nov 3, 2011"
-      user.stub(:name => 'user')
+      allow(user).to receive_messages(:name => 'user')
     end
 
     its(:to_s)  { should == "Test note (user - Nov 03, 2011)" }

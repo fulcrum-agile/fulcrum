@@ -22,9 +22,9 @@ describe "Logins" do
 
     it "removes the sign up link" do
       visit root_path
-      page.should have_selector('h1', :text => 'Sign in')
+      expect(page).to have_selector('h1', :text => 'Sign in')
 
-      page.should_not have_selector('a', :text => 'Sign up')
+      expect(page).not_to have_selector('a', :text => 'Sign up')
     end
   end
 
@@ -34,14 +34,14 @@ describe "Logins" do
 
     it "logs in the user", :js => true do
       visit root_path
-      page.should have_selector('h1', :text => 'Sign in')
+      expect(page).to have_selector('h1', :text => 'Sign in')
 
       fill_in "Email",    :with => "user@example.com"
       fill_in "Password", :with => "password"
       click_button 'Sign in'
 
-      page.should have_selector('h1', :text => 'Listing Projects')
-      page.should have_selector('#primary-nav', :text => 'user@example.com')
+      expect(page).to have_selector('h1', :text => 'Listing Projects')
+      expect(page).to have_selector('#primary-nav', :text => 'user@example.com')
     end
 
   end
@@ -55,7 +55,7 @@ describe "Logins" do
       visit root_path
       click_on 'Log out'
 
-      page.should have_selector('h1', :text => 'Sign in')
+      expect(page).to have_selector('h1', :text => 'Sign in')
     end
   end
 

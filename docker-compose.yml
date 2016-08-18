@@ -1,0 +1,19 @@
+postgres:
+  image: postgres
+  volumes:
+    - ~/.docker-volumes/CM-Fulcrum/db:/var/lib/postgresql/data
+  expose:
+    - '5432'
+
+web:
+  build: .
+  environment:
+    DB_USERNAME: 'postgres'
+    DB_PASSWORD: ''
+  volumes:
+    - .:/app
+  ports:
+    - '3000:3000'
+  links:
+    - postgres
+

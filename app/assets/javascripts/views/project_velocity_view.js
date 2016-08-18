@@ -9,8 +9,8 @@ Fulcrum.ProjectVelocityView = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, 'setFakeClass', 'render');
     this.override_view = new Fulcrum.ProjectVelocityOverrideView({model: this.model});
-    this.model.bind('change:userVelocity', this.setFakeClass);
-    this.model.bind('rebuilt-iterations', this.render);
+    this.model.on('change:userVelocity', this.setFakeClass);
+    this.model.on('rebuilt-iterations', this.render);
   },
 
   events: {

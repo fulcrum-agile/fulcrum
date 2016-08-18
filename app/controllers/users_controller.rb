@@ -1,22 +1,24 @@
 class UsersController < ApplicationController
+  authorize_resource
 
   respond_to :html, :json
 
   def index
-    @project = current_user.projects.find(params[:project_id])
+    @project = current_user.projects.friendly.find(params[:project_id])
     @users = @project.users
     @user = User.new
     respond_with(@users)
   end
 
   def create
-    @project = current_user.projects.find(params[:project_id])
+    @project = current_user.projects.friendly.find(params[:project_id])
     @users = @project.users
     @user = User.find_or_create_by(email: params[:user][:email]) do |u|
       # Set to true if the user was not found
       u.was_created = true
       u.name = params[:user][:name]
       u.initials = params[:user][:initials]
+      u.username = params[:user][:username]
     end
 
     if @user.new_record? && !@user.save
@@ -39,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @project = current_user.projects.find(params[:project_id])
+    @project = current_user.projects.friendly.find(params[:project_id])
     @user = @project.users.find(params[:id])
     @project.users.delete(@user)
     redirect_to project_users_url(@project)

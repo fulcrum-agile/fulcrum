@@ -1,0 +1,22 @@
+<h2>All Users</h2>
+<ul class="list-group members-list">
+  <% @users.each do |user| %>
+    <li class="list-group-item clearfix">
+      <div class="member-name">
+        <%= user %> <%= user.is_admin ? "(admin)" : "" %>
+      </div>
+      <div class="users_options btn-group pull-right">
+        <% if can? :update, user %>
+          <%= link_to t('edit'), edit_admin_user_path(user),
+            class: 'btn btn-default btn-sm' %>
+        <% end %>
+        <% if can? :update, user %>
+          <%= link_to t('delete'), admin_user_path(user),
+            data: {confirm: t('.are you sure you want to delete this user')},
+            method: :delete,
+            class: 'btn btn-danger btn-sm' %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

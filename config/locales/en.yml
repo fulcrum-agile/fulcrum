@@ -2,7 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  fulcrum:  "Fulcrum"
+  fulcrum:  "CM42 Central"
 
   log out:  "Log out"
   log in:   "Log in"
@@ -16,6 +16,7 @@ en:
   apply:    "Apply"
   velocity: "Velocity"
   notes:    "Notes"
+  tasks:    "Tasks"
   close:    "Close"
   points:   "Points"
   saving:   "Saving ..."
@@ -23,6 +24,7 @@ en:
 
   author unknown: "Author Unknown"
   add story: "Add story"
+  add task: 'Add task'
   save error: "Save error"
   override velocity: "Override velocity"
   story title: "Story title"
@@ -55,7 +57,7 @@ en:
     toggle_my_work: Toggle my work
     toggle_labels_searches: Toggle labels &amp; searches
     toggle_current: Toggle current
-  
+
   activerecord:
     models:
       user:
@@ -71,6 +73,7 @@ en:
     attributes:
       note:
         note:                 'Note'
+        documents:            'Attachments'
       project:
         name:                 'Name'
         point_scale:          'Point scale'
@@ -78,6 +81,7 @@ en:
         iteration_start_day:  'Iteration start day'
         iteration_length:     'Iteration length'
         default_velocity:     'Default velocity'
+        archived:             'Archived'
       story:
         title:                'Title'
         description:          'Description'
@@ -89,12 +93,20 @@ en:
         labels:               'Labels'
         requested_by:         'Requested by'
         owned_by:             'Owned by'
+        documents:            'Attachments'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug or Chore stories can't be estimated"
 
   projects:
     new project:        "New Project"
     edit project:       "Edit Project"
     project properties: "Project Properties"
+    archived projects:  "Archived Projects"
 
     project was successfully created: "Project was successfully created."
     project was successfully updated: "Project was successfully updated."
@@ -111,6 +123,14 @@ en:
       in_progress: "In Progress"
       backlog: "Backlog"
       icebox: "Chilly Bin"
+      search_results: "Search Results"
+      epic: 'Epic'
+
+  admin:
+    users:
+      edit user: "Edit User"
+      index:
+        are you sure you want to delete this user: "Are you sure you want to delete this user? This action cannot be undone."
 
   registrations:
     edit:

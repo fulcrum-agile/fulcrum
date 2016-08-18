@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   JSON_ATTRIBUTES = [
     "id", "iteration_length", "iteration_start_day", "start_date",
@@ -34,7 +36,9 @@ class Project < ActiveRecord::Base
   validates_numericality_of :default_velocity, :greater_than => 0,
                             :only_integer => true
 
-  has_and_belongs_to_many :users, -> { uniq }
+  has_many :integrations, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :users, -> { uniq }, through: :memberships
 
   accepts_nested_attributes_for :users, :reject_if => :all_blank
 
@@ -50,9 +54,8 @@ class Project < ActiveRecord::Base
       csv = CSV.parse(csv_string, :headers => true)
       csv.map do |row|
         row_attrs = row.to_hash
-        story = create({
-          :state        => row_attrs["Current State"].downcase,
-          :title        => row_attrs["Title"] || row_attrs["Story"],
+        story = build({
+          :title        => ( row_attrs["Title"] || row_attrs["Story"] || "").truncate(255, omission: '...'),
           :story_type   => (row_attrs["Type"] || row_attrs["Story Type"]).downcase,
           :requested_by => users.detect {|u| u.name == row["Requested By"]},
           :owned_by     => users.detect {|u| u.name == row["Owned By"]},
@@ -61,6 +64,21 @@ class Project < ActiveRecord::Base
           :labels       => row_attrs["Labels"],
           :description  => row_attrs["Description"]
         })
+
+        row_state = ( row_attrs["Current State"] || 'unstarted').downcase
+        if Story.available_states.include?(row_state.to_sym)
+          story.state = row_state
+        end
+        story.requested_by_name = ( row["Requested By"] || "").truncate(255)
+        story.owned_by_name = ( row["Owned By"] || "").truncate(255)
+        story.owned_by_initials = ( row["Owned By"] || "" ).split(' ').map { |n| n[0].upcase }.join('')
+
+        tasks = []
+        row.each do |header, value|
+          tasks << "* #{value}" if header == 'Task' && value
+        end
+        story.description = "#{story.description}\n\nTasks:\n\n#{tasks.join("\n")}" unless tasks.empty?
+        story.save
 
         # Generate notes for this story if any are present
         story.notes.from_csv_row(row)
@@ -75,6 +93,10 @@ class Project < ActiveRecord::Base
   attr_writer :suppress_notifications
 
   scope :with_stories_notes, -> { includes(stories: :notes) }
+  scope :not_archived, -> { where(archived_at: nil) }
+  scope :archived, -> { where.not(archived_at: nil) }
+
+  has_attachment :import, accept: [:raw]
 
   def suppress_notifications
     @suppress_notifications || false
@@ -99,5 +121,17 @@ class Project < ActiveRecord::Base
 
   def csv_filename
     "#{name}-#{Time.now.strftime('%Y%m%d_%I%M')}.csv"
+  end
+
+  def archived
+    !!(archived_at)
+  end
+
+  def archived=(value)
+    if !value || value == "0"
+      self.archived_at = nil
+    else
+      self.archived_at = Time.zone.now
+    end
   end
 end

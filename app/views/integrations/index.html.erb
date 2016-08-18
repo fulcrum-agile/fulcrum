@@ -1,0 +1,35 @@
+<% content_for :title_bar do %>
+  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<% end %>
+
+<% if @project.integrations.count > 0 %>
+<h2>Integrations</h2>
+<ul class="list-group members-list">
+  <% @project.integrations.each do |integration| %>
+    <li class="list-group-item clearfix">
+      <%= integration.kind %> - <%= integration.data %>
+      <%= link_to 'Remove', project_integration_path(@project, integration),
+      :confirm => "Are you sure you want to remove '#{integration.kind}' integration from this project?",
+      :method => :delete,
+      class: 'btn btn-danger btn-sm pull-right' %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
+<h2>Add a new integration</h2>
+<div class="form-wrapper add-member">
+<%= form_for [@project, @integration] do |i| %>
+  <div class="field-wrapper">
+    <%= i.label :kind, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= i.select :kind, Integration::VALID_INTEGRATIONS %></div>
+  </div>
+  <div class="field-wrapper">
+    <%= i.label :data, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= i.text_field :data %>
+    <br/>ex: { "channel":"testing-mentions", "bot_username":"marvin", "private_uri":"https://mm42.com.br/hooks/private_token" }</div>
+  </div>
+  <div class="actions">
+    <%= i.submit 'Add integration', class: 'btn btn-primary pull-right' %>
+  </div>
+<% end %>
+</div>

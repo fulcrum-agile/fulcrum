@@ -9,7 +9,7 @@ $(function() {
   });
 
   // Add close button to flash messages
-  $('#messages div').prepend('<a class="close" href="#">×</a>').find('a.close').click(function () {
+  $('#messages div').prepend('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>').find('.close').click(function () {
     $(this).parent().fadeOut();
     return false;
   });
@@ -59,7 +59,7 @@ $(function() {
           };
           break;
         case 19: // <cmd> + s
-          $('.story.editing').find('#submit').click()
+          $('.story.editing').find('.submit').click()
         default:
           // whatever
       };

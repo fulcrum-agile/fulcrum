@@ -23,8 +23,9 @@ module Fulcrum
 
     config.i18n.available_locales = ['de', 'el', 'en', 'es', 'nl', 'ja', 'pt-BR']
 
-    config.autoload_paths += %W(#{config.root}/lib/validators)
-  
+    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('lib/integrations')
+
     config.active_record.observers = :story_observer
 
     load Rails.root.join('config','fulcrum_defaults.rb')
@@ -32,5 +33,10 @@ module Fulcrum
       load Rails.root.join('config','fulcrum.rb')
     end
     config.fulcrum = ::Configuration.for 'fulcrum'
+
+    #FIXME this shouldn't be necessary in Rails 4 but the generator was falling back to test_unit
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end

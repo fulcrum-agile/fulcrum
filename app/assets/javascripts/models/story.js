@@ -10,13 +10,20 @@ Fulcrum.Story = Backbone.Model.extend({
   timestampFormat: 'd mmm yyyy, h:MMtt',
 
   initialize: function(args) {
-    this.bind('change:state', this.changeState);
-    this.bind('change:notes', this.populateNotes);
+    _.bindAll(this, 'changeState', 'populateNotes', 'populateTasks');
+
+    this.views = [];
+    this.clickFromSearchResult = false;
+
+    this.on('change:state', this.changeState);
+    this.on('change:notes', this.populateNotes);
+    this.on('change:tasks', this.populateTasks);
 
     // FIXME Call super()?
     this.maybeUnwrap(args);
 
     this.initNotes();
+    this.initTasks();
     this.setColumn();
 
   },
@@ -104,7 +111,9 @@ Fulcrum.Story = Backbone.Model.extend({
 
   clear: function() {
     this.destroy();
-    this.view.remove();
+    _.each(this.views, function(view) {
+      view.remove();
+    });
   },
 
   estimable: function() {
@@ -118,6 +127,11 @@ Fulcrum.Story = Backbone.Model.extend({
   estimated: function() {
     var estimate = this.get('estimate');
     return !(_.isUndefined(estimate) || _.isNull(estimate));
+  },
+
+  notEstimable: function () {
+    var storyType = this.get('story_type');
+    return (storyType !== 'feature' && storyType !== 'release');
   },
 
   point_values: function() {
@@ -249,6 +263,27 @@ Fulcrum.Story = Backbone.Model.extend({
     return this.notes.any(function(note) {
       return !note.isNew();
     });
+  },
+
+  // Initialize the tasks collection on this story, and populate if necessary
+  initTasks: function() {
+    this.tasks = new Fulcrum.TaskCollection();
+    this.tasks.story = this;
+    this.populateTasks();
+  },
+
+  populateTasks: function() {
+    var tasks = this.get('tasks') || [];
+    this.tasks.reset(tasks);
+  },
+
+  sync: function(method, model, options) {
+    var documents = options.documents;
+
+    if(documents && documents.length > 0 && documents.val()) {
+      model.set('documents', JSON.parse(documents.val()));
+    }
+    Backbone.sync(method, model, options);
   }
 });
 

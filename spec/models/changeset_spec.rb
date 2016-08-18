@@ -57,7 +57,7 @@ describe Changeset do
 
   describe ".since" do
     specify do
-      Changeset.since(234).where_values.first.should == 'id > 234'
+      expect(Changeset.since(234).where_values.first).to eq('id > 234')
     end
   end
 end
