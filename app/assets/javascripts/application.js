@@ -36,7 +36,7 @@ function executeAttachinary() {
   var js_template = [
     "<ul class='attachinary_images_list'>",
     "<% if ( files.length == 0 ) { %>",
-    "  <li>no images found</li>",
+    "  <li>zero documents uploaded yet</li>",
     "<% } %>",
     "<% for(var i = 0; i < files.length; i++) { %>",
     "  <li>",

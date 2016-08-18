@@ -54,7 +54,7 @@ Fulcrum.FormView = Backbone.View.extend({
     $(el).bind('fileuploadprogressall', (function(_this, _progress_element_id, _finished_element_id) {
       return function(e, data) {
         var el_progress = $('#' + _progress_element_id);
-        if ( el_progress.css('display') == 'none' )
+        if ( el_progress.is(":hidden") )
           el_progress.show();
 
         var progress = parseInt(data.loaded / data.total * 100, 10);
