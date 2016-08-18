@@ -28,10 +28,10 @@ class NoteCreationService
     return if user.nil?
 
     users_to_notify = (story.stakeholders_users + users_from_note).uniq
-     users_to_notify.delete(user)
+    users_to_notify.delete(user)
 
-     if users_to_notify.any? && !story.suppress_notifications
-      Notifications.new_note(note, users_to_notify).deliver
+    if users_to_notify.any? && !story.suppress_notifications
+     Notifications.new_note(note, users_to_notify).deliver
     end
   end
 
