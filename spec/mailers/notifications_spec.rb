@@ -123,7 +123,7 @@ describe Notifications do
     let(:user)          { mock_model(User, name: 'Note User') }
     let(:note)          { mock_model(Note, story: story, user: user) }
 
-    subject { Notifications.new_note(note.id, notify_users) }
+    subject { Notifications.new_note(note.id, notify_users.map(&:email)) }
     before { allow(Note).to receive_message_chain(:includes, :find).and_return(note) }
 
     its(:subject) { should == "[Test Project] New comment on 'Test story'" }

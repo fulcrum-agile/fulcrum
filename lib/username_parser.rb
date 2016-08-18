@@ -1,5 +1,5 @@
 class UsernameParser
-  USERNAME_REGEX = /@([a-z0-9_]+)/i
+  USERNAME_REGEX = /@([a-z0-9_\.-]+)/i
 
   def self.parse(text)
     new(text).parse

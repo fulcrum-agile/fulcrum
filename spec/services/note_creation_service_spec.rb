@@ -18,9 +18,9 @@ describe NoteCreationService do
         let(:mailer) { double('mailer') }
 
         it 'sends notifications' do
-          note = story.notes.build(note: 'name', user: build(:user))
+          note = story.notes.create(note: 'name', user: build(:user))
 
-          expect(Notifications).to receive(:new_note).with(note, [user]).and_return(mailer)
+          expect(Notifications).to receive(:new_note).with(note.id, [user.email]).and_return(mailer)
           expect(mailer).to receive(:deliver)
 
           NoteCreationService.create(note)
@@ -31,10 +31,10 @@ describe NoteCreationService do
             username_user = project.users.create(
               build(:unconfirmed_user, username: 'username').attributes
             )
-            note = story.notes.build(note: 'name @username', user: build(:user))
+            note = story.notes.create(note: 'name @username', user: build(:user))
 
             expect(Notifications).to receive(:new_note).
-              with(note, [user, username_user]).and_return(mailer)
+              with(note.id, [user.email, username_user.email]).and_return(mailer)
             expect(mailer).to receive(:deliver)
 
             NoteCreationService.create(note)

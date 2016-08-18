@@ -9,5 +9,13 @@ describe UsernameParser do
     it 'returns an empty array' do
       expect(UsernameParser.parse('Foo bar')).to be_eql []
     end
+
+    it 'finds usernames with dots in between' do
+      expect(UsernameParser.parse('Foo @bar.123 @baz.abc.def')).to be_eql %w(bar.123 baz.abc.def)
+    end
+
+    it 'finds usernames with dashes in between' do
+      expect(UsernameParser.parse('Foo @bar-123 @baz-abc.def')).to be_eql %w(bar-123 baz-abc.def)
+    end
   end
 end

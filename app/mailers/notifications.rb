@@ -40,9 +40,7 @@ class Notifications < ActionMailer::Base
     @note = Note.includes(:story).find(note_id)
     @story = @note.story
 
-    @notify_emails = notify_users.map(&:email)
-
-    mail :to => @notify_emails, :from => @note.user.email,
+    mail :to => notify_users, :from => @note.user.email,
       :subject => "[#{@story.project.name}] New comment on '#{@story.title}'"
   end
 
