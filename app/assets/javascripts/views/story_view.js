@@ -67,7 +67,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click input.estimate": "estimate",
     "change select.story_type": "disableEstimate",
     "click .destroy": "clear",
-    "click .edit-description": "editDescription",
+    "click .description": "editDescription",
     "sortupdate": "sortUpdate"
   },
 
@@ -403,13 +403,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
               window.md.makeHtml(this.model.escape('description'))
             );
             $(div).append(description);
-            $(description).after(
-              this.make('input', {
-                class: 'edit-description',
-                type: 'button',
-                value: I18n.t('edit')
-              })
-            );
           }
         })
       );
@@ -490,7 +483,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   renderNotes: function() {
     if (this.model.notes.length > 0) {
       var el = this.$el;
-      el.append('<hr/>');
+      el.append(this.label('notes', 'Notes'));
       el.append('<div class="notelist"/>');
       this.renderNotesCollection();
     }
@@ -499,8 +492,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   renderTasks: function() {
     if (this.model.tasks.length > 0) {
       var el = this.$el;
-      el.append('<hr />');
-      el.append('<h3>' + I18n.t('tasks') + '</h3>');
+      el.append(this.label('tasks', 'Tasks'));
       el.append('<div class="tasklist"/>');
       this.renderTasksCollection();
     }
