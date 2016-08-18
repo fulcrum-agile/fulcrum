@@ -36,9 +36,9 @@ class Notifications < ActionMailer::Base
   end
 
   # Send notification to of a new note to the listed users
-  def new_note(note, notify_users)
-    @note = note
-    @story = note.story
+  def new_note(note_id, notify_users)
+    @note = Note.includes(:story).find(note_id)
+    @story = @note.story
 
     @notify_emails = notify_users.map(&:email)
 

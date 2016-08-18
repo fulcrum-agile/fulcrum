@@ -31,7 +31,7 @@ class NoteCreationService
     users_to_notify.delete(user)
 
     if users_to_notify.any? && !story.suppress_notifications
-     Notifications.new_note(note, users_to_notify).deliver
+      Notifications.new_note(note.id, users_to_notify).deliver
     end
   end
 
