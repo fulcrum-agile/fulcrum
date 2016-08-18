@@ -8,8 +8,67 @@ describe Notifications do
   let(:story) do
     mock_model(
       Story, title: 'Test story', requested_by: requested_by,
-      owned_by: owned_by, project: project, project_name: project.name
+      owned_by: owned_by, project: project,
+      story_type: 'feature'
     )
+  end
+
+  describe "#started with story without estimation" do
+    let(:owned_by) { mock_model(User, name: 'Developer') }
+
+    subject { Notifications.started(story, owned_by) }
+
+    its(:subject) { should == "[Test Project] Your story 'Test story' has been started."}
+    its(:to)      { [requested_by.email] }
+    its(:from)    { [owned_by.email] }
+
+    specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
+    specify { expect(subject.body.encoded).to match("This story is NOT estimated. Ask Developer to add proper estimation before implementation!") }
+    specify { expect(subject.body.encoded).to match(project_url(project)) }
+  end
+
+  describe "#started with story with estimation" do
+    let(:estimated_story) do
+      mock_model(
+        Story, title: 'Test story', requested_by: requested_by,
+        owned_by: owned_by, project: project, project_name: project.name,
+        story_type: 'feature', estimate: 10
+      )
+    end
+
+    let(:owned_by) { mock_model(User, name: 'Developer') }
+
+    subject { Notifications.started(estimated_story, owned_by) }
+
+    its(:subject) { should == "[Test Project] Your story 'Test story' has been started."}
+    its(:to)      { [requested_by.email] }
+    its(:from)    { [owned_by.email] }
+
+    specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
+    specify { expect(subject.body.encoded).to match("The estimation of this story is 10 points.") }
+    specify { expect(subject.body.encoded).to match(project_url(project)) }
+  end
+
+  describe "#started with story with estimation" do
+    let(:bug_story) do
+      mock_model(
+        Story, title: 'Test story', requested_by: requested_by,
+        owned_by: owned_by, project: project, project_name: project.name,
+        story_type: 'bug', estimate: 0
+      )
+    end
+
+    let(:owned_by) { mock_model(User, name: 'Developer') }
+
+    subject { Notifications.started(bug_story, owned_by) }
+
+    its(:subject) { should == "[Test Project] Your story 'Test story' has been started."}
+    its(:to)      { [requested_by.email] }
+    its(:from)    { [owned_by.email] }
+
+    specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
+    specify { expect(subject.body.encoded).to match("This is either a bug or a chore There is no estimation. Expect the sprint velocity to decrease.") }
+    specify { expect(subject.body.encoded).to match(project_url(project)) }
   end
 
   describe "#delivered" do

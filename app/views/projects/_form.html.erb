@@ -42,3 +42,7 @@
   </div>
 <% end %>
 </div>
+
+<% unless @project.new_record? %>
+  <%= render 'integrations/form' %>
+<% end %>

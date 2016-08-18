@@ -2,6 +2,7 @@ image: codeminer42/ci-ruby:2.3
 
 services:
   - postgres:latest
+  - redis:latest
 
 cache:
   key: CM-Fulcrum

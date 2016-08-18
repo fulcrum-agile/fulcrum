@@ -41,6 +41,7 @@ class ProjectsController < ApplicationController
   def edit
     @project = current_user.projects.friendly.find(params[:id])
     @project.users.build
+    @integration = Integration.new
   end
 
   # POST /projects
@@ -64,6 +65,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1.xml
   def update
     @project = current_user.projects.friendly.find(params[:id])
+    @integration = Integration.new
 
     respond_to do |format|
       if @project.update_attributes(allowed_params)
