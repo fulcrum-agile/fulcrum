@@ -5,14 +5,12 @@ class IntegrationsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @integrations = @project.integrations
     @integration = Integration.new
-    respond_with(@integrations)
+    respond_with(@project.integrations)
   end
 
   def create
-    @integrations = @project.integrations
-    @integration = @integrations.build(kind: params[:integration][:kind]).tap do |i|
+    @integration = @project.integrations.build(kind: params[:integration][:kind]).tap do |i|
       i.data = JSON.parse params[:integration][:data]
     end
 
