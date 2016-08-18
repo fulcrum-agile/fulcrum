@@ -511,9 +511,10 @@ describe('Fulcrum.StoryView', function() {
       this.view.model.isNew = sinon.stub().returns(true);
       this.view.render();
       expect(this.view.$('.attachinary-input').length).toEqual(1);
-      expect(this.view.$('.attachinary-input').siblings().length).toEqual(2);
-      expect(this.view.$('.attachinary-input').siblings()[0].id).toContain('documents_progress');
-      expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('attachinary_container');
+      expect(this.view.$('.attachinary-input').siblings().length).toEqual(4);
+      expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('documents_progress');
+      expect(this.view.$('.attachinary-input').siblings()[2].id).toContain('documents_finished');
+      expect(this.view.$('.attachinary-input').siblings()[3].id).toContain('attachinary_container');
     });
 
   });
