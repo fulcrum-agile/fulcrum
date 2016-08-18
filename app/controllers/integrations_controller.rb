@@ -1,17 +1,16 @@
 class IntegrationsController < ApplicationController
   authorize_resource
+  before_action :load_project
 
   respond_to :html, :json
 
   def index
-    @project = current_user.projects.friendly.find(params[:project_id])
     @integrations = @project.integrations
     @integration = Integration.new
     respond_with(@integrations)
   end
 
   def create
-    @project = current_user.projects.friendly.find(params[:project_id])
     @integrations = @project.integrations
     @integration = @integrations.build(kind: params[:integration][:kind]).tap do |i|
       i.data = JSON.parse params[:integration][:data]
@@ -32,10 +31,15 @@ class IntegrationsController < ApplicationController
   end
 
   def destroy
-    @project = current_user.projects.friendly.find(params[:project_id])
     @integration = @project.integrations.find(params[:id])
     @project.integrations.delete(@integration)
     redirect_to project_integrations_url(@project)
+  end
+
+  private
+
+  def load_project
+    @project = current_user.projects.friendly.find(params[:project_id])
   end
 
 end
