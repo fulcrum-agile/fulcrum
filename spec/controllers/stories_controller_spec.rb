@@ -62,10 +62,12 @@ describe StoriesController do
         end
 
         it "should keep the same 2 documents (the put will delete and reinsert the documents)" do
-          expect {
-            xhr :put, :update, project_id: project.id, id: story.id, story: story_params
-          }.to change {story.reload ; story.documents.count}.by(0)
-          expect(response).to be_success
+          VCR.use_cassette("cloudinary_upload") do
+            expect {
+              xhr :put, :update, project_id: project.id, id: story.id, story: story_params
+            }.to change {story.reload ; story.documents.count}.by(0)
+            expect(response).to be_success
+          end
         end
       end
     end

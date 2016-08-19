@@ -68,6 +68,8 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
