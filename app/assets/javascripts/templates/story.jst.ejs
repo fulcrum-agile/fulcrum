@@ -31,9 +31,9 @@
     <% } %>
 
     <% if (story.estimated()) { %>
-      <span class="estimate estimate-<%= story.get('estimate') %>"></span>
+      <span class="estimate estimate-<%= story.get('estimate') %>" data-value="<%= story.get('estimate') %>"></span>
     <% } else { %>
-      <span class="estimate estimate-0"></span>
+      <span class="estimate estimate-0" data-value="0"></span>
     <% } %>
 
     <% if (story.hasDetails()) { %>

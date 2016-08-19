@@ -1,8 +1,8 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var StoryCollection = require('collections/story_collection');
+var UserCollection = require('collections/user_collection');
+var Iteration = require('models/iteration');
 
-Fulcrum.Project = Backbone.Model.extend({
+module.exports = Backbone.Model.extend({
   name: 'project',
 
   initialize: function(args) {
@@ -13,15 +13,15 @@ Fulcrum.Project = Backbone.Model.extend({
 
     this.on('change:last_changeset_id', this.updateChangesets);
 
-    this.stories = new Fulcrum.StoryCollection();
+    this.stories = new StoryCollection();
     this.stories.url = this.url() + '/stories';
     this.stories.project = this;
 
-    this.users = new Fulcrum.UserCollection();
+    this.users = new UserCollection();
     this.users.url = this.url() + '/users';
     this.users.project = this;
 
-    this.search = new Fulcrum.StoryCollection();
+    this.search = new StoryCollection();
     this.search.url = this.url() + '/stories';
     this.search.project = this;
 
@@ -274,7 +274,7 @@ Fulcrum.Project = Backbone.Model.extend({
 
     _.each(doneNumbers, function(iterationNumber) {
       var stories = doneIterations[iterationNumber];
-      var iteration = new Fulcrum.Iteration({
+      var iteration = new Iteration({
         'number': iterationNumber, 'stories': stories, column: '#done'
       });
 
@@ -282,7 +282,7 @@ Fulcrum.Project = Backbone.Model.extend({
 
     });
 
-    var currentIteration = new Fulcrum.Iteration({
+    var currentIteration = new Iteration({
       'number': this.currentIterationNumber(),
       'stories': this.stories.column('#in_progress'),
       'maximum_points': this.velocity(), 'column': '#in_progress'
@@ -294,7 +294,7 @@ Fulcrum.Project = Backbone.Model.extend({
     //
     // Backlog column
     //
-    var backlogIteration = new Fulcrum.Iteration({
+    var backlogIteration = new Iteration({
       'number': currentIteration.get('number') + 1,
       'column': '#backlog', 'maximum_points': this.velocity()
     });
@@ -324,7 +324,7 @@ Fulcrum.Project = Backbone.Model.extend({
         // next iteration that can have a story added is the current + 4.
         var nextNumber = backlogIteration.get('number') + 1 + Math.ceil(backlogIteration.overflowsBy() / that.velocity());
 
-        backlogIteration = new Fulcrum.Iteration({
+        backlogIteration = new Iteration({
           'number': nextNumber, 'column': '#backlog',
           'maximum_points': that.velocity()
         });
@@ -351,7 +351,7 @@ Fulcrum.Project = Backbone.Model.extend({
     // If there is a gap between the last iteration and this one, fill
     // the gap with empty iterations
     this.iterations = this.iterations.concat(
-      Fulcrum.Iteration.createMissingIterations(columnForMissingIterations, lastIteration, iteration)
+      Iteration.createMissingIterations(columnForMissingIterations, lastIteration, iteration)
     );
 
     this.iterations.push(iteration);

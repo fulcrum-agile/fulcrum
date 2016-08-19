@@ -1,8 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var SharedModelMethods = require('mixins/shared_model_methods');
 
-Fulcrum.Task = Backbone.Model.extend({
+var Task = module.exports = Backbone.Model.extend({
 
   name: 'task',
 
@@ -23,4 +21,4 @@ Fulcrum.Task = Backbone.Model.extend({
 
 });
 
-_.defaults(Fulcrum.Task.prototype, Fulcrum.SharedModelMethods);
+_.defaults(Task.prototype, SharedModelMethods);

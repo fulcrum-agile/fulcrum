@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.EpicBarView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   template: JST['templates/epic_bar'],
 

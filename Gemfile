@@ -40,19 +40,13 @@ gem "autoprefixer-rails"
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'ejs'
 gem 'i18n-js', '>= 3.0.0.rc8'
-gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'dalli'
+gem 'webpack-rails'
 
 gem 'jquery-atwho-rails'
 source 'https://rails-assets.org' do
-  gem 'rails-assets-backbone'
-  gem 'rails-assets-date.format'
-  gem 'rails-assets-jquery', '~> 1.8'
   gem 'rails-assets-jquery.gritter'
-  gem 'rails-assets-jquery.scrollTo'
-  gem 'rails-assets-underscore'
-  gem 'rails-assets-clipboard'
 end
 
 group :production do
@@ -93,3 +87,5 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'sinon-rails'
 end
+
+gem "foreman"

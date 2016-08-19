@@ -1,8 +1,8 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var NoteCollection = require('collections/note_collection');
+var TaskCollection = require('collections/task_collection');
+var SharedModelMethods = require('mixins/shared_model_methods');
 
-Fulcrum.Story = Backbone.Model.extend({
+var Story = module.exports = Backbone.Model.extend({
   name: 'story',
 
   i18nScope: 'activerecord.attributes.story',
@@ -268,7 +268,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   // Initialize the notes collection on this story, and populate if necessary
   initNotes: function() {
-    this.notes = new Fulcrum.NoteCollection();
+    this.notes = new NoteCollection();
     this.notes.story = this;
     this.populateNotes();
   },
@@ -288,7 +288,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   // Initialize the tasks collection on this story, and populate if necessary
   initTasks: function() {
-    this.tasks = new Fulcrum.TaskCollection();
+    this.tasks = new TaskCollection();
     this.tasks.story = this;
     this.populateTasks();
   },
@@ -314,4 +314,4 @@ Fulcrum.Story = Backbone.Model.extend({
   }
 });
 
-_.defaults(Fulcrum.Story.prototype, Fulcrum.SharedModelMethods);
+_.defaults(Story.prototype, SharedModelMethods);

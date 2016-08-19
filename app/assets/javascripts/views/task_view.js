@@ -1,8 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var FormView = require('./form_view');
 
-Fulcrum.TaskView = Fulcrum.FormView.extend({
+module.exports = FormView.extend({
 
   template: JST['templates/task'],
 

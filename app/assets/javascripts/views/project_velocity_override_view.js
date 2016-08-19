@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   className: 'velocity_override_container',
 

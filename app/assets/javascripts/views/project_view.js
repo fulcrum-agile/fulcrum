@@ -1,8 +1,7 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var StoryView = require('./story_view');
+var IterationView = require('./iteration_view');
 
-Fulcrum.ProjectView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   columns: {},
 
   initialize: function() {
@@ -44,7 +43,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
     if (_.isUndefined(column) || !_.isString(column)) {
       column = story.column;
     }
-    var view = new Fulcrum.StoryView({model: story}).render();
+    var view = new StoryView({model: story}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
   },
@@ -56,7 +55,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
   addIteration: function(iteration) {
     var that = this;
     var column = iteration.get('column');
-    var view = new Fulcrum.IterationView({model: iteration}).render();
+    var view = new IterationView({model: iteration}).render();
     this.appendViewToColumn(view, column);
     _.each(iteration.stories(), function(story) {
       that.addStory(story, column);

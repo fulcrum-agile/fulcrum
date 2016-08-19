@@ -1,9 +1,7 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var Story = require('models/story');
 
-Fulcrum.StoryCollection = Backbone.Collection.extend({
-  model: Fulcrum.Story,
+module.exports = Backbone.Collection.extend({
+  model: Story,
 
   initialize: function() {
     _.bindAll(this, 'sort', 'addLabelsFromStory', 'resetLabels');

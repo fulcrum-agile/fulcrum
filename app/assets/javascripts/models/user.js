@@ -1,7 +1,3 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.User = Backbone.Model.extend({
+module.exports = Backbone.Model.extend({
   name: 'user'
 });

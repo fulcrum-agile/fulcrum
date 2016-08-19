@@ -1,8 +1,13 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var Clipboard = require('clipboard');
 
-Fulcrum.StoryView = Fulcrum.FormView.extend({
+var FormView = require('./form_view');
+var EpicView = require('./epic_view');
+var NoteForm = require('./note_form');
+var NoteView = require('./note_view');
+var TaskForm = require('./task_form');
+var TaskView = require('./task_view');
+
+module.exports = FormView.extend({
 
   template: JST['templates/story'],
 
@@ -230,7 +235,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   openEpic: function(e){
     e.stopPropagation();
     var label = $(e.target).text();
-    new Fulcrum.EpicView({model: this.model.collection.project, label: label});
+    new EpicView({model: this.model.collection.project, label: label});
   },
 
   // When a story is clicked, this method is used to check whether the
@@ -578,10 +583,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.model.notes.each(function(note) {
       var view;
       if (!that.isReadonly() && note.isNew()) {
-        view = new Fulcrum.NoteForm({model: note});
+        view = new NoteForm({model: note});
       } else {
         if (that.isReadonly()) note.isReadonly = true;
-        view = new Fulcrum.NoteView({model: note});
+        view = new NoteView({model: note});
       }
       notelist.append(view.render().el);
     });
@@ -596,10 +601,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.model.tasks.each(function(task) {
       var view;
       if (!that.isReadonly() && task.isNew()) {
-        view = new Fulcrum.TaskForm({model:task});
+        view = new TaskForm({model:task});
       } else {
         if (that.isReadonly()) task.isReadonly = true;
-        view = new Fulcrum.TaskView({model:task});
+        view = new TaskView({model:task});
       }
       tasklist.append(view.render().el);
     });
