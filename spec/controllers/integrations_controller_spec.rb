@@ -88,7 +88,7 @@ describe IntegrationsController do
             end
           end
 
-          context "when a invalid json is inserted", :focus do
+          context "when a invalid json is inserted" do
             before { integration_params[:data] = nil }
 
             specify do
