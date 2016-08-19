@@ -52,9 +52,25 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  memcachier_servers = (ENV["MEMCACHIER_SERVERS"] || "").split(",")
+  memcachier_options = {
+    :username => ENV["MEMCACHIER_USERNAME"],
+    :password => ENV["MEMCACHIER_PASSWORD"],
+    :failover => true,
+    :socket_timeout => 1.5,
+    :socket_failure_delay => 0.2,
+    :value_max_bytes => 10485760 }
+  config.cache_store = :dalli_store, memcachier_servers, memcachier_options
+  client = Dalli::Client.new(memcachier_servers, memcachier_options)
+  config.action_dispatch.rack_cache = {
+    :metastore    => client,
+    :entitystore  => client
+  }
+  config.static_cache_control = "public, max-age=2592000"
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = ENV['CDN_URL']
+  config.font_assets.origin = ENV['FONT_ASSET']
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

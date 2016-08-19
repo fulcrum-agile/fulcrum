@@ -1,0 +1,5 @@
+:verbose: false
+:queues:
+  - default
+  - mailer
+:concurrency: 100

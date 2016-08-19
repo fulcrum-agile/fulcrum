@@ -209,7 +209,7 @@ el:
           <<: *errors
           
   # FULCRUM TRANSLATIONS
-  fulcrum:  Fulcrum
+  fulcrum:  "CM42 κεντρικός"
 
   log out:  αποσύνδεση
   log in:   σύνδεση
@@ -269,6 +269,7 @@ el:
         current_password:       παρών κωδικός
       note:
         note:                 'Σημείωση'
+        documents:            'συνημμένα'
       project:
         name:                 'Όνομα'
         point_scale:          'Βαθμολογική κλίμακα'
@@ -279,6 +280,7 @@ el:
         started_at:           'Ξεκίνησε στις'
         created_at:           'Δημιουργήθηκε στις'
         updated_at:           'Ανανεώθηκε στις'
+        archived:             'αρχειοθετημένα'
       story:
         title:                'Τίτλος'
         description:          'Περιγραφή'
@@ -293,6 +295,7 @@ el:
         started_at:           'Ξεκίνησε στις'
         created_at:           'Δημιουργήθηκε στις'
         updated_at:           'Ανανεώθηκε στις'
+        documents:            'συνημμένα'
 
 
   projects:
@@ -315,6 +318,13 @@ el:
       in_progress: "σε εξέλιξη"
       backlog: "σε αναμονή"
       icebox: "ψυγείο"
+      search_results: "Αποτελέσματα Αναζήτησης"
+
+  admin:
+    users:
+      edit user: "Επεξεργασία μέλος"
+      index:
+        are you sure you want to delete this user: "Είσαι σίγουρος ότι θέλεις να διαγράψεις το μέλος; Δεν υπάρχει undo!"
 
   registrations:
     edit:

@@ -1,5 +1,5 @@
 es:
-  fulcrum:  "Fulcrum"
+  fulcrum:  "CM42 Central"
 
   log out:  "Termina sesión"
   log in:   "Inicia sesión"
@@ -37,6 +37,13 @@ es:
       in_progress: "En progreso"
       backlog: "Acumuladas"
       icebox: "Congelador"
+      search_results: "Resultados de la búsqueda"
+
+  admin:
+    users:
+      edit user: "Edita Miembro"
+      index:
+        are you sure you want to delete this user: "¿Estas seguro de querer borrar este miembro? Esta acción no se puede deshacer."
 
   registrations:
     edit:

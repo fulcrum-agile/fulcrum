@@ -1,33 +1,53 @@
 <% content_for :title_bar do %>
-  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+  <%= render 'projects/nav', project: @project %>
 <% end %>
-<h2>Project members</h2>
-<ul>
-  <% @users.each do |user| %>
-    <li><%= user %><%= link_to 'Remove', project_user_path(@project, user),
-      :confirm => "Are you sure you want to remove #{user.email} from this project?",
-      :method => :delete %></li>
-  <% end %>
-</ul>
-<h2>Add a new member</h2>
-<div class="form-wrapper">
-<%= form_for project_users_path(@project, @user) do |f| %>
-  <% fields_for :user do |u| %>
-    <div class="field-wrapper">
-      <%= u.label :email %>
-      <div class="field"><%= u.text_field :email %></div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <h2>Add a new member</h2>
+    <div class="add-member">
+      <%= form_for @user,
+        url: project_users_path(@project, @user),
+        html: { class: 'form-horizontal' } do |f| %>
+
+        <%= content_tag :div, class: 'alert alert-danger' do %>
+          <%= t('errors.template.header', count: @user.errors.count, model: @user.class.name.humanize) %>
+
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        <% end if @user.errors.any? %>
+
+        <div class="form-group">
+          <%= f.label :email, class: 'col-xs-2 control-label' %>
+          <div class="col-xs-10"><%= f.text_field :email, class: 'form-control' %></div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :name, class: 'col-xs-2 control-label' %>
+          <div class="col-xs-10"><%= f.text_field :name, class: 'form-control' %></div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :username, class: 'col-xs-2 control-label' %>
+          <div class="col-xs-10"><%= f.text_field :username, class: 'form-control' %></div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :initials, class: 'col-xs-2 control-label' %>
+          <div class="col-xs-10"><%= f.text_field :initials, class: 'form-control' %></div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
+        </div>
+      <% end %>
     </div>
-    <div class="field-wrapper">
-      <%= u.label :name %>
-      <div class="field"><%= u.text_field :name %></div>
-    </div>
-    <div class="field-wrapper">
-      <%= u.label :initials %>
-      <div class="field"><%= u.text_field :initials %></div>
-    </div>
-    <div class="actions">
-    <%= u.submit 'Add user' %>
-    </div>
-  <% end %>
-<% end %>
+  </div>
+
+  <div id="user_list">
+    <%= render 'user_list' %>
+  </div>
 </div>

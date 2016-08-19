@@ -6,11 +6,47 @@ system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
 details.
 
-[![Build Status](https://travis-ci.org/fulcrum-agile/fulcrum.png?branch=master)](https://travis-ci.org/fulcrum-agile/fulcrum)
+[![Build Status](https://travis-ci.org/Codeminer42/cm42-central.svg?branch=master)](https://travis-ci.org/Codeminer42/cm42-central)
 
 
 
-![Fulcrum Screenshot](https://github.com/fulcrum-agile/fulcrum/raw/master/doc/screenshot.png)
+![Fulcrum Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/screenshot.png)
+
+
+The Codeminer 42 Fork Feature Set
+---------------------------------
+
+- [x] Fixing Pivotal Tracker project CSV import to properly get the Notes
+- [x] Added stories search through Pg_Search (low priority: maybe add option for Elastic)
+- [x] Adding superadmin role to manage projects and users
+  - [x] proper users CRUD section
+  - [ ] Reorganize the user administration
+- [x] Adding Cloudinary/Attachinary support to upload assets to Stories and Notes
+  - [ ] Uploading is working but it is not showing properly yet
+  - [ ] Add uploads to Notes
+- [x] General project cleanup
+  - [x] upgrading gems
+  - [x] using rails-assets
+  - [x] refactoring views to use Bootstrap elements
+  - [x] fixing failing migrations
+  - [x] fixing failing tests, including javascript tests
+  - [x] adding phantomjs for feature tests
+  - [ ] remove StoryObserver
+  - [ ] (low priority) replace the polling system for a websockets channel and listener
+  - [ ] more markdown javascript to assets
+  - [ ] (low priority) the initial project loads all stories (up to the STORIES_CEILING), need to asynchronously load the past
+  - [ ] needs more testing and tweaking for tablets
+  - [ ] Backbone code needs more refactoring and cleanup
+- [x] Improved UI
+  - [x] A little bit better icon set
+  - [x] Textarea in Story editing can now auto-resize
+  - [x] Can collapse sprint groups
+  - [x] Bugs and Chores shouldn't be estimated
+  - [x] Basic task system inside a Story
+  - [x] Labels work as "Epic" grouping
+  - [ ] (bug) dragging a task to the begging of a sprint is not saving the new priority
+  - [ ] (bug) raising error when trying to change state of story from 'started' to 'unstarted'
+
 
 Get involved
 ------------
@@ -53,6 +89,9 @@ Once you have these:
     $ git clone git://github.com/fulcrum-agile/fulcrum.git
     $ cd fulcrum
 
+    # copy and edit the configuration
+    $ cp .env.sample .env
+
     # Install the project dependencies
     $ gem install bundler
     $ bundle install
@@ -61,7 +100,22 @@ Once you have these:
     $ bundle exec rake fulcrum:setup db:setup
 
     # Start the local web server
-    $ rails server
+    $ bundle exec foreman start -f Procfile.development
+
+Or using docker:
+
+    # Checkout the project
+    $ git clone git://github.com/fulcrum-agile/fulcrum.git
+    $ cd fulcrum
+
+    # Prepare container
+    $ docker-compose build
+    $ docker-compose run rake db:create
+    $ docker-compose run rake db:migrate
+    $ docker-compose run rake db:seeds
+
+    # Up container
+    $ docker-compose up
 
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
 You can log in with the test username `test@example.com`, password `testpass`.
@@ -78,6 +132,9 @@ to the previous section for instructions. Then:
 
     $ gem install heroku
 
+    # Define secret tokens
+    $ heroku config:set SECRET_TOKEN=`rake secret` SECRET_KEY_BASE=`rake secret`
+
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar-14
 
@@ -92,6 +149,18 @@ to the previous section for instructions. Then:
     # Tell Heroku to exclude parts of the Gemfile
     $ heroku config:set BUNDLE_WITHOUT='development:test:travis:mysql:sqlite'
 
+    # How many stories a project will load at once (so very old, done stories, stay out of the first load), (optional, default is 300)
+    $ heroku config:set STORIES_CEILING=300
+
+    # CDN URL - Go to AWS and create a CloudFront configuration (optional)
+    $ heroku config:set CDN_URL=http://xpto.cloudfront.net
+
+    # Font Asset - domain of your app
+    $ heroku config:set FONT_ASSET=http://APPNAME.herokuapp.com
+
+    # Add memcache to speed things up (optional)
+    $ heroku addons:add memcachier:dev
+
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
 
@@ -103,6 +172,8 @@ to the previous section for instructions. Then:
 
 Once that's done, you will be able to view your site at
 `http://APPNAME.herokuapp.com`.
+
+The recommendation is to create a proper domain and add the herokuapp URL as the CNAME.
 
 Deploying to other platforms
 ----------------------------

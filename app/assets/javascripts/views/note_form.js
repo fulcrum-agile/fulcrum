@@ -45,12 +45,20 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
   render: function() {
     var view = this;
 
-    div = this.make('div');
-    $(div).append(this.label("note"));
-    $(div).append('<br/>');
-    $(div).append(this.textArea("note"));
+    div = this.make('div', {
+      class: 'clearfix'
+    });
 
-    var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note'});
+    var textarea = this.textArea("note");
+    $(textarea).atwho({
+        at: "@",
+        data: window.PROJECT_MEMBERS
+    })
+
+    $(div).append('<br/>');
+    $(div).append(textarea);
+
+    var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note', class: 'add-note'});
     $(div).append(submit);
     this.$el.html(div);
 

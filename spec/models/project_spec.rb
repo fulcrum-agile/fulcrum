@@ -102,17 +102,10 @@ describe Project do
     end
 
     specify "stories" do
-      lambda do
+      expect do
         @project.destroy
-      end.should change(Story, :count).by(-1)
+      end.to change(Story, :count).by(-1)
     end
-
-    specify "changesets" do
-      lambda do
-        @project.destroy
-      end.should change(Changeset, :count).by(-1)
-    end
-
   end
 
 
@@ -129,7 +122,7 @@ describe Project do
   describe "#last_changeset_id" do
     context "when there are no changesets" do
       before do
-        subject.stub_chain(:changesets).and_return([])
+        allow(subject).to receive_message_chain(:changesets).and_return([])
       end
 
       its(:last_changeset_id) { should be_nil }
@@ -140,7 +133,7 @@ describe Project do
       let(:changeset) { double("changeset", :id => 42) }
 
       before do
-        subject.stub(:changesets).and_return([nil, nil, changeset])
+        allow(subject).to receive(:changesets).and_return([nil, nil, changeset])
       end
 
       its(:last_changeset_id) { should == changeset.id }
@@ -160,14 +153,14 @@ describe Project do
       csv_string << "My Story,feature,#{user.name},#{user.name},Accepted"
 
       project.stories.from_csv csv_string
-      project.stories.first.state.should == 'accepted'
+      expect(project.stories.first.state).to eq('accepted')
     end
 
     it 'converts story type to lowercase before creating the story' do
       csv_string << "My Story,Chore,#{user.name},#{user.name},unscheduled"
 
       project.stories.from_csv csv_string
-      project.stories.first.story_type.should == 'chore'
+      expect(project.stories.first.story_type).to eq('chore')
     end
   end
 
@@ -181,7 +174,37 @@ describe Project do
     subject { FactoryGirl.create :project }
 
     (Project::JSON_ATTRIBUTES + Project::JSON_METHODS).each do |key|
-      its(:as_json) { subject.as_json['project'].should have_key(key) }
+      its(:as_json) { expect(subject.as_json['project']).to have_key(key) }
+    end
+  end
+
+  describe "#archive" do
+    subject { FactoryGirl.build :project }
+
+    it 'sets the archived_at datetime' do
+      subject.update_attributes(archived: "1")
+      expect(subject.archived_at).to_not be_nil
+    end
+
+    it 'resets the archived_at datetime' do
+      subject.update_attributes(archived_at: Time.zone.now)
+      subject.update_attributes(archived: "0")
+      expect(subject.archived_at).to be_nil
+    end
+  end
+
+  describe '.archived' do
+    let(:normal_project) { FactoryGirl.create :project }
+    let(:archived_project) { FactoryGirl.create :project,
+      archived_at: Time.current }
+    subject { described_class.archived }
+
+    it 'includes archived projects' do
+      expect(subject).to include archived_project
+    end
+
+    it 'excludes non-archived projects' do
+      expect(subject).not_to include normal_project
     end
   end
 

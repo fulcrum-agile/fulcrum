@@ -2,23 +2,11 @@ class Note < ActiveRecord::Base
   belongs_to :user
   belongs_to :story
 
-  after_save :create_changeset
+  before_save :cache_user_name
 
   validates :note, :presence => true
 
-  # FIXME move to observer
-  def create_changeset
-    story.changesets.create!
-
-    unless story.project.suppress_notifications
-      # Notify all stakeholders in the story, but not the user who made the
-      # note.
-      notify_users = story.notify_users
-      notify_users.delete(user)
-
-      Notifications.new_note(self, notify_users).deliver unless notify_users.empty? || user.nil?
-    end
-  end
+  delegate :project, to: :story
 
   # Defines the attributes and methods that are included when calling to_json
   def as_json(options = {})
@@ -31,4 +19,10 @@ class Note < ActiveRecord::Base
     created_date = I18n.l created_at, :format => :note_date
     note_string = note_string + " (" + user_name + " - " + created_date + ")"
   end
+
+  private
+
+    def cache_user_name
+      self.user_name = user.name if user.present?
+    end
 end

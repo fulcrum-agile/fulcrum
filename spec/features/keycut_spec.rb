@@ -16,8 +16,8 @@ describe "Keycuts" do
   describe "?" do
     it 'shows help', :js => true do
       send_keys '?'
-      page.should have_css("#keycut-help")
-      page.should have_css("#keycut-help a.close")
+      expect(page).to have_css("#keycut-help")
+      expect(page).to have_css("#keycut-help a.close")
     end
 
     it 'can close help', :js => true do
@@ -25,13 +25,13 @@ describe "Keycuts" do
       within '#keycut-help' do
         click_on 'close'
       end
-      page.should_not have_css("#keycut-help")
+      expect(page).not_to have_css("#keycut-help")
     end
 
     it 'can close help with ?', :js => true do
       send_keys '?'
       send_keys '?'
-      page.should_not have_css("#keycut-help")
+      expect(page).not_to have_css("#keycut-help")
     end
   end
 
@@ -40,7 +40,7 @@ describe "Keycuts" do
 
     it 'adds story (a)', :js => true do
       send_keys 'a'
-      page.should have_css('.story.feature.unscheduled.unestimated.editing')
+      expect(page).to have_css('.story.feature.unscheduled.unestimated.editing')
     end
 
     it 'saves currently open story (<ctl> + s)', :js => true do
@@ -49,29 +49,29 @@ describe "Keycuts" do
         fill_in 'title', :with => 'New story'
       end
       send_keys :pause # this is equivalent to keycode 19, or ctl+s (at least on my machine)
-      page.should_not have_css('.story.editing')
+      expect(page).not_to have_css('.story.editing')
     end
 
     it 'toggles columns (<shift> b|c|d|p)', :js => true do
       send_keys "B"
-      page.should have_css('.hide_backlog.pressed')
+      expect(page).to have_css('.hide_backlog.pressed')
       send_keys "B"
-      page.should_not have_css('.hide_backlog.pressed')
+      expect(page).not_to have_css('.hide_backlog.pressed')
 
       send_keys "C"
-      page.should have_css('.hide_chilly_bin.pressed')
+      expect(page).to have_css('.hide_chilly_bin.pressed')
       send_keys "C"
-      page.should_not have_css('.hide_chilly_bin.pressed')
+      expect(page).not_to have_css('.hide_chilly_bin.pressed')
 
       send_keys "D"
-      page.should have_css('.hide_done.pressed')
+      expect(page).to have_css('.hide_done.pressed')
       send_keys "D"
-      page.should_not have_css('.hide_done.pressed')
+      expect(page).not_to have_css('.hide_done.pressed')
 
       send_keys "P"
-      page.should have_css('.hide_in_progress.pressed')
+      expect(page).to have_css('.hide_in_progress.pressed')
       send_keys "P"
-      page.should_not have_css('.hide_in_progress.pressed')
+      expect(page).not_to have_css('.hide_in_progress.pressed')
     end
   end
 end

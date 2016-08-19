@@ -1,0 +1,35 @@
+<div class="col-xs-12 col-sm-6">
+  <h2>Project members</h2>
+  <ul class="list-group members-list">
+    <% @project.users.order('name').each do |user| %>
+      <%= content_tag :li, id: dom_id(user), class: 'list-group-item clearfix' do %>
+        <div class="member-name">
+          <%= user %>
+        </div>
+        <%= link_to 'Remove',
+          project_user_path(@project, user),
+          confirm: "Are you sure you want to remove #{user.email} from this project?",
+          method: :delete,
+          remote: true,
+          class: 'btn btn-danger btn-sm pull-right' %>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <hr>
+
+  <h2>Available Users</h2>
+  <ul class="list-group members-list">
+    <% User.where.not(id: @project.users).order('name').each do |user| %>
+      <%= content_tag :li, id: dom_id(user), class: 'list-group-item clearfix' do %>
+        <%= content_tag :div, user, class: 'member-name' %>
+
+        <%= form_tag [@project, :users], method: :post, remote: true, class: 'pull-right' do %>
+          <%= hidden_field_tag 'user[email]', user.email %>
+          <%= button_tag 'Add', class: 'btn btn-default btn-sm' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+

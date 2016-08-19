@@ -9,7 +9,9 @@ Fulcrum.Project = Backbone.Model.extend({
 
     this.maybeUnwrap(args);
 
-    this.bind('change:last_changeset_id', this.updateChangesets);
+    _.bindAll(this, 'updateChangesets');
+
+    this.on('change:last_changeset_id', this.updateChangesets);
 
     this.stories = new Fulcrum.StoryCollection();
     this.stories.url = this.url() + '/stories';
@@ -18,6 +20,10 @@ Fulcrum.Project = Backbone.Model.extend({
     this.users = new Fulcrum.UserCollection();
     this.users.url = this.url() + '/users';
     this.users.project = this;
+
+    this.search = new Fulcrum.StoryCollection();
+    this.search.url = this.url() + '/stories';
+    this.search.project = this;
 
     this.iterations = [];
   },
@@ -31,7 +37,7 @@ Fulcrum.Project = Backbone.Model.extend({
   },
 
   // The ids of the columns, in the order that they appear by story weight
-  columnIds: ['#done', '#in_progress', '#backlog', '#chilly_bin'],
+  columnIds: ['#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results', '#epic'],
 
   // Return an array of the columns that appear after column, or an empty
   // array if the column is the last

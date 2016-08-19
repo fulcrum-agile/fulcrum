@@ -2,7 +2,25 @@ require 'rails_helper'
 
 describe Story do
 
-  subject { FactoryGirl.build :story }
+  subject { build :story, :with_project }
+  before {
+    subject.acting_user = FactoryGirl.build(:user)
+  }
+
+  describe 'scopes' do
+    let!(:story) { create(:story, :with_project, labels: 'feature,test') }
+    let!(:dummy_story) { create(:story, :with_project, labels: 'something') }
+
+    describe '#by_label' do
+      it 'find when label contains in story labels' do
+        expect(described_class.by_label('test')).to include story
+      end
+
+      it 'return empty when label is not included in story labels' do
+        expect(described_class.by_label('test')).to_not include dummy_story
+      end
+    end
+  end
 
   describe "validations" do
 
@@ -57,14 +75,48 @@ describe Story do
     end
 
     describe '#estimate' do
+      before do
+        subject.project.users = [ subject.requested_by ]
+      end
+
       it "must be valid for the project point scale" do
         subject.project.point_scale = 'fibonacci'
         subject.estimate = 4 # not in the fibonacci series
         subject.valid?
         expect(subject.errors[:estimate].size).to eq(1)
       end
+
+      it "must be invalid for bug stories" do
+        subject.story_type = 'bug'
+        subject.estimate = 2
+
+        expect(subject).to_not be_valid
+      end
+
+      it "must be invalid for chore stories" do
+        subject.story_type = 'chore'
+        subject.estimate = 1
+
+        expect(subject).to_not be_valid
+      end
     end
 
+  end
+
+  describe 'associations' do
+    describe 'notes' do
+      let!(:user)  { FactoryGirl.create :user }
+      let!(:project) { FactoryGirl.create :project, users: [user] }
+      let!(:story) { FactoryGirl.create :story, project: project, requested_by: user }
+      let!(:note) { FactoryGirl.create(:note, created_at: Date.current + 2.days, user: user, story: story) }
+      let!(:note2) { FactoryGirl.create(:note, created_at: Date.current, user: user, story: story) }
+
+      it 'order by created at' do
+        story.reload
+
+        expect(story.notes).to eq [note2, note]
+      end
+    end
   end
 
   describe "defaults" do
@@ -84,15 +136,15 @@ describe Story do
   end
 
   describe "#estimated?" do
-    
+
     context "when estimate is nil" do
       before { subject.estimate = nil }
-      it { should_not be_estimated }
+      it { is_expected.not_to be_estimated }
     end
 
     context "when estimate is not nil" do
       before { subject.estimate = 0 }
-      it { should be_estimated }
+      it { is_expected.to be_estimated }
     end
 
   end
@@ -104,12 +156,12 @@ describe Story do
 
       context "when estimate is nil" do
         before { subject.estimate = nil }
-        it { should be_estimable }
+        it { is_expected.to be_estimable }
       end
 
       context "when estimate is not nil" do
         before { subject.estimate = 0 }
-        it { should_not be_estimable }
+        it { is_expected.not_to be_estimable }
       end
 
     end
@@ -117,7 +169,7 @@ describe Story do
     ['chore', 'bug', 'release'].each do |story_type|
       specify "a #{story_type} is not estimable" do
         subject.story_type = story_type
-        subject.should_not be_estimable
+        expect(subject).not_to be_estimable
       end
     end
 
@@ -127,11 +179,12 @@ describe Story do
     before { subject.id = 42 }
 
     specify do
-      subject.as_json['story'].keys.sort.should == [
+      expect(subject.as_json['story'].keys.sort).to eq([
         "title", "accepted_at", "created_at", "updated_at", "description",
-        "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-        "state", "position", "id", "errors", "labels", "notes"
-      ].sort
+        "project_id", "story_type", "owned_by_id", "requested_by_id",
+        "requested_by_name", "owned_by_name", "owned_by_initials", "estimate",
+        "state", "position", "id", "errors", "labels", "notes", "tasks", "documents"
+      ].sort)
     end
   end
 
@@ -141,17 +194,17 @@ describe Story do
       before { subject.position = 42 }
 
       it "does nothing" do
-        subject.set_position_to_last.should be true
+        expect(subject.set_position_to_last).to be true
         subject.position = 42
       end
     end
 
     context "when there are no other stories" do
-      before { subject.stub_chain(:project, :stories, :order, :first).and_return(nil) }
+      before { allow(subject).to receive_message_chain(:project, :stories, :order, :first).and_return(nil) }
 
       it "sets position to 1" do
         subject.set_position_to_last
-        subject.position.should == 1
+        expect(subject.position).to eq(1)
       end
     end
 
@@ -160,12 +213,12 @@ describe Story do
       let(:last_story) { mock_model(Story, :position => 41) }
 
       before do
-        subject.stub_chain(:project, :stories, :order, :first).and_return(last_story)
+        allow(subject).to receive_message_chain(:project, :stories, :order, :first).and_return(last_story)
       end
 
       it "incrememnts the position by 1" do
         subject.set_position_to_last
-        subject.position.should == 42
+        expect(subject.position).to eq(42)
       end
     end
   end
@@ -179,7 +232,7 @@ describe Story do
       # FIXME This is non-deterministic
       it "gets set when state changes to 'accepted'" do
         subject.update_attribute :state, 'accepted'
-        subject.accepted_at.should == Date.today
+        expect(subject.accepted_at).to eq(Date.today)
       end
 
     end
@@ -191,14 +244,14 @@ describe Story do
       # FIXME This is non-deterministic
       it "is unchanged when state changes to 'accepted'" do
         subject.update_attribute :state, 'accepted'
-        subject.accepted_at.should == Date.parse('1999/01/01')
+        expect(subject.accepted_at).to eq(Date.parse('1999/01/01'))
       end
 
       it "is unset when state changes from 'accepted'" do
-        subject.accepted_at = Date.parse('1999/01/01') 
+        subject.accepted_at = Date.parse('1999/01/01')
         subject.update_attribute :state, 'accepted'
         subject.update_attribute :state, 'started'
-        subject.accepted_at.should be_nil
+        expect(subject.accepted_at).to be_nil
       end
 
     end
@@ -207,15 +260,15 @@ describe Story do
   describe "#to_csv" do
 
     it "returns an array" do
-      subject.to_csv.should be_kind_of(Array)
+      expect(subject.to_csv).to be_kind_of(Array)
     end
 
     it "has the same number of elements as the .csv_headers" do
-      subject.to_csv.length.should == Story.csv_headers.length
+      expect(subject.to_csv.length).to eq(Story.csv_headers.length)
     end
   end
 
-  describe "#notify_users" do
+  describe "#stakeholders_users" do
 
     let(:requested_by)  { mock_model(User) }
     let(:owned_by)      { mock_model(User) }
@@ -229,20 +282,20 @@ describe Story do
     end
 
     specify do
-      subject.notify_users.should include(requested_by)
+      expect(subject.stakeholders_users).to include(requested_by)
     end
 
     specify do
-      subject.notify_users.should include(owned_by)
+      expect(subject.stakeholders_users).to include(owned_by)
     end
 
     specify do
-      subject.notify_users.should include(note_user)
+      expect(subject.stakeholders_users).to include(note_user)
     end
 
     it "strips out nil values" do
       subject.requested_by = subject.owned_by = nil
-      subject.notify_users.should_not include(nil)
+      expect(subject.stakeholders_users).not_to include(nil)
     end
   end
 
@@ -292,7 +345,7 @@ describe Story do
 
   describe '.csv_headers' do
 
-    specify { Story.csv_headers.should be_kind_of(Array) }
+    specify { expect(Story.csv_headers).to be_kind_of(Array) }
 
   end
 end

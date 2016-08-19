@@ -43,7 +43,7 @@ describe("Fulcrum.ColumnView", function() {
 
     it("triggers the visibilityChanged event", function() {
       var stub = sinon.stub();
-      this.view.bind('visibilityChanged', stub);
+      this.view.on('visibilityChanged', stub);
       this.view.toggle();
       expect(stub).toHaveBeenCalled();
     });

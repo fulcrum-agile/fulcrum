@@ -10,12 +10,18 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
     _.bindAll(this, 'addStory', 'addAll', 'render');
 
-    this.model.stories.bind('add', this.addStory);
-    this.model.stories.bind('reset', this.addAll);
-    this.model.stories.bind('all', this.render);
-    this.model.bind('change:userVelocity', this.addAll);
+    this.model.stories.on('add', this.addStory);
+    this.model.stories.on('reset', this.addAll);
+    this.model.stories.on('all', this.render);
+    this.model.on('change:userVelocity', this.addAll);
 
-    this.model.stories.fetch();
+    var that = this;
+
+    this.model.stories.fetch({
+      success: function() {
+        that.addAll();
+      }
+    });
   },
 
   // Triggered when the 'Add Story' button is clicked
@@ -43,6 +49,9 @@ Fulcrum.ProjectView = Backbone.View.extend({
   },
 
   addIteration: function(iteration) {
+    if (iteration.stories().length == 0) {
+      return;
+    }
     var that = this;
     var column = iteration.get('column');
     var view = new Fulcrum.IterationView({model: iteration}).render();
@@ -60,6 +69,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
     $('#in_progress').html("");
     $('#backlog').html("");
     $('#chilly_bin').html("");
+    $('#search_results').html("");
 
     this.model.rebuildIterations();
 
@@ -79,9 +89,11 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
   scaleToViewport: function() {
     var storyTableTop = $('table.stories tbody').offset().top;
-    // Extra for the bottom padding and the
-    var extra = 100;
+
+    var extra = 40;
+
     var height = $(window).height() - (storyTableTop + extra);
+
     $('.storycolumn').css('height', height + 'px');
   },
 

@@ -1,0 +1,71 @@
+<% content_for :title_bar do %>
+  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<% end %>
+
+<h2>Import stories</h2>
+
+<% if session[:import_job] %>
+  <p>
+  There is already an uploaded file being processed
+  <%= time_ago_in_words session[:import_job][:created_at] %> ago.
+  </p>
+  <!-- Job ID: <%= session[:import_job][:id] %> -->
+  <p>
+  Wait a few minutes and come back to see the results or upload a new file in case of errors.
+  </p>
+<% else %>
+  <p>
+  You can bulk import stories in comma separated variable (CSV) format.  The
+  first line of the CSV must contain the correct headers for the import to
+  succeed.  You can download a
+  <a href="/Fulcrum_Import_Template.csv">CSV template</a> with the correct
+  headers to get you started.
+  </p>
+  <p>
+  Fulcrum will try and match any user names found in the CSV with members of
+  your project.  Be sure to add members with the correct names before importing
+  if you want these to match up.
+  </p>
+  <p><em>Note: You can also use a CSV export from Pivotal Tracker.</em></p>
+
+  <%= form_for [:import_upload, @project], html: { class: "form-horizontal center" } do |f| %>
+    <div class="field">
+      <%= f.attachinary_file_field :import %>
+    </div>
+    <div class="field">
+      <%= f.submit 'import', class: 'btn btn-default btn-primary' %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @valid_stories %>
+  <h2>Import results</h2>
+
+  <table id="import">
+    <thead>
+      <tr>
+        <th>Row</th>
+        <th>Story</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @valid_stories.each_with_index do |story, index| %>
+        <tr class="valid">
+          <td><%= index + 1 %></td>
+          <td><%= story.title %></td>
+          <td><%= story.story_type %></td>
+        </tr>
+      <% end %>
+
+      <% @invalid_stories.each_with_index do |errors, index| %>
+        <tr class="invalid">
+          <td><%= index + 1 %></td>
+          <td colspan="2">
+            <%= errors[:title] %> - <%= errors[:errors] %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

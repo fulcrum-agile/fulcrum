@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   # FIXME - DRY up, repeated in Story model
-  JSON_ATTRIBUTES = ["id", "name", "initials", "email"]
+  JSON_ATTRIBUTES = ["id", "name", "initials", "username", "email"]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -11,12 +11,15 @@ class User < ActiveRecord::Base
   # Flag used to identify if the user was found or created from find_or_create
   attr_accessor :was_created
 
-  has_and_belongs_to_many :projects, -> { uniq }
+  has_many :memberships, dependent: :destroy
+  has_many :projects, -> { uniq }, through: :memberships
 
   before_validation :set_random_password_if_blank
 
-  validates :name, :presence => true
-  validates :initials, :presence => true
+  before_destroy :remove_story_association
+
+  validates :name, :username, :initials, presence: true
+  validates :username, uniqueness: true
 
   def password_required?
     # Password is required if it is being set, but not for new records
@@ -49,5 +52,17 @@ class User < ActiveRecord::Base
 
   def as_json(options = {})
     super(:only => JSON_ATTRIBUTES)
+  end
+
+  def admin?
+    is_admin
+  end
+
+  private
+
+  def remove_story_association
+    Story.where(requested_by_id: id).update_all(requested_by_id: nil, requested_by_name: nil)
+    Story.where(owned_by_id: id).update_all(owned_by_id: nil, owned_by_name: nil)
+    Membership.where(user_id: id).delete_all
   end
 end

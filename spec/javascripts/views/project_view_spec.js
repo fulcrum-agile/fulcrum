@@ -2,10 +2,10 @@ describe("Fulcrum.ProjectView", function() {
 
   beforeEach(function() {
     this.model = {};
-    this.model.bind = sinon.stub();
+    this.model.on = sinon.stub();
     this.model.velocity = sinon.stub();
     this.model.velocityIsFake = sinon.stub();
-    this.model.stories = {fetch: sinon.stub(), bind: sinon.stub()};
+    this.model.stories = {fetch: sinon.stub(), on: sinon.stub()};
     Fulcrum.ProjectView.prototype.template = sinon.stub();
     this.view = new Fulcrum.ProjectView({model: this.model});
   });

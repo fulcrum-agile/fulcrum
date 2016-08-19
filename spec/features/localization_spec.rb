@@ -22,7 +22,7 @@ describe "localization" do
     it "lets user change their locale" do
       change_locale_to "en"
 
-      current_user.locale.should == "en"
+      expect(current_user.locale).to eq("en")
     end
 
   end
@@ -42,7 +42,7 @@ describe "localization" do
 
       visit root_path
 
-      page.should have_selector('h1', :text => 'Listado de Proyectos')
+      expect(page).to have_selector('h1', :text => 'Listado de Proyectos')
     end
 
   end

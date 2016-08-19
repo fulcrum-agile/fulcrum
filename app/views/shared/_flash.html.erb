@@ -1,0 +1,11 @@
+<%= content_tag :div, id: 'flash-messages' do %>
+  <% flash.each do |key, value| %>
+    <%= content_tag :div, class: "alert alert-dismissible #{flash_key_to_bootstrap_class(key)}" do %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <%= value %>
+    <% end %>
+  <% end %>
+<% end %>

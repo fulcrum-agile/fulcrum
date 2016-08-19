@@ -1,5 +1,5 @@
 config/database.yml
-config/fulcrum.rb
+config/cloudinary.yml
 .bundle
 db/*.sqlite3
 log/*.log
@@ -9,3 +9,4 @@ tmp/
 *.DS_Store
 config/deploy.rb
 *.swp
+.env

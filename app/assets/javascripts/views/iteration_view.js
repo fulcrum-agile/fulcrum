@@ -8,6 +8,23 @@ Fulcrum.IterationView = Backbone.View.extend({
 
   className: 'iteration',
 
+  events: {
+    "click": "toggleStories",
+  },
+
+  toggleStories: function() {
+    var item = this.$el.next();
+    while(true) {
+      if ($(item).hasClass('story')) {
+        $(item).toggle();
+      }
+      item = item.next();
+      if (item.length == 0 || $(item).hasClass('iteration')) {
+        break;
+      }
+    }
+  },
+
   render: function() {
     this.$el.html(this.template({iteration: this.model, view: this}));
     return this;

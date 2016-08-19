@@ -1,24 +1,26 @@
 <% content_for :title_bar do %>
   <h1>Sign in</h1>
 <% end %>
-<div class="form-wrapper">
+<div class="form-wrapper sign-in">
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+    <%= f.label :email, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.email_field :email %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :password %>
-    <div class="field"><%= f.password_field :password %></div>
+    <%= f.label :password, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.password_field :password %></div>
   </div>
 
 
   <% if devise_mapping.rememberable? -%>
-    <div class="field"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <div class="checkbox"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
   <% end -%>
 
-  <div class="actions"><%= f.submit "Sign in" %></div>
+  <div class="actions clearfix">
+    <%= f.submit "Sign in", class: 'btn btn-primary pull-right' %>
+  </div>
 <% end %>
 <%= render :partial => "devise/shared/links" %>
 </div>

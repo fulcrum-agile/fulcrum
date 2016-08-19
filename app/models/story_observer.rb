@@ -2,30 +2,45 @@ class StoryObserver < ActiveRecord::Observer
 
   # Create a new changeset whenever the story is changed
   def after_save(story)
-    story.changesets.create!
-
     if story.state_changed?
-
+      notifier = nil
       unless story.project.suppress_notifications
 
         # Send a 'the story has been delivered' notification if the state has
         # changed to 'delivered'
         # FIXME Move to predicate on Story
-        if story.state == 'delivered' && story.acting_user && story.requested_by && story.requested_by.email_delivery? && story.acting_user != story.requested_by
-          notifier = Notifications.delivered(story, story.acting_user)
-          notifier.deliver if notifier
+        if story.state == 'started'
+          if story.acting_user && story.requested_by && story.requested_by.email_delivery? && story.acting_user != story.requested_by
+            notifier = Notifications.started(story, story.acting_user)
+            notifier.deliver if notifier
+          end
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] The story '#{story.title}' has been started.")
+        end
+
+        if story.state == 'delivered'
+          if story.acting_user && story.requested_by && story.requested_by.email_delivery? && story.acting_user != story.requested_by
+            notifier = Notifications.delivered(story, story.acting_user)
+            notifier.deliver if notifier
+          end
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] The story '#{story.title}' has been delivered for acceptance.")
         end
 
         # Send 'story accepted' email if state changed to 'accepted'
-        if story.state == 'accepted' && story.acting_user && story.owned_by && story.owned_by.email_acceptance? && story.owned_by != story.acting_user
-          notifier = Notifications.accepted(story, story.acting_user)
-          notifier.deliver if notifier
+        if story.state == 'accepted'
+          if story.acting_user && story.owned_by && story.owned_by.email_acceptance? && story.owned_by != story.acting_user
+            notifier = Notifications.accepted(story, story.acting_user)
+            notifier.deliver if notifier
+          end
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] #{story.acting_user.name} ACCEPTED your story '#{story.title}'.")
         end
 
         # Send 'story rejected' email if state changed to 'rejected'
-        if story.state == 'rejected' && story.acting_user && story.owned_by && story.owned_by.email_rejection? && story.owned_by != story.acting_user
-          notifier = Notifications.rejected(story, story.acting_user)
-          notifier.deliver if notifier
+        if story.state == 'rejected'
+          if story.acting_user && story.owned_by && story.owned_by.email_rejection? && story.owned_by != story.acting_user
+            notifier = Notifications.rejected(story, story.acting_user)
+            notifier.deliver if notifier
+          end
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] #{story.acting_user.name} REJECTED your story '#{story.title}'.")
         end
 
       end

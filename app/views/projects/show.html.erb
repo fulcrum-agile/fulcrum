@@ -1,4 +1,8 @@
 <%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+<%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
+<%= javascript_tag "var PROJECT_MEMBERS = [#{@project.users.pluck(:username).sort.map { |u| "'#{u}'" }.join(', ') }]" %>
+
+<%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
 <script type="text/javascript">
 $(function() {
@@ -38,6 +42,18 @@ $(function() {
     new Fulcrum.ColumnVisibilityButtonView({columnView: chillyBinColumn, elementId: 'chilly_bin'}).render().el
   );
 
+  var searchResultsColumn = new Fulcrum.ColumnView({
+    id: 'search_results', name: '<%= t('.search_results') %>', el: $('td.search_results_column'),
+    sortable: false
+  }).render();
+  $('#column-toggles').append(
+    new Fulcrum.ColumnVisibilityButtonView({columnView: searchResultsColumn, elementId: 'search_results'}).render().el
+  );
+
+  window.epicColumn = new Fulcrum.ColumnView({
+    id: 'epic', name: 'Epic', el: $('td.epic_column'), sortable: true
+  }).render();
+
   // FIXME Move to view
   // Connect up drag and drop behaviour
   $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
@@ -50,6 +66,10 @@ $(function() {
   });
   window.projectView.scaleToViewport();
   $(window).resize(projectView.scaleToViewport);
+
+  window.projectView.searchView = new Fulcrum.ProjectSearchView({
+    model: project, el: $('#form_search')
+  });
 
   setInterval(function() {
    window.projectView.model.fetch();
@@ -82,16 +102,18 @@ $(function() {
   <tbody>
     <tr>
     <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
-      <td class="done_column" style="width: 25%"></td>
-      <td class="in_progress_column" style="width: 25%"></td>
-      <td class="backlog_column" style="width: 25%"></td>
-      <td class="chilly_bin_column" style="width: 25%"></td>
+      <td class="done_column"></td>
+      <td class="in_progress_column"></td>
+      <td class="backlog_column"></td>
+      <td class="chilly_bin_column"></td>
     <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
-      <td class="chilly_bin_column" style="width: 25%"></td>
-      <td class="backlog_column" style="width: 25%"></td>
-      <td class="in_progress_column" style="width: 25%"></td>
-      <td class="done_column" style="width: 25%"></td>
+      <td class="chilly_bin_column"></td>
+      <td class="backlog_column"></td>
+      <td class="in_progress_column"></td>
+      <td class="done_column"></td>
     <% end %>
+    <td class="epic_column" style="display: none;"></td>
+    <td class="search_results_column" style="display: none;"></td>
     </tr>
   </tbody>
 </table>
