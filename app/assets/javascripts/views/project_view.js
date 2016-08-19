@@ -85,12 +85,11 @@ Fulcrum.ProjectView = Backbone.View.extend({
       that.addStory(story);
     });
     $(".loading_screen").hide();
-    this.scrollToStory();
+    this.scrollToStory(window.location.hash || '');
   },
 
-  scrollToStory: function() {
-    var story_hash = window.location.hash;
-    if ( story_hash.startsWith('#story') ) {
+  scrollToStory: function(story_hash) {
+    if ( story_hash.lastIndexOf('#story', 0) === 0 ) {
       var story = $(story_hash);
       if ( story.length > 0 ) {
         story.click();
