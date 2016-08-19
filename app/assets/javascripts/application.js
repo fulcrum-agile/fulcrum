@@ -4,6 +4,7 @@
 //= require jquery.gritter
 //= require jquery.scrollTo
 //= require jquery.atwho
+//= require clipboard
 //= require date.format
 //= require underscore
 //= require backbone

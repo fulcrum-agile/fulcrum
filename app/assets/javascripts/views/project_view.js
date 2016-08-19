@@ -94,7 +94,13 @@ Fulcrum.ProjectView = Backbone.View.extend({
       var story = $(story_hash);
       if ( story.length > 0 ) {
         story.click();
-        document.getElementById(story_hash.replace('#', '')).scrollIntoView()
+        document.getElementById(story_hash.replace('#', '')).scrollIntoView();
+        // clean url state so every refresh doesn't reopen the same story over and over
+        if(window.history.pushState) {
+            window.history.pushState('', '/', window.location.pathname)
+        } else {
+            window.location.hash = '';
+        }
       }
     }
   },

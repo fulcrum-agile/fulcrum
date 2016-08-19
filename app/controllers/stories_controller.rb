@@ -36,6 +36,7 @@ class StoriesController < ApplicationController
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
     @story.acting_user = current_user
+    @story.base_uri = project_url(@story.project)
     respond_to do |format|
       if @story = StoryUpdaterService.save(@story, allowed_params.to_hash)
         format.html { redirect_to project_url(@project) }

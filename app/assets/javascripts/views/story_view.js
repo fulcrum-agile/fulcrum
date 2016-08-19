@@ -449,6 +449,15 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.renderNotes();
 
+      this.$el.append(
+        this.makeFormControl(function(div) {
+          $(div).append('<input id="story-link-' + this.id + '" value="' + window.location + '#story-' + this.id + '">');
+          $(div).append('<button class="btn-clipboard" data-clipboard-target="#story-link-' + this.id + '"><img src="/clippy.svg" alt="Copy to clipboard" width="10px"></button>');
+        })
+      );
+      // activate the clipboard link
+      new Clipboard('.btn-clipboard');
+
     } else {
       this.$el.removeClass('editing');
       this.$el.html(this.template({story: this.model, view: this}));

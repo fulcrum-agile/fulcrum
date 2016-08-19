@@ -46,6 +46,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery.gritter'
   gem 'rails-assets-jquery.scrollTo'
   gem 'rails-assets-underscore'
+  gem 'rails-assets-clipboard'
 end
 
 group :production do

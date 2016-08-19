@@ -87,7 +87,7 @@ class Story < ActiveRecord::Base
 
   # This attribute is used to store the user who is acting on a story, for
   # example delivering or modifying it.  Usually set by the controller.
-  attr_accessor :acting_user
+  attr_accessor :acting_user, :base_uri
 
   STORY_TYPES = [
     'feature', 'chore', 'bug', 'release'

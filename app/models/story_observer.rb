@@ -1,10 +1,13 @@
 class StoryObserver < ActiveRecord::Observer
+  include ActionController::UrlFor
+  include Rails.application.routes.url_helpers
 
   # Create a new changeset whenever the story is changed
   def after_save(story)
     if story.state_changed?
       notifier = nil
       unless story.project.suppress_notifications
+        story_link = "#{story.base_uri}#story-#{story.id}"
 
         # Send a 'the story has been delivered' notification if the state has
         # changed to 'delivered'
@@ -14,7 +17,7 @@ class StoryObserver < ActiveRecord::Observer
             notifier = Notifications.started(story, story.acting_user)
             notifier.deliver if notifier
           end
-          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] The story '#{story.title}' has been started.")
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] The story ['#{story.title}'](#{story_link}) has been started.")
         end
 
         if story.state == 'delivered'
@@ -22,7 +25,7 @@ class StoryObserver < ActiveRecord::Observer
             notifier = Notifications.delivered(story, story.acting_user)
             notifier.deliver if notifier
           end
-          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] The story '#{story.title}' has been delivered for acceptance.")
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] The story ['#{story.title}'](#{story_link}) has been delivered for acceptance.")
         end
 
         # Send 'story accepted' email if state changed to 'accepted'
@@ -31,7 +34,7 @@ class StoryObserver < ActiveRecord::Observer
             notifier = Notifications.accepted(story, story.acting_user)
             notifier.deliver if notifier
           end
-          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] #{story.acting_user.name} ACCEPTED your story '#{story.title}'.")
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] #{story.acting_user.name} ACCEPTED your story ['#{story.title}'](#{story_link}).")
         end
 
         # Send 'story rejected' email if state changed to 'rejected'
@@ -40,7 +43,7 @@ class StoryObserver < ActiveRecord::Observer
             notifier = Notifications.rejected(story, story.acting_user)
             notifier.deliver if notifier
           end
-          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] #{story.acting_user.name} REJECTED your story '#{story.title}'.")
+          IntegrationWorker.perform_async(story.project.id, "[#{story.project.name}] #{story.acting_user.name} REJECTED your story ['#{story.title}'](#{story_link}).")
         end
 
       end
@@ -61,5 +64,4 @@ class StoryObserver < ActiveRecord::Observer
     end
 
   end
-
 end
