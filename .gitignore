@@ -10,3 +10,4 @@ tmp/
 config/deploy.rb
 *.swp
 .env
+.env.test

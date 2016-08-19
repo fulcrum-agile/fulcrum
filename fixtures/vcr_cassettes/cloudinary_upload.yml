@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.cloudinary.com/v1_1/hq5e5afno/image/destroy
+    uri: https://api.cloudinary.com/v1_1/localhost/image/destroy
     body:
       encoding: UTF-8
       string: timestamp=1471644143&public_id=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&signature=daefe2ee039c2b48f0be8e256e47be1099460c69&api_key=893592954749395
@@ -53,7 +53,7 @@ http_interactions:
   recorded_at: Fri, 19 Aug 2016 22:02:25 GMT
 - request:
     method: post
-    uri: https://api.cloudinary.com/v1_1/hq5e5afno/image/destroy
+    uri: https://api.cloudinary.com/v1_1/localhost/image/destroy
     body:
       encoding: UTF-8
       string: timestamp=1471644145&public_id=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&signature=e9eddcb760d09ac34f04dc0e05d910596381f182&api_key=893592954749395
@@ -104,7 +104,7 @@ http_interactions:
   recorded_at: Fri, 19 Aug 2016 22:02:26 GMT
 - request:
     method: post
-    uri: https://api.cloudinary.com/v1_1/hq5e5afno/image/tags
+    uri: https://api.cloudinary.com/v1_1/localhost/image/tags
     body:
       encoding: UTF-8
       string: timestamp=1471644146&tag=attachinary_tmp&public_ids[]=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&command=remove&signature=f2c870f5a5e54303892483c7cc9fc08ae53d16a6&api_key=893592954749395
@@ -155,7 +155,7 @@ http_interactions:
   recorded_at: Fri, 19 Aug 2016 22:02:27 GMT
 - request:
     method: post
-    uri: https://api.cloudinary.com/v1_1/hq5e5afno/image/tags
+    uri: https://api.cloudinary.com/v1_1/localhost/image/tags
     body:
       encoding: UTF-8
       string: timestamp=1471644147&tag=attachinary_tmp&public_ids[]=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&command=remove&signature=355b3435d78ea5451d2afff952f9979c079554fc&api_key=893592954749395
