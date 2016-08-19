@@ -86,7 +86,17 @@ describe IntegrationsController do
               }.to change { Integration.count }.by(0)
               expect(response).to render_template('index')
             end
+          end
 
+          context "when a invalid json is inserted", :focus do
+            before { integration_params[:data] = nil }
+
+            specify do
+              expect {
+                post :create, project_id: project.id, integration: integration_params
+              }.to change { Integration.count }.by(0)
+              expect(response).to render_template('index')
+            end
           end
 
           context "when save succeeds" do
