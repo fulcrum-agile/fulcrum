@@ -85,6 +85,18 @@ Fulcrum.ProjectView = Backbone.View.extend({
       that.addStory(story);
     });
     $(".loading_screen").hide();
+    this.scrollToStory();
+  },
+
+  scrollToStory: function() {
+    var story_hash = window.location.hash;
+    if ( story_hash.startsWith('#story') ) {
+      var story = $(story_hash);
+      if ( story.length > 0 ) {
+        story.click();
+        document.getElementById(story_hash.replace('#', '')).scrollIntoView()
+      }
+    }
   },
 
   scaleToViewport: function() {
