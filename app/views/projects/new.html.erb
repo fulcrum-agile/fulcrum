@@ -2,6 +2,10 @@
   <h1><%= t('projects.new project') %></h1>
 <% end %>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <%= render 'form' %>
+  </div>
+</div>
 
 <%= link_to 'Back', projects_path %>

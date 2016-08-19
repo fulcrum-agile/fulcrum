@@ -1,6 +1,13 @@
 <% content_for :title_bar do %>
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
-<h2><%= t('projects.edit project') %></h2>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <h2><%= t('projects.edit project') %></h2>
+
+    <%= render 'form' %>
+  </div>
+
+  <%= render 'integrations/form' %>
+</div>
