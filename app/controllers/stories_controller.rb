@@ -3,6 +3,8 @@ class StoriesController < ApplicationController
 
   include ActionView::Helpers::TextHelper
 
+  before_action :filter_documents
+
   def index
     @project = current_user.projects.with_stories_notes.friendly.find(params[:project_id])
 
@@ -89,5 +91,16 @@ class StoriesController < ApplicationController
 
   def allowed_params
     params.require(:story).permit(:title, :description, :estimate, :story_type, :state, :requested_by_id, :owned_by_id, :position, :labels, documents: [ :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ])
+  end
+
+  def filter_documents
+    # for some reason, on drag/drop update the hash is coming as:
+    #   { documents: [ { file: {id: 1 ...} }, { file: {id: 2 ...} } ]
+    # instead of
+    #   { documents: [ {id: 1 ...}, {id: 2 ...} ]
+    # so this fixes it (avoid story to lose the attachment association
+    if params.dig(:story, :documents) && params[:story][:documents].first.has_key?(:file)
+      params[:story][:documents] = params[:story][:documents].map{ |hash| hash.values.first }
+    end
   end
 end

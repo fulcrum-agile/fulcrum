@@ -36,6 +36,40 @@ describe StoriesController do
       end
     end
 
+    context "update without losing documents" do
+      let(:attachments) { [
+        {"id"=>30, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}, 
+        {"id"=>31, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}
+      ]}
+
+      let(:story) { create(:story, project: project, requested_by: user )}
+
+      let(:story_params) do
+        { title: "Foo", documents: [ {"file"=> attachments.first}, {"file"=> attachments.last} ]}
+      end
+
+      before do
+        attachments.each do |a|
+          a.delete('path')
+          Story.connection.execute("insert into attachinary_files (#{a.keys.join(", ")}, scope, attachinariable_id, attachinariable_type) values ('#{a.values.join("', '")}', 'documents', #{story.id}, 'Story')")
+        end
+      end
+
+      describe "#update" do
+        it "should have 2 documents" do
+          story.reload
+          expect(story.documents.count).to eq(2)
+        end
+
+        it "should keep the same 2 documents (the put will delete and reinsert the documents)" do
+          expect {
+            xhr :put, :update, project_id: project.id, id: story.id, story: story_params
+          }.to change {story.reload ; story.documents.count}.by(0)
+          expect(response).to be_success
+        end
+      end
+    end
+
     context "member actions" do
 
       let(:story) { create(:story, project: project, requested_by: user) }
