@@ -10,9 +10,8 @@ class IntegrationsController < ApplicationController
   end
 
   def create
-    @integration = @project.integrations.build(kind: params[:integration][:kind]).tap do |i|
-      i.data = JSON.parse params[:integration][:data]
-    end
+    @integration = @project.integrations.build(kind: params[:integration][:kind])
+    @integration.data = JSON.parse params[:integration][:data]
 
     if @project.integrations.find_by(kind: @integration.kind)
       flash[:alert] = "#{@integration.kind} is already configured for this project"
@@ -26,6 +25,10 @@ class IntegrationsController < ApplicationController
     end
 
     redirect_to project_integrations_url(@project)
+
+  rescue JSON::ParserError, TypeError
+    flash.now[:error] = "Insert a valid JSON into 'Data' field"
+    render 'index'
   end
 
   def destroy
