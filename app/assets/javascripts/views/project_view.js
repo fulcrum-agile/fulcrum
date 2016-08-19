@@ -27,7 +27,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
   // Triggered when the 'Add Story' button is clicked
   newStory: function() {
     this.model.stories.add([{
-      events: [], editing: true
+      events: [], files: [], editing: true
     }]);
   },
 

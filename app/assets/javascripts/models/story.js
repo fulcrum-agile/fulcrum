@@ -80,6 +80,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   defaults: {
     events: [],
+    documents: [],
     state: "unscheduled",
     story_type: "feature"
   },
