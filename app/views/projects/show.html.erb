@@ -1,24 +1,6 @@
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
 <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
-<script type="text/javascript">
-$(function() {
-  <% if notice %>
-    window.projectView.notice({
-      title: 'Notice', text: '<%= notice %>',
-      image: '<%= image_path('dialog-information.png') %>'
-    });
-  <% end %>
-
-  <% if alert %>
-    window.projectView.notice({
-      title: 'Alert', text: '<%= alert %>', sticky: true,
-      image: '<%= image_path('dialog-warning.png') %>'
-    });
-  <% end %>
-});
-</script>
-
 <% content_for :title_bar do %>
   <div id="velocity" class="velocity"></div>
   <%= render 'projects/nav', project: @project, show_column_toggles: true %>
