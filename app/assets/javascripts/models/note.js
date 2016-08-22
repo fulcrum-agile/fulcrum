@@ -8,10 +8,10 @@ Fulcrum.Note = Backbone.Model.extend({
 
   i18nScope: 'activerecord.attributes.note',
 
-  readonly: false,
+  isReadonly: false,
 
   sync: function(method, model, options) {
-    if( model.readonly ) {
+    if( model.isReadonly ) {
       return true;
     }
     Backbone.sync(method, model, options);

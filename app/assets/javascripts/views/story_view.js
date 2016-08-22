@@ -563,8 +563,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       if (!that.isReadonly() && note.isNew()) {
         view = new Fulcrum.NoteForm({model: note});
       } else {
-        if (that.isReadonly())
-          note.readonly = true;
+        if (that.isReadonly()) note.isReadonly = true;
         view = new Fulcrum.NoteView({model: note});
       }
       notelist.append(view.render().el);
@@ -582,8 +581,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       if (!that.isReadonly() && task.isNew()) {
         view = new Fulcrum.TaskForm({model:task});
       } else {
-        if (that.isReadonly() )
-          task.readonly = true;
+        if (that.isReadonly()) task.isReadonly = true;
         view = new Fulcrum.TaskView({model:task});
       }
       tasklist.append(view.render().el);
