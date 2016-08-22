@@ -247,13 +247,6 @@ describe Story do
         expect(subject.accepted_at).to eq(Date.parse('1999/01/01'))
       end
 
-      it "is unset when state changes from 'accepted'" do
-        subject.accepted_at = Date.parse('1999/01/01')
-        subject.update_attribute :state, 'accepted'
-        subject.update_attribute :state, 'started'
-        expect(subject.accepted_at).to be_nil
-      end
-
     end
   end
 
@@ -347,5 +340,47 @@ describe Story do
 
     specify { expect(Story.csv_headers).to be_kind_of(Array) }
 
+  end
+
+  describe '#readonly?' do
+    subject { create :story, :with_project }
+
+    before { subject.update_attribute(:state, 'accepted') }
+
+    it "can't save model if it is already accepted" do
+      subject.title = 'new title override'
+      expect { subject.save }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
+
+    it "can't change state back from accepted to anything else" do
+      expect { subject.update_attribute(:state, 'unscheduled') }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
+
+    it "can't delete accepted story" do
+      expect { subject.destroy }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
+
+    context "with attachments" do
+      let(:attachments) { [
+        {"id"=>30, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}, 
+        {"id"=>31, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}
+      ]}
+
+      before do
+        attachments.each do |a|
+          a.delete('path')
+          Story.connection.execute("insert into attachinary_files (#{a.keys.join(", ")}, scope, attachinariable_id, attachinariable_type) values ('#{a.values.join("', '")}', 'documents', #{subject.id}, 'Story')")
+        end
+      end
+
+      it "can't delete attachments of an accepted story" do
+        expect(subject.documents.count).to eq(2)
+
+        expect { subject.documents = [] }.to raise_error(ActiveRecord::ReadOnlyRecord)
+
+        subject.reload
+        expect(subject.documents.count).to eq(2)
+      end
+    end
   end
 end

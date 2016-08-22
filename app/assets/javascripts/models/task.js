@@ -10,6 +10,15 @@ Fulcrum.Task = Backbone.Model.extend({
 
   defaults: {
     done: false
+  },
+
+  isReadonly: false,
+
+  sync: function(method, model, options) {
+    if( model.isReadonly ) {
+      return true;
+    }
+    Backbone.sync(method, model, options);
   }
 
 });

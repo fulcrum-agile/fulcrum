@@ -18,7 +18,7 @@ Fulcrum.NoteView = Backbone.View.extend({
     this.$el.html(this.template({note: this.model}));
     return this;
   },
-  
+
   deleteNote: function() {
   	this.model.destroy();
   	this.$el.remove();

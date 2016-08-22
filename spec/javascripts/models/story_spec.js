@@ -20,8 +20,15 @@ describe('Fulcrum.Story', function() {
     this.new_story = new Fulcrum.Story({
       title: 'New story'
     });
-    this.story.collection = this.new_story.collection = collection;
-    this.story.view = this.new_story.view = view;
+    this.ro_story = new Fulcrum.Story({
+      id: 998, title: 'Readonly story', position: '2.55'
+    });
+    this.story.collection = this.new_story.collection = this.ro_story.collection = collection;
+    this.story.view       = this.new_story.view       = this.ro_story.view       = view;
+
+    // the readonly flag is called in the initialize, but the state change depends on the collection, which in this spec is set after the instance, so has to set manually here
+    this.ro_story.set({state: 'accepted', accepted_at: new Date()});
+    this.ro_story.setReadonly();
 
     this.server = sinon.fakeServer.create();
   });
@@ -434,6 +441,15 @@ describe('Fulcrum.Story', function() {
 
     it("strips of the id suffix", function() {
       expect(this.story.humanAttributeName('foo_bar_id')).toEqual('Foo bar');
+    });
+  });
+
+  describe('isReadonly', function() {
+    it("should not be read only", function() {
+      expect(this.story.isReadonly).toBeFalsy();
+    });
+    it("should be read only", function() {
+      expect(this.ro_story.isReadonly).toBeTruthy();
     });
   });
 
