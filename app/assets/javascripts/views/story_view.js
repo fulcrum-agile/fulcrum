@@ -399,8 +399,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
             var textarea = this.textArea("description");
             $(textarea).atwho({
               at: "@",
-              data: window.PROJECT_MEMBERS
-            })
+              data: window.projectView.usernames(),
+            });
             $(div).append(textarea);
           } else {
             var description = this.make('div');
@@ -587,10 +587,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     this.$el.find('a.collapse,a.expand').removeClass(/icons-/).addClass('icons-throbber');
   },
 
-  enableForm: function() {
-    this.$el.find('a.collapse').removeClass(/icons-/).addClass("icons-collapse");
-  },
-
   // FIXME Move to separate view
   hoverBox: function(){
     var view  = this;
@@ -611,19 +607,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
   removeHoverbox: function() {
     $('.popover').remove();
-  },
-
-  initTags: function() {
-    var model = this.model;
-    var $input = this.$el.find("input[name='labels']");
-    $input.tagit({
-      availableTags: model.collection.labels
-    });
-
-    // Manually bind labels for now
-    $input.on('change', function(){
-      model.set({ labels: $(this).val()});
-    });
   },
 
   setFocus: function() {

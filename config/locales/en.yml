@@ -43,7 +43,7 @@ en:
   n weeks:
     one: '1 week'
     other: '%{count} weeks'
-  
+
   keycuts:
     keyboard_shortcuts: Keyboard shortcuts
     help: Help (this)
@@ -122,7 +122,7 @@ en:
       done: "Done"
       in_progress: "In Progress"
       backlog: "Backlog"
-      icebox: "Chilly Bin"
+      chilly_bin: "Chilly Bin"
       search_results: "Search Results"
       epic: 'Epic'
 

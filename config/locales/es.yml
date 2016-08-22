@@ -36,7 +36,7 @@ es:
       done: "Terminadas"
       in_progress: "En progreso"
       backlog: "Acumuladas"
-      icebox: "Congelador"
+      chilly_bin: "Congelador"
       search_results: "Resultados de la búsqueda"
 
   admin:

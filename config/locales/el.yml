@@ -317,7 +317,7 @@ el:
       done: "ολοκληρωμένες"
       in_progress: "σε εξέλιξη"
       backlog: "σε αναμονή"
-      icebox: "ψυγείο"
+      chilly_bin: "ψυγείο"
       search_results: "Αποτελέσματα Αναζήτησης"
 
   admin:

@@ -31,9 +31,9 @@
 
 $(function() {
   $('.tag-tooltip').tooltip();
-  return executeAttachinary();
+  executeAttachinary();
 });
 
 function executeAttachinary() {
-  return $('.attachinary-input').attachinary({ template: $('#attachinary_template').html() });
+  $('.attachinary-input').attachinary({ template: $('#attachinary_template').html() });
 }
