@@ -121,7 +121,10 @@ Fulcrum.Project = Backbone.Model.extend({
     var start_date = this.startDate();
     var difference = Math.abs(compare_date.getTime() - start_date.getTime());
     var days_apart = Math.round(difference / this.milliseconds_in_a_day);
-    return Math.floor((days_apart / (this.get('iteration_length') * 7)) + 1);
+    var days_in_iteration = this.get('iteration_length') * 7;
+    var iteration_number = Math.floor((days_apart / days_in_iteration) + 1);
+
+    return iteration_number;
   },
 
   getDateForIterationNumber: function(iteration_number) {
@@ -136,11 +139,13 @@ Fulcrum.Project = Backbone.Model.extend({
   },
 
   currentIterationNumber: function() {
-    return this.getIterationNumberForDate(new Date());
+    return this.getIterationNumberForDate(this.today());
   },
 
   today: function() {
-    return new Date()
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    return today;
   },
 
   startDate: function() {
@@ -282,7 +287,6 @@ Fulcrum.Project = Backbone.Model.extend({
       'stories': this.stories.column('#in_progress'),
       'maximum_points': this.velocity(), 'column': '#in_progress'
     });
-
     this.appendIteration(currentIteration, '#done');
 
 
