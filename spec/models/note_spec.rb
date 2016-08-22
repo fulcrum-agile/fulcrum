@@ -39,4 +39,30 @@ describe Note do
 
     its(:to_s)  { should == "Test note (user - Nov 03, 2011)" }
   end
+
+  describe "#readonly?" do
+    let(:user) { create(:user) }
+    let(:project) { create(:project) }
+
+    before do
+      project.users << user
+      project.suppress_notifications = true
+      @story = create(:story, project: project, requested_by: user)
+      @note = create(:note, user: user, story: @story)
+
+      @story.update_attribute(:state, 'accepted')
+    end
+
+    it "can't modify a note from a readonly story" do
+      expect { @note.update_attribute(:note, 'new note') }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
+
+    it "can't let the note from an accepted story to be destroyed" do
+      expect { @note.destroy }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
+
+    it "can't add more notes to an accepted story" do
+      expect { @story.notes.create(note: 'test', user: user) }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
+  end
 end

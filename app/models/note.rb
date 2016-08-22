@@ -3,6 +3,7 @@ class Note < ActiveRecord::Base
   belongs_to :story
 
   before_save :cache_user_name
+  before_destroy { |record| raise ActiveRecord::ReadOnlyRecord if record.readonly? }
 
   validates :note, :presence => true
 
@@ -18,6 +19,10 @@ class Note < ActiveRecord::Base
     user_name = user ? user.name : I18n.t('author unknown')
     created_date = I18n.l created_at, :format => :note_date
     note_string = note_string + " (" + user_name + " - " + created_date + ")"
+  end
+
+  def readonly?
+    story.readonly?
   end
 
   private

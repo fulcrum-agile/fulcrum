@@ -1,4 +1,11 @@
 class Story < ActiveRecord::Base
+  module ReadOnlyDocuments
+    def documents=(attachments)
+      raise ActiveRecord::ReadOnlyRecord if readonly?
+      super(attachments)
+    end
+  end
+
   include PgSearch
   pg_search_scope :search,
     :against => {
@@ -30,8 +37,9 @@ class Story < ActiveRecord::Base
   ]
 
   has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls, :pdf], maximum: 10
+  prepend ReadOnlyDocuments
 
-  belongs_to :project
+  belongs_to :project, counter_cache: true
   validates_presence_of :project
 
   validates :title, :presence => true
@@ -104,6 +112,7 @@ class Story < ActiveRecord::Base
   before_validation :set_position_to_last
   before_save :set_accepted_at
   before_save :cache_user_names
+  before_destroy { |record| raise ActiveRecord::ReadOnlyRecord if record.readonly? }
 
   # Scopes for the different columns in the UI
   scope :done, -> { where(:state => :accepted) }
@@ -229,6 +238,10 @@ class Story < ActiveRecord::Base
     ([requested_by, owned_by] + notes.map(&:user)).compact.uniq
   end
 
+  def readonly?
+    !accepted_at_changed? && accepted_at.present?
+  end
+
   private
 
     def set_accepted_at
@@ -236,9 +249,6 @@ class Story < ActiveRecord::Base
         if state == 'accepted' && accepted_at == nil
           # Set accepted at to today when accepted
           self.accepted_at = Date.today
-        elsif state_was == 'accepted'
-          # Unset accepted at when changing from accepted to something else
-          self.accepted_at = nil
         end
       end
     end
