@@ -288,7 +288,6 @@ Fulcrum.Story = Backbone.Model.extend({
 
   sync: function(method, model, options) {
     if( model.isReadonly ) {
-      console.log('readonly');
       return true;
     }
 

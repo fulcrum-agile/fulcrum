@@ -14,6 +14,13 @@ Fulcrum.Task = Backbone.Model.extend({
 
   readonly: false,
 
+  sync: function(method, model, options) {
+    if( model.readonly ) {
+      return true;
+    }
+    Backbone.sync(method, model, options);
+  }
+
 });
 
 _.defaults(Fulcrum.Task.prototype, Fulcrum.SharedModelMethods);
