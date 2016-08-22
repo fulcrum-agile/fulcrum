@@ -1,4 +1,3 @@
-<%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
 <%= javascript_tag "var PROJECT_MEMBERS = [#{@project.users.pluck(:username).sort.map { |u| "'#{u}'" }.join(', ') }]" %>
 
