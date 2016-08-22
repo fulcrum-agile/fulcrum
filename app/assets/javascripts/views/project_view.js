@@ -120,5 +120,11 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
   addColumnView: function(id, view) {
     this.columns[id] = view;
-  }
+  },
+
+  usernames: function() {
+    return this.model.users
+      .map(function(user) { return user.get('username'); })
+      .sort();
+  },
 });

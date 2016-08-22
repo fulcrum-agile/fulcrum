@@ -399,8 +399,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
             var textarea = this.textArea("description");
             $(textarea).atwho({
               at: "@",
-              data: window.PROJECT_MEMBERS
-            })
+              data: window.projectView.usernames(),
+            });
             $(div).append(textarea);
           } else {
             var description = this.make('div');

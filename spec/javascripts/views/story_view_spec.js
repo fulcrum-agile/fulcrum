@@ -59,6 +59,7 @@ describe('Fulcrum.StoryView', function() {
     });
 
     window.I18n = {t: sinon.stub()};
+    window.projectView.usernames = sinon.stub();
 
     this.server = sinon.fakeServer.create();
   });

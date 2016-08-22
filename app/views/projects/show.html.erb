@@ -1,6 +1,4 @@
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
-<%= javascript_tag "var PROJECT_MEMBERS = [#{@project.users.pluck(:username).sort.map { |u| "'#{u}'" }.join(', ') }]" %>
-
 <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
 <script type="text/javascript">
@@ -92,9 +90,9 @@ $(function() {
 
 <% content_for :title_bar do %>
   <div id="velocity" class="velocity"></div>
-  <%= render :partial => 'projects/nav',
-             :locals => {:project => @project, :show_column_toggles => true} %>
-             | <a id="add_story" href="#"><%= t('add story') %></a>
+  <%= render 'projects/nav', project: @project, show_column_toggles: true %>
+  |
+  <a id="add_story" href="#"><%= t('add story') %></a>
 <% end %>
 
 <table class="stories" width="100%">

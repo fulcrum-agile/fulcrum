@@ -21,7 +21,7 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
 	events: {
     "click input": "saveEdit"
 	},
-	
+
 	saveEdit: function() {
     this.disableForm();
 
@@ -52,7 +52,7 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
     var textarea = this.textArea("note");
     $(textarea).atwho({
         at: "@",
-        data: window.PROJECT_MEMBERS
+        data: window.projectView.usernames(),
     })
 
     $(div).append('<br/>');
