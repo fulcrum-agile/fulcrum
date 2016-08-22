@@ -1,2 +1,4 @@
 <%= task.escape('name') %>
-<a href="#" title="<%= I18n.t('delete') %>" class="delete-task"><%= I18n.t('delete') %></a>
+<% if(!task.readonly) { %>
+  <a href="#" title="<%= I18n.t('delete') %>" class="delete-task"><%= I18n.t('delete') %></a>
+<% } %>

@@ -1,6 +1,7 @@
 <%= window.md.makeHtml(note.escape("note")) %>
 <div class="note_meta">
   <span class="user"><%= note.get("user_name") %></span> -
-  <span class="created_at"><%= note.get("created_at") %></span> -
+  <span class="created_at"><%= note.get("created_at") %></span><% if(!note.readonly) { %> -
   <a href="#" title="<%= I18n.t('delete') %>" class="delete-note"><%= I18n.t('delete') %></a>
+  <% } %>
 </div>

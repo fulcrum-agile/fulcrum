@@ -10,7 +10,9 @@ Fulcrum.Task = Backbone.Model.extend({
 
   defaults: {
     done: false
-  }
+  },
+
+  readonly: false,
 
 });
 

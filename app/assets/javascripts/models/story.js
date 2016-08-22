@@ -9,6 +9,8 @@ Fulcrum.Story = Backbone.Model.extend({
 
   timestampFormat: 'd mmm yyyy, h:MMtt',
 
+  isReadonly: false,
+
   initialize: function(args) {
     _.bindAll(this, 'changeState', 'populateNotes', 'populateTasks');
 
@@ -26,6 +28,12 @@ Fulcrum.Story = Backbone.Model.extend({
     this.initTasks();
     this.setColumn();
 
+    this.setReadonly();
+  },
+
+  setReadonly: function() {
+    if(this.get('state') === 'accepted' && this.get('accepted_at') !== undefined)
+      this.isReadonly = true;
   },
 
   changeState: function(model, new_value) {
@@ -279,6 +287,11 @@ Fulcrum.Story = Backbone.Model.extend({
   },
 
   sync: function(method, model, options) {
+    if( model.isReadonly ) {
+      console.log('readonly');
+      return true;
+    }
+
     var documents = options.documents;
 
     if(documents && documents.length > 0 && documents.val()) {
