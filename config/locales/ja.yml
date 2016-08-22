@@ -99,7 +99,7 @@ ja:
       done: "完了"
       in_progress: "作業中"
       backlog: "未処理"
-      icebox: "アイスボックス"
+      chilly_bin: "アイスボックス"
       search_results: "検索結果"
 
   admin:

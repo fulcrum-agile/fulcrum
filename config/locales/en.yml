@@ -122,7 +122,6 @@ en:
       done: "Done"
       in_progress: "In Progress"
       backlog: "Backlog"
-      icebox: "Chilly Bin"
       chilly_bin: "Chilly Bin"
       search_results: "Search Results"
       epic: 'Epic'

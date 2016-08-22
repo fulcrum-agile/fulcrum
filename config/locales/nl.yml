@@ -96,7 +96,7 @@ nl:
       done: "Klaar"
       in_progress: "In Behandeling"
       backlog: "Backlog"
-      icebox: "Ijskast"
+      chilly_bin: "Ijskast"
       search_results: "Zoekresultaten"
 
   admin:
