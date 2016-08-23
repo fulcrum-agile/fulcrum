@@ -123,11 +123,8 @@ class IterationService
 
       sum = group_by_velocity.values.slice((-1 * iterations)..-1).
         reduce(&:+)
-      stories = group_by_iteration.values.slice((-1 * iterations)..-1).
-        map(&:size).
-        reduce(&:+)
 
-      velocity = (sum / stories).floor
+      velocity = (sum / iterations).floor
       velocity < 1 ? 1 : velocity
     end
   end
