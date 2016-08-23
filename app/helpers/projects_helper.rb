@@ -59,7 +59,7 @@ module ProjectsHelper
   end
 
   def current_iteration_non_estimable
-    current_iteration[:count]
+    current_iteration[:non_estimable]
   end
 
   def accepted_points
@@ -67,7 +67,7 @@ module ProjectsHelper
   end
 
   def accepted_rate
-    number_to_percentage @service.current_iteration_details['accepted'] / current_iteration[:points]
+    number_to_percentage(( accepted_points.to_f * 100.0 ) / current_iteration_points.to_f)
   end
 
   def last_iteration_number
@@ -75,6 +75,6 @@ module ProjectsHelper
   end
 
   def last_iteration_start_date
-    @service.backlog_iterations.last.start_date.to_date.to_s(:short)
+    @service.backlog_iterations.last.start_date.to_date.to_s(:long)
   end
 end
