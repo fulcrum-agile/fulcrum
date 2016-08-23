@@ -150,7 +150,13 @@ class ProjectsController < ApplicationController
   def reports
     since = params[:since].nil? ? nil : params[:since].to_i.months.ago
     @service = IterationService.new(@project, since)
-    current_month = (@service.current_iteration / 4).floor
+    current_month = (@service.current_iteration_number / 4).floor
+    @current_iteration_start_date = @service.date_for_iteration_number(@service.current_iteration_number).to_date.to_s(:short)
+    @current_iteration_end_date   = (@service.date_for_iteration_number(@service.current_iteration_number + 1) - 1.day).to_date.to_s(:short)
+    @current_iteration            = @service.iteration_details(@service.backlog_iterations.first)
+    @accepted_points              = @service.current_iteration_details['accepted']
+    @accepted_rate                = @service.current_iteration_details['accepted'] / @current_iteration[:points]
+    @last_iteration               = @service.backlog_iterations.last
 
     @since_options = if current_month > 6
         [1,3,6]
