@@ -10,15 +10,19 @@ class IterationService
 
   def initialize(project, since = nil)
     @project = project
-    relation = project.stories.includes(:owned_by).
-      where.not(accepted_at: nil).
-      order(:accepted_at)
-    if since
-      relation = relation.where("accepted_at > ?", since)
-    end
-    @stories = relation.to_a
+    @stories = accepted_stories(since).to_a
     calculate_iterations!
     fix_owner!
+  end
+
+  def accepted_stories(since = nil)
+    relation = project.stories.includes(:owned_by).
+      where.not(accepted_at: nil).
+      order(:accepted_at).
+      where("accepted_at < ?", Time.current)
+
+    relation = relation.where("accepted_at > ?", since) if since
+    relation
   end
 
   def iteration_start_date
@@ -59,9 +63,9 @@ class IterationService
   # FIXME must figure out why the Story allows a nil owner in delivered states
   def fix_owner!
     @dummy_user ||= User.find_or_create_by!(username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")
-    @stories.each do |record|
-      record.owned_by = @dummy_user if record.owned_by.nil?
-    end
+    @stories.
+      select { |record| record.owned_by.nil? }.
+      each   { |record| record.owned_by = @dummy_user }
   end
 
   def group_by_iteration
