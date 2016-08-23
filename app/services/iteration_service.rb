@@ -19,14 +19,15 @@ class IterationService
     relation = project.stories.includes(:owned_by).
       where.not(accepted_at: nil).
       order(:accepted_at).
-      where("accepted_at < ?", Time.current)
+      where("accepted_at < ?", iteration_start_date(Time.current))
 
     relation = relation.where("accepted_at > ?", since) if since
     relation
   end
 
-  def iteration_start_date
-    iteration_start_date = start_date.beginning_of_day
+  def iteration_start_date(date = nil)
+    date = start_date if date.nil?
+    iteration_start_date = date.beginning_of_day
     if start_date.wday != iteration_start_day
       day_difference = start_date.wday - iteration_start_day
       day_difference += DAYS_IN_WEEK if day_difference < 0
@@ -89,11 +90,38 @@ class IterationService
   def group_by_velocity
     @group_by_velocity ||= group_by_iteration.keys.reduce({}) do |group, key|
       begin
-        group.merge(key => group_by_iteration[key].
-                    reduce(&:+))
+        group.merge(key => group_by_iteration[key].reduce(&:+))
       rescue => e
         # FIXME should investigate why this fails (nil estimate on estimable stories)
         Rails.logger.error("[IterationService#group_by_velocity] #{key} #{group_by_iteration[key]}")
+      end
+    end
+  end
+
+  def bugs_impact(stories)
+    stories.map do |story|
+      if Story::ESTIMABLE_TYPES.include? story.story_type
+        0
+      else
+        1
+      end
+    end
+  end
+
+  def group_by_bugs
+    @group_by_bugs ||= begin
+      by_bugs = @stories.
+        group_by { |story| story.iteration_number }.
+        reduce({}) do |group, iteration|
+          group.merge(iteration.first => bugs_impact(iteration.last))
+        end
+      by_bugs.reduce({}) do |group, iteration|
+        begin
+          group.merge(iteration.first => iteration.last.reduce(&:+))
+        rescue => e
+          # FIXME should investigate why this fails (nil estimate on estimable stories)
+          Rails.logger.error("[IterationService#group_by_bugs] #{key} #{iteration.last}")
+        end
       end
     end
   end

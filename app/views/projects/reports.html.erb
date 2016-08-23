@@ -33,7 +33,15 @@
       <li><%= t('velocity') %>: <%= @service.velocity %></li>
     </ul>
 
-    <p><%= column_chart @service.group_by_velocity, xtitle: "Iteration #", ytitle: "Velocity" %></p>
+    <p><%= column_chart @service.group_by_velocity, xtitle: "Iteration Number", ytitle: "Velocity", colors: ['green'] %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h2><%= t('projects.reports.bugs_impact') %></h2>
+
+    <p><%= column_chart @service.group_by_bugs, xtitle: "Iteration Number", ytitle: "Quantity of Bugs/Chores", colors: ['red'] %></p>
   </div>
 </div>
 
