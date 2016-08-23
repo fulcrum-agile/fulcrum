@@ -68,23 +68,27 @@ class IterationService
     @group_by_iteration ||= @stories.
       group_by { |story| story.iteration_number }.
       reduce({}) do |group, iteration|
-        points = iteration.last.
-          map { |story|
-            if %w(chore bug).include? story.story_type
-              0
-            else
-              story.estimate || 0
-            end
-          }
-        group.merge(iteration.first => points)
+        group.merge(iteration.first => stories_estimates(iteration.last))
       end
+  end
+
+  def stories_estimates(stories)
+    stories.map do |story|
+      if Story::ESTIMABLE_TYPES.include? story.story_type
+        story.estimate || 0
+      else
+        0
+      end
+    end
   end
 
   def group_by_velocity
     @group_by_velocity ||= group_by_iteration.keys.reduce({}) do |group, key|
       begin
-        group.merge(key => group_by_iteration[key].reduce(&:+))
+        group.merge(key => group_by_iteration[key].
+                    reduce(&:+))
       rescue => e
+        # FIXME should investigate why this fails (nil estimate on estimable stories)
         Rails.logger.error("[IterationService#group_by_velocity] #{key} #{group_by_iteration[key]}")
       end
     end
@@ -94,11 +98,13 @@ class IterationService
     @velocity ||= begin
       iterations = group_by_iteration.size
       iterations = 3 if iterations > 3
+
       sum = group_by_velocity.values.slice((-1 * iterations)..-1).
         reduce(&:+)
       stories = group_by_iteration.values.slice((-1 * iterations)..-1).
         map { |stories| stories.size }.
         reduce(&:+)
+
       velocity = (sum / stories).floor
       velocity < 1 ? 1 : velocity
     end
@@ -110,16 +116,8 @@ class IterationService
       reduce([]) do |group, owner|
         data = owner.last.group_by { |story| story.iteration_number }.
           reduce({}) do |group, iteration|
-            points = iteration.last.
-              map { |story|
-                if Story::ESTIMABLE_TYPES.include? story.story_type
-                  story.estimate || 0
-                else
-                  0
-                end
-              }.
-              reduce(&:+)
-            group.merge(iteration.first => points)
+            group.merge(iteration.first => stories_estimates(iteration.last).
+                        reduce(&:+))
           end
         group << { name: owner.first, data: data }
       end
