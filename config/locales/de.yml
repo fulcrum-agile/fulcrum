@@ -92,6 +92,7 @@ de:
     edit project:       "Projekt bearbeiten"
     reports:
       velocity_by_iteration: "Geschwindigkeit iterativ"
+      velocity_per_member: "Geschwindigkeit pro Mitglied"
     project properties: "Projekt-Eigenschaften"
     archived projects:  "Archivierten Projekte"
 

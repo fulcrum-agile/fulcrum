@@ -86,6 +86,7 @@ ja:
     edit project:       "プロジェクト編集"
     reports:
       velocity_by_iteration: "反復によってベロシティ"
+      velocity_per_member: "メンバーごとのベロシティ"
     project properties: "プロジェクト詳細"
     archived projects:  "アーカイブされたプロジェクト"
 

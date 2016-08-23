@@ -310,6 +310,7 @@ el:
     edit project:       "Επεξεργασία προτζεκτ"
     reports:
       velocity_by_iteration: "Velocity από Επανάληψη"
+      velocity_per_member: "Ταχύτητα ανά κράτος"
     project properties: "Ρυθμίσεις πρότζεκτ"
     archived projects:  "Αρχείο Έργων"
 

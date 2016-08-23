@@ -99,6 +99,7 @@ es:
     edit project:       "Edita Proyecto"
     reports:
       velocity_by_iteration: "Velocidad por iteración"
+      velocity_per_member: "Velocidad por cada miembro"
     project properties: "Propiedades del Proyecto"
     archived projects:  "Proyectos archivados"
 

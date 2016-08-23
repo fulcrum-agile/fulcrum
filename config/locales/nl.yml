@@ -89,6 +89,7 @@ nl:
     edit project:       "Wijzig Project"
     reports:
       velocity_by_iteration: "Velocity door Iteratie"
+      velocity_per_member: "Velocity per lidstaat"
     project properties: "Project Eigenschappen"
     archived projects:  "Gearchiveerd Projecten"
 
