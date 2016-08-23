@@ -2,6 +2,8 @@ require 'open-uri'
 class ProjectsController < ApplicationController
   authorize_resource
 
+  before_action :load_project, only: %i[show edit update destroy import import_upload reports]
+
   # GET /projects
   # GET /projects.xml
   def index
@@ -16,7 +18,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @project = current_user.projects.friendly.find(params[:id])
     @story = @project.stories.build
 
     respond_to do |format|
@@ -39,7 +40,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @project = current_user.projects.friendly.find(params[:id])
     @project.users.build
     @integration = Integration.new
   end
@@ -64,7 +64,6 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @project = current_user.projects.friendly.find(params[:id])
     @integration = Integration.new
 
     respond_to do |format|
@@ -81,7 +80,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    @project = current_user.projects.friendly.find(params[:id])
     # because of dependent => destroy it can take a very long time to delete a project
     # FIXME instead of deleting we should add something like Papertrail to
     # implement an 'Archive'-like feature instead
@@ -99,8 +97,6 @@ class ProjectsController < ApplicationController
 
   # CSV import form
   def import
-    @project = current_user.projects.friendly.find(params[:id])
-
     if session[:import_job]
       if job_result = Rails.cache.read(session[:import_job][:id])
         session[:import_job] = nil
@@ -131,8 +127,6 @@ class ProjectsController < ApplicationController
 
   # CSV import
   def import_upload
-    @project = current_user.projects.friendly.find(params[:id])
-
     if params[:project][:import].blank?
       flash[:alert] = "You must select a file for import"
     else
@@ -154,10 +148,9 @@ class ProjectsController < ApplicationController
   end
 
   def reports
-    @project = current_user.projects.friendly.find(params[:id])
     since = params[:since].nil? ? nil : Time.parse(params[:since])
     @service = IterationService.new(@project, since)
-    current_iteration = @service.iteration_number_for_date(Time.now)
+    current_iteration = @service.iteration_number_for_date(Time.current)
     current_month = (current_iteration / 4).floor
 
     @since_options = if current_month > 6
@@ -173,6 +166,10 @@ class ProjectsController < ApplicationController
 
   def allowed_params
     params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import, :archived)
+  end
+
+  def load_project
+    @project = current_user.projects.friendly.find(params[:id])
   end
 
 end
