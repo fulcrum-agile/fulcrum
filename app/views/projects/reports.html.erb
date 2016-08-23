@@ -1,0 +1,12 @@
+<% content_for :title_bar do %>
+  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h2><%= t('projects.reports.velocity_by_iteration') %></h2>
+
+    <p><%= column_chart @service.group_by_velocity %></p>
+  </div>
+</div>
+

@@ -153,6 +153,11 @@ class ProjectsController < ApplicationController
     @projects = Project.archived
   end
 
+  def reports
+    @project = current_user.projects.friendly.find(params[:id])
+    @service = IterationService.new(@project)
+  end
+
   protected
 
   def allowed_params

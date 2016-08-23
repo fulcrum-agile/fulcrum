@@ -42,6 +42,18 @@ class IterationService
   def stories_hash
     @stories.
       map { |record| Hash[FIELDS.zip(record)] }.
-      map { |hash| hash.merge(iteration_number: iteration_number_for_date(hash[:accepted_at])) }
+      map do |hash|
+        iteration_number = iteration_number_for_date(hash[:accepted_at])
+        iteration_start_date = date_for_iteration_number(iteration_number)
+        hash.merge(
+          iteration_number: iteration_number,
+          iteration_start_date: iteration_start_date)
+      end
+  end
+
+  def group_by_velocity
+    stories_hash.
+      group_by { |o| o[:iteration_start_date] }.
+      inject({}) { |group, iteration| group.merge(iteration.first.to_date => iteration.last.size) }
   end
 end

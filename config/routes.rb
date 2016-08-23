@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get :import
       patch :import_upload
       get :search
+      get :reports
     end
     resources :users, only: [:index, :create, :destroy]
     resources :integrations, only: [:index, :create, :destroy]
