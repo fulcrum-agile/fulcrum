@@ -5,22 +5,102 @@ es:
   log in:   "Inicia sesión"
   sign up:  "Regístrate"
   edit:     "Edita"
+  reports:  "Informes"
   delete:   "Borra"
   back:     "Atras"
   import:   "Importa"
   export:   "Exporta"
+  revert:   "Revertir"
+  apply:    "Aplicar"
+  velocity: "Velocidad"
+  notes:    "Notas"
+  tasks:    "Tareas"
+  close:    "Cerca"
+  points:   "Puntos"
+  saving:   "Ahorro ..."
+  expand:   "Expandir"
 
   author unknown: "Autor desconocido"
+  add story: "Añadir articulo"
+  add task: 'Agregar tarea'
+  save error: "Error en Guardar"
+  override velocity: "Corrección de la velocidad"
+  story title: "Título de la historia"
+
+  requested on date:          'Solicitada en {{date}}'
+  requested by user on date:  'Solicitada por  {{user}} en {{date}}'
+
+  imported n stories:
+    one: '1 importada historia'
+    other: 'Importados %{count} historias'
+
+  n stories failed to import:
+    one: '1 No se pudo importar historia'
+    other: '%{count} historias se pudieron importar'
+
+  n weeks:
+    one: '1 semana'
+    other: '%{count} semanas'
+
+  keycuts:
+    keyboard_shortcuts: Atajos de teclado
+    help: Ayuda ( este )
+    add_story: Añadir articulo
+    save_currently_open_story: Guarde historia actualmente abierto
+    save_comment_being_edited: Guardar comentario está editando
+    toggle_backlog: Pasar backlog
+    toggle_done: Pasar terminado
+    toggle_history: Pasar la historia
+    toggle_icebox: Pasar chilly bin
+    toggle_my_work: Pasar mi trabajo
+    toggle_labels_searches: Pasar etiquetas &amp; búsquedas
+    toggle_current: Pasar presente
 
   activerecord:
     models:
       user: 'Miembro'
       project: "Proyecto"
+      story: 'Articulo'
+
+    attributes:
+      note:
+        note:                 'Nota'
+        documents:            'Archivos adjuntos'
+      project:
+        name:                 'Nombre'
+        point_scale:          'Escala de puntos'
+        start_date:           'Fecha de inicio'
+        iteration_start_day:  'Día de inicio de iteración'
+        iteration_length:     'Longitud de iteración'
+        default_velocity:     'La velocidad estándar'
+        archived:             'Archivado'
+      story:
+        title:                'Título'
+        description:          'Descripción'
+        estimate:             'La estimación'
+        story_type:           'Tipo de articulo'
+        state:                'Estado'
+        accepted_at:          'Aceptado en'
+        position:             'Posición'
+        labels:               'Etiquetas'
+        requested_by:         'Solicitado por'
+        owned_by:             'Propiedad de'
+        documents:            'Archivos adjuntos'
+
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug o Chore articulos no pueden estimarse"
 
   projects:
     new project:        "Nuevo Proyecto"
     edit project:       "Edita Proyecto"
+    reports:
+      velocity_by_iteration: "Velocidad por iteración"
     project properties: "Propiedades del Proyecto"
+    archived projects:  "Proyectos archivados"
 
     project was successfully created: "El proyecto fue creado exitosamente."
     project was successfully updated: "El proyecto fue actualizado exitosamente."
@@ -31,13 +111,14 @@ es:
       the iteration starts on x with length of x weeks:
         one:    "Las iteraciones empiezan en %{day} con una duración de 1 semana"
         other:    "Las iteraciones empiezan en %{day} con una duración de %{count} semanas"
-  
+
     show:
       done: "Terminadas"
       in_progress: "En progreso"
       backlog: "Acumuladas"
       chilly_bin: "Congelador"
       search_results: "Resultados de la búsqueda"
+      epic: 'Épico'
 
   admin:
     users:
@@ -61,7 +142,7 @@ es:
     - vie
     - sáb
     abbr_month_names:
-    - 
+    -
     - ene
     - feb
     - mar
@@ -87,7 +168,7 @@ es:
       long: ! '%A, %d de %B de %Y'
       short: ! '%d de %b'
     month_names:
-    - 
+    -
     - enero
     - febrero
     - marzo

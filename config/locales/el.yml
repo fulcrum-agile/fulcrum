@@ -13,7 +13,7 @@ el:
         - Παρ
         - Σαβ
         abbr_month_names:
-        - 
+        -
         - Ιαν.
         - Φεβ.
         - Μαρ.
@@ -39,7 +39,7 @@ el:
           long: ! '%e %B %Y'
           short: ! '%d %b'
         month_names:
-        - 
+        -
         - Ιανουάριος
         - Φεβρουάριος
         - Μάρτιος
@@ -207,7 +207,7 @@ el:
       activerecord:
         errors:
           <<: *errors
-          
+
   # FULCRUM TRANSLATIONS
   fulcrum:  "CM42 κεντρικός"
 
@@ -215,6 +215,7 @@ el:
   log in:   σύνδεση
   sign up:  εγγραφή
   edit:     επεξεργασία
+  reports:  αναφορές
   delete:   διαγραφή
   back:     πίσω
   import:   εισαγωγή
@@ -239,7 +240,7 @@ el:
 
   requested on date:          'Ζητήθηκε στις {{date}}'
   requested by user on date:  'Ζητήθηκε απο {{user}} στις {{date}}'
-  
+
   keycuts:
     keyboard_shortcuts: Πλήκτρα συντομεύσεων
     help: Βοήθεια (την βλέπεις τώρα)
@@ -253,7 +254,7 @@ el:
     toggle_my_work: Η δουλειά μου
     toggle_labels_searches: Ετικέτες / Αναζήτηση
     toggle_current: Σε εξέλιξη
-  
+
   activerecord:
     models:
       user: 'μέλος'
@@ -297,11 +298,20 @@ el:
         updated_at:           'Ανανεώθηκε στις'
         documents:            'συνημμένα'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug ή αγγαρεία ιστορίες δεν μπορούν να εκτιμηθούν"
 
   projects:
     new project:        "Νέο πρότζεκτ"
     edit project:       "Επεξεργασία προτζεκτ"
+    reports:
+      velocity_by_iteration: "Velocity από Επανάληψη"
     project properties: "Ρυθμίσεις πρότζεκτ"
+    archived projects:  "Αρχείο Έργων"
 
     project was successfully created: "Το πρότζεκτ δημιουργήθηκε με επιτυχία."
     project was successfully updated: "Το πρότζεκτ ανανεώθηκε με επιτυχία."
@@ -319,6 +329,7 @@ el:
       backlog: "σε αναμονή"
       chilly_bin: "ψυγείο"
       search_results: "Αποτελέσματα Αναζήτησης"
+      epic: 'Έπος'
 
   admin:
     users:

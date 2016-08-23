@@ -5,6 +5,7 @@ pt-BR:
   log in:   "Entrar"
   sign up:  "Inscreva-se"
   edit:     "Editar"
+  reports:  "Relatórios"
   delete:   "Excluir"
   back:     "Voltar"
   import:   "Importar"
@@ -105,6 +106,8 @@ pt-BR:
   projects:
     new project:        "Novo Projeto"
     edit project:       "Editar Projeto"
+    reports:
+      velocity_by_iteration: "Velocidade por Iteração"
     project properties: "Propriedades do Projeto"
     archived projects:  "Projetos Arquivados"
 
@@ -124,6 +127,7 @@ pt-BR:
       backlog: "Backlog"
       chilly_bin: "Chilly Bin"
       search_results: "Resultados da Busca"
+      epic: 'Épico'
 
   admin:
     users:
