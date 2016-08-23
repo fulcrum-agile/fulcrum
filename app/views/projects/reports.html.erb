@@ -9,10 +9,10 @@
   <div class="col-sm-12 col-md-12">
     |
     <% @since_options.each do |qty| %>
-      <% if params[:since] == qty.month.ago.to_date.to_s %>
+      <% if params[:since] == qty.to_s %>
         <%= "#{qty} month(s) ago" %> |
       <% else %>
-        <%= link_to "#{qty} month(s) ago", reports_project_path(@project, since: qty.month.ago.to_date) %> |
+        <%= link_to "#{qty} month(s) ago", reports_project_path(@project, since: qty) %> |
       <% end %>
     <% end %>
     <% if params[:since].present? %>
