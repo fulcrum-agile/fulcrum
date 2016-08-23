@@ -33,14 +33,14 @@
       <li><%= t('velocity') %>: <%= @service.velocity %></li>
     </ul>
 
-    <p><%= column_chart @service.group_by_velocity %></p>
+    <p><%= column_chart @service.group_by_velocity, xtitle: "Iteration #", ytitle: "Velocity" %></p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.reports.velocity_per_member') %></h2>
-    <p><%= line_chart @service.group_by_developer %></p>
+    <p><%= line_chart @service.group_by_developer, xtitle: "Iteration #", ytitle: "Velocity" %></p>
   </div>
 </div>
 
