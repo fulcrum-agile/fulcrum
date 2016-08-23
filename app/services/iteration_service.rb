@@ -53,7 +53,7 @@ class IterationService
   end
 
   def fix_owner!
-    @dummy_user ||= User.find_or_create_by!(username: "dummy", email: "dummy@foo.com", name: "Dummy")
+    @dummy_user ||= User.find_or_create_by!(username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")
     @stories.each do |record|
       record.owned_by = @dummy_user if record.owned_by.nil?
     end
