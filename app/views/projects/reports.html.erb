@@ -10,13 +10,13 @@
     |
     <% since_options.each do |qty| %>
       <% if params[:since] == qty.to_s %>
-        <%= "#{qty} month(s) ago" %> |
+        <%= t("projects.reports.n months ago", count: qty) %> |
       <% else %>
-        <%= link_to "#{qty} month(s) ago", reports_project_path(@project, since: qty) %> |
+        <%= link_to t("projects.reports.n months ago", count: qty), reports_project_path(@project, since: qty) %> |
       <% end %>
     <% end %>
     <% if params[:since].present? %>
-      <%= link_to "All time", reports_project_path(@project) %> |
+      <%= link_to t('projects.reports.all_time'), reports_project_path(@project) %> |
     <% end %>
   </div>
 </div>
@@ -32,7 +32,7 @@
 
     <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished on the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
 
-    <p><%= column_chart @service.current_iteration_details, xtitle: "States", ytitle: "Points" %></p>
+    <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
   </div>
 </div>
 
@@ -47,7 +47,7 @@
       <li><%= t('velocity') %>: <%= @service.velocity %></li>
     </ul>
 
-    <p><%= column_chart @service.group_by_velocity, xtitle: "Iteration Number", ytitle: "Velocity", colors: ['green'] %></p>
+    <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>
   </div>
 </div>
 
@@ -55,14 +55,14 @@
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.reports.bugs_impact') %></h2>
 
-    <p><%= column_chart @service.group_by_bugs, xtitle: "Iteration Number", ytitle: "Quantity of Bugs/Chores", colors: ['red'] %></p>
+    <p><%= column_chart @service.group_by_bugs, xtitle: t('projects.reports.iteration_number'), ytitle: t('projects.reports.quantity_non_estimable'), colors: ['red'] %></p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.reports.velocity_per_member') %></h2>
-    <p><%= line_chart @service.group_by_developer, xtitle: "Iteration #", ytitle: "Velocity" %></p>
+    <p><%= line_chart @service.group_by_developer, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity') %></p>
   </div>
 </div>
 
