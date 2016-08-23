@@ -20,4 +20,61 @@ module ProjectsHelper
   def day_name_options
     I18n.t('date.day_names').each_with_index.collect{|name,i| [name,i]}
   end
+
+  #
+  # IterationService related helpers
+  #
+  def current_month
+    (@service.current_iteration_number / 4).floor
+  end
+
+  def since_options
+    if current_month > 6
+      [1,3,6]
+    elsif current_month > 3
+      [1,3]
+    else
+      []
+    end
+  end
+
+  def current_iteration_start_date
+    @service.date_for_iteration_number(@service.current_iteration_number).to_date.to_s(:short)
+  end
+
+  def current_iteration_end_date
+    (@service.date_for_iteration_number(@service.current_iteration_number + 1) - 1.day).to_date.to_s(:short)
+  end
+
+  def current_iteration
+    @service.backlog_iterations.first.details
+  end
+
+  def current_iteration_points
+    current_iteration[:points]
+  end
+
+  def current_iteration_count
+    current_iteration[:count]
+  end
+
+  def current_iteration_non_estimable
+    current_iteration[:count]
+  end
+
+  def accepted_points
+    @service.current_iteration_details['accepted']
+  end
+
+  def accepted_rate
+    number_to_percentage @service.current_iteration_details['accepted'] / current_iteration[:points]
+  end
+
+  def last_iteration_number
+    @service.backlog_iterations.last.number
+  end
+
+  def last_iteration_start_date
+    @service.backlog_iterations.last.start_date.to_date.to_s(:short)
+  end
 end
