@@ -6,7 +6,20 @@
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.reports.velocity_by_iteration') %></h2>
 
+    <ul>
+      <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %></li>
+      <li><%= Project.human_attribute_name(:iteration_start_day) %>: <%= I18n.t('date.day_names')[@project.iteration_start_day] %></li>
+      <li><%= Project.human_attribute_name(:iteration_length) %>: <%= @project.iteration_length %></li>
+      <li><%= t('velocity') %>: <%= @service.velocity %></li>
+    </ul>
+
     <p><%= column_chart @service.group_by_velocity %></p>
   </div>
 </div>
 
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h2><%= t('projects.reports.velocity_per_member') %></h2>
+    <p><%= line_chart @service.group_by_developer %></p>
+  </div>
+</div>

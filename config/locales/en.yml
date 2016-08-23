@@ -108,6 +108,7 @@ en:
     edit project:       "Edit Project"
     reports:
       velocity_by_iteration: "Velocity by Iteration"
+      velocity_per_member: "Velocity per Member"
     project properties: "Project Properties"
     archived projects:  "Archived Projects"
 
