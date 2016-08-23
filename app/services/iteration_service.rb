@@ -133,16 +133,21 @@ class IterationService
   end
 
   def group_by_developer
-    @group_by_developer ||= @accepted_stories.
-      group_by { |story| story.owned_by.name }.
-      reduce([]) do |group, owner|
-        data = owner.last.group_by { |story| story.iteration_number }.
-          reduce({}) do |group, iteration|
-            group.merge(iteration.first => stories_estimates(iteration.last).
-                        reduce(&:+))
-          end
-        group << { name: owner.first, data: data }
-      end
+    @group_by_developer ||= begin
+      min_iteration = @accepted_stories.map(&:iteration_number).min
+      max_iteration = @accepted_stories.map(&:iteration_number).max
+      @accepted_stories.
+        group_by { |story| story.owned_by.name }.
+        reduce([]) do |group, owner|
+          # all multiple series must have all the same keys or they will mess the graph
+          data = (min_iteration..max_iteration).reduce({}) { |group, key| group.merge(key => 0)}
+          owner.last.group_by { |story| story.iteration_number }.
+            each do |iteration|
+              data[iteration.first] = stories_estimates(iteration.last).reduce(&:+)
+            end
+          group << { name: owner.first, data: data }
+        end
+    end
   end
 
   def backlog_iterations
