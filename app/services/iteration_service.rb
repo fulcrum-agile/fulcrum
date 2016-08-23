@@ -119,10 +119,11 @@ class IterationService
   def velocity
     @velocity ||= begin
       iterations = group_by_iteration.size
+      return 0 if iterations.zero?
+
       iterations = VELOCITY_ITERATIONS if iterations > VELOCITY_ITERATIONS
 
-      sum = group_by_velocity.values.slice((-1 * iterations)..-1).
-        reduce(&:+)
+      sum = group_by_velocity.values.slice((-1 * iterations)..-1).sum
 
       velocity = (sum / iterations).floor
       velocity < 1 ? 1 : velocity
