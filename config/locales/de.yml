@@ -8,6 +8,7 @@ de:
   log in:   "Anmelden"
   sign up:  "Registrieren"
   edit:     "Barbeiten"
+  reports:  "Berichte"
   delete:   "Löschen"
   back:     "Zurück"
   import:   "Importieren"
@@ -79,11 +80,32 @@ de:
         owned_by:             'Besitzer'
         documents:            'Zubehör'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug oder Chore Geschichten nicht abgeschätzt werden kann"
 
   projects:
     new project:        "Neues Projekt"
     edit project:       "Projekt bearbeiten"
+    reports:
+      n months ago:
+        one: "Vor 1 Monat"
+        other: "vor %{count} Monaten"
+      all_time: "All Time"
+      story_states: "Geschichte Staaten"
+      points: "Punkte"
+      iteration_number: "Iterationszahl"
+      quantity_non_estimable: "Anzahl der Bugs / Chores"
+
+      current_iteration: "Aktuelle Iteration"
+      bugs_impact: "Bugs Auswirkungen"
+      velocity_by_iteration: "Geschwindigkeit iterativ"
+      velocity_per_member: "Geschwindigkeit pro Mitglied"
     project properties: "Projekt-Eigenschaften"
+    archived projects:  "Archivierten Projekte"
 
     project was successfully created: "Projekt wurde erfolgreich erstellt."
     project was successfully updated: "Projekt wurde erfolgreich aktualisiert."
@@ -101,6 +123,7 @@ de:
       backlog: "Rückstand"
       chilly_bin: "Kalte Kiste"
       search_results: "Suchergebnisse"
+      epic: 'Epos'
 
   admin:
     users:

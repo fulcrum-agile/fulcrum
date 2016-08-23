@@ -8,6 +8,7 @@ ja:
   log in:   "ログイン"
   sign up:  "サインアップ"
   edit:     "編集"
+  reports:  "報告"
   delete:   "削除"
   back:     "戻る"
   import:   "インポート"
@@ -83,7 +84,22 @@ ja:
   projects:
     new project:        "新規プロジェクト"
     edit project:       "プロジェクト編集"
+    reports:
+      n months ago:
+        one: "1ヶ月前"
+        other: "%{count}ヶ月前"
+      all_time: "すべての時間"
+      story_states: "ストーリー州"
+      points: "点数"
+      iteration_number: "反復数"
+      quantity_non_estimable: "バグ/家事の量"
+
+      current_iteration: "現在の反復"
+      bugs_impact: "バグの影響"
+      velocity_by_iteration: "反復によってベロシティ"
+      velocity_per_member: "メンバーごとのベロシティ"
     project properties: "プロジェクト詳細"
+    archived projects:  "アーカイブされたプロジェクト"
 
     project was successfully created: "プロジェクトの作成に成功しました。"
     project was successfully updated: "プロジェクトの更新に成功しました。"
@@ -101,6 +117,7 @@ ja:
       backlog: "未処理"
       chilly_bin: "アイスボックス"
       search_results: "検索結果"
+      epic: '大作'
 
   admin:
     users:

@@ -8,6 +8,7 @@ en:
   log in:   "Log in"
   sign up:  "Sign up"
   edit:     "Edit"
+  reports:  "Reports"
   delete:   "Delete"
   back:     "Back"
   import:   "Import"
@@ -105,6 +106,20 @@ en:
   projects:
     new project:        "New Project"
     edit project:       "Edit Project"
+    reports:
+      n months ago:
+        one: "1 month ago"
+        other: "%{count} months ago"
+      all_time: "All Time"
+      story_states: "Story States"
+      points: "Points"
+      iteration_number: "Iteration Number"
+      quantity_non_estimable: "Quantity of Bugs/Chores"
+
+      current_iteration: "Current Iteration"
+      bugs_impact: "Bugs Impact"
+      velocity_by_iteration: "Velocity by Iteration"
+      velocity_per_member: "Velocity per Member"
     project properties: "Project Properties"
     archived projects:  "Archived Projects"
 

@@ -6,6 +6,7 @@ gem 'rails', '~> 4.1.15'
 
 gem 'attachinary'
 gem 'cancancan', '~> 1.10'
+gem 'chartkick'
 gem 'cloudinary'
 gem 'configuration'
 gem 'devise', '~> 3.5.4'

@@ -5,6 +5,7 @@ nl:
   log in:   "Log in"
   sign up:  "Aanmelden"
   edit:     "Wijzig"
+  reports:  "Rapporten"
   delete:   "Verwijder"
   back:     "Terug"
   import:   "Import"
@@ -76,11 +77,32 @@ nl:
         owned_by:             'In bezit door'
         documents:            'Toebehoren'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug of Karwei verhalen kunnen niet worden geschat"
 
   projects:
     new project:        "Nieuw Project"
     edit project:       "Wijzig Project"
+    reports:
+      n months ago:
+        one: "1 maand geleden"
+        other: "%{count} maanden geleden"
+      all_time: "Altijd"
+      story_states: "Story Staten"
+      points: "punten"
+      iteration_number: "iteratie Number"
+      quantity_non_estimable: "Hoeveelheid Bugs / Klusjes"
+
+      current_iteration: "huidige Iteratie"
+      bugs_impact: "Bugs Impact"
+      velocity_by_iteration: "Velocity door Iteratie"
+      velocity_per_member: "Velocity per lidstaat"
     project properties: "Project Eigenschappen"
+    archived projects:  "Gearchiveerd Projecten"
 
     project was successfully created: "Project is met succes aangemaakt."
     project was successfully updated: "Project is met succes gewijzigd"
@@ -98,6 +120,7 @@ nl:
       backlog: "Backlog"
       chilly_bin: "Ijskast"
       search_results: "Zoekresultaten"
+      epic: 'Episch'
 
   admin:
     users:
