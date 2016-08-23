@@ -155,7 +155,8 @@ class ProjectsController < ApplicationController
 
   def reports
     @project = current_user.projects.friendly.find(params[:id])
-    @service = IterationService.new(@project)
+    since = params[:since].nil? ? nil : Time.parse(params[:since])
+    @service = IterationService.new(@project, since)
   end
 
   protected

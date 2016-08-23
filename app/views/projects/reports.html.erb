@@ -2,6 +2,23 @@
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
 
+<% cache [@project, params[:since]], expires: 2.days do %>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <% [1,3,6].each do |qty| %>
+      <% if params[:since] == qty.month.ago.to_date.to_s %>
+        <%= "#{qty} month(s) ago" %> -
+      <% else %>
+        <%= link_to "#{qty} month(s) ago", reports_project_path(@project, since: qty.month.ago.to_date) %> -
+      <% end %>
+    <% end %>
+    <% if params[:since].present? %>
+      <%= link_to "All time", reports_project_path(@project) %>
+    <% end %>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.reports.velocity_by_iteration') %></h2>
@@ -23,3 +40,5 @@
     <p><%= line_chart @service.group_by_developer %></p>
   </div>
 </div>
+
+<% end %>

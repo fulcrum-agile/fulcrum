@@ -8,12 +8,15 @@ class IterationService
     :iteration_start_day, :iteration_start_day=,
     to: :project
 
-  def initialize(project)
+  def initialize(project, since = nil)
     @project = project
-    @stories = project.stories.includes(:owned_by).
+    relation = project.stories.includes(:owned_by).
       where.not(accepted_at: nil).
-      order(:accepted_at).
-      to_a
+      order(:accepted_at)
+    if since
+      relation = relation.where("accepted_at > ?", since)
+    end
+    @stories = relation.to_a
     calculate_iterations!
     fix_owner!
   end
@@ -65,7 +68,7 @@ class IterationService
             if %w(chore bug).include? story.story_type
               0
             else
-              story.estimate
+              story.estimate || 0
             end
           }
         group.merge(iteration.first => points)
@@ -74,7 +77,11 @@ class IterationService
 
   def group_by_velocity
     @group_by_velocity ||= group_by_iteration.keys.reduce({}) do |group, key|
-      group.merge(key => group_by_iteration[key].reduce(&:+))
+      begin
+        group.merge(key => group_by_iteration[key].reduce(&:+))
+      rescue => e
+        Rails.logger.error("[IterationService#group_by_velocity] #{key} #{group_by_iteration[key]}")
+      end
     end
   end
 
@@ -102,7 +109,7 @@ class IterationService
                 if %w(chore bug).include? story.story_type
                   0
                 else
-                  story.estimate
+                  story.estimate || 0
                 end
               }.
               reduce(&:+)
