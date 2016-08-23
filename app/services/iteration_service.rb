@@ -43,6 +43,10 @@ class IterationService
     iteration_start_date + difference.days
   end
 
+  def current_iteration
+    iteration_number_for_date(Time.current)
+  end
+
   def calculate_iterations!
     @stories.each do |record|
       iteration_number = iteration_number_for_date(record.accepted_at)
@@ -52,6 +56,7 @@ class IterationService
     end
   end
 
+  # FIXME must figure out why the Story allows a nil owner in delivered states
   def fix_owner!
     @dummy_user ||= User.find_or_create_by!(username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")
     @stories.each do |record|
@@ -90,9 +95,10 @@ class IterationService
       iterations = group_by_iteration.size
       iterations = 3 if iterations > 3
       sum = group_by_velocity.values.slice((-1 * iterations)..-1).
-        reduce(0) { |total, points| total + points }
+        reduce(&:+)
       stories = group_by_iteration.values.slice((-1 * iterations)..-1).
-        reduce(0) { |total, stories| total + stories.size }
+        map { |stories| stories.size }.
+        reduce(&:+)
       velocity = (sum / stories).floor
       velocity < 1 ? 1 : velocity
     end
@@ -106,10 +112,10 @@ class IterationService
           reduce({}) do |group, iteration|
             points = iteration.last.
               map { |story|
-                if %w(chore bug).include? story.story_type
-                  0
-                else
+                if Story::ESTIMABLE_TYPES.include? story.story_type
                   story.estimate || 0
+                else
+                  0
                 end
               }.
               reduce(&:+)
