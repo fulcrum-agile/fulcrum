@@ -157,6 +157,16 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.friendly.find(params[:id])
     since = params[:since].nil? ? nil : Time.parse(params[:since])
     @service = IterationService.new(@project, since)
+    current_iteration = @service.iteration_number_for_date(Time.now)
+    current_month = (current_iteration / 4).floor
+
+    @since_options = if current_month > 6
+        [1,3,6]
+      elsif current_month > 3
+        [1,3]
+      else
+        []
+      end
   end
 
   protected

@@ -88,10 +88,10 @@ class IterationService
   def velocity
     @velocity ||= begin
       iterations = group_by_iteration.size
-      iteration = 3 if iterations > 3
-      sum = group_by_velocity.values.slice((-1 * iteration)..-1).
+      iterations = 3 if iterations > 3
+      sum = group_by_velocity.values.slice((-1 * iterations)..-1).
         reduce(0) { |total, points| total + points }
-      stories = group_by_iteration.values.slice((-1 * iteration)..-1).
+      stories = group_by_iteration.values.slice((-1 * iterations)..-1).
         reduce(0) { |total, stories| total + stories.size }
       velocity = (sum / stories).floor
       velocity < 1 ? 1 : velocity
