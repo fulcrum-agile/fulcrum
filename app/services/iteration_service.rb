@@ -11,11 +11,15 @@ class IterationService
 
   def initialize(project, since = nil)
     @project = project
-    @stories = project.stories.includes(:owned_by).to_a
+
+    relation = project.stories.includes(:owned_by)
+    relation = relation.where('accepted_at > ?', since) if since
+    @stories = relation.to_a
 
     @accepted_stories = @stories.
       select { |story| story.column == '#done' }.
       select { |story| story.accepted_at < iteration_start_date(Time.current) }
+
     calculate_iterations!
     fix_owner!
 
@@ -175,12 +179,5 @@ class IterationService
     end
   end
 
-  def iteration_details(iteration)
-    {
-      points: iteration.reduce(0) { |total, story| total + (story.estimate || 0) },
-      count: iteration.size,
-      non_estimable: iteration.select { |story| !Story::ESTIMABLE_TYPES.include?(story.story_type) }.size
-    }
-  end
 end
 
