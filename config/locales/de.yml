@@ -91,6 +91,17 @@ de:
     new project:        "Neues Projekt"
     edit project:       "Projekt bearbeiten"
     reports:
+      n months ago:
+        one: "Vor 1 Monat"
+        other: "vor %{count} Monaten"
+      all_time: "All Time"
+      story_states: "Geschichte Staaten"
+      points: "Punkte"
+      iteration_number: "Iterationszahl"
+      quantity_non_estimable: "Anzahl der Bugs / Chores"
+
+      current_iteration: "Aktuelle Iteration"
+      bugs_impact: "Bugs Auswirkungen"
       velocity_by_iteration: "Geschwindigkeit iterativ"
       velocity_per_member: "Geschwindigkeit pro Mitglied"
     project properties: "Projekt-Eigenschaften"

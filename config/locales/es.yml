@@ -98,6 +98,17 @@ es:
     new project:        "Nuevo Proyecto"
     edit project:       "Edita Proyecto"
     reports:
+      n months ago:
+        one: "Hace 1 mes"
+        other: "hace %{count} meses"
+      all_time: "Todo el tiempo"
+      story_states: "Estado de los articulos"
+      points: "Puntos"
+      iteration_number: "Número de iteración"
+      quantity_non_estimable: "Cantidad de Bugs / Tareas"
+
+      current_iteration: "La iteración actual"
+      bugs_impact: "Impacto errores"
       velocity_by_iteration: "Velocidad por iteración"
       velocity_per_member: "Velocidad por cada miembro"
     project properties: "Propiedades del Proyecto"

@@ -88,6 +88,17 @@ nl:
     new project:        "Nieuw Project"
     edit project:       "Wijzig Project"
     reports:
+      n months ago:
+        one: "1 maand geleden"
+        other: "%{count} maanden geleden"
+      all_time: "Altijd"
+      story_states: "Story Staten"
+      points: "punten"
+      iteration_number: "iteratie Number"
+      quantity_non_estimable: "Hoeveelheid Bugs / Klusjes"
+
+      current_iteration: "huidige Iteratie"
+      bugs_impact: "Bugs Impact"
       velocity_by_iteration: "Velocity door Iteratie"
       velocity_per_member: "Velocity per lidstaat"
     project properties: "Project Eigenschappen"

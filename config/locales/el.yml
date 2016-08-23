@@ -309,6 +309,17 @@ el:
     new project:        "Νέο πρότζεκτ"
     edit project:       "Επεξεργασία προτζεκτ"
     reports:
+      n months ago:
+        one: "πριν 1 μηνά"
+        other: "πριν %{count} μήνες"
+      all_time: "Συνεχώς"
+      story_states: "ιστορία μελών"
+      points: "σημεία"
+      iteration_number: "Αριθμός επανάληψη"
+      quantity_non_estimable: "Ποσότητα Bugs / μικροδουλειές"
+
+      current_iteration: "τρέχουσα επανάληψη"
+      bugs_impact: "Bugs επιπτώσεων"
       velocity_by_iteration: "Velocity από Επανάληψη"
       velocity_per_member: "Ταχύτητα ανά κράτος"
     project properties: "Ρυθμίσεις πρότζεκτ"

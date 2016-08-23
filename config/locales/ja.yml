@@ -85,6 +85,17 @@ ja:
     new project:        "新規プロジェクト"
     edit project:       "プロジェクト編集"
     reports:
+      n months ago:
+        one: "1ヶ月前"
+        other: "%{count}ヶ月前"
+      all_time: "すべての時間"
+      story_states: "ストーリー州"
+      points: "点数"
+      iteration_number: "反復数"
+      quantity_non_estimable: "バグ/家事の量"
+
+      current_iteration: "現在の反復"
+      bugs_impact: "バグの影響"
       velocity_by_iteration: "反復によってベロシティ"
       velocity_per_member: "メンバーごとのベロシティ"
     project properties: "プロジェクト詳細"
