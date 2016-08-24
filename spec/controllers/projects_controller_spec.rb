@@ -62,7 +62,7 @@ describe ProjectsController do
           allow(projects).to receive(:build).with({}) { project }
           allow(project).to receive_messages(:users => users)
           expect(users).to receive(:<<).with(user)
-          allow(project).to receive_messages(:save => true)
+          allow(project).to receive_messages(:update_attributes! => true)
         end
 
         specify do
@@ -83,7 +83,7 @@ describe ProjectsController do
         context "when save fails" do
 
           before do
-            allow(project).to receive_messages(:save => false)
+            allow(ProjectUpdaterService).to receive(:save).with(project).and_return(false)
           end
 
           specify do
@@ -99,7 +99,7 @@ describe ProjectsController do
       describe "#archived" do
         let(:archived_project) { FactoryGirl.create :project,
           archived_at: Time.current }
-        
+
         before do
           get :archived
         end
@@ -172,7 +172,7 @@ describe ProjectsController do
       describe "#update" do
 
         before do
-          allow(project).to receive(:update_attributes).with({}) { true }
+          allow(project).to receive(:update_attributes!).with({}) { true }
         end
 
         specify do
@@ -192,7 +192,7 @@ describe ProjectsController do
         context "when update fails" do
 
           before do
-            allow(project).to receive(:update_attributes).with({}) { false }
+            allow(ProjectUpdaterService).to receive(:save).with(project, {}).and_return(false)
           end
 
           specify do

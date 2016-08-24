@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
     @project.users << current_user
 
     respond_to do |format|
-      if @project.save
+      if ProjectUpdaterService.save(@project)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully created')) }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
@@ -67,7 +67,7 @@ class ProjectsController < ApplicationController
     @integration = Integration.new
 
     respond_to do |format|
-      if @project.update_attributes(allowed_params)
+      if ProjectUpdaterService.save(@project, allowed_params)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully updated')) }
         format.xml  { head :ok }
       else
