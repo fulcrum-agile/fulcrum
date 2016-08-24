@@ -9,6 +9,7 @@ class Ability
       can :manage, :all
     else
       can :read, [Project, Story, Note, Changeset]
+      can :reports, Project
       can [:create, :update, :destroy], [Story, Note, Changeset]
     end
     #
