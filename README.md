@@ -13,6 +13,8 @@ details.
 
 ![Fulcrum Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/screenshot.png)
 
+![Reports Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/reports.png)
+
 
 The Codeminer 42 Fork Feature Set
 ---------------------------------
@@ -21,9 +23,9 @@ The Codeminer 42 Fork Feature Set
 - [x] Added stories search through Pg_Search (low priority: maybe add option for Elastic)
 - [x] Adding superadmin role to manage projects and users
   - [x] proper users CRUD section
-  - [ ] Reorganize the user administration
+  - [x] Reorganize the user administration
 - [x] Adding Cloudinary/Attachinary support to upload assets to Stories and Notes
-  - [ ] Uploading is working but it is not showing properly yet
+  - [x] Uploading is working but it is not showing properly yet
   - [ ] Add uploads to Notes
 - [x] General project cleanup
   - [x] upgrading gems
@@ -32,12 +34,12 @@ The Codeminer 42 Fork Feature Set
   - [x] fixing failing migrations
   - [x] fixing failing tests, including javascript tests
   - [x] adding phantomjs for feature tests
-  - [ ] remove StoryObserver
-  - [ ] (low priority) replace the polling system for a websockets channel and listener
+  - [x] remove StoryObserver
   - [ ] more markdown javascript to assets
-  - [ ] (low priority) the initial project loads all stories (up to the STORIES_CEILING), need to asynchronously load the past
   - [ ] needs more testing and tweaking for tablets
   - [ ] Backbone code needs more refactoring and cleanup
+  - [ ] (low priority) replace the polling system for a websockets channel and listener
+  - [ ] (low priority) the initial project loads all stories (up to the STORIES_CEILING), need to asynchronously load the past
 - [x] Improved UI
   - [x] A little bit better icon set
   - [x] Textarea in Story editing can now auto-resize
@@ -45,9 +47,14 @@ The Codeminer 42 Fork Feature Set
   - [x] Bugs and Chores shouldn't be estimated
   - [x] Basic task system inside a Story
   - [x] Labels work as "Epic" grouping
-  - [ ] (bug) dragging a task to the begging of a sprint is not saving the new priority
   - [ ] (bug) raising error when trying to change state of story from 'started' to 'unstarted'
-
+- [x] Done stories can't be edited, so adding validations and disabling form UIs
+- [x] Added Mattermost basic integration to send story changes to project chat channel
+- [x] Added basic reports
+  - [x] Basic Current Iteration status
+  - [x] Velocity per Iteration
+  - [x] Bugs per Iteration
+  - [x] Velocity per Member per Iteration
 
 Get involved
 ------------
