@@ -26,8 +26,6 @@ module Fulcrum
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('lib/integrations')
 
-    config.active_record.observers = :story_observer
-
     load Rails.root.join('config','fulcrum_defaults.rb')
     if File.exist?(Rails.root.join('config', 'fulcrum.rb'))
       load Rails.root.join('config','fulcrum.rb')
