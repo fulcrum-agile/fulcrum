@@ -6,10 +6,10 @@ describe StoryUpdaterService do
     let(:user)            { User.first }
     let(:project)         { Project.first }
     let(:story_params)    { { title: 'Foo bar', requested_by: user } }
-    let(:story)           { project.stories.new }
+    let(:story)           { project.stories.build(story_params) }
 
     context 'with valid params' do
-      subject { ->{StoryUpdaterService.save(story, story_params)} }
+      subject { ->{StoryUpdaterService.save(story)} }
 
       it { is_expected.to change {Story.count} }
       it { is_expected.to change {Changeset.count} }
@@ -36,7 +36,9 @@ describe StoryUpdaterService do
     end
 
     context 'with invalid params' do
-      subject { ->{StoryUpdaterService.save(story, title: '')} }
+      before { story.title = '' }
+
+      subject { ->{StoryUpdaterService.save(story)} }
 
       it { is_expected.to_not change {Story.count} }
       it { expect(subject.call).to be_falsy }
@@ -57,7 +59,7 @@ describe StoryUpdaterService do
         allow(story).to receive_messages(:suppress_notifications => false)
         allow(story).to receive_messages(:state_changed? => true)
         allow(story).to receive_messages(:project => project)
-        allow(story).to receive_messages(:save! => story)
+        allow(story).to receive_messages(:update_attributes! => story)
         allow(story).to receive_message_chain(:changesets, :create!)
       end
 

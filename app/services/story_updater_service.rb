@@ -8,13 +8,16 @@ class StoryUpdaterService
 
   def initialize(story, params = {})
     @story = story
-    @params = params
+    @params = params.to_hash
   end
 
   def save
     ActiveRecord::Base.transaction do
-      assign_attributes
-      story.save!
+      if story.new_record?
+        story.save!
+      else
+        story.update_attributes!(params)
+      end
       story.changesets.create!
 
       fix_project_start_date
@@ -31,12 +34,6 @@ class StoryUpdaterService
   private
 
   attr_reader :story, :params, :users_to_notify
-
-  def assign_attributes
-    params.each do |param, value|
-      story.public_send("#{param}=", value)
-    end
-  end
 
   #
   # Members being mentioned in story description
