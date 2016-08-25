@@ -62,7 +62,7 @@ describe ProjectsController do
           allow(projects).to receive(:build).with({}) { project }
           allow(project).to receive_messages(:users => users)
           expect(users).to receive(:<<).with(user)
-          allow(project).to receive_messages(:update_attributes! => true)
+          allow(ProjectOperations::Create).to receive(:run).with(project).and_return(project)
         end
 
         specify do
@@ -83,7 +83,7 @@ describe ProjectsController do
         context "when save fails" do
 
           before do
-            allow(ProjectUpdaterService).to receive(:save).with(project).and_return(false)
+            allow(ProjectOperations::Create).to receive(:run).with(project).and_return(false)
           end
 
           specify do
@@ -172,7 +172,7 @@ describe ProjectsController do
       describe "#update" do
 
         before do
-          allow(project).to receive(:update_attributes!).with({}) { true }
+          allow(ProjectOperations::Update).to receive(:run).with(project, {}).and_return(project)
         end
 
         specify do
@@ -192,7 +192,7 @@ describe ProjectsController do
         context "when update fails" do
 
           before do
-            allow(ProjectUpdaterService).to receive(:save).with(project, {}).and_return(false)
+            allow(ProjectOperations::Update).to receive(:run).with(project, {}).and_return(false)
           end
 
           specify do
@@ -208,7 +208,7 @@ describe ProjectsController do
       describe "#destroy" do
 
         before do
-          expect(project).to receive(:destroy)
+          allow(ProjectOperations::Destroy).to receive(:run).with(project).and_return(project)
         end
 
         specify do

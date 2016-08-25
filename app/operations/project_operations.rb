@@ -1,47 +1,12 @@
-class ProjectOperations
-  class Create
-    def self.run(*args)
-      new(*args).run
-    end
+module ProjectOperations
 
-    def initialize(model)
-      @model = model
-    end
-
-    def run
-      ActiveRecord::Base.transaction do
-        operate!
-      end
-      return model
-    rescue ActiveRecord::RecordInvalid
-      return false
-    end
-
-    protected
-
-    attr_reader :model
-
-    def operate!
-      model.save!
-    end
+  class Create < BaseOperations::Create
   end
 
-  class Update < Create
-    def initialize(model, params)
-      @params = params.to_hash
-      super(model)
-    end
-
-    protected
-
-    attr_reader :params
-
-    def operate!
-      model.update_attributes!(params)
-    end
+  class Update < BaseOperations::Update
   end
 
-  class Destroy < Create
+  class Destroy < BaseOperations::Destroy
     protected
 
     def operate!
@@ -55,4 +20,5 @@ class ProjectOperations
       end
     end
   end
+
 end
