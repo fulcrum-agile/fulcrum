@@ -2,7 +2,7 @@ class Activity < ActiveRecord::Base
   class ChangedValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       if record.action == 'update' && !value.changed?
-        record.errors[attribute] << ( options[:message] || "Record did'nt change" )
+        record.errors[attribute] << ( options[:message] || "Record didn't change" )
       end
     end
   end
@@ -19,6 +19,48 @@ class Activity < ActiveRecord::Base
   validates :subject, presence: true, changed: true
 
   before_save :parse_changes
+
+  scope :with_dependencies, -> {
+    includes(:user)
+  }
+
+  scope :projects, ->(ids) {
+    where(project_id: ids) if ids
+  }
+  scope :since, ->(date) {
+    where("created_at > ?", date.beginning_of_day) if date
+  }
+
+  def self.grouped_activities(allowed_project_ids, since)
+    projects(allowed_project_ids).since(since).group_by { |activity|
+      activity.created_at.beginning_of_day
+    }.
+    map { |date, activities|
+      [
+        date,
+        activities.group_by { |activity|
+          activity.project_id
+        }.
+        map { |project_id, activities|
+          [
+            project_id,
+            activities.group_by { |activity|
+              activity.subject_destroyed_type || activity.subject_type
+            }
+          ]
+        }
+      ]
+    }
+  end
+
+  def describe
+    object = if action == 'destroy'
+        "#{subject_destroyed_type} ##{subject_changes['id']}"
+      else
+        "#{subject_type} ##{subject_id} - '#{subject.try(:name) || subject.try(:title)}'"
+      end
+    "#{user.name} #{action}d #{object}"
+  end
 
   protected
 

@@ -4,7 +4,27 @@
 
 <div id="projects" class="projects-list">
   <div class="row item">
-    <%= render @projects %>
+    <div class="col-md-8">
+      <div class="col-md-4">
+        <ul>
+        <% @activities_group.each do |date_group| %>
+          <li class="activities_date"><%= date_group.first %></li>
+
+          <% date_group.last.each do |project_group| %>
+            <li class="activities_project"><%= @projects.find { |p| p.id == project_group.first }.try(:name) %></li>
+
+            <% project_group.last.each do |activities| %>
+              <% activities.last.each do |activity| %>
+                <li class="activities_subject"><%= activity.try(:describe) %></li>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+
+      <%= render @projects %>
+    </div>
   </div>
 </div>
 
