@@ -3,8 +3,8 @@ class CreateActivities < ActiveRecord::Migration
     create_table :activities do |t|
       t.references :project, null: false
       t.references :user, null: false
-      t.integer :subject_id, null: false
-      t.string :subject_type, null: false
+      t.integer :subject_id
+      t.string :subject_type
       t.string :action
       t.text :subject_changes, default: nil
 

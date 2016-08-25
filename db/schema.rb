@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20160825181243) do
   create_table "activities", force: true do |t|
     t.integer  "project_id",      null: false
     t.integer  "user_id",         null: false
-    t.integer  "subject_id",      null: false
-    t.string   "subject_type",    null: false
+    t.integer  "subject_id"
+    t.string   "subject_type"
     t.string   "action"
     t.text     "subject_changes"
     t.datetime "created_at"

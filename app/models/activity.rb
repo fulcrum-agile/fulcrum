@@ -23,7 +23,11 @@ class Activity < ActiveRecord::Base
   protected
 
   def parse_changes
-    return unless action == 'update'
-    self.subject_changes = subject.changes
+    if action == 'update'
+      self.subject_changes = subject.changes
+    elsif action == 'destroy'
+      self.subject_changes = subject.attributes
+      self.subject = nil
+    end
   end
 end

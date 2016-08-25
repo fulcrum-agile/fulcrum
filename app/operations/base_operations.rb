@@ -12,7 +12,7 @@ module BaseOperations
     end
 
     def create_activity
-      Activity.create(project: fetch_project, user: current_user, action: self.class.name.downcase, subject: model)
+      Activity.create!(project: fetch_project, user: current_user, action: self.class.name.split("::").last.downcase, subject: model)
     end
   end
 
@@ -32,6 +32,7 @@ module BaseOperations
       ActiveRecord::Base.transaction do
         before_save
         operate!
+        create_activity
         after_save
       end
       return model

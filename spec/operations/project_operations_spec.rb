@@ -50,4 +50,50 @@ describe ProjectOperations do
 
     it { expect { subject.call }.to change {Project.count}.by(-1) }
   end
+
+  describe '::ActivityRecording' do
+    context 'Create' do
+      subject { ->{ProjectOperations::Create.run(project, user )} }
+
+      it 'must record an activity' do
+        expect { subject.call }.to change {Activity.count}
+        activity = Activity.last
+        expect(activity.action).to eq('create')
+        expect(activity.subject).to eq(project)
+        expect(activity.subject_changes).to eq({})
+      end
+    end
+
+    context 'Update' do
+      before { project.save! }
+
+      subject { ->{ProjectOperations::Update.run(project, { name: 'Hello World', point_scale: 'linear', iteration_start_day: 4 }, user )} }
+
+      it 'must record an activity' do
+        expect { subject.call }.to change {Activity.count}
+        activity = Activity.last
+        expect(activity.action).to eq('update')
+        expect(activity.subject).to eq(project)
+        activity.subject_changes.delete('updated_at')
+        expect(activity.subject_changes).to eq({"name"=>["Foo bar", "Hello World"], "point_scale"=>["fibonacci", "linear"], "iteration_start_day"=>[1, 4]})
+      end
+    end
+
+
+    context 'Destroy' do
+      before { project.save! }
+
+      subject { ->{ProjectOperations::Destroy.run(project, user)} }
+
+      it 'must record an activity' do
+        old_attributes = project.attributes
+
+        expect { subject.call }.to change {Activity.count}
+        activity = Activity.last
+        expect(activity.action).to eq('destroy')
+        expect(activity.subject).to eq(nil)
+        expect(activity.subject_changes).to eq(old_attributes)
+      end
+    end
+  end
 end
