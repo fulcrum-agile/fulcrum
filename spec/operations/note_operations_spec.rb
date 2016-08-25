@@ -1,29 +1,32 @@
 require 'rails_helper'
 
-describe NoteCreationService do
-  describe '#create' do
+describe NoteOperations do
+  describe '::Create' do
     let!(:membership)     { create(:membership) }
     let(:user)            { User.first }
     let(:project)         { Project.first }
     let(:story)           { create(:story, project: project, requested_by: user) }
 
-    context 'with valid params' do
-      subject { ->{NoteCreationService.create(story.notes.build(note: 'name'))} }
+    let(:note) { story.notes.build(note: 'name', user: build(:user)) }
 
-      it { is_expected.to change(Note, :count) }
-      it { is_expected.to change(Changeset, :count) }
+    context 'with valid params' do
+
+      subject { ->{NoteOperations::Create.run(note)} }
+
+      it { expect { subject.call }.to change(Note, :count) }
+      it { expect { subject.call }.to change(Changeset, :count) }
       it { expect(subject.call).to be_eql Note.last }
 
       context 'when suppress_notifications is off' do
+        before { note.save }
+
         let(:mailer) { double('mailer') }
 
         it 'sends notifications' do
-          note = story.notes.create(note: 'name', user: build(:user))
-
           expect(Notifications).to receive(:new_note).with(note.id, [user.email]).and_return(mailer)
           expect(mailer).to receive(:deliver)
 
-          NoteCreationService.create(note)
+          subject.call
         end
 
         context 'when note message has a valid username' do
@@ -31,22 +34,25 @@ describe NoteCreationService do
             username_user = project.users.create(
               build(:unconfirmed_user, username: 'username').attributes
             )
-            note = story.notes.create(note: 'name @username', user: build(:user))
+            note.note = 'name @username'
+            note.user = build(:user)
 
             expect(Notifications).to receive(:new_note).
               with(note.id, [user.email, username_user.email]).and_return(mailer)
             expect(mailer).to receive(:deliver)
 
-            NoteCreationService.create(note)
+            subject.call
           end
         end
       end
     end
 
     context 'with invalid params' do
-      subject { ->{NoteCreationService.create(story.notes.build(note: ''))} }
+      before { note.note = '' }
 
-      it { is_expected.to_not change(Note, :count) }
+      subject { ->{NoteOperations::Create.run(note)} }
+
+      it { expect { subject.call }.to_not change(Note, :count) }
       it { expect(subject.call).to be_falsy }
       it { expect(Notifications).to_not receive(:new_note) }
     end
