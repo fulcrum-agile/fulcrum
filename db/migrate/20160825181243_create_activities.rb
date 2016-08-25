@@ -7,6 +7,7 @@ class CreateActivities < ActiveRecord::Migration
       t.string :subject_type
       t.string :action
       t.text :subject_changes, default: nil
+      t.string :subject_destroyed_type
 
       t.timestamps
     end

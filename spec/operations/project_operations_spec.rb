@@ -92,6 +92,7 @@ describe ProjectOperations do
         activity = Activity.last
         expect(activity.action).to eq('destroy')
         expect(activity.subject).to eq(nil)
+        expect(activity.subject_destroyed_type).to eq('Project')
         expect(activity.subject_changes).to eq(old_attributes)
       end
     end

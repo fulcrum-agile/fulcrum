@@ -27,6 +27,7 @@ class Activity < ActiveRecord::Base
       self.subject_changes = subject.changes
     elsif action == 'destroy'
       self.subject_changes = subject.attributes
+      self.subject_destroyed_type = subject.class.name
       self.subject = nil
     end
   end

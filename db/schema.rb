@@ -18,12 +18,13 @@ ActiveRecord::Schema.define(version: 20160825181243) do
   enable_extension "hstore"
 
   create_table "activities", force: true do |t|
-    t.integer  "project_id",      null: false
-    t.integer  "user_id",         null: false
+    t.integer  "project_id",             null: false
+    t.integer  "user_id",                null: false
     t.integer  "subject_id"
     t.string   "subject_type"
     t.string   "action"
     t.text     "subject_changes"
+    t.string   "subject_destroyed_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
