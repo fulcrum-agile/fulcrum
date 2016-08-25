@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_filter :find_current_story
 
   def create
-    if @task = TaskCreationService.create(@story.tasks.build(allowed_params))
+    if @task = TaskOperations::Create.run(@story.tasks.build(allowed_params))
       render json: @task
     else
       render json: @task, status: :unprocessable_entity
