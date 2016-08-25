@@ -1,10 +1,11 @@
 <% content_for :title_bar do %>
   <h1><%= t('.listing projects') %></h1>
+<%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
 <% end %>
 
 <div id="projects" class="projects-list">
   <div class="row item">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="col-md-4">
         <ul>
         <% @activities_group.each do |date_group| %>
@@ -23,9 +24,10 @@
         </ul>
       </div>
 
-      <%= render @projects %>
+      <div class="col-md-8">
+          <%= render @projects %>
+      </div>
     </div>
   </div>
 </div>
 
-<%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>

@@ -7,7 +7,8 @@
             data: {toggle: "tooltip"}, title: project.name %> (<%= project.stories_count %>)
         </h4>
       </div>
-
+    </div>
+    <div class="panel-body">
       <div class="project_options btn-group pull-right">
         <% if can? :update, project %>
           <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
@@ -24,16 +25,6 @@
             class: 'btn btn-danger btn-sm' %>
         <% end %>
       </div>
-    </div>
-    <div class="panel-body">
-      <span class="item-since">
-        <span class="badge">
-          <%= l project.start_date, format: :long %>
-        </span>
-      </span>
-      <%= t('projects.index.the iteration starts on x with length of x weeks',
-        day: t('date.day_names')[project.iteration_start_day],
-        count: project.iteration_length) %>
     </div>
   </div>
 </div>

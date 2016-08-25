@@ -54,11 +54,28 @@ class Activity < ActiveRecord::Base
   end
 
   def describe
-    object = if action == 'destroy'
-        "#{subject_destroyed_type} ##{subject_changes['id']}"
-      else
-        "#{subject_type} ##{subject_id} - '#{subject.try(:name) || subject.try(:title)}'"
+    if action == 'destroy'
+      object = "#{subject_destroyed_type} ##{subject_changes['id']}"
+    else
+      object = case subject_type
+        when 'Project'
+          "#{subject_type} ##{subject_id} - '#{subject.try(:name)}'"
+        when 'Story'
+          "#{subject_type} ##{subject_id} - '#{subject.try(:title)}'"
+        when 'Note', 'Task'
+          "#{subject_type} ##{subject_id} of Story '#{subject.story.title}'"
+        end
+      if action == 'update'
+        changes = subject_changes.keys.reject { |key| %w(updated_at created_at).include?(key) }.map do |key|
+          if subject_changes[key].first.nil?
+            "#{key} to '#{subject_changes[key].last}' "
+          else
+            "#{key} from '#{subject_changes[key].first}' to '#{subject_changes[key].last}' "
+          end
+        end.join(", ")
+        object = object + " changed " + changes
       end
+    end
     "#{user.name} #{action}d #{object}"
   end
 
