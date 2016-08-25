@@ -8,7 +8,7 @@ describe TaskOperations do
     let(:story)           { create(:story, project: project, requested_by: user) }
 
     context 'with valid params' do
-      subject { ->{TaskOperations::Create.run(story.tasks.build(name: 'name'))} }
+      subject { ->{TaskOperations::Create.run(story.tasks.build(name: 'name'), user)} }
 
       it { expect { subject.call }.to change {Task.count} }
       it { expect { subject.call }.to change {Changeset.count} }
@@ -16,7 +16,7 @@ describe TaskOperations do
     end
 
     context 'with invalid params' do
-      subject { ->{TaskOperations::Create.run(story.tasks.build(name: ''))} }
+      subject { ->{TaskOperations::Create.run(story.tasks.build(name: ''), user)} }
 
       it { expect { subject.call }.to_not change {Task.count} }
       it { expect(subject.call).to be_falsy }

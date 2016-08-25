@@ -1,12 +1,31 @@
 module BaseOperations
+  module ActivityRecording
+    def fetch_project
+      case model
+      when Project
+        model
+      when Story
+        model.project
+      when Note, Task
+        model.story.project
+      end
+    end
+
+    def create_activity
+      Activity.create(project: fetch_project, user: current_user, action: self.class.name.downcase, subject: model)
+    end
+  end
 
   class Create
+    include ActivityRecording
+
     def self.run(*args)
       new(*args).run
     end
 
-    def initialize(model)
+    def initialize(model, current_user)
       @model = model
+      @current_user = current_user
     end
 
     def run
@@ -22,7 +41,7 @@ module BaseOperations
 
     protected
 
-    attr_reader :model
+    attr_reader :model, :current_user
 
     def before_save
     end
@@ -36,9 +55,9 @@ module BaseOperations
   end
 
   class Update < BaseOperations::Create
-    def initialize(model, params)
+    def initialize(model, params, current_user)
       @params = params.to_hash
-      super(model)
+      super(model, current_user)
     end
 
     protected

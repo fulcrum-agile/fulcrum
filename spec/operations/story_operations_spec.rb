@@ -9,7 +9,7 @@ describe StoryOperations do
 
   describe '::Create' do
 
-    subject { ->{StoryOperations::Create.run(story)} }
+    subject { ->{StoryOperations::Create.run(story, user)} }
 
     context 'with valid params' do
       it { expect { subject.call }.to change {Story.count} }
@@ -49,7 +49,7 @@ describe StoryOperations do
       story.save!
     end
 
-    subject { ->{StoryOperations::Update.run(story, { state: 'accepted', accepted_at: Date.today }) } }
+    subject { ->{StoryOperations::Update.run(story, { state: 'accepted', accepted_at: Date.today }, user) } }
 
     context "::LegacyFixes" do
 
