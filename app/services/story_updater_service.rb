@@ -73,19 +73,24 @@ class StoryUpdaterService
   def can_notify_state_changed?
     return false unless story.state_changed?
     return false if story.suppress_notifications
+    return false unless story.acting_user
 
+    actor = nil
     case story.state
     when 'started', 'delivered'
-      story.acting_user && story.requested_by &&
-        story.requested_by.email_delivery? &&
-        story.acting_user != story.requested_by
-    when 'accepted', 'rejected'
-      story.acting_user && story.owned_by  &&
-        story.owned_by.email_rejection?  &&
-        story.acting_user != story.owned_by
+      actor = story.requested_by
+      return false unless actor.email_delivery?
+    when 'accepted'
+      actor = story.owned_by
+      return false unless actor.email_acceptance?
+    when 'rejected'
+      actor = story.owned_by
+      return false unless actor.email_rejection?
     else
-      false
+      return false
     end
+
+    story.acting_user != actor
   end
 
   def integration_message
