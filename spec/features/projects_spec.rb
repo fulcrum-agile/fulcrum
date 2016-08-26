@@ -24,7 +24,7 @@ describe "Projects" do
     it "shows the project list", :js => true do
       visit projects_path
 
-      expect(page).to have_selector('h1', :text => 'Listing Projects')
+      expect(page).to have_selector('#title_bar', :text => 'New Project')
 
       within('#projects') do
         click_on 'Test Project'
@@ -64,7 +64,7 @@ describe "Projects" do
 
     it "edits a project" do
       visit projects_path
-      within('#projects .project_options') do
+      within('#projects') do
         click_on 'Edit'
       end
 
@@ -77,7 +77,7 @@ describe "Projects" do
 
     it "shows form errors" do
       visit projects_path
-      within('#projects .project_options') do
+      within('#projects') do
         click_on 'Edit'
       end
 
@@ -100,12 +100,9 @@ describe "Projects" do
     end
 
     it "deletes a project" do
-      visit projects_path
-      within('#projects .project_options') do
-        click_on 'Delete'
-      end
+      visit edit_project_path(project)
+      click_on 'Delete'
 
-      expect(page).not_to have_content('Test Project')
       expect(Project.count).to eq(0)
     end
   end

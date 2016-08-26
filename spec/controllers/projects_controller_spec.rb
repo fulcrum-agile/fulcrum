@@ -29,6 +29,7 @@ describe ProjectsController do
       allow(subject).to receive_messages(:current_user => user)
       allow(user).to receive_messages(:projects => projects)
       allow(user).to receive_message_chain(:projects, :not_archived) { projects }
+      allow(projects).to receive_messages(:pluck => [])
     end
 
     describe "collection actions" do
