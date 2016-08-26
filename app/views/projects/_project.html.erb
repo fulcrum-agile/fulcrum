@@ -1,7 +1,7 @@
 <li class="list-group-item">
   <h4 class="item-title">
     <%= link_to truncate(project.name, length: 18), project, class: 'tag-tooltip',
-      data: {toggle: "tooltip"}, title: project.name %> (<%= project.stories_count %>)
+      data: {toggle: "tooltip"}, title: project.name %> <span class="pull-right">(<%= project.stories_count %>)</span>
   </h4>
 </li>
 <li class="list-group-item">

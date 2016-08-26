@@ -37,7 +37,7 @@
     <div class="col-sm-8"><%= f.check_box :archived %></div>
   </div>
 
-  <div class="btn-group pull-right">
+  <div class="btn-group actions pull-right">
     <%= f.submit nil, class: 'btn btn-primary' %>
 
     <% if can? :destroy, @project %>
