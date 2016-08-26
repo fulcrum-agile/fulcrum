@@ -50,11 +50,7 @@ a img {
 }
 
 #header {
-  background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
-  border-bottom: 1px solid $darkgrey*0.7;
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: black 0 1px 0;
+  background: #3E6A9E;
   position: relative;
   z-index: 900;
 }
@@ -109,11 +105,8 @@ ul#primary-nav li {
 }
 
 #title_bar {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
-  border-bottom: 1px solid #ededed;
+  background: #E9E9E9;
+  border-bottom: 1px solid #d5d5d5;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
   line-height: 140%;
@@ -124,7 +117,7 @@ ul#primary-nav li {
   padding: 10px 1em;
 
   div.velocity {
-    font-size: 1.4em;
+    font-size: 1.2em;
     float: right;
     position: relative;
 
@@ -170,6 +163,16 @@ ul#primary-nav li {
     @extend .btn-primary;
     @extend .btn-xs;
   }
+  h1 {
+    display: inline;
+  }
+  .project_nav {
+    display: inline;
+  }
+  .column-toggles-wrap {
+    float: right;
+    margin-right: 10px;
+  }
 }
 
 #title_bar h1 {
@@ -178,7 +181,7 @@ ul#primary-nav li {
 }
 
 #main {
-  margin: 1em;
+  margin: 10px 5px;
   position: relative;
 }
 
@@ -197,6 +200,8 @@ html.stories, html.stories body, html.stories div#main {
   }
   a.pressed {
     @extend .btn-default;
+    color: #636363;
+    background-color: #E2E2E2;
   }
 }
 
@@ -223,11 +228,11 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   text-align: left;
-  background: $darkgrey;
+  background: #444;
   color: #eee;
-  padding: 0.2em 0.2em 0.2em 1em;
-  text-transform:capitalize;
-  @include border-radius(5px 5px 0 0);
+  padding: 0.4em 0.2em 0.3em 0.7em;
+  text-transform: uppercase;
+  @include border-radius(2px 2px 0 0);
   a.toggle-title{
     color: white;
     text-decoration: none;
@@ -285,7 +290,6 @@ div.story textarea {
 
 div.story-icons {
   float: left;
-  font-size: 0;
 }
 div.story-controls {
   padding: 10px 0;
@@ -319,60 +323,45 @@ div.story-title abbr.initials {
   cursor: inherit;
 }
 
-span.estimate {
-  border: 1px solid #777;
-  padding: 0 0.2em;
-  margin: 0 2px 0 0;
-  @include border-radius(3px);
-  vertical-align: top;
-  font-size: x-small;
-  font-weight: bold;
-  font-style: italic;
+.estimate {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  display: inline-block;
+  letter-spacing: -1px;
+  width: 20px;
+  margin-left: -2px;
+  margin-right: -6px;
+  text-align: right;
+  top: -7px;
+  position: relative;
+  color: #3556AA;
+  height: 17px;
+  -webkit-font-smoothing: none;
 }
-
-span.estimate_1 {
-  @include background(linear-gradient(bottom,
-      $orange 12.5%,
-      white 12.5%));
+.estimates {
+  padding-left: 10px;
+  padding-right: 2px;
 }
-span.estimate_2 {
-  @include background(linear-gradient(bottom,
-      $orange 25%,
-      white 25%));
-}
-span.estimate_3 {
-  @include background(linear-gradient(bottom,
-      $orange 37.5%,
-      white 37.5%));
-}
-span.estimate_4 {
-  @include background(linear-gradient(bottom,
-      $orange 50%,
-      white 50%));
-}
-span.estimate_5 {
-  @include background(linear-gradient(bottom,
-      $orange 62.5%,
-      white 62.5%));
-}
-span.estimate_6 {
-  @include background(linear-gradient(bottom,
-      $orange 75%,
-      white 75%));
-}
-span.estimate_7 {
-  @include background(linear-gradient(bottom,
-      $orange 87.5%,
-      white 87.5%));
-}
-span.estimate_8 {
-  @include background(linear-gradient(bottom,
-      $orange 100%,
-      white 100%));
+.estimates .estimate {
+  font-weight: normal;
+  border-radius: none;
+  margin-left: -3px;
+  border-right: 1px solid #858484;
+  padding-right: 2px;
+  top: -3px;
+  background: transparent;
+  line-height: 15px;
 }
 
 .story.release {
-  background-color: darkgrey;
+  background-color: #444;
   color: white;
 }
 .story.release:hover {
@@ -391,10 +380,10 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  @include icons-sprite(iteration, false, 2px, 3px);
-  background-color: #000;
-  color: #ddd;
-  padding: 0.2em 0.2em 0.2em 20px
+  background-color: #707C8B;
+  color: #f5f5f5;
+  padding: 0.2em 0.7em 0.2em 20px;
+  font-size: 12px;
 }
 .iteration .points {
   float: right;
@@ -705,4 +694,34 @@ div#keycut-help {
   > .list-group > .list-group > .list-group-item {
     padding-left: 45px;
   }
+}
+
+.fa-star {
+  color: #FFE000;
+}
+.fa-star-o {
+  color: #726904;
+}
+.fa-icon-overlay {
+  position: relative;
+}
+.fa-icon-overlay .fa {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fa-icon-overlay .fa:first-child {
+  position: initial;
+}
+.fa-comment {
+  color: white;
+}
+.fa-comment-o {
+  color: gray;
+}
+.fa-bug {
+  color: #C20B0B;
+}
+.fa-cog {
+  color: #5E5C5C;
 }

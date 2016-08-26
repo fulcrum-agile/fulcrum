@@ -68,7 +68,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click .submit": "saveEdit",
     "click .cancel": "cancelEdit",
     "click .transition": "transition",
-    "click input.estimate": "estimate",
+    "click .estimate": "estimate",
     "change select.story_type": "disableEstimate",
     "click .destroy": "clear",
     "click .description": "editDescription",
@@ -163,7 +163,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   estimate: function(ev) {
     this.saveInProgress = true;
     this.render();
-    this.model.set({estimate: ev.target.value});
+    this.model.set({estimate: ev.target.attributes['data-value'].value});
 
     var that = this;
     this.model.save(null, {
@@ -237,7 +237,9 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       return false;
     }
     // Should expand if the click wasn't on one of the buttons.
-    return !$(e.target).is('input');
+    if ($(e.target).is('input')) return false
+    if ($(e.target).is('.input')) return false
+    return true;
   },
 
   cancelEdit: function() {
