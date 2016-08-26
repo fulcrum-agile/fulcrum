@@ -7,39 +7,6 @@
 @import 'bootstrap_overrides';
 @import 'icons';
 
-$darkgrey:   #6a7176;           // Header color
-$orange:     rgb(250,182,155);  // Estimate gauge color
-
-// Tango icon theme pallette
-// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
-$butter-1:      #fce94f;
-$butter-2:      #edd400;
-$butter-3:      #c4a000;
-$orange-1:      #fcaf3e;
-$orange-2:      #f57900;
-$orange-3:      #ce5c00;
-$chocolate-1:   #e9b96e;
-$chocolate-2:   #c17d11;
-$chocolate-3:   #8f5902;
-$chameleon-1:   #8ae234;
-$chameleon-2:   #73d216;
-$chameleon-3:   #4e9a06;
-$sky-blue-1:    #729fcf;
-$sky-blue-2:    #3465a4;
-$sky-blue-3:    #204a87;
-$plum-1:        #ad7fa8;
-$plum-2:        #75507b;
-$plum-3:        #5c3566;
-$scarlet-red-1: #ef2929;
-$scarlet-red-2: #cc0000;
-$scarlet-red-3: #a40000;
-$aluminium-1:   #eeeeec;
-$aluminium-2:   #d3d7cf;
-$aluminium-3:   #babdb6;
-$aluminium-4:   #888a85;
-$aluminium-5:   #555753;
-$aluminium-6:   #2e3436;
-
 body {
   margin: 0;
   padding: 0;
@@ -348,16 +315,17 @@ div.story-title abbr.initials {
 .estimates {
   padding-left: 10px;
   padding-right: 2px;
-}
-.estimates .estimate {
-  font-weight: normal;
-  border-radius: none;
-  margin-left: -3px;
-  border-right: 1px solid #858484;
-  padding-right: 2px;
-  top: -3px;
-  background: transparent;
-  line-height: 15px;
+
+  .estimate {
+    font-weight: normal;
+    border-radius: none;
+    margin-left: -3px;
+    border-right: 1px solid #858484;
+    padding-right: 2px;
+    top: -3px;
+    background: transparent;
+    line-height: 15px;
+  }
 }
 
 .story.release {
@@ -441,8 +409,6 @@ a.button {
   border: 1px solid $darkgrey*1.5;
   text-decoration: none;
 }
-
-
 
 a.button:hover {
   @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
@@ -681,17 +647,19 @@ div#keycut-help {
   .list-group-item {
     border-radius: 0;
     border-width: 1px 0 0 0;
+
+    > &:first-child {
+      border-top-width: 0;
+    }
   }
 
-  > .list-group-item:first-child {
-    border-top-width: 0;
-  }
+  > .list-group {
+    > .list-group-item {
+      padding-left: 30px;
+    }
 
-  > .list-group > .list-group-item {
-    padding-left: 30px;
-  }
-
-  > .list-group > .list-group > .list-group-item {
-    padding-left: 45px;
+    > .list-group > .list-group-item {
+      padding-left: 45px;
+    }
   }
 }
