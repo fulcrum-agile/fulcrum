@@ -28,9 +28,9 @@ class ActivityPresenter < SimpleDelegator
     when 'Project'
       "#{subject_type} ##{subject_id} - '#{helpers.link_to subject.name, project_path(subject)}'"
     when 'Story'
-      "#{subject_type} ##{subject_id} - '#{helpers.link_to subject.title, project_path(subject.try(:project_id)) + '#' + subject_id.to_s}'"
+      "#{subject_type} ##{subject_id} - '#{helpers.link_to subject.title, project_path(subject.try(:project_id)) + '#story-' + subject_id.to_s}'"
     when 'Note', 'Task'
-      "#{subject_type} ##{subject_id} of Story '#{helpers.link_to subject.story.title, project_path(subject.story.project_id) + '#' + subject.story_id.to_s}'"
+      "#{subject_type} ##{subject_id} of Story '#{helpers.link_to subject.story.title, project_path(subject.story.project_id) + '#story-' + subject.story_id.to_s}'"
     end
   end
 
