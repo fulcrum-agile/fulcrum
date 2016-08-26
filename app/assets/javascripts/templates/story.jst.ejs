@@ -2,11 +2,11 @@
 <div class="state-actions estimates">
   <form>
     <% _.each(story.point_values(), function(value) { %>
-      <span class="estimate input" data-value="<%= value %>">
-        <% if (value == 0) { %>[]<% } else { %>
+      <% if (value > 0) { %>
+        <span class="estimate input" data-value="<%= value %>" id="estimate-<%= value %>">
           <%= Array(value + 1).join("|") %>
-        <% } %>
-      </span>
+        </span>
+      <% } %>
     <% }); %>
   </form>
 </div>

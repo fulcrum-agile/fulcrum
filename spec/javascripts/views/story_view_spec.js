@@ -284,7 +284,7 @@ describe('Fulcrum.StoryView', function() {
         ]
       );
 
-      var ev = { target: { value : '1' } };
+      var ev = { target: { attributes : { 'data-value' : { value : 1 } } } };
       this.view.estimate(ev);
 
       expect(this.view.saveInProgress).toBeTruthy();

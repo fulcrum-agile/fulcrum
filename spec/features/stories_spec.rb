@@ -34,7 +34,7 @@ describe "Stories" do
 
       # Estimate the story
       within('#chilly_bin .story') do
-        click_on '1'
+        find('#estimate-1').trigger 'click'
         click_on 'start'
       end
 

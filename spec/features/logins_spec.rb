@@ -41,7 +41,7 @@ describe "Logins" do
       click_button 'Sign in'
 
       expect(page).to have_selector('#title_bar', :text => 'New Project')
-      expect(page).to have_selector('#primary-nav', :text => 'user@example.com')
+      expect(page).to have_selector('.navbar-right', :text => 'User 89')
     end
 
   end
