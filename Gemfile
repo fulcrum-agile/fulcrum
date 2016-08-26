@@ -31,6 +31,7 @@ gem 'sass-rails'
 gem 'uglifier', '>= 2.5.3'
 gem 'compass-rails'
 gem 'coffee-rails'
+gem "autoprefixer-rails"
 
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'ejs'

@@ -336,6 +336,7 @@ PLATFORMS
 
 DEPENDENCIES
   attachinary
+  autoprefixer-rails
   bootstrap-sass (~> 3.3.5)
   cancancan (~> 1.10)
   capybara
