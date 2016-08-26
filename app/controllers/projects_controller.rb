@@ -8,7 +8,6 @@ class ProjectsController < ApplicationController
   # GET /projects.xml
   def index
     @projects = current_user.projects.not_archived
-    @activities_group = Activity.grouped_activities(@projects, 1.week.ago)
 
     respond_to do |format|
       format.html # index.html.erb
