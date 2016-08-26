@@ -1,31 +1,42 @@
 <% content_for :title_bar do %>
-  <h1><%= t('.listing projects') %></h1>
 <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
 <% end %>
 
 <div id="projects" class="projects-list">
   <div class="row item">
     <div class="col-md-12">
-      <div class="col-md-4">
-        <ul>
-        <% @activities_group.each do |date_group| %>
-          <li class="activities_date"><%= date_group.first %></li>
+      <div class="col-md-8">
+        <% @activities_group.reverse_each do |date_group| %>
+        <ul class="list-group list-group-root">
+          <li class="list-group-item activities_date">
+            <%= l date_group.first.to_date, format: :short %>
+          </li>
 
+          <ul class="list-group">
           <% date_group.last.each do |project_group| %>
-            <li class="activities_project"><%= @projects.find { |p| p.id == project_group.first }.try(:name) %></li>
+            <li class="list-group-item activities_project">
+              <%= link_to project_group.first.name, project_path(project_group.first) %>
+            </li>
 
+            <ul class="list-group">
             <% project_group.last.each do |activities| %>
               <% activities.last.each do |activity| %>
-                <li class="activities_subject"><%= activity.try(:describe) %></li>
+                <% if activity.description %>
+                  <li class="list-group-item activities_subject"><%= activity.description.html_safe %></li>
+                <% end %>
               <% end %>
             <% end %>
+            </ul>
           <% end %>
-        <% end %>
+          </ul>
         </ul>
+        <% end %>
       </div>
 
-      <div class="col-md-8">
+      <div class="col-md-4">
+        <ul class="list-group">
           <%= render @projects %>
+        </ul>
       </div>
     </div>
   </div>

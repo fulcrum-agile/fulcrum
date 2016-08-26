@@ -37,8 +37,15 @@
     <div class="col-sm-8"><%= f.check_box :archived %></div>
   </div>
 
-  <div class="actions">
-    <%= f.submit nil, class: 'btn btn-primary pull-right' %>
+  <div class="btn-group pull-right">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+
+    <% if can? :destroy, @project %>
+      <%= link_to t('delete'), @project,
+        data: {confirm: t('projects.index.are you sure you want to delete this project')},
+        method: :delete,
+        class: 'btn btn-danger' %>
+    <% end %>
   </div>
 <% end %>
 </div>
