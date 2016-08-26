@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
     @project.users << current_user
 
     respond_to do |format|
-      if ProjectUpdaterService.save(@project)
+      if ProjectOperations::Create.(@project, current_user)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully created')) }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
@@ -67,7 +67,7 @@ class ProjectsController < ApplicationController
     @integration = Integration.new
 
     respond_to do |format|
-      if ProjectUpdaterService.save(@project, allowed_params)
+      if ProjectOperations::Update.(@project, allowed_params, current_user)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully updated')) }
         format.xml  { head :ok }
       else
@@ -80,14 +80,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    # because of dependent => destroy it can take a very long time to delete a project
-    # FIXME instead of deleting we should add something like Papertrail to
-    # implement an 'Archive'-like feature instead
-    if Rails.env.production?
-      @project.delay.destroy
-    else
-      @project.destroy
-    end
+    ProjectOperations::Destroy.(@project, current_user)
 
     respond_to do |format|
       format.html { redirect_to(projects_url) }

@@ -28,7 +28,7 @@ class NotesController < ApplicationController
     @story = @project.stories.find(params[:story_id])
     @note = @story.notes.build(allowed_params)
     @note.user = current_user
-    if @note = NoteCreationService.create(@note)
+    if @note = NoteOperations::Create.(@note, current_user)
       render :json => @note
     else
       render :json => @note, :status => :unprocessable_entity

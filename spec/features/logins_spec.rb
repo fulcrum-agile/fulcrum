@@ -40,7 +40,7 @@ describe "Logins" do
       fill_in "Password", :with => "password"
       click_button 'Sign in'
 
-      expect(page).to have_selector('h1', :text => 'Listing Projects')
+      expect(page).to have_selector('#title_bar', :text => 'New Project')
       expect(page).to have_selector('#primary-nav', :text => 'user@example.com')
     end
 

@@ -1,11 +1,24 @@
 <% content_for :title_bar do %>
-  <h1><%= t('.listing projects') %></h1>
+<%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
 <% end %>
 
 <div id="projects" class="projects-list">
   <div class="row item">
-    <%= render @projects %>
+    <div class="col-md-12">
+      <div class="col-md-8">
+        <% cache "#{current_user.id}/projects/activities_group/view", expires: 30.minutes do %>
+          <%= render 'activities_group', activities_group: Activity.grouped_activities(@projects, 1.week.ago) %>
+        <% end %>
+      </div>
+
+      <div class="col-md-4">
+        <ul class="list-group">
+          <% cache "{current_user.id/projects/list}", expires: 1.day do %>
+            <%= render @projects %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
-<%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>

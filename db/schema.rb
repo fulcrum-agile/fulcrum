@@ -11,11 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818013050) do
+ActiveRecord::Schema.define(version: 20160825181243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "activities", force: true do |t|
+    t.integer  "project_id",             null: false
+    t.integer  "user_id",                null: false
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.string   "action"
+    t.text     "subject_changes"
+    t.string   "subject_destroyed_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["project_id", "user_id"], name: "index_activities_on_project_id_and_user_id", using: :btree
+  add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "attachinary_files", force: true do |t|
     t.integer  "attachinariable_id"
@@ -117,12 +133,12 @@ ActiveRecord::Schema.define(version: 20160818013050) do
   add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                              default: "",    null: false
+    t.string   "encrypted_password",     limit: 128, default: "",    null: false
     t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -130,18 +146,19 @@ ActiveRecord::Schema.define(version: 20160818013050) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "initials"
-    t.boolean  "email_delivery",         default: true
-    t.boolean  "email_acceptance",       default: true
-    t.boolean  "email_rejection",        default: true
+    t.boolean  "email_delivery",                     default: true
+    t.boolean  "email_acceptance",                   default: true
+    t.boolean  "email_rejection",                    default: true
+    t.datetime "reset_password_sent_at"
     t.string   "locale"
-    t.boolean  "is_admin",               default: false
-    t.integer  "memberships_count",      default: 0
-    t.string   "username",                               null: false
+    t.boolean  "is_admin",                           default: false
+    t.integer  "memberships_count",                  default: 0
+    t.string   "username",                                           null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
