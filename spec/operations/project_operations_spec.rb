@@ -8,7 +8,7 @@ describe ProjectOperations do
   describe 'Create' do
 
     context 'with valid params' do
-      subject { ->{ProjectOperations::Create.run(project, user)} }
+      subject { ->{ProjectOperations::Create.(project, user)} }
 
       it { expect { subject.call }.to change { Project.count } }
       it { expect(subject.call).to be_eql Project.last }
@@ -17,7 +17,7 @@ describe ProjectOperations do
     context 'with invalid params' do
       before { project.name = nil }
 
-      subject { ->{ProjectOperations::Create.run(project, user)} }
+      subject { ->{ProjectOperations::Create.(project, user)} }
 
       it { is_expected.to_not change {Project.count} }
       it { expect(subject.call).to be_falsy }
@@ -28,7 +28,7 @@ describe ProjectOperations do
     before { project.save! }
 
     context 'with valid params' do
-      subject { ->{ProjectOperations::Update.run(project, { name: 'Hello World' }, user )} }
+      subject { ->{ProjectOperations::Update.(project, { name: 'Hello World' }, user )} }
 
       it { expect { subject.call }.to_not change {Project.count} }
       it { expect(subject.call.name).to be_eql 'Hello World' }
@@ -37,7 +37,7 @@ describe ProjectOperations do
     context 'with invalid params' do
       before { project.name = nil }
 
-      subject { ->{ProjectOperations::Update.run(project, { name: nil }, user)} }
+      subject { ->{ProjectOperations::Update.(project, { name: nil }, user)} }
 
       it { expect(subject.call).to be_falsy }
     end
@@ -46,14 +46,14 @@ describe ProjectOperations do
   describe 'Destroy' do
     before { project.save! }
 
-    subject { ->{ProjectOperations::Destroy.run(project, user)} }
+    subject { ->{ProjectOperations::Destroy.(project, user)} }
 
     it { expect { subject.call }.to change {Project.count}.by(-1) }
   end
 
   describe '::ActivityRecording' do
     context 'Create' do
-      subject { ->{ProjectOperations::Create.run(project, user )} }
+      subject { ->{ProjectOperations::Create.(project, user )} }
 
       it 'must record an activity' do
         expect { subject.call }.to change {Activity.count}
@@ -67,7 +67,7 @@ describe ProjectOperations do
     context 'Update' do
       before { project.save! }
 
-      subject { ->{ProjectOperations::Update.run(project, { name: 'Hello World', point_scale: 'linear', iteration_start_day: 4 }, user )} }
+      subject { ->{ProjectOperations::Update.(project, { name: 'Hello World', point_scale: 'linear', iteration_start_day: 4 }, user )} }
 
       it 'must record an activity' do
         expect { subject.call }.to change {Activity.count}
@@ -83,7 +83,7 @@ describe ProjectOperations do
     context 'Destroy' do
       before { project.save! }
 
-      subject { ->{ProjectOperations::Destroy.run(project, user)} }
+      subject { ->{ProjectOperations::Destroy.(project, user)} }
 
       it 'must record an activity' do
         old_attributes = project.attributes

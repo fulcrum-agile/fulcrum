@@ -11,7 +11,7 @@ describe NoteOperations do
 
     context 'with valid params' do
 
-      subject { ->{NoteOperations::Create.run(note, user)} }
+      subject { ->{NoteOperations::Create.(note, user)} }
 
       it { expect { subject.call }.to change(Note, :count) }
       it { expect { subject.call }.to change(Changeset, :count) }
@@ -50,7 +50,7 @@ describe NoteOperations do
     context 'with invalid params' do
       before { note.note = '' }
 
-      subject { ->{NoteOperations::Create.run(note, user)} }
+      subject { ->{NoteOperations::Create.(note, user)} }
 
       it { expect { subject.call }.to_not change(Note, :count) }
       it { expect(subject.call).to be_falsy }

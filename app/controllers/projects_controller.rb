@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
     @project.users << current_user
 
     respond_to do |format|
-      if ProjectOperations::Create.run(@project, current_user)
+      if ProjectOperations::Create.(@project, current_user)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully created')) }
         format.xml  { render :xml => @project, :status => :created, :location => @project }
       else
@@ -68,7 +68,7 @@ class ProjectsController < ApplicationController
     @integration = Integration.new
 
     respond_to do |format|
-      if ProjectOperations::Update.run(@project, allowed_params, current_user)
+      if ProjectOperations::Update.(@project, allowed_params, current_user)
         format.html { redirect_to(@project, :notice => t('projects.project was successfully updated')) }
         format.xml  { head :ok }
       else
@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.xml
   def destroy
-    ProjectOperations::Destroy.run(@project, current_user)
+    ProjectOperations::Destroy.(@project, current_user)
 
     respond_to do |format|
       format.html { redirect_to(projects_url) }

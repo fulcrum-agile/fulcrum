@@ -38,7 +38,7 @@ class StoriesController < ApplicationController
     @story.acting_user = current_user
     @story.base_uri = project_url(@story.project)
     respond_to do |format|
-      if @story = StoryOperations::Update.run(@story, allowed_params, current_user)
+      if @story = StoryOperations::Update.(@story, allowed_params, current_user)
         format.html { redirect_to project_url(@project) }
         format.js   { render :json => @story }
       else
@@ -51,7 +51,7 @@ class StoriesController < ApplicationController
   def destroy
     @project = current_user.projects.find(params[:project_id])
     @story = @project.stories.find(params[:id])
-    StoryOperations::Destroy.run(@story, current_user)
+    StoryOperations::Destroy.(@story, current_user)
     head :ok
   end
 
@@ -78,7 +78,7 @@ class StoriesController < ApplicationController
     @story = @project.stories.build(allowed_params)
     @story.requested_by_id = current_user.id unless @story.requested_by_id
     respond_to do |format|
-      if @story = StoryOperations::Create.run(@story, current_user)
+      if @story = StoryOperations::Create.(@story, current_user)
         format.html { redirect_to project_url(@project) }
         format.js   { render :json => @story }
       else

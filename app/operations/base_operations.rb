@@ -1,25 +1,11 @@
-module BaseOperations
-  module ActivityRecording
-    def fetch_project
-      case model
-      when Project
-        model
-      when Story
-        model.project
-      when Note, Task
-        model.story.project
-      end
-    end
+require 'base_operations/activity_recording'
 
-    def create_activity
-      Activity.create!(project: fetch_project, user: current_user, action: self.class.name.split("::").last.downcase, subject: model)
-    end
-  end
+module BaseOperations
 
   class Create
     include ActivityRecording
 
-    def self.run(*args)
+    def self.call(*args)
       new(*args).run
     end
 
