@@ -27,13 +27,14 @@ class Activity < ActiveRecord::Base
   scope :projects, ->(ids) {
     where(project_id: ids) if ids
   }
+
   scope :since, ->(date) {
     where("created_at > ?", date.beginning_of_day) if date
   }
 
   def self.grouped_activities(allowed_projects, since)
     ids = allowed_projects.pluck(:id)
-    projects(ids).since(since).group_by { |activity|
+    with_dependencies.projects(ids).since(since).group_by { |activity|
       activity.created_at.beginning_of_day
     }.
     map { |date, activities|
