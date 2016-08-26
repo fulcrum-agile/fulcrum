@@ -31,8 +31,9 @@ class Activity < ActiveRecord::Base
     where("created_at > ?", date.beginning_of_day) if date
   }
 
-  def self.grouped_activities(allowed_project_ids, since)
-    projects(allowed_project_ids).since(since).group_by { |activity|
+  def self.grouped_activities(allowed_projects, since)
+    ids = allowed_projects.pluck(:id)
+    projects(ids).since(since).group_by { |activity|
       activity.created_at.beginning_of_day
     }.
     map { |date, activities|
@@ -43,9 +44,15 @@ class Activity < ActiveRecord::Base
         }.
         map { |project_id, activities|
           [
-            project_id,
+            allowed_projects.find { |p| p.id == project_id },
             activities.group_by { |activity|
               activity.subject_destroyed_type || activity.subject_type
+            }.
+            map { |subject_type, activities|
+              [
+                subject_type,
+                activities.map(&:decorate)
+              ]
             }
           ]
         }
@@ -53,30 +60,8 @@ class Activity < ActiveRecord::Base
     }
   end
 
-  def describe
-    if action == 'destroy'
-      object = "#{subject_destroyed_type} ##{subject_changes['id']}"
-    else
-      object = case subject_type
-        when 'Project'
-          "#{subject_type} ##{subject_id} - '#{subject.try(:name)}'"
-        when 'Story'
-          "#{subject_type} ##{subject_id} - '#{subject.try(:title)}'"
-        when 'Note', 'Task'
-          "#{subject_type} ##{subject_id} of Story '#{subject.story.title}'"
-        end
-      if action == 'update'
-        changes = subject_changes.keys.reject { |key| %w(updated_at created_at).include?(key) }.map do |key|
-          if subject_changes[key].first.nil?
-            "#{key} to '#{subject_changes[key].last}' "
-          else
-            "#{key} from '#{subject_changes[key].first}' to '#{subject_changes[key].last}' "
-          end
-        end.join(", ")
-        object = object + " changed " + changes
-      end
-    end
-    "#{user.name} #{action}d #{object}"
+  def decorate
+    ActivityPresenter.new(self)
   end
 
   protected
