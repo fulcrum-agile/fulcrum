@@ -229,7 +229,7 @@ div.story:hover {
 }
 
 div.story.editing, div.story.editing:hover {
-  background-color: adjust-lightness($butter-1, 20);
+  background-color: $butter-2;
   color: $aluminium-6;
   cursor: default !important;
 }
@@ -246,6 +246,12 @@ div.story textarea {
 div.story textarea {
   height: 50px;
   resize: none;
+}
+div.story {
+  .story_link {
+    width: 260px;
+    margin-top: 5px;
+  }
 }
 
 div.story-icons {
@@ -460,6 +466,7 @@ div.note {
     font-style: italic;
     font-size: x-small;
     text-align: right;
+    margin-right: 5px;
   }
 }
 .popover div.note {
@@ -561,6 +568,14 @@ div#keycut-help {
 }
 
 .projects-list {
+  margin-top: 10px;
+  margin-left: 0;
+  margin-right: 0;
+
+  .col-md-12 {
+    margin: 0;
+    padding: 0;
+  }
 
   .item {
 

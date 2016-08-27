@@ -1,79 +1,84 @@
+<% content_for :sidebar do %>
+<% end %>
 <% content_for :title_bar do %>
   <h1><%= t('edit') %> <%= resource.class.name.humanize %></h1>
 <% end %>
-<div class="form-wrapper edit-user">
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div class="field-wrapper">
-    <%= f.label :name, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :name %></div>
-  </div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <div class="form-wrapper edit-user">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div class="field-wrapper">
-    <%= f.label :initials, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :initials %></div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :username, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :username %></div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :email, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.email_field :email %></div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :locale, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.select :locale, I18n.available_locales, :include_blank => true %></div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :password, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10">
-      <%= f.password_field :password %>
-      <div class="help-block"><%= t('.leave_blank_if_you_dont_want_to_change_it') %></div>
-    </div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :password_confirmation, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.password_field :password_confirmation %></div>
-  </div>
-
-  <h3><%= t('.notify_me_when_my_stories_are') %></h3>
-  
-  <div class="checkbox">
-    <%= f.check_box :email_delivery %>
-    <%= f.label :email_delivery, t('delivered') %>
-  </div>
-
-  <div class="checkbox">
-    <%= f.check_box :email_acceptance %>
-    <%= f.label :email_acceptance, t('accepted') %>
-  </div>
-
-  <div class="checkbox">
-    <%= f.check_box :email_rejection %>
-    <%= f.label :email_rejection, t('rejected') %>
-  </div>
-
-  <div class="field-wrapper current-password">
-    <%= f.label :current_password, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10">
-      <%= f.password_field :current_password %>
-      <div class="help-block">
-        <%= t('.we_need_your_current_password_to_confirm_your_changes') %>
+      <div class="field-wrapper">
+        <%= f.label :name, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.text_field :name %></div>
       </div>
-    </div>
-  </div>
 
-  <div class="actions clearfix">
-    <%= f.submit "Update", class: 'btn btn-primary pull-right' %>
+      <div class="field-wrapper">
+        <%= f.label :initials, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.text_field :initials %></div>
+      </div>
+
+      <div class="field-wrapper">
+        <%= f.label :username, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.text_field :username %></div>
+      </div>
+
+      <div class="field-wrapper">
+        <%= f.label :email, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.email_field :email %></div>
+      </div>
+
+      <div class="field-wrapper">
+        <%= f.label :locale, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.select :locale, I18n.available_locales, :include_blank => true %></div>
+      </div>
+
+      <div class="field-wrapper">
+        <%= f.label :password, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.password_field :password %>
+          <div class="help-block"><%= t('.leave_blank_if_you_dont_want_to_change_it') %></div>
+        </div>
+      </div>
+
+      <div class="field-wrapper">
+        <%= f.label :password_confirmation, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.password_field :password_confirmation %></div>
+      </div>
+
+      <h3><%= t('.notify_me_when_my_stories_are') %></h3>
+
+      <div class="checkbox">
+        <%= f.check_box :email_delivery %>
+        <%= f.label :email_delivery, t('delivered') %>
+      </div>
+
+      <div class="checkbox">
+        <%= f.check_box :email_acceptance %>
+        <%= f.label :email_acceptance, t('accepted') %>
+      </div>
+
+      <div class="checkbox">
+        <%= f.check_box :email_rejection %>
+        <%= f.label :email_rejection, t('rejected') %>
+      </div>
+
+      <div class="field-wrapper current-password">
+        <%= f.label :current_password, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.password_field :current_password %>
+          <div class="help-block">
+            <%= t('.we_need_your_current_password_to_confirm_your_changes') %>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-group actions pull-right clearfix">
+        <%= f.submit "Update", class: 'btn btn-primary' %>
+        <%= link_to t(".cancel my account"), registration_path(resource_name), :data => {:confirm => "Are you sure?"}, :method => :delete, class: 'btn btn-danger pull-right' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
-<div class="secondary-actions clearfix">
-  <%= link_to t(".cancel my account"), registration_path(resource_name), :data => {:confirm => "Are you sure?"}, :method => :delete, class: 'btn btn-danger pull-right' %>
 </div>
