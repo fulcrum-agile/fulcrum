@@ -611,9 +611,6 @@ div#keycut-help {
 .edit-project,
 .add-user,
 .edit-user,
-.sign-in {
-  width: 550px;
-}
 
 .members-list {
   .member-name {
@@ -625,6 +622,11 @@ div#keycut-help {
 .edit-user .checkbox,
 .sign-in .checkbox {
   margin-left: 50px;
+}
+.devise_links {
+  a {
+    display: block;
+  }
 }
 
 .date-select-wrapper select {
