@@ -33,6 +33,13 @@
 
 $(function() {
   $('.tag-tooltip').tooltip();
+
+  $("#wrapper").toggleClass("toggled"); // FIXME in CSS find a way to start toggled
+  $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+  });
+
   executeAttachinary();
 });
 

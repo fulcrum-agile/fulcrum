@@ -13,22 +13,17 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse" id="primary-nav">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <div class="navbar-brand">
-        <%= image_tag 'logo.png', width: 32, height: 32 %>
-      </div>
-    </div>
+<div id="wrapper">
 
-    <ul class="nav navbar-nav navbar-left">
-      <li>
-        <%= link_to t('fulcrum'), root_path %>
-      </li>
-    </ul>
+  <div id="sidebar-wrapper">
 
-    <ul class="nav navbar-nav navbar-right">
-      <% if current_user %>
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <%= image_tag 'logo.png', width: 32, height: 32 %>
+        </li>
+        <li>
+          <%= link_to t('fulcrum'), root_path %>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <%= Project.model_name.human(:count => 2) %>
@@ -42,28 +37,39 @@
             <%- end -%>
           </ul>
         </li>
-        <li><%= link_to User.model_name.human(:count => 2), admin_users_path %></li>
-        <li><%= link_to current_user.name, edit_user_registration_path %></li>
-        <li><%= link_to t('log out'), destroy_user_session_path,
-                        :method => :delete %></li>
-      <% else %>
-        <li><%= link_to t('log in'), new_user_session_path %></li>
-        <%- unless Fulcrum::Application.config.fulcrum.disable_registration %>
-        <li><%= link_to t('sign up'), new_user_registration_path %></li>
-        <% end -%>
-      <% end %>
+        <% if current_user %>
+
+          <li><%= link_to User.model_name.human(:count => 2), admin_users_path %></li>
+          <li><%= link_to current_user.name, edit_user_registration_path %></li>
+          <li><%= link_to t('log out'), destroy_user_session_path,
+                          :method => :delete %></li>
+        <% else %>
+          <li><%= link_to t('log in'), new_user_session_path %></li>
+          <%- unless Fulcrum::Application.config.fulcrum.disable_registration %>
+          <li><%= link_to t('sign up'), new_user_registration_path %></li>
+          <% end -%>
+        <% end %>
     </ul>
+
   </div>
-</nav>
 
-<div id="title_bar">
-  <%= yield :title_bar %>
-</div>
+  <div id="page-content-wrapper">
 
-<div id="main">
-  <%= render 'shared/flash' %>
+    <div id="title_bar">
+      <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </a>
+      <%= yield :title_bar %>
+    </div>
 
-  <%= yield %>
+    <div id="main">
+      <%= render 'shared/flash' %>
+
+      <%= yield %>
+    </div>
+
+  </div>
+
 </div>
 
 </body>
