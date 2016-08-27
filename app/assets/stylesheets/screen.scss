@@ -148,7 +148,10 @@ ul#primary-nav li {
 }
 
 #main {
-  margin: 10px 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 0;
+  margin-left: 0;
   position: relative;
 }
 
@@ -176,7 +179,7 @@ html.stories, html.stories body, html.stories div#main {
 table.stories {
   width: 100%;
   height: 100%;
-  border-spacing: 5px 0;
+  border-spacing: 2px 0;
   border-collapse: separate;
   table-layout: fixed;
 }
