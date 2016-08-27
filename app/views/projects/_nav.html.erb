@@ -1,13 +1,30 @@
-<%= link_to_unless_current Story.model_name.human(:count => 2), project_path(project), class: 'project-action' %> |
+<li><hr /></li>
+<li>
+    <div class="column-toggles-wrap">
+      <div id="column-toggles"></div>
+    </div>
+</li>
+<li>
+<%= link_to_unless_current Story.model_name.human(:count => 2), project_path(project) %>
+</li>
 <% if can? :manage, User %>
-  <%= link_to_unless_current User.model_name.human(:count => 2), project_users_path(project), class: 'project-action' %> |
+  <li>
+  <%= link_to_unless_current User.model_name.human(:count => 2), project_users_path(project) %>
+  </li>
 <% end %>
 <% if can? :manage, project %>
-  <%= link_to_unless_current t('edit'), edit_project_path(project), class: 'project-action' %> |
-  <%= link_to_unless_current t('import'), import_project_path(project), class: 'project-action' %> |
+  <li>
+  <%= link_to_unless_current t('edit'), edit_project_path(project) %>
+  </li>
+  <li>
+    <%= link_to_unless_current t('import'), import_project_path(project) %>
+  </li>
 <% end %>
-<%= link_to t('export'), project_stories_path(project, :format => :csv), class: 'project-action' %> |
-<%= link_to_unless_current t('reports'), reports_project_path(project), class: 'project-action' %> |
-<%= form_tag '#', id: 'form_search' do %>
-  <input type="text" name="q" value=""/>
-<% end %>
+<li>
+<%= link_to t('export'), project_stories_path(project, :format => :csv) %>
+</li>
+<li>
+<%= link_to_unless_current t('reports'), reports_project_path(project) %>
+</li>
+<li><hr /></li>
+

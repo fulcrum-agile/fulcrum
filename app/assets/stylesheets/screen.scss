@@ -160,18 +160,8 @@ html.stories, html.stories body, html.stories div#main {
 }
 
 #column-toggles {
-  float: right;
-  a {
-    @extend .btn;
-    @extend .btn-xs;
-    @extend .btn-primary;
-
-    margin: 0 0.2em;
-  }
   a.pressed {
-    @extend .btn-default;
     color: #636363;
-    background-color: #E2E2E2;
   }
 }
 

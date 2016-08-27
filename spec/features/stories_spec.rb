@@ -131,6 +131,8 @@ describe "Stories" do
         "chilly_bin"  => "Chilly Bin"
       }
 
+      find('.menu-toggle').trigger 'click'
+
       columns.each do |column, button_text|
         selector = "table.stories td.#{column}_column"
         expect(page).to have_css(selector)
@@ -161,6 +163,8 @@ describe "Stories" do
 
       selector = "table.stories td.search_results_column"
       expect(page).not_to have_css(selector)
+
+      find('.menu-toggle').trigger 'click'
 
       # Show the column
       within('#column-toggles') do

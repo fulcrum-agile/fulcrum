@@ -112,6 +112,22 @@ Fulcrum.ProjectView = Backbone.View.extend({
     var height = $(window).height() - (storyTableTop + extra);
 
     $('.storycolumn').css('height', height + 'px');
+
+    if ($(window).width() > 992) {
+      // desktop
+      $('.done_column').show();
+      $('.backlog_column').show();
+      $('.chilly_bin_column').show();
+      $('.hide_search_results').show();
+      $('#form_search').show();
+    } else {
+      // mobile
+      $('.done_column').hide();
+      $('.backlog_column').hide();
+      $('.chilly_bin_column').hide();
+      $('.hide_search_results').hide();
+      $('#form_search').hide();
+    }
   },
 
   notice: function(message) {

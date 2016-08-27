@@ -34,10 +34,9 @@
 $(function() {
   $('.tag-tooltip').tooltip();
 
-  $("#wrapper").toggleClass("toggled"); // FIXME in CSS find a way to start toggled
-  $("#menu-toggle").click(function(e) {
+  $(".menu-toggle").click(function(e) {
       e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
+      $("#sidebar-wrapper").toggle();
   });
 
   executeAttachinary();
@@ -46,3 +45,4 @@ $(function() {
 function executeAttachinary() {
   $('.attachinary-input').attachinary({ template: $('#attachinary_template').html() });
 }
+

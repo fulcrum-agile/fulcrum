@@ -9,9 +9,9 @@ $(function() {
     }).render();
 
     if (data.hideable !== false) {
-      new Fulcrum.ColumnVisibilityButtonView({ columnView: column })
-        .render().$el
-        .appendTo('#column-toggles');
+      $("<li></li>").
+      append(new Fulcrum.ColumnVisibilityButtonView({ columnView: column }).render().$el).
+      appendTo('#column-toggles');
     }
 
     if (data.connect) {
@@ -38,7 +38,7 @@ $(function() {
     view.scaleToViewport();
     $(window).resize(view.scaleToViewport);
 
-    setInterval(function() { project.fetch(); }, 10 * 1000);
+    setInterval(function() { project.fetch(); }, 30 * 1000); // every 30 seconds
 
     window.md = new Markdown.Converter();
     window.projectView = view;

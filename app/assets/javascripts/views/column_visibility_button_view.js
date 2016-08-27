@@ -16,7 +16,7 @@ Fulcrum.ColumnVisibilityButtonView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'setClassName');
-    this.$el.attr('class','hide_'+this.options.columnView.id + " btn btn-default");
+    this.$el.attr('class','hide_'+this.options.columnView.id );
     this.options.columnView.on('visibilityChanged', this.setClassName);
   },
 

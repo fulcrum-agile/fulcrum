@@ -6,46 +6,29 @@
 /* Toggle Styles */
 /* Sidebar Styles */
 
-$sidebar-size: 150px;
+$sidebar-size: 200px;
 
 body {
 	overflow-x: hidden;
 }
+.menu-toggle {
+  margin-right: 15px;
+}
+
 #wrapper {
 	padding-left: 0;
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
-	transition: all 0.5s ease;
-}
-#wrapper.toggled {
-	padding-left: $sidebar-size;
-	#sidebar-wrapper {
-		width: $sidebar-size;
-	}
-	#page-content-wrapper {
-		position: absolute;
-		margin-right: -$sidebar-size;
-	}
 }
 #sidebar-wrapper {
-	z-index: 1000;
+	z-index: 2000;
 	position: fixed;
-	left: $sidebar-size;
-	width: 0;
+	width: $sidebar-size;
 	height: 100%;
-	margin-left: -$sidebar-size;
-	overflow-y: auto;
 	background: #000;
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
-	transition: all 0.5s ease;
 }
 #page-content-wrapper {
 	width: 100%;
 	position: absolute;
-	padding: 15px
+  padding-top: 20px;
 }
 .sidebar-nav {
 	position: absolute;
@@ -85,30 +68,6 @@ body {
 				background: none;
 			}
 		}
-	}
-}
-@media(min-width:768px) {
-	#wrapper {
-		padding-left: $sidebar-size;
-	}
-	#wrapper.toggled {
-		padding-left: 0;
-		#sidebar-wrapper {
-			width: 0;
-		}
-		#page-content-wrapper {
-			position: relative;
-			margin-right: 0;
-		}
-	}
-	#sidebar-wrapper {
-		width: $sidebar-size;
-	}
-	#page-content-wrapper {
-		padding-top: 15px;
-    padding-left: 0;
-    padding-right: 0;
-		position: relative;
 	}
 }
 
