@@ -38,7 +38,7 @@ $(function() {
     view.scaleToViewport();
     $(window).resize(view.scaleToViewport);
 
-    setInterval(function() { project.fetch(); }, 30 * 1000); // every 30 seconds
+    setInterval(function() { project.fetch(); }, 10 * 1000); // every 10 seconds
 
     window.md = new Markdown.Converter();
     window.projectView = view;
