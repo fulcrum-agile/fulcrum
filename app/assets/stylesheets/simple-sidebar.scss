@@ -12,7 +12,21 @@ body {
 	overflow-x: hidden;
 }
 .menu-toggle {
-  margin-right: 15px;
+  &-opened {
+    margin: 0;
+    height: 36px;
+    width: 36px;
+    position: relative;
+    top: 12px;
+    right: 15px;
+    text-indent: 0;
+  }
+
+  &-closed {
+    margin-right: 15px;
+    height: 38px;
+    padding: 6px 8px;
+  }
 }
 
 #wrapper {

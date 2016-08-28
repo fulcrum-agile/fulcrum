@@ -1,16 +1,13 @@
 <div class="small">
   <span class="icons">
     <% if (story.get('story_type') == 'feature') { %>
-      <span class="fa-icon-overlay">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star-o"></i>
-      </span>
+      <i class="story story-hover mi md-20 md md-star">star</i>
     <% } %>
     <% if (story.get('story_type') == 'chore') { %>
-      <i class="fa fa-cog"></i>
+      <i class="story story-hover mi md-20 md-dark">settings</i>
     <% } %>
     <% if (story.get('story_type') == 'bug') { %>
-      <i class="fa fa-bug"></i>
+      <i class="story story-hover mi md-20 md-bug">bug_report</i>
     <% } %>
     <span class="text"><%= story.get('story_type') %></span>
     <% if (story.get('estimated')) { %>
