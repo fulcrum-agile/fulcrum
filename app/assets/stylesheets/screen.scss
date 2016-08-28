@@ -217,7 +217,7 @@ div.storycolumn {
 
 /* Story types */
 div.story {
-  padding: 0.3em 0.3em 0.7em;
+  padding: 0.5em 0.5em 0.9em;
   background-repeat: no-repeat;
   background-position: 4px 4px;
   background-color: #eee;
@@ -257,6 +257,11 @@ div.story {
 div.story-icons {
   float: left;
   margin-top: -5px;
+
+  .estimate {
+    top: 2px;
+    left: 1px;
+  }
 }
 div.story-controls {
   padding: 10px 0;
@@ -291,37 +296,32 @@ div.story-title abbr.initials {
 }
 
 .estimate {
-  border: none;
-  padding: 0;
-  margin: 0;
-  font-size: 10px;
-  transform: rotate(90deg);
+  background: image-url('points.png') no-repeat;
+  height: 24px;
+  width: 16px;
   display: inline-block;
-  letter-spacing: -1px;
-  width: 20px;
+  cursor: pointer;
+  position: relative;
+  top: -7px;
   margin-left: -2px;
   margin-right: -6px;
-  text-align: right;
-  top: -7px;
-  position: relative;
-  color: #3556AA;
-  height: 17px;
-  -webkit-font-smoothing: none;
-  cursor: pointer;
+
+  &-1 { background-position: 0px 22px; }
+  &-2 { background-position: 0px 19px; }
+  &-3 { background-position: 0px 15px; }
+  &-4 { background-position: 0px 12px; }
+  &-5 { background-position: 0px 9px; }
+  &-6 { background-position: 0px 6px; }
+  &-7 { background-position: 0px 3px; }
+  &-8 { background-position: 0px 0px; }
 }
+
 .estimates {
-  padding-left: 10px;
-  padding-right: 2px;
+  margin-top: 4px;
+  margin-right: 6px;
 
   .estimate {
-    font-weight: normal;
-    border-radius: none;
-    margin-left: -3px;
-    border-right: 1px solid #858484;
-    padding-right: 2px;
-    top: -3px;
-    background: transparent;
-    line-height: 15px;
+    margin-left: 10px;
   }
 }
 

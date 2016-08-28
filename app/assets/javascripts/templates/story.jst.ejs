@@ -3,9 +3,7 @@
   <form>
     <% _.each(story.point_values(), function(value) { %>
       <% if (value > 0) { %>
-        <span class="estimate input" data-value="<%= value %>" id="estimate-<%= value %>">
-          <%= Array(value + 1).join("|") %>
-        </span>
+        <span class="estimate estimate-<%= value %> input" data-value="<%= value %>" id="estimate-<%= value %>"></span>
       <% } %>
     <% }); %>
   </form>
@@ -28,9 +26,7 @@
       <i class="mi md-star md-20">star</i>
     <% } %>
     <% if (story.estimated()) { %>
-      <span class="estimate estimate_<%= story.get('estimate') %>">
-        <%= Array(story.get("estimate") + 1).join("|") %>
-      </span>
+      <span class="estimate estimate-<%= story.get('estimate') %>"></span>
     <% } %>
     <% if (story.get('story_type') == 'chore') { %>
       <i class="mi md-dark md-20">settings</i>
