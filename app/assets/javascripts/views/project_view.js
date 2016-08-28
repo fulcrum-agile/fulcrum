@@ -115,17 +115,23 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
     if ($(window).width() > 992) {
       // desktop
-      $('.done_column').show();
-      $('.backlog_column').show();
-      $('.chilly_bin_column').show();
-      $('.hide_search_results').show();
+      _.each(['done', 'backlog', 'chilly_bin', 'search_results'], function(column) {
+        var button_id = '#column-toggles .hide_' + column;
+        if( $(button_id).hasClass('pressed') ) {
+          $(button_id).click();
+        }
+      });
+
       $('#form_search').show();
     } else {
       // mobile
-      $('.done_column').hide();
-      $('.backlog_column').hide();
-      $('.chilly_bin_column').hide();
-      $('.hide_search_results').hide();
+      _.each(['done', 'backlog', 'chilly_bin', 'search_results'], function(column) {
+        var button_id = '#column-toggles .hide_' + column;
+        if( !$(button_id).hasClass('pressed') ) {
+          $(button_id).click();
+        }
+      });
+
       $('#form_search').hide();
     }
   },
