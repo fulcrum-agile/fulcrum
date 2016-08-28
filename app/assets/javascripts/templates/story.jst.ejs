@@ -25,7 +25,7 @@
   <% } %>
   <span class="popover-activate">
     <% if (story.get('story_type') == 'feature') { %>
-      <i class="story mi md-star md-20">star</i>
+      <i class="mi md-star md-20">star</i>
     <% } %>
     <% if (story.estimated()) { %>
       <span class="estimate estimate_<%= story.get('estimate') %>">
@@ -33,13 +33,13 @@
       </span>
     <% } %>
     <% if (story.get('story_type') == 'chore') { %>
-      <i class="story mi md-dark md-20">settings</i>
+      <i class="mi md-dark md-20">settings</i>
     <% } %>
     <% if (story.get('story_type') == 'bug') { %>
-      <i class="story mi md-bug md-20">bug_report</i>
+      <i class="mi md-bug md-20">bug_report</i>
     <% } %>
     <% if (story.hasDetails()) { %>
-      <i class="story mi md-14 md-dark details">question_answer</i>
+      <i class="mi md-14 md-dark details">question_answer</i>
     <% } %>
   </span>
 </div>
