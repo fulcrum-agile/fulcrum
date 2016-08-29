@@ -19,8 +19,45 @@ nl:
   saving:   "Opslaan ..."
   expand:   "Uitvouwen"
 
+  save: "opslaan"
+  delete: "schrappen"
+  cancel: "annuleren"
+  add: "Toevoegen"
+  remove: "verwijderen"
+  add user: "Gebruiker toevoegen"
+  add new member: "Voeg een nieuw lid"
+  all users: "alle gebruikers"
+  remove user confirm: "Weet u zeker dat u %{email} uit dit project verwijderen?"
+
+  story:
+    state:
+      unscheduled: "ongepland"
+      unstarted: "unstarted"
+      started: "slag"
+      finished: "afgewerkt"
+      delivered: "bezorgd"
+      accepted: "geaccepteerd"
+      rejected: "verworpen"
+    events:
+      start: "te starten"
+      finish: "afwerking"
+      deliver: "leveren"
+      accept: "accepteren"
+      reject: "verwerpen"
+    type:
+      feature: "feature"
+      chore: "karwei"
+      bug: "bug"
+      release: "release"
+    no_estimate: "no schatten"
+    tasks: "taken"
+    notes: "merkt op"
+    attachments: "Bijlagen"
+
   author unknown: "Auteur Onbekend"
   add story: "Voeg verhaal toe"
+  add note: "Notitie toevoegen"
+  add task: 'Taak toevoege'
   save error: "Oplaan fout"
   override:
     velocity: "Overschijf snelheid"
@@ -79,6 +116,15 @@ nl:
         requested_by:         'Aangevraagd door'
         owned_by:             'In bezit door'
         documents:            'Toebehoren'
+      user:
+        name:                 'Naam'
+        username:             'Gebruikersnaam'
+        initials:             'initialen'
+        email:                'E-mail'
+        password:             'Password'
+        password_confirmation: 'Wachtwoord bevestigen'
+        locale:               'Locale'
+        is_admin:             'Is Administrator?'
 
     errors:
       models:
@@ -90,6 +136,8 @@ nl:
   projects:
     new project:        "Nieuw Project"
     edit project:       "Wijzig Project"
+    project_members: "Project Leden"
+    available_users: "Beschikbare leden"
     reports:
       n months ago:
         one: "1 maand geleden"

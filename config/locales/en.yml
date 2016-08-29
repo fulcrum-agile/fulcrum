@@ -23,8 +23,44 @@ en:
   saving:   "Saving ..."
   expand:   "Expand"
 
+  save: "Save"
+  delete: "Delete"
+  cancel: "Cancel"
+  add: "Add"
+  remove: "Remove"
+  add user: "Add User"
+  add new member: "Add a new member"
+  all users: "All Users"
+  remove user confirm: "Are you sure you want to remove %{email} from this project?"
+
+  story:
+    state:
+      unscheduled: "unscheduled"
+      unstarted: "unstarted"
+      started: "started"
+      finished: "finished"
+      delivered: "delivered"
+      accepted: "accepted"
+      rejected: "rejected"
+    events:
+      start: "start"
+      finish: "finish"
+      deliver: "deliver"
+      accept: "accept"
+      reject: "reject"
+    type:
+      feature: "feature"
+      chore: "chore"
+      bug: "bug"
+      release: "release"
+    no_estimate: "no estimate"
+    tasks: "Tasks"
+    notes: "Notes"
+    attachments: "Attachments"
+
   author unknown: "Author Unknown"
   add story: "Add story"
+  add note: "Add note"
   add task: 'Add task'
   save error: "Save error"
   override:
@@ -98,6 +134,15 @@ en:
         requested_by:         'Requested by'
         owned_by:             'Owned by'
         documents:            'Attachments'
+      user:
+        name:                 'Full Name'
+        username:             'Username'
+        initials:             'Initials'
+        email:                'E-mail'
+        password:             'Password'
+        password_confirmation: 'Password Confirmation'
+        locale:               'Locale'
+        is_admin:             'Is Administrator?'
 
     errors:
       models:
@@ -107,8 +152,10 @@ en:
               cant_estimate: "Bug or Chore stories can't be estimated"
 
   projects:
-    new project:        "New Project"
-    edit project:       "Edit Project"
+    new project:     "New Project"
+    edit project:    "Edit Project"
+    project_members: "Project Members"
+    available_users: "Available Members"
     reports:
       n months ago:
         one: "1 month ago"

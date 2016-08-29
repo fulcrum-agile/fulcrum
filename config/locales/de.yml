@@ -22,8 +22,45 @@ de:
   saving:   "Speichern ..."
   expand:   "Expandieren"
 
+  save: "Speichern"
+  delete: "Löschen"
+  cancel: "Abbrechen"
+  add: "Hinzufügen"
+  remove: "Entfernen"
+  add user: "Benutzer hinzufügen"
+  add new member: "Neues Mitglied hinzufügen"
+  all users: "Alle Benutzer"
+  remove user confirm: "Sind Sie sicher, dass Sie %{email} aus diesem Projekt zu entfernen?"
+
+  story:
+    state:
+      unscheduled: "ungeplante"
+      unstarted: "unstarted"
+      started: "gestartet"
+      finished: "fertig"
+      delivered: "geliefert"
+      accepted: "akzeptiert"
+      rejected: "abgelehnt"
+    events:
+      start: "Start"
+      finish: "Fertig stellen"
+      deliver: "liefern"
+      accept: "akzeptieren"
+      reject: "ablehnen"
+    type:
+      feature: "Feature"
+      chore: "lästige Pflicht"
+      bug: "bug"
+      release: "Freigabe"
+    no_estimate: "keine Schätzung"
+    tasks: "Aufgaben"
+    notes: "Notes"
+    attachments: "Anhänge"
+
   author unknown: "Unbekanter Autor"
   add story: "Story hinzufügen"
+  add note: "Notiz hinzufügen"
+  add task: 'Aufgabe hinzufügen'
   save error: "Fehler beim Speichern"
   override:
     velocity: "Velocity aufheben"
@@ -82,6 +119,15 @@ de:
         requested_by:         'Angefragt von'
         owned_by:             'Besitzer'
         documents:            'Zubehör'
+      user:
+        name:                 'Vollständiger Name'
+        username:             'Benutzername'
+        initials:             'Initialen'
+        email:                'E-mail'
+        password:             'Passwort'
+        password_confirmation: 'Passwort Bestätigung'
+        locale:               'Locale'
+        is_admin:             'Ist Administrator?'
 
     errors:
       models:
@@ -93,6 +139,8 @@ de:
   projects:
     new project:        "Neues Projekt"
     edit project:       "Projekt bearbeiten"
+    project_members: "Projektmitglieder"
+    available_users: "Verfügbare Mitglieder"
     reports:
       n months ago:
         one: "Vor 1 Monat"

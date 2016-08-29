@@ -20,9 +20,45 @@ es:
   saving:   "Ahorro ..."
   expand:   "Expandir"
 
+  save: "Guardar"
+  delete: "Borrar"
+  cancel: "Cancelar"
+  add: "Agregar"
+  remove: "Eliminar"
+  add user: "Agregar usuario"
+  add new member: "Agregar un nuevo miembro"
+  all users: "Todos los usuarios"
+  remove user confirm: "¿Está seguro que desea eliminar %{email} de este proyecto?"
+
+  story:
+    state:
+      unscheduled: "no programada"
+      unstarted: "sin empezar"
+      started: "iniciado"
+      finished: "terminado"
+      delivered: "entregado"
+      accepted: "aceptado"
+      rejected: "rechazado"
+    events:
+      start: "empezar"
+      finish: "terminar"
+      deliver: "entregar"
+      accept: "aceptar"
+      reject: "rechazar"
+    type:
+      feature: "característica"
+      chore: "tarea"
+      bug: "error"
+      release: "liberar"
+    no_estimate: "no hay una estimación"
+    tasks: "Tareas"
+    notes: "Notas"
+    attachments: "Anexos"
+
   author unknown: "Autor desconocido"
   add story: "Añadir articulo"
-  add task: 'Agregar tarea'
+  add note: "Añadir nota"
+  add task: 'Añadir tarea'
   save error: "Error en Guardar"
   override:
     velocity: "Corrección de la velocidad"
@@ -89,6 +125,15 @@ es:
         requested_by:         'Solicitado por'
         owned_by:             'Propiedad de'
         documents:            'Archivos adjuntos'
+      user:
+        name:                 'Nombre completo'
+        username:             'nombre de usuario'
+        initials:             'Iniciales'
+        email:                'correo electrónico'
+        password:             'Contraseña'
+        password_confirmation: 'Confirmación de la contraseña'
+        locale:               'Configuración regional'
+        is_admin:             '¿Es administrador?'
 
     errors:
       models:
@@ -100,6 +145,8 @@ es:
   projects:
     new project:        "Nuevo Proyecto"
     edit project:       "Edita Proyecto"
+    project_members: "Los miembros del Proyecto"
+    available_users: "Miembros disponibles"
     reports:
       n months ago:
         one: "Hace 1 mes"

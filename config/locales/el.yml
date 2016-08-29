@@ -228,12 +228,46 @@ el:
   points:   πόντοι
   saving:   αποθήκευση ...
   expand:   ανοιγμα
-  accepted: γίνουν αποδεκτές
-  rejected: απορριφθούν
-  delivered: παραδοθούν
+
+  save: "Αποθήκευση"
+  delete: "Διαγραφή"
+  cancel: "Άκυρο"
+  add: "Προσθήκη"
+  remove: "Κατάργηση"
+  add user: "Προσθήκη χρήστη"
+  add new member: "Προσθέστε ένα νέο μέλος"
+  all users: "Όλοι οι χρήστες"
+  remove user confirm: "Είστε βέβαιοι ότι θέλετε να αφαιρέσετε %{email} από αυτό το έργο;"
+
+  story:
+    state:
+      unscheduled: "έκτακτες"
+      unstarted: "Δεν έχει ξεκινήσει"
+      started: "άρχισε"
+      finished: "finished"
+      delivered: παραδοθούν
+      accepted: γίνουν αποδεκτές
+      rejected: απορριφθούν
+    events:
+      start: "έναρξη"
+      finish: "τελειώσει"
+      deliver: "παραδώσει"
+      accept: "δέχονται"
+      reject: "απορρίπτει"
+    type:
+      feature: "χαρακτηριστικό"
+      chore: "αγγαρεία"
+      bug: "bug"
+      release: "απελευθερώσει"
+    no_estimate: "καμία εκτίμηση"
+    tasks: "Εργασίες"
+    notes: "Σημειώσεις"
+    attachments: "Συνημμένα"
 
   author unknown: "αγνωστος"
   add story: "νέα ιστορία"
+  add note: "Προσθήκη σημείωσης"
+  add task: 'Προσθήκη καθήκον'
   save error: "Πρόβλημα κατά την αποθήκευση"
   override:
     velocity: "επικάλυψη ταχύτητας"
@@ -300,6 +334,15 @@ el:
         created_at:           'Δημιουργήθηκε στις'
         updated_at:           'Ανανεώθηκε στις'
         documents:            'συνημμένα'
+      user:
+        name:                 'Ονοματεπώνυμο'
+        username:             'Όνομα Χρήστη'
+        initials:             'Αρχικά'
+        email:                'E-mail'
+        password:             'Κωδικός πρόσβασης'
+        password_confirmation: 'Επιβεβαίωση κωδικού πρόσβασης'
+        locale:               'Τοπικές ρυθμίσεις'
+        is_admin:             'Είναι διαχειριστής;'
 
     errors:
       models:
@@ -311,6 +354,8 @@ el:
   projects:
     new project:        "Νέο πρότζεκτ"
     edit project:       "Επεξεργασία προτζεκτ"
+    project_members: "Μέλη του έργου"
+    available_users: "Διαθέσιμα Μέλη"
     reports:
       n months ago:
         one: "πριν 1 μηνά"
