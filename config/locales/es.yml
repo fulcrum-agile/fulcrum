@@ -24,7 +24,10 @@ es:
   add story: "Añadir articulo"
   add task: 'Agregar tarea'
   save error: "Error en Guardar"
-  override velocity: "Corrección de la velocidad"
+  override:
+    velocity: "Corrección de la velocidad"
+    explanation_1: "Se puede simular con diferentes valores de velocidad."
+    explanation_2: "Las iteraciones serán recalculados para reflejar temporalmente la velocidad simulada pero la velocidad real seguirá siendo el promedio de los últimos 3 iteraciones."
   story title: "Título de la historia"
 
   requested on date:          'Solicitada en {{date}}'

@@ -22,7 +22,10 @@ nl:
   author unknown: "Auteur Onbekend"
   add story: "Voeg verhaal toe"
   save error: "Oplaan fout"
-  override velocity: "Overschijf snelheid"
+  override:
+    velocity: "Overschijf snelheid"
+    explanation_1: "U kunt simuleren met verschillende velocity waarden."
+    explanation_2: "De iteraties zal tijdelijk worden herberekend naar de gesimuleerde snelheid weerspiegelen maar de werkelijke snelheid zal nog steeds het gemiddelde van de laatste 3 iteraties zijn."
   story title: "Verhaal titel"
 
   requested on date:          'Aangevraagd op {{date}}'

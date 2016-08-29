@@ -24,7 +24,10 @@ pt-BR:
   add story: "Adicionar história"
   add task: 'Adicionar tarefa'
   save error: "Salvar erro"
-  override velocity: "Velocidade Ultrapassada"
+  override:
+    velocity: "Sobrescrever Velocidade"
+    explanation_1: "Você pode simular com diferentes valores de velocidade."
+    explanation_2: "As iterações serão temporariamente recalculadas para refletir a velocidade simulada, mas a velocidade real ainda será a média das últimos 3 iterações."
   story title: "Título da história"
 
   requested on date:          'Solicitado em {{date}}'

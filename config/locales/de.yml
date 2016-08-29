@@ -25,7 +25,10 @@ de:
   author unknown: "Unbekanter Autor"
   add story: "Story hinzufügen"
   save error: "Fehler beim Speichern"
-  override velocity: "Velocity aufheben"
+  override:
+    velocity: "Velocity aufheben"
+    explanation_1: "Sie können mit verschiedenen Geschwindigkeitswerte simulieren."
+    explanation_2: "Die Iterationen werden vorübergehend die simulierte Geschwindigkeit zu reflektieren neu berechnet, sondern die reale Geschwindigkeit noch der Mittelwert der letzten drei Iterationen."
   story title: "Titel"
 
   requested on date:          'Angefragt am {{date}}'
