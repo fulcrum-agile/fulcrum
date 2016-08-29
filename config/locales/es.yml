@@ -134,6 +134,7 @@ es:
         password_confirmation: 'Confirmación de la contraseña'
         locale:               'Configuración regional'
         is_admin:             '¿Es administrador?'
+        current_password:     'contraseña actual'
 
     errors:
       models:

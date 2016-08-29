@@ -343,6 +343,7 @@ el:
         password_confirmation: 'Επιβεβαίωση κωδικού πρόσβασης'
         locale:               'Τοπικές ρυθμίσεις'
         is_admin:             'Είναι διαχειριστής;'
+        current_password:     'τρέχων κωδικός πρόσβασης'
 
     errors:
       models:

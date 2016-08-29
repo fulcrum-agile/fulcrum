@@ -128,6 +128,7 @@ ja:
         password_confirmation: 'パスワードの確認'
         locale:               'ロケール'
         is_admin:             '管理者ですか'
+        current_password:     '現在のパスワード'
 
   projects:
     new project:        "新規プロジェクト"

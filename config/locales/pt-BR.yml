@@ -143,6 +143,7 @@ pt-BR:
         password_confirmation: 'Confirmação de Senha'
         locale:               'Região'
         is_admin:             'É Administrador?'
+        current_password:     'Senha atual'
 
     errors:
       models:

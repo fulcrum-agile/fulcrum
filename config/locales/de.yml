@@ -128,6 +128,7 @@ de:
         password_confirmation: 'Passwort Bestätigung'
         locale:               'Locale'
         is_admin:             'Ist Administrator?'
+        current_password:     'Aktuelles Passwort'
 
     errors:
       models:
