@@ -119,7 +119,7 @@ class IterationService
   def velocity
     @velocity ||= begin
       iterations = group_by_iteration.size
-      return 0 if iterations.zero?
+      return 1 if iterations.zero?
 
       iterations = VELOCITY_ITERATIONS if iterations > VELOCITY_ITERATIONS
 

@@ -12,9 +12,9 @@ class Project < ActiveRecord::Base
   # These are the valid point scales for a project. These represent
   # the set of valid points estimate values for a story in this project.
   POINT_SCALES = {
-    'fibonacci'     => [0,1,2,3,5,8].freeze,
-    'powers_of_two' => [0,1,2,4,8].freeze,
-    'linear'        => [0,1,2,3,4,5].freeze,
+    'fibonacci'     => [1,2,3,5,8].freeze,
+    'powers_of_two' => [1,2,4,8].freeze,
+    'linear'        => [1,2,3,4,5].freeze,
   }.freeze
 
   validates_inclusion_of :point_scale, :in => POINT_SCALES.keys,
