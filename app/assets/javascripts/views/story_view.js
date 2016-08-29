@@ -344,7 +344,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       this.$el.append(
         this.makeFormControl(function(div) {
           $(div).append(this.textField("title", {
-            'class' : 'title form-control',
+            'class' : 'title form-control input-sm',
             'placeholder': I18n.t('story title'),
             'maxlength': 255,
             'disabled': this.isReadonly()

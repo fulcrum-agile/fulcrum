@@ -79,7 +79,7 @@ Fulcrum.FormView = Backbone.View.extend({
 
     options = _.defaults(options, { attrs: { class: [] } });
 
-    options.attrs.class = 'form-control ' +options.attrs.class.join(' ');
+    options.attrs.class = 'form-control input-sm ' +options.attrs.class.join(' ');
 
     var select = this.make('select', _.extend({name: name}, options.attrs));
 

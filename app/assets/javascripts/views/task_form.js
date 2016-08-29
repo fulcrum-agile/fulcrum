@@ -20,7 +20,7 @@ Fulcrum.TaskForm = Fulcrum.FormView.extend({
 
     var submit = this.make('input', {
       id: 'task_submit', type: 'button',
-      value: I18n.t('add task'), class: 'add-task'
+      value: I18n.t('add task'), class: 'add-task btn btn-default btn-xs'
     });
 
     $(div).append(submit);

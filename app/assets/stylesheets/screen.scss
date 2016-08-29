@@ -163,6 +163,9 @@ html.stories, html.stories body, html.stories div#main {
   a.pressed {
     color: #636363;
   }
+  .mi {
+    display: inline;
+  }
 }
 
 /* stories table */
@@ -263,13 +266,12 @@ div.story-icons {
   }
 }
 div.story-controls {
-  padding: 10px 0;
   @extend .btn-group;
 
   input {
     @extend .btn;
     @extend .btn-default;
-    @extend .btn-sm;
+    @extend .btn-xs;
   }
 }
 div.story-title {
