@@ -3,10 +3,9 @@ if (typeof Fulcrum == 'undefined') {
 }
 
 Fulcrum.ProjectView = Backbone.View.extend({
+  columns: {},
 
   initialize: function() {
-
-    this.columns = {};
 
     _.bindAll(this, 'addStory', 'addAll', 'render');
 
@@ -16,7 +15,6 @@ Fulcrum.ProjectView = Backbone.View.extend({
     this.model.on('change:userVelocity', this.addAll);
 
     var that = this;
-
     this.model.stories.fetch({
       success: function() {
         that.addAll();
@@ -26,6 +24,13 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
   // Triggered when the 'Add Story' button is clicked
   newStory: function() {
+    if ($(window).width() <= 992) {
+      _.each(this.columns, function(column, columnId) {
+        if(columnId != 'chilly_bin')
+          if(!column.hidden())
+            column.toggle();
+      });
+    }
     this.model.stories.add([{
       events: [], files: [], editing: true
     }]);
@@ -65,11 +70,9 @@ Fulcrum.ProjectView = Backbone.View.extend({
     $(".loading_screen").show();
     var that = this;
 
-    $('#done').html("");
-    $('#in_progress').html("");
-    $('#backlog').html("");
-    $('#chilly_bin').html("");
-    $('#search_results').html("");
+    _.each(this.columns, function(column, columnId) {
+      column.$el.find('.storycolumn').html("");
+    });
 
     this.model.rebuildIterations();
 
@@ -113,26 +116,15 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
     $('.storycolumn').css('height', height + 'px');
 
-    if ($(window).width() > 992) {
-      // desktop
-      _.each(['done', 'backlog', 'chilly_bin', 'search_results'], function(column) {
-        var button_id = '#column-toggles .hide_' + column;
-        if( $(button_id).hasClass('pressed') ) {
-          $(button_id).click();
-        }
+    if ($(window).width() <= 992) {
+      _.each(this.columns, function(column, columnId) {
+        if(columnId != 'in_progress')
+          if(!column.hidden())
+            column.toggle();
       });
-
-      $('#form_search').show();
-    } else {
-      // mobile
-      _.each(['done', 'backlog', 'chilly_bin', 'search_results'], function(column) {
-        var button_id = '#column-toggles .hide_' + column;
-        if( !$(button_id).hasClass('pressed') ) {
-          $(button_id).click();
-        }
-      });
-
       $('#form_search').hide();
+    } else {
+      $('#form_search').show();
     }
   },
 
@@ -144,9 +136,33 @@ Fulcrum.ProjectView = Backbone.View.extend({
     this.columns[id] = view;
   },
 
+  addColumnViews: function(columns) {
+    var that = this;
+    _.each(columns, function(column, columnId) {
+      column.on('visibilityChanged', that.checkColumnViewsVisibility);
+      that.addColumnView(columnId, column);
+    });
+  },
+
+  // make sure there is at least one column opened
+  checkColumnViewsVisibility: function() {
+    if (window.projectView === undefined)
+      return;
+
+    var filtered = _.filter(window.projectView.columns, function(column, columnId) {
+      if(!column.hidden())
+        return true;
+    });
+
+    if(filtered.length == 0) {
+      window.projectView.columns['in_progress'].toggle();
+    }
+  },
+
   usernames: function() {
     return this.model.users
       .map(function(user) { return user.get('username'); })
       .sort();
   },
+
 });
