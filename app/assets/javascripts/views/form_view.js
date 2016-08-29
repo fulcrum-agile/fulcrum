@@ -119,17 +119,17 @@ Fulcrum.FormView = Backbone.View.extend({
   },
 
   submit: function() {
-    var el = this.make('input', {class: "submit", type: "button", value: "Save"});
+    var el = this.make('input', {class: "submit", type: "button", value: I18n.t('save')});
     return el;
   },
 
   destroy: function() {
-    var el = this.make('input', {class: "destroy", type: "button", value: "Delete"});
+    var el = this.make('input', {class: "destroy", type: "button", value: I18n.t('delete')});
     return el;
   },
 
   cancel: function() {
-    var el = this.make('input', {class: "cancel", type: "button", value: "Cancel"});
+    var el = this.make('input', {class: "cancel", type: "button", value: I18n.t('cancel')});
     return el;
   },
 

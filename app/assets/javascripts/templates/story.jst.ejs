@@ -12,7 +12,7 @@
 <div class="state-actions">
   <form>
     <% _.each(story.events(),  function(value) { %>
-      <input type="button" class="transition <%= value %>" value="<%= value %>"/>
+      <input type="button" class="transition <%= value %>" value="<%= I18n.t('story.events.' + value) %>"/>
     <% }); %>
   </form>
 </div>

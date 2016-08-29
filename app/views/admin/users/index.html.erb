@@ -5,9 +5,9 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <h2>All Users</h2>
+    <h2><%= t('all users') %></h2>
     <ul class="list-group">
-      <% @users.each do |user| %>
+      <% @users.order(:name).each do |user| %>
         <li class="list-group-item clearfix">
           <div class="member-name">
             <%= user %> <%= user.is_admin ? "(admin)" : "" %>
