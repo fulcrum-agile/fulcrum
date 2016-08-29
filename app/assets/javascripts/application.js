@@ -21,7 +21,6 @@
 //= require tag-it
 //= require i18n
 //= require i18n/translations
-//= require locales
 //= require jquery.ui.widget
 //= require jquery.iframe-transport
 //= require jquery.fileupload
