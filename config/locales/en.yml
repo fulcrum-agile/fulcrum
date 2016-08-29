@@ -138,7 +138,7 @@ en:
         name:                 'Full Name'
         username:             'Username'
         initials:             'Initials'
-        email:                'E-mail'
+        email:                'Email'
         password:             'Password'
         password_confirmation: 'Password Confirmation'
         locale:               'Locale'
