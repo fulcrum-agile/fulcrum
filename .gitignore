@@ -12,3 +12,4 @@ config/deploy.rb
 .env
 .env.test
 *.dump
+public/javascripts/*
