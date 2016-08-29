@@ -156,6 +156,8 @@ GEM
     libv8 (3.16.14.15)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    material_icons (2.2.0)
+      railties (>= 3.2)
     method_source (0.8.2)
     mime-types (2.99.2)
     mini_portile2 (2.1.0)
@@ -334,6 +336,7 @@ PLATFORMS
 
 DEPENDENCIES
   attachinary
+  autoprefixer-rails
   bootstrap-sass (~> 3.3.5)
   cancancan (~> 1.10)
   capybara
@@ -361,6 +364,7 @@ DEPENDENCIES
   jquery-ui-rails
   kgio
   letter_opener
+  material_icons
   newrelic_rpm
   pg
   pg_search

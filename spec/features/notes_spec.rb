@@ -37,6 +37,7 @@ describe "Notes" do
         click_on 'Add note'
       end
 
+      sleep 0.5
       expect(find('#in_progress .story .notelist .note')).to have_content('Adding a new note')
 
     end
@@ -54,6 +55,8 @@ describe "Notes" do
           click_on 'Delete'
         end
       end
+
+      sleep 0.5
       expect(find('#in_progress .story .notelist')).not_to have_content('Delete me please')
     end
 

@@ -30,7 +30,6 @@ describe "Projects" do
         click_on 'Test Project'
       end
 
-      expect(page).to have_selector('h1', :text => 'Test Project')
       expect(page).not_to have_selector('h1', :text => 'Archived Project')
     end
 
@@ -45,7 +44,6 @@ describe "Projects" do
       fill_in 'Name', :with => 'New Project'
       click_on 'Create Project'
 
-      expect(page).to have_selector('h1', :text => 'New Project')
       expect(current_path).to eq(project_path(Project.find_by_name('New Project')))
     end
 
@@ -71,7 +69,6 @@ describe "Projects" do
       fill_in 'Name', :with => 'New Project Name'
       click_on 'Update Project'
 
-      expect(page).to have_selector('h1', :text => 'New Project Name')
       expect(current_path).to eq(project_path(project))
     end
 

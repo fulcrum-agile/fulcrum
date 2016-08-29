@@ -1,8 +1,10 @@
 <% if (story.estimable()) { %>
-<div class="state-actions">
+<div class="state-actions estimates">
   <form>
     <% _.each(story.point_values(), function(value) { %>
-    <input type="button" class="estimate" value="<%= value %>"/>
+      <% if (value > 0) { %>
+        <span class="estimate estimate-<%= value %> input" data-value="<%= value %>" id="estimate-<%= value %>"></span>
+      <% } %>
     <% }); %>
   </form>
 </div>
@@ -20,16 +22,20 @@
   <a class="icon icons-throbber" title="<%= I18n.t('saving') %>"></a>
   <% } %>
   <span class="popover-activate">
-    <span class="icon icons-<%= story.get('story_type') %> story_type" title="<%= story.story_type %>: <%= story.id %>">
-      <%= story.story_type %>
-    </span>
+    <% if (story.get('story_type') == 'feature') { %>
+      <i class="mi md-star md-20">star</i>
+    <% } %>
     <% if (story.estimated()) { %>
-    <span class="estimate estimate_<%= story.get('estimate') %>">
-      <%= story.get('estimate') %>
-    </span>
+      <span class="estimate estimate-<%= story.get('estimate') %>"></span>
+    <% } %>
+    <% if (story.get('story_type') == 'chore') { %>
+      <i class="mi md-dark md-20">settings</i>
+    <% } %>
+    <% if (story.get('story_type') == 'bug') { %>
+      <i class="mi md-bug md-20">bug_report</i>
     <% } %>
     <% if (story.hasDetails()) { %>
-    <span class="icon icons-details"></span>
+      <i class="mi md-14 md-dark details">question_answer</i>
     <% } %>
   </span>
 </div>

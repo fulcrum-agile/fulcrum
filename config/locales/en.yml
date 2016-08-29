@@ -27,7 +27,10 @@ en:
   add story: "Add story"
   add task: 'Add task'
   save error: "Save error"
-  override velocity: "Override velocity"
+  override:
+    velocity: "Override velocity"
+    explanation_1: "You can simulate with different velocity values."
+    explanation_2: "The iterations will be temporatily recalculated to reflect the simulated velocity but the real Velocity will still be the average of the last 3 iterations."
   story title: "Story title"
 
   requested on date:          'Requested on {{date}}'

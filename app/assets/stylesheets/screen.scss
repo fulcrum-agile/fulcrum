@@ -7,39 +7,6 @@
 @import 'bootstrap_overrides';
 @import 'icons';
 
-$darkgrey:   #6a7176;           // Header color
-$orange:     rgb(250,182,155);  // Estimate gauge color
-
-// Tango icon theme pallette
-// http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
-$butter-1:      #fce94f;
-$butter-2:      #edd400;
-$butter-3:      #c4a000;
-$orange-1:      #fcaf3e;
-$orange-2:      #f57900;
-$orange-3:      #ce5c00;
-$chocolate-1:   #e9b96e;
-$chocolate-2:   #c17d11;
-$chocolate-3:   #8f5902;
-$chameleon-1:   #8ae234;
-$chameleon-2:   #73d216;
-$chameleon-3:   #4e9a06;
-$sky-blue-1:    #729fcf;
-$sky-blue-2:    #3465a4;
-$sky-blue-3:    #204a87;
-$plum-1:        #ad7fa8;
-$plum-2:        #75507b;
-$plum-3:        #5c3566;
-$scarlet-red-1: #ef2929;
-$scarlet-red-2: #cc0000;
-$scarlet-red-3: #a40000;
-$aluminium-1:   #eeeeec;
-$aluminium-2:   #d3d7cf;
-$aluminium-3:   #babdb6;
-$aluminium-4:   #888a85;
-$aluminium-5:   #555753;
-$aluminium-6:   #2e3436;
-
 body {
   margin: 0;
   padding: 0;
@@ -50,11 +17,7 @@ a img {
 }
 
 #header {
-  background: $darkgrey;
-  @include background(linear-gradient(top, $darkgrey, $darkgrey*0.75));
-  border-bottom: 1px solid $darkgrey*0.7;
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: black 0 1px 0;
+  background: #3E6A9E;
   position: relative;
   z-index: 900;
 }
@@ -109,11 +72,8 @@ ul#primary-nav li {
 }
 
 #title_bar {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
-  border-bottom: 1px solid #ededed;
+  background: #E9E9E9;
+  border-bottom: 1px solid #d5d5d5;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
   line-height: 140%;
@@ -124,7 +84,7 @@ ul#primary-nav li {
   padding: 10px 1em;
 
   div.velocity {
-    font-size: 1.4em;
+    font-size: 1.2em;
     float: right;
     position: relative;
 
@@ -170,6 +130,16 @@ ul#primary-nav li {
     @extend .btn-primary;
     @extend .btn-xs;
   }
+  h1 {
+    display: inline;
+  }
+  .project_nav {
+    display: inline;
+  }
+  .column-toggles-wrap {
+    float: right;
+    margin-right: 10px;
+  }
 }
 
 #title_bar h1 {
@@ -178,7 +148,10 @@ ul#primary-nav li {
 }
 
 #main {
-  margin: 1em;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 0;
+  margin-left: 0;
   position: relative;
 }
 
@@ -187,16 +160,11 @@ html.stories, html.stories body, html.stories div#main {
 }
 
 #column-toggles {
-  float: right;
-  a {
-    @extend .btn;
-    @extend .btn-xs;
-    @extend .btn-primary;
-
-    margin: 0 0.2em;
-  }
   a.pressed {
-    @extend .btn-default;
+    color: #636363;
+  }
+  .mi {
+    display: inline;
   }
 }
 
@@ -204,7 +172,7 @@ html.stories, html.stories body, html.stories div#main {
 table.stories {
   width: 100%;
   height: 100%;
-  border-spacing: 5px 0;
+  border-spacing: 2px 0;
   border-collapse: separate;
   table-layout: fixed;
 }
@@ -223,11 +191,11 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   text-align: left;
-  background: $darkgrey;
+  background: #444;
   color: #eee;
-  padding: 0.2em 0.2em 0.2em 1em;
-  text-transform:capitalize;
-  @include border-radius(5px 5px 0 0);
+  padding: 0.4em 0.2em 0.3em 0.7em;
+  text-transform: uppercase;
+  @include border-radius(2px 2px 0 0);
   a.toggle-title{
     color: white;
     text-decoration: none;
@@ -252,7 +220,7 @@ div.storycolumn {
 
 /* Story types */
 div.story {
-  padding: 0.3em 0.3em 0.7em;
+  padding: 0.5em 0.5em 0.9em;
   background-repeat: no-repeat;
   background-position: 4px 4px;
   background-color: #eee;
@@ -264,7 +232,7 @@ div.story:hover {
 }
 
 div.story.editing, div.story.editing:hover {
-  background-color: adjust-lightness($butter-1, 20);
+  background-color: $butter-2;
   color: $aluminium-6;
   cursor: default !important;
 }
@@ -282,23 +250,32 @@ div.story textarea {
   height: 50px;
   resize: none;
 }
+div.story {
+  .story_link {
+    width: 260px;
+  }
+}
 
 div.story-icons {
   float: left;
-  font-size: 0;
+  margin-top: -5px;
+
+  .estimate {
+    top: 2px;
+    left: 1px;
+  }
 }
 div.story-controls {
-  padding: 10px 0;
   @extend .btn-group;
 
   input {
     @extend .btn;
     @extend .btn-default;
-    @extend .btn-sm;
+    @extend .btn-xs;
   }
 }
 div.story-title {
-  margin-left: 50px;
+  margin-left: 60px;
 }
 .unestimated div.story-title {
   font-style: italic;
@@ -319,60 +296,38 @@ div.story-title abbr.initials {
   cursor: inherit;
 }
 
-span.estimate {
-  border: 1px solid #777;
-  padding: 0 0.2em;
-  margin: 0 2px 0 0;
-  @include border-radius(3px);
-  vertical-align: top;
-  font-size: x-small;
-  font-weight: bold;
-  font-style: italic;
+.estimate {
+  background: image-url('points.png') no-repeat;
+  height: 24px;
+  width: 16px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  top: -7px;
+  margin-left: -2px;
+  margin-right: -6px;
+
+  &-1 { background-position: 0px 22px; }
+  &-2 { background-position: 0px 19px; }
+  &-3 { background-position: 0px 15px; }
+  &-4 { background-position: 0px 12px; }
+  &-5 { background-position: 0px 9px; }
+  &-6 { background-position: 0px 6px; }
+  &-7 { background-position: 0px 3px; }
+  &-8 { background-position: 0px 0px; }
 }
 
-span.estimate_1 {
-  @include background(linear-gradient(bottom,
-      $orange 12.5%,
-      white 12.5%));
-}
-span.estimate_2 {
-  @include background(linear-gradient(bottom,
-      $orange 25%,
-      white 25%));
-}
-span.estimate_3 {
-  @include background(linear-gradient(bottom,
-      $orange 37.5%,
-      white 37.5%));
-}
-span.estimate_4 {
-  @include background(linear-gradient(bottom,
-      $orange 50%,
-      white 50%));
-}
-span.estimate_5 {
-  @include background(linear-gradient(bottom,
-      $orange 62.5%,
-      white 62.5%));
-}
-span.estimate_6 {
-  @include background(linear-gradient(bottom,
-      $orange 75%,
-      white 75%));
-}
-span.estimate_7 {
-  @include background(linear-gradient(bottom,
-      $orange 87.5%,
-      white 87.5%));
-}
-span.estimate_8 {
-  @include background(linear-gradient(bottom,
-      $orange 100%,
-      white 100%));
+.estimates {
+  margin-top: 4px;
+  margin-right: 6px;
+
+  .estimate {
+    margin-left: 10px;
+  }
 }
 
 .story.release {
-  background-color: darkgrey;
+  background-color: #444;
   color: white;
 }
 .story.release:hover {
@@ -391,10 +346,10 @@ span.estimate_8 {
 
 /* Iteration markers */
 .iteration {
-  @include icons-sprite(iteration, false, 2px, 3px);
-  background-color: #000;
-  color: #ddd;
-  padding: 0.2em 0.2em 0.2em 20px
+  background-color: #707C8B;
+  color: #f5f5f5;
+  padding: 0.2em 0.7em 0.2em 20px;
+  font-size: 12px;
 }
 .iteration .points {
   float: right;
@@ -452,8 +407,6 @@ a.button {
   border: 1px solid $darkgrey*1.5;
   text-decoration: none;
 }
-
-
 
 a.button:hover {
   @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
@@ -515,6 +468,7 @@ div.note {
     font-style: italic;
     font-size: x-small;
     text-align: right;
+    margin-right: 5px;
   }
 }
 .popover div.note {
@@ -616,6 +570,14 @@ div#keycut-help {
 }
 
 .projects-list {
+  margin-top: 10px;
+  margin-left: 0;
+  margin-right: 0;
+
+  .col-md-12 {
+    margin: 0;
+    padding: 0;
+  }
 
   .item {
 
@@ -651,9 +613,6 @@ div#keycut-help {
 .edit-project,
 .add-user,
 .edit-user,
-.sign-in {
-  width: 550px;
-}
 
 .members-list {
   .member-name {
@@ -692,17 +651,26 @@ div#keycut-help {
   .list-group-item {
     border-radius: 0;
     border-width: 1px 0 0 0;
+
+    > &:first-child {
+      border-top-width: 0;
+    }
   }
 
-  > .list-group-item:first-child {
-    border-top-width: 0;
-  }
+  > .list-group {
+    > .list-group-item {
+      padding-left: 30px;
+    }
 
-  > .list-group > .list-group-item {
-    padding-left: 30px;
+    > .list-group > .list-group-item {
+      padding-left: 45px;
+    }
   }
+}
 
-  > .list-group > .list-group > .list-group-item {
-    padding-left: 45px;
+#override-velocity {
+  .btn-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 }

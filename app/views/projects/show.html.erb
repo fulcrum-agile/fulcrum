@@ -1,11 +1,21 @@
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
 <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
+<% content_for :sidebar do %>
+  <%= render 'projects/nav', project: @project %>
+<% end %>
+
 <% content_for :title_bar do %>
   <div id="velocity" class="velocity"></div>
-  <%= render 'projects/nav', project: @project, show_column_toggles: true %>
-  |
-  <a id="add_story" href="#"><%= t('add story') %></a>
+  <div class="project_nav">
+    <a id="add_story" class="btn btn-default" href="#">
+      <i class="mi md-light md-18 md-add">add</i>
+      <%= t('add story') %>
+    </a>
+    <%= form_tag '#', id: 'form_search' do %>
+      <input type="text" name="q" placeholder="Search" value=""/>
+    <% end %>
+  </div>
 <% end %>
 
 <%= content_tag :table,

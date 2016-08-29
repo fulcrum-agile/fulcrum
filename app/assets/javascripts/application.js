@@ -33,9 +33,16 @@
 
 $(function() {
   $('.tag-tooltip').tooltip();
+
+  $(".menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#sidebar-wrapper").toggle();
+  });
+
   executeAttachinary();
 });
 
 function executeAttachinary() {
   $('.attachinary-input').attachinary({ template: $('#attachinary_template').html() });
 }
+

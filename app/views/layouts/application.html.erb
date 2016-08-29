@@ -10,60 +10,33 @@
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
   <%- end -%>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<nav class="navbar navbar-inverse" id="primary-nav">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <div class="navbar-brand">
-        <%= image_tag 'logo.png', width: 32, height: 32 %>
-      </div>
+<div id="wrapper">
+
+  <div id="sidebar-wrapper" style="display: none;">
+    <%= render 'shared/sidebar' %>
+  </div>
+
+  <div id="page-content-wrapper">
+
+    <div id="title_bar">
+      <a href="#menu-toggle" class="btn btn-default menu-toggle menu-toggle-closed">
+        <i class="mi md-dark">menu</i>
+      </a>
+      <%= yield :title_bar %>
     </div>
 
-    <ul class="nav navbar-nav navbar-left">
-      <li>
-          <%= link_to t('fulcrum'), root_path %>
-      </li>
-    </ul>
+    <div id="main">
+      <%= render 'shared/flash' %>
 
-    <ul class="nav navbar-nav navbar-right">
-      <% if current_user %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <%= Project.model_name.human(:count => 2) %>
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to t('projects.archived projects'), projects_archived_path %></li>
-            <li role="separator" class="divider"></li>
-            <%- current_user.projects.each do |project| -%>
-              <li><%= link_to project, project %></li>
-            <%- end -%>
-          </ul>
-        </li>
-        <li><%= link_to User.model_name.human(:count => 2), admin_users_path %></li>
-        <li><%= link_to current_user.email, edit_user_registration_path %></li>
-        <li><%= link_to t('log out'), destroy_user_session_path,
-                        :method => :delete %></li>
-      <% else %>
-        <li><%= link_to t('log in'), new_user_session_path %></li>
-        <%- unless Fulcrum::Application.config.fulcrum.disable_registration %>
-        <li><%= link_to t('sign up'), new_user_registration_path %></li>
-        <% end -%>
-      <% end %>
-    </ul>
+      <%= yield %>
+    </div>
+
   </div>
-</nav>
 
-<div id="title_bar">
-  <%= yield :title_bar %>
-</div>
-
-<div id="main">
-  <%= render 'shared/flash' %>
-
-  <%= yield %>
 </div>
 
 </body>

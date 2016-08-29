@@ -14,13 +14,27 @@ $icon-sprite-dimensions: true;
   text-indent:-9999px;
 }
 
-.icons-throbber{
-  background:image-url('throbber.gif') no-repeat;
-}
-.icons-spinner{
-  background:image-url('spinner.gif') no-repeat;
-}
+.icons-throbber { background:image-url('throbber.gif') no-repeat; }
+.icons-spinner  { background:image-url('spinner.gif') no-repeat; }
 
-a.expand, a.collapse {
-  cursor: pointer;
+a.expand, a.collapse { cursor: pointer; }
+
+.mi.md-20 { font-size: 20px; }
+.mi.md-14 { font-size: 14px; }
+.mi.md-star { color: #FFC000; }
+.mi.md-bug  { color: #C20B0B; }
+
+.story {
+  padding-top: 5px;
+
+  &-hover {
+    padding-left: 2px;
+    margin-top: -2px;
+  }
+
+  .details {
+    position: relative;
+    top: -2px;
+    margin-left: 8px;
+  }
 }

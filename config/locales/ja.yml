@@ -25,7 +25,10 @@ ja:
   author unknown: "作者不明"
   add story: "ストーリー追加"
   save error: "保存エラー"
-  override velocity: "ベロシティを上書きする"
+  override:
+    velocity: "ベロシティを上書きする"
+    explanation_1: "あなたは、異なる速度値でシミュレートすることができます。"
+    explanation_2: "反復は一時的にシミュレートされた速度を反映するために再計算されますが、実際の速度はまだ最後の3回の反復の平均値となります。"
   story title: "ストーリータイトル"
 
   requested on date:          '依頼日 {{date}}'

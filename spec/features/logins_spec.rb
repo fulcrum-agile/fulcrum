@@ -4,7 +4,8 @@ describe "Logins" do
 
   let(:user)  {
     FactoryGirl.create :user, :email => 'user@example.com',
-                              :password => 'password'
+                              :password => 'password',
+                              :name => 'Test User'
   }
 
   describe "disable registration" do
@@ -41,7 +42,8 @@ describe "Logins" do
       click_button 'Sign in'
 
       expect(page).to have_selector('#title_bar', :text => 'New Project')
-      expect(page).to have_selector('#primary-nav', :text => 'user@example.com')
+      find('.menu-toggle').trigger 'click'
+      expect(page).to have_selector('.sidebar-nav li:nth-child(5)', :text => 'Test User')
     end
 
   end
@@ -53,6 +55,7 @@ describe "Logins" do
 
     it "logs out the user" do
       visit root_path
+      find('.menu-toggle').trigger 'click'
       click_on 'Log out'
 
       expect(page).to have_selector('h1', :text => 'Sign in')
