@@ -20,8 +20,44 @@ pt-BR:
   saving:   "Salvando ..."
   expand:   "Expandir"
 
+  save: "Salvar"
+  delete: "Apagar"
+  cancel: "Cancelar"
+  add: "Adicionar"
+  remove: "Remover"
+  add user: "Adicionar usuário"
+  add new member: "Adicionar um novo membro"
+  all users: "Todos os usuários"
+  remove user confirm: "Tem certeza de que deseja remover %{email} deste projeto?"
+
+  story:
+    state:
+      unscheduled: "sem data"
+      unstarted: "não iniciado"
+      started: "iniciado"
+      finished: "terminado"
+      delivered: "entregue"
+      accepted: "aceito"
+      rejected: "rejeitado"
+    events:
+      start: "começar"
+      finish: "terminar"
+      deliver: "entregar"
+      accept: "aceitar"
+      reject: "rejeitar"
+    type:
+      feature: "recurso"
+      chore: "chore"
+      bug: "bug"
+      release: "liberar"
+    no_estimate: "sem estimativa"
+    tasks: "Tarefas"
+    notes: "Notas"
+    attachments: "Anexos"
+
   author unknown: "Autor Desconhecido"
   add story: "Adicionar história"
+  add note: "Adicionar nota"
   add task: 'Adicionar tarefa'
   save error: "Salvar erro"
   override:
@@ -98,6 +134,16 @@ pt-BR:
         tasks:                'Tarefas'
       task:
         name:                 'Nome'
+      user:
+        name:                 'Nome Completo'
+        username:             'Usuário'
+        initials:             'Iniciais'
+        email:                'E-mail'
+        password:             'Senha'
+        password_confirmation: 'Confirmação de Senha'
+        locale:               'Região'
+        is_admin:             'É Administrador?'
+        current_password:     'Senha atual'
 
     errors:
       models:
@@ -109,6 +155,8 @@ pt-BR:
   projects:
     new project:        "Novo Projeto"
     edit project:       "Editar Projeto"
+    project_members: "Membros do projeto"
+    available_users: "Membros disponíveis"
     reports:
       n months ago:
         one: "1 mês atrás"

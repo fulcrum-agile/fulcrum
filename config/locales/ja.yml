@@ -22,8 +22,45 @@ ja:
   saving:   "保存中…"
   expand:   "広げる"
 
+  save: "保存"
+  delete: "削除"
+  cancel: "キャンセル"
+  add: "追加"
+  remove: "削除"
+  add user: "ユーザーを追加する"
+  add new member: "新しいメンバーを追加"
+  all users: "すべてのユーザー"
+  remove user confirm: "あなたはこのプロジェクトから%{email}を削除してもよろしいですか？"
+
+  story:
+    state:
+      unscheduled: "予定外"
+      unstarted: "未開始"
+      started: "開始"
+      finished: "終了"
+      delivered: "配信"
+      accepted: "受け入れ"
+      rejected: "拒否"
+    events:
+      start: "スタート"
+      finish: "終了"
+      deliver: "届けます"
+      accept: "受け入れます"
+      reject: "拒否"
+    type:
+      feature: "機能"
+      chore: "雑用"
+      bug: "バグ"
+      release: "解放"
+    no_estimate: "何の見積ありません"
+    tasks: "タスク"
+    notes: "ノート"
+    attachments: "添付ファイル"
+
   author unknown: "作者不明"
   add story: "ストーリー追加"
+  add note: "メモを追加"
+  add task: 'タスクの追加'
   save error: "保存エラー"
   override:
     velocity: "ベロシティを上書きする"
@@ -82,11 +119,22 @@ ja:
         requested_by:         '依頼者'
         owned_by:             '担当者'
         documents:            '添付ファイル'
-
+      user:
+        name:                 '名前'
+        username:             'ユーザー名'
+        initials:             'イニシャル'
+        email:                '電子メール'
+        password:             'パスワード'
+        password_confirmation: 'パスワードの確認'
+        locale:               'ロケール'
+        is_admin:             '管理者ですか'
+        current_password:     '現在のパスワード'
 
   projects:
     new project:        "新規プロジェクト"
     edit project:       "プロジェクト編集"
+    project_members: "プロジェクトメンバー"
+    available_users: "利用可能なメンバー"
     reports:
       n months ago:
         one: "1ヶ月前"

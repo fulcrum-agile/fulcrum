@@ -359,28 +359,36 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
             name: 'estimate',
             label: true,
             control: this.select("estimate", this.model.point_values(), {
-              blank: 'No estimate',
+              blank: I18n.t('story.no_estimate'),
               attrs: {
                 class: ['story_estimate'],
                 disabled: this.model.notEstimable() || this.isReadonly()
               }
             })
           }));
+          var story_type_options = [];
+          _.each(["feature", "chore", "bug", "release"], function(option) {
+            story_type_options.push([I18n.t('story.type.' + option), option])
+          });
           $(div).append(this.makeFormControl({
             name: "story_type",
             label: true,
             disabled: true,
-            control: this.select("story_type", ["feature", "chore", "bug", "release"], {
+            control: this.select("story_type", story_type_options, {
               attrs: {
                 class: ['story_type'],
                 disabled: this.isReadonly()
               }
             })
           }));
+          var story_state_options = [];
+          _.each(["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"], function(option) {
+            story_state_options.push([ I18n.t('story.state.' + option), option ])
+          });
           $(div).append(this.makeFormControl({
             name: "state",
             label: true,
-            control: this.select("state", ["unscheduled", "unstarted", "started", "finished", "delivered", "accepted", "rejected"], {
+            control: this.select("state", story_state_options, {
               attrs: {
                 class: [],
                 disabled: this.isReadonly()
@@ -432,7 +440,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
       this.$el.append(
         this.makeFormControl(function(div) {
-          $(div).append(this.label("description", "Description"));
+          $(div).append(this.label("description", I18n.t('activerecord.attributes.story.description')));
           $(div).append('<br/>');
           if(this.model.isNew() || this.model.get('editingDescription')) {
             var textarea = this.textArea("description");
@@ -470,7 +478,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
           var finished_element_id = "documents_finished_" + random;
           var attachinary_container_id = "attachinary_container_" + random;
 
-          $(div).append(this.label('attachments', 'Attachments'));
+          $(div).append(this.label('attachments', I18n.t('story.attachments')));
           $(div).addClass('uploads');
           if(!this.isReadonly()) {
             $(div).append(this.fileField("documents", progress_element_id, finished_element_id, attachinary_container_id));
@@ -539,7 +547,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   renderNotes: function() {
     if (this.model.notes.length > 0) {
       var el = this.$el;
-      el.append(this.label('notes', 'Notes'));
+      el.append(this.label('notes', I18n.t('story.notes')));
       el.append('<div class="notelist"/>');
       this.renderNotesCollection();
     }
@@ -548,7 +556,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   renderTasks: function() {
     if (this.model.tasks.length > 0) {
       var el = this.$el;
-      el.append(this.label('tasks', 'Tasks'));
+      el.append(this.label('tasks', I18n.t('story.tasks')));
       el.append('<div class="tasklist"/>');
       this.renderTasksCollection();
     }
