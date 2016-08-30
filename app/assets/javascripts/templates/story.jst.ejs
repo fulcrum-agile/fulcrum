@@ -24,16 +24,18 @@
   <span class="popover-activate">
     <% if (story.get('story_type') == 'feature') { %>
       <i class="mi md-star md-20">star</i>
-    <% } %>
-    <% if (story.estimated()) { %>
-      <span class="estimate estimate-<%= story.get('estimate') %>"></span>
-    <% } %>
-    <% if (story.get('story_type') == 'chore') { %>
+    <% } else if (story.get('story_type') == 'chore') { %>
       <i class="mi md-dark md-20">settings</i>
-    <% } %>
-    <% if (story.get('story_type') == 'bug') { %>
+    <% } else if (story.get('story_type') == 'bug') { %>
       <i class="mi md-bug md-20">bug_report</i>
     <% } %>
+
+    <% if (story.estimated()) { %>
+      <span class="estimate estimate-<%= story.get('estimate') %>"></span>
+    <% } else { %>
+      <span class="estimate estimate-0"></span>
+    <% } %>
+
     <% if (story.hasDetails()) { %>
       <i class="mi md-14 md-dark details">question_answer</i>
     <% } %>
