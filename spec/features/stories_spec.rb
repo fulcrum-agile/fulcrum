@@ -149,12 +149,17 @@ describe "Stories" do
         end
         expect(page).to have_css(selector)
 
+        # close the sidebar
+        find('.click-overlay').trigger 'click'
+
         # Hide the column with the 'close' button in the column header
         within("#{selector} .column_header") do
           click_link 'Close'
         end
         expect(page).not_to have_css(selector)
 
+        # open sidebar again
+        find('.menu-toggle').trigger 'click'
       end
     end
 
@@ -171,6 +176,9 @@ describe "Stories" do
         click_on "Search Results"
       end
       expect(page).to have_css(selector)
+
+      # close the sidebar
+      find('.click-overlay').trigger 'click'
 
       # Hide the column with the 'close' button in the column header
       within("#{selector} .column_header") do
