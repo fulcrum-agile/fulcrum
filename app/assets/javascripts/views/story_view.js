@@ -136,6 +136,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     // The name of the function that needs to be called on the model is the
     // value of the form button that was clicked.
     var transitionEvent = ev.target.value;
+    _.each(I18n.t('story.events'), function(value, key) {
+      if( value == transitionEvent )
+        transitionEvent = key;
+    })
 
     this.saveInProgress = true;
     this.render();
