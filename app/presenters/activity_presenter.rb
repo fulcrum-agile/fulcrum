@@ -37,10 +37,22 @@ class ActivityPresenter < SimpleDelegator
   def update_changes
     return "" unless action == 'update'
     changes = subject_changes.keys.reject { |key| %w(updated_at created_at).include?(key) }.map do |key|
-      if subject_changes[key].first.nil?
-        "#{key} to '#{subject_changes[key].last}' "
+      if key == 'documents_attributes'
+        old_documents     = subject_changes[key].first || []
+        new_documents     = subject_changes[key].last  || []
+        added_documents   = new_documents - old_documents
+        deleted_documents = old_documents - new_documents
+
+        tmp_changes = []
+        tmp_changes << "by uploading '#{added_documents.join("', '")}'"  if added_documents.size   > 0
+        tmp_changes << "by deleting '#{deleted_documents.join("', '")}'" if deleted_documents.size > 0
+        "documents " + tmp_changes.join(" and ")
       else
-        "#{key} from '#{subject_changes[key].first}' to '#{subject_changes[key].last}' "
+        if subject_changes[key].first.nil?
+          "#{key} to '#{subject_changes[key].last}' "
+        else
+          "#{key} from '#{subject_changes[key].first}' to '#{subject_changes[key].last}' "
+        end
       end
     end.join(", ")
     " changed " + changes

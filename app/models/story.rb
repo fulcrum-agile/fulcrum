@@ -4,6 +4,10 @@ class Story < ActiveRecord::Base
       raise ActiveRecord::ReadOnlyRecord if readonly?
       super(attachments)
     end
+
+    def documents_attributes
+      documents.map(&:public_id)
+    end
   end
 
   include PgSearch
@@ -37,6 +41,7 @@ class Story < ActiveRecord::Base
   ]
 
   has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls, :pdf], maximum: 10
+  attr_accessor :documents_attributes_was
   prepend ReadOnlyDocuments
 
   belongs_to :project, counter_cache: true

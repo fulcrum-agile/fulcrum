@@ -1,0 +1,104 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.cloudinary.com/v1_1/localhost/image/destroy
+    body:
+      encoding: UTF-8
+      string: timestamp=1472589639&public_id=hello.jpg&signature=bd34cd4eeb17ca51bd155f556451b82f47948fef&api_key=893592954749395
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - CloudinaryRuby/1.1.7
+      Content-Length:
+      - '115'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 30 Aug 2016 20:40:39 GMT
+      Etag:
+      - W/"33747e3f086d5dd0aef7ac1fde8cf595"
+      Server:
+      - cloudinary
+      Status:
+      - 200 OK
+      X-Request-Id:
+      - cc683ac93f802aaa
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAwAAAP//qlYqSi0uzSlRslLKyy9RSMsvzUtRqgUAAAD//wMA
+        8jYD7xYAAAA=
+    http_version: 
+  recorded_at: Tue, 30 Aug 2016 20:40:40 GMT
+- request:
+    method: post
+    uri: https://api.cloudinary.com/v1_1/localhost/image/tags
+    body:
+      encoding: UTF-8
+      string: timestamp=1472589640&tag=attachinary_tmp&public_ids[]=hello3.jpg&command=remove&signature=ae8f6f63aba397013f1bd4a831b62b44a2f3b7cc&api_key=893592954749395
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - CloudinaryRuby/1.1.7
+      Content-Length:
+      - '154'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Tue, 30 Aug 2016 20:40:40 GMT
+      Etag:
+      - W/"7bd9202622f9de0e2f09217fcdc4d855"
+      Server:
+      - cloudinary
+      Status:
+      - 200 OK
+      X-Request-Id:
+      - 266c5bb570d9f0ec
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '43'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6pWKihNyslMjs9MKVayio6tBQAAAP//AwDagr9HEQAAAA==
+    http_version: 
+  recorded_at: Tue, 30 Aug 2016 20:40:41 GMT
+recorded_with: VCR 3.0.3
