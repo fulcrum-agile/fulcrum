@@ -8,9 +8,6 @@
 
 $sidebar-size: 200px;
 
-body {
-	overflow-x: hidden;
-}
 .menu-toggle {
   &-opened {
     margin: 0;
@@ -90,4 +87,11 @@ body {
 		}
 	}
 }
-
+.click-overlay {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1900;
+}

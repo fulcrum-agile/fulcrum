@@ -35,7 +35,19 @@ $(function() {
 
   $(".menu-toggle").click(function(e) {
       e.preventDefault();
-      $("#sidebar-wrapper").toggle();
+      if($("#sidebar-wrapper").is(':hidden')) {
+        $('.click-overlay').on('click', function() {
+          $('.click-overlay').off('click');
+          $("#sidebar-wrapper").hide();
+          $('.click-overlay').hide();
+        })
+        $("#sidebar-wrapper").show();
+        $('.click-overlay').show();
+      } else {
+        $('.click-overlay').off('click');
+        $("#sidebar-wrapper").hide();
+        $('.click-overlay').hide();
+      }
   });
 
   executeAttachinary();

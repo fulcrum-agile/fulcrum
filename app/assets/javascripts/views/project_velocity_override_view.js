@@ -17,18 +17,19 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template({project: this.model}));
     this.delegateEvents();
+    this.clickOverlayOn();
     return this;
   },
 
   changeVelocity: function() {
     this.model.velocity(this.requestedVelocityValue());
-    this.$el.remove();
+    this.clickOverlayOff();
     return false;
   },
 
   revertVelocity: function() {
     this.model.revertVelocity();
-    this.$el.remove();
+    this.clickOverlayOff();
     return false;
   },
 
@@ -40,5 +41,20 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
     if(e.keyCode == '13') {
       this.changeVelocity();
     }
+  },
+
+  clickOverlayOn: function() {
+    var that = this;
+    this.$el.css('z-index', 2000);
+    $('.click-overlay').on('click', function() {
+      that.clickOverlayOff();
+    });
+    $('.click-overlay').show();
+  },
+
+  clickOverlayOff: function() {
+    $('.click-overlay').off('click');
+    this.$el.remove();
+    $('.click-overlay').hide();
   }
 });
