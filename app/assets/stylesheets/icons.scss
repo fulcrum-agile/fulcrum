@@ -6,6 +6,11 @@ $icon-sprite-dimensions: true;
 @import "icons/*.png";
 @include all-icons-sprites;
 
+i {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
 .icon{
   width:16px;
   height:16px;
