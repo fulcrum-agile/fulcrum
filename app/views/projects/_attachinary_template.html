@@ -4,23 +4,28 @@
   <li>zero documents uploaded yet</li>
 <% } %>
 <% for(var i = 0; i < files.length; i++) { %>
-  <li>
-    <% if ( files[i] && files[i].resource_type == "raw" ) { %>
-      <div class="raw-file">
-        Document:
-        <a href="<%= $.cloudinary.url(files[i].public_id, { resource_type: 'raw' }) %>" target="_blank">
-           <%= files[i].public_id %>
+  <% if (files[i]) { %>
+    <li>
+      <% if ( files[i].resource_type == "raw" ) { %>
+        <div class="raw-file">
+          <a href="<%= $.cloudinary.url(files[i].public_id, { version: files[i].version, resource_type: 'raw' }) %>" target="_blank">
+             <i class="mi md-20">library_books</i> <%= files[i].public_id %>
+          </a>
+          <a href="#" data-remove="<%= files[i].public_id %>" class="btn btn-danger btn-xs">
+            <i class="mi md-18">delete</i> <%= I18n.t('delete') %>
+          </a>
+        </div>
+      <% } else { %>
+        <a href="<%= $.cloudinary.url(files[i].public_id, { version: files[i].version, format: 'png' }) %>" target="_blank">
+          <img src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'png', "crop": 'fill', "width": 50, "height": 50, "radius": 5, "border": "1px_solid_black" }) %>"
+          alt="" width="50" height="50" />
         </a>
-        <a href="#" data-remove="<%= files[i].public_id %>">Remove</a>
-      </div>
-    <% } else { %>
-      <a href="<%= $.cloudinary.url(files[i].public_id) %>" target="_blank">
-        <img src="<%= $.cloudinary.url(files[i].public_id, { "version": files[i].version, "format": 'jpg', "crop": 'fill', "width": 75, "height": 75 }) %>"
-        alt="" width="75" height="75" />
-      </a>
-      <a href="#" data-remove="<%= files[i].public_id %>">Remove</a>
-    <% } %>
-  </li>
+        <a href="#" data-remove="<%= files[i].public_id %>" class="btn btn-danger btn-xs">
+          <i class="mi md-18">delete</i> <%= I18n.t('delete') %>
+        </a>
+      <% } %>
+    </li>
+  <% } %>
 <% } %>
 </ul>
 </script>
