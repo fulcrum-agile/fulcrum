@@ -23,7 +23,8 @@ class IterationService
     calculate_iterations!
     fix_owner!
 
-    @backlog = ( @stories - @accepted_stories ).sort_by(&:position)
+    @stories.each { |s| s.iteration_service = self }
+    @backlog = ( @stories - @accepted_stories.select { |s| s.column == '#done' } ).sort_by(&:position)
   end
 
   def iteration_start_date(date = nil)

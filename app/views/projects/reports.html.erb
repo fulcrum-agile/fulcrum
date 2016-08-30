@@ -28,11 +28,11 @@
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.reports.current_iteration') %> <small>(<%= current_iteration_start_date %> - <%= current_iteration_end_date %>)</small></h2>
 
-    <p>This iteration had <%= current_iteration_points %> points planned in <%= current_iteration_count %> stories (including <%= current_iteration_non_estimable %> bugs or chores).</p>
+    <p>This iteration has <%= current_iteration_points %> points planned in <%= current_iteration_count %> stories (including <%= current_iteration_non_estimable %> bugs or chores).</p>
 
-    <p>There are <%= accepted_points %> points accepted so far. Which is only <%= accepted_rate %> of the total.</p>
+    <p>There are <%= accepted_points %> points accepted so far, which is <%= accepted_rate %> of the total.</p>
 
-    <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished on the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
+    <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished around the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
 
     <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
   </div>

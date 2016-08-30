@@ -97,6 +97,7 @@ class Story < ActiveRecord::Base
   # example delivering or modifying it.  Usually set by the controller.
   attr_accessor :acting_user, :base_uri
   attr_accessor :iteration_number, :iteration_start_date # helper fields for IterationService
+  attr_accessor :iteration_service
 
   STORY_TYPES = [
     'feature', 'chore', 'bug', 'release'
@@ -215,6 +216,11 @@ class Story < ActiveRecord::Base
     when 'unstarted'
       '#backlog'
     when 'accepted'
+      if iteration_service
+        if iteration_service.current_iteration_number == iteration_service.iteration_number_for_date(accepted_at)
+          return '#in_progress'
+        end
+      end
       '#done'
     else
       '#in_progress'
