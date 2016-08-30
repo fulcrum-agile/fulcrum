@@ -18,9 +18,9 @@ module BaseOperations
       ActiveRecord::Base.transaction do
         before_save
         operate!
-        create_activity
         after_save
       end
+      create_activity
       return model
     rescue ActiveRecord::RecordInvalid
       return false
