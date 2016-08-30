@@ -12,9 +12,12 @@
 
     <ul class="list-group">
     <% project_group.last.each do |activities| %>
-      <% activities.last.each do |activity| %>
+      <% activities.last.reverse.each do |activity| %>
         <% if activity.description %>
-          <li class="list-group-item activities_subject"><%= activity.description.html_safe %></li>
+          <li class="list-group-item activities_subject">
+            <small>(<%= activity.created_at.strftime("%H:%M") %>)</small>
+            <%= activity.description.html_safe %>
+          </li>
         <% end %>
       <% end %>
     <% end %>

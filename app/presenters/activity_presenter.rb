@@ -2,6 +2,8 @@ class ActivityPresenter < SimpleDelegator
   include Rails.application.routes.url_helpers
   attr_reader :activity
 
+  IGNORED_FIELDS = %w(updated_at created_at owned_by_id owned_by_initials requested_by_id)
+
   def initialize(activity)
     @activity = activity
     __setobj__(activity)
@@ -36,17 +38,9 @@ class ActivityPresenter < SimpleDelegator
 
   def update_changes
     return "" unless action == 'update'
-    changes = subject_changes.keys.reject { |key| %w(updated_at created_at).include?(key) }.map do |key|
+    changes = subject_changes.keys.reject { |key| IGNORED_FIELDS.include?(key) }.map do |key|
       if key == 'documents_attributes'
-        old_documents     = subject_changes[key].first || []
-        new_documents     = subject_changes[key].last  || []
-        added_documents   = new_documents - old_documents
-        deleted_documents = old_documents - new_documents
-
-        tmp_changes = []
-        tmp_changes << "by uploading '#{added_documents.join("', '")}'"  if added_documents.size   > 0
-        tmp_changes << "by deleting '#{deleted_documents.join("', '")}'" if deleted_documents.size > 0
-        "documents " + tmp_changes.join(" and ")
+        document_changes subject_changes[key]
       else
         if subject_changes[key].first.nil?
           "#{key} to '#{subject_changes[key].last}' "
@@ -55,7 +49,7 @@ class ActivityPresenter < SimpleDelegator
         end
       end
     end.join(", ")
-    " changed " + changes
+    "changing " + changes
   end
 
   def past_tense(verb)
@@ -64,6 +58,18 @@ class ActivityPresenter < SimpleDelegator
     else
       verb + "ed"
     end
+  end
+
+  def document_changes(changes)
+    old_documents     = changes.first || []
+    new_documents     = changes.last  || []
+    added_documents   = new_documents - old_documents
+    deleted_documents = old_documents - new_documents
+
+    tmp_changes = []
+    tmp_changes << "by uploading '#{added_documents.join("', '")}'"  if added_documents.size   > 0
+    tmp_changes << "by deleting '#{deleted_documents.join("', '")}'" if deleted_documents.size > 0
+    "documents " + tmp_changes.join(" and ")
   end
 
   def helpers
