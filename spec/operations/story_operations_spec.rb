@@ -44,6 +44,37 @@ describe StoryOperations do
     end
   end
 
+  describe "#documents_attributes" do
+    before do
+      story.save!
+    end
+
+    subject { ->{StoryOperations::Update.(story, { documents: new_documents }, user) } }
+
+    let(:attachments) { [
+      {"id"=>30, "public_id"=>"hello.jpg", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image"},
+      {"id"=>31, "public_id"=>"hello2.jpg", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image"}
+    ]}
+
+    let(:new_documents) { [
+      {"public_id"=>"hello3.jpg", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image"},
+      {"id"=>31, "public_id"=>"hello2.jpg", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image"}
+    ]}
+
+    before do
+      attachments.each do |a|
+        Story.connection.execute("insert into attachinary_files (#{a.keys.join(", ")}, scope, attachinariable_id, attachinariable_type) values ('#{a.values.join("', '")}', 'documents', #{story.id}, 'Story')")
+      end
+    end
+
+    it 'must record the documents attributes changes' do
+      VCR.use_cassette("cloudinary_upload_activity") do
+        subject.call
+      end
+      expect(Activity.last.subject_changes['documents_attributes']).to eq([["hello2.jpg", "hello.jpg"], ["hello2.jpg", "hello3.jpg"]])
+    end
+  end
+
   describe '::Update' do
     before do
       story.save!

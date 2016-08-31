@@ -19,7 +19,15 @@ module StoryOperations
     include StateChangeNotification
     include LegacyFixes
 
+    def before_save
+      model.documents_attributes_was = model.documents_attributes
+    end
+
     def after_save
+      new_documents = model.documents_attributes
+      if new_documents != model.documents_attributes_was
+        model.instance_variable_get('@changed_attributes')[:documents_attributes] = model.documents_attributes_was
+      end
       model.changesets.create!
 
       apply_fixes
