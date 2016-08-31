@@ -163,6 +163,11 @@ describe IterationService do
       expect(iterations.size).to eq(2)
       expect(iterations.first.size).to eq(10)
       expect(iterations.last.size).to eq(6)
+
+      # override velocity to simulate different iterations
+      iterations = service.backlog_iterations(10)
+      expect(iterations.size).to eq(6)
+      expect(iterations.first.size).to eq(8)
     end
 
     it '#current_iteration_details' do
@@ -180,6 +185,28 @@ describe IterationService do
 
       details = service.current_iteration_details
       expect(details).to eq({"started"=>3, "finished"=>8, "delivered"=>0, "accepted"=>4, "rejected"=>1})
+    end
+
+    it '#standard_deviation' do
+      # calculate for population
+      standard_deviation = service.standard_deviation(service.group_by_velocity.values)
+      expect("%.4f" % standard_deviation).to eq("8.3725")
+
+      # calculate for sample (N - 1) for correction
+      standard_deviation = service.standard_deviation(service.group_by_velocity.values, true)
+      expect("%.4f" % standard_deviation).to eq("8.8804")
+
+      # last 3 iterations
+      standard_deviation = service.standard_deviation(service.group_by_velocity.values.reverse.take(3))
+      expect("%.4f" % standard_deviation).to eq("6.6500")
+    end
+
+    it '#volatility' do
+      volatility = service.volatility(9)
+      expect("%.4f" % volatility).to eq("0.4186")
+
+      volatility = service.volatility
+      expect("%.4f" % volatility).to eq("0.3878")
     end
   end
 end

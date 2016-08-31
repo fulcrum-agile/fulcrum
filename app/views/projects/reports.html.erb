@@ -39,6 +39,8 @@
 
       <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished around the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
 
+      <p>But with a volatility of <%= number_to_percentage(@service.volatility * 100.0, precision: 2) %> in the last <%= IterationService::VELOCITY_ITERATIONS %> iterations, it's more realistic to expect the project to finish around iteration <%= last_iteration_number(true) %> (<%= last_iteration_start_date(true) %>), if the backlog does not change.</p>
+
       <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
     </div>
 
@@ -50,6 +52,7 @@
         <li><%= Project.human_attribute_name(:iteration_start_day) %>: <%= I18n.t('date.day_names')[@project.iteration_start_day] %></li>
         <li><%= Project.human_attribute_name(:iteration_length) %>: <%= @project.iteration_length %></li>
         <li><%= t('velocity') %>: <%= @service.velocity %></li>
+        <li><%= t('volatility') %>: <%= number_to_percentage(@service.volatility * 100.0, precision: 2) %></li>
       </ul>
 
       <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>

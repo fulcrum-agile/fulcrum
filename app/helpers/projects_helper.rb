@@ -67,14 +67,34 @@ module ProjectsHelper
   end
 
   def accepted_rate
-    number_to_percentage(( accepted_points.to_f * 100.0 ) / current_iteration_points.to_f)
+    if current_iteration_points == 0
+      number_to_percentage(0, precision: 2)
+    else
+      number_to_percentage(( accepted_points.to_f * 100.0 ) / current_iteration_points.to_f, precision: 2)
+    end
   end
 
-  def last_iteration_number
-    @service.backlog_iterations.last.number
+  def last_iteration_number(worst = false)
+    iterations = if worst
+                   velocity       = @service.velocity
+                   volatility     = @service.volatility
+                   worst_velocity = velocity - ( velocity * volatility )
+                   @service.backlog_iterations(worst_velocity.floor)
+                 else
+                   @service.backlog_iterations
+                 end
+    iterations.last.number
   end
 
-  def last_iteration_start_date
-    @service.backlog_iterations.last.start_date.to_date.to_s(:long)
+  def last_iteration_start_date(worst = false)
+    iterations = if worst
+                   velocity       = @service.velocity
+                   volatility     = @service.volatility
+                   worst_velocity = velocity - ( velocity * volatility )
+                   @service.backlog_iterations(worst_velocity.floor)
+                 else
+                   @service.backlog_iterations
+                 end
+    iterations.last.start_date.to_date.to_s(:long)
   end
 end
