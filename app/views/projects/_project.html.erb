@@ -2,7 +2,7 @@
   <h4 class="item-title">
     <%= link_to truncate(project.name, length: 18), project, class: 'tag-tooltip',
       data: {toggle: "tooltip"}, title: project.name %>
-    <small class="pull-right"><%= t('velocity') %>: <%= project.iteration_service(1.month.ago).velocity %> <%= t('volatility') %>: <%= number_to_percentage(project.iteration_service(1.month.ago).volatility, precision: 0) %></small>
+    <small class="pull-right"><%= t('velocity') %>: <%= project.iteration_service(1.month.ago).velocity %> <%= t('volatility') %>: <%= number_to_percentage(project.iteration_service(1.month.ago).volatility * 100.0, precision: 0) %></small>
   </h4>
 </li>
 <li class="list-group-item">
