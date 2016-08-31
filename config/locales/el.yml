@@ -223,6 +223,7 @@ el:
   revert:   επαναφορά
   apply:    εφαρμογή
   velocity: ταχύτητα
+  volatility: "μεταβλητότητα"
   notes:    σημειώσεις
   close:    κλείσιμο
   points:   πόντοι

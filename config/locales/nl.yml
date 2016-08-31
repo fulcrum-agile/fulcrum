@@ -13,6 +13,7 @@ nl:
   revert:   "Ongedaan maken"
   apply:    "Bevestigen"
   velocity: "Snelheid"
+  volatility: "Volatiliteit"
   notes:    "Notities"
   close:    "Sluiten"
   points:   "Punten"
