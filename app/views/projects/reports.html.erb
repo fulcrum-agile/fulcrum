@@ -51,8 +51,8 @@
         <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %></li>
         <li><%= Project.human_attribute_name(:iteration_start_day) %>: <%= I18n.t('date.day_names')[@project.iteration_start_day] %></li>
         <li><%= Project.human_attribute_name(:iteration_length) %>: <%= @project.iteration_length %></li>
-        <li><%= t('velocity') %>: <%= @service.velocity %></li>
-        <li><%= t('volatility') %>: <%= number_to_percentage(@service.volatility * 100.0, precision: 2) %></li>
+        <li><%= t('velocity') %>: <%= @service.velocity(@service.group_by_velocity.size) %></li>
+        <li><%= t('volatility') %>: <%= number_to_percentage(@service.volatility(@service.group_by_velocity.size) * 100.0, precision: 2) %></li>
       </ul>
 
       <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>
