@@ -36,6 +36,11 @@
       </div>
 
       <div class="field-wrapper">
+        <%= f.label :time_zone, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10"><%= f.time_zone_select :time_zone, nil, default: Time.zone %></div>
+      </div>
+
+      <div class="field-wrapper">
         <%= f.label :password, class: 'col-sm-2 control-label' %>
         <div class="col-sm-10">
           <%= f.password_field :password %>

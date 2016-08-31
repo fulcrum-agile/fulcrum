@@ -144,6 +144,7 @@ pt-BR:
         locale:               'Região'
         is_admin:             'É Administrador?'
         current_password:     'Senha atual'
+        time_zone:            'fuso horário'
 
     errors:
       models:

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :authenticate_user!, :set_locale
+  around_filter :user_time_zone, if: :current_user
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
@@ -30,5 +31,9 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = :en
     end
+  end
+
+  def user_time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
   end
 end

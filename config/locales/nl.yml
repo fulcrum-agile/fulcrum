@@ -125,6 +125,7 @@ nl:
         password_confirmation: 'Wachtwoord bevestigen'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
+        time_zone:            'tijdzone'
 
     errors:
       models:

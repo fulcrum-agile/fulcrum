@@ -344,6 +344,7 @@ el:
         locale:               'Τοπικές ρυθμίσεις'
         is_admin:             'Είναι διαχειριστής;'
         current_password:     'τρέχων κωδικός πρόσβασης'
+        time_zone:            'ζώνη ώρας'
 
     errors:
       models:
