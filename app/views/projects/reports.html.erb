@@ -2,6 +2,19 @@
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
 <% content_for :title_bar do %>
+  <div class="project_nav">
+    <%= link_to t('Back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+    <% since_options.each do |qty| %>
+      <% if params[:since] == qty.to_s %>
+        <%= link_to t("projects.reports.n months ago", count: qty), "#", class: "btn btn-link btn-sm" %>
+      <% else %>
+        <%= link_to t("projects.reports.n months ago", count: qty), reports_project_path(@project, since: qty), class: "btn btn-default btn-sm" %>
+      <% end %>
+    <% end %>
+    <% if params[:since].present? %>
+      <%= link_to t('projects.reports.all_time'), reports_project_path(@project), class: "btn btn-default btn-sm" %>
+    <% end %>
+  </div>
 <% end %>
 
 <% cache [@project, params[:since]], expires: 2.days do %>
@@ -9,62 +22,55 @@
 <% unless since_options.empty? %>
 <div class="row">
   <div class="col-sm-12 col-md-12 text-right">
-    |
-    <% since_options.each do |qty| %>
-      <% if params[:since] == qty.to_s %>
-        <%= t("projects.reports.n months ago", count: qty) %> |
-      <% else %>
-        <%= link_to t("projects.reports.n months ago", count: qty), reports_project_path(@project, since: qty) %> |
-      <% end %>
-    <% end %>
-    <% if params[:since].present? %>
-      <%= link_to t('projects.reports.all_time'), reports_project_path(@project) %> |
-    <% end %>
+
   </div>
 </div>
 <% end %>
 
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2><%= t('projects.reports.current_iteration') %> <small>(<%= current_iteration_start_date %> - <%= current_iteration_end_date %>)</small></h2>
 
-    <p>This iteration has <%= current_iteration_points %> points planned in <%= current_iteration_count %> stories (including <%= current_iteration_non_estimable %> bugs or chores).</p>
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.current_iteration') %> <small>(<%= current_iteration_start_date %> - <%= current_iteration_end_date %>)</small></h3>
 
-    <p>There are <%= accepted_points %> points accepted so far, which is <%= accepted_rate %> of the total.</p>
+      <p>This iteration has <%= current_iteration_points %> points planned in <%= current_iteration_count %> stories (including <%= current_iteration_non_estimable %> bugs or chores).</p>
 
-    <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished around the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
+      <p>There are <%= accepted_points %> points accepted so far, which is <%= accepted_rate %> of the total.</p>
 
-    <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
+      <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished around the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
+
+      <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
+    </div>
+
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.velocity_by_iteration') %></h3>
+
+      <ul>
+        <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %></li>
+        <li><%= Project.human_attribute_name(:iteration_start_day) %>: <%= I18n.t('date.day_names')[@project.iteration_start_day] %></li>
+        <li><%= Project.human_attribute_name(:iteration_length) %>: <%= @project.iteration_length %></li>
+        <li><%= t('velocity') %>: <%= @service.velocity %></li>
+      </ul>
+
+      <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2><%= t('projects.reports.velocity_by_iteration') %></h2>
 
-    <ul>
-      <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %></li>
-      <li><%= Project.human_attribute_name(:iteration_start_day) %>: <%= I18n.t('date.day_names')[@project.iteration_start_day] %></li>
-      <li><%= Project.human_attribute_name(:iteration_length) %>: <%= @project.iteration_length %></li>
-      <li><%= t('velocity') %>: <%= @service.velocity %></li>
-    </ul>
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.velocity_per_member') %></h3>
+      <p><%= line_chart @service.group_by_developer, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity') %></p>
+    </div>
 
-    <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>
-  </div>
-</div>
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.bugs_impact') %></h3>
 
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <h2><%= t('projects.reports.bugs_impact') %></h2>
+      <p><%= column_chart @service.group_by_bugs, xtitle: t('projects.reports.iteration_number'), ytitle: t('projects.reports.quantity_non_estimable'), colors: ['red'] %></p>
+    </div>
 
-    <p><%= column_chart @service.group_by_bugs, xtitle: t('projects.reports.iteration_number'), ytitle: t('projects.reports.quantity_non_estimable'), colors: ['red'] %></p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-12 col-md-12">
-    <h2><%= t('projects.reports.velocity_per_member') %></h2>
-    <p><%= line_chart @service.group_by_developer, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity') %></p>
   </div>
 </div>
 

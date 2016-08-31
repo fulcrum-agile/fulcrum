@@ -24,7 +24,7 @@
 <%= link_to t('export'), project_stories_path(project, :format => :csv) %>
 </li>
 <li>
-<%= link_to_unless_current t('reports'), reports_project_path(project) %>
+<%= link_to_unless_current t('reports'), reports_project_path(project, since: 3) %>
 </li>
 <li><hr /></li>
 
