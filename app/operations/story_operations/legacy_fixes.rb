@@ -7,7 +7,7 @@ module StoryOperations
       # 'unscheduled'
       # FIXME Make model method on Story
       if model.project && !model.project.start_date && !['unstarted', 'unscheduled'].include?(model.state)
-        model.project.start_date = Date.today
+        model.project.start_date = Date.current
       end
     end
 

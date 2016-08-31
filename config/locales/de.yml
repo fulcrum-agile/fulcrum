@@ -129,6 +129,7 @@ de:
         locale:               'Locale'
         is_admin:             'Ist Administrator?'
         current_password:     'Aktuelles Passwort'
+        time_zone:            'Zeitzone'
 
     errors:
       models:

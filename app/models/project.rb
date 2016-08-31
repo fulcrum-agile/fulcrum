@@ -132,7 +132,7 @@ class Project < ActiveRecord::Base
     if !value || value == "0"
       self.archived_at = nil
     else
-      self.archived_at = Time.zone.now
+      self.archived_at = Time.current
     end
   end
 end

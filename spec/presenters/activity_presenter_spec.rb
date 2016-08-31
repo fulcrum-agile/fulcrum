@@ -69,7 +69,7 @@ describe ActivityPresenter do
         project.start_date = nil
         project.save
 
-        project.start_date = Date.parse('2016-08-30')
+        project.start_date = Date.parse('2016-08-30').in_time_zone
         activity.subject = project
         activity.save
         expect(subject.description).to eq("#{user_name} updated Project '<a href=\"/projects/test-project\">Test Project</a>' changing start_date to '2016-08-30'")
@@ -102,11 +102,11 @@ describe ActivityPresenter do
       end
 
       it 'describes changes in project' do
-        project.start_date = Date.parse('2016-07-01')
+        project.start_date = Date.parse('2016-07-01').in_time_zone
         project.save
 
         project.name = 'New Project'
-        project.start_date = Date.parse('2016-08-30')
+        project.start_date = Date.parse('2016-08-30').in_time_zone
         activity.subject = project
         activity.save
         expect(subject.description).to eq("#{user_name} updated Project '<a href=\"/projects/test-project\">New Project</a>' changing name from 'Test Project' to 'New Project', start_date from '2016-07-01' to '2016-08-30'")

@@ -260,7 +260,7 @@ class Story < ActiveRecord::Base
       if state_changed?
         if state == 'accepted' && accepted_at == nil
           # Set accepted at to today when accepted
-          self.accepted_at = Date.today
+          self.accepted_at = Date.current
         end
       end
     end

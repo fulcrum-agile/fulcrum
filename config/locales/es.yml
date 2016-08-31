@@ -135,6 +135,7 @@ es:
         locale:               'Configuración regional'
         is_admin:             '¿Es administrador?'
         current_password:     'contraseña actual'
+        time_zone:            'zona horaria'
 
     errors:
       models:

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe ProjectOperations do
   let(:user)           { create(:user) }
-  let(:project_params) { { name: 'Foo bar', start_date: Date.today } }
+  let(:project_params) { { name: 'Foo bar', start_date: Date.current } }
   let(:project) { user.projects.build(project_params) }
 
   describe 'Create' do

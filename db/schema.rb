@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825181243) do
+ActiveRecord::Schema.define(version: 20160831134320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 20160825181243) do
   add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                              default: "",    null: false
-    t.string   "encrypted_password",     limit: 128, default: "",    null: false
+    t.string   "email",                              default: "",         null: false
+    t.string   "encrypted_password",     limit: 128, default: "",         null: false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
@@ -158,7 +158,8 @@ ActiveRecord::Schema.define(version: 20160825181243) do
     t.string   "locale"
     t.boolean  "is_admin",                           default: false
     t.integer  "memberships_count",                  default: 0
-    t.string   "username",                                           null: false
+    t.string   "username",                                                null: false
+    t.string   "time_zone",                          default: "Brasilia", null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

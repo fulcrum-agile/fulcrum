@@ -187,7 +187,7 @@ describe Project do
     end
 
     it 'resets the archived_at datetime' do
-      subject.update_attributes(archived_at: Time.zone.now)
+      subject.update_attributes(archived_at: Time.current)
       subject.update_attributes(archived: "0")
       expect(subject.archived_at).to be_nil
     end

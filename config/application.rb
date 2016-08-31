@@ -23,6 +23,8 @@ module Fulcrum
 
     config.i18n.available_locales = ['de', 'el', 'en', 'es', 'nl', 'ja', 'pt-BR']
 
+    config.time_zone = 'Brasilia' # default timezone
+
     config.autoload_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('lib/integrations')
 

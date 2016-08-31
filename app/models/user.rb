@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   def set_random_password_if_blank
     if new_record? && self.password.blank? && self.password_confirmation.blank?
-      self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--")[0,8]
+      self.password = self.password_confirmation = Digest::SHA1.hexdigest("--#{Time.current.to_s}--#{email}--")[0,8]
     end
   end
 
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   def set_reset_password_token
     raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
     self.reset_password_token   = enc
-    self.reset_password_sent_at = Time.now.utc
+    self.reset_password_sent_at = Time.current.utc
     self.save(:validate => false)
     raw
   end

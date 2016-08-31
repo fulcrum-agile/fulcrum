@@ -129,6 +129,7 @@ ja:
         locale:               'ロケール'
         is_admin:             '管理者ですか'
         current_password:     '現在のパスワード'
+        time_zone:            '時間帯'
 
   projects:
     new project:        "新規プロジェクト"
