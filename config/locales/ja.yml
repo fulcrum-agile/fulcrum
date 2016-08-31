@@ -2,7 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ja:
-  fulcrum:  "CM42 セントラル"
+  cm-central:  "CM42 セントラル"
 
   log out:  "ログアウト"
   log in:   "ログイン"
