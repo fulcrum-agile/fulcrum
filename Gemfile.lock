@@ -45,6 +45,12 @@ GEM
       execjs
     aws_cf_signer (0.1.3)
     bcrypt (3.1.11)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -99,6 +105,7 @@ GEM
       safe_yaml (~> 1.0.0)
     dalli (2.7.6)
     database_cleaner (1.5.3)
+    debug_inspector (0.0.2)
     devise (3.5.10)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -338,6 +345,8 @@ PLATFORMS
 DEPENDENCIES
   attachinary
   autoprefixer-rails
+  better_errors
+  binding_of_caller
   bootstrap-sass (~> 3.3.5)
   cancancan (~> 1.10)
   capybara
