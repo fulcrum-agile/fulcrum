@@ -44,7 +44,7 @@ describe StoryOperations do
     end
   end
 
-  describe "#documents_attributes", focus: true do
+  describe "#documents_attributes" do
     before do
       story.save!
     end
