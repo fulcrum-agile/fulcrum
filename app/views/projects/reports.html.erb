@@ -17,7 +17,7 @@
   </div>
 <% end %>
 
-<% cache [@project, params[:since]], expires: 2.days do %>
+<% cache [@project, params[:since]], expires: 1.hour do %>
 
 <% unless since_options.empty? %>
 <div class="row">
