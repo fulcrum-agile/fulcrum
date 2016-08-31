@@ -4,7 +4,7 @@ describe IterationService do
   let(:project) { FactoryGirl.create :project,
                   iteration_start_day: 2,
                   iteration_length: 1,
-                  start_date: Time.zone.parse('2016/05/13') }
+                  start_date: Time.zone.parse('2016-05-13') }
   let(:service) { IterationService.new(project) }
 
   it 'should return the start of the current iteration' do
@@ -95,6 +95,118 @@ describe IterationService do
       service.iteration_start_day = 2
       expect(service.date_for_iteration_number(1)).to eq(Time.zone.parse("2011/07/19"))
       expect(service.date_for_iteration_number(5)).to eq(Time.zone.parse("2011/11/08"))
+    end
+  end
+
+  context 'complete set of stories in many different iterations' do
+    let(:today) { Time.zone.parse('2016-08-31') }
+    let(:dummy) { create(:user, username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")}
+    before do
+      Timecop.freeze(today)
+      project.start_date = Time.zone.parse("2016-07-01")
+      project.users << dummy
+      project.save
+      rand = Random.new(666)
+      story_types = ['feature', 'feature', 'bug', 'feature'] # 3 times more features than bugs, in average
+
+      65.times do |i|
+        story_type = story_types[rand.rand(4)]
+        estimate = story_type == 'bug' ? nil : project.point_values[rand.rand(project.point_values.size)]
+        project.stories.create!(title: "Story #{i}", story_type: story_type, estimate: estimate, state: 'accepted', accepted_at: project.start_date + i.days, requested_by: dummy)
+      end
+      10.times do |i|
+        story_type = story_types[rand.rand(4)]
+        estimate = story_type == 'bug' ? nil : project.point_values[rand.rand(project.point_values.size)]
+        project.stories.create!(title: "Story #{65 + i}", story_type: story_type, estimate: estimate, requested_by: dummy)
+      end
+    end
+
+    after { Timecop.return }
+
+    it '#group_by_iteration' do
+      groups = service.group_by_iteration
+      expect(groups).to eq({1=>[3, 2, 0, 5, 0],
+                            2=>[8, 8, 0, 1, 0, 3, 8],
+                            3=>[1, 8, 1, 3, 1, 8, 0],
+                            4=>[3, 2, 1, 1, 5, 0, 5],
+                            5=>[0, 0, 1, 0, 1, 5, 0],
+                            6=>[5, 3, 1, 5, 8, 5, 5],
+                            7=>[2, 8, 8, 0, 3, 8, 2],
+                            8=>[5, 0, 8, 0, 2, 3, 0],
+                            9=>[3, 3, 2, 8, 0]})
+    end
+
+    it '#group_by_velocity' do
+      groups = service.group_by_velocity
+      expect(groups).to eq({1=>10, 2=>28, 3=>22, 4=>17, 5=>7, 6=>32, 7=>31, 8=>18, 9=>16})
+    end
+
+    it '#group_by_bugs' do
+      groups = service.group_by_bugs
+      expect(groups).to eq({1=>2, 2=>2, 3=>1, 4=>1, 5=>4, 6=>0, 7=>1, 8=>3, 9=>1})
+    end
+
+    it '#velocity' do
+      expect(service.velocity).to eq(21)
+    end
+
+    it '#group_by_developer' do
+      groups = service.group_by_developer
+      expect(groups).to eq([{:name=>"Dummy", :data=>{1=>10, 2=>28, 3=>22, 4=>17, 5=>7, 6=>32, 7=>31, 8=>18, 9=>16}}])
+    end
+
+    it '#backlog_iterations' do
+      # there were 75 stories total
+      # 59 stories in the done column
+      # there are 10 in the in_progress and 6 in the backlog
+      iterations = service.backlog_iterations
+      expect(iterations.size).to eq(2)
+      expect(iterations.first.size).to eq(10)
+      expect(iterations.last.size).to eq(6)
+
+      # override velocity to simulate different iterations
+      iterations = service.backlog_iterations(10)
+      expect(iterations.size).to eq(6)
+      expect(iterations.first.size).to eq(8)
+    end
+
+    it '#current_iteration_details' do
+      iterations = service.backlog_iterations
+      current_iteration = iterations.first
+      current_iteration[-1].start
+
+      current_iteration[-2].start
+      current_iteration[-2].finish
+
+      current_iteration[-3].start
+      current_iteration[-3].finish
+      current_iteration[-3].deliver
+      current_iteration[-3].reject
+
+      details = service.current_iteration_details
+      expect(details).to eq({"started"=>3, "finished"=>8, "delivered"=>0, "accepted"=>4, "rejected"=>1})
+    end
+
+    it '#standard_deviation' do
+      # calculate for population
+      standard_deviation = service.standard_deviation(service.group_by_velocity.values)
+      expect("%.4f" % standard_deviation).to eq("8.3725")
+
+      # calculate for sample (N - 1) for correction
+      standard_deviation = service.standard_deviation(service.group_by_velocity.values, true)
+      expect("%.4f" % standard_deviation).to eq("8.8804")
+
+      # last 3 iterations
+      standard_deviation = service.standard_deviation(service.group_by_velocity.values.reverse.take(3))
+      expect("%.4f" % standard_deviation).to eq("6.6500")
+    end
+
+    it '#volatility' do
+      volatility = service.volatility(9)
+      expect("%.4f" % volatility).to eq("0.4186")
+
+      volatility = service.volatility
+      expect("%.4f" % volatility).to eq("0.3878")
     end
   end
 end

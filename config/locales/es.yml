@@ -13,6 +13,7 @@ es:
   revert:   "Revertir"
   apply:    "Aplicar"
   velocity: "Velocidad"
+  volatility: "Volatilidad"
   notes:    "Notas"
   tasks:    "Tareas"
   close:    "Cerca"

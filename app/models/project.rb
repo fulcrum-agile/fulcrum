@@ -135,4 +135,8 @@ class Project < ActiveRecord::Base
       self.archived_at = Time.current
     end
   end
+
+  def iteration_service(since = nil)
+    @iteration_service ||= IterationService.new(self, since)
+  end
 end

@@ -16,6 +16,7 @@ en:
   revert:   "Revert"
   apply:    "Apply"
   velocity: "Velocity"
+  volatility: "Volatility"
   notes:    "Notes"
   tasks:    "Tasks"
   close:    "Close"

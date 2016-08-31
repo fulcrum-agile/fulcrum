@@ -310,6 +310,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    timecop (0.8.1)
     transitions (0.1.9)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -395,6 +396,7 @@ DEPENDENCIES
   sinatra
   sinon-rails
   therubyracer
+  timecop
   transitions (= 0.1.9)
   uglifier (>= 2.5.3)
   vcr

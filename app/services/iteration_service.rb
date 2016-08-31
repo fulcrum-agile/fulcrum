@@ -13,7 +13,7 @@ class IterationService
     @project = project
 
     relation = project.stories.includes(:owned_by)
-    relation = relation.where('accepted_at > ?', since) if since
+    relation = relation.where('accepted_at > ? or accepted_at is null', since) if since
     @stories = relation.to_a
 
     @accepted_stories = @stories.
@@ -117,16 +117,15 @@ class IterationService
       end
   end
 
-  def velocity
-    @velocity ||= begin
-      iterations = group_by_iteration.size
-      return 1 if iterations.zero?
+  def velocity(number_of_iterations = VELOCITY_ITERATIONS)
+    @velocity ||= {}
+    @velocity[number_of_iterations] ||= begin
+      number_of_iterations = group_by_iteration.size if number_of_iterations > group_by_iteration.size
+      return 1 if number_of_iterations.zero?
 
-      iterations = VELOCITY_ITERATIONS if iterations > VELOCITY_ITERATIONS
+      sum = group_by_velocity.values.slice((-1 * number_of_iterations)..-1).sum
 
-      sum = group_by_velocity.values.slice((-1 * iterations)..-1).sum
-
-      velocity = (sum / iterations).floor
+      velocity = (sum / number_of_iterations).floor
       velocity < 1 ? 1 : velocity
     end
   end
@@ -149,28 +148,29 @@ class IterationService
     end
   end
 
-  def backlog_iterations
+  def backlog_iterations(velocity_value = velocity)
+    @backlog_iterations ||= {}
     # mimics the project.js rebuildIteration() function
-    @backlog_iterations ||= begin
-      current_iteration = Iteration.new(self, current_iteration_number, velocity)
-      backlog_iteration = Iteration.new(self, current_iteration_number + 1, velocity)
-      [current_iteration, backlog_iteration].tap do |iterations|
-        @backlog.each do |story|
-          if current_iteration.can_take_story?(story)
-            current_iteration << story
-          else
-            if !backlog_iteration.can_take_story?(story)
-              # Iterations sometimes 'overflow', i.e. an iteration may contain a
-              # 5 point story but the project velocity is 1.  In this case, the
-              # next iteration that can have a story added is the current + 4.
-              next_number       = backlog_iteration.number + 1 + (backlog_iteration.overflows_by / velocity).ceil
-              backlog_iteration = Iteration.new(self, next_number, velocity)
-              iterations << backlog_iteration
-            end
-            backlog_iteration << story
+    @backlog_iterations[velocity_value] ||= begin
+      current_iteration = Iteration.new(self, current_iteration_number, velocity_value)
+      backlog_iteration = Iteration.new(self, current_iteration_number + 1, velocity_value)
+      iterations = [current_iteration, backlog_iteration]
+      @backlog.each do |story|
+        if current_iteration.can_take_story?(story)
+          current_iteration << story
+        else
+          if !backlog_iteration.can_take_story?(story)
+            # Iterations sometimes 'overflow', i.e. an iteration may contain a
+            # 5 point story but the project velocity is 1.  In this case, the
+            # next iteration that can have a story added is the current + 4.
+            next_number       = backlog_iteration.number + 1 + (backlog_iteration.overflows_by / velocity_value).ceil
+            backlog_iteration = Iteration.new(self, next_number, velocity_value)
+            iterations << backlog_iteration
           end
+          backlog_iteration << story
         end
       end
+      iterations
     end
   end
 
@@ -183,5 +183,26 @@ class IterationService
     end
   end
 
+  def standard_deviation(groups = [], sample = false)
+    # algorithm: https://www.mathsisfun.com/data/standard-deviation-formulas.html
+    #
+    mean            = groups.sum.to_f / groups.size.to_f
+    differences_sqr = groups.map { |velocity| (velocity.to_f - mean) ** 2 }
+    count = sample ? (groups.size - 1).to_f : groups.size.to_f
+    variance        = differences_sqr.sum / count
+
+    Math.sqrt(variance)
+  end
+
+  def volatility(number_of_iterations = VELOCITY_ITERATIONS)
+    number_of_iterations = group_by_velocity.size if number_of_iterations > group_by_velocity.size
+
+    is_sample       = number_of_iterations != group_by_velocity.size
+    last_iterations = group_by_velocity.values.reverse.take(number_of_iterations)
+    std_dev         = standard_deviation(last_iterations, is_sample)
+    velocity_value  = velocity(number_of_iterations)
+
+    ( std_dev / velocity_value )
+  end
 end
 
