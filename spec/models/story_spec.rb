@@ -232,7 +232,7 @@ describe Story do
       # FIXME This is non-deterministic
       it "gets set when state changes to 'accepted'" do
         subject.update_attribute :state, 'accepted'
-        expect(subject.accepted_at).to eq(Date.today)
+        expect(subject.accepted_at).to eq(Date.current)
       end
 
     end

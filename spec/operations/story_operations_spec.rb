@@ -80,7 +80,7 @@ describe StoryOperations do
       story.save!
     end
 
-    subject { ->{StoryOperations::Update.(story, { state: 'accepted', accepted_at: Date.today }, user) } }
+    subject { ->{StoryOperations::Update.(story, { state: 'accepted', accepted_at: Date.current }, user) } }
 
     context "::LegacyFixes" do
 
@@ -90,7 +90,7 @@ describe StoryOperations do
       end
 
       it "sets the project start date if it's newer than the accepted story" do
-        story.project.update_attribute(:start_date, Date.today + 2.days)
+        story.project.update_attribute(:start_date, Date.current + 2.days)
         expect(subject.call.project.start_date).to eq(story.accepted_at)
       end
 
