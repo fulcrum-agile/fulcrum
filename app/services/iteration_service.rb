@@ -149,6 +149,7 @@ class IterationService
   end
 
   def backlog_iterations(velocity_value = velocity)
+    velocity_value = 1 if velocity_value < 1
     @backlog_iterations ||= {}
     # mimics the project.js rebuildIteration() function
     @backlog_iterations[velocity_value] ||= begin
