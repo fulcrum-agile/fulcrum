@@ -6,17 +6,18 @@ class StoriesController < ApplicationController
   before_action :filter_documents
 
   def index
-    @project = current_user.projects.with_stories_notes.friendly.find(params[:project_id])
+    @project = current_user.projects.friendly.find(params[:project_id])
 
     @stories = if params[:q]
                  StorySearch.new(@project, params[:q]).search
                elsif params[:label]
-                 Story.by_label(params[:label])
+                 StorySearch.new(@project, params[:label]).search_labels
                elsif ENV['STORIES_CEILING']
-                 @project.stories.order('updated_at DESC').limit(ENV['STORIES_CEILING'])
+                 @project.stories.with_dependencies.limit(ENV['STORIES_CEILING'])
                else
-                 @project.stories
-               end
+                 @project.stories.with_dependencies
+               end.
+               order('updated_at DESC')
 
     respond_to do |format|
       format.json { render json: @stories }
