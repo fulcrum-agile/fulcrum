@@ -63,8 +63,8 @@ Rails.application.configure do
   config.cache_store = :dalli_store, memcachier_servers, memcachier_options
   client = Dalli::Client.new(memcachier_servers, memcachier_options)
   config.action_dispatch.rack_cache = {
-    metastore   : client,
-    entitystore : client
+    metastore: client,
+    entitystore: client
   }
   config.static_cache_control = "public, max-age=2592000"
 
