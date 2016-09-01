@@ -18,8 +18,12 @@ class Story < ActiveRecord::Base
       description: 'B',
       labels: 'C'
     },
-    using: [:tsearch],
-    ranked_by: ":trigram"
+    using: {
+      tsearch: {
+        prefix: true,
+        negation: true
+      }
+    }
 
   pg_search_scope :search_labels,
     against: :labels,
