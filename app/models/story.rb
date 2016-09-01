@@ -18,10 +18,12 @@ class Story < ActiveRecord::Base
       description: 'B',
       labels: 'C'
     },
-    using: :trigram
+    using: [:tsearch],
+    ranked_by: ":trigram"
 
   pg_search_scope :search_labels,
-    against: :labels
+    against: :labels,
+    ranked_by: ":trigram"
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",

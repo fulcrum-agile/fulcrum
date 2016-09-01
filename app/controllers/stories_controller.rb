@@ -12,12 +12,11 @@ class StoriesController < ApplicationController
                  StorySearch.new(@project, params[:q]).search
                elsif params[:label]
                  StorySearch.new(@project, params[:label]).search_labels
-               elsif ENV['STORIES_CEILING']
-                 @project.stories.with_dependencies.limit(ENV['STORIES_CEILING'])
                else
-                 @project.stories.with_dependencies
-               end.
-               order('updated_at DESC')
+                 relation = @project.stories.with_dependencies.order('updated_at DESC')
+                 relation = relation.limit(ENV['STORIES_CEILING']) if ENV['STORIES_CEILING']
+                 relation
+               end
 
     respond_to do |format|
       format.json { render json: @stories }
