@@ -1,6 +1,6 @@
 <div class="form-wrapper add-member">
 <%= form_for [:admin, @user] do |f| %>
-  <%= render 'shared/form_errors', :object => @user if @user.errors.any? %>
+  <%= render 'form_errors', object: @user if @user.errors.any? %>
 
   <div class="field-wrapper">
     <%= f.label :email, class: 'col-sm-2 control-label' %>

@@ -7,7 +7,7 @@ class ActivityPresenter < SimpleDelegator
 
   def initialize(activity)
     @activity = activity
-    __setobj__(activity)
+    super
   end
 
   def eql?(targer)

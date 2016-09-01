@@ -1,8 +1,6 @@
 <% content_for :sidebar do %>
   <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
 <% end %>
-<% content_for :title_bar do %>
-<% end %>
 
 <h2>Import stories</h2>
 
@@ -11,7 +9,6 @@
   There is already an uploaded file being processed
   <%= time_ago_in_words session[:import_job][:created_at] %> ago.
   </p>
-  <!-- Job ID: <%= session[:import_job][:id] %> -->
   <p>
   Wait a few minutes and come back to see the results or upload a new file in case of errors.
   </p>

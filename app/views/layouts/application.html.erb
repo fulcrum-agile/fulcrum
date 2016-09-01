@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= "#{@project.name} - " if @project %><%= t('fulcrum') %></title>
+  <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag :application %>
   <%= javascript_include_tag :application %>
@@ -19,11 +19,10 @@
   </div>
 
   <div id="sidebar-wrapper" style="display: none;">
-    <%= render 'shared/sidebar' %>
+    <%= render 'sidebar' %>
   </div>
 
   <div id="page-content-wrapper">
-
     <div id="title_bar">
       <a href="#menu-toggle" class="btn btn-default menu-toggle menu-toggle-closed">
         <i class="mi md-dark">menu</i>
@@ -32,13 +31,10 @@
     </div>
 
     <div id="main">
-      <%= render 'shared/flash' %>
-
+      <%= render 'flash' %>
       <%= yield %>
     </div>
-
   </div>
-
 </div>
 
 </body>

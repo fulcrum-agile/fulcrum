@@ -20,10 +20,6 @@ class Activity < ActiveRecord::Base
 
   before_save :parse_changes
 
-  scope :with_dependencies, -> {
-    includes(:user)
-  }
-
   scope :projects, ->(ids) {
     where(project_id: ids) if ids
   }
@@ -32,9 +28,13 @@ class Activity < ActiveRecord::Base
     where("created_at > ?", date.beginning_of_day) if date
   }
 
+  def self.fetch_polymorphic(ids, since)
+    stories = where("subject_type in ('Project', 'Story')").includes(:user, :subject).projects(ids).since(since).to_a
+    stories + where("subject_type in ('Note', 'Task')").includes(:user, subject: [:story]).projects(ids).since(since).to_a
+  end
+
   def self.grouped_activities(allowed_projects, since)
-    ids = allowed_projects.pluck(:id)
-    with_dependencies.projects(ids).since(since).group_by { |activity|
+    fetch_polymorphic(allowed_projects.pluck(:id), since).group_by { |activity|
       activity.created_at.beginning_of_day
     }.
     map { |date, activities|

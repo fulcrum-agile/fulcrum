@@ -10,6 +10,7 @@ class Story < ActiveRecord::Base
     end
   end
 
+  extend Enumerize
   include PgSearch
   pg_search_scope :search,
     :against => {
@@ -104,15 +105,11 @@ class Story < ActiveRecord::Base
   attr_accessor :iteration_number, :iteration_start_date # helper fields for IterationService
   attr_accessor :iteration_service
 
-  STORY_TYPES = [
-    'feature', 'chore', 'bug', 'release'
-  ]
+  STORY_TYPES = %i[feature chore bug release].freeze
+  ESTIMABLE_TYPES = %w[feature release]
 
-  ESTIMABLE_TYPES = [
-    'feature', 'release'
-  ]
-
-  validates :story_type, :inclusion => STORY_TYPES
+  enumerize :story_type, in: STORY_TYPES, predicates: true, scope: true
+  validates_presence_of :story_type
 
   validates :estimate, :estimate => true, :allow_nil => true
 
@@ -209,7 +206,7 @@ class Story < ActiveRecord::Base
 
   # Returns true if this story can have an estimate made against it
   def estimable?
-    story_type == 'feature' && !estimated?
+    feature? && !estimated?
   end
   alias :estimable :estimable?
 
