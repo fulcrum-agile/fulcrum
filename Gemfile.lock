@@ -124,6 +124,8 @@ GEM
       dotenv (= 2.1.1)
       railties (>= 4.0, < 5.1)
     ejs (1.1.1)
+    enumerize (2.0.0)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -363,6 +365,7 @@ DEPENDENCIES
   devise-async
   dotenv-rails
   ejs
+  enumerize
   factory_girl_rails
   font_assets!
   foreman

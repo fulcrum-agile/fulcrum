@@ -33,17 +33,8 @@ describe Story do
     end
 
     describe '#story_type' do
-      it "is required" do
-        subject.story_type = nil
-        subject.valid?
-        expect(subject.errors[:story_type].size).to eq(1)
-      end
-
-      it "is must be a valid story type" do
-        subject.story_type = 'flum'
-        subject.valid?
-        expect(subject.errors[:story_type].size).to eq(1)
-      end
+      it {  is_expected.to validate_presence_of(:story_type) }
+      it { is_expected.to enumerize(:story_type).in('feature', 'chore', 'bug', 'release') }
     end
 
     describe '#state' do
@@ -362,7 +353,7 @@ describe Story do
 
     context "with attachments" do
       let(:attachments) { [
-        {"id"=>30, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}, 
+        {"id"=>30, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"},
         {"id"=>31, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}
       ]}
 
