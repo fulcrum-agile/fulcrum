@@ -222,20 +222,57 @@ describe Story do
 
       # FIXME This is non-deterministic
       it "gets set when state changes to 'accepted'" do
-        subject.update_attribute :state, 'accepted'
-        expect(subject.accepted_at).to eq(Date.current)
+        Timecop.freeze(Time.zone.parse('2016-08-31 12:00:00')) do
+          subject.started_at = 5.days.ago
+          subject.update_attribute :state, 'accepted'
+          expect(subject.accepted_at).to eq(Time.current)
+          expect(subject.cycle_time_in(:days)).to eq(5)
+        end
       end
 
     end
 
     context "when set" do
 
-      before { subject.accepted_at = Date.parse('1999/01/01') }
+      before { subject.accepted_at = Time.zone.parse('1999/01/01') }
 
       # FIXME This is non-deterministic
       it "is unchanged when state changes to 'accepted'" do
         subject.update_attribute :state, 'accepted'
-        expect(subject.accepted_at).to eq(Date.parse('1999/01/01'))
+        expect(subject.accepted_at).to eq(Time.zone.parse('1999/01/01'))
+      end
+
+    end
+  end
+
+  describe "#started_at" do
+
+    context "when not set" do
+
+      before do
+        subject.started_at = subject.owned_by = nil
+      end
+
+      # FIXME This is non-deterministic
+      it "gets set when state changes to 'started'" do
+        Timecop.freeze(Time.zone.parse('2016-08-31 12:00:00')) do
+          subject.update_attribute :state, 'started'
+          expect(subject.started_at).to eq(Time.current)
+          expect(subject.owned_by).to eq(subject.acting_user)
+        end
+      end
+
+    end
+
+    context "when set" do
+
+      before { subject.started_at = Time.zone.parse('2016-09-01 13:00:00') }
+
+      # FIXME This is non-deterministic
+      it "is unchanged when state changes to 'started'" do
+        subject.update_attribute :state, 'started'
+        expect(subject.started_at).to eq(Time.zone.parse('2016-09-01 13:00:00'))
+        expect(subject.owned_by).to eq(subject.acting_user)
       end
 
     end

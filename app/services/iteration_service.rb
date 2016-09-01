@@ -190,8 +190,8 @@ class IterationService
     #
     mean            = groups.sum.to_f / groups.size.to_f
     differences_sqr = groups.map { |velocity| (velocity.to_f - mean) ** 2 }
-    count = sample ? (groups.size - 1).to_f : groups.size.to_f
-    variance        = differences_sqr.sum / count
+    count = sample ? (groups.size - 1) : groups.size
+    variance        = differences_sqr.sum / count.to_f
 
     Math.sqrt(variance)
   end

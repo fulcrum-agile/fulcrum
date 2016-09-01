@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901160225) do
+ActiveRecord::Schema.define(version: 20160901171941) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "hstore"
-  enable_extension "pg_trgm"
 
   create_table "activities", force: true do |t|
     t.integer  "project_id",             null: false
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20160901160225) do
     t.integer  "estimate"
     t.string   "story_type",        default: "feature"
     t.string   "state",             default: "unstarted"
-    t.date     "accepted_at"
+    t.datetime "accepted_at"
     t.integer  "requested_by_id"
     t.integer  "owned_by_id"
     t.integer  "project_id"
@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 20160901160225) do
     t.string   "requested_by_name"
     t.string   "owned_by_name"
     t.string   "owned_by_initials"
+    t.datetime "started_at"
+    t.float    "cycle_time",        default: 0.0
   end
 
   create_table "tasks", force: true do |t|

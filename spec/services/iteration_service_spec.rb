@@ -99,7 +99,7 @@ describe IterationService do
   end
 
   context 'complete set of stories in many different iterations' do
-    let(:today) { Time.zone.parse('2016-08-31') }
+    let(:today) { Time.local(2016, 8, 31, 12, 0, 0) }
     let(:dummy) { create(:user, username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")}
     before do
       Timecop.freeze(today)
@@ -125,34 +125,34 @@ describe IterationService do
 
     it '#group_by_iteration' do
       groups = service.group_by_iteration
-      expect(groups).to eq({1=>[3, 2, 0, 5, 0],
-                            2=>[8, 8, 0, 1, 0, 3, 8],
-                            3=>[1, 8, 1, 3, 1, 8, 0],
-                            4=>[3, 2, 1, 1, 5, 0, 5],
-                            5=>[0, 0, 1, 0, 1, 5, 0],
-                            6=>[5, 3, 1, 5, 8, 5, 5],
-                            7=>[2, 8, 8, 0, 3, 8, 2],
-                            8=>[5, 0, 8, 0, 2, 3, 0],
-                            9=>[3, 3, 2, 8, 0]})
+      expect(groups).to eq({1 => [3, 2, 0, 5],
+                            2 => [0, 8, 8, 0, 1, 0, 3],
+                            3 => [8, 1, 8, 1, 3, 1, 8],
+                            4 => [0, 3, 2, 1, 1, 5, 0],
+                            5 => [5, 0, 0, 1, 0, 1, 5],
+                            6 => [0, 5, 3, 1, 5, 8, 5],
+                            7 => [5, 2, 8, 8, 0, 3, 8],
+                            8 => [2, 5, 0, 8, 0, 2, 3],
+                            9 => [0, 3, 3, 2, 8]})
     end
 
     it '#group_by_velocity' do
       groups = service.group_by_velocity
-      expect(groups).to eq({1=>10, 2=>28, 3=>22, 4=>17, 5=>7, 6=>32, 7=>31, 8=>18, 9=>16})
+      expect(groups).to eq({1=>10, 2=>20, 3=>30, 4=>12, 5=>12, 6=>27, 7=>34, 8=>20, 9=>16})
     end
 
     it '#group_by_bugs' do
       groups = service.group_by_bugs
-      expect(groups).to eq({1=>2, 2=>2, 3=>1, 4=>1, 5=>4, 6=>0, 7=>1, 8=>3, 9=>1})
+      expect(groups).to eq({1=>1, 2=>3, 3=>0, 4=>2, 5=>3, 6=>1, 7=>1, 8=>2, 9=>1})
     end
 
     it '#velocity' do
-      expect(service.velocity).to eq(21)
+      expect(service.velocity).to eq(23)
     end
 
     it '#group_by_developer' do
       groups = service.group_by_developer
-      expect(groups).to eq([{:name=>"Dummy", :data=>{1=>10, 2=>28, 3=>22, 4=>17, 5=>7, 6=>32, 7=>31, 8=>18, 9=>16}}])
+      expect(groups).to eq([{:name=>"Dummy", :data=>{1=>10, 2=>20, 3=>30, 4=>12, 5=>12, 6=>27, 7=>34, 8=>20, 9=>16}}])
     end
 
     it '#backlog_iterations' do
@@ -161,13 +161,13 @@ describe IterationService do
       # there are 10 in the in_progress and 6 in the backlog
       iterations = service.backlog_iterations
       expect(iterations.size).to eq(2)
-      expect(iterations.first.size).to eq(10)
+      expect(iterations.first.size).to eq(11)
       expect(iterations.last.size).to eq(6)
 
       # override velocity to simulate different iterations
       iterations = service.backlog_iterations(10)
       expect(iterations.size).to eq(6)
-      expect(iterations.first.size).to eq(8)
+      expect(iterations.first.size).to eq(9)
     end
 
     it '#current_iteration_details' do
@@ -193,23 +193,23 @@ describe IterationService do
 
       # calculate for population
       standard_deviation = service.standard_deviation(service.group_by_velocity.values)
-      expect("%.4f" % standard_deviation).to eq("8.3725")
+      expect("%.4f" % standard_deviation).to eq("8.0890")
 
       # calculate for sample (N - 1) for correction
       standard_deviation = service.standard_deviation(service.group_by_velocity.values, true)
-      expect("%.4f" % standard_deviation).to eq("8.8804")
+      expect("%.4f" % standard_deviation).to eq("8.5797")
 
       # last 3 iterations
       standard_deviation = service.standard_deviation(service.group_by_velocity.values.reverse.take(3))
-      expect("%.4f" % standard_deviation).to eq("6.6500")
+      expect("%.4f" % standard_deviation).to eq("7.7172")
     end
 
     it '#volatility' do
       volatility = service.volatility(9)
-      expect("%.4f" % volatility).to eq("0.4186")
+      expect("%.4f" % volatility).to eq("0.4045")
 
       volatility = service.volatility
-      expect("%.4f" % volatility).to eq("0.3878")
+      expect("%.4f" % volatility).to eq("0.4109")
     end
   end
 end

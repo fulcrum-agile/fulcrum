@@ -91,7 +91,7 @@ describe StoryOperations do
 
       it "sets the project start date if it's newer than the accepted story" do
         story.project.update_attribute(:start_date, Date.current + 2.days)
-        expect(subject.call.project.start_date).to eq(story.accepted_at)
+        expect(subject.call.project.start_date).to eq(story.accepted_at.to_date)
       end
 
     end
