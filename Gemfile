@@ -80,6 +80,7 @@ group :development do
   gem 'letter_opener'
   gem "better_errors"
   gem "binding_of_caller"
+  gem "bullet"
 end
 
 group :development, :test do
