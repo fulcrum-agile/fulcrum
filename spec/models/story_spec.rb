@@ -11,13 +11,13 @@ describe Story do
     let!(:story) { create(:story, :with_project, labels: 'feature,test') }
     let!(:dummy_story) { create(:story, :with_project, labels: 'something') }
 
-    describe '#by_label' do
+    describe '#search_labels' do
       it 'find when label contains in story labels' do
-        expect(described_class.by_label('test')).to include story
+        expect(described_class.search_labels('test')).to include story
       end
 
       it 'return empty when label is not included in story labels' do
-        expect(described_class.by_label('test')).to_not include dummy_story
+        expect(described_class.search_labels('test')).to_not include dummy_story
       end
     end
   end
@@ -201,7 +201,7 @@ describe Story do
 
     context "when there are other stories" do
 
-      let(:last_story) { mock_model(Story, :position => 41) }
+      let(:last_story) { mock_model(Story, position: 41) }
 
       before do
         allow(subject).to receive_message_chain(:project, :stories, :order, :first).and_return(last_story)
@@ -222,20 +222,57 @@ describe Story do
 
       # FIXME This is non-deterministic
       it "gets set when state changes to 'accepted'" do
-        subject.update_attribute :state, 'accepted'
-        expect(subject.accepted_at).to eq(Date.current)
+        Timecop.freeze(Time.zone.parse('2016-08-31 12:00:00')) do
+          subject.started_at = 5.days.ago
+          subject.update_attribute :state, 'accepted'
+          expect(subject.accepted_at).to eq(Time.current)
+          expect(subject.cycle_time_in(:days)).to eq(5)
+        end
       end
 
     end
 
     context "when set" do
 
-      before { subject.accepted_at = Date.parse('1999/01/01') }
+      before { subject.accepted_at = Time.zone.parse('1999/01/01') }
 
       # FIXME This is non-deterministic
       it "is unchanged when state changes to 'accepted'" do
         subject.update_attribute :state, 'accepted'
-        expect(subject.accepted_at).to eq(Date.parse('1999/01/01'))
+        expect(subject.accepted_at).to eq(Time.zone.parse('1999/01/01'))
+      end
+
+    end
+  end
+
+  describe "#started_at" do
+
+    context "when not set" do
+
+      before do
+        subject.started_at = subject.owned_by = nil
+      end
+
+      # FIXME This is non-deterministic
+      it "gets set when state changes to 'started'" do
+        Timecop.freeze(Time.zone.parse('2016-08-31 12:00:00')) do
+          subject.update_attribute :state, 'started'
+          expect(subject.started_at).to eq(Time.current)
+          expect(subject.owned_by).to eq(subject.acting_user)
+        end
+      end
+
+    end
+
+    context "when set" do
+
+      before { subject.started_at = Time.zone.parse('2016-09-01 13:00:00') }
+
+      # FIXME This is non-deterministic
+      it "is unchanged when state changes to 'started'" do
+        subject.update_attribute :state, 'started'
+        expect(subject.started_at).to eq(Time.zone.parse('2016-09-01 13:00:00'))
+        expect(subject.owned_by).to eq(subject.acting_user)
       end
 
     end
@@ -257,7 +294,7 @@ describe Story do
     let(:requested_by)  { mock_model(User) }
     let(:owned_by)      { mock_model(User) }
     let(:note_user)     { mock_model(User) }
-    let(:notes)         { [mock_model(Note, :user => note_user)] }
+    let(:notes)         { [mock_model(Note, user: note_user)] }
 
     before do
       subject.requested_by  = requested_by

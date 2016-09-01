@@ -4,21 +4,21 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :set_locale
   around_filter :user_time_zone, if: :current_user
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to root_url, alert: exception.message
   end
 
   protected
   def render_404
     respond_to do |format|
       format.html do
-        render :file => Rails.root.join('public', '404.html'),
-          :status => '404'
+        render file: Rails.root.join('public', '404.html'),
+          status: '404'
       end
       format.xml do
-        render :nothing => true, :status => '404'
+        render nothing: true, status: '404'
       end
     end
   end

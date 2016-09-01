@@ -5,7 +5,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6">
     <div class="form-wrapper edit-user">
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= devise_error_messages! %>
 
       <div class="field-wrapper">
@@ -30,7 +30,7 @@
 
       <div class="field-wrapper">
         <%= f.label :locale, class: 'col-sm-2 control-label' %>
-        <div class="col-sm-10"><%= f.select :locale, I18n.available_locales, :include_blank => true %></div>
+        <div class="col-sm-10"><%= f.select :locale, I18n.available_locales, include_blank: true %></div>
       </div>
 
       <div class="field-wrapper">
@@ -80,7 +80,7 @@
 
       <div class="btn-group actions pull-right clearfix">
         <%= f.submit "Update", class: 'btn btn-primary' %>
-        <%= link_to t(".cancel my account"), registration_path(resource_name), :data => {:confirm => "Are you sure?"}, :method => :delete, class: 'btn btn-danger pull-right' %>
+        <%= link_to t(".cancel my account"), registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger pull-right' %>
       </div>
     <% end %>
   </div>

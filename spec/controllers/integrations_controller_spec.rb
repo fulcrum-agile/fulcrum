@@ -8,13 +8,13 @@ describe IntegrationsController do
   context "when logged out" do
     %w[index create].each do |action|
       specify do
-        get action, :project_id => project.id
+        get action, project_id: project.id
         expect(response).to redirect_to(new_user_session_url)
       end
     end
     %w[destroy].each do |action|
       specify do
-        get action, :id => 42, :project_id => project.id
+        get action, id: 42, project_id: project.id
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -27,8 +27,8 @@ describe IntegrationsController do
 
     before do
       sign_in user
-      allow(subject).to receive_messages(:current_user => user)
-      allow(user).to receive_messages(:projects => projects)
+      allow(subject).to receive_messages(current_user: user)
+      allow(user).to receive_messages(projects: projects)
       allow(projects).to receive_message_chain(:friendly, :find).with(project.id.to_s) { project }
     end
 
@@ -39,7 +39,7 @@ describe IntegrationsController do
 
         context "as html" do
           specify do
-            get :index, :project_id => project.id
+            get :index, project_id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
           end
@@ -47,7 +47,7 @@ describe IntegrationsController do
 
         context "as json" do
           specify do
-            xhr :get, :index, :project_id => project.id, :format => :json
+            xhr :get, :index, project_id: project.id, format: :json
             expect(response).to be_success
             expect(response.body.size).to eql([ integration ].to_json.size) # the integration.data hstore json can come up with fields in different orders
           end
@@ -65,7 +65,7 @@ describe IntegrationsController do
 
         specify do
           expect {
-            post :create, :project_id => project.id, :integration => integration_params
+            post :create, project_id: project.id, integration: integration_params
           }.to change { Integration.count }.by(1)
           expect(assigns[:project]).to eq(project)
           expect(assigns[:integration].kind).to eq(integration_params["kind"])
@@ -82,7 +82,7 @@ describe IntegrationsController do
 
             specify do
               expect {
-                post :create, :project_id => project.id, :integration => integration_params
+                post :create, project_id: project.id, integration: integration_params
               }.to change { Integration.count }.by(0)
               expect(response).to render_template('index')
             end
@@ -102,7 +102,7 @@ describe IntegrationsController do
           context "when save succeeds" do
 
             specify do
-              post :create, :project_id => project.id, :integration => integration_params
+              post :create, project_id: project.id, integration: integration_params
               expect(flash[:notice]).to eq("#{integration.kind} was added to this project")
             end
 
@@ -114,7 +114,7 @@ describe IntegrationsController do
 
           specify do
             expect {
-              post :create, :project_id => project.id, :integration => integration_params
+              post :create, project_id: project.id, integration: integration_params
             }.to change { Integration.count }.by(0)
             expect(flash[:alert]).to eq("#{integration.kind} is already configured for this project")
           end
@@ -128,7 +128,7 @@ describe IntegrationsController do
       describe "#destroy" do
 
         specify do
-          delete :destroy, :project_id => project.id, :id => integration.id
+          delete :destroy, project_id: project.id, id: integration.id
           expect(response).to redirect_to(project_integrations_url(project))
         end
 

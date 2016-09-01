@@ -11,4 +11,4 @@ namespace :travis do
 
 end
 
-task :travis => 'travis:run_specs'
+task travis: 'travis:run_specs'

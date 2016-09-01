@@ -139,8 +139,8 @@ $(function() {
 
 <% content_for :title_bar do %>
   <div id="velocity" class="velocity"></div>
-  <%= render :partial => 'projects/nav',
-             :locals => {:project => @project, :show_column_toggles => true} %>
+  <%= render partial: 'projects/nav',
+             locals: {project: @project, show_column_toggles: true} %>
              | <a id="add_story" href="#"><%= t('add story') %></a>
 <% end %>
 

@@ -7,7 +7,7 @@ class ChangesetsController < ApplicationController
     @changesets = @project.changesets
     @changesets = @changesets.since(params[:from]) if allowed_params.has_key?(:from)
     @changesets = @changesets.until(params[:to]) if allowed_params.has_key?(:to)
-    render :json => @changesets
+    render json: @changesets
   end
 
   def allowed_params

@@ -11,7 +11,7 @@ module ProjectsHelper
   # a select helper.
   def iteration_length_options
     (1..4).collect do |weeks|
-      [I18n.t('n weeks', :count => weeks), weeks]
+      [I18n.t('n weeks', count: weeks), weeks]
     end
   end
 

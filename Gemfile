@@ -26,7 +26,7 @@ gem 'pg_search'
 gem 'puma'
 gem 'sidekiq'
 gem 'sidekiq_mailer'
-gem 'sinatra', :require => nil
+gem 'sinatra', require: nil
 
 gem 'sass-rails'
 gem 'uglifier', '>= 2.5.3'
@@ -74,6 +74,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'timecop'
+  gem 'database_cleaner'
 end
 
 group :development do

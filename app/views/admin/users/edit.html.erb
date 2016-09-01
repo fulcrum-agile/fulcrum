@@ -2,7 +2,7 @@
 
 <%= render 'form' %>
 
-<h2><%= Project.model_name.human(:count => 2) %></h2>
+<h2><%= Project.model_name.human(count: 2) %></h2>
 
 <% if @user.projects.count > 0 %>
   <ul>

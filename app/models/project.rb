@@ -17,32 +17,36 @@ class Project < ActiveRecord::Base
     'linear'        => [1,2,3,4,5].freeze,
   }.freeze
 
-  validates_inclusion_of :point_scale, :in => POINT_SCALES.keys,
-    :message => "%{value} is not a valid estimation scheme"
+  validates_inclusion_of :point_scale, in: POINT_SCALES.keys,
+    message: "%{value} is not a valid estimation scheme"
 
   ITERATION_LENGTH_RANGE = (1..4).freeze
 
   validates_numericality_of :iteration_length,
-    :greater_than_or_equal_to => ITERATION_LENGTH_RANGE.min,
-    :less_than_or_equal_to => ITERATION_LENGTH_RANGE.max, :only_integer => true,
-    :message => "must be between 1 and 4 weeks"
+    greater_than_or_equal_to: ITERATION_LENGTH_RANGE.min,
+    less_than_or_equal_to: ITERATION_LENGTH_RANGE.max, only_integer: true,
+    message: "must be between 1 and 4 weeks"
 
   validates_numericality_of :iteration_start_day,
-    :greater_than_or_equal_to => 0, :less_than_or_equal_to => 6,
-    :only_integer => true, :message => "must be an integer between 0 and 6"
+    greater_than_or_equal_to: 0, less_than_or_equal_to: 6,
+    only_integer: true, message: "must be an integer between 0 and 6"
 
-  validates :name, :presence => true
+  validates :name, presence: true
 
-  validates_numericality_of :default_velocity, :greater_than => 0,
-                            :only_integer => true
+  validates_numericality_of :default_velocity, greater_than: 0,
+                            only_integer: true
 
   has_many :integrations, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :users, -> { uniq }, through: :memberships
 
-  accepts_nested_attributes_for :users, :reject_if => :all_blank
+  accepts_nested_attributes_for :users, reject_if: :all_blank
 
-  has_many :stories, :dependent => :destroy do
+  has_many :stories, dependent: :destroy do
+
+    def with_dependencies
+      includes(:notes, :tasks, :document_files)
+    end
 
     # Populates the stories collection from a CSV string.
     def from_csv(csv_string)
@@ -51,18 +55,18 @@ class Project < ActiveRecord::Base
       # searching for users by full name from the CSV.
       users = proxy_association.owner.users
 
-      csv = CSV.parse(csv_string, :headers => true)
+      csv = CSV.parse(csv_string, headers: true)
       csv.map do |row|
         row_attrs = row.to_hash
         story = build({
-          :title        => ( row_attrs["Title"] || row_attrs["Story"] || "").truncate(255, omission: '...'),
-          :story_type   => (row_attrs["Type"] || row_attrs["Story Type"]).downcase,
-          :requested_by => users.detect {|u| u.name == row["Requested By"]},
-          :owned_by     => users.detect {|u| u.name == row["Owned By"]},
-          :accepted_at  => row_attrs["Accepted at"],
-          :estimate     => row_attrs["Estimate"],
-          :labels       => row_attrs["Labels"],
-          :description  => row_attrs["Description"]
+          title:        ( row_attrs["Title"] || row_attrs["Story"] || "").truncate(255, omission: '...'),
+          story_type:   (row_attrs["Type"] || row_attrs["Story Type"]).downcase,
+          requested_by: users.detect {|u| u.name == row["Requested By"]},
+          owned_by:     users.detect {|u| u.name == row["Owned By"]},
+          accepted_at:  row_attrs["Accepted at"],
+          estimate:     row_attrs["Estimate"],
+          labels:       row_attrs["Labels"],
+          description:  row_attrs["Description"]
         })
 
         row_state = ( row_attrs["Current State"] || 'unstarted').downcase
@@ -89,11 +93,10 @@ class Project < ActiveRecord::Base
     end
 
   end
-  has_many :changesets, :dependent => :destroy
+  has_many :changesets, dependent: :destroy
 
   attr_writer :suppress_notifications
 
-  scope :with_stories_notes, -> { includes(stories: :notes) }
   scope :not_archived, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
 
@@ -117,7 +120,7 @@ class Project < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(:only => JSON_ATTRIBUTES, :methods => JSON_METHODS)
+    super(only: JSON_ATTRIBUTES, methods: JSON_METHODS)
   end
 
   def csv_filename

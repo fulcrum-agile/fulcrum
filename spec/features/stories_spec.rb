@@ -7,13 +7,13 @@ describe "Stories" do
   end
 
   let(:user)  {
-    FactoryGirl.create :user, :email => 'user@example.com',
-                              :password => 'password'
+    FactoryGirl.create :user, email: 'user@example.com',
+                              password: 'password'
   }
 
   let(:project) do
-    FactoryGirl.create :project,  :name => 'Test Project',
-                                  :users => [user]
+    FactoryGirl.create :project,  name: 'Test Project',
+                                  users: [user]
   end
 
   describe "full story life cycle" do
@@ -22,13 +22,13 @@ describe "Stories" do
       project
     end
 
-    it "steps through the full story life cycle", :js => true do
+    it "steps through the full story life cycle", js: true do
       visit project_path(project)
 
       click_on 'Add story'
 
       within('#chilly_bin') do
-        fill_in 'title', :with => 'New story'
+        fill_in 'title', with: 'New story'
         click_on 'Save'
       end
 
@@ -56,15 +56,15 @@ describe "Stories" do
   describe "delete a story" do
 
     let(:story) {
-      FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
-                                  :requested_by => user)
+      FactoryGirl.create(:story, title: 'Delete Me', project: project,
+                                  requested_by: user)
     }
 
     before do
       story
     end
 
-    it "deletes the story", :js => true do
+    it "deletes the story", js: true do
       visit project_path(project)
 
       within(story_selector(story)) do
@@ -79,15 +79,15 @@ describe "Stories" do
 
   describe "search a story" do
     let(:story) {
-      FactoryGirl.create(:story, :title => 'Search for me', :project => project,
-                                  :requested_by => user)
+      FactoryGirl.create(:story, title: 'Search for me', project: project,
+                                  requested_by: user)
     }
 
     before do
       story
     end
 
-    it 'finds the story', :js => true do
+    it 'finds the story', js: true do
       visit project_path(project)
 
       # should not have any search results by default
@@ -95,7 +95,7 @@ describe "Stories" do
 
       # fill in the search form
       within('#form_search') do
-        fill_in 'q', :with => 'Search'
+        fill_in 'q', with: 'Search'
       end
       page.execute_script("$('#form_search').submit()")
 
@@ -120,7 +120,7 @@ describe "Stories" do
       Capybara.ignore_hidden_elements = true
     end
 
-    it "hides and shows the columns", :js => true do
+    it "hides and shows the columns", js: true do
 
       visit project_path(project)
 
@@ -189,14 +189,14 @@ describe "Stories" do
   end
 
   describe 'filter by label' do
-    let!(:story) { FactoryGirl.create(:story, :title => 'Task 1', :project => project,
-      :requested_by => user, :labels => 'epic1') }
-    let!(:story2) { FactoryGirl.create(:story, :title => 'Task 2', :project => project,
-      :requested_by => user, :labels => 'epic1') }
-    let!(:story3) { FactoryGirl.create(:story, :title => 'Task 3', :project => project,
-      :requested_by => user, :labels => 'epic2') }
+    let!(:story) { FactoryGirl.create(:story, title: 'Task 1', project: project,
+      requested_by: user, labels: 'epic1') }
+    let!(:story2) { FactoryGirl.create(:story, title: 'Task 2', project: project,
+      requested_by: user, labels: 'epic1') }
+    let!(:story3) { FactoryGirl.create(:story, title: 'Task 3', project: project,
+      requested_by: user, labels: 'epic2') }
 
-    it 'show epic by label', :js => true, driver: :poltergeist do
+    it 'show epic by label', js: true, driver: :poltergeist do
       visit project_path(project)
 
       expect(page).not_to have_css('.epic_column')

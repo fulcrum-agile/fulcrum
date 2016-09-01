@@ -96,9 +96,9 @@ describe Project do
 
     before do
       @user     = FactoryGirl.create(:user)
-      @project  = FactoryGirl.create(:project, :users => [@user])
-      @story    = FactoryGirl.create(:story, :project => @project,
-                                 :requested_by => @user)
+      @project  = FactoryGirl.create(:project, users: [@user])
+      @story    = FactoryGirl.create(:story, project: @project,
+                                 requested_by: @user)
     end
 
     specify "stories" do
@@ -110,7 +110,7 @@ describe Project do
 
 
   describe "#to_s" do
-    subject { FactoryGirl.build :project, :name => 'Test Name' }
+    subject { FactoryGirl.build :project, name: 'Test Name' }
 
     its(:to_s) { should == 'Test Name' }
   end
@@ -130,7 +130,7 @@ describe Project do
 
     context "when there are changesets" do
 
-      let(:changeset) { double("changeset", :id => 42) }
+      let(:changeset) { double("changeset", id: 42) }
 
       before do
         allow(subject).to receive(:changesets).and_return([nil, nil, changeset])
@@ -165,7 +165,7 @@ describe Project do
   end
 
   describe "#csv_filename" do
-    subject { FactoryGirl.build(:project, :name => 'Test Project') }
+    subject { FactoryGirl.build(:project, name: 'Test Project') }
 
     its(:csv_filename) { should match(/^Test Project-\d{8}_\d{4}\.csv$/) }
   end

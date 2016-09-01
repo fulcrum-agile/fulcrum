@@ -39,7 +39,13 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
     var search_results_ids = this.model.search.pluck("id");
     var stories = this.model.stories;
     _.each(search_results_ids, function(id) {
-      that.addStory(stories.get(id), '#search_results');
+      var story = stories.get(id);
+      if (!_.isUndefined(story)) {
+        that.addStory(story, '#search_results');
+      } else {
+        // the search may return IDs that are not in the stories collection in the client-side
+        // because of the STORIES_CEILING configuration
+      }
     });
 
     $(".loading_screen").hide();

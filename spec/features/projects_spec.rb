@@ -7,41 +7,41 @@ describe "Projects" do
   end
 
   let(:user)  {
-    FactoryGirl.create :user, :email => 'user@example.com',
-                              :password => 'password'
+    FactoryGirl.create :user, email: 'user@example.com',
+                              password: 'password'
   }
 
   describe "list projects" do
 
     before do
-      FactoryGirl.create :project,  :name => 'Test Project',
-                                    :users => [user]
-      FactoryGirl.create :project,  :name => 'Archived Project',
-                                    :users => [user],
-                                    :archived => "1"
+      FactoryGirl.create :project,  name: 'Test Project',
+                                    users: [user]
+      FactoryGirl.create :project,  name: 'Archived Project',
+                                    users: [user],
+                                    archived: "1"
     end
 
-    it "shows the project list", :js => true do
+    it "shows the project list", js: true do
       visit projects_path
 
-      expect(page).to have_selector('#title_bar', :text => 'New Project')
+      expect(page).to have_selector('#title_bar', text: 'New Project')
 
       within('#projects') do
         click_on 'Test Project'
       end
 
-      expect(page).not_to have_selector('h1', :text => 'Archived Project')
+      expect(page).not_to have_selector('h1', text: 'Archived Project')
     end
 
   end
 
   describe "create project" do
 
-    it "creates a project", :js => true do
+    it "creates a project", js: true do
       visit projects_path
       click_on 'New Project'
 
-      fill_in 'Name', :with => 'New Project'
+      fill_in 'Name', with: 'New Project'
       click_on 'Create Project'
 
       expect(current_path).to eq(project_path(Project.find_by_name('New Project')))
@@ -52,8 +52,8 @@ describe "Projects" do
   describe "edit project" do
 
     let(:project) {
-      FactoryGirl.create :project,  :name => 'Test Project',
-                                    :users => [user]
+      FactoryGirl.create :project,  name: 'Test Project',
+                                    users: [user]
     }
 
     before do
@@ -66,7 +66,7 @@ describe "Projects" do
         click_on 'Edit'
       end
 
-      fill_in 'Name', :with => 'New Project Name'
+      fill_in 'Name', with: 'New Project Name'
       click_on 'Update Project'
 
       expect(current_path).to eq(project_path(project))
@@ -78,7 +78,7 @@ describe "Projects" do
         click_on 'Edit'
       end
 
-      fill_in 'Name', :with => ''
+      fill_in 'Name', with: ''
       click_on 'Update Project'
 
       expect(page).to have_content("Name can't be blank")
@@ -88,8 +88,8 @@ describe "Projects" do
   describe "delete project" do
 
     let(:project) {
-      FactoryGirl.create :project,  :name => 'Test Project',
-                                    :users => [user]
+      FactoryGirl.create :project,  name: 'Test Project',
+                                    users: [user]
     }
 
     before do

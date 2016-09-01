@@ -13,18 +13,21 @@ class Story < ActiveRecord::Base
   extend Enumerize
   include PgSearch
   pg_search_scope :search,
-    :against => {
+    against: {
       title: 'A',
-      description: 'B'
+      description: 'B',
+      labels: 'C'
     },
-    :using => {
-      :tsearch => {
-        :prefix     => true,
-        :negation   => true,
-        :any_word   => true,
-        :dictionary => "portuguese"
+    using: {
+      tsearch: {
+        prefix: true,
+        negation: true
       }
     }
+
+  pg_search_scope :search_labels,
+    against: :labels,
+    ranked_by: ":trigram"
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
@@ -37,7 +40,7 @@ class Story < ActiveRecord::Base
   ]
   CSV_HEADERS = [
     "Id", "Story","Labels","Iteration","Iteration Start","Iteration End",
-    "Story Type","Estimate","Current State","Created at","Accepted at",
+    "Story Type","Estimate","Current State","Started At", "Created at","Accepted at",
     "Deadline","Requested By","Owned By","Description","URL"
   ]
 
@@ -48,19 +51,19 @@ class Story < ActiveRecord::Base
   belongs_to :project, counter_cache: true
   validates_presence_of :project
 
-  validates :title, :presence => true
+  validates :title, presence: true
   validate :bug_chore_estimation
 
-  belongs_to :requested_by, :class_name => 'User'
-  validates :requested_by_id, :belongs_to_project => true
+  belongs_to :requested_by, class_name: 'User'
+  validates :requested_by_id, belongs_to_project: true
 
-  belongs_to :owned_by, :class_name => 'User'
-  validates :owned_by_id, :belongs_to_project => true
+  belongs_to :owned_by, class_name: 'User'
+  validates :owned_by_id, belongs_to_project: true
 
-  has_many :changesets, :dependent => :destroy
+  has_many :changesets, dependent: :destroy
   has_many :users, through: :project
-  has_many :tasks, :dependent => :destroy
-  has_many :notes, -> { order(:created_at) }, :dependent => :destroy do
+  has_many :tasks, dependent: :destroy
+  has_many :notes, -> { order(:created_at) }, dependent: :destroy do
 
     # Creates a collection of rows on this story from a CSV::Row instance
     # Each 'Note' field in the CSV will usually be in the following format:
@@ -85,10 +88,10 @@ class Story < ActiveRecord::Base
           value.gsub!("\n", "")
           next unless matches = /(.*)\((.*) - (.*)\)$/.match(value)
           next if matches[1].strip.blank?
-          note = build(:note => matches[1].strip,
-            :user => project.users.find_by_name(matches[2]),
-            :user_name => matches[2],
-            :created_at => matches[3])
+          note = build(note: matches[1].strip,
+            user: project.users.find_by_username(matches[2]),
+            user_name: matches[2],
+            created_at: matches[3])
           notes << note
         end
       end
@@ -111,20 +114,19 @@ class Story < ActiveRecord::Base
   enumerize :story_type, in: STORY_TYPES, predicates: true, scope: true
   validates_presence_of :story_type
 
-  validates :estimate, :estimate => true, :allow_nil => true
+  validates :estimate, estimate: true, allow_nil: true
 
   before_validation :set_position_to_last
+  before_save :set_started_at
   before_save :set_accepted_at
   before_save :cache_user_names
   before_destroy { |record| raise ActiveRecord::ReadOnlyRecord if record.readonly? }
 
   # Scopes for the different columns in the UI
-  scope :done, -> { where(:state => :accepted) }
-  scope :in_progress, -> { where(:state => [:started, :finished, :delivered]) }
-  scope :backlog, -> { where(:state => :unstarted) }
-  scope :chilly_bin, -> { where(:state => :unscheduled) }
-  scope :by_label, -> (label) { find_by_sql ["select s.* from stories s, (select regexp_split_to_table(labels, ',') l, id from stories)
-      AS labels where labels.l = ? and labels.id = s.id;", label] }
+  scope :done, -> { where(state: :accepted) }
+  scope :in_progress, -> { where(state: [:started, :finished, :delivered]) }
+  scope :backlog, -> { where(state: :unstarted) }
+  scope :chilly_bin, -> { where(state: :unscheduled) }
 
   include ActiveRecord::Transitions
   state_machine do
@@ -137,27 +139,27 @@ class Story < ActiveRecord::Base
     state :rejected
 
     event :start do
-      transitions :to => :started, :from => [:unstarted, :unscheduled]
+      transitions to: :started, from: [:unstarted, :unscheduled]
     end
 
     event :finish do
-      transitions :to => :finished, :from => :started
+      transitions to: :finished, from: :started
     end
 
     event :deliver do
-      transitions :to => :delivered, :from => :finished
+      transitions to: :delivered, from: :finished
     end
 
     event :accept do
-      transitions :to => :accepted, :from => :delivered
+      transitions to: :accepted, from: :delivered
     end
 
     event :reject do
-      transitions :to => :rejected, :from => :delivered
+      transitions to: :rejected, from: :delivered
     end
 
     event :restart do
-      transitions :to => :started, :from => :rejected
+      transitions to: :started, from: :rejected
     end
   end
 
@@ -182,6 +184,7 @@ class Story < ActiveRecord::Base
       story_type,               # Story Type
       estimate,                 # Estimate
       state,                    # Current State
+      started_at,               # Started at
       created_at,               # Created at
       accepted_at,              # Accepted at
       nil,                      # Deadline
@@ -230,7 +233,7 @@ class Story < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(:only => JSON_ATTRIBUTES, :methods => JSON_METHODS)
+    super(only: JSON_ATTRIBUTES, methods: JSON_METHODS)
   end
 
   def set_position_to_last
@@ -251,14 +254,28 @@ class Story < ActiveRecord::Base
     !accepted_at_changed? && accepted_at.present?
   end
 
+  def cycle_time_in(unit = :days)
+    raise 'wrong unit' unless %i[days weeks months years].include?(unit)
+    ( cycle_time / 1.send(unit) ).round
+  end
+
   private
 
+    def set_started_at
+      return unless state_changed?
+      return unless state == 'started'
+      self.started_at = Time.current if started_at.nil?
+      if owned_by.nil? && acting_user
+        self.owned_by = acting_user
+      end
+    end
+
     def set_accepted_at
-      if state_changed?
-        if state == 'accepted' && accepted_at == nil
-          # Set accepted at to today when accepted
-          self.accepted_at = Date.current
-        end
+      return unless state_changed?
+      return unless state == 'accepted'
+      self.accepted_at = Time.current if accepted_at.nil?
+      if started_at
+        self.cycle_time = accepted_at - started_at
       end
     end
 

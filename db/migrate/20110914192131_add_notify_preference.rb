@@ -1,8 +1,8 @@
 class AddNotifyPreference < ActiveRecord::Migration
   def self.up
-    add_column :users, :email_delivery, :boolean, :default => true
-    add_column :users, :email_acceptance, :boolean, :default => true
-    add_column :users, :email_rejection, :boolean, :default => true
+    add_column :users, :email_delivery, :boolean, default: true
+    add_column :users, :email_acceptance, :boolean, default: true
+    add_column :users, :email_rejection, :boolean, default: true
   end
 
   def self.down

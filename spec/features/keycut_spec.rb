@@ -10,17 +10,17 @@ describe "Keycuts" do
     sign_in user
   end
 
-  let(:user) { FactoryGirl.create :user, :email => 'user@example.com', :password => 'password' }
-  let(:project) { FactoryGirl.create :project,  :name => 'Test Project', :users => [user] }
+  let(:user) { FactoryGirl.create :user, email: 'user@example.com', password: 'password' }
+  let(:project) { FactoryGirl.create :project,  name: 'Test Project', users: [user] }
 
   describe "?" do
-    it 'shows help', :js => true do
+    it 'shows help', js: true do
       send_keys '?'
       expect(page).to have_css("#keycut-help")
       expect(page).to have_css("#keycut-help a.close")
     end
 
-    it 'can close help', :js => true do
+    it 'can close help', js: true do
       send_keys '?'
       within '#keycut-help' do
         click_on 'close'
@@ -28,7 +28,7 @@ describe "Keycuts" do
       expect(page).not_to have_css("#keycut-help")
     end
 
-    it 'can close help with ?', :js => true do
+    it 'can close help with ?', js: true do
       send_keys '?'
       send_keys '?'
       expect(page).not_to have_css("#keycut-help")
@@ -38,21 +38,21 @@ describe "Keycuts" do
   describe 'in project scope' do
     before { visit project_path(project) }
 
-    it 'adds story (a)', :js => true do
+    it 'adds story (a)', js: true do
       send_keys 'a'
       expect(page).to have_css('.story.feature.unscheduled.unestimated.editing')
     end
 
-    it 'saves currently open story (<ctl> + s)', :js => true do
+    it 'saves currently open story (<ctl> + s)', js: true do
       click_on 'Add story'
       within('#chilly_bin') do
-        fill_in 'title', :with => 'New story'
+        fill_in 'title', with: 'New story'
       end
       send_keys :pause # this is equivalent to keycode 19, or ctl+s (at least on my machine)
       expect(page).not_to have_css('.story.editing')
     end
 
-    it 'toggles columns (<shift> b|c|d|p)', :js => true do
+    it 'toggles columns (<shift> b|c|d|p)', js: true do
       find('.menu-toggle').trigger 'click'
 
       send_keys "B"

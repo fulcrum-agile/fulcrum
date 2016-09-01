@@ -54,17 +54,17 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
   memcachier_servers = (ENV["MEMCACHIER_SERVERS"] || "").split(",")
   memcachier_options = {
-    :username => ENV["MEMCACHIER_USERNAME"],
-    :password => ENV["MEMCACHIER_PASSWORD"],
-    :failover => true,
-    :socket_timeout => 1.5,
-    :socket_failure_delay => 0.2,
-    :value_max_bytes => 10485760 }
+    username: ENV["MEMCACHIER_USERNAME"],
+    password: ENV["MEMCACHIER_PASSWORD"],
+    failover: true,
+    socket_timeout: 1.5,
+    socket_failure_delay: 0.2,
+    value_max_bytes: 10485760 }
   config.cache_store = :dalli_store, memcachier_servers, memcachier_options
   client = Dalli::Client.new(memcachier_servers, memcachier_options)
   config.action_dispatch.rack_cache = {
-    :metastore    => client,
-    :entitystore  => client
+    metastore   : client,
+    entitystore : client
   }
   config.static_cache_control = "public, max-age=2592000"
 
@@ -76,7 +76,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = { :host => config.fulcrum.app_host }
+  config.action_mailer.default_url_options = { host: config.fulcrum.app_host }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

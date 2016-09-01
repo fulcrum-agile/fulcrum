@@ -10,7 +10,7 @@ describe ConfirmationsController do
 
     context "when token is invalid" do
       specify do
-        get :show, :confirmation_token => "abc"
+        get :show, confirmation_token: "abc"
         expect(response).to redirect_to(new_user_confirmation_path)
       end
     end
@@ -18,16 +18,16 @@ describe ConfirmationsController do
     context "when token is invalid" do
 
       before do
-        allow(user).to receive_messages(:valid? => true)
-        allow(user).to receive_messages(:reset_password_token => '123')
-        allow(user).to receive_messages(:set_reset_password_token => '123')
+        allow(user).to receive_messages(valid?: true)
+        allow(user).to receive_messages(reset_password_token: '123')
+        allow(user).to receive_messages(set_reset_password_token: '123')
         allow(User).to receive(:confirm_by_token).with('abc').and_return(user)
       end
 
       specify do
-        get :show, :confirmation_token => "abc"
+        get :show, confirmation_token: "abc"
         expect(response).to redirect_to(edit_user_password_path(
-          :reset_password_token => user.reset_password_token
+          reset_password_token: user.reset_password_token
         ))
       end
     end
@@ -46,7 +46,7 @@ describe ConfirmationsController do
 
     context "when user is invalid" do
       specify do
-        post :create, :user => {}
+        post :create, user: {}
         expect(response).to be_success
       end
     end
@@ -58,7 +58,7 @@ describe ConfirmationsController do
       end
 
       specify do
-        post :create, :user => {}
+        post :create, user: {}
         expect(response).to redirect_to(new_user_session_path)
       end
     end

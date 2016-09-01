@@ -11,9 +11,9 @@ class CreateMemberships < ActiveRecord::Migration
     execute "insert into memberships (project_id, user_id) select project_id, user_id from projects_users"
     drop_table :projects_users
 
-    add_column :projects, :stories_count, :integer, :default => 0
-    add_column :projects, :memberships_count, :integer, :default => 0
-    add_column :users, :memberships_count, :integer, :default => 0
+    add_column :projects, :stories_count, :integer, default: 0
+    add_column :projects, :memberships_count, :integer, default: 0
+    add_column :users, :memberships_count, :integer, default: 0
 
     Project.find_each do |p|
       p.update_attributes(stories_count: p.stories.count, memberships_count: p.users.count)
