@@ -11,13 +11,13 @@ describe Story do
     let!(:story) { create(:story, :with_project, labels: 'feature,test') }
     let!(:dummy_story) { create(:story, :with_project, labels: 'something') }
 
-    describe '#by_label' do
+    describe '#search_labels' do
       it 'find when label contains in story labels' do
-        expect(described_class.by_label('test')).to include story
+        expect(described_class.search_labels('test')).to include story
       end
 
       it 'return empty when label is not included in story labels' do
-        expect(described_class.by_label('test')).to_not include dummy_story
+        expect(described_class.search_labels('test')).to_not include dummy_story
       end
     end
   end

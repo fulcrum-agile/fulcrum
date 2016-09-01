@@ -13,18 +13,15 @@ class Story < ActiveRecord::Base
   extend Enumerize
   include PgSearch
   pg_search_scope :search,
-    :against => {
+    against: {
       title: 'A',
-      description: 'B'
+      description: 'B',
+      labels: 'C'
     },
-    :using => {
-      :tsearch => {
-        :prefix     => true,
-        :negation   => true,
-        :any_word   => true,
-        :dictionary => "portuguese"
-      }
-    }
+    using: :trigram
+
+  pg_search_scope :search_labels,
+    against: :labels
 
   JSON_ATTRIBUTES = [
     "title", "accepted_at", "created_at", "updated_at", "description",
@@ -119,8 +116,6 @@ class Story < ActiveRecord::Base
   before_destroy { |record| raise ActiveRecord::ReadOnlyRecord if record.readonly? }
 
   # Scopes for the different columns in the UI
-  scope :by_label, -> (label) { find_by_sql ["select s.* from stories s, (select regexp_split_to_table(labels, ',') l, id from stories)
-      AS labels where labels.l = ? and labels.id = s.id;", label] }
   scope :done, -> { where(state: :accepted) }
   scope :in_progress, -> { where(state: [:started, :finished, :delivered]) }
   scope :backlog, -> { where(state: :unstarted) }
