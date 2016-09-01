@@ -5,6 +5,8 @@ module IntegrationHelpers
     fill_in "Email",    with: user.email
     fill_in "Password", with: password
     click_button 'Sign in'
+    I18n.locale = :en
+    Time.zone = 'Brasilia'
   end
 
   def send_keys keys, options = {}
