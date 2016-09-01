@@ -44,6 +44,10 @@ class Project < ActiveRecord::Base
 
   has_many :stories, dependent: :destroy do
 
+    def with_dependencies
+      includes(:notes, :tasks, :document_files)
+    end
+
     # Populates the stories collection from a CSV string.
     def from_csv(csv_string)
 
@@ -93,7 +97,6 @@ class Project < ActiveRecord::Base
 
   attr_writer :suppress_notifications
 
-  scope :with_stories_notes, -> { includes(stories: :notes) }
   scope :not_archived, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
 
