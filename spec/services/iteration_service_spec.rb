@@ -188,6 +188,9 @@ describe IterationService do
     end
 
     it '#standard_deviation' do
+      standard_deviation = service.standard_deviation([])
+      expect(standard_deviation).to eq(0)
+
       # calculate for population
       standard_deviation = service.standard_deviation(service.group_by_velocity.values)
       expect("%.4f" % standard_deviation).to eq("8.3725")

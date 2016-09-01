@@ -185,6 +185,7 @@ class IterationService
   end
 
   def standard_deviation(groups = [], sample = false)
+    return 0 if groups.empty?
     # algorithm: https://www.mathsisfun.com/data/standard-deviation-formulas.html
     #
     mean            = groups.sum.to_f / groups.size.to_f
