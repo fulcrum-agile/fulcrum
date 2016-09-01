@@ -67,9 +67,17 @@ Some of the improvements we added since the end of 2015:
 Goals
 -----
 
-CM42-Central is a clone of [Pivotal Tracker](http://pivotaltracker.com/).
+CM42-Central starts as a clone of [Pivotal Tracker](http://pivotaltracker.com/).
 We want to make it a drop-in replacement first, by having all of the main functionalities and to later surpass it,
-by making it not only smarter but also more user-friendly than easier (and imcomplete approaches) such as Trello.
+by making it not only smarter but also more user-friendly and easier to use than what we consider "incomplete"
+commercial offerings such as Trello.
+
+The principles that we believe in:
+
+- Estimation is not optional, but more like Story Points (proportions) than Time-based estimation.
+- Projects must be divided in short, fixed Iterations.
+- Velocity and Volatility are the key managerial elements.
+- Stakeholders must test and accept/reject stories within the same Iteration.
 
 Installation
 ------------
@@ -223,14 +231,12 @@ Here are some general guidelines for contributing:
   Firefox with Selenium installed to run the integration tests.
 * To run the Javascript test suite, run `rails server` and point your browser
   to `http://localhost:3000/specs` or run `rake spec:javascripts`
-* The easiest way to test the impact of CSS or view changes is using the
-  'testcard' at `http://localhost:3000/testcard`.  This is a fake project which
-  exposes as many of the view states as possible on one page.
 
 
 License
 -------
 Copyright 2011-2015, Malcolm Locke.
+Copyright 2015-2016, Codeminer 42.
 
 CM42-Central is made available under the Affero GPL license version 3, see
 LICENSE.txt.
