@@ -226,6 +226,10 @@ div.story {
   background-color: #eee;
   border-bottom: 1px solid #ddd;
   border-top: 1px solid #fff;
+
+  &:not(.editing):not(.unestimated) {
+    height: 37px;
+  }
 }
 div.story:hover {
   background-color: #ddd;
@@ -261,7 +265,7 @@ div.story-icons {
   margin-top: -10px;
 
   .estimate {
-    top: 2px;
+    top: 9px;
     left: 1px;
   }
 }
@@ -319,7 +323,7 @@ div.story-title abbr.initials {
 }
 
 .estimates {
-  margin-top: 4px;
+  margin-top: 12px;
   margin-right: 6px;
 
   .estimate {

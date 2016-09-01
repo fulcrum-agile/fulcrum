@@ -68,7 +68,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click .submit": "saveEdit",
     "click .cancel": "cancelEdit",
     "click .transition": "transition",
-    "click .estimate": "estimate",
+    "click .state-actions .estimate": "estimate",
     "change select.story_type": "disableEstimate",
     "click .destroy": "clear",
     "click .description": "editDescription",
