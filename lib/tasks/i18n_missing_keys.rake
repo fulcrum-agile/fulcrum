@@ -2,7 +2,7 @@
 
 namespace :i18n do
   desc "Find and list translation keys that do not exist in all locales"
-  task :missing_keys => :environment do
+  task missing_keys: :environment do
     finder = MissingKeysFinder.new(I18n.backend)
     finder.find_missing_keys
   end
@@ -92,7 +92,7 @@ class MissingKeysFinder
   # Returns true if key exists in the given locale
   def key_exists?(key, locale)
     I18n.locale = locale
-    I18n.translate(key, :raise => true)
+    I18n.translate(key, raise: true)
     return true
   rescue I18n::MissingInterpolationArgument
     return true

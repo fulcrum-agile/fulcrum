@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @projects }
+      format.xml  { render xml: @projects }
     end
   end
 
@@ -22,8 +22,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.js   { render :json => @project }
-      format.xml  { render :xml => @project }
+      format.js   { render json: @project }
+      format.xml  { render xml: @project }
     end
   end
 
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @project }
+      format.xml  { render xml: @project }
     end
   end
 
@@ -52,11 +52,11 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if ProjectOperations::Create.(@project, current_user)
-        format.html { redirect_to(@project, :notice => t('projects.project was successfully created')) }
-        format.xml  { render :xml => @project, :status => :created, :location => @project }
+        format.html { redirect_to(@project, notice: t('projects.project was successfully created')) }
+        format.xml  { render xml: @project, status: :created, location: @project }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.xml  { render xml: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -68,11 +68,11 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if ProjectOperations::Update.(@project, allowed_params, current_user)
-        format.html { redirect_to(@project, :notice => t('projects.project was successfully updated')) }
+        format.html { redirect_to(@project, notice: t('projects.project was successfully updated')) }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.xml  { render xml: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -100,12 +100,12 @@ class ProjectsController < ApplicationController
           @invalid_stories  = job_result[:invalid_stories]
 
           flash[:notice] = I18n.t(
-            'imported n stories', :count => @valid_stories.count
+            'imported n stories', count: @valid_stories.count
           )
 
           unless @invalid_stories.empty?
             flash[:alert] = I18n.t(
-              'n stories failed to import', :count => @invalid_stories.count
+              'n stories failed to import', count: @invalid_stories.count
             )
           end
         end

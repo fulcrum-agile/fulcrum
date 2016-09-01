@@ -6,8 +6,8 @@
         <li class="list-group-item clearfix">
           <%= integration.kind %> - <%= integration.data %>
           <%= link_to 'Remove', project_integration_path(@project, integration),
-          :confirm => "Are you sure you want to remove '#{integration.kind}' integration from this project?",
-          :method => :delete,
+          confirm: "Are you sure you want to remove '#{integration.kind}' integration from this project?",
+          method: :delete,
           class: 'btn btn-danger btn-sm pull-right' %>
         </li>
       <% end %>

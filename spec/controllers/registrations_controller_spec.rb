@@ -22,7 +22,7 @@ describe RegistrationsController do
 
     describe "#create" do
       specify do
-        post :create, :user => {:name => 'Test User', :initials => 'TU', :email => 'test_user@example.com'}
+        post :create, user: {name: 'Test User', initials: 'TU', email: 'test_user@example.com'}
         expect(response.status).to eq 404
       end
     end

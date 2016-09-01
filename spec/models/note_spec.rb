@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe Note do
 
-  let(:project) { mock_model(Project, :suppress_notifications => true) }
+  let(:project) { mock_model(Project, suppress_notifications: true) }
   let(:user)    { mock_model(User) }
-  let(:story)   { mock_model(Story, :project => project) }
+  let(:story)   { mock_model(Story, project: project) }
 
-  subject { FactoryGirl.build :note, :story => story, :user => user }
+  subject { FactoryGirl.build :note, story: story, user: user }
 
   describe "validations" do
 
@@ -34,7 +34,7 @@ describe Note do
     before do
       subject.note = "Test note"
       subject.created_at = "Nov 3, 2011"
-      allow(user).to receive_messages(:name => 'user')
+      allow(user).to receive_messages(name: 'user')
     end
 
     its(:to_s)  { should == "Test note (user - Nov 03, 2011)" }

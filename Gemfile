@@ -26,7 +26,7 @@ gem 'pg_search'
 gem 'puma'
 gem 'sidekiq'
 gem 'sidekiq_mailer'
-gem 'sinatra', :require => nil
+gem 'sinatra', require: nil
 
 gem 'sass-rails'
 gem 'uglifier', '>= 2.5.3'

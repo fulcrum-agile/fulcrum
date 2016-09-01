@@ -11,7 +11,7 @@ FactoryGirl.define do
     u.after(:build) {|user| user.confirm }
   end
 
-  factory :unconfirmed_user, :class => User do |u|
+  factory :unconfirmed_user, class: User do |u|
     u.sequence(:name) {|n| "Unconfirmed User #{n}"}
     u.sequence(:username) {|n| "testuser#{n}"}
     u.sequence(:initials) {|n| "U#{n}"}

@@ -5,11 +5,11 @@
     </div>
 </li>
 <li>
-<%= link_to_unless_current Story.model_name.human(:count => 2), project_path(project) %>
+<%= link_to_unless_current Story.model_name.human(count: 2), project_path(project) %>
 </li>
 <% if can? :manage, User %>
   <li>
-  <%= link_to_unless_current User.model_name.human(:count => 2), project_users_path(project) %>
+  <%= link_to_unless_current User.model_name.human(count: 2), project_users_path(project) %>
   </li>
 <% end %>
 <% if can? :manage, project %>
@@ -21,7 +21,7 @@
   </li>
 <% end %>
 <li>
-<%= link_to t('export'), project_stories_path(project, :format => :csv) %>
+<%= link_to t('export'), project_stories_path(project, format: :csv) %>
 </li>
 <li>
 <%= link_to_unless_current t('reports'), reports_project_path(project, since: 3) %>

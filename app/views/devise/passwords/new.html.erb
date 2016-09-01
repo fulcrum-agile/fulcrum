@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <div class="form-wrapper">
-      <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
         <%= devise_error_messages! %>
 
         <div class="field-wrapper">
@@ -17,6 +17,6 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6">
-    <%= render :partial => "devise/shared/links" %>
+    <%= render partial: "devise/shared/links" %>
   </div>
 </div>

@@ -3,9 +3,9 @@ require 'rails_helper'
 describe "Logins" do
 
   let(:user)  {
-    FactoryGirl.create :user, :email => 'user@example.com',
-                              :password => 'password',
-                              :name => 'Test User'
+    FactoryGirl.create :user, email: 'user@example.com',
+                              password: 'password',
+                              name: 'Test User'
   }
 
   describe "disable registration" do
@@ -23,9 +23,9 @@ describe "Logins" do
 
     it "removes the sign up link" do
       visit root_path
-      expect(page).to have_selector('h1', :text => 'Sign in')
+      expect(page).to have_selector('h1', text: 'Sign in')
 
-      expect(page).not_to have_selector('a', :text => 'Sign up')
+      expect(page).not_to have_selector('a', text: 'Sign up')
     end
   end
 
@@ -33,22 +33,22 @@ describe "Logins" do
 
     before { user }
 
-    it "logs in the user", :js => true do
+    it "logs in the user", js: true do
       visit root_path
-      expect(page).to have_selector('h1', :text => 'Sign in')
+      expect(page).to have_selector('h1', text: 'Sign in')
 
-      fill_in "Email",    :with => "user@example.com"
-      fill_in "Password", :with => "password"
+      fill_in "Email",    with: "user@example.com"
+      fill_in "Password", with: "password"
       click_button 'Sign in'
 
-      expect(page).to have_selector('#title_bar', :text => 'New Project')
+      expect(page).to have_selector('#title_bar', text: 'New Project')
       find('.menu-toggle').trigger 'click'
-      expect(page).to have_selector('.sidebar-nav li:nth-child(5)', :text => 'Test User')
+      expect(page).to have_selector('.sidebar-nav li:nth-child(5)', text: 'Test User')
     end
 
   end
 
-  describe "successful logout", :js => true do
+  describe "successful logout", js: true do
     before do
       sign_in user
     end
@@ -58,7 +58,7 @@ describe "Logins" do
       find('.menu-toggle').trigger 'click'
       click_on 'Log out'
 
-      expect(page).to have_selector('h1', :text => 'Sign in')
+      expect(page).to have_selector('h1', text: 'Sign in')
     end
   end
 

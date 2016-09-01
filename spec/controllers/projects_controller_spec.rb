@@ -11,7 +11,7 @@ describe ProjectsController do
     end
     %W[show edit update destroy].each do |action|
       specify do
-        get action, :id => 42
+        get action, id: 42
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -21,13 +21,13 @@ describe ProjectsController do
 
     let(:user)      { FactoryGirl.create :user }
     let(:projects)  { double("projects") }
-    let(:project)   { mock_model(Project, :id => 99, :stories => stories) }
-    let(:stories)   { double("stories", :to_json => '{foo:bar}') }
+    let(:project)   { mock_model(Project, id: 99, stories: stories) }
+    let(:stories)   { double("stories", to_json: '{foo:bar}') }
 
     before do
       sign_in user
-      allow(subject).to receive_messages(:current_user => user)
-      allow(user).to receive_messages(:projects => projects)
+      allow(subject).to receive_messages(current_user: user)
+      allow(user).to receive_messages(projects: projects)
       allow(user).to receive_message_chain(:projects, :not_archived) { projects }
     end
 
@@ -60,20 +60,20 @@ describe ProjectsController do
 
         before do
           allow(projects).to receive(:build).with({}) { project }
-          allow(project).to receive_messages(:users => users)
+          allow(project).to receive_messages(users: users)
           expect(users).to receive(:<<).with(user)
           allow(ProjectOperations::Create).to receive(:call).with(project, user).and_return(project)
         end
 
         specify do
-          post :create, :project => {}
+          post :create, project: {}
           expect(assigns[:project]).to eq(project)
         end
 
         context "when save succeeds" do
 
           specify do
-            post :create, :project => {}
+            post :create, project: {}
             expect(response).to redirect_to(project_url(project))
             expect(flash[:notice]).to eq('Project was successfully created.')
           end
@@ -87,7 +87,7 @@ describe ProjectsController do
           end
 
           specify do
-            post :create, :project => {}
+            post :create, project: {}
             expect(response).to be_success
             expect(response).to render_template('new')
           end
@@ -117,7 +117,7 @@ describe ProjectsController do
 
     describe "member actions" do
 
-      let(:project) { mock_model(Project, :id => 42, :to_json => '{foo:bar}') }
+      let(:project) { mock_model(Project, id: 42, to_json: '{foo:bar}') }
       let(:story)   { mock_model(Story) }
 
       before do
@@ -131,7 +131,7 @@ describe ProjectsController do
         context "as html" do
 
           specify do
-            get :show, :id => project.id
+            get :show, id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
             expect(assigns[:story]).to eq(story)
@@ -142,7 +142,7 @@ describe ProjectsController do
         context "as json" do
 
           specify do
-            xhr :get, :show, :id => project.id
+            xhr :get, :show, id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
             expect(assigns[:story]).to eq(story)
@@ -157,12 +157,12 @@ describe ProjectsController do
         let(:users) { double("users") }
 
         before do
-          allow(project).to receive_messages(:users => users)
+          allow(project).to receive_messages(users: users)
           expect(users).to receive(:build)
         end
 
         specify do
-          get :edit, :id => project.id
+          get :edit, id: project.id
           expect(response).to be_success
           expect(assigns[:project]).to eq(project)
         end
@@ -176,14 +176,14 @@ describe ProjectsController do
         end
 
         specify do
-          put :update, :id => project.id, :project => {}
+          put :update, id: project.id, project: {}
           expect(assigns[:project]).to eq(project)
         end
 
         context "when update succeeds" do
 
           specify do
-            put :update, :id => project.id, :project => {}
+            put :update, id: project.id, project: {}
             expect(response).to redirect_to(project_url(project))
           end
 
@@ -196,7 +196,7 @@ describe ProjectsController do
           end
 
           specify do
-            put :update, :id => project.id, :project => {}
+            put :update, id: project.id, project: {}
             expect(response).to be_success
             expect(response).to render_template('edit')
           end
@@ -212,7 +212,7 @@ describe ProjectsController do
         end
 
         specify do
-          delete :destroy, :id => project.id
+          delete :destroy, id: project.id
           expect(response).to redirect_to(projects_url)
         end
 
@@ -221,7 +221,7 @@ describe ProjectsController do
       describe "#import" do
         context "when no job is running" do
           specify do
-            get :import, :id => project.id
+            get :import, id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
             expect(response).to render_template('import')
@@ -236,7 +236,7 @@ describe ProjectsController do
             end
 
             specify do
-              get :import, :id => project.id
+              get :import, id: project.id
               expect(assigns[:valid_stories]).to be_nil
               expect(session[:import_job]).not_to be_nil
               expect(response).to render_template('import')
@@ -249,7 +249,7 @@ describe ProjectsController do
             end
 
             specify do
-              get :import, :id => project.id
+              get :import, id: project.id
               expect(assigns[:valid_stories]).to be_nil
               expect(session[:import_job]).to be_nil
               expect(response).to render_template('import')
@@ -263,7 +263,7 @@ describe ProjectsController do
               expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
             end
             specify do
-              get :import, :id => project.id
+              get :import, id: project.id
               expect(assigns[:valid_stories]).to be_nil
               expect(flash[:alert]).to eq("Unable to import CSV: Bad CSV!")
               expect(session[:import_job]).to be_nil
@@ -272,7 +272,7 @@ describe ProjectsController do
           end
 
           context "finished with success" do
-            let(:valid_story) { mock_model(Story, :valid? => true) }
+            let(:valid_story) { mock_model(Story, valid?: true) }
             let(:invalid_story) { { title: 'hello', errors: 'bad cookie'} }
             before do
               expect(project).to receive(:stories).and_return([valid_story])
@@ -281,7 +281,7 @@ describe ProjectsController do
             end
 
             specify do
-              get :import, :id => project.id
+              get :import, id: project.id
               expect(assigns[:valid_stories]).to eq([valid_story])
               expect(assigns[:invalid_stories]).to eq([invalid_story])
               expect(flash[:notice]).to eq("Imported 1 story")
@@ -295,7 +295,7 @@ describe ProjectsController do
       describe "#import_upload" do
         context "when csv file is missing" do
           specify do
-            put :import_upload, :id => project.id, :project => { :import => "" }
+            put :import_upload, id: project.id, project: { import: "" }
             expect(response).to redirect_to(import_project_path(project.id))
             expect(flash[:alert]).to eq("You must select a file for import")
           end
@@ -313,7 +313,7 @@ describe ProjectsController do
 
           specify do
             expect(ImportWorker).to receive(:perform_async)
-            put :import_upload, :id => project.id, :project => { :import => csv }
+            put :import_upload, id: project.id, project: { import: csv }
             expect(flash[:notice]).to eq("Your upload is being processed.")
             expect(response).to redirect_to(import_project_path(project.id))
           end

@@ -11,7 +11,7 @@ describe Admin::UsersController do
     end
     %W[edit update destroy].each do |action|
       specify do
-        get action, :id => 42
+        get action, id: 42
         expect(response).to redirect_to(new_user_session_url)
       end
     end
@@ -44,7 +44,7 @@ describe Admin::UsersController do
       describe "#edit" do
 
         specify do
-          get :edit, :id => user.id
+          get :edit, id: user.id
           expect(response).to be_success
           expect(assigns[:user]).to eq(user)
         end
@@ -58,14 +58,14 @@ describe Admin::UsersController do
         end
 
         specify do
-          put :update, :id => user.id, :user => {}
+          put :update, id: user.id, user: {}
           expect(assigns[:user]).to eq(user)
         end
 
         context "when update succeeds" do
 
           specify do
-            put :update, :id => user.id, :user => {}
+            put :update, id: user.id, user: {}
             expect(response).to redirect_to(admin_users_path)
           end
 
@@ -78,7 +78,7 @@ describe Admin::UsersController do
           end
 
           specify do
-            put :update, :id => user.id, :user => {}
+            put :update, id: user.id, user: {}
             expect(response).to redirect_to(admin_users_path)
           end
 
@@ -89,7 +89,7 @@ describe Admin::UsersController do
       describe "#destroy" do
 
         specify do
-          expect { delete :destroy, :id => user.id }.to change{User.count}.by(-1)
+          expect { delete :destroy, id: user.id }.to change{User.count}.by(-1)
           expect(response).to redirect_to(admin_users_path)
         end
 

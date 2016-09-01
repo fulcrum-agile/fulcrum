@@ -1,5 +1,5 @@
 desc 'Fix the cache counters'
-task :fix_counters => :environment do
+task fix_counters: :environment do
   Project.find_each do |p|
     p.update_attributes(stories_count: p.stories.count, memberships_count: p.users.count)
   end

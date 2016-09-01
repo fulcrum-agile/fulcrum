@@ -19,17 +19,17 @@ class StoriesController < ApplicationController
                end
 
     respond_to do |format|
-      format.json { render :json => @stories }
+      format.json { render json: @stories }
       format.csv do
-        render :csv => @stories.order(:position), :filename => @project.csv_filename
+        render csv: @stories.order(:position), filename: @project.csv_filename
       end
     end
   end
 
   def show
     @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:id])
-    render :json => @story
+    @story = @project.stories.includes(:notes, :tasks, :document_files).find(params[:id])
+    render json: @story
   end
 
   def update
@@ -40,10 +40,10 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story = StoryOperations::Update.(@story, allowed_params, current_user)
         format.html { redirect_to project_url(@project) }
-        format.js   { render :json => @story }
+        format.js   { render json: @story }
       else
-        format.html { render :action => 'edit' }
-        format.js   { render :json => @story, :status => :unprocessable_entity }
+        format.html { render action: 'edit' }
+        format.js   { render json: @story, status: :unprocessable_entity }
       end
     end
   end
@@ -58,19 +58,19 @@ class StoriesController < ApplicationController
   def done
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.done
-    render :json => @stories
+    render json: @stories
   end
 
   def backlog
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.backlog
-    render :json => @stories
+    render json: @stories
   end
 
   def in_progress
     @project = current_user.projects.find(params[:project_id])
     @stories = @project.stories.in_progress
-    render :json => @stories
+    render json: @stories
   end
 
   def create
@@ -80,10 +80,10 @@ class StoriesController < ApplicationController
     respond_to do |format|
       if @story = StoryOperations::Create.(@story, current_user)
         format.html { redirect_to project_url(@project) }
-        format.js   { render :json => @story }
+        format.js   { render json: @story }
       else
-        format.html { render :action => 'new' }
-        format.js   { render :json => @story, :status => :unprocessable_entity }
+        format.html { render action: 'new' }
+        format.js   { render json: @story, status: :unprocessable_entity }
       end
     end
   end

@@ -201,7 +201,7 @@ describe Story do
 
     context "when there are other stories" do
 
-      let(:last_story) { mock_model(Story, :position => 41) }
+      let(:last_story) { mock_model(Story, position: 41) }
 
       before do
         allow(subject).to receive_message_chain(:project, :stories, :order, :first).and_return(last_story)
@@ -257,7 +257,7 @@ describe Story do
     let(:requested_by)  { mock_model(User) }
     let(:owned_by)      { mock_model(User) }
     let(:note_user)     { mock_model(User) }
-    let(:notes)         { [mock_model(Note, :user => note_user)] }
+    let(:notes)         { [mock_model(Note, user: note_user)] }
 
     before do
       subject.requested_by  = requested_by

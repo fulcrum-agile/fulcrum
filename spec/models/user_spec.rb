@@ -21,8 +21,8 @@ describe User do
 
   describe "#to_s" do
 
-    subject { FactoryGirl.build(:user, :name => "Dummy User", :initials => "DU",
-                                    :email => "dummy@example.com") }
+    subject { FactoryGirl.build(:user, name: "Dummy User", initials: "DU",
+                                    email: "dummy@example.com") }
 
     its(:to_s) { should == "Dummy User (DU) <dummy@example.com>" }
 
