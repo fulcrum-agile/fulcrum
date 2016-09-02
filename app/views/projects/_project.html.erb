@@ -7,13 +7,13 @@
 </li>
 <li class="list-group-item">
   <div class="btn-group">
-    <% if can? :update, project %>
+    <% if policy(project).update? %>
       <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
     <% end %>
 
     <%= link_to t('reports'), reports_project_path(project), class: 'btn btn-default btn-sm' %>
 
-    <% if can? :update, User %>
+    <% if policy(User).update? %>
       <%= link_to "#{User.model_name.human(count: 2)} (#{project.memberships_count})", project_users_path(project), class: 'btn btn-default btn-sm' %>
     <% end %>
   </div>

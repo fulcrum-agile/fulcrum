@@ -7,6 +7,10 @@ class ApplicationPolicy
     @record  = record
   end
 
+  def manage?
+    create? && update? && destroy?
+  end
+
   def index?
     false
   end
