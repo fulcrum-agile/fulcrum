@@ -5,4 +5,3 @@ class ChangesetPolicy < ApplicationPolicy
     end
   end
 end
-

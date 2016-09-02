@@ -1,6 +1,14 @@
 class ProjectPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
   def show?
     context.current_user.projects.find(record)
+  end
+
+  def reports?
+    index?
   end
 
   def archived?
