@@ -102,6 +102,8 @@ describe IterationService do
     let(:today) { Time.local(2016, 8, 31, 12, 0, 0) }
     let(:dummy) { create(:user, username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")}
     before do
+      I18n.locale = :en
+      Time.zone = 'Brasilia'
       Timecop.freeze(today)
       project.start_date = Time.zone.parse("2016-07-01")
       project.users << dummy
