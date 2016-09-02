@@ -1,15 +1,16 @@
 class IntegrationsController < ApplicationController
-  before_action :load_project
+  before_action :set_project
 
   respond_to :html, :json
 
   def index
-    @integration = Integration.new
+    @integration = policy_scope(Integration).build
     respond_with(@project.integrations)
   end
 
   def create
-    @integration = @project.integrations.build(kind: params[:integration][:kind])
+    @integration = policy_scope(Integration).build(kind: params[:integration][:kind])
+    authorize @integration
     @integration.data = JSON.parse params[:integration][:data]
 
     if @project.integrations.find_by(kind: @integration.kind)
@@ -31,16 +32,20 @@ class IntegrationsController < ApplicationController
   end
 
   def destroy
-    @integration = @project.integrations.find(params[:id])
+    @integration = policy_scope(Integration).find(params[:id])
+    authorize @integration
     @project.integrations.delete(@integration)
     redirect_to project_integrations_url(@project)
   end
 
   private
 
-  def load_project
+  def set_project
     @project = current_user.projects.friendly.find(params[:project_id])
   end
 
+  def pundit_user
+    IntegrationContext.new(current_user, @project)
+  end
 end
 
