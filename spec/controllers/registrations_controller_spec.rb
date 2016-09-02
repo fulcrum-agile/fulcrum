@@ -13,6 +13,12 @@ describe RegistrationsController do
       end
     end
 
+    after do
+      Configuration.for('fulcrum') do
+        disable_registration false
+      end
+    end
+
     describe "#new" do
       specify do
         get :new

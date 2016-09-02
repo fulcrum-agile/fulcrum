@@ -65,6 +65,16 @@ RSpec.configure do |config|
   module DisableTransactionalFixtures
     def self.included(base)
       base.use_transactional_fixtures = false
+      base.after(:each) do |example|
+        while true
+          begin
+            DatabaseCleaner.clean
+            break
+          rescue Exception => e
+            sleep 2
+          end
+        end
+      end
     end
   end
   config.include DisableTransactionalFixtures,  type: :feature
