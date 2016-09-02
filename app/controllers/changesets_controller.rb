@@ -9,6 +9,8 @@ class ChangesetsController < ApplicationController
     render json: @changesets
   end
 
+  protected
+
   def allowed_params
     params.permit(:from,:to,:project_id)
   end

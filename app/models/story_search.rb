@@ -2,6 +2,14 @@ class StorySearch
   SEARCH_RESULTS_LIMIT = 40
   attr_reader :relation, :query_params, :parsed_params, :conditions
 
+  def self.query(relation, query_params)
+    new(relation, query_params).search
+  end
+
+  def self.labels(relation, query_params)
+    new(relation, query_params).labels
+  end
+
   def initialize(relation, query_params)
     @relation      = relation
     @query_params  = query_params

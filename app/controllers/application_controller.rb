@@ -3,15 +3,14 @@ class ApplicationController < ActionController::Base
 
   include Pundit
 
-  after_filter :verify_authorized, except: [:index], unless: :devise_controller?
-  after_filter :verify_policy_scoped, only: [:index], unless: :devise_controller?
-
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   before_filter :authenticate_user!, :set_locale
   around_filter :user_time_zone, if: :current_user
 
+  after_filter :verify_authorized, except: [:index], unless: :devise_controller?
+  after_filter :verify_policy_scoped, only: [:index], unless: :devise_controller?
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from Pundit::NotAuthorizedError,   with: :user_not_authorized
 
   protected
   def render_404

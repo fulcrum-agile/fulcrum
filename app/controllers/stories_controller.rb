@@ -7,13 +7,13 @@ class StoriesController < ApplicationController
 
   def index
     @stories = if params[:q]
-                 StorySearch.new(policy_scope(Story), params[:q]).search
+                 StorySearch.query(policy_scope(Story), params[:q])
                elsif params[:label]
-                 StorySearch.new(policy_scope(Story), params[:label]).search_labels
+                 StorySearch.labels(policy_scope(Story), params[:label])
                else
-                 relation = policy_scope(Story).with_dependencies.order('updated_at DESC')
-                 relation = relation.limit(ENV['STORIES_CEILING']) if ENV['STORIES_CEILING']
-                 relation
+                 policy_scope(Story).with_dependencies.order('updated_at DESC').tap do |relation|
+                   relation = relation.limit(ENV['STORIES_CEILING']) if ENV['STORIES_CEILING']
+                 end
                end
 
     respond_to do |format|
@@ -25,7 +25,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = policy_scope(Story).includes(:notes, :tasks, :document_files).find(params[:id])
+    @story = policy_scope(Story).with_dependencies.find(params[:id])
     authorize @story
     render json: @story
   end
