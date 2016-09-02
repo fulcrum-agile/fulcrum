@@ -36,6 +36,7 @@ describe UsersController do
     describe "collection actions" do
 
       describe "#index" do
+        let(:users) { double("users", build: User.new) }
 
         context "as html" do
           specify do
