@@ -228,7 +228,7 @@ div.story {
   border-top: 1px solid #fff;
 
   &:not(.editing):not(.unestimated) {
-    height: 37px;
+    min-height: 37px;
   }
 }
 div.story:hover {
@@ -323,7 +323,7 @@ div.story-title abbr.initials {
 }
 
 .estimates {
-  margin-top: 12px;
+  margin-top: 4px;
   margin-right: 6px;
 
   .estimate {
