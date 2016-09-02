@@ -1,5 +1,4 @@
 class NotesController < ApplicationController
-  authorize_resource
 
   def index
     @project = current_user.projects.find(params[:project_id])

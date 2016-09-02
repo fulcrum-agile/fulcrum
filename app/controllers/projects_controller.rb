@@ -1,7 +1,5 @@
 require 'open-uri'
 class ProjectsController < ApplicationController
-  authorize_resource
-
   before_action :load_project, only: %i[show edit update destroy import import_upload reports]
 
   # GET /projects

@@ -1,5 +1,4 @@
 class IntegrationsController < ApplicationController
-  authorize_resource
   before_action :load_project
 
   respond_to :html, :json

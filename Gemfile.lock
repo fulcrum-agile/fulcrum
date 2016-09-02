@@ -58,7 +58,6 @@ GEM
     bullet (5.2.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
-    cancancan (1.15.0)
     capybara (2.8.1)
       addressable
       mime-types (>= 1.16)
@@ -199,6 +198,8 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (3.4.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.5.5)
@@ -355,7 +356,6 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.3.5)
   bullet
-  cancancan (~> 1.10)
   capybara
   capybara-screenshot
   chartkick
@@ -390,6 +390,7 @@ DEPENDENCIES
   poltergeist
   pry-rails
   puma
+  pundit
   quiet_assets
   rack-cache
   rack-timeout

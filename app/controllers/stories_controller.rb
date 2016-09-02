@@ -1,5 +1,4 @@
 class StoriesController < ApplicationController
-  authorize_resource
 
   include ActionView::Helpers::TextHelper
 
