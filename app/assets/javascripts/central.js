@@ -1,5 +1,3 @@
-var Markdown = require('vendor/Markdown.Converter');
-
 var Project = require('models/project');
 var User = require('models/user');
 
@@ -27,9 +25,9 @@ var Central = module.exports = {
       column.render();
 
       if (data.hideable !== false) {
-        $('<li/>').
-        append(new ColumnVisibilityButtonView({ columnView: column }).render().$el).
-        appendTo('#column-toggles');
+        $('<li/>')
+          .append(new ColumnVisibilityButtonView({ columnView: column }).render().$el)
+          .appendTo('#column-toggles');
       }
 
       if (data.connect) {
@@ -61,7 +59,6 @@ var Central = module.exports = {
         project.fetch();
       }, 10 * 1000); // every 10 seconds
 
-      window.md = new Markdown.Converter();
       window.projectView = view;
     });
   }

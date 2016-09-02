@@ -1,3 +1,4 @@
+var executeAttachinary = require('libs/execute_attachinary');
 var KeycutView = require('views/keycut_view');
 
 $(function() {
@@ -94,6 +95,8 @@ $(function() {
       });
     }
   }
+
+  executeAttachinary();
 });
 
 function showSidebar() {

@@ -1,7 +1,4 @@
-require('./globals');
-require('./lib/jquery_plugins');
-require('./lib/backbone_plugins');
-require('bootstrap-sass');
+require('libs');
 
 var Central = require('./central');
 

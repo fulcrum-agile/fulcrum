@@ -2,7 +2,7 @@ namespace :travis do
 
   desc "Runs rspec specs and jasmine specs on travis"
   task :run_specs do
-    ["rspec spec", "rake --trace spec:javascripts"].each do |cmd|
+    ["rspec spec", "npm test"].each do |cmd|
       puts "Starting to run #{cmd}..."
       system("export DISPLAY=:99.0 && bundle exec #{cmd}")
       raise "#{cmd} failed!" unless $?.exitstatus == 0

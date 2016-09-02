@@ -1,4 +1,6 @@
-describe("Fulcrum.ColumnVisibilityButtonView", function() {
+var ColumnVisibilityButtonView = require('views/column_visibility_button_view');
+
+describe("ColumnVisibilityButtonView", function() {
 
   beforeEach(function() {
     this.columnView = {
@@ -6,8 +8,8 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
       hidden: sinon.stub().returns(false),
       on: sinon.stub()
     };
-    Fulcrum.ColumnVisibilityButtonView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.ColumnVisibilityButtonView({columnView: this.columnView});
+    ColumnVisibilityButtonView.prototype.template = sinon.stub();
+    this.view = new ColumnVisibilityButtonView({columnView: this.columnView});
   });
 
   it("should have <a> as the tagName",function() {

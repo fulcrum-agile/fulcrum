@@ -30,9 +30,10 @@
       </div>
     </div>
 
-    <%#= javascript_include_tag *webpack_asset_paths('globals') %>
     <%= javascript_include_tag *webpack_asset_paths('application') %>
-    <%= javascript_include_tag :sprockets %>
+    <%= render 'locales' %>
+    <%= javascript_include_tag :attachinary %>
+    <%= yield :charts_data %>
     <%= cloudinary_js_config %>
   </body>
 </html>

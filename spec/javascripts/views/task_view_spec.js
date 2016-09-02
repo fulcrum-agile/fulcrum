@@ -1,10 +1,12 @@
-describe('Fulcrum.TaskView', function() {
+var TaskView = require('views/task_view');
+
+describe('TaskView', function() {
 
   beforeEach(function() {
     var Task = Backbone.Model.extend({name: 'task', url: '/foo'});
     this.task = new Task({});
-    Fulcrum.TaskView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.TaskView({model: this.task});
+    TaskView.prototype.template = sinon.stub();
+    this.view = new TaskView({model: this.task});
   });
 
   it("has div as the tag name", function() {

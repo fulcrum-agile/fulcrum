@@ -6,7 +6,7 @@ var StatsPlugin = require('stats-webpack-plugin');
 var devServerPort = 3808;
 
 // set NODE_ENV=production on the environment to add asset fingerprints
-var production = process.env.NODE_ENV === 'production';
+var PRODUCTION = process.env.NODE_ENV === 'production';
 
 var config = {
   entry: {
@@ -21,7 +21,7 @@ var config = {
     path: path.join(__dirname, '..', 'public', 'webpack'),
     publicPath: '/webpack/',
 
-    filename: production ? '[name]-[chunkhash].js' : '[name].js'
+    filename: PRODUCTION ? '[name]-[chunkhash].js' : '[name].js'
   },
 
   resolve: {
@@ -32,7 +32,8 @@ var config = {
       mixins: path.join(__dirname, '..', 'app/assets/javascripts/mixins'),
       models: path.join(__dirname, '..', 'app/assets/javascripts/models'),
       templates: path.join(__dirname, '..', 'app/assets/javascripts/templates'),
-      views: path.join(__dirname, '..', 'app/assets/javascripts/views')
+      views: path.join(__dirname, '..', 'app/assets/javascripts/views'),
+      libs: path.join(__dirname, '..', 'app/assets/javascripts/libs')
     }
   },
 
@@ -67,7 +68,7 @@ var config = {
   ]
 };
 
-if (production) {
+if (PRODUCTION) {
   config.plugins.push(
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({

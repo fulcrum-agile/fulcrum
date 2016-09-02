@@ -1,5 +1,7 @@
 var Clipboard = require('clipboard');
 
+var executeAttachinary = require('libs/execute_attachinary');
+
 var FormView = require('./form_view');
 var EpicView = require('./epic_view');
 var NoteForm = require('./note_form');

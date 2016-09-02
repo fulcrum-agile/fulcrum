@@ -1,11 +1,13 @@
-describe('Fulcrum.NoteCollection', function() {
+var NoteCollection = require('collections/note_collection');
+
+describe('NoteCollection', function() {
 
   beforeEach(function() {
     var Story = Backbone.Model.extend({name: 'story'});
     this.story = new Story({url: '/foo'});
     this.story.url = function() { return '/foo'; };
 
-    this.note_collection = new Fulcrum.NoteCollection();
+    this.note_collection = new NoteCollection();
     this.note_collection.story = this.story;
   });
 

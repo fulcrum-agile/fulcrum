@@ -1,10 +1,12 @@
-describe("Fulcrum.TaskForm", function() {
+var TaskForm = require('views/task_form');
+
+describe("TaskForm", function() {
 
   beforeEach(function() {
     var Task = Backbone.Model.extend({name: 'task', url: '/foo'});
     this.task = new Task({});
-    Fulcrum.TaskForm.prototype.template = sinon.stub();
-    this.view = new Fulcrum.TaskForm({model: this.task});
+    TaskForm.prototype.template = sinon.stub();
+    this.view = new TaskForm({model: this.task});
   });
 
   it("should have a tag name of div", function() {

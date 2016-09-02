@@ -1,7 +1,9 @@
+var Note = require('models/note');
+
 describe("Note", function() {
 
   beforeEach(function() {
-    this.note = new Fulcrum.Note({});
+    this.note = new Note({});
   });
 
   describe("user", function() {

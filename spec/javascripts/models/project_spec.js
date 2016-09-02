@@ -1,3 +1,6 @@
+var Project = require('models/project');
+var Iteration = require('models/iteration');
+
 describe('Project model', function() {
 
   beforeEach(function() {
@@ -9,7 +12,7 @@ describe('Project model', function() {
     });
     this.story = new Story({id: 456});
 
-    this.project = new Fulcrum.Project({
+    this.project = new Project({
       id: 999, title: 'Test project', point_values: [0, 1, 2, 3],
       last_changeset_id: null, iteration_start_day: 1, iteration_length: 1
     });
@@ -393,7 +396,7 @@ describe('Project model', function() {
     });
 
     it("should add the first iteration to the array", function() {
-      var stub = sinon.stub(Fulcrum.Iteration, 'createMissingIterations');
+      var stub = sinon.stub(Iteration, 'createMissingIterations');
       stub.returns([]);
       this.project.appendIteration(this.iteration);
       expect(_.last(this.project.iterations)).toEqual(this.iteration);
@@ -402,7 +405,7 @@ describe('Project model', function() {
     });
 
     it("should create missing iterations if required", function() {
-      var spy = sinon.spy(Fulcrum.Iteration, 'createMissingIterations');
+      var spy = sinon.spy(Iteration, 'createMissingIterations');
       this.iteration.get.withArgs('number').returns(1);
       this.project.iterations.push(this.iteration);
       var iteration = {

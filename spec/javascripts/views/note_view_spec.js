@@ -1,10 +1,12 @@
-describe('Fulcrum.NoteView', function() {
+var NoteView = require('views/note_view');
+
+describe('NoteView', function() {
 
   beforeEach(function() {
     var Note = Backbone.Model.extend({name: 'note', url: '/foo'});
     this.note = new Note({});
-    Fulcrum.NoteView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.NoteView({model: this.note});
+    NoteView.prototype.template = sinon.stub();
+    this.view = new NoteView({model: this.note});
   });
 
   it("has div as the tag name", function() {

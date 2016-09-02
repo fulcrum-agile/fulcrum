@@ -1,4 +1,3 @@
-require('jquery');
 require('jquery-ui-dist/jquery-ui');
 require('jquery-ujs');
 require('gritter');
