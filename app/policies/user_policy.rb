@@ -1,6 +1,6 @@
 class UserPolicy < ApplicationPolicy
   def show?
-    context.current_project.users.find(record)
+    context.current_project.users.find_by_id(record.id)
   end
 
   class Scope < Scope

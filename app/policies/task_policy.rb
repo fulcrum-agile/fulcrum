@@ -1,6 +1,6 @@
 class TaskPolicy < ApplicationPolicy
   def show?
-    context.current_story.tasks.find(record)
+    context.current_story.tasks.find_by_id(record.id)
   end
 
   class Scope < Scope

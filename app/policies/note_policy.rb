@@ -1,6 +1,6 @@
 class NotePolicy < ApplicationPolicy
   def show?
-    context.current_story.notes.find(record)
+    context.current_story.notes.find_by_id(record.id)
   end
 
   class Scope < Scope

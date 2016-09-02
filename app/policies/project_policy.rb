@@ -1,10 +1,6 @@
 class ProjectPolicy < ApplicationPolicy
-  def index?
-    true
-  end
-
   def show?
-    context.current_user.projects.find(record)
+    context.current_user.projects.find_by_id(record.id)
   end
 
   def reports?

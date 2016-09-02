@@ -1,6 +1,6 @@
 class StoryPolicy < ApplicationPolicy
   def show?
-    context.current_project.stories.find(record)
+    context.current_project.stories.find_by_id(record.id)
   end
 
   def done?
