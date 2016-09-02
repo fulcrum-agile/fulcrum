@@ -1,9 +1,9 @@
 class StorySearch
   SEARCH_RESULTS_LIMIT = 40
-  attr_reader :project, :query_params, :parsed_params, :conditions
+  attr_reader :relation, :query_params, :parsed_params, :conditions
 
-  def initialize(project, query_params)
-    @project       = project
+  def initialize(relation, query_params)
+    @relation      = relation
     @query_params  = query_params
     @parsed_params = []
     @conditions    = {}
@@ -31,8 +31,8 @@ class StorySearch
   end
 
   def add_conditions_to(search_method)
-    relation = project.stories.with_dependencies.send(search_method, parsed_params.join(' '))
-    relation = relation.where(conditions) if conditions.size > 0
-    relation.limit(SEARCH_RESULTS_LIMIT)
+    new_relation = relation.with_dependencies.send(search_method, parsed_params.join(' '))
+    new_relation = relation.where(conditions) if conditions.size > 0
+    new_relation.limit(SEARCH_RESULTS_LIMIT)
   end
 end
