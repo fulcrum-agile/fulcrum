@@ -3,18 +3,6 @@ class StoryPolicy < ApplicationPolicy
     context.current_project.stories.find(record)
   end
 
-  def create?
-    context.current_user.is_admin?
-  end
-
-  def update?
-    create?
-  end
-
-  def destroy?
-    create?
-  end
-
   def done?
     update?
   end

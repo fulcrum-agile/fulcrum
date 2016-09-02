@@ -12,15 +12,15 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    context.current_user.is_admin?
   end
 
   def show?
-    false
+    index?
   end
 
   def create?
-    false
+    context.current_user.is_admin?
   end
 
   def new?
@@ -28,7 +28,7 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    create?
   end
 
   def edit?
@@ -36,7 +36,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    create?
   end
 
   def scope

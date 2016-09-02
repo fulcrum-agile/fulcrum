@@ -3,18 +3,6 @@ class NotePolicy < ApplicationPolicy
     context.current_story.notes.find(record)
   end
 
-  def create?
-    context.current_user.is_admin?
-  end
-
-  def update?
-    create?
-  end
-
-  def destroy?
-    create?
-  end
-
   def done?
     update?
   end

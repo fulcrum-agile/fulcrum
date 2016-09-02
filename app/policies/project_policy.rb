@@ -3,18 +3,6 @@ class ProjectPolicy < ApplicationPolicy
     context.current_user.projects.find(record)
   end
 
-  def create?
-    context.current_user.is_admin?
-  end
-
-  def update?
-    create?
-  end
-
-  def destroy?
-    create?
-  end
-
   def archived?
     update?
   end
