@@ -31,9 +31,21 @@ class ImportWorker
       end
       @project.import = nil # erase the attachinary file
       set_cache(job_id, { invalid_stories: invalid_stories, errors: nil })
+      fix_project_start_date(project)
     end
   rescue => e
     set_cache(job_id, { invalid_stories: [], errors: e.message })
+  end
+
+  def fix_project_start_date(project)
+    oldest_story = project.stories.where.not(accepted_at: nil).order(:accepted_at).first
+    if project.start_date > oldest_story.accepted_at
+      project.update_attributes(start_date: oldest_story.accepted_at)
+    end
+  end
+
+  def self.new_job_id
+    "import_upload/#{SecureRandom.base64(15).tr('+/=', 'xyz')}"
   end
 
   private
