@@ -17,24 +17,28 @@ class ImportWorker
   end
 
   def perform(job_id, project_id)
-    @project = Project.friendly.find(project_id)
+    project = setup_project(project_id)
 
-    # Do not send any email notifications during the import process
-    @project.suppress_notifications = true
-
-    csv_body = open(@project.import.fullpath).read
+    csv_body = open(project.import.fullpath).read
     csv_body.force_encoding("utf-8")
     Project.transaction do
-      @stories = @project.stories.from_csv(csv_body)
-      invalid_stories = @stories.reject(&:valid?).map do |s|
+      stories = project.stories.from_csv(csv_body)
+      invalid_stories = stories.reject(&:valid?).map do |s|
         { title: s.title, errors: s.errors.full_messages.join(', ') }
       end
-      @project.import = nil # erase the attachinary file
+      project.import = nil # erase the attachinary file
       set_cache(job_id, { invalid_stories: invalid_stories, errors: nil })
       fix_project_start_date(project)
     end
   rescue => e
     set_cache(job_id, { invalid_stories: [], errors: e.message })
+  end
+
+  def setup_project(project_id)
+    Project.friendly.find(project_id).tap do |project|
+      # Do not send any email notifications during the import process
+      project.suppress_notifications = true
+    end
   end
 
   def fix_project_start_date(project)
