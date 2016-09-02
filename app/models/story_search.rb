@@ -7,7 +7,7 @@ class StorySearch
   end
 
   def self.labels(relation, query_params)
-    new(relation, query_params).labels
+    new(relation, query_params).search_labels
   end
 
   def initialize(relation, query_params)
