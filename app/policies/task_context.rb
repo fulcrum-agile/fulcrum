@@ -1,0 +1,2 @@
+class TaskContext < NoteContext
+end
