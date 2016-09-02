@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  template: JST['templates/epic_bar'],
+  template: require('templates/epic_bar.ejs'),
 
   className: 'iteration',
 

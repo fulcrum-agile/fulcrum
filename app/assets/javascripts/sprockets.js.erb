@@ -1,12 +1,7 @@
 //= require attachinary
 //= require Chart.bundle
 //= require chartkick
-//= require_tree ./templates
 
-<%
-  # first we need to force init translations or there wouldn't be any
-  I18n.backend.send(:init_translations) unless I18n.backend.initialized?
-%>
 I18n.defaultLocale = "<%= I18n.default_locale %>";
 I18n.locale = "<%= I18n.locale %>";
 I18n.translations = <%= I18n.backend.send(:translations).to_json.html_safe %>;

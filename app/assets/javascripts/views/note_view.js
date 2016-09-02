@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  template: JST['templates/note'],
+  template: require('templates/note.ejs'),
 
   tagName: 'div',
 

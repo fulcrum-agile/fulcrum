@@ -9,7 +9,7 @@ var TaskView = require('./task_view');
 
 module.exports = FormView.extend({
 
-  template: JST['templates/story'],
+  template: require('templates/story.ejs'),
 
   tagName: 'div',
 
@@ -651,7 +651,10 @@ module.exports = FormView.extend({
         return view.model.get("title");
       },
       content: function(){
-        return JST['templates/story_hover']({story: view.model});
+        return require('templates/story_hover.ejs')({
+          story: view.model,
+          noteTemplate: require('templates/note.ejs')
+        });
       },
       // A small delay to stop the popovers triggering whenever the mouse is
       // moving around

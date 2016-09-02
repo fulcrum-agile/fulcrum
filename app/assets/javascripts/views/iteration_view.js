@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  template: JST['templates/iteration'],
+  template: require('templates/iteration.ejs'),
 
   className: 'iteration',
 

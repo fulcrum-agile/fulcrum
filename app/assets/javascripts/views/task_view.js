@@ -2,7 +2,7 @@ var FormView = require('./form_view');
 
 module.exports = FormView.extend({
 
-  template: JST['templates/task'],
+  template: require('templates/task.ejs'),
 
   tagName: 'div',
 

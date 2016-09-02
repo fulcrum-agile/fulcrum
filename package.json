@@ -18,5 +18,8 @@
     "underscore": "^1.8.3",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"
+  },
+  "devDependencies": {
+    "ejs-compiled-loader": "^2.1.1"
   }
 }

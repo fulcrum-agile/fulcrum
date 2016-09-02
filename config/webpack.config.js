@@ -10,8 +10,7 @@ var production = process.env.NODE_ENV === 'production';
 
 var config = {
   entry: {
-    application: './app/assets/javascripts/app.js',
-    globals: './app/assets/javascripts/globals.js'
+    application: './app/assets/javascripts/app.js'
   },
 
   output: {
@@ -35,6 +34,12 @@ var config = {
       templates: path.join(__dirname, '..', 'app/assets/javascripts/templates'),
       views: path.join(__dirname, '..', 'app/assets/javascripts/views')
     }
+  },
+
+  module: {
+    loaders: [
+      { test: /\.ejs$/, loader: 'ejs-compiled' }
+    ]
   },
 
   plugins: [

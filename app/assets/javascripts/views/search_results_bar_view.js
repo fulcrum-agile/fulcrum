@@ -1,6 +1,6 @@
 module.exports = Backbone.View.extend({
 
-  template: JST['templates/search_results_bar'],
+  template: require('templates/search_results_bar.ejs'),
 
   className: 'iteration',
 

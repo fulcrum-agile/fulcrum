@@ -8,7 +8,7 @@ module.exports = Backbone.View.extend({
     "keydown input[name=override]": "keyCapture"
   },
 
-  template: JST['templates/project_velocity_override'],
+  template: require('templates/project_velocity_override.ejs'),
 
   render: function() {
     this.$el.html(this.template({project: this.model}));

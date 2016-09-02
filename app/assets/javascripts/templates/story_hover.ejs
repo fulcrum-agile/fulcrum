@@ -29,6 +29,6 @@
 <% if (story.hasNotes()) { %>
   <h5 class="title"><%= I18n.t('notes') %></h5>
   <% _.each(story.notes.saved(), function(note) { %>
-  <div class="note"><%= JST['templates/note']({note:note}) %></div>
+  <div class="note"><%= noteTemplate({note:note}) %></div>
   <% }); %>
 <% } %>

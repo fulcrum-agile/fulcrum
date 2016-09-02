@@ -30,9 +30,9 @@
       </div>
     </div>
 
-    <%= javascript_include_tag *webpack_asset_paths('globals') %>
-    <%= javascript_include_tag :sprockets %>
+    <%#= javascript_include_tag *webpack_asset_paths('globals') %>
     <%= javascript_include_tag *webpack_asset_paths('application') %>
+    <%= javascript_include_tag :sprockets %>
     <%= cloudinary_js_config %>
   </body>
 </html>

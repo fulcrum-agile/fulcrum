@@ -15,7 +15,7 @@ module.exports = Backbone.View.extend({
     "click #velocity_value": "editVelocityOverride"
   },
 
-  template: JST['templates/project_velocity'],
+  template: require('templates/project_velocity.ejs'),
 
   render: function() {
     this.$el.html(this.template({project: this.model}));
