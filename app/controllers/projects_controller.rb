@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = current_user.projects.not_archived
+    @projects = policy_scope(Project).not_archived
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,7 +28,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @project = Project.new
+    @project = policy_scope(Project).build
+    authorize @project
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,13 +40,15 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project.users.build
+    authorize @project
     @integration = Integration.new
   end
 
   # POST /projects
   # POST /projects.xml
   def create
-    @project = current_user.projects.build(allowed_params)
+    @project = policy_scope(Project).build(allowed_params)
+    authorize @project
     @project.users << current_user
 
     respond_to do |format|
@@ -133,7 +136,8 @@ class ProjectsController < ApplicationController
   end
 
   def archived
-    @projects = Project.archived
+    @projects = policy_scope(Project).archived
+    authorize @projects
   end
 
   def reports
@@ -148,7 +152,8 @@ class ProjectsController < ApplicationController
   end
 
   def load_project
-    @project = current_user.projects.friendly.find(params[:id])
+    @project = policy_scope(Project).friendly.find(params[:id])
+    authorize @project
   end
 
 end

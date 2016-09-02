@@ -29,6 +29,7 @@ describe ProjectsController do
       allow(subject).to receive_messages(current_user: user)
       allow(user).to receive_messages(projects: projects)
       allow(user).to receive_message_chain(:projects, :not_archived) { projects }
+      allow(user).to receive_message_chain(:projects, :find) { project }
     end
 
     describe "collection actions" do
@@ -44,6 +45,8 @@ describe ProjectsController do
       end
 
       describe "#new" do
+
+        before { allow(projects).to receive(:build).and_return(Project.new) }
 
         specify do
           get :new
@@ -101,6 +104,7 @@ describe ProjectsController do
           archived_at: Time.current }
 
         before do
+          allow(projects).to receive(:archived).and_return([archived_project])
           get :archived
         end
 
@@ -124,6 +128,7 @@ describe ProjectsController do
         allow(projects).to receive_message_chain(:friendly, :find).with(project.id.to_s) { project }
         allow(project).to receive_message_chain(:stories, :build) { story }
         allow(project).to receive(:"import=").and_return(nil)
+        allow(user).to receive_message_chain(:projects, :find) { project }
       end
 
       describe "#show" do
