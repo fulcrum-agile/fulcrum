@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   private
 
   def set_project
-    @project = current_user.projects.friendly.find(params[:project_id])
+    @project = policy_scope(Project).friendly.find(params[:project_id])
   end
 
 end

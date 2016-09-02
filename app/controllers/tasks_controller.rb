@@ -34,8 +34,8 @@ class TasksController < ApplicationController
   end
 
   def set_project_and_story
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:story_id])
+    @project = policy_scope(Project).find(params[:project_id])
+    @story   = policy_scope(Story).find(params[:story_id])
   end
 
 end
