@@ -1,2 +1,0 @@
-class IntegrationContext < StoryContext
-end

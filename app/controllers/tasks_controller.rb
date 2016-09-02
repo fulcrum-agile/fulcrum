@@ -38,7 +38,4 @@ class TasksController < ApplicationController
     @story = @project.stories.find(params[:story_id])
   end
 
-  def pundit_user
-    TaskContext.new(current_user, @story)
-  end
 end

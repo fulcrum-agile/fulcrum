@@ -1,6 +1,6 @@
 require 'open-uri'
 class ProjectsController < ApplicationController
-  before_action :load_project, only: %i[show edit update destroy import import_upload reports]
+  before_action :set_project, only: %i[show edit update destroy import import_upload reports]
 
   # GET /projects
   # GET /projects.xml
@@ -151,7 +151,7 @@ class ProjectsController < ApplicationController
     params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import, :archived)
   end
 
-  def load_project
+  def set_project
     @project = policy_scope(Project).friendly.find(params[:id])
     authorize @project
   end

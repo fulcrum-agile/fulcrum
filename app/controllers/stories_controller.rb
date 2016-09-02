@@ -108,7 +108,4 @@ class StoriesController < ApplicationController
     @project = policy_scope(Project).friendly.find(params[:project_id])
   end
 
-  def pundit_user
-    StoryContext.new(current_user, @project)
-  end
 end

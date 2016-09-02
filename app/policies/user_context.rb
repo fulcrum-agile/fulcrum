@@ -1,3 +1,0 @@
-class UserContext < StoryContext
-end
-

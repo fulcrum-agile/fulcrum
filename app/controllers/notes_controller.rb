@@ -41,8 +41,4 @@ class NotesController < ApplicationController
     @story = @project.stories.find(params[:story_id])
   end
 
-  def pundit_user
-    NoteContext.new(current_user, @story)
-  end
-
 end

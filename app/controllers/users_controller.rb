@@ -58,7 +58,4 @@ class UsersController < ApplicationController
     @project = current_user.projects.friendly.find(params[:project_id])
   end
 
-  def pundit_user
-    UserContext.new(current_user, @project)
-  end
 end

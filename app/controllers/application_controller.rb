@@ -46,6 +46,6 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_user
-    PunditContext.new(current_user)
+    PunditContext.new(current_user, { current_project: @project, current_story: @story })
   end
 end
