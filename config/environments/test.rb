@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
+  config.serve_static_files   = true
   config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
@@ -43,4 +43,7 @@ Rails.application.configure do
 
   # Disable dev server on CI
   config.webpack.dev_server.enabled = false
+
+  # Randomize the order test cases are executed.
+  config.active_support.test_order = :random
 end
