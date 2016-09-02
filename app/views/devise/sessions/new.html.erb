@@ -7,12 +7,12 @@
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
         <div class="field-wrapper">
           <%= f.label :email, class: 'col-sm-4 control-label' %>
-          <div class="col-sm-8"><%= f.email_field :email %></div>
+          <div class="col-sm-8"><%= f.email_field :email, autofocus: true %></div>
         </div>
 
         <div class="field-wrapper">
           <%= f.label :password, class: 'col-sm-4 control-label' %>
-          <div class="col-sm-8"><%= f.password_field :password %></div>
+          <div class="col-sm-8"><%= f.password_field :password, autocomplete: "off" %></div>
         </div>
 
 

@@ -123,14 +123,12 @@ class ProjectsController < ApplicationController
     if params[:project][:import].blank?
       flash[:alert] = "You must select a file for import"
     else
-      session[:import_job] = {
-        id: "import_upload/#{SecureRandom.base64(15).tr('+/=', 'xyz')}",
-        created_at: Time.current }
+      session[:import_job] = { id: ImportWorker.new_job_id, created_at: Time.current }
 
       @project.update_attributes(allowed_params)
       ImportWorker.perform_async(session[:import_job][:id], params[:id])
 
-      flash[:notice] = "Your upload is being processed."
+      flash[:notice] = "Your upload is being processed. You can come back here later."
     end
 
     redirect_to [:import, @project]

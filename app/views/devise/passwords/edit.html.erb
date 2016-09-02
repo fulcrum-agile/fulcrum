@@ -10,12 +10,15 @@
 
         <div class="field-wrapper">
           <%= f.label :password, "New password" %>
-          <div class="field"><%= f.password_field :password %></div>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+          <% end %>
+          <div class="field"><%= f.password_field :password, autofocus: true, autocomplete: "off" %></div>
         </div>
 
         <div class="field-wrapper">
           <%= f.label :password_confirmation, "Confirm new password" %>
-          <div class="field"><%= f.password_field :password_confirmation %></div>
+          <div class="field"><%= f.password_field :password_confirmation, autocomplete: "off" %></div>
         </div>
 
         <div class="actions"><%= f.submit "Change my password" %></div>

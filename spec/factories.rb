@@ -8,6 +8,8 @@ FactoryGirl.define do
     u.sequence(:email) {|n| "user#{n}@example.com"}
     u.password 'password'
     u.password_confirmation 'password'
+    u.locale 'en'
+    u.time_zone 'Brasilia'
     u.after(:build) {|user| user.confirm }
   end
 
