@@ -185,6 +185,23 @@ es:
       search_results: "Resultados de la búsqueda"
       epic: 'Épico'
 
+    uploads:
+      select_file: "Debe seleccionar un archivo CSV para importar sus historias para el proyecto."
+      being_processed: "Su archivo CSV cargado se está procesando. Puede volver aquí más tarde Cuando se termina el proceso."
+      already_uploaded: |
+          <p>Ya existe un archivo cargado está procesando hace %{time_ago}.</p>
+          <p>Espera unos minutos y volver a ver los resultados o cargar un nuevo archivo en caso de errores.</p>
+      instructions: |
+          <p>Puede importar muchas historias a la vez de un formato variable separada por coma (CSV). La primera línea de la CSV debe contenerización los encabezados correctos para la importación sea correcta. Puede descargar una plantilla <a href="/Fulcrum_Import_Template.csv">CSV</a> con los encabezados correctos para empezar.</p>
+          <p>El sistema intentará emparejar los nombres de usuario que se encuentran en esta CSV con los miembros de su proyecto. Asegúrese de registrar a los miembros con los nombres correctos antes de importar la claustrofobia para ellos coinciden. </p>
+          <p><em>Nota: Nota: Puede utilizar un archivo exportado útiles desde otro sistema (Pivotal Tracker).</em></p>
+
+  users:
+    You are not authorized to perform this action: "Usted no está autorizado para realizar esta acción."
+    is already a member of this project: "%{email} ya es un miembro de este proyecto"
+    was sent an invite to join this project: "%{email} fue enviado una invitación a unirse a este proyecto"
+    was added to this project: "%{email} se añadió a este proyecto"
+
   admin:
     users:
       edit user: "Edita Miembro"

@@ -260,7 +260,7 @@ describe ProjectsController do
           specify do
             put :import_upload, id: project.id, project: { import: "" }
             expect(response).to redirect_to(import_project_path(project))
-            expect(flash[:alert]).to eq("You must select a file for import")
+            expect(flash[:alert]).to eq("You must select a CSV file to import its stories to the project.")
           end
         end
 
@@ -276,7 +276,7 @@ describe ProjectsController do
             expect(Project).to receive_message_chain(:friendly, :find).with(project.id.to_s).and_return(project)
             expect(ImportWorker).to receive(:perform_async)
             put :import_upload, id: project.id, project: { import: csv }
-            expect(flash[:notice]).to eq("Your upload is being processed. You can come back here later.")
+            expect(flash[:notice]).to eq("Your uploaded CSV file is being processed. You can come back here later when the process is finished.")
             expect(response).to redirect_to(import_project_path(project))
           end
 

@@ -122,14 +122,14 @@ class ProjectsController < ApplicationController
   # CSV import
   def import_upload
     if params[:project][:import].blank?
-      flash[:alert] = "You must select a file for import"
+      flash[:alert] = I18n.t('projects.uploads.select_file')
     else
       session[:import_job] = { id: ImportWorker.new_job_id, created_at: Time.current }
 
       @project.update_attributes(allowed_params)
       ImportWorker.perform_async(session[:import_job][:id], params[:id])
 
-      flash[:notice] = "Your upload is being processed. You can come back here later."
+      flash[:notice] = I18n.t('projects.uploads.being_processed')
     end
 
     redirect_to [:import, @project]
