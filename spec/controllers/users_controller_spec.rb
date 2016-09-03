@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe UsersController do
 
-  let(:project) { mock_model(Project) }
+  let(:project) { create(:project) }
 
   context "when logged out" do
     %w[index create].each do |action|
@@ -21,22 +21,17 @@ describe UsersController do
 
   context "when logged in" do
 
-    let(:user)  { FactoryGirl.create(:user) }
-    let(:projects)  { double("projects") }
-    let(:users) { [user] }
+    let(:user)  { create(:user, is_admin: true) }
 
     before do
+      project.users << user
       sign_in user
       allow(subject).to receive_messages(current_user: user)
-      allow(user).to receive_messages(projects: projects)
-      allow(projects).to receive_message_chain(:friendly, :find).with(project.id.to_s) { project }
-      allow(project).to receive_messages(users: users)
     end
 
     describe "collection actions" do
 
       describe "#index" do
-        let(:users) { double("users", build: User.new) }
 
         context "as html" do
           specify do
@@ -50,7 +45,7 @@ describe UsersController do
           specify do
             xhr :get, :index, project_id: project.id, format: :json
             expect(response).to be_success
-            expect(response.body).to eq(users.to_json)
+            expect(response.body).to eq(project.users.to_json)
           end
 
         end
@@ -62,12 +57,9 @@ describe UsersController do
         let(:user_params) {{
           "email"     => "user@example.com",
           "name"      => "Test User",
-          "initials"  => "TU"
+          "initials"  => "TU",
+          "username"  => "test_user"
         }}
-
-        before do
-          allow(User).to receive(:find_or_create_by).with(email: user_params["email"]) { user }
-        end
 
         specify do
           post :create, project_id: project.id, user: user_params
@@ -77,24 +69,18 @@ describe UsersController do
 
         context "when user does not exist" do
 
-          before do
-            allow(user).to receive_messages(new_record?: true)
-            allow(user).to receive_messages(save: true)
-            allow(User).to receive(:find_or_create_by).with(email: user_params["email"]).and_yield(user).and_return(user)
-          end
-
           specify do
             post :create, project_id: project.id, user: user_params
-            expect(user.name).to eq(user_params["name"])
-            expect(user.initials).to eq(user_params["initials"])
-            expect(user.was_created).to be true
+            expect(assigns[:user].name).to eq(user_params["name"])
+            expect(assigns[:user].initials).to eq(user_params["initials"])
+            expect(assigns[:user].was_created).to be true
             expect(response).to redirect_to(project_users_url(project))
           end
 
           context "when save fails" do
 
             before do
-              allow(user).to receive_messages(save: false)
+              user_params['email'] = nil
             end
 
             specify do
@@ -108,46 +94,46 @@ describe UsersController do
         context "when user exists" do
 
           before do
-            allow(user).to receive_messages(new_record?: false)
-            allow(User).to receive(:find_or_create_by).with(email: user_params["email"]) { user }
+            create(:user, user_params)
           end
 
           specify do
             post :create, project_id: project.id, user: user_params
-            expect(user.was_created).to be_falsey
+            expect(assigns[:user].was_created).to be_falsey
           end
         end
 
         context "when user is already a project member" do
 
           before do
-            allow(users).to receive(:include?).with(user) { true }
+            project.users << create(:user, user_params)
           end
 
           specify do
             post :create, project_id: project.id, user: user_params
-            expect(flash[:alert]).to eq("#{user.email} is already a member of this project")
+            expect(flash[:alert]).to eq("#{assigns[:user].email} is already a member of this project")
           end
         end
 
         context "when user is not already a project member" do
 
-          before do
-            allow(users).to receive(:include?).with(user) { false }
-          end
-
           context "and user was created" do
-            before { allow(user).to receive(:was_created) { true } }
+
             specify do
               post :create, project_id: project.id, user: user_params
-              expect(flash[:notice]).to eq("#{user.email} was sent an invite to join this project")
+              expect(flash[:notice]).to eq("#{assigns[:user].email} was sent an invite to join this project")
             end
           end
+
           context "and user already existed" do
-            before { allow(user).to receive(:was_created) { false } }
+
+            before do
+              create(:user, user_params)
+            end
+
             specify do
               post :create, project_id: project.id, user: user_params
-              expect(flash[:notice]).to eq("#{user.email} was added to this project")
+              expect(flash[:notice]).to eq("#{assigns[:user].email} was added to this project")
             end
           end
         end
@@ -157,11 +143,6 @@ describe UsersController do
     describe "member actions" do
 
       describe "#destroy" do
-
-        before do
-          allow(users).to receive(:find).with(user.id.to_s) { user }
-          expect(users).to receive(:delete).with(user)
-        end
 
         specify do
           delete :destroy, project_id: project.id, id: user.id

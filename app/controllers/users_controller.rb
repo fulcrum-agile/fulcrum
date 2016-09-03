@@ -4,17 +4,17 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def index
-    @user = policy_scope(User).build
+    @user = User.new
     respond_with(@project.users)
   end
 
   def create
-    @user = User.find_or_create_by(email: params[:user][:email]) do |u|
+    @user = User.find_or_create_by(email: allowed_params[:email]) do |u|
       # Set to true if the user was not found
       u.was_created = true
-      u.name = params[:user][:name]
-      u.initials = params[:user][:initials]
-      u.username = params[:user][:username]
+      u.name        = allowed_params[:name]
+      u.initials    = allowed_params[:initials]
+      u.username    = allowed_params[:username]
     end
     authorize @user
 
@@ -53,6 +53,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def allowed_params
+    params.require(:user).permit(:email, :name, :initials, :username, :locale, :time_zone)
+  end
 
   def set_project
     @project = policy_scope(Project).friendly.find(params[:project_id])
