@@ -37,7 +37,7 @@ describe UserPolicy do
       end
 
       it 'lists all members' do
-        expect(policy_scope.pluck(:id).sort).to eq([other_member.id, current_user.id].sort)
+        expect(policy_scope.pluck(:id)).to eq([other_member.id, current_user.id])
       end
     end
 
@@ -63,7 +63,7 @@ describe UserPolicy do
       end
 
       it 'lists all members' do
-        expect(policy_scope.pluck(:id).sort).to eq([other_member.id].sort)
+        expect(policy_scope.pluck(:id)).to eq([other_member.id])
       end
     end
 

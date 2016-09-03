@@ -117,7 +117,7 @@ describe UsersController do
 
         context "when user is not already a project member" do
 
-          context "and user was created" do
+          context "and user didn't exist already and was created" do
 
             specify do
               post :create, project_id: project.id, user: user_params

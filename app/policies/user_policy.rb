@@ -17,7 +17,14 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if is_admin? || is_project_member?
+      if is_admin?
+        if context.current_project
+          context.current_project.users
+        else
+          # Admin::UsersController
+          User.all
+        end
+      elsif is_project_member?
         context.current_project.users
       else
         User.none
