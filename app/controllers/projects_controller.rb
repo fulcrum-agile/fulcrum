@@ -28,7 +28,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @project = policy_scope(Project).build
+    @project = policy_scope(Project).new
     authorize @project
 
     respond_to do |format|
@@ -47,7 +47,7 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.xml
   def create
-    @project = policy_scope(Project).build(allowed_params)
+    @project = policy_scope(Project).new(allowed_params)
     authorize @project
     @project.users << current_user
 
