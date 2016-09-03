@@ -1,10 +1,16 @@
 require 'rails_helper'
 
-describe ProjectPolicy do
+describe TaskPolicy do
+  let(:other_member) { create :user, name: 'Anyone' }
+  let(:task) { create :task, story: story }
+  let(:story) { create :story, project: project, requested_by: other_member }
   let(:project) { create :project }
-  let(:pundit_context) { PunditContext.new(current_user) }
-  let(:policy_scope) { ProjectPolicy::Scope.new(pundit_context, Project).resolve.all }
-  subject { ProjectPolicy.new(pundit_context, project) }
+  let(:pundit_context) { PunditContext.new(current_user, current_project: project, current_story: story) }
+  let(:policy_scope) { TaskPolicy::Scope.new(pundit_context, Task).resolve.all }
+
+  subject { TaskPolicy.new(pundit_context, task) }
+
+  before { project.users << other_member }
 
   context "proper user of a project" do
     before do
@@ -18,8 +24,8 @@ describe ProjectPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all tasks' do
+        expect(policy_scope).to eq([task])
       end
     end
 
@@ -28,12 +34,12 @@ describe ProjectPolicy do
 
       it { should permit(:show) }
 
-      %i[index create new update edit destroy].each do |action|
-        it { should_not permit(action) }
+      %i[index show create new update edit destroy].each do |action|
+        it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all tasks' do
+        expect(policy_scope).to eq([task])
       end
     end
   end
@@ -46,8 +52,8 @@ describe ProjectPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all tasks' do
+        expect(policy_scope).to eq([task])
       end
     end
 
@@ -58,9 +64,12 @@ describe ProjectPolicy do
         it { should_not permit(action) }
       end
 
-      it 'hides project' do
+      it 'lists no tasks' do
         expect(policy_scope).to eq([])
       end
     end
   end
 end
+
+
+

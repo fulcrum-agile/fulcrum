@@ -1,10 +1,13 @@
 require 'rails_helper'
 
-describe ProjectPolicy do
+describe AdminUserPolicy do
+  let(:other_member) { create :user, name: 'Anyone' }
   let(:project) { create :project }
-  let(:pundit_context) { PunditContext.new(current_user) }
-  let(:policy_scope) { ProjectPolicy::Scope.new(pundit_context, Project).resolve.all }
-  subject { ProjectPolicy.new(pundit_context, project) }
+  let(:pundit_context) { PunditContext.new(current_user, current_project: project) }
+  let(:policy_scope) { AdminUserPolicy::Scope.new(pundit_context, User).resolve.all }
+  subject { AdminUserPolicy.new(pundit_context, other_member) }
+
+  before { project.users << other_member }
 
   context "proper user of a project" do
     before do
@@ -18,22 +21,29 @@ describe ProjectPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all members' do
+        expect(policy_scope.sort).to eq([other_member, current_user].sort)
       end
     end
 
-    context "for a user" do
+    context "for a user but not acting on himself" do
       let(:current_user) { create :user, is_admin: false }
 
-      it { should permit(:show) }
-
-      %i[index create new update edit destroy].each do |action|
+      %i[index show create new update edit destroy].each do |action|
         it { should_not permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all members' do
+        expect(policy_scope).to eq([])
+      end
+    end
+
+    context "for a user acting on himself" do
+      let(:current_user) { create :user, is_admin: false }
+      subject { AdminUserPolicy.new(pundit_context, current_user) }
+
+      %i[index show create new update edit destroy].each do |action|
+        it { should_not permit(action) }
       end
     end
   end
@@ -46,8 +56,8 @@ describe ProjectPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all members' do
+        expect(policy_scope.pluck(:id).sort).to eq([current_user.id, other_member.id].sort)
       end
     end
 
@@ -64,3 +74,5 @@ describe ProjectPolicy do
     end
   end
 end
+
+

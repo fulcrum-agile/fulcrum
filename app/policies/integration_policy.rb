@@ -1,7 +1,11 @@
 class IntegrationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      context.current_project.integrations
+      if is_admin?
+        context.current_project.integrations
+      else
+        Integration.none
+      end
     end
   end
 end

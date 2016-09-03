@@ -1,4 +1,21 @@
 class ApplicationPolicy
+  module CheckRoles
+    protected
+
+    def is_admin?
+      context.current_user.is_admin?
+    end
+
+    def is_project_member?
+      context.current_project && context.current_project.users.find_by_id(context.current_user.id)
+    end
+
+    def is_story_member?
+      context.current_story && context.current_story.project.users.find_by_id(context.current_user.id)
+    end
+  end
+  include CheckRoles
+
   attr_reader :context, :record
 
   def initialize(context, record)
@@ -12,7 +29,7 @@ class ApplicationPolicy
   end
 
   def index?
-    context.current_user.is_admin?
+    is_admin?
   end
 
   def show?
@@ -20,7 +37,7 @@ class ApplicationPolicy
   end
 
   def create?
-    context.current_user.is_admin?
+    is_admin?
   end
 
   def new?
@@ -44,6 +61,7 @@ class ApplicationPolicy
   end
 
   class Scope
+    include CheckRoles
     attr_reader :context, :scope
 
     def initialize(context, scope)

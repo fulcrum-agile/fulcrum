@@ -1,10 +1,15 @@
 require 'rails_helper'
 
-describe ProjectPolicy do
+describe IntegrationPolicy do
+  let(:other_member) { create :user, name: 'Anyone' }
+  let(:integration) { create :integration, project: project }
   let(:project) { create :project }
-  let(:pundit_context) { PunditContext.new(current_user) }
-  let(:policy_scope) { ProjectPolicy::Scope.new(pundit_context, Project).resolve.all }
-  subject { ProjectPolicy.new(pundit_context, project) }
+  let(:pundit_context) { PunditContext.new(current_user, current_project: project) }
+  let(:policy_scope) { IntegrationPolicy::Scope.new(pundit_context, Integration).resolve.all }
+
+  subject { IntegrationPolicy.new(pundit_context, integration) }
+
+  before { project.users << other_member }
 
   context "proper user of a project" do
     before do
@@ -18,24 +23,23 @@ describe ProjectPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all integrations of the project' do
+        expect(policy_scope).to eq([integration])
       end
     end
 
     context "for a user" do
       let(:current_user) { create :user, is_admin: false }
 
-      it { should permit(:show) }
-
-      %i[index create new update edit destroy].each do |action|
+      %i[index show create new update edit destroy].each do |action|
         it { should_not permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'hides integrations of the project' do
+        expect(policy_scope).to eq([])
       end
     end
+
   end
 
   context "user not a member of project" do
@@ -46,8 +50,8 @@ describe ProjectPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+      it 'lists all integrations of the project' do
+        expect(policy_scope).to eq([integration])
       end
     end
 
@@ -58,9 +62,11 @@ describe ProjectPolicy do
         it { should_not permit(action) }
       end
 
-      it 'hides project' do
+      it 'hides integrations of the project' do
         expect(policy_scope).to eq([])
       end
     end
   end
 end
+
+

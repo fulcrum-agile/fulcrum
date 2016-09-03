@@ -1,11 +1,19 @@
-class NotePolicy < ApplicationPolicy
+class NotePolicy < StoryPolicy
   def show?
     context.current_story.notes.find_by_id(record.id)
   end
 
   class Scope < Scope
     def resolve
-      context.current_story.notes
+      if is_admin?
+        context.current_story.notes
+      else
+        if is_story_member?
+          context.current_story.notes
+        else
+          Note.none
+        end
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 class ProjectPolicy < ApplicationPolicy
   def show?
-    context.current_user.projects.find_by_id(record.id)
+    is_admin? || context.current_user.projects.find_by_id(record.id)
   end
 
   def reports?
@@ -21,7 +21,11 @@ class ProjectPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      context.current_user.projects
+      if is_admin?
+        Project
+      else
+        context.current_user.projects
+      end
     end
   end
 end

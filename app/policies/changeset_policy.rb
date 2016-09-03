@@ -1,7 +1,4 @@
-class ChangesetPolicy < ApplicationPolicy
+class ChangesetPolicy < ProjectPolicy
   class Scope < Scope
-    def resolve
-      context.current_user.projects
-    end
   end
 end
