@@ -28,7 +28,9 @@
   </li>
   <% if current_user %>
 
-    <li><%= link_to User.model_name.human(count: 2), admin_users_path %></li>
+    <% if policy(User).create? %>
+      <li><%= link_to User.model_name.human(count: 2), admin_users_path %></li>
+    <% end %>
     <li><%= link_to current_user.name, edit_user_registration_path %></li>
     <li><%= link_to t('log out'), destroy_user_session_path,
                     method: :delete %></li>

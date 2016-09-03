@@ -8,7 +8,7 @@
             <%= user %> <%= user.is_admin ? "(admin)" : "" %>
           </div>
           <div class="users_options btn-group pull-right">
-            <% if polity(user).update? %>
+            <% if policy(user).update? %>
               <%= link_to t('edit'), edit_admin_user_path(user),
                 class: 'btn btn-default btn-sm' %>
             <% end %>

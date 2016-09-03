@@ -1,17 +1,27 @@
-<h2><%= t('admin.users.edit user') %></h2>
-
-<%= render 'form' %>
-
-<h2><%= Project.model_name.human(count: 2) %></h2>
-
-<% if @user.projects.count > 0 %>
-  <ul>
-    <% @user.projects.each do |project| %>
-      <li><%= link_to project.name, project %></li>
-    <% end %>
-  </ul>
-<% else %>
-  --
+<% content_for :sidebar do %>
+<% end %>
+<% content_for :title_bar do %>
+  <div class="project_nav">
+    <%= link_to t('Back'), admin_users_path, class: "btn btn-primary btn-sm" %>
+  </div>
 <% end %>
 
-<%= link_to 'Back', admin_users_path %>
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h2><%= t('admin.users.edit user') %></h2>
+
+    <%= render 'form' %>
+
+    <h2><%= Project.model_name.human(count: 2) %></h2>
+
+    <% if @user.projects.count > 0 %>
+      <ul>
+        <% @user.projects.each do |project| %>
+          <li><%= link_to project.name, project %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      --
+    <% end %>
+  </div>
+</div>
