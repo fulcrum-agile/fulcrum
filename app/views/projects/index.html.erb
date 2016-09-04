@@ -1,5 +1,7 @@
 <% content_for :title_bar do %>
-<%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
+  <% if policy(Project).new? %>
+    <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
+  <% end %>
 <% end %>
 
 <div id="projects" class="projects-list">

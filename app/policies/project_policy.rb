@@ -4,7 +4,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def reports?
-    index?
+    index? || is_project_member?
   end
 
   def archived?
