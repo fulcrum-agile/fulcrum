@@ -193,6 +193,8 @@ en:
       epic: 'Epic'
 
     uploads:
+      title: Import Stories
+      results: Import Results
       select_file: "You must select a CSV file to import its stories to the project."
       being_processed: "Your uploaded CSV file is being processed. You can come back here later when the process is finished."
       already_uploaded: |

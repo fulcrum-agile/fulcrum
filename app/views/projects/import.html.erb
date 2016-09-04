@@ -3,13 +3,13 @@
 <% end %>
 <% content_for :title_bar do %>
   <div class="project_nav">
-    <%= link_to t('Back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
   </div>
 <% end %>
 
 <div class="row">
   <div class="col-sm-12 col-md-12">
-    <h2>Import stories</h2>
+    <h2><%= t('projects.uploads.title') %></h2>
 
     <% if session[:import_job] %>
       <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
@@ -27,7 +27,7 @@
     <% end %>
 
     <% if @valid_stories %>
-      <h2>Import results</h2>
+      <h2><%= t('projects.uploads.results') %></h2>
 
       <table id="import">
         <thead>

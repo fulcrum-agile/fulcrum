@@ -176,6 +176,8 @@ nl:
       epic: 'Episch'
 
     uploads:
+      title: Verhalen Import
+      results: Import Resultaten
       select_file: "U moet een CSV-bestand te selecteren om zijn verhalen te importeren naar het project."
       being_processed: "Uw geüploade CSV-bestand wordt verwerkt U kunt hier later terug te komen wanneer het proces is voltooid."
       already_uploaded: |

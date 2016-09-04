@@ -3,7 +3,7 @@
 <% end %>
 <% content_for :title_bar do %>
   <div class="project_nav">
-    <%= link_to t('Back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
     <% since_options.each do |qty| %>
       <% if params[:since] == qty.to_s %>
         <%= link_to t("projects.reports.n months ago", count: qty), "#", class: "btn btn-link btn-sm" %>

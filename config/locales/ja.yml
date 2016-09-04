@@ -173,6 +173,8 @@ ja:
       epic: '大作'
 
     uploads:
+      title: 輸入ストーリー
+      results: インポート結果
       select_file: "あなたは、プロジェクトにその物語をインポートするCSVファイルを選択する必要があります。"
       being_processed: "あなたのアップロードしたCSVファイルには、あなたが後の処理が終了したらここに戻って来ることができる処理されています"
       already_uploaded: |

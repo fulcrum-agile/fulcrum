@@ -180,6 +180,8 @@ de:
       epic: 'Epos'
 
     uploads:
+      title: Import Storico
+      results: Import Resylts
       select_file: "Sie müssen eine CSV-Datei wählen ihre Geschichten in das Projekt zu importieren."
       being_processed: "Ihre hochgeladenen CSV-Datei verarbeitet wird können Sie wieder hierher kommen später Wenn der Vorgang abgeschlossen ist."
       already_uploaded: |
