@@ -7,7 +7,7 @@ class UserPolicy < ApplicationPolicy
     is_admin? || (is_project_member? && context.current_project.users.find_by_id(record.id))
   end
 
-  def update?
+  def create?
     is_admin? || is_himself?
   end
 

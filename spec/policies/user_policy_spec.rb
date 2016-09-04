@@ -45,9 +45,9 @@ describe UserPolicy do
       let(:current_user) { create :user, is_admin: false }
       subject { UserPolicy.new(pundit_context, current_user) }
 
-      it { should_not permit(:new) }
-      it { should_not permit(:create) }
-      it { should_not permit(:destroy) }
+      it { should permit(:new) }
+      it { should permit(:create) }
+      it { should permit(:destroy) }
 
       it { should permit(:edit) }
       it { should permit(:update) }

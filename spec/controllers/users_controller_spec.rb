@@ -1,5 +1,23 @@
 require 'rails_helper'
 
+shared_examples_for '#index' do
+  context "as html" do
+    specify do
+      get :index, project_id: project.id
+      expect(response).to be_success
+      expect(assigns[:project]).to eq(project)
+    end
+  end
+
+  context "as json" do
+    specify do
+      xhr :get, :index, project_id: project.id, format: :json
+      expect(response).to be_success
+      expect(response.body).to eq(project.users.to_json)
+    end
+  end
+end
+
 describe UsersController do
 
   let(:project) { create(:project) }
@@ -19,11 +37,14 @@ describe UsersController do
     end
   end
 
-  context "when logged in" do
+  let (:another_user) { create :user }
+
+  context "when logged in as admin" do
 
     let(:user)  { create(:user, is_admin: true) }
 
     before do
+      project.users << another_user
       project.users << user
       sign_in user
       allow(subject).to receive_messages(current_user: user)
@@ -31,26 +52,7 @@ describe UsersController do
 
     describe "collection actions" do
 
-      describe "#index" do
-
-        context "as html" do
-          specify do
-            get :index, project_id: project.id
-            expect(response).to be_success
-            expect(assigns[:project]).to eq(project)
-          end
-        end
-
-        context "as json" do
-          specify do
-            xhr :get, :index, project_id: project.id, format: :json
-            expect(response).to be_success
-            expect(response.body).to eq(project.users.to_json)
-          end
-
-        end
-
-      end
+      it_should_behave_like '#index'
 
       describe "#create" do
 
@@ -144,9 +146,88 @@ describe UsersController do
 
       describe "#destroy" do
 
+        context "himself" do
+          specify do
+            delete :destroy, project_id: project.id, id: user.id
+            expect(response).to redirect_to(project_users_url(project))
+          end
+        end
+
+        context "another user" do
+          specify do
+            delete :destroy, project_id: project.id, id: another_user.id
+            expect(response).to redirect_to(project_users_url(project))
+          end
+        end
+
+      end
+
+    end
+
+  end
+
+  context "when logged in as non-admin user" do
+
+    let(:user)  { create(:user, is_admin: false) }
+
+    before do
+      project.users << another_user
+      project.users << user
+      sign_in user
+      allow(subject).to receive_messages(current_user: user)
+    end
+
+    describe "collection actions" do
+
+      it_should_behave_like '#index'
+
+      describe "#create" do
+
+        let(:user_params) {{
+          "email"     => "user@example.com",
+          "name"      => "Test User",
+          "initials"  => "TU",
+          "username"  => "test_user"
+        }}
+
         specify do
-          delete :destroy, project_id: project.id, id: user.id
-          expect(response).to redirect_to(project_users_url(project))
+          post :create, project_id: project.id, user: user_params
+          expect(flash[:error]).to eq(I18n.t('users.You are not authorized to perform this action'))
+          expect(response).to redirect_to(root_path)
+        end
+
+        context "when user exists" do
+
+          before do
+            create(:user, user_params)
+          end
+
+          specify do
+            post :create, project_id: project.id, user: user_params
+            expect(flash[:error]).to eq(I18n.t('users.You are not authorized to perform this action'))
+            expect(response).to redirect_to(root_path)
+          end
+        end
+      end
+    end
+
+    describe "member actions" do
+
+      describe "#destroy" do
+
+        context 'himself' do
+          specify do
+            delete :destroy, project_id: project.id, id: user.id
+            expect(response).to redirect_to(project_users_url(project))
+          end
+        end
+
+        context 'another user' do
+          specify do
+            delete :destroy, project_id: project.id, id: another_user.id
+            expect(flash[:error]).to eq(I18n.t('users.You are not authorized to perform this action'))
+            expect(response).to redirect_to(root_path)
+          end
         end
 
       end
