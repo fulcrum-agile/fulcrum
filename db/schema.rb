@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905131732) do
+ActiveRecord::Schema.define(version: 20160905141740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -191,7 +191,6 @@ ActiveRecord::Schema.define(version: 20160905131732) do
     t.boolean  "email_rejection",                    default: true
     t.datetime "reset_password_sent_at"
     t.string   "locale"
-    t.boolean  "is_admin",                           default: false
     t.integer  "memberships_count",                  default: 0
     t.string   "username",                                                null: false
     t.string   "time_zone",                          default: "Brasilia", null: false

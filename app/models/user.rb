@@ -57,10 +57,6 @@ class User < ActiveRecord::Base
     super(only: JSON_ATTRIBUTES)
   end
 
-  def admin?
-    is_admin
-  end
-
   private
 
   def remove_story_association

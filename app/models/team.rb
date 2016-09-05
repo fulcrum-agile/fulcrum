@@ -8,11 +8,15 @@ class Team < ActiveRecord::Base
   has_many :ownerships
   has_many :projects, through: :ownerships do
     def not_archived
-      where(is_archived: nil)
+      where(archived_at: nil)
     end
   end
 
   validates :name, presence: true, uniqueness: true
 
   has_attachment :logo, accept: [:jpg, :png, :gif, :bmp]
+
+  def is_admin?(user)
+    enrollments.find_by_user_id(user.id)&.is_admin?
+  end
 end
