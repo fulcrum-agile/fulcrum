@@ -22,7 +22,7 @@ class ProjectPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if is_admin?
-        Project.all
+        context.current_team.projects
       else
         context.current_user.projects
       end

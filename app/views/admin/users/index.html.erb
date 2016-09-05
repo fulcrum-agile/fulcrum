@@ -5,7 +5,7 @@
       <% @users.order(:name).each do |user| %>
         <li class="list-group-item clearfix">
           <div class="member-name">
-            <%= user %> <%= user.is_admin ? "(admin)" : "" %>
+            <%= user %> <%= current_team.is_admin?(user) ? "(admin)" : "" %>
           </div>
           <div class="users_options btn-group pull-right">
             <% if policy(user).update? %>

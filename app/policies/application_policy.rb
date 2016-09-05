@@ -3,7 +3,7 @@ class ApplicationPolicy
     protected
 
     def is_admin?
-      context.current_user.is_admin?
+      context.current_team.enrollments.find_by_user_id(context.current_user.id).is_admin?
     end
 
     def is_project_member?
@@ -11,8 +11,13 @@ class ApplicationPolicy
     end
 
     def is_story_member?
-      context.current_story && context.current_story.project.users.find_by_id(context.current_user.id)
+      context.current_story.project.users.find_by_id(context.current_user.id)
     end
+
+    def is_team_member?
+      context.current_team.users.find_by_id(context.current_user.id)
+    end
+
   end
   include CheckRoles
 

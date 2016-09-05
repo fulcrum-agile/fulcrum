@@ -5,12 +5,16 @@ describe NotePolicy do
   let(:note) { create :note, story: story }
   let(:story) { create :story, project: project, requested_by: other_member }
   let(:project) { create :project }
-  let(:pundit_context) { PunditContext.new(current_user, current_project: project, current_story: story) }
+  let(:pundit_context) { PunditContext.new(current_team, current_user, current_project: project, current_story: story) }
+  let(:current_team) { current_user.teams.first }
   let(:policy_scope) { NotePolicy::Scope.new(pundit_context, Note).resolve.all }
 
   subject { NotePolicy.new(pundit_context, note) }
 
-  before { project.users << other_member }
+  before do
+    project.users << other_member
+    current_team.projects << project
+  end
 
   context "proper user of a project" do
     before do
@@ -18,7 +22,7 @@ describe NotePolicy do
     end
 
     context "for an admin" do
-      let(:current_user) { create :user, name: 'admin', is_admin: true }
+      let(:current_user) { create :user, :with_team_and_is_admin }
 
       %i[index show create new update edit destroy].each do |action|
         it { should permit(action) }
@@ -30,7 +34,7 @@ describe NotePolicy do
     end
 
     context "for a user" do
-      let(:current_user) { create :user, is_admin: false }
+      let(:current_user) { create :user, :with_team }
 
       it { should permit(:show) }
 
@@ -46,7 +50,7 @@ describe NotePolicy do
 
   context "user not a member of project" do
     context "for an admin" do
-      let(:current_user) { create :user, name: 'admin', is_admin: true }
+      let(:current_user) { create :user, :with_team_and_is_admin }
 
       %i[index show create new update edit destroy].each do |action|
         it { should permit(action) }
@@ -58,7 +62,7 @@ describe NotePolicy do
     end
 
     context "for a user" do
-      let(:current_user) { create :user, is_admin: false }
+      let(:current_user) { create :user, :with_team }
 
       %i[index create new update edit destroy].each do |action|
         it { should_not permit(action) }

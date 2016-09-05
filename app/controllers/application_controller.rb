@@ -45,6 +45,12 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_user
-    PunditContext.new(current_user, { current_project: @project, current_story: @story })
+    PunditContext.new(current_team, current_user, { current_project: @project, current_story: @story })
   end
+
+  def current_team
+    # FIXME hardcoding a team until the sign in process adds the Team check
+    session[:current_team] || Team.first
+  end
+  helper_method :current_team
 end
