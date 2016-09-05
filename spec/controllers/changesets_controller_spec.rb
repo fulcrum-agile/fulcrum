@@ -13,21 +13,17 @@ describe ChangesetsController do
 
   context "when logged in" do
 
-    let(:project) { create :project }
-    let(:user) { create :user }
-    let(:story) { build :story, requested_by: user }
-    let(:story2) { build :story, requested_by: user }
+    let(:user)        { create :user, :with_team }
+    let(:project)     { create(:project, users: [user], teams: [user.teams.first]) }
+
+    let(:story) { create :story, project: project, requested_by: user }
+    let(:story2) { create :story, project: project, requested_by: user }
 
     before do
-      project.users << user
-      project.stories << story
-      project.stories << story2
-
       @changeset1 = story.changesets.create!
       @changeset2 = story.changesets.create!
 
       sign_in user
-      allow(subject).to receive_messages(current_user: user)
     end
 
     describe "#index" do

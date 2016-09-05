@@ -6,19 +6,18 @@ describe "Projects" do
     sign_in user
   end
 
-  let(:user)  {
-    create :user, email: 'user@example.com',
-                  password: 'password'
-  }
+  let(:user)  { create :user, :with_team_and_is_admin, email: 'user@example.com', password: 'password' }
 
   describe "list projects" do
 
     before do
       create :project,  name: 'Test Project',
-                        users: [user]
+                        users: [user],
+                        teams: [user.teams.first]
       create :project,  name: 'Archived Project',
                         users: [user],
-                        archived: "1"
+                        teams: [user.teams.first],
+                        archived_at: Time.current
     end
 
     it "shows the project list", js: true do
@@ -53,7 +52,8 @@ describe "Projects" do
 
     let(:project) {
       create :project,  name: 'Test Project',
-                        users: [user]
+                        users: [user],
+                        teams: [user.teams.first]
     }
 
     before do
@@ -89,7 +89,8 @@ describe "Projects" do
 
     let(:project) {
       create :project,  name: 'Test Project',
-                        users: [user]
+                        users: [user],
+                        teams: [user.teams.first]
     }
 
     before do

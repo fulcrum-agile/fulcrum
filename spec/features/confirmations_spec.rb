@@ -18,6 +18,10 @@ describe "Confirmations" do
 
     expect(page).to have_content('A confirmation was sent to your e-mail')
 
+    # FIXME at this point the workflow still needs a way to associate the user with a team
+    # adding it manually just to make this part of the spec pass
+    User.last.teams << create(:team)
+
     # The user will be sent a confirmation email.  Bypass that and just pull
     # their confirmation token from the database.
 
@@ -44,7 +48,7 @@ describe "Confirmations" do
   end
 
   it "sends new confirmation token" do
-    user = create(:unconfirmed_user, email: 'test@example.com')
+    user = create(:unconfirmed_user, email: 'test@example.com', teams: [create(:team)])
     visit '/'
     click_link "Didn't receive confirmation instructions?"
 

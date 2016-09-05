@@ -20,9 +20,8 @@ describe StoriesController do
 
   context "when logged in" do
 
-    let!(:membership)     { create(:membership) }
-    let(:user)            { User.first }
-    let(:project)         { Project.first }
+    let(:user)     { create :user, :with_team }
+    let!(:project) { create(:project, name: 'Test Project', users: [user], teams: [user.teams.first] ) }
 
     before do
       sign_in user

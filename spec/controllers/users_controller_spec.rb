@@ -41,11 +41,13 @@ describe UsersController do
 
   context "when logged in as admin" do
 
-    let(:user)  { create(:user, is_admin: true) }
+    let(:user)        { create(:user, :with_team_and_is_admin) }
+    let!(:ownership)  { create(:ownership, team: user.teams.first, project: project) }
 
     before do
-      project.users << another_user
-      project.users << user
+      create(:enrollment, team: user.teams.first, user: another_user)
+      create(:membership, user: user, project: project)
+      create(:membership, user: another_user, project: project)
       sign_in user
       allow(subject).to receive_messages(current_user: user)
     end
@@ -168,11 +170,13 @@ describe UsersController do
 
   context "when logged in as non-admin user" do
 
-    let(:user)  { create(:user, is_admin: false) }
+    let(:user)  { create(:user, :with_team) }
+    let!(:ownership)  { create(:ownership, team: user.teams.first, project: project) }
 
     before do
-      project.users << another_user
-      project.users << user
+      create(:enrollment, team: user.teams.first, user: another_user)
+      create(:membership, user: user, project: project)
+      create(:membership, user: another_user, project: project)
       sign_in user
       allow(subject).to receive_messages(current_user: user)
     end

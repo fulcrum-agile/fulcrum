@@ -99,7 +99,6 @@ class ProjectsController < ApplicationController
         else
           @valid_stories    = @project.stories
           @invalid_stories  = job_result[:invalid_stories]
-
           flash[:notice] = I18n.t(
             'imported n stories', count: @valid_stories.count
           )

@@ -19,14 +19,12 @@ describe ProjectsController do
 
   context "when logged in" do
 
-    let(:story)   { create :story, :with_project }
-    let(:project) { story.project }
-    let(:user)    { story.requested_by }
+    let(:user)        { create :user, :with_team_and_is_admin }
+    let(:project)     { create(:project, users: [user], teams: [user.teams.first]) }
+    let!(:story)      { create(:story, project: project, requested_by: user) }
 
     before do
-      user.update_attribute(:is_admin, true)
       sign_in user
-      allow(subject).to receive_messages(current_user: user)
     end
 
     describe "collection actions" do
@@ -86,6 +84,7 @@ describe ProjectsController do
         let(:archived_project) { create :project, archived_at: Time.current }
 
         before do
+          create :ownership, team: user.teams.first, project: archived_project
           get :archived
         end
 

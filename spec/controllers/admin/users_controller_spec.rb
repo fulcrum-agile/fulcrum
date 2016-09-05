@@ -19,11 +19,10 @@ describe Admin::UsersController do
 
   context "when logged in as admin" do
 
-    let(:user)      { create :user, is_admin: true }
+    let(:user)      { create :user, :with_team_and_is_admin }
 
     before do
       sign_in user
-      allow(subject).to receive(:current_user).and_return(user)
     end
 
     describe "collection actions" do
@@ -103,11 +102,10 @@ describe Admin::UsersController do
 
   context "when logged in as non-admin user" do
 
-    let(:user)         { create :user, is_admin: false }
+    let(:user)         { create :user, :with_team }
 
     before do
       sign_in user
-      allow(subject).to receive(:current_user).and_return(user)
     end
 
     describe "collection actions" do

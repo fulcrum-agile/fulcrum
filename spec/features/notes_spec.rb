@@ -9,15 +9,8 @@ describe "Notes" do
     sign_in user
   end
 
-  let(:user)  {
-    create :user, email: 'user@example.com',
-                  password: 'password'
-  }
-
-  let!(:project) do
-    create :project,  name: 'Test Project',
-                      users: [user]
-  end
+  let(:user)        { create :user, :with_team, email: 'user@example.com', password: 'password' }
+  let(:project)     { create(:project, name: 'Test Project', users: [user], teams: [user.teams.first] ) }
 
   let!(:story) do
     create :story,  title: 'Test Story',

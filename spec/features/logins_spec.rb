@@ -3,11 +3,12 @@ require 'rails_helper'
 describe "Logins" do
 
   let(:user)  {
-    FactoryGirl.create :user, email: 'user@example.com',
-                              password: 'password',
-                              name: 'Test User',
-                              locale: 'en',
-                              time_zone: 'Brasilia'
+    create :user, :with_team_and_is_admin,
+                  email: 'user@example.com',
+                  password: 'password',
+                  name: 'Test User',
+                  locale: 'en',
+                  time_zone: 'Brasilia'
   }
 
   describe "disable registration" do

@@ -77,4 +77,15 @@ FactoryGirl.define do
   factory :team do |t|
     t.sequence(:name) {|n| "Team #{n}"}
   end
+
+  factory :enrollment do |e|
+    e.association :team
+    e.association :user
+    is_admin false
+  end
+
+  factory :ownership do |o|
+    o.association :team
+    o.association :project
+  end
 end

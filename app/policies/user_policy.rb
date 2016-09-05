@@ -22,7 +22,7 @@ class UserPolicy < ApplicationPolicy
           context.current_project.users
         else
           # Admin::UsersController
-          current_team.users.all
+          context.current_team.users.all
         end
       elsif is_project_member?
         context.current_project.users
