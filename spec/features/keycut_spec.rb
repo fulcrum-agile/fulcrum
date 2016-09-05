@@ -10,8 +10,8 @@ describe "Keycuts" do
     sign_in user
   end
 
-  let(:user) { FactoryGirl.create :user, email: 'user@example.com', password: 'password' }
-  let(:project) { FactoryGirl.create :project,  name: 'Test Project', users: [user] }
+  let(:user) { create :user, email: 'user@example.com', password: 'password' }
+  let(:project) { create :project,  name: 'Test Project', users: [user] }
 
   describe "?" do
     it 'shows help', js: true do

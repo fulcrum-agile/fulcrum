@@ -5,7 +5,7 @@ describe Task do
   let(:project) { mock_model(Project, suppress_notifications: true) }
   let(:story)   { mock_model(Story, project: project) }
 
-  subject(:task) { FactoryGirl.build :task, story: story }
+  subject(:task) { build :task, story: story }
 
   describe 'associations' do
     it { expect(task).to belong_to(:story) }

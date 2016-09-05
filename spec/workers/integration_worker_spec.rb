@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe IntegrationWorker do
-  let(:integration) { FactoryGirl.create(:integration) }
+  let(:integration) { create(:integration) }
 
   it "should send a message to mattermost" do
     expect(Mattermost).to receive(:send).with(

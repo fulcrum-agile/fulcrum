@@ -7,18 +7,18 @@ describe "Projects" do
   end
 
   let(:user)  {
-    FactoryGirl.create :user, email: 'user@example.com',
-                              password: 'password'
+    create :user, email: 'user@example.com',
+                  password: 'password'
   }
 
   describe "list projects" do
 
     before do
-      FactoryGirl.create :project,  name: 'Test Project',
-                                    users: [user]
-      FactoryGirl.create :project,  name: 'Archived Project',
-                                    users: [user],
-                                    archived: "1"
+      create :project,  name: 'Test Project',
+                        users: [user]
+      create :project,  name: 'Archived Project',
+                        users: [user],
+                        archived: "1"
     end
 
     it "shows the project list", js: true do
@@ -52,8 +52,8 @@ describe "Projects" do
   describe "edit project" do
 
     let(:project) {
-      FactoryGirl.create :project,  name: 'Test Project',
-                                    users: [user]
+      create :project,  name: 'Test Project',
+                        users: [user]
     }
 
     before do
@@ -88,8 +88,8 @@ describe "Projects" do
   describe "delete project" do
 
     let(:project) {
-      FactoryGirl.create :project,  name: 'Test Project',
-                                    users: [user]
+      create :project,  name: 'Test Project',
+                        users: [user]
     }
 
     before do

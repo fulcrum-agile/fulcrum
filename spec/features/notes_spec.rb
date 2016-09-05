@@ -10,20 +10,20 @@ describe "Notes" do
   end
 
   let(:user)  {
-    FactoryGirl.create :user, email: 'user@example.com',
-                              password: 'password'
+    create :user, email: 'user@example.com',
+                  password: 'password'
   }
 
   let!(:project) do
-    FactoryGirl.create :project,  name: 'Test Project',
-                                  users: [user]
+    create :project,  name: 'Test Project',
+                      users: [user]
   end
 
   let!(:story) do
-    FactoryGirl.create :story,  title: 'Test Story',
-                                state: 'started',
-                                project: project,
-                                requested_by: user
+    create :story,  title: 'Test Story',
+                    state: 'started',
+                    project: project,
+                    requested_by: user
   end
 
   describe "full story life cycle" do
@@ -43,9 +43,9 @@ describe "Notes" do
     end
 
   	it "deletes a note from a story", js: true, driver: :poltergeist do
-      FactoryGirl.create :note, user: user,
-                                story: story,
-                                note: 'Delete me please'
+      create :note, user: user,
+                    story: story,
+                    note: 'Delete me please'
 
       visit project_path(project)
 

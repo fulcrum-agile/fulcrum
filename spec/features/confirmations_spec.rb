@@ -44,7 +44,7 @@ describe "Confirmations" do
   end
 
   it "sends new confirmation token" do
-    user = FactoryGirl.create(:unconfirmed_user, email: 'test@example.com')
+    user = create(:unconfirmed_user, email: 'test@example.com')
     visit '/'
     click_link "Didn't receive confirmation instructions?"
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe User do
 
   describe "validations" do
-    
+
     it "requires a name" do
       subject.name = ''
       subject.valid?
@@ -21,8 +21,8 @@ describe User do
 
   describe "#to_s" do
 
-    subject { FactoryGirl.build(:user, name: "Dummy User", initials: "DU",
-                                    email: "dummy@example.com") }
+    subject { build(:user, name: "Dummy User", initials: "DU",
+                           email: "dummy@example.com") }
 
     its(:to_s) { should == "Dummy User (DU) <dummy@example.com>" }
 
@@ -43,9 +43,9 @@ describe User do
   end
 
   describe "#remove_story_association" do
-    let(:user) { FactoryGirl.create :user}
-    let(:project) { FactoryGirl.build :project }
-    let(:story) { FactoryGirl.build :story, project: project }
+    let(:user) { create :user}
+    let(:project) { build :project }
+    let(:story) { build :story, project: project }
 
     before do
       project.users << user

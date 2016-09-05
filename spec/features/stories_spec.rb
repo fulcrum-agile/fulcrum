@@ -7,13 +7,13 @@ describe "Stories" do
   end
 
   let(:user)  {
-    FactoryGirl.create :user, email: 'user@example.com',
-                              password: 'password'
+    create :user, email: 'user@example.com',
+                  password: 'password'
   }
 
   let(:project) do
-    FactoryGirl.create :project,  name: 'Test Project',
-                                  users: [user]
+    create :project, name: 'Test Project',
+                     users: [user]
   end
 
   describe "full story life cycle" do
@@ -56,8 +56,8 @@ describe "Stories" do
   describe "delete a story" do
 
     let(:story) {
-      FactoryGirl.create(:story, title: 'Delete Me', project: project,
-                                  requested_by: user)
+      create(:story, title: 'Delete Me', project: project,
+                     requested_by: user)
     }
 
     before do
@@ -79,8 +79,8 @@ describe "Stories" do
 
   describe "search a story" do
     let(:story) {
-      FactoryGirl.create(:story, title: 'Search for me', project: project,
-                                  requested_by: user)
+      create(:story, title: 'Search for me', project: project,
+                     requested_by: user)
     }
 
     before do
@@ -189,11 +189,11 @@ describe "Stories" do
   end
 
   describe 'filter by label' do
-    let!(:story) { FactoryGirl.create(:story, title: 'Task 1', project: project,
+    let!(:story) { create(:story, title: 'Task 1', project: project,
       requested_by: user, labels: 'epic1') }
-    let!(:story2) { FactoryGirl.create(:story, title: 'Task 2', project: project,
+    let!(:story2) { create(:story, title: 'Task 2', project: project,
       requested_by: user, labels: 'epic1') }
-    let!(:story3) { FactoryGirl.create(:story, title: 'Task 3', project: project,
+    let!(:story3) { create(:story, title: 'Task 3', project: project,
       requested_by: user, labels: 'epic2') }
 
     it 'show epic by label', js: true, driver: :poltergeist do

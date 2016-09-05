@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe IterationService do
-  let(:project) { FactoryGirl.create :project,
+  let(:project) { create :project,
                   iteration_start_day: 2,
                   iteration_length: 1,
                   start_date: Time.zone.parse('2016-05-13') }

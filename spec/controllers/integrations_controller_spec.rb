@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe IntegrationsController do
 
-  let(:integration) { FactoryGirl.build(:integration) }
+  let(:integration) { build(:integration) }
   let(:project) { integration.project }
 
   context "when logged out" do
@@ -22,7 +22,7 @@ describe IntegrationsController do
 
   context "when logged in" do
 
-    let(:user)  { FactoryGirl.create(:user) }
+    let(:user)  { create(:user) }
     let(:projects)  { double("projects") }
 
     before do

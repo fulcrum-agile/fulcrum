@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Integration do
 
-  subject { FactoryGirl.build :integration }
+  subject { build :integration }
 
   describe "#project" do
     it "cannot be nil" do

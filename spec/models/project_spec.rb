@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Project do
 
 
-  subject { FactoryGirl.build :project }
+  subject { build :project }
 
 
   describe "validations" do
@@ -95,9 +95,9 @@ describe Project do
   describe "cascade deletes" do
 
     before do
-      @user     = FactoryGirl.create(:user)
-      @project  = FactoryGirl.create(:project, users: [@user])
-      @story    = FactoryGirl.create(:story, project: @project,
+      @user     = create(:user)
+      @project  = create(:project, users: [@user])
+      @story    = create(:story, project: @project,
                                  requested_by: @user)
     end
 
@@ -110,7 +110,7 @@ describe Project do
 
 
   describe "#to_s" do
-    subject { FactoryGirl.build :project, name: 'Test Name' }
+    subject { build :project, name: 'Test Name' }
 
     its(:to_s) { should == 'Test Name' }
   end
@@ -141,9 +141,9 @@ describe Project do
   end
 
   describe 'CSV import' do
-    let(:project) { FactoryGirl.create :project }
+    let(:project) { create :project }
     let(:user) do
-      FactoryGirl.create(:user).tap do |user|
+      create(:user).tap do |user|
         # project.users << user
       end
     end
@@ -165,13 +165,13 @@ describe Project do
   end
 
   describe "#csv_filename" do
-    subject { FactoryGirl.build(:project, name: 'Test Project') }
+    subject { build(:project, name: 'Test Project') }
 
     its(:csv_filename) { should match(/^Test Project-\d{8}_\d{4}\.csv$/) }
   end
 
   describe "#as_json" do
-    subject { FactoryGirl.create :project }
+    subject { create :project }
 
     (Project::JSON_ATTRIBUTES + Project::JSON_METHODS).each do |key|
       its(:as_json) { expect(subject.as_json['project']).to have_key(key) }
@@ -179,7 +179,7 @@ describe Project do
   end
 
   describe "#archive" do
-    subject { FactoryGirl.build :project }
+    subject { build :project }
 
     it 'sets the archived_at datetime' do
       subject.update_attributes(archived: "1")
@@ -194,8 +194,8 @@ describe Project do
   end
 
   describe '.archived' do
-    let(:normal_project) { FactoryGirl.create :project }
-    let(:archived_project) { FactoryGirl.create :project,
+    let(:normal_project) { create :project }
+    let(:archived_project) { create :project,
       archived_at: Time.current }
     subject { described_class.archived }
 
