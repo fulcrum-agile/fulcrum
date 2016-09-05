@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901171941) do
+ActiveRecord::Schema.define(version: 20160905131732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 20160901171941) do
     t.datetime "updated_at"
   end
 
+  create_table "enrollments", force: true do |t|
+    t.integer  "team_id",                    null: false
+    t.integer  "user_id",                    null: false
+    t.boolean  "is_admin",   default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "enrollments", ["team_id", "user_id"], name: "index_enrollments_on_team_id_and_user_id", unique: true, using: :btree
+
   create_table "integrations", force: true do |t|
     t.integer  "project_id"
     t.string   "kind",       null: false
@@ -86,6 +96,16 @@ ActiveRecord::Schema.define(version: 20160901171941) do
     t.datetime "updated_at"
     t.string   "user_name"
   end
+
+  create_table "ownerships", force: true do |t|
+    t.integer  "team_id",                    null: false
+    t.integer  "project_id",                 null: false
+    t.boolean  "is_owner",   default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ownerships", ["team_id", "project_id"], name: "index_ownerships_on_team_id_and_project_id", unique: true, using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -135,6 +155,18 @@ ActiveRecord::Schema.define(version: 20160901171941) do
 
   add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
+  create_table "teams", force: true do |t|
+    t.string   "name",        null: false
+    t.string   "slug"
+    t.string   "logo"
+    t.datetime "archived_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "teams", ["name"], name: "index_teams_on_name", unique: true, using: :btree
+  add_index "teams", ["slug"], name: "index_teams_on_slug", unique: true, using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                              default: "",         null: false
     t.string   "encrypted_password",     limit: 128, default: "",         null: false
@@ -168,5 +200,23 @@ ActiveRecord::Schema.define(version: 20160901171941) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  Foreigner.load
+  add_foreign_key "enrollments", "teams", name: "enrollments_team_id_fk", dependent: :delete
+  add_foreign_key "enrollments", "users", name: "enrollments_user_id_fk", dependent: :delete
+
+  add_foreign_key "integrations", "projects", name: "integrations_project_id_fk", dependent: :delete
+
+  add_foreign_key "memberships", "projects", name: "memberships_project_id_fk", dependent: :delete
+  add_foreign_key "memberships", "users", name: "memberships_user_id_fk", dependent: :delete
+
+  add_foreign_key "notes", "stories", name: "notes_story_id_fk", dependent: :delete
+
+  add_foreign_key "ownerships", "projects", name: "ownerships_project_id_fk", dependent: :delete
+  add_foreign_key "ownerships", "teams", name: "ownerships_team_id_fk", dependent: :delete
+
+  add_foreign_key "stories", "projects", name: "stories_project_id_fk", dependent: :delete
+
+  add_foreign_key "tasks", "stories", name: "tasks_story_id_fk", dependent: :delete
 
 end

@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   # Flag used to identify if the user was found or created from find_or_create
   attr_accessor :was_created
 
+  has_many :enrollments
+  has_many :teams, through: :enrollments
+
   has_many :memberships, dependent: :destroy
   has_many :projects, -> { uniq }, through: :memberships
 
