@@ -21,7 +21,7 @@ describe "Notes" do
 
   describe "full story life cycle" do
 
-    it "adds a note to a story", js: true, driver: :poltergeist do
+    it "adds a note to a story", js: true do
       visit project_path(project)
 
       within('#in_progress .story') do
@@ -35,7 +35,7 @@ describe "Notes" do
 
     end
 
-  	it "deletes a note from a story", js: true, driver: :poltergeist do
+  	it "deletes a note from a story", js: true do
       create :note, user: user,
                     story: story,
                     note: 'Delete me please'

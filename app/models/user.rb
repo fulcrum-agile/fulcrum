@@ -74,7 +74,24 @@ class User < ActiveRecord::Base
     elsif warden_conditions[:confirmation_token]
       where(confirmation_token: warden_conditions[:confirmation_token]).first
     else
-      joins(enrollments: [:team]).where(email: warden_conditions[:email], teams: { slug: warden_conditions[:team_slug] }).first
+      user = joins(enrollments: [:team]).where(email: warden_conditions[:email], teams: { slug: warden_conditions[:team_slug] }).first
+      if user.nil?
+        create_administrator(warden_conditions)
+      else
+        user
+      end
+    end
+  end
+
+  def self.create_administrator(warden_conditions)
+    user = User.find_by_email(warden_conditions[:email])
+    team = Team.not_archived.find_by_slug(warden_conditions[:team_slug])
+    # if this is a brand new team, without any enrollments yet, the first logged in user becomes administrator
+    if user && team && team.enrollments.count.zero?
+      team.enrollments.create(user: user, is_admin: true)
+      user
+    else
+      nil
     end
   end
 

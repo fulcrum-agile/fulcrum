@@ -9,7 +9,17 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def check_registration_enabled
-      if Fulcrum::Application.config.fulcrum.disable_registration
+      team_slug = resource.try(:team_slug) || session[:team_slug]
+      if team_slug
+        team = Team.not_archived.find_by_slug(team_slug)
+        if team.disable_registration
+          render_404 and return
+        else
+          if resource && !team.allowed_domain?(resource.email)
+            render_404 and return
+          end
+        end
+      elsif Fulcrum::Application.config.fulcrum.disable_registration
         render_404 and return
       end
     end

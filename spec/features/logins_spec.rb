@@ -47,7 +47,7 @@ describe "Logins" do
 
       expect(page).to have_selector('#title_bar', text: 'New Project')
       find('.menu-toggle').trigger 'click'
-      expect(page).to have_selector('.sidebar-nav li:nth-child(5)', text: 'Test User')
+      expect(page).to have_selector('.sidebar-nav li:nth-child(6)', text: 'Test User')
     end
 
     it "switches team through URL and doesn't have to fill in the team slug", js: true do
@@ -61,6 +61,22 @@ describe "Logins" do
       expect(page).to have_selector('#title_bar', text: 'New Project')
     end
 
+  end
+
+  describe "new team" do
+    let!(:team) { create :team }
+
+    it "first login" do
+      expect(team.is_admin?(user)).to be_falsey
+
+      visit teams_switch_path(team.slug)
+
+      fill_in "Email",     with: "user@example.com"
+      fill_in "Password",  with: "password"
+      click_button 'Sign in'
+
+      expect(team.is_admin?(user)).to be_truthy
+    end
   end
 
   describe "successful logout", js: true do

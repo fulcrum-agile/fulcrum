@@ -21,4 +21,18 @@ class Team < ActiveRecord::Base
   def is_admin?(user)
     enrollments.find_by_user_id(user.id)&.is_admin?
   end
+
+  def allowed_domain?(email)
+    whitelist = ( registration_domain_whitelist || "" ).split(/[,;\|\n]/).map(&:strip)
+    blacklist = ( registration_domain_blacklist || "" ).split(/[,;\|\n]/).map(&:strip)
+    has_whitelist = true
+    unless whitelist.empty?
+      has_whitelist = whitelist.map { |domain| email.include?(domain) }.reduce(false) { |a, b| a || b }
+    end
+    has_blacklist = false
+    unless blacklist.empty?
+      has_blacklist = blacklist.map { |domain| email.include?(domain) }.reduce(false) { |a, b| a || b }
+    end
+    has_whitelist && !has_blacklist
+  end
 end
