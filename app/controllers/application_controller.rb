@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   def current_team
     raise ActiveRecord::RecordNotFound, 'Team not set' unless session[:current_team_slug]
-    @current_team ||= Team.find_by_slug(session[:current_team_slug])
+    @current_team ||= Team.not_archived.find_by_slug(session[:current_team_slug])
   end
   helper_method :current_team
 

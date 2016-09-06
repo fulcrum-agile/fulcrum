@@ -79,6 +79,9 @@ class User < ActiveRecord::Base
   end
 
   def set_team
-    self.enrollments.create(team: Team.find_by_slug(team_slug)) if team_slug
+    if team_slug
+      team = Team.not_archived.find_by_slug(team_slug)
+      self.enrollments.create(team: team) if team
+    end
   end
 end

@@ -1,0 +1,40 @@
+<%= form_for(@team) do |f| %>
+  <%= render 'form_errors', object: @team if @team.errors.any? %>
+
+  <div class="field-wrapper">
+    <%= f.label :name, class: 'col-sm-6 control-label' %>
+    <div class="col-sm-6"><%= f.text_field :name %></div>
+  </div>
+
+  <% if @team.new_record? %>
+    <div class="field-wrapper">
+      <%= f.label :captcha, class: 'col-sm-6 control-label' %>
+      <div class="col-sm-6"><%= recaptcha_tags %></div>
+    </div>
+  <% else %>
+    <div class="field-wrapper">
+      <%= f.label :logo, class: 'col-sm-6 control-label' %>
+      <div class="col-sm-6"><%= f.attachinary_file_field :logo %></div>
+    </div>
+
+    <div class="field-wrapper">
+      <%= f.label :disable_registration, class: 'col-sm-6 control-label' %>
+      <div class="col-sm-6"><%= f.check_box :disable_registration %></div>
+    </div>
+
+    <div class="field-wrapper date-wrapper">
+      <%= f.label :registration_domain_whitelist, class: 'col-sm-6 control-label' %>
+      <div class="col-sm-6"><%= f.text_field :registration_domain_whitelist %></div>
+    </div>
+
+    <div class="field-wrapper">
+      <%= f.label :registration_domain_blacklist, class: 'col-sm-6 control-label' %>
+      <div class="col-sm-6"><%= f.text_field :registration_domain_blacklist %></div>
+    </div>
+  <% end %>
+
+  <div class="btn-group actions pull-right">
+    <%= f.submit @team.new_record? ? t('teams.create') : t('teams.update'), class: 'btn btn-primary' %>
+  </div>
+<% end %>
+

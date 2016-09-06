@@ -12,6 +12,8 @@ class Team < ActiveRecord::Base
     end
   end
 
+  scope :not_archived, -> { where(archived_at: nil) }
+
   validates :name, presence: true, uniqueness: true
 
   has_attachment :logo, accept: [:jpg, :png, :gif, :bmp]

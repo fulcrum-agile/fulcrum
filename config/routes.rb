@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'projects/archived' => 'projects#archived'
 
   get 't/:id' => 'teams#switch', as: :teams_switch
+  resources :teams
 
   resources :projects do
     member do

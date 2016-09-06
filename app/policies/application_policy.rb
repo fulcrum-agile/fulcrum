@@ -14,7 +14,7 @@ class ApplicationPolicy
     protected
 
     def is_admin?
-      current_team.is_admin?(current_user)
+      current_team && current_team.is_admin?(current_user)
     end
 
     def is_project_member?
@@ -22,11 +22,11 @@ class ApplicationPolicy
     end
 
     def is_story_member?
-      current_story.project.users.find_by_id(current_user.id)
+      current_story && current_story.project.users.find_by_id(current_user.id)
     end
 
     def is_team_member?
-      current_team.users.find_by_id(current_user.id)
+      current_team && current_team.users.find_by_id(current_user.id)
     end
 
   end

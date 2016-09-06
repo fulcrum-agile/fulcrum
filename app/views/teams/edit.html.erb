@@ -1,0 +1,22 @@
+<% content_for :title_bar do %>
+  <h1><%= t('teams.edit team') %></h1>
+<% end %>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-8">
+    <div class="form-wrapper">
+      <%= render 'form' %>
+    </div>
+  </div>
+
+  <% if current_user.teams.count > 1 %>
+    <div class="col-xs-12 col-sm-8">
+      <h3><%= t('teams.switch') %></h3>
+      <ul>
+        <% current_user.teams.order(:name).each do |team| %>
+          <li><%= link_to team.name, teams_switch_path(team) %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
