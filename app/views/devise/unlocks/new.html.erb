@@ -4,12 +4,18 @@
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <div class="form-wrapper">
+      <% resource.team_slug = session[:team_slug] if session[:team_slug] %>
       <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
         <%= devise_error_messages! %>
 
         <div class="field-wrapper">
           <%= f.label :email %>
           <div class="field"><%= f.email_field :email, autofocus: true %></div>
+        </div>
+
+        <div class="field-wrapper">
+          <%= f.label :team_slug %>
+          <div class="field"><%= f.text_field :team_slug, readonly: resource.team_slug.present? %></div>
         </div>
 
         <div class="actions"><%= f.submit "Resend unlock instructions", class: 'btn btn-primary pull-right' %></div>
