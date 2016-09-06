@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
-  before_filter :find_current_story
+  before_filter :set_project_and_story
 
   def create
-    if @task = TaskOperations::Create.(@story.tasks.build(allowed_params), current_user)
+    @task = policy_scope(Task).build(allowed_params)
+    authorize @task
+    if TaskOperations::Create.(@task, current_user)
       render json: @task
     else
       render json: @task, status: :unprocessable_entity
@@ -10,14 +12,16 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = @story.tasks.find(params[:id])
+    @task = policy_scope(Task).find(params[:id])
+    authorize @task
     @task.destroy
 
     head :ok
   end
 
   def update
-    @task = @story.tasks.find(params[:id])
+    @task = policy_scope(Task).find(params[:id])
+    authorize @task
     @task.update_attributes(allowed_params)
 
     head :ok
@@ -25,12 +29,13 @@ class TasksController < ApplicationController
 
   private
 
-  def find_current_story
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:story_id])
-  end
-
   def allowed_params
     params.require(:task).permit(:name, :done)
   end
+
+  def set_project_and_story
+    @project = policy_scope(Project).find(params[:project_id])
+    @story   = policy_scope(Story).find(params[:story_id])
+  end
+
 end

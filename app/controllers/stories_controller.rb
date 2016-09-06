@@ -1,21 +1,19 @@
 class StoriesController < ApplicationController
-  authorize_resource
 
   include ActionView::Helpers::TextHelper
 
+  before_action :set_project
   before_action :filter_documents
 
   def index
-    @project = current_user.projects.friendly.find(params[:project_id])
-
     @stories = if params[:q]
-                 StorySearch.new(@project, params[:q]).search
+                 StorySearch.query(policy_scope(Story), params[:q])
                elsif params[:label]
-                 StorySearch.new(@project, params[:label]).search_labels
+                 StorySearch.labels(policy_scope(Story), params[:label])
                else
-                 relation = @project.stories.with_dependencies.order('updated_at DESC')
-                 relation = relation.limit(ENV['STORIES_CEILING']) if ENV['STORIES_CEILING']
-                 relation
+                 policy_scope(Story).with_dependencies.order('updated_at DESC').tap do |relation|
+                   relation = relation.limit(ENV['STORIES_CEILING']) if ENV['STORIES_CEILING']
+                 end
                end
 
     respond_to do |format|
@@ -27,14 +25,14 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.includes(:notes, :tasks, :document_files).find(params[:id])
+    @story = policy_scope(Story).with_dependencies.find(params[:id])
+    authorize @story
     render json: @story
   end
 
   def update
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:id])
+    @story = policy_scope(Story).find(params[:id])
+    authorize @story
     @story.acting_user = current_user
     @story.base_uri = project_url(@story.project)
     respond_to do |format|
@@ -49,33 +47,33 @@ class StoriesController < ApplicationController
   end
 
   def destroy
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:id])
+    @story = policy_scope(Story).find(params[:id])
+    authorize @story
     StoryOperations::Destroy.(@story, current_user)
     head :ok
   end
 
   def done
-    @project = current_user.projects.find(params[:project_id])
-    @stories = @project.stories.done
+    @stories = policy_scope(Story).done
+    authorize Story, :done?
     render json: @stories
   end
 
   def backlog
-    @project = current_user.projects.find(params[:project_id])
-    @stories = @project.stories.backlog
+    @stories = policy_scope(Story).backlog
+    authorize Story, :backlog?
     render json: @stories
   end
 
   def in_progress
-    @project = current_user.projects.find(params[:project_id])
-    @stories = @project.stories.in_progress
+    @stories = policy_scope(Story).in_progress
+    authorize Story, :in_progress?
     render json: @stories
   end
 
   def create
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.build(allowed_params)
+    @story = policy_scope(Story).build(allowed_params)
+    authorize @story
     @story.requested_by_id = current_user.id unless @story.requested_by_id
     respond_to do |format|
       if @story = StoryOperations::Create.(@story, current_user)
@@ -105,4 +103,9 @@ class StoriesController < ApplicationController
       params[:story][:documents] = params[:story][:documents].map{ |hash| hash.values.first }
     end
   end
+
+  def set_project
+    @project = policy_scope(Project).friendly.find(params[:project_id])
+  end
+
 end

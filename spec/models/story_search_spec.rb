@@ -7,7 +7,7 @@ describe StorySearch do
 
   describe "simple query" do
     let(:query_params) { "FOO" }
-    subject { StorySearch.new(project, query_params) }
+    subject { StorySearch.new(project.stories, query_params) }
 
     it "returns a story" do
       expect(subject.conditions).to eq({})
@@ -17,7 +17,7 @@ describe StorySearch do
 
   describe "complex query" do
     let(:query_params) { "FOO state:unstarted estimate:3" }
-    subject { StorySearch.new(project, query_params) }
+    subject { StorySearch.new(project.stories, query_params) }
 
     it "returns a story" do
       expect(subject.conditions).to eq({'state' => 'unstarted', 'estimate' => '3'})
@@ -36,12 +36,12 @@ describe StorySearch do
     end
 
     it "returns the HEL stories" do
-      expect(StorySearch.new(project, "HELL").search).to eq([@story1, @story3])
-      expect(StorySearch.new(project, "WORD").search).to eq([@story4])
+      expect(StorySearch.new(project.stories, "HELL").search).to eq([@story1, @story3])
+      expect(StorySearch.new(project.stories, "WORD").search).to eq([@story4])
     end
 
     it "returns the foo labeled stories" do
-      expect(StorySearch.new(project, "abc").search_labels).to eq([@story3, @story4])
+      expect(StorySearch.new(project.stories, "abc").search_labels).to eq([@story3, @story4])
     end
   end
 end

@@ -1,13 +1,11 @@
 require 'open-uri'
 class ProjectsController < ApplicationController
-  authorize_resource
-
-  before_action :load_project, only: %i[show edit update destroy import import_upload reports]
+  before_action :set_project, only: %i[show edit update destroy import import_upload reports]
 
   # GET /projects
   # GET /projects.xml
   def index
-    @projects = current_user.projects.not_archived
+    @projects = policy_scope(Project).not_archived
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,7 +28,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
-    @project = Project.new
+    @project = policy_scope(Project).new
+    authorize @project
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,13 +40,15 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project.users.build
+    authorize @project
     @integration = Integration.new
   end
 
   # POST /projects
   # POST /projects.xml
   def create
-    @project = current_user.projects.build(allowed_params)
+    @project = policy_scope(Project).new(allowed_params)
+    authorize @project
     @project.users << current_user
 
     respond_to do |format|
@@ -121,21 +122,22 @@ class ProjectsController < ApplicationController
   # CSV import
   def import_upload
     if params[:project][:import].blank?
-      flash[:alert] = "You must select a file for import"
+      flash[:alert] = I18n.t('projects.uploads.select_file')
     else
       session[:import_job] = { id: ImportWorker.new_job_id, created_at: Time.current }
 
       @project.update_attributes(allowed_params)
       ImportWorker.perform_async(session[:import_job][:id], params[:id])
 
-      flash[:notice] = "Your upload is being processed. You can come back here later."
+      flash[:notice] = I18n.t('projects.uploads.being_processed')
     end
 
     redirect_to [:import, @project]
   end
 
   def archived
-    @projects = Project.archived
+    @projects = policy_scope(Project).archived
+    authorize @projects
   end
 
   def reports
@@ -149,8 +151,9 @@ class ProjectsController < ApplicationController
     params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import, :archived)
   end
 
-  def load_project
-    @project = current_user.projects.friendly.find(params[:id])
+  def set_project
+    @project = policy_scope(Project).friendly.find(params[:id])
+    authorize @project
   end
 
 end

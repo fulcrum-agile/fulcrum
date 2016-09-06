@@ -7,12 +7,12 @@
 <li>
 <%= link_to_unless_current Story.model_name.human(count: 2), project_path(project) %>
 </li>
-<% if can? :manage, User %>
+<% if policy(User).manage? %>
   <li>
   <%= link_to_unless_current User.model_name.human(count: 2), project_users_path(project) %>
   </li>
 <% end %>
-<% if can? :manage, project %>
+<% if policy(project).manage? %>
   <li>
   <%= link_to_unless_current t('edit'), edit_project_path(project) %>
   </li>

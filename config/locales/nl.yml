@@ -175,6 +175,25 @@ nl:
       search_results: "Zoekresultaten"
       epic: 'Episch'
 
+    uploads:
+      title: Verhalen Import
+      results: Import Resultaten
+      select_file: "U moet een CSV-bestand te selecteren om zijn verhalen te importeren naar het project."
+      being_processed: "Uw geüploade CSV-bestand wordt verwerkt U kunt hier later terug te komen wanneer het proces is voltooid."
+      already_uploaded: |
+          <p>Er is al een geüpload bestand dat wordt %{time_ago} geleden zijn verwerkt.</p>
+          <p>Wacht een paar minuten en kom terug naar de resultaten te zien of upload een nieuw bestand in het geval van fouten.</p>
+      instructions: |
+          <p>U kunt veel verhalen in een keer uit een door komma's gescheiden variabel (CSV) formaat te importeren. De eerste regel van het CSV moet de juiste headers bevatten voor de invoer om te slagen. U kunt een downloaden <a href="/Fulcrum_Import_Template.csv">CSV template</a> met de juiste headers om mee te beginnen.</p>
+          <p>Het systeem zal proberen en passende gebruikersnamen gevonden in het CSV met leden van uw project. Zorg ervoor dat de leden met de juiste namen te registreren voordat het importeren als je wilt dat ze aan te passen.</p>
+          <p><em>Let op: U kunt ook een bestand geëxporteerd uit een ander systeem (Pivotal Tracker) gebruiken.</em></p>
+
+  users:
+    You are not authorized to perform this action: "U bent niet gemachtigd om deze actie uit te voeren."
+    is already a member of this project: "%{email} is al lid van dit project"
+    was sent an invite to join this project: "%{email} werd gestuurd een uitnodiging om dit project aan te sluiten"
+    was added to this project: "%{email} werd toegevoegd aan dit project"
+
   admin:
     users:
       edit user: "Wijzig Gebruiker"

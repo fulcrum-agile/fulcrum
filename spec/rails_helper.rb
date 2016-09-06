@@ -5,7 +5,6 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 
 # Add additional requires below this line. Rails is not loaded until this point!
-require "cancan/matchers"
 require 'vcr'
 require 'webmock'
 
@@ -79,3 +78,4 @@ RSpec.configure do |config|
   end
   config.include DisableTransactionalFixtures,  type: :feature
 end
+

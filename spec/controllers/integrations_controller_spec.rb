@@ -49,7 +49,7 @@ describe IntegrationsController do
           specify do
             xhr :get, :index, project_id: project.id, format: :json
             expect(response).to be_success
-            expect(response.body.size).to eql([ integration ].to_json.size) # the integration.data hstore json can come up with fields in different orders
+            expect(JSON.parse(response.body).first["integration"]["data"]).to eql(integration.data)
           end
 
         end

@@ -172,6 +172,25 @@ ja:
       search_results: "検索結果"
       epic: '大作'
 
+    uploads:
+      title: 輸入ストーリー
+      results: インポート結果
+      select_file: "あなたは、プロジェクトにその物語をインポートするCSVファイルを選択する必要があります。"
+      being_processed: "あなたのアップロードしたCSVファイルには、あなたが後の処理が終了したらここに戻って来ることができる処理されています"
+      already_uploaded: |
+          <p>%{time_ago}前に処理されてアップロードされたファイルが既に存在します。</p>
+          <p>数分待ってから、結果を参照するか、エラーの場合に新しいファイルをアップロードするために戻ってくる。</p>
+      instructions: |
+          <p>あなたは、カンマ区切り変数（CSV）形式から、一度に多くの物語をインポートすることができます。 CSVの最初の行は、インポートが成功するための正しいヘッダをコンテナ化する必要があります。あなたが始めるために正しいヘッダーを付けて<a href="/Fulcrum_Import_Template.csv">CSVテンプレート </a>にダウンロードすることができます。</p>
+          <p>システムは、試してみて、あなたのプロジェクトのメンバーと、このCSVで見つかったユーザ名と一致します。それらを一致させるために閉所恐怖症をインポートする前に、正しい名前を持つメンバーを登録することを確認します。</p>
+          <p><em>の注意：別のシステム（ピボタルトラッカー）から便利なエクスポートされたファイルを使用することができます</em></p>
+
+  users:
+    You are not authorized to perform this action: "あなたはこのアクションを実行する権限がありません。"
+    is already a member of this project: "%{email}はすでにこのプロジェクトのメンバーです"
+    was sent an invite to join this project: "%{email}はこのプロジェクトに参加するために招待出品されました"
+    was added to this project: "%{email}はこのプロジェクトに追加されました"
+
   admin:
     users:
       edit user: "メンバー編集"

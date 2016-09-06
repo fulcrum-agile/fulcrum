@@ -179,6 +179,25 @@ de:
       search_results: "Suchergebnisse"
       epic: 'Epos'
 
+    uploads:
+      title: Import Storico
+      results: Import Resylts
+      select_file: "Sie müssen eine CSV-Datei wählen ihre Geschichten in das Projekt zu importieren."
+      being_processed: "Ihre hochgeladenen CSV-Datei verarbeitet wird können Sie wieder hierher kommen später Wenn der Vorgang abgeschlossen ist."
+      already_uploaded: |
+          <p>Es gibt bereits eine hochgeladene Datei vor %{time_ago} bearbeitet werden.</p>
+          <p>Warten Sie ein paar Minuten und kommen zurück, um die Ergebnisse zu sehen oder eine neue Datei im Falle von Fehlern laden.</p>
+      instructions: |
+          <p>Sie können von einem Komma getrennt Variable (CSV) Format auf einmal viele Geschichten zu importieren. Die erste Zeile der CSV müssen die richtigen Header Containerisierung für den Import erfolgreich zu sein. Sie können eine <a href="/Fulcrum_Import_Template.csv">CSV-Vorlage </a> herunterladen mit den richtigen Header, die Sie den Start.</p>
+          <p>Das System versucht und alle Benutzernamen in dieser CSV mit den Mitgliedern des Projekts gefunden entsprechen. Stellen Sie sicher, Mitglieder mit den richtigen Namen zu registrieren, bevor Klaustrophobie zu importieren, für sie zu entsprechen.</p>
+          <p><em>Hinweis: Sie können eine nützliche Exportierte Datei von einem anderen System verwenden (Pivotal Tracker)</em></p>
+
+  users:
+    You are not authorized to perform this action: "Sie sind nicht zur Durchführung dieser Aktion autorisiert."
+    is already a member of this project: "%{email} ist bereits Mitglied dieses Projekts"
+    was sent an invite to join this project: "%{email} gesendet wurde dieses Projekt eine Einladung beitreten"
+    was added to this project: "%{email} wurde zu diesem Projekt hinzugefügt"
+
   admin:
     users:
       edit user: "Mitglied bearbeiten"

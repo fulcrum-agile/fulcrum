@@ -19,16 +19,14 @@ describe ProjectsController do
 
   context "when logged in" do
 
-    let(:user)      { FactoryGirl.create :user }
-    let(:projects)  { double("projects") }
-    let(:project)   { mock_model(Project, id: 99, stories: stories) }
-    let(:stories)   { double("stories", to_json: '{foo:bar}') }
+    let(:story)   { create :story, :with_project }
+    let(:project) { story.project }
+    let(:user)    { story.requested_by }
 
     before do
+      user.update_attribute(:is_admin, true)
       sign_in user
       allow(subject).to receive_messages(current_user: user)
-      allow(user).to receive_messages(projects: projects)
-      allow(user).to receive_message_chain(:projects, :not_archived) { projects }
     end
 
     describe "collection actions" do
@@ -38,7 +36,7 @@ describe ProjectsController do
         specify do
           get :index
           expect(response).to be_success
-          expect(assigns[:projects]).to eq(projects)
+          expect(assigns[:projects]).to eq(user.projects)
         end
 
       end
@@ -55,36 +53,24 @@ describe ProjectsController do
 
       describe "#create" do
 
-        let(:project) { mock_model(Project) }
-        let(:users)   { double("users") }
-
-        before do
-          allow(projects).to receive(:build).with({}) { project }
-          allow(project).to receive_messages(users: users)
-          expect(users).to receive(:<<).with(user)
-          allow(ProjectOperations::Create).to receive(:call).with(project, user).and_return(project)
-        end
+        let(:project_params) {{ "name" => "Test Project"}}
 
         specify do
-          post :create, project: {}
-          expect(assigns[:project]).to eq(project)
+          post :create, project: project_params
+          expect(assigns[:project].name).to eq(project_params["name"])
         end
 
         context "when save succeeds" do
 
           specify do
-            post :create, project: {}
-            expect(response).to redirect_to(project_url(project))
+            post :create, project: project_params
+            expect(response).to redirect_to(project_url(assigns[:project]))
             expect(flash[:notice]).to eq('Project was successfully created.')
           end
 
         end
 
         context "when save fails" do
-
-          before do
-            allow(ProjectOperations::Create).to receive(:call).with(project, user).and_return(false)
-          end
 
           specify do
             post :create, project: {}
@@ -97,8 +83,7 @@ describe ProjectsController do
       end
 
       describe "#archived" do
-        let(:archived_project) { FactoryGirl.create :project,
-          archived_at: Time.current }
+        let(:archived_project) { create :project, archived_at: Time.current }
 
         before do
           get :archived
@@ -117,12 +102,7 @@ describe ProjectsController do
 
     describe "member actions" do
 
-      let(:project) { mock_model(Project, id: 42, to_json: '{foo:bar}') }
-      let(:story)   { mock_model(Story) }
-
       before do
-        allow(projects).to receive_message_chain(:friendly, :find).with(project.id.to_s) { project }
-        allow(project).to receive_message_chain(:stories, :build) { story }
         allow(project).to receive(:"import=").and_return(nil)
       end
 
@@ -134,7 +114,8 @@ describe ProjectsController do
             get :show, id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
-            expect(assigns[:story]).to eq(story)
+            expect(assigns[:story].new_record?).to be_truthy
+            expect(assigns[:story].project).to eq(project)
           end
 
         end
@@ -145,7 +126,8 @@ describe ProjectsController do
             xhr :get, :show, id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
-            expect(assigns[:story]).to eq(story)
+            expect(assigns[:story].new_record?).to be_truthy
+            expect(assigns[:story].project).to eq(project)
           end
 
         end
@@ -153,13 +135,6 @@ describe ProjectsController do
       end
 
       describe "#edit" do
-
-        let(:users) { double("users") }
-
-        before do
-          allow(project).to receive_messages(users: users)
-          expect(users).to receive(:build)
-        end
 
         specify do
           get :edit, id: project.id
@@ -171,32 +146,26 @@ describe ProjectsController do
 
       describe "#update" do
 
-        before do
-          allow(ProjectOperations::Update).to receive(:call).with(project, {}, user).and_return(project)
-        end
+        let(:project_params) { { name: 'New Project Title' } }
 
         specify do
-          put :update, id: project.id, project: {}
-          expect(assigns[:project]).to eq(project)
+          put :update, id: project.id, project: project_params
+          expect(assigns[:project].name).to eq('New Project Title')
         end
 
         context "when update succeeds" do
 
           specify do
-            put :update, id: project.id, project: {}
-            expect(response).to redirect_to(project_url(project))
+            put :update, id: project.id, project: project_params
+            expect(response).to redirect_to(project_url(assigns[:project]))
           end
 
         end
 
         context "when update fails" do
 
-          before do
-            allow(ProjectOperations::Update).to receive(:call).with(project, {}, user).and_return(false)
-          end
-
           specify do
-            put :update, id: project.id, project: {}
+            put :update, id: project.id, project: { 'point_scale' => 'xyz'}
             expect(response).to be_success
             expect(response).to render_template('edit')
           end
@@ -206,10 +175,6 @@ describe ProjectsController do
       end
 
       describe "#destroy" do
-
-        before do
-          allow(ProjectOperations::Destroy).to receive(:call).with(project, user).and_return(project)
-        end
 
         specify do
           delete :destroy, id: project.id
@@ -272,17 +237,15 @@ describe ProjectsController do
           end
 
           context "finished with success" do
-            let(:valid_story) { mock_model(Story, valid?: true) }
             let(:invalid_story) { { title: 'hello', errors: 'bad cookie'} }
             before do
-              expect(project).to receive(:stories).and_return([valid_story])
               session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
               expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [invalid_story], errors: nil })
             end
 
             specify do
               get :import, id: project.id
-              expect(assigns[:valid_stories]).to eq([valid_story])
+              expect(assigns[:valid_stories]).to eq([story])
               expect(assigns[:invalid_stories]).to eq([invalid_story])
               expect(flash[:notice]).to eq("Imported 1 story")
               expect(session[:import_job]).to be_nil
@@ -296,26 +259,25 @@ describe ProjectsController do
         context "when csv file is missing" do
           specify do
             put :import_upload, id: project.id, project: { import: "" }
-            expect(response).to redirect_to(import_project_path(project.id))
-            expect(flash[:alert]).to eq("You must select a file for import")
+            expect(response).to redirect_to(import_project_path(project))
+            expect(flash[:alert]).to eq("You must select a CSV file to import its stories to the project.")
           end
         end
 
         context "when csv file is present" do
 
           let(:csv)             { fixture_file_upload('csv/stories.csv') }
-          let(:import)          { mock_model(Attachinary::File, fullpath: csv )}
 
           before do
-            allow(project).to receive(:update_attributes).and_return(true)
-            allow(project).to receive(:import) { import }
+            expect(project).to receive(:update_attributes).and_return(true)
           end
 
           specify do
+            expect(Project).to receive_message_chain(:friendly, :find).with(project.id.to_s).and_return(project)
             expect(ImportWorker).to receive(:perform_async)
             put :import_upload, id: project.id, project: { import: csv }
-            expect(flash[:notice]).to eq("Your upload is being processed. You can come back here later.")
-            expect(response).to redirect_to(import_project_path(project.id))
+            expect(flash[:notice]).to eq("Your uploaded CSV file is being processed. You can come back here later when the process is finished.")
+            expect(response).to redirect_to(import_project_path(project))
           end
 
         end

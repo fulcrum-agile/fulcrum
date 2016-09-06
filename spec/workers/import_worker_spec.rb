@@ -45,6 +45,9 @@ describe ImportWorker do
   context 'invalid csv' do
     let(:csv)      { 'spec/fixtures/csv/stories_invalid.csv' }
 
+    before { Timecop.freeze(Time.local(2016,9,2,12,0,0)) }
+    after { Timecop.return }
+
     it "must import from CSV and create the proper stories" do
       importer.perform('foo', project.id)
       expect(project.stories.count).to eq(1)

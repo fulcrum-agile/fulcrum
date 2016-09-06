@@ -1,11 +1,13 @@
 <% content_for :title_bar do %>
-  <h1><%= t('projects.new project') %></h1>
+  <div class="project_nav">
+    <%= link_to t('back'), projects_path, class: "btn btn-primary btn-sm" %>
+  </div>
 <% end %>
 
 <div class="row">
   <div class="col-sm-12 col-md-6">
+    <h2><%= t('projects.new project') %></h2>
+
     <%= render 'form' %>
   </div>
 </div>
-
-<%= link_to 'Back', projects_path %>

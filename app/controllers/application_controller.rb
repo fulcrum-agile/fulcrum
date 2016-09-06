@@ -1,14 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  include Pundit
+
   before_filter :authenticate_user!, :set_locale
   around_filter :user_time_zone, if: :current_user
 
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  after_filter :verify_authorized, except: [:index], unless: :devise_controller?
+  after_filter :verify_policy_scoped, only: [:index], unless: :devise_controller?
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: exception.message
-  end
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from Pundit::NotAuthorizedError,   with: :user_not_authorized
 
   protected
   def render_404
@@ -35,5 +37,14 @@ class ApplicationController < ActionController::Base
 
   def user_time_zone(&block)
     Time.use_zone(current_user.time_zone, &block)
+  end
+
+  def user_not_authorized
+    flash[:error] = t('users.You are not authorized to perform this action')
+    redirect_to request.headers["Referer"] || root_path
+  end
+
+  def pundit_user
+    PunditContext.new(current_user, { current_project: @project, current_story: @story })
   end
 end

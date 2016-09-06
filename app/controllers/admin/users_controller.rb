@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users
   def index
-    @users = User.all
+    @users = policy_scope(User)
   end
 
   # GET /admin/users/1/edit
@@ -28,11 +28,13 @@ class Admin::UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.includes(:projects).find(params[:id])
+      @user = policy_scope(User).includes(:projects).find(params[:id])
+      authorize @user
     end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
       params.fetch(:user,{}).permit(:email, :name, :initials)
     end
+
 end

@@ -17,12 +17,13 @@ describe Admin::UsersController do
     end
   end
 
-  context "when logged in" do
+  context "when logged in as admin" do
 
-    let(:user)      { FactoryGirl.create :user }
+    let(:user)      { create :user, is_admin: true }
 
     before do
       sign_in user
+      allow(subject).to receive(:current_user).and_return(user)
     end
 
     describe "collection actions" do
@@ -32,7 +33,7 @@ describe Admin::UsersController do
         specify do
           get :index
           expect(response).to be_success
-          expect(assigns[:users]).to eq(User.all)
+          expect(assigns[:users]).to eq([user])
         end
 
       end
@@ -95,6 +96,62 @@ describe Admin::UsersController do
 
       end
 
+    end
+
+  end
+
+
+  context "when logged in as non-admin user" do
+
+    let(:user)         { create :user, is_admin: false }
+
+    before do
+      sign_in user
+      allow(subject).to receive(:current_user).and_return(user)
+    end
+
+    describe "collection actions" do
+
+      describe "#index" do
+
+        specify do
+          get :index
+          expect(response).to be_success
+          expect(assigns[:users]).to eq([])
+        end
+
+      end
+
+      describe "member actions" do
+
+        describe "#edit" do
+
+          specify do
+            get :edit, id: user.id
+            expect(response.status).to eq(404)
+          end
+
+        end
+
+        describe "#update" do
+
+          specify do
+            put :update, id: user.id, user: {}
+            expect(response.status).to eq(404)
+          end
+
+        end
+
+        describe "#destroy" do
+
+          specify do
+            delete :destroy, id: user.id
+            expect(response.status).to eq(404)
+          end
+
+        end
+
+      end
     end
 
   end
