@@ -297,6 +297,7 @@ el:
       user: 'μέλος'
       project: 'πρότζεκτ'
       story: 'ιστορίες'
+      team: 'ομάδες'
     attributes:
       user:
         locale:                 Γλώσσα
@@ -345,6 +346,13 @@ el:
         is_admin:             'Είναι διαχειριστής;'
         current_password:     'τρέχων κωδικός πρόσβασης'
         time_zone:            'ζώνη ώρας'
+      team:
+        name:                 'Όνομα ομάδας'
+        slug:                 'γυμνοσάλιαγκα'
+        logo:                 'λογότυπο'
+        disable_registration: 'Μόνο οι διαχειριστές μπορούν να προσθέσουν νέους χρήστες σε αυτή την ομάδα'
+        registration_domain_whitelist: 'Εάν είναι ενεργοποιημένη η καταγραφή, μόνο μηνύματα ηλεκτρονικού ταχυδρομείου από αυτόν τον τομέα μπορούν να εγγραφούν (χωρισμένες με κόμμα)'
+        registration_domain_blacklist: 'Εάν η εγγραφή είναι ενεργοποιημένη σε αυτόν τον τομέα από τα μηνύματα ηλεκτρονικού ταχυδρομείου μητρώο CAH (χωρισμένες με κόμμα)'
 
     errors:
       models:
@@ -411,6 +419,11 @@ el:
     is already a member of this project: "%{email} είναι ήδη μέλος αυτού του έργου"
     was sent an invite to join this project: "%{email} στάλθηκε μια πρόσκληση για να ενταχθούν σε αυτό το έργο"
     was added to this project: "%{email} προστέθηκε σε αυτό το έργο"
+
+  teams:
+    create: 'Δημιουργία νέας ομάδας'
+    update: 'Ομάδα Ενημέρωση'
+    switch: 'CΑλλαγή σε άλλη ομάδα'
 
   admin:
     users:

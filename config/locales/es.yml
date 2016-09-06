@@ -101,6 +101,7 @@ es:
       user: 'Miembro'
       project: "Proyecto"
       story: 'Articulo'
+      team: 'Equipo'
 
     attributes:
       note:
@@ -137,6 +138,13 @@ es:
         is_admin:             '¿Es administrador?'
         current_password:     'contraseña actual'
         time_zone:            'zona horaria'
+      team:
+        name:                 'Nombre del equipo'
+        slug:                 'Slug'
+        logo:                 'luego'
+        disable_registration: 'Sólo los administradores pueden añadir nuevos usuarios a este equipo'
+        registration_domain_whitelist: 'Si se habilita el registro, solamente los correos electrónicos de este dominio pueden inscribirse (separados por comas)'
+        registration_domain_blacklist: 'Si el registro está habilitado en este dominio de los correos electrónicos de registro cah (separados por comas)'
 
     errors:
       models:
@@ -203,6 +211,11 @@ es:
     is already a member of this project: "%{email} ya es un miembro de este proyecto"
     was sent an invite to join this project: "%{email} fue enviado una invitación a unirse a este proyecto"
     was added to this project: "%{email} se añadió a este proyecto"
+
+  teams:
+    create: 'Crear nuevo Equipo'
+    update: 'Actualización de equipo'
+    switch: 'Cambiar a otro equipo'
 
   admin:
     users:

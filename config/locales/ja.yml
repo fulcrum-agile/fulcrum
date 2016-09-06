@@ -86,15 +86,10 @@ ja:
 
   activerecord:
     models:
-      user:
-        one: 'メンバー'
-        other: 'メンバー'
-      project:
-        one: 'プロジェクト'
-        other: 'プロジェクト'
-      story:
-        one: 'ストーリー'
-        other: 'ストーリー'
+      user: 'メンバー'
+      project: 'プロジェクト'
+      story: 'ストーリー'
+      team: 'チーム'
 
     attributes:
       note:
@@ -131,6 +126,14 @@ ja:
         is_admin:             '管理者ですか'
         current_password:     '現在のパスワード'
         time_zone:            '時間帯'
+      team:
+        name:                 'チーム名'
+        slug:                 'スラッグ'
+        logo:                 'ロゴ'
+        disable_registration: '管理者のみですが、このチームに新しいユーザーを追加することができます'
+        registration_domain_whitelist: '登録が有効になっている場合のみ、このドメインからのメールを登録することができます（カンマ区切り）'
+        registration_domain_blacklist: '登録はCAHレジスタメールから、このドメインで有効になっている場合（カンマ区切り）'
+
 
   projects:
     new project:        "新規プロジェクト"
@@ -190,6 +193,11 @@ ja:
     is already a member of this project: "%{email}はすでにこのプロジェクトのメンバーです"
     was sent an invite to join this project: "%{email}はこのプロジェクトに参加するために招待出品されました"
     was added to this project: "%{email}はこのプロジェクトに追加されました"
+
+  teams:
+    create: '新しいチームを作成します'
+    update: 'チームを更新'
+    switch: '他のチームへの変更'
 
   admin:
     users:

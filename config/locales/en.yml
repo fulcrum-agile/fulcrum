@@ -110,6 +110,9 @@ en:
       story:
         one: 'Story'
         other: 'Stories'
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
@@ -144,6 +147,13 @@ en:
         password_confirmation: 'Password Confirmation'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
+      team:
+        name:                 'Team Name'
+        slug:                 'Slug'
+        logo:                 'Logo'
+        disable_registration: 'Only administrators can add new users to this team'
+        registration_domain_whitelist: 'If registration is enabled, only emails from this domain can register (comma separated)'
+        registration_domain_blacklist: 'If registration is enabled, no emails from this domain cah register (comma separated)'
 
     errors:
       models:
@@ -210,6 +220,11 @@ en:
     is already a member of this project: "%{email} is already a member of this project"
     was sent an invite to join this project: "%{email} was sent an invite to join this project"
     was added to this project: "%{email} was added to this project"
+
+  teams:
+    create: 'Create new Team'
+    update: 'Update Team'
+    switch: 'Change to another Team'
 
   admin:
     users:

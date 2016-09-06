@@ -92,6 +92,9 @@ nl:
       story:
         one: 'Verhaal'
         other: 'Verhalen'
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
@@ -127,6 +130,13 @@ nl:
         locale:               'Locale'
         is_admin:             'Is Administrator?'
         time_zone:            'tijdzone'
+      team:
+        name:                 'Naam van het Team'
+        slug:                 'naaktslak'
+        logo:                 'Logo'
+        disable_registration: 'Alleen beheerders kunnen nieuwe gebruikers toe te voegen aan dit team'
+        registration_domain_whitelist: 'Als registratie is ingeschakeld, alleen e-mails van dit domein kunnen registreren (comma separated)'
+        registration_domain_blacklist: 'Als de registratie in dit domein is ingeschakeld van CAH register e-mails (comma separated)'
 
     errors:
       models:
@@ -193,6 +203,11 @@ nl:
     is already a member of this project: "%{email} is al lid van dit project"
     was sent an invite to join this project: "%{email} werd gestuurd een uitnodiging om dit project aan te sluiten"
     was added to this project: "%{email} werd toegevoegd aan dit project"
+
+  teams:
+    create: 'Maak een nieuwe Team'
+    update: 'Werk de Team'
+    switch: 'Ga verder met een ander team'
 
   admin:
     users:

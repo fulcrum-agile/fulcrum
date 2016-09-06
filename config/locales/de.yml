@@ -95,7 +95,9 @@ de:
       story:
         one: 'Story'
         other: 'Stories'
-
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
@@ -131,6 +133,13 @@ de:
         is_admin:             'Ist Administrator?'
         current_password:     'Aktuelles Passwort'
         time_zone:            'Zeitzone'
+      team:
+        name:                 'Team Name'
+        slug:                 'Slug'
+        logo:                 'Bald'
+        disable_registration: 'Nur Administratoren können neue Benutzer zu diesem Team hinzufügen'
+        registration_domain_whitelist: 'Wenn die Registrierung aktiviert ist, werden nur E-Mails von dieser Domain registrieren kann (durch Komma getrennt)'
+        registration_domain_blacklist: 'Wenn die Registrierung in diesem Bereich von CAH Register E-Mails aktiviert ist (durch Komma getrennt)'
 
     errors:
       models:
@@ -197,6 +206,11 @@ de:
     is already a member of this project: "%{email} ist bereits Mitglied dieses Projekts"
     was sent an invite to join this project: "%{email} gesendet wurde dieses Projekt eine Einladung beitreten"
     was added to this project: "%{email} wurde zu diesem Projekt hinzugefügt"
+
+  teams:
+    create: 'Neues Team'
+    update: 'Update Team'
+    switch: 'zu einem anderen Team wechseln'
 
   admin:
     users:
