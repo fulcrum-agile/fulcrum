@@ -229,7 +229,7 @@ GEM
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
-    phantomjs (1.9.8.0)
+    phantomjs (2.1.1.0)
     pkg-config (1.1.7)
     poltergeist (1.10.0)
       capybara (~> 2.1)
@@ -433,7 +433,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   pg_search
-  phantomjs (~> 1.9)
+  phantomjs (>= 2.1.1.0)
   poltergeist
   pry-rails
   puma
