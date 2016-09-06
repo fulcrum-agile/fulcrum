@@ -12,7 +12,12 @@
           <div class="field"><%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %></div>
         </div>
 
-        <div class=""><%= f.submit "Resend confirmation instructions" %></div>
+        <div class="field-wrapper">
+          <%= f.label :team_slug %>
+          <div class="field"><%= f.text_field :team_slug %></div>
+        </div>
+
+        <div class="actions"><%= f.submit "Resend confirmation instructions", class: 'btn btn-primary pull-right' %></div>
       <% end %>
     </div>
   </div>

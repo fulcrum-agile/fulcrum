@@ -49,7 +49,7 @@ describe UsersController do
       create(:membership, user: user, project: project)
       create(:membership, user: another_user, project: project)
       sign_in user
-      allow(subject).to receive_messages(current_user: user)
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do
@@ -178,7 +178,7 @@ describe UsersController do
       create(:membership, user: user, project: project)
       create(:membership, user: another_user, project: project)
       sign_in user
-      allow(subject).to receive_messages(current_user: user)
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do

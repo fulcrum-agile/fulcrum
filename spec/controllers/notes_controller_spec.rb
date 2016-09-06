@@ -47,6 +47,7 @@ describe NotesController do
   context "when logged in" do
     before do
       sign_in user
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do

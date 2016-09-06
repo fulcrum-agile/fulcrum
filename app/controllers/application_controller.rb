@@ -49,8 +49,17 @@ class ApplicationController < ActionController::Base
   end
 
   def current_team
-    # FIXME hardcoding a team until the sign in process adds the Team check
-    session[:current_team] || Team.first
+    raise ActiveRecord::RecordNotFound, 'Team not set' unless session[:current_team_slug]
+    @current_team ||= Team.find_by_slug(session[:current_team_slug])
   end
   helper_method :current_team
+
+  def after_sign_in_path_for(resource)
+    if params[:user][:reset_password_token]
+      session[:current_team_slug] = current_user.teams.first.slug
+    else
+      session[:current_team_slug] = params[:user][:team_slug]
+    end
+    super
+  end
 end

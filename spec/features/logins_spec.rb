@@ -40,8 +40,9 @@ describe "Logins" do
       visit root_path
       expect(page).to have_selector('h1', text: 'Sign in')
 
-      fill_in "Email",    with: "user@example.com"
-      fill_in "Password", with: "password"
+      fill_in "Email",     with: "user@example.com"
+      fill_in "Password",  with: "password"
+      fill_in "Team slug", with: user.teams.first.slug
       click_button 'Sign in'
 
       expect(page).to have_selector('#title_bar', text: 'New Project')

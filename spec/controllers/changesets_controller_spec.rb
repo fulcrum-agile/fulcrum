@@ -24,6 +24,7 @@ describe ChangesetsController do
       @changeset2 = story.changesets.create!
 
       sign_in user
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "#index" do

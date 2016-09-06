@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe "Confirmations" do
+  let(:team) { create(:team) }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -14,13 +15,10 @@ describe "Confirmations" do
     fill_in 'Initials', with: 'TU'
     fill_in 'Username', with: 'testuser'
     fill_in 'Email', with: 'test@example.com'
+    fill_in 'Team slug', with: team.slug
     click_button 'Sign up'
 
     expect(page).to have_content('A confirmation was sent to your e-mail')
-
-    # FIXME at this point the workflow still needs a way to associate the user with a team
-    # adding it manually just to make this part of the spec pass
-    User.last.teams << create(:team)
 
     # The user will be sent a confirmation email.  Bypass that and just pull
     # their confirmation token from the database.
@@ -48,11 +46,12 @@ describe "Confirmations" do
   end
 
   it "sends new confirmation token" do
-    user = create(:unconfirmed_user, email: 'test@example.com', teams: [create(:team)])
+    user = create(:unconfirmed_user, email: 'test@example.com', teams: [team])
     visit '/'
     click_link "Didn't receive confirmation instructions?"
 
     fill_in 'Email', with: user.email
+    fill_in 'Team slug', with: user.teams.first.slug
     click_button 'Resend confirmation instructions'
 
     expect(page).to have_content('You will receive an email with instructions about how to confirm your account in a few minutes')

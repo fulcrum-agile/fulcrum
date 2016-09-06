@@ -15,6 +15,10 @@
           <div class="col-sm-8"><%= f.password_field :password, autocomplete: "off" %></div>
         </div>
 
+        <div class="field-wrapper">
+          <%= f.label :team_slug, class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8"><%= f.text_field :team_slug %></div>
+        </div>
 
         <% if devise_mapping.rememberable? -%>
           <div class="checkbox"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>

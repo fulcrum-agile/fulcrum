@@ -27,6 +27,11 @@
           <div class="col-sm-8"><%= f.email_field :email %></div>
         </div>
 
+        <div class="field-wrapper">
+          <%= f.label :team_slug, class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8"><%= f.text_field :team_slug %></div>
+        </div>
+
         <div class="actions clearfix">
           <%= f.submit t('sign up'), class: 'btn btn-primary pull-right' %>
         </div>

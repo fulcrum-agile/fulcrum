@@ -12,7 +12,12 @@
           <div class="field"><%= f.email_field :email, autofocus: true %></div>
         </div>
 
-        <div class=""><%= f.submit "Send me reset password instructions" %></div>
+        <div class="field-wrapper">
+          <%= f.label :team_slug %>
+          <div class="field"><%= f.text_field :team_slug %></div>
+        </div>
+
+        <div class="actions"><%= f.submit "Send me reset password instructions", class: 'btn btn-primary pull-right' %></div>
       <% end %>
     </div>
   </div>
