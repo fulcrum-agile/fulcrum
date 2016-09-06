@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'locales' => 'application#locales'
   get 'projects/archived' => 'projects#archived'
 
+  get 't/:id' => 'teams#switch', as: :teams_switch
+
   resources :projects do
     member do
       get :import

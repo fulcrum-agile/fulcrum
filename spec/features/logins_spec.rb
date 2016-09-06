@@ -34,7 +34,7 @@ describe "Logins" do
 
   describe "successful login" do
 
-    before { user }
+    let(:team) { user.teams.first }
 
     it "logs in the user", js: true do
       visit root_path
@@ -42,12 +42,23 @@ describe "Logins" do
 
       fill_in "Email",     with: "user@example.com"
       fill_in "Password",  with: "password"
-      fill_in "Team slug", with: user.teams.first.slug
+      fill_in "Team slug", with: team.slug
       click_button 'Sign in'
 
       expect(page).to have_selector('#title_bar', text: 'New Project')
       find('.menu-toggle').trigger 'click'
       expect(page).to have_selector('.sidebar-nav li:nth-child(5)', text: 'Test User')
+    end
+
+    it "switches team through URL and doesn't have to fill in the team slug", js: true do
+      visit teams_switch_path(team.slug)
+      expect(page).to have_selector('#user_team_slug'), text: team.slug
+
+      fill_in "Email",     with: "user@example.com"
+      fill_in "Password",  with: "password"
+      click_button 'Sign in'
+
+      expect(page).to have_selector('#title_bar', text: 'New Project')
     end
 
   end
