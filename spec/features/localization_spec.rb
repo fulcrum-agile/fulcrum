@@ -6,6 +6,10 @@ describe "localization" do
     sign_in user
   end
 
+  after do
+    I18n.locale = :en
+  end
+
   let(:user) {
     create :user, :with_team_and_is_admin,
                   email: 'user@example.com',
