@@ -228,7 +228,8 @@ Fulcrum.Story = Backbone.Model.extend({
 
   iterationNumber: function() {
     if (this.get('state') === "accepted") {
-      return this.collection.project.getIterationNumberForDate(new Date(this.get("accepted_at")));
+      var date_part = this.get("accepted_at").split(" ")[0];
+      return this.collection.project.getIterationNumberForDate(new Date(date_part));
     }
   },
 
