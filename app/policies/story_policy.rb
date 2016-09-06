@@ -4,7 +4,7 @@ class StoryPolicy < ApplicationPolicy
   end
 
   def show?
-    is_admin? || is_project_member? && context.current_project.stories.find_by_id(record.id)
+    is_admin? || is_project_member? && current_project.stories.find_by_id(record.id)
   end
 
   def create?
@@ -30,10 +30,10 @@ class StoryPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if is_admin?
-        context.current_project.stories
+        current_project.stories
       else
         if is_project_member?
-          context.current_project.stories
+          current_project.stories
         else
           Story.none
         end

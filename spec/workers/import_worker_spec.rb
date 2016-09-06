@@ -19,6 +19,7 @@ describe ImportWorker do
         @cache
       end
     end
+    I18n.locale = :en
   end
 
   context 'valid csv' do
