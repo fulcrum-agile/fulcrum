@@ -29,7 +29,12 @@
 
         <div class="field-wrapper">
           <%= f.label :team_slug, class: 'col-sm-4 control-label' %>
-          <div class="col-sm-8"><%= f.text_field :team_slug %></div>
+          <div class="col-sm-8"><%= f.text_field :team_slug, readonly: resource.team_slug.present? %></div>
+        </div>
+
+        <div class="field-wrapper">
+          <%= f.label :captcha, class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8"><%= recaptcha_tags %></div>
         </div>
 
         <div class="actions clearfix">

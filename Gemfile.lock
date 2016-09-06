@@ -249,6 +249,8 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    recaptcha (3.3.0)
+      json
     redis (3.3.0)
     ref (2.0.0)
     responders (1.1.2)
@@ -407,6 +409,7 @@ DEPENDENCIES
   rails-assets-underscore!
   rails-i18n
   rails_12factor
+  recaptcha
   rspec-activemodel-mocks
   rspec-its
   rspec-rails
