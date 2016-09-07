@@ -228,8 +228,17 @@ Fulcrum.Story = Backbone.Model.extend({
 
   iterationNumber: function() {
     if (this.get('state') === "accepted") {
-      return this.collection.project.getIterationNumberForDate(new Date(this.get("accepted_at")));
+      return this.collection.project.getIterationNumberForDate(this.acceptedAtBeginningOfDay());
     }
+  },
+
+  acceptedAtBeginningOfDay: function() {
+    var accepted_at = new Date(this.get("accepted_at"));
+    accepted_at.setHours(0);
+    accepted_at.setMinutes(0);
+    accepted_at.setSeconds(0);
+    accepted_at.setMilliseconds(0);
+    return accepted_at;
   },
 
   // If the story state is 'accepted', and the 'accepted_at' attribute is not
