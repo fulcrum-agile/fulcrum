@@ -185,6 +185,8 @@ pt-BR:
       velocity_per_member: "Velocidade por Membro"
     project properties: "Propriedades do Projeto"
     archived projects:  "Projetos Arquivados"
+    unarchive: "Desarquivar"
+    project was successfully unarchived: "Project foi desarquivado com sucesso"
 
     project was successfully created: "Projeto criado com sucesso."
     project was successfully updated: "Projeto atualizado com sucesso."

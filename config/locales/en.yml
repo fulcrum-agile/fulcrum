@@ -183,6 +183,8 @@ en:
       velocity_per_member: "Velocity per Member"
     project properties: "Project Properties"
     archived projects:  "Archived Projects"
+    unarchive: "Unarchive"
+    project was successfully unarchived: "Project was successfully reinstated"
 
     project was successfully created: "Project was successfully created."
     project was successfully updated: "Project was successfully updated."

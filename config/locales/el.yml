@@ -382,6 +382,8 @@ el:
       velocity_per_member: "Ταχύτητα ανά κράτος"
     project properties: "Ρυθμίσεις πρότζεκτ"
     archived projects:  "Αρχείο Έργων"
+    unarchive: "απολύω"
+    project was successfully unarchived: "Έργο αποκαταστάθηκε με επιτυχία"
 
     project was successfully created: "Το πρότζεκτ δημιουργήθηκε με επιτυχία."
     project was successfully updated: "Το πρότζεκτ ανανεώθηκε με επιτυχία."

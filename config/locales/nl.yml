@@ -166,6 +166,8 @@ nl:
       velocity_per_member: "Velocity per lidstaat"
     project properties: "Project Eigenschappen"
     archived projects:  "Gearchiveerd Projecten"
+    unarchive: "losbinden"
+    project was successfully unarchived: "Project is met succes hersteld"
 
     project was successfully created: "Project is met succes aangemaakt."
     project was successfully updated: "Project is met succes gewijzigd"

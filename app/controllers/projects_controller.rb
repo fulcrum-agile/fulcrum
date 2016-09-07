@@ -140,6 +140,21 @@ class ProjectsController < ApplicationController
     authorize @projects
   end
 
+  def unarchive
+    @project = policy_scope(Project).archived.friendly.find(params[:id]) unless @project
+    authorize @project
+
+    respond_to do |format|
+      if @project = ProjectOperations::Update.(@project, { archived: "0" }, current_user)
+        format.html { redirect_to(@project, notice: t('projects.project was successfully unarchived')) }
+        format.xml  { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.xml  { render xml: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def reports
     since = params[:since].nil? ? nil : params[:since].to_i.months.ago
     @service = IterationService.new(@project, since)

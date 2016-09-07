@@ -28,7 +28,7 @@
           <li><%= link_to t('projects.archived projects'), projects_archived_path %></li>
         <% end %>
         <li role="separator" class="divider"></li>
-        <% ProjectPolicy::Scope.new(pundit_user, Project).resolve.order(:name).each do |project| -%>
+        <% ProjectPolicy::Scope.new(pundit_user, Project).resolve.not_archived.order(:name).each do |project| -%>
           <li><%= link_to project.name, project %></li>
         <% end %>
       </ul>

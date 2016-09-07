@@ -169,6 +169,9 @@ de:
       velocity_per_member: "Geschwindigkeit pro Mitglied"
     project properties: "Projekt-Eigenschaften"
     archived projects:  "Archivierten Projekte"
+    unarchive: "losbinden"
+    project was successfully unarchived: "Das Projekt wurde erfolgreich wieder"
+
 
     project was successfully created: "Projekt wurde erfolgreich erstellt."
     project was successfully updated: "Projekt wurde erfolgreich aktualisiert."

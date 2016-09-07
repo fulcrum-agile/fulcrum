@@ -19,6 +19,10 @@ class ProjectPolicy < ApplicationPolicy
     import?
   end
 
+  def unarchive?
+    update?
+  end
+
   class Scope < Scope
     def resolve
       if is_admin?

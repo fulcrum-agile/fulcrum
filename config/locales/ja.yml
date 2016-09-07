@@ -156,6 +156,8 @@ ja:
       velocity_per_member: "メンバーごとのベロシティ"
     project properties: "プロジェクト詳細"
     archived projects:  "アーカイブされたプロジェクト"
+    unarchive: "解きます"
+    project was successfully unarchived: "プロジェクトが正常に回復しました"
 
     project was successfully created: "プロジェクトの作成に成功しました。"
     project was successfully updated: "プロジェクトの更新に成功しました。"
