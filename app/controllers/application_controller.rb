@@ -28,7 +28,9 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    if !current_user.nil? && !current_user.locale.nil? && !current_user.locale.empty?
+    if session[:locale]
+      I18n.locale = session[:locale]
+    elsif !current_user.nil? && !current_user.locale.nil? && !current_user.locale.empty?
       I18n.locale = current_user.locale.to_sym
     else
       I18n.locale = :en

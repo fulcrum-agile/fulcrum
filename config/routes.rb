@@ -1,10 +1,11 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+
   mount Attachinary::Engine => "/attachinary"
 
   get 'story/new'
-  get 'locales' => 'application#locales'
   get 'projects/archived' => 'projects#archived'
+  put 'locales' => 'locales#update', as: :locales
 
   get 't/:id' => 'teams#switch', as: :teams_switch
   resources :teams

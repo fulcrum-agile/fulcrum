@@ -48,4 +48,10 @@
     <li><%= link_to t('sign up'), new_user_registration_path %></li>
     <% end -%>
   <% end %>
+
+  <li>
+    <%= form_tag locales_path, method: :put do  %>
+      <%= select_tag 'locale', options_for_select(LocalesController::LOCALES, I18n.locale), onchange: "$(this).parent('form').submit();" %>
+    <% end %>
+  </li>
 </ul>
