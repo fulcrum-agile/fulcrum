@@ -3,8 +3,6 @@ class TeamsController < ApplicationController
   skip_after_filter :verify_authorized, only: [:switch, :new, :create]
   skip_after_filter :verify_policy_scoped, only: [:switch, :new]
 
-  before_action :filter_documents
-
   def switch
     if current_user
       team = current_user.teams.friendly.find(params[:id])
@@ -98,17 +96,4 @@ class TeamsController < ApplicationController
                                 logo: [ :id, :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ])
   end
 
-  def filter_documents
-    # for some reason, on drag/drop update the hash is coming as:
-    #   { documents: [ { file: {id: 1 ...} }, { file: {id: 2 ...} } ]
-    # instead of
-    #   { documents: [ {id: 1 ...}, {id: 2 ...} ]
-    # so this fixes it (avoid story to lose the attachment association
-    if params.dig(:team, :logo)
-      params[:team][:logo] = JSON.parse(params[:team][:logo]) if params[:team][:logo].is_a?(String)
-      if params[:team][:logo].first.has_key?(:file)
-        params[:team][:logo] = params[:team][:logo].map{ |hash| hash.values.first }
-      end
-    end
-  end
 end
