@@ -34,6 +34,7 @@ $(function() {
   $('.tag-tooltip').tooltip();
   sidebarAction();
   executeAttachinary();
+  changeLocaleEvent();
 });
 
 function executeAttachinary() {
@@ -63,4 +64,11 @@ function hideSidebar() {
   $('.click-overlay').off('click');
   $("#sidebar-wrapper").hide();
   $('.click-overlay').hide();
+}
+
+function changeLocaleEvent() {
+  $('.locale-change').on('change', function(e) {
+    e.preventDefault();
+    $(this).parent('form').submit();
+  });
 }
