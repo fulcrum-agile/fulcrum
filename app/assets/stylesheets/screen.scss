@@ -538,6 +538,16 @@ div.note {
   }
 }
 
+
+ul.secondary-actions {
+  list-style: none;
+
+  li {
+    margin-top: 10px;
+    font-size: 1.3em;
+  }
+}
+
 div.loading_screen {
   position: absolute;
   top:-10px;

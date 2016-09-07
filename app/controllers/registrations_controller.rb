@@ -15,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
         if team.disable_registration
           render_404 and return
         else
-          if resource && !team.allowed_domain?(resource.email)
+          if resource.try(:email) && !team.allowed_domain?(resource.email)
             render_404 and return
           end
         end

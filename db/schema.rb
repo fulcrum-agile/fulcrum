@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(version: 20160905190120) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "pg_trgm"
 
   create_table "activities", force: true do |t|
     t.integer  "project_id",             null: false
@@ -156,13 +156,13 @@ ActiveRecord::Schema.define(version: 20160905190120) do
   add_index "tasks", ["story_id"], name: "index_tasks_on_story_id", using: :btree
 
   create_table "teams", force: true do |t|
-    t.string   "name",                                         null: false
+    t.string   "name",                                          null: false
     t.string   "slug"
     t.string   "logo"
     t.datetime "archived_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "disable_registration",          default: true, null: false
+    t.boolean  "disable_registration",          default: false, null: false
     t.string   "registration_domain_whitelist"
     t.string   "registration_domain_blacklist"
   end

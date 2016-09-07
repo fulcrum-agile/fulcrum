@@ -5,6 +5,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-6">
     <div class="form-wrapper add-user">
+      <% resource.team_slug = session[:team_slug] if session[:team_slug] %>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= devise_error_messages! %>
 
