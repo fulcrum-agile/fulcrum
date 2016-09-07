@@ -43,6 +43,7 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if verify_recaptcha && ( @team = TeamOperations::Create.(@team, current_user) )
         format.html do
+          session[:team_slug] = @team.slug
           flash[:notice] = t('teams.team was successfully created')
           redirect_to(root_path)
         end

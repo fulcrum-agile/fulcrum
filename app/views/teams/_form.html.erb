@@ -38,4 +38,6 @@
   </div>
 <% end %>
 
-<%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
+<% unless @team.new_record? %>
+  <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
+<% end %>

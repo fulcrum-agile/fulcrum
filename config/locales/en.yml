@@ -227,6 +227,9 @@ en:
     switch: 'Change to another Team'
     team was successfully created: 'Team was successfully created'
     team was successfully updated: 'Team was successfully updated'
+    new_instruction: |
+      <p>If you don't have a registered account, you can sign up first.</p>
+      <p>The first user to sign in to this new team will become the administrator.</p>
 
   admin:
     users:

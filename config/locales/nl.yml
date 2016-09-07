@@ -210,6 +210,9 @@ nl:
     switch: 'Ga verder met een ander team'
     team was successfully created: 'Team werd met succes aangemaakt'
     team was successfully updated: 'Team is bijgewerkt'
+    new_instruction: |
+      <p>Als u niet beschikt over een geregistreerd account hebt, kunt u zich aanmelden voor het eerst.</p>
+      <p>De eerste gebruiker aan te melden bij deze nieuwe team zal de beheerder te worden.</p>
 
   admin:
     users:

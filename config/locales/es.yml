@@ -218,6 +218,9 @@ es:
     switch: 'Cambiar a otro equipo'
     team was successfully created: 'El equipo ha sido creado con éxito'
     team was successfully updated: 'El equipo ha sido actualizado correctamente'
+    new_instruction: |
+      <p>Si usted no tiene una cuenta registrada, usted puede inscribirse en primer lugar.</p>
+      <p>El primer usuario que acceda a este nuevo equipo será el administrador.</p>
 
   admin:
     users:

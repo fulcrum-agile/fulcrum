@@ -213,6 +213,9 @@ de:
     switch: 'zu einem anderen Team wechseln'
     team was successfully created: 'Team wurde erfolgreich erstellt'
     team was successfully updated: 'Team wurde erfolgreich aktualisiert'
+    new_instruction: |
+      <p>Wenn Sie noch kein Konto registriert haben, können Sie sich zuerst anmelden.</p>
+      <p>Der erste Benutzer zu diesem neuen Team anmelden wird der Administrator werden.</p>
 
   admin:
     users:
