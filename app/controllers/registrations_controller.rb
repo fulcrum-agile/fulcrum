@@ -44,6 +44,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def set_locale
+      return unless resource
       if session[:locale]
         resource.locale = session[:locale]
       else

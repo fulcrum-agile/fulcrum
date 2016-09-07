@@ -34,7 +34,7 @@ describe "Confirmations" do
     # User should at this point be prompted to set a password
     fill_in 'New password', with: 'password'
     fill_in 'Confirm new password', with: 'password'
-    click_on 'Change my password'
+    click_on 'Confirm new password'
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content('Your password was changed successfully')

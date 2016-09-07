@@ -57,6 +57,8 @@ describe ProjectsController do
         specify do
           post :create, project: project_params
           expect(assigns[:project].name).to eq(project_params["name"])
+          expect(assigns[:project].users).to include(user)
+          expect(assigns[:project].teams).to include(user.teams.first)
         end
 
         context "when save succeeds" do

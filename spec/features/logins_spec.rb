@@ -26,7 +26,7 @@ describe "Logins" do
 
     it "removes the sign up link" do
       visit root_path
-      expect(page).to have_selector('h1', text: 'Sign in')
+      expect(page).to have_selector('h1', text: 'Log In')
 
       expect(page).not_to have_selector('a', text: 'Sign up')
     end
@@ -38,7 +38,7 @@ describe "Logins" do
 
     it "logs in the user", js: true do
       visit root_path
-      expect(page).to have_selector('h1', text: 'Sign in')
+      expect(page).to have_selector('h1', text: 'Log In')
 
       fill_in "Email",     with: "user@example.com"
       fill_in "Password",  with: "password"
@@ -89,7 +89,7 @@ describe "Logins" do
       find('.menu-toggle').trigger 'click'
       click_on 'Log out'
 
-      expect(page).to have_selector('h1', text: 'Sign in')
+      expect(page).to have_selector('h1', text: 'Log In')
     end
   end
 

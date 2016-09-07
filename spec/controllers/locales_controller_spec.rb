@@ -1,11 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe LocalesController, type: :controller do
+describe LocalesController, type: :controller do
 
-  describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
+  describe "PUT #update" do
+    it "sets the locale session if valdi" do
+      put :update, locale: 'ja'
+      expect(session[:locale]).to eq('ja')
+      expect(response).to redirect_to root_path
+    end
+
+    it "does nothing if invalid locale" do
+      put :update, locale: 'xx'
+      expect(session[:locale]).to be_nil
+      expect(response).to redirect_to root_path
     end
   end
 

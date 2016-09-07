@@ -23,8 +23,10 @@
         <span class="caret"></span>
       </a>
       <% if current_team %>
-      <ul class="dropdown-menu">
-        <li><%= link_to t('projects.archived projects'), projects_archived_path %></li>
+        <ul class="dropdown-menu">
+        <% if current_team.is_admin?(current_user) %>
+          <li><%= link_to t('projects.archived projects'), projects_archived_path %></li>
+        <% end %>
         <li role="separator" class="divider"></li>
         <% ProjectPolicy::Scope.new(pundit_user, Project).resolve.order(:name).each do |project| -%>
           <li><%= link_to project.name, project %></li>

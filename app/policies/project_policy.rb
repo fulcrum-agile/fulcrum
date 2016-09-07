@@ -22,7 +22,7 @@ class ProjectPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if is_admin?
-        current_team.projects.not_archived
+        current_team.projects
       else
         current_user.projects.not_archived.where(id: current_team.projects.pluck(:id))
       end

@@ -78,6 +78,7 @@ describe UsersController do
             expect(assigns[:user].name).to eq(user_params["name"])
             expect(assigns[:user].initials).to eq(user_params["initials"])
             expect(assigns[:user].was_created).to be true
+            expect(assigns[:user].teams).to include(user.teams.first)
             expect(response).to redirect_to(project_users_url(project))
           end
 

@@ -45,7 +45,7 @@ describe StoriesController do
       let(:story) { create(:story, project: project, requested_by: user )}
 
       let(:story_params) do
-        { title: "Foo", documents: [ {"file"=> attachments.first}, {"file"=> attachments.last} ]}
+        { title: "Foo", documents: [ attachments.first, attachments.last ]}
       end
 
       before do
