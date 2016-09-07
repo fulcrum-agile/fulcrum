@@ -107,6 +107,9 @@ pt-BR:
       story:
         one: 'História'
         other: 'Histórias'
+      team:
+        one: 'Equipe'
+        other: 'Equipes'
 
     attributes:
       note:
@@ -146,6 +149,13 @@ pt-BR:
         is_admin:             'É Administrador?'
         current_password:     'Senha atual'
         time_zone:            'fuso horário'
+      team:
+        name:                 'Nome da Equipe'
+        slug:                 'Slug'
+        logo:                 'Logotipo'
+        disable_registration: 'Apenas administradores podem adicionar novos usuários a esta equipe'
+        registration_domain_whitelist: 'Se o registro estiver habilitado, apenas e-mails desses domínios podem se registrar (separados por vírgula)'
+        registration_domain_blacklist: 'Se o registro estiver habilitado, e-mails desses domínios nunca podem se registrar (separados por vírgula)'
 
     errors:
       models:
@@ -212,6 +222,11 @@ pt-BR:
     is already a member of this project: "%{email} já é um membro deste projeto"
     was sent an invite to join this project: "%{email} foi enviado um convite para participar deste projeto"
     was added to this project: "%{email} foi adicionada a este projecto"
+
+  teams:
+    create: 'Criar nova Equipe'
+    update: 'Atualizar Equipe'
+    switch: 'Mudar para outra Equipe'
 
   admin:
     users:
