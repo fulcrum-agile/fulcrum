@@ -1,4 +1,4 @@
 --color
 --require spec_helper
 --format documentation
---seed 21278
+--seed 40320
