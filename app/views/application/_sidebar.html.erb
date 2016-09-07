@@ -1,6 +1,10 @@
 <ul class="sidebar-nav">
   <li class="sidebar-brand">
-    <%= image_tag 'logo.png', width: 32, height: 32 %>
+    <% if session[:current_team_slug] && current_team.try(:logo) %>
+      <%= cl_image_tag(current_team.logo.path, { size: '32x32', crop: :fill, radius: 5, border: '1px_solid_black' }) %>
+    <% else %>
+      <%= image_tag 'logo.png', width: 32, height: 32 %>
+    <% end %>
     <a href="#menu-toggle" class="menu-toggle menu-toggle-opened pull-right">
       <i class="mi md-light md-36">close</i>
     </a>
