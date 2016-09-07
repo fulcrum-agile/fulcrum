@@ -1,5 +1,5 @@
 <% content_for :title_bar do %>
-  <h1>Resend unlock instructions</h1>
+  <h1><%= t('.resend_unlock_instructions') %></h1>
 <% end %>
 <div class="row">
   <div class="col-sm-12 col-md-6">
@@ -18,7 +18,7 @@
           <div class="field"><%= f.text_field :team_slug, readonly: resource.team_slug.present? %></div>
         </div>
 
-        <div class="actions"><%= f.submit "Resend unlock instructions", class: 'btn btn-primary pull-right' %></div>
+        <div class="actions"><%= f.submit t('.resend_unlock_instructions'), class: 'btn btn-primary pull-right' %></div>
       <% end %>
     </div>
   </div>
