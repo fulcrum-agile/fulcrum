@@ -216,6 +216,8 @@ es:
     create: 'Crear nuevo Equipo'
     update: 'Actualización de equipo'
     switch: 'Cambiar a otro equipo'
+    team was successfully created: 'El equipo ha sido creado con éxito'
+    team was successfully updated: 'El equipo ha sido actualizado correctamente'
 
   admin:
     users:

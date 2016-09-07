@@ -227,6 +227,8 @@ pt-BR:
     create: 'Criar nova Equipe'
     update: 'Atualizar Equipe'
     switch: 'Mudar para outra Equipe'
+    team was successfully created: 'Equipe foi criado com sucesso'
+    team was successfully updated: 'Equipe foi atualizado com sucesso'
 
   admin:
     users:

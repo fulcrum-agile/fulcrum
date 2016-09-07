@@ -208,6 +208,8 @@ nl:
     create: 'Maak een nieuwe Team'
     update: 'Werk de Team'
     switch: 'Ga verder met een ander team'
+    team was successfully created: 'Team werd met succes aangemaakt'
+    team was successfully updated: 'Team is bijgewerkt'
 
   admin:
     users:

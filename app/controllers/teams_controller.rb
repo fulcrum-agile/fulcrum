@@ -38,7 +38,10 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if verify_recaptcha && ( @team = TeamOperations::Create.(@team, current_user) )
-        format.html { redirect_to(root_path, notice: t('teams.team was successfully created')) }
+        format.html do
+          flash[:notice] = t('teams.team was successfully created')
+          redirect_to(root_path)
+        end
         format.xml  { render xml: @team, status: :created, location: @team }
       else
         format.html { render action: "new" }
@@ -55,7 +58,10 @@ class TeamsController < ApplicationController
 
     respond_to do |format|
       if @team = TeamOperations::Update.(@team, allowed_params, current_user)
-        format.html { render action: "edit", notice: t('teams.team was successfully updated') }
+        format.html do
+          flash[:notice] = t('teams.team was successfully updated')
+          render action: "edit"
+        end
         format.xml  { head :ok }
       else
         format.html { render action: "edit" }

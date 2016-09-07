@@ -225,6 +225,8 @@ en:
     create: 'Create new Team'
     update: 'Update Team'
     switch: 'Change to another Team'
+    team was successfully created: 'Team was successfully created'
+    team was successfully updated: 'Team was successfully updated'
 
   admin:
     users:

@@ -211,6 +211,8 @@ de:
     create: 'Neues Team'
     update: 'Update Team'
     switch: 'zu einem anderen Team wechseln'
+    team was successfully created: 'Team wurde erfolgreich erstellt'
+    team was successfully updated: 'Team wurde erfolgreich aktualisiert'
 
   admin:
     users:

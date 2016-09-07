@@ -424,6 +424,8 @@ el:
     create: 'Δημιουργία νέας ομάδας'
     update: 'Ομάδα Ενημέρωση'
     switch: 'CΑλλαγή σε άλλη ομάδα'
+    team was successfully created: 'ομάδα δημιουργήθηκε με επιτυχία'
+    team was successfully updated: 'ομάδα ενημερώθηκε με επιτυχία'
 
   admin:
     users:

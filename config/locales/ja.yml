@@ -198,6 +198,8 @@ ja:
     create: '新しいチームを作成します'
     update: 'チームを更新'
     switch: '他のチームへの変更'
+    team was successfully created: 'チームが正常に作成されました'
+    team was successfully updated: 'チームが正常に更新されました'
 
   admin:
     users:
