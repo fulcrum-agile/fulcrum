@@ -63,6 +63,7 @@ Some of the improvements we added since the end of 2015:
 - [ ] Making clicking labels a searchable action
 - [ ] Adding proper Epics grouping (instead of being simple label grouping)
 - [ ] Adding an Epics column and report for completion forecasting
+- [ ] Adding Team super structure so multiple teams can use the same app separately and share projects and users between them.
 
 Goals
 -----
@@ -128,9 +129,16 @@ Heroku setup
 
 You will need a Heroku Postgresql plan, and you will also need:
 
+- Postgresql (ex. Heroku Postgresql)
 - Redis (ex. Heroku Redis)
 - Memcached (ex. Memcachier)
+- Sendgrid (for email notifications)
 - Cloudinary (for direct client-side uploads, we don't want Carrierwave)
+- Google Recaptcha keys (create for free [here](https://www.google.com/recaptcha/admin))
+
+You may want to skip recaptcha in development, for that you can manually add this to the environment:
+
+    Recaptcha.configuration.skip_verify_env << 'development'
 
 To deploy it to Heroku, make sure you have a local copy of the project; refer
 to the previous section for instructions. Then:
@@ -138,7 +146,7 @@ to the previous section for instructions. Then:
     $ gem install heroku
 
     # Define secret tokens
-    $ heroku config:set SECRET_TOKEN=`rake secret` SECRET_KEY_BASE=`rake secret`
+    $ heroku config:set SECRET_TOKEN=`rake secret` SECRET_KEY_BASE=`rake secret` DEVISE_SECRET_KEY=`rake secret`
 
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar-14
@@ -163,11 +171,23 @@ to the previous section for instructions. Then:
     # Font Asset - domain of your app
     $ heroku config:set FONT_ASSET=http://APPNAME.herokuapp.com
 
+    # Google Recaptcha keys
+    $ heroku config:set RECAPTCHA_PUBLIC_KEY=xyz RECAPTCHA_PRIVATE_KEY=xyz
+
+    # Add postgresql
+    $ heroku addons:create heroku-postgresql:hobby-dev
+
+    # Add Redis for Sidekiq
+    $ heroku addons:create heroku-redis:hobby-dev
+
     # Add memcache to speed things up (optional)
     $ heroku addons:add memcachier:dev
 
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
+
+    # Add Cloudinary
+    $ heroku addons:create cloudinary:starter
 
     # Deploy the first version
     $ git push heroku master
