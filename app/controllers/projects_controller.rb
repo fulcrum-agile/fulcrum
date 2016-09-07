@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
     @project = policy_scope(Project).new(allowed_params)
     authorize @project
     @project.users << current_user
+    @project.teams << current_team
 
     respond_to do |format|
       if ProjectOperations::Create.(@project, current_user)

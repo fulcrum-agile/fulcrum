@@ -20,7 +20,7 @@
 
   <h2><%= t('projects.available_users') %></h2>
   <ul class="list-group members-list">
-    <% User.where.not(id: @project.users).order('name').each do |user| %>
+    <% current_team.users.where.not(id: @project.users).order('name').each do |user| %>
       <%= content_tag :li, id: dom_id(user), class: 'list-group-item clearfix' do %>
         <%= content_tag :div, user, class: 'member-name' %>
 

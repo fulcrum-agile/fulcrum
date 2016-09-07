@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
+  before_filter :set_locale, only: [:create]
   before_filter :check_registration_enabled, only: [:new, :create]
   before_filter :devise_params
 
@@ -39,6 +40,14 @@ class RegistrationsController < Devise::RegistrationsController
       unless verify_recaptcha
         self.resource = resource_class.new sign_up_params
         respond_with_navigational(resource) { render :new }
+      end
+    end
+
+    def set_locale
+      if session[:locale]
+        resource.locale = session[:locale]
+      else
+        resource.locale = I18n.locale
       end
     end
 end

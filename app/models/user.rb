@@ -16,7 +16,11 @@ class User < ActiveRecord::Base
   has_many :teams, through: :enrollments
 
   has_many :memberships, dependent: :destroy
-  has_many :projects, -> { uniq }, through: :memberships
+  has_many :projects, -> { uniq }, through: :memberships do
+    def not_archived
+      where(archived_at: nil)
+    end
+  end
 
   before_validation :set_random_password_if_blank
 
