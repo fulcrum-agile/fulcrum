@@ -37,8 +37,7 @@ class TeamsController < ApplicationController
     @team = Team.new(allowed_params)
 
     respond_to do |format|
-      if verify_recaptcha && ( @team = TeamOperations::Create.(@team, nil) )
-        @team.users << current_user if current_user
+      if verify_recaptcha && ( @team = TeamOperations::Create.(@team, current_user) )
         format.html { redirect_to(root_path, notice: t('teams.team was successfully created')) }
         format.xml  { render xml: @team, status: :created, location: @team }
       else
@@ -55,7 +54,7 @@ class TeamsController < ApplicationController
     authorize @team
 
     respond_to do |format|
-      if @team = TeamOperations::Update.(@team, allowed_params, nil)
+      if @team = TeamOperations::Update.(@team, allowed_params, current_user)
         format.html { render action: "edit", notice: t('teams.team was successfully updated') }
         format.xml  { head :ok }
       else
@@ -71,7 +70,7 @@ class TeamsController < ApplicationController
     @team = current_team
     authorize @team
 
-    TeamOperations::Destroy.(@team, nil)
+    TeamOperations::Destroy.(@team, current_user)
     session[:current_team_slug] = nil
 
     respond_to do |format|

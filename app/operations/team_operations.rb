@@ -4,6 +4,12 @@ module TeamOperations
     def create_activity
       # bypass (no current_user)
     end
+
+    protected
+
+    def after_save
+      model.users << current_user if current_user
+    end
   end
 
   class Update < BaseOperations::Update
