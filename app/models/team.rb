@@ -27,11 +27,11 @@ class Team < ActiveRecord::Base
     blacklist = ( registration_domain_blacklist || "" ).split(/[,;\|\n]/).map(&:strip)
     has_whitelist = true
     unless whitelist.empty?
-      has_whitelist = whitelist.map { |domain| email.include?(domain) }.reduce(false) { |a, b| a || b }
+      has_whitelist = whitelist.any? { |domain| email.include?(domain) }
     end
     has_blacklist = false
     unless blacklist.empty?
-      has_blacklist = blacklist.map { |domain| email.include?(domain) }.reduce(false) { |a, b| a || b }
+      has_blacklist = blacklist.any? { |domain| email.include?(domain) }
     end
     has_whitelist && !has_blacklist
   end

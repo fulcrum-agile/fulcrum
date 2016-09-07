@@ -94,8 +94,6 @@ class User < ActiveRecord::Base
     if user && team && team.enrollments.count.zero?
       team.enrollments.create(user: user, is_admin: true)
       user
-    else
-      nil
     end
   end
 
