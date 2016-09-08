@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :set_locale, only: [:create]
   before_filter :check_registration_enabled, only: [:new, :create]
   before_filter :devise_params
+  after_filter :reset_locale, only: [:update]
 
   protected
     def after_inactive_sign_up_path_for(resource)
@@ -50,5 +51,9 @@ class RegistrationsController < Devise::RegistrationsController
       else
         resource.locale = I18n.locale
       end
+    end
+
+    def reset_locale
+      session[:locale] = nil
     end
 end
