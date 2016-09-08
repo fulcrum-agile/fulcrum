@@ -87,6 +87,33 @@ describe Admin::UsersController do
 
       end
 
+      describe "#enrollment" do
+
+        specify do
+          patch :enrollment, id: user.id, is_admin: true
+          expect(assigns[:user]).to eq(user)
+        end
+
+        context "when update succeeds" do
+
+          specify do
+            patch :enrollment, id: user.id, is_admin: true
+            expect(response).to redirect_to(admin_users_path)
+          end
+
+        end
+
+        context "when update fails" do
+
+          specify do
+            patch :enrollment, id: user.id, is_admin: true
+            expect(response).to redirect_to(admin_users_path)
+          end
+
+        end
+
+      end
+
       describe "#destroy" do
 
         specify do
@@ -137,6 +164,15 @@ describe Admin::UsersController do
 
           specify do
             put :update, id: user.id, user: {}
+            expect(response.status).to eq(404)
+          end
+
+        end
+
+        describe "#enrollment" do
+
+          specify do
+            patch :enrollment, id: user.id, is_admin: true
             expect(response.status).to eq(404)
           end
 

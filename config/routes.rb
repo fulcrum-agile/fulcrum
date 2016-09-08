@@ -33,7 +33,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        patch :enrollment
+      end
+    end
   end
 
   devise_for :users, controllers: {

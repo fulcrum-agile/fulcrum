@@ -209,6 +209,8 @@ de:
     is already a member of this project: "%{email} ist bereits Mitglied dieses Projekts"
     was sent an invite to join this project: "%{email} gesendet wurde dieses Projekt eine Einladung beitreten"
     was added to this project: "%{email} wurde zu diesem Projekt hinzugefügt"
+    admin_on: Machen Administrator
+    admin_off: So stellen Sie Mitglied
 
   teams:
     create: 'Neues Team'
@@ -225,6 +227,8 @@ de:
       edit user: "Mitglied bearbeiten"
       index:
         are you sure you want to delete this user: "Sind Sie sicher, dass Sie das Mitglied löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+        are you sure you want to remove administration rights from this user: "Sind Sie sicher, dass Sie Administrator-Rechte von diesem Benutzer entfernen?"
+        are you sure you want to give administration rights to this user: "Sind Sie sicher, dass Sie Administrator-Rechte an diesen Benutzer geben möchten?"
 
   registrations:
     edit:

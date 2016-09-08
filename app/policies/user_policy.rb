@@ -15,6 +15,10 @@ class UserPolicy < ApplicationPolicy
     current_user == record
   end
 
+  def enrollment?
+    update?
+  end
+
   class Scope < Scope
     def resolve
       if is_admin?

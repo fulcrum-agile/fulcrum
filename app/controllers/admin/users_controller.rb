@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy, :enrollment]
 
   # GET /admin/users
   def index
@@ -23,6 +23,16 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     redirect_to admin_users_path, notice: 'User was successfully destroyed.'
+  end
+
+  # PATCH /admin/users/1/enrollment
+  def enrollment
+    @enrollment = @user.enrollments.where(team: current_team).first
+    if @enrollment.update_attributes(is_admin: params[:is_admin])
+      redirect_to admin_users_path, notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   private
