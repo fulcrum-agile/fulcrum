@@ -78,4 +78,4 @@ RSpec.configure do |config|
   end
   config.include DisableTransactionalFixtures,  type: :feature
 end
-
+require 'request_helper'

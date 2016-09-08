@@ -15,6 +15,14 @@ test:
   username:
   password:
 
+capybara:
+  adapter: postgresql
+  encoding: unicode
+  database: fulcrum_test
+  pool: 5
+  username:
+  password:
+
 production:
   adapter: postgresql
   encoding: unicode

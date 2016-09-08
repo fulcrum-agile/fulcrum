@@ -35,7 +35,7 @@ describe "Notes" do
 
     end
 
-  	it "deletes a note from a story", js: true do
+    it "deletes a note from a story", js: true do
       create :note, user: user,
                     story: story,
                     note: 'Delete me please'

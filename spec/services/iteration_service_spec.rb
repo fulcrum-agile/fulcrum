@@ -99,7 +99,7 @@ describe IterationService do
   end
 
   context 'complete set of stories in many different iterations' do
-    let(:today) { Time.local(2016, 8, 31, 12, 0, 0) }
+    let(:today) { Time.utc(2016, 8, 31, 12, 0, 0) }
     let(:dummy) { create(:user, username: "dummy", email: "dummy@foo.com", name: "Dummy", initials: "XX")}
     before do
       I18n.locale = :en
@@ -108,17 +108,20 @@ describe IterationService do
       project.start_date = Time.zone.parse("2016-07-01")
       project.users << dummy
       project.save
-      rand = Random.new(666)
       story_types = ['feature', 'feature', 'bug', 'feature'] # 3 times more features than bugs, in average
 
+      # it was previously using a fixed random seed of 666, but for some reason the results were not always deterministic, so fixing the exact random sequences to make sure it always pass, but it's the same as Random.new(666).rand
+      random_numbers_1 = [0, 1, 2, 0, 2, 3, 3, 2, 1, 2, 0, 0, 3, 0, 0, 0, 3, 1, 2, 1, 3, 0, 3, 0, 2, 1, 2, 2, 3, 2, 3, 1, 2, 1, 1, 0, 3, 3, 3, 0, 3, 1, 0, 2, 1, 1, 0, 3, 2, 0, 2, 1, 3, 2, 0, 0, 0, 3, 2, 2, 2, 2, 0, 1, 3, 2, 0, 3, 3, 1, 0, 3, 2, 3, 1]
+      random_numbers_2 = [3, 2, 5, 8, 8, 1, 3, 8, 1, 8, 1, 3, 1, 8, 3, 2, 1, 1, 5, 5, 1, 1, 5, 5, 3, 1, 5, 8, 5, 5, 2, 8, 8, 3, 8, 2, 5, 8, 2, 3, 3, 3, 2, 8, 1, 1, 2, 1, 8, 3, 8, 1, 8, 1, 3]
+
       65.times do |i|
-        story_type = story_types[rand.rand(4)]
-        estimate = story_type == 'bug' ? nil : project.point_values[rand.rand(project.point_values.size)]
+        story_type = story_types[random_numbers_1.shift]
+        estimate = story_type == 'bug' ? nil : random_numbers_2.shift
         project.stories.create!(title: "Story #{i}", story_type: story_type, estimate: estimate, state: 'accepted', accepted_at: project.start_date + i.days, requested_by: dummy)
       end
       10.times do |i|
-        story_type = story_types[rand.rand(4)]
-        estimate = story_type == 'bug' ? nil : project.point_values[rand.rand(project.point_values.size)]
+        story_type = story_types[random_numbers_1.shift]
+        estimate = story_type == 'bug' ? nil : random_numbers_2.shift
         project.stories.create!(title: "Story #{65 + i}", story_type: story_type, estimate: estimate, requested_by: dummy)
       end
     end
