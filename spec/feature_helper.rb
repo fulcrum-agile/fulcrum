@@ -1,4 +1,4 @@
-ENV["RAILS_ENV"] = 'capybara'
+require 'rails_helper'
 
 RSpec.configure do |config|
   config.before(:suite) do

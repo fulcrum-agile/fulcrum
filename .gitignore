@@ -11,7 +11,6 @@ config/deploy.rb
 *.swp
 .env
 .env.test
-.env.capybara
 *.dump
 public/javascripts/*
-public/capybara_test_assets
+public/test_assets/
