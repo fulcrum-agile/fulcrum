@@ -49,6 +49,7 @@ class ApplicationController < ActionController::Base
   def pundit_user
     PunditContext.new(current_team, current_user, { current_project: @project, current_story: @story })
   end
+  helper_method :pundit_user
 
   def current_team
     raise ActiveRecord::RecordNotFound, 'Team not set' unless session[:current_team_slug]
