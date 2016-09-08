@@ -1,4 +1,6 @@
 class Team < ActiveRecord::Base
+  DOMAIN_SEPARATORS_REGEX = /[,;\|\n]/
+
   extend FriendlyId
   friendly_id :name, use: :slugged
 
@@ -13,6 +15,7 @@ class Team < ActiveRecord::Base
   end
 
   scope :not_archived, -> { where(archived_at: nil) }
+  scope :archived, -> { where.not(archived_at: nil) }
 
   validates :name, presence: true, uniqueness: true
 
@@ -23,16 +26,12 @@ class Team < ActiveRecord::Base
   end
 
   def allowed_domain?(email)
-    whitelist = ( registration_domain_whitelist || "" ).split(/[,;\|\n]/).map(&:strip)
-    blacklist = ( registration_domain_blacklist || "" ).split(/[,;\|\n]/).map(&:strip)
+    whitelist = ( registration_domain_whitelist || "" ).split(DOMAIN_SEPARATORS_REGEX).map(&:strip)
+    blacklist = ( registration_domain_blacklist || "" ).split(DOMAIN_SEPARATORS_REGEX).map(&:strip)
     has_whitelist = true
-    unless whitelist.empty?
-      has_whitelist = whitelist.any? { |domain| email.include?(domain) }
-    end
+    has_whitelist = whitelist.any? { |domain| email.include?(domain) } unless whitelist.empty?
     has_blacklist = false
-    unless blacklist.empty?
-      has_blacklist = blacklist.any? { |domain| email.include?(domain) }
-    end
+    has_blacklist = blacklist.any? { |domain| email.include?(domain) } unless blacklist.empty?
     has_whitelist && !has_blacklist
   end
 end

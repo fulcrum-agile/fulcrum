@@ -7,6 +7,8 @@ describe ProjectPolicy do
   let(:policy_scope) { ProjectPolicy::Scope.new(pundit_context, Project).resolve.all }
   subject { ProjectPolicy.new(pundit_context, project) }
 
+  let!(:archived_project) { create :project, teams: [current_team], users: [current_user], archived_at: Time.current }
+
   context "proper user of a project" do
     before do
       project.users << current_user
@@ -21,7 +23,7 @@ describe ProjectPolicy do
       end
 
       it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+        expect(policy_scope).to match_array([project, archived_project])
       end
     end
 
@@ -51,7 +53,7 @@ describe ProjectPolicy do
       end
 
       it 'lists all projects' do
-        expect(policy_scope).to eq([project])
+        expect(policy_scope).to match_array([project, archived_project])
       end
     end
 

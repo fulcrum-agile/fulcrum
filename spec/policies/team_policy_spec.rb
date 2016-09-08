@@ -6,6 +6,8 @@ describe TeamPolicy do
   let(:policy_scope) { TeamPolicy::Scope.new(pundit_context, Team).resolve.all }
   subject { TeamPolicy.new(pundit_context, current_team) }
 
+  let!(:archived_team) { create :team, archived_at: Time.current }
+
   context "proper user of a team" do
     context "for an admin" do
       let(:current_user) { create :user, :with_team_and_is_admin }
@@ -14,7 +16,7 @@ describe TeamPolicy do
         it { should permit(action) }
       end
 
-      it 'lists all teams' do
+      it 'lists only active teams' do
         expect(policy_scope).to eq([ current_team ])
       end
     end
@@ -30,7 +32,7 @@ describe TeamPolicy do
         it { should_not permit(action) }
       end
 
-      it 'lists all teams' do
+      it "can't see any teams" do
         expect(policy_scope).to eq([])
       end
     end
