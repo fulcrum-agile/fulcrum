@@ -18,7 +18,10 @@
 
         <div class="field-wrapper">
           <%= f.label :team_slug, class: 'col-sm-4 control-label' %>
-          <div class="col-sm-8"><%= f.text_field :team_slug, readonly: resource.team_slug.present? %></div>
+          <div class="col-sm-8">
+            <%= f.text_field :team_slug, readonly: resource.team_slug.present? %>
+            <small><%= link_to t('.change team'), "#", class: 'change-team' %></small>
+          </div>
         </div>
 
         <% if devise_mapping.rememberable? -%>
