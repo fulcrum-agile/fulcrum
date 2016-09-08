@@ -233,11 +233,14 @@ Fulcrum.Story = Backbone.Model.extend({
   },
 
   acceptedAtBeginningOfDay: function() {
-    var accepted_at = new Date(this.get("accepted_at"));
-    accepted_at.setHours(0);
-    accepted_at.setMinutes(0);
-    accepted_at.setSeconds(0);
-    accepted_at.setMilliseconds(0);
+    var accepted_at = this.get("accepted_at");
+    if (!_.isUndefined(accepted_at)) {
+      accepted_at = new Date(accepted_at);
+      accepted_at.setHours(0);
+      accepted_at.setMinutes(0);
+      accepted_at.setSeconds(0);
+      accepted_at.setMilliseconds(0);
+    }
     return accepted_at;
   },
 
