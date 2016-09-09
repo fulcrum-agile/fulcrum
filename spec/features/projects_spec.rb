@@ -85,10 +85,13 @@ describe "Projects" do
   describe "delete project" do
 
     let!(:project) {
-      project = create :project, name: 'Test Project',
-                                 users: [user]
-      team.ownerships.create(project: project, is_owner: true)
+      create :project, name: 'Test Project',
+                       users: [user]
     }
+
+    before do
+      team.ownerships.create(project: project, is_owner: true)
+    end
 
     it "deletes a project" do
       visit edit_project_path(project)
