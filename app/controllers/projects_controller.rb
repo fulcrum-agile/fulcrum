@@ -150,20 +150,23 @@ class ProjectsController < ApplicationController
     case params.dig(:ownership_action)
     when 'share'
       team.ownerships.create(project: @project, is_owner: false)
-      redirect_to edit_project_path(@project)
+      flash[:notice] = I18n.t('projects.project was successfully shared')
     when 'unshare'
       team.ownerships.where(project: @project).delete_all
-      redirect_to edit_project_path(@project)
+      flash[:notice] = I18n.t('projects.project was successfully unshared')
     when 'transfer'
       Project.transaction do
         current_team.ownerships.where(project: @project).delete_all
         team.ownerships.create(project: @project, is_owner: true)
       end
+      flash[:notice] = I18n.t('projects.project was successfully transferred')
       redirect_to root_path
+      return
     else
       flash[:alert] = I18n.t('projects.invalid_action')
-      redirect_to edit_project_path(@project)
     end
+
+    redirect_to edit_project_path(@project)
   end
 
   def archived

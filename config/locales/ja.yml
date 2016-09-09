@@ -173,6 +173,10 @@ ja:
     project was successfully created: "プロジェクトの作成に成功しました。"
     project was successfully updated: "プロジェクトの更新に成功しました。"
 
+    project was successfully shared: "プロジェクトが正常に共有されていました。"
+    project was successfully unshared: "プロジェクトへのアクセスが正常に削除されました。"
+    project was successfully transferred: "プロジェクトが正常に転送されました。"
+
     integrations: "統合"
     integrations_new: "新しい統合を追加"
     integrations_remove_sure: "あなたはこのプロジェクトから'%{kind}'統合を削除してもよろしいですか？"

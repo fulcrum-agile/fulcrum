@@ -202,6 +202,10 @@ pt-BR:
     project was successfully created: "Projeto criado com sucesso."
     project was successfully updated: "Projeto atualizado com sucesso."
 
+    project was successfully shared: "Projeto foi compartilhado com sucesso."
+    project was successfully unshared: "O acesso ao projeto foi removido com sucesso."
+    project was successfully transferred: "Projeto foi transferido com sucesso."
+
     integrations: "Integrações"
     integrations_new: "Adicionar uma nova integração"
     integrations_remove_sure: "Tem certeza de que deseja remover integração '%{kind} deste projeto?"

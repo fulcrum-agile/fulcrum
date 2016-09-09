@@ -399,6 +399,10 @@ el:
     project was successfully created: "Το πρότζεκτ δημιουργήθηκε με επιτυχία."
     project was successfully updated: "Το πρότζεκτ ανανεώθηκε με επιτυχία."
 
+    project was successfully shared: "Έργο ολοκληρώθηκε επιτυχώς από κοινού."
+    project was successfully unshared: "Πρόσβαση στο έργο αφαιρέθηκε με επιτυχία."
+    project was successfully transferred: "Έργο με επιτυχία Μεταφέρθηκε."
+
     integrations: "ολοκληρώσεις"
     integrations_new: "Προσθέστε μια νέα ένταξη"
     integrations_remove_sure: "Είστε βέβαιοι ότι θέλετε να καταργήσετε το '%{kind} «ενσωμάτωση από αυτό το έργο;"

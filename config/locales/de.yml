@@ -186,6 +186,10 @@ de:
     project was successfully created: "Projekt wurde erfolgreich erstellt."
     project was successfully updated: "Projekt wurde erfolgreich aktualisiert."
 
+    project was successfully shared: "Das Projekt wurde erfolgreich freigegeben."
+    project was successfully unshared: "Der Zugriff auf das Projekt wurde erfolgreich entfernt."
+    project was successfully transferred: "Das Projekt wurde erfolgreich übertragen."
+
     integrations: "Integrationen"
     integrations_new: "Fügen Sie eine neue Integration"
     integrations_remove_sure: "Sind Sie sicher, dass Sie '%{kind}' Integration von diesem Projekt zu entfernen?"

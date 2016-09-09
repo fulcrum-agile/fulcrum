@@ -200,6 +200,10 @@ en:
     project was successfully created: "Project was successfully created."
     project was successfully updated: "Project was successfully updated."
 
+    project was successfully shared: "Project was successfully shared."
+    project was successfully unshared: "Project was successfully unshared."
+    project was successfully transferred: "Project was successfully transferred."
+
     integrations: "Integrations"
     integrations_new: "Add a new integration"
     integrations_remove_sure: "Are you sure you want to remove '%{kind}' integration from this project?"

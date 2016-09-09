@@ -191,6 +191,10 @@ es:
     project was successfully created: "El proyecto fue creado exitosamente."
     project was successfully updated: "El proyecto fue actualizado exitosamente."
 
+    project was successfully shared: "Proyecto se ha compartido correctamente."
+    project was successfully unshared: "El acceso al proyecto se ha eliminado correctamente."
+    project was successfully transferred: "Proyecto fue transferido con éxito."
+
     integrations: "Integraciones"
     integrations_new: "Añadir una nueva integración"
     integrations_remove_sure: "¿Seguro que desea eliminar '%{kind}' la integración de este proyecto?"

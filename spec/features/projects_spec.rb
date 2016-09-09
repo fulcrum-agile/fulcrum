@@ -101,15 +101,18 @@ describe "Projects" do
     end
   end
 
-  describe "share project" do
+  describe "share/transfer project" do
 
     let!(:another_team) { create :team, name: "Another Team" }
 
     let!(:project) {
-      project = create :project, name: 'Test Project',
-                                 users: [user]
-      team.ownerships.create(project: project, is_owner: true)
+      create :project, name: 'Test Project',
+                       users: [user]
     }
+
+    before do
+      team.ownerships.create(project: project, is_owner: true)
+    end
 
     it "shares and unshares a project" do
       visit edit_project_path(project)
@@ -127,6 +130,17 @@ describe "Projects" do
 
         expect(page).to_not have_selector('.share-project table')
       end
+    end
+
+    it "transfers a project" do
+      visit edit_project_path(project)
+
+      within('.transfer-project') do
+        fill_in "Slug", with: another_team.slug
+        click_on 'Transfer'
+      end
+
+      expect(page).to have_text(I18n.t('projects.project was successfully transferred'))
     end
   end
 

@@ -183,6 +183,10 @@ nl:
     project was successfully created: "Project is met succes aangemaakt."
     project was successfully updated: "Project is met succes gewijzigd"
 
+    project was successfully shared: "Project correct is gedeeld."
+    project was successfully unshared: "De toegang tot het project werd met succes verwijderd."
+    project was successfully transferred: "Project is met succes overgebracht."
+
     integrations: "Integraties"
     integrations_new: "Voeg een nieuwe integratie"
     integrations_remove_sure: "Weet u zeker dat u '%{kind}' integratie van dit project verwijderen?"
