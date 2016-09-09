@@ -155,7 +155,8 @@ describe Admin::UsersController do
 
           specify do
             get :edit, id: user.id
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end
@@ -164,7 +165,8 @@ describe Admin::UsersController do
 
           specify do
             put :update, id: user.id, user: {}
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end
@@ -173,7 +175,8 @@ describe Admin::UsersController do
 
           specify do
             patch :enrollment, id: user.id, is_admin: true
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end
@@ -182,7 +185,8 @@ describe Admin::UsersController do
 
           specify do
             delete :destroy, id: user.id
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end

@@ -1,6 +1,5 @@
-require 'open-uri'
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[show edit update destroy import import_upload reports]
+  before_action :set_project, except: %i[new create index archived]
 
   # GET /projects
   # GET /projects.xml
@@ -50,10 +49,10 @@ class ProjectsController < ApplicationController
     @project = policy_scope(Project).new(allowed_params)
     authorize @project
     @project.users << current_user
-    @project.teams << current_team
 
     respond_to do |format|
       if ProjectOperations::Create.(@project, current_user)
+        current_team.ownerships.create(project: @project, is_owner: true)
         format.html { redirect_to(@project, notice: t('projects.project was successfully created')) }
         format.xml  { render xml: @project, status: :created, location: @project }
       else
@@ -135,18 +134,60 @@ class ProjectsController < ApplicationController
     redirect_to [:import, @project]
   end
 
+  def reports
+    since = params[:since].nil? ? nil : params[:since].to_i.months.ago
+    @service = IterationService.new(@project, since)
+  end
+
+  def ownership
+    team = Team.not_archived.friendly.find(params.dig(:project, :slug))
+    if team == current_team
+      flash[:notice] = I18n.t('projects.invalid_action')
+      render "edit"
+      return
+    end
+
+    case params.dig(:ownership_action)
+    when 'share'
+      team.ownerships.create(project: @project, is_owner: false)
+      redirect_to edit_project_path(@project)
+    when 'unshare'
+      team.ownerships.where(project: @project).delete_all
+      redirect_to edit_project_path(@project)
+    when 'transfer'
+      Project.transaction do
+        current_team.ownerships.where(project: @project).delete_all
+        team.ownerships.create(project: @project, is_owner: true)
+      end
+      redirect_to root_path
+    else
+      flash[:alert] = I18n.t('projects.invalid_action')
+      redirect_to edit_project_path(@project)
+    end
+  end
+
   def archived
     @projects = policy_scope(Project).archived
     authorize @projects
   end
 
+  def archive
+    change_archived true
+  end
+
   def unarchive
+    change_archived false
+  end
+
+  protected
+
+  def change_archived(archive = true)
     @project = policy_scope(Project).archived.friendly.find(params[:id]) unless @project
     authorize @project
 
     respond_to do |format|
-      if @project = ProjectOperations::Update.(@project, { archived: "0" }, current_user)
-        format.html { redirect_to(@project, notice: t('projects.project was successfully unarchived')) }
+      if @project = ProjectOperations::Update.(@project, { archived: archive ? Time.current : "0" }, current_user)
+        format.html { redirect_to(@project, notice: t("projects.project was successfully #{ archive ? 'archived' : 'unarchived' }")) }
         format.xml  { head :ok }
       else
         format.html { render action: "edit" }
@@ -154,13 +195,6 @@ class ProjectsController < ApplicationController
       end
     end
   end
-
-  def reports
-    since = params[:since].nil? ? nil : params[:since].to_i.months.ago
-    @service = IterationService.new(@project, since)
-  end
-
-  protected
 
   def allowed_params
     params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import, :archived)

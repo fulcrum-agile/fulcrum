@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     member do
       get :import
       patch :import_upload
+      patch :archive
       patch :unarchive
+      patch :ownership
       get :search
       get :reports
     end

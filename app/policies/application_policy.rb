@@ -17,6 +17,10 @@ class ApplicationPolicy
       current_team && current_team.is_admin?(current_user)
     end
 
+    def is_project_owner?
+      current_project && current_team.owns?(current_project)
+    end
+
     def is_project_member?
       current_project && current_project.users.find_by_id(current_user.id)
     end

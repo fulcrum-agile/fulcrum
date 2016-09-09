@@ -22,6 +22,7 @@ de:
   points:   "Punkte"
   saving:   "Speichern ..."
   expand:   "Expandieren"
+  not_found: "Ressource nicht gefunden"
 
   save: "Speichern"
   delete: "Löschen"
@@ -169,16 +170,31 @@ de:
       velocity_per_member: "Geschwindigkeit pro Mitglied"
     project properties: "Projekt-Eigenschaften"
     archived projects:  "Archivierten Projekte"
-    unarchive: "losbinden"
-    project was successfully unarchived: "Das Projekt wurde erfolgreich wieder"
+    archive: "Archiv"
+    unarchive: "UnArchive"
+    share: "Aktie"
+    unshare: "Entfernen Teilen"
+    transfer: "Transfer Eigentümer"
+    sharing: "Teams mit Zugang zu diesem Projekt"
+    invalid_action: "Diese Aktion kann nicht oder Teams führen nicht gefunden"
 
+    transfer_sure: "Sind Sie sicher, dass Sie das Eigentum zu übertragen? Diese Aktion ist nicht umkehrbar."
+
+    project was successfully archived: "Das Projekt wurde erfolgreich archiviert "
+    project was successfully unarchived: "Das Projekt wurde erfolgreich wieder"
 
     project was successfully created: "Projekt wurde erfolgreich erstellt."
     project was successfully updated: "Projekt wurde erfolgreich aktualisiert."
 
+    integrations: "Integrationen"
+    integrations_new: "Fügen Sie eine neue Integration"
+    integrations_remove_sure: "Sind Sie sicher, dass Sie '%{kind}' Integration von diesem Projekt zu entfernen?"
+
     index:
       listing projects: "Projektliste"
       are you sure you want to delete this project: "Sind Sie sicher, dass Sie das Projekt löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+      are you sure you want to archive this project: "Sind Sie sicher, dass Sie dieses Projekt zu archivieren ?"
+      are you sure you want to unshare this project: "Sind Sie sicher, dass Sie den Zugriff auf das Projekt für dieses Team zu entfernen?"
       the iteration starts on x with length of x weeks:
         one:    "Die Iteration beginnt am %{day} mit einer Länge von einer Woche"
         other:  "Die Iteration beginnt am %{day} mit einer Länge von %{count} Wochen"

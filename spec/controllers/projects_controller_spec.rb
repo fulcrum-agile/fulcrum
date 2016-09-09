@@ -3,13 +3,13 @@ require 'rails_helper'
 describe ProjectsController do
 
   context "when logged out" do
-    %W[index new create].each do |action|
+    %W[index new create archived].each do |action|
       specify do
         get action
         expect(response).to redirect_to(new_user_session_url)
       end
     end
-    %W[show edit update destroy].each do |action|
+    %W[show edit update destroy reports import import_upload archive unarchive ownership].each do |action|
       specify do
         get action, id: 42
         expect(response).to redirect_to(new_user_session_url)
@@ -20,12 +20,14 @@ describe ProjectsController do
   context "when logged in" do
 
     let(:user)        { create :user, :with_team_and_is_admin }
-    let(:project)     { create(:project, users: [user], teams: [user.teams.first]) }
+    let(:team)        { user.teams.first }
+    let(:project)     { create(:project, users: [user]) }
     let!(:story)      { create(:story, project: project, requested_by: user) }
 
     before do
+      team.ownerships.create(project: project, is_owner: true)
       sign_in user
-      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
+      allow(subject).to receive_messages(current_user: user, current_team: team)
     end
 
     describe "collection actions" do
@@ -59,6 +61,7 @@ describe ProjectsController do
           expect(assigns[:project].name).to eq(project_params["name"])
           expect(assigns[:project].users).to include(user)
           expect(assigns[:project].teams).to include(user.teams.first)
+          expect(team.owns?(assigns[:project])).to be_truthy
         end
 
         context "when save succeeds" do
@@ -292,6 +295,35 @@ describe ProjectsController do
             put :import_upload, id: project.id, project: { import: csv }
             expect(flash[:notice]).to eq("Your uploaded CSV file is being processed. You can come back here later when the process is finished.")
             expect(response).to redirect_to(import_project_path(project))
+          end
+
+        end
+
+      end
+
+      describe "#ownership" do
+        let!(:another_team) { create :team, name: "Another Team", users: [user] }
+
+        context "when sharing/unsharing" do
+          specify do
+            patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'share'
+            expect(team.ownerships.where(project: project).count).to be(1)
+            expect(another_team.ownerships.where(project: project).count).to be(1)
+            expect(response).to redirect_to(edit_project_path(assigns[:project]))
+
+            patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'unshare'
+            expect(team.ownerships.where(project: project).count).to be(1)
+            expect(another_team.ownerships.where(project: project).count).to be(0)
+            expect(response).to redirect_to(edit_project_path(assigns[:project]))
+          end
+        end
+
+        context "when transfering" do
+          specify do
+            patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'transfer'
+            expect(another_team.owns?(project)).to be_truthy
+            expect(team.ownerships.count).to be(0)
+            expect(response).to redirect_to(root_path)
           end
 
         end

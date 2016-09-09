@@ -22,6 +22,7 @@ ja:
   points:   "ポイント"
   saving:   "保存中…"
   expand:   "広げる"
+  not_found: "リソースが見つかりません"
 
   save: "保存"
   delete: "削除"
@@ -156,15 +157,31 @@ ja:
       velocity_per_member: "メンバーごとのベロシティ"
     project properties: "プロジェクト詳細"
     archived projects:  "アーカイブされたプロジェクト"
-    unarchive: "解きます"
+    archive: "資料館"
+    unarchive: "アーカイブ解除"
+    share: "シェア"
+    unshare: "共有されません"
+    transfer: "所有権移転"
+    sharing: "このプロジェクトへのアクセス権を持つチーム"
+    invalid_action: "見つからないこのアクションまたはチームを実行することはできません。"
+
+    transfer_sure: "あなたが所有権を譲渡してもよろしいですか？このアクションは元に戻せません。"
+
+    project was successfully archived: "プロジェクトが正常にアーカイブされました"
     project was successfully unarchived: "プロジェクトが正常に回復しました"
 
     project was successfully created: "プロジェクトの作成に成功しました。"
     project was successfully updated: "プロジェクトの更新に成功しました。"
 
+    integrations: "統合"
+    integrations_new: "新しい統合を追加"
+    integrations_remove_sure: "あなたはこのプロジェクトから'%{kind}'統合を削除してもよろしいですか？"
+
     index:
       listing projects: "プロジェクト一覧"
       are you sure you want to delete this project: "このプロジェクトを削除してよろしいですか？この動作は元に戻すことができません。"
+      are you sure you want to archive this project: "あなたはこのプロジェクトをアーカイブにしてもよろしいですか？"
+      are you sure you want to unshare this project: "あなたはこのチームのプロジェクトへのアクセスを削除しますか？"
       the iteration starts on x with length of x weeks:
         one:    "イテレーションは%{day}にスタートし、長さは1週間です"
         other:  "イテレーションは%{day}にスタートし、長さは%{count}週間です"

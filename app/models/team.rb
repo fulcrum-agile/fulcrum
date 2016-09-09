@@ -25,6 +25,10 @@ class Team < ActiveRecord::Base
     enrollments.find_by_user_id(user.id)&.is_admin?
   end
 
+  def owns?(project)
+    ownerships.find_by_project_id(project.id)&.is_owner
+  end
+
   def allowed_domain?(email)
     whitelist = ( registration_domain_whitelist || "" ).split(DOMAIN_SEPARATORS_REGEX).map(&:strip)
     blacklist = ( registration_domain_blacklist || "" ).split(DOMAIN_SEPARATORS_REGEX).map(&:strip)

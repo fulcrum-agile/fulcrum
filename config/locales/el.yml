@@ -228,6 +228,7 @@ el:
   points:   πόντοι
   saving:   αποθήκευση ...
   expand:   ανοιγμα
+  not_found: "Πόρου δεν βρέθηκε"
 
   save: "Αποθήκευση"
   delete: "Διαγραφή"
@@ -382,15 +383,31 @@ el:
       velocity_per_member: "Ταχύτητα ανά κράτος"
     project properties: "Ρυθμίσεις πρότζεκτ"
     archived projects:  "Αρχείο Έργων"
+    archive: "Αρχείο"
     unarchive: "απολύω"
+    share: "μερίδιο"
+    unshare: "κατάργηση κοινής χρήσης"
+    transfer: "μεταβίβαση ιδιοκτησίας"
+    sharing: "Ομάδες με πρόσβαση σε αυτό το Έργο"
+    invalid_action: "Δεν μπορεί να εκτελέσει αυτή την ενέργεια ή ομάδα δεν βρέθηκε"
+
+    transfer_sure: "Είστε βέβαιοι ότι θέλετε να μεταφέρετε την ιδιοκτησία; Αυτή η ενέργεια δεν είναι αναστρέψιμη."
+
+    project was successfully archived: "Έργο αρχειοθετήθηκε με επιτυχία"
     project was successfully unarchived: "Έργο αποκαταστάθηκε με επιτυχία"
 
     project was successfully created: "Το πρότζεκτ δημιουργήθηκε με επιτυχία."
     project was successfully updated: "Το πρότζεκτ ανανεώθηκε με επιτυχία."
 
+    integrations: "ολοκληρώσεις"
+    integrations_new: "Προσθέστε μια νέα ένταξη"
+    integrations_remove_sure: "Είστε βέβαιοι ότι θέλετε να καταργήσετε το '%{kind} «ενσωμάτωση από αυτό το έργο;"
+
     index:
       listing projects: "Κατάλογος πρότζεκτ"
       are you sure you want to delete this project: "Είσαι σίγουρος ότι θέλεις να διαγράψεις το πρότζεκτ; Δεν υπάρχει undo!"
+      are you sure you want to archive this project: "Είστε βέβαιοι ότι θέλετε να αρχειοθετήσετε αυτό το έργο;"
+      are you sure you want to unshare this project: "Είστε σίγουροι ότι έχετε αφαιρέσει την πρόσβαση στο έργο για αυτή την ομάδα;"
       the iteration starts on x with length of x weeks:
         one:    "Οι κύκλοι ξεκινούν %{day} και διαρκούν 1 εβδομάδα"
         other:  "Οι κύκλοι ξεκινούν %{day} και διαρκούν %{count} εβδομάδες"

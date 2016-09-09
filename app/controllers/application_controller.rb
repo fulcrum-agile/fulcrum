@@ -16,8 +16,13 @@ class ApplicationController < ActionController::Base
   def render_404
     respond_to do |format|
       format.html do
-        render file: Rails.root.join('public', '404.html'),
-          status: '404'
+        if current_user
+          flash[:alert] = I18n.t('not_found')
+          redirect_to request.referer || root_path
+        else
+          render file: Rails.root.join('public', '404.html'),
+            status: '404'
+        end
       end
       format.xml do
         render nothing: true, status: '404'
@@ -58,9 +63,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_team
 
   def after_sign_in_path_for(resource)
-    if params[:user][:reset_password_token]
+    if params.dig(:user, :reset_password_token)
       session[:current_team_slug] = current_user.teams.first.slug
-    else
+    elsif params.dig(:user, :team_slug)
       session[:current_team_slug] = params[:user][:team_slug]
     end
     super

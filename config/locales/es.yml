@@ -20,6 +20,7 @@ es:
   points:   "Puntos"
   saving:   "Ahorro ..."
   expand:   "Expandir"
+  not_found: "Recurso no encontrado"
 
   save: "Guardar"
   delete: "Borrar"
@@ -174,15 +175,31 @@ es:
       velocity_per_member: "Velocidad por cada miembro"
     project properties: "Propiedades del Proyecto"
     archived projects:  "Proyectos archivados"
-    unarchive: "desatar"
+    archive: "Archiv"
+    unarchive: "Desarchivar"
+    share: "Cuota"
+    unshare: "No Comparte"
+    transfer: "Transferir la propiedad"
+    sharing: "Los equipos con acceso a este proyecto"
+    invalid_action: "No se puede realizar esta acción o equipo que no se encuentra"
+
+    transfer_sure: "¿Seguro que deseas transferir la propiedad? Esta acción no es reversible."
+
+    project was successfully archived: "Proyecto fue archivado correctamente"
     project was successfully unarchived: "Proyecto fue reintegrado con éxito"
 
     project was successfully created: "El proyecto fue creado exitosamente."
     project was successfully updated: "El proyecto fue actualizado exitosamente."
 
+    integrations: "Integraciones"
+    integrations_new: "Añadir una nueva integración"
+    integrations_remove_sure: "¿Seguro que desea eliminar '%{kind}' la integración de este proyecto?"
+
     index:
       listing projects: "Listado de Proyectos"
       are you sure you want to delete this project: "¿Estas seguro de querer borrar este proyecto? Esta acción no se puede deshacer."
+      are you sure you want to archive this project: "¿Está seguro de que desea archivar este proyecto?"
+      are you sure you want to unshare this project: "¿Seguro que quita el acceso al proyecto a este equipo?"
       the iteration starts on x with length of x weeks:
         one:    "Las iteraciones empiezan en %{day} con una duración de 1 semana"
         other:    "Las iteraciones empiezan en %{day} con una duración de %{count} semanas"

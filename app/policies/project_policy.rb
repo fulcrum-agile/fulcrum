@@ -4,7 +4,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def reports?
-    index? || is_project_member?
+    is_admin? || is_project_member?
   end
 
   def archived?
@@ -12,15 +12,39 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def import?
-    update?
+    is_admin? && is_project_owner?
   end
 
   def import_upload?
     import?
   end
 
+  def archive?
+    import?
+  end
+
   def unarchive?
-    update?
+    archive?
+  end
+
+  def destroy?
+    archive?
+  end
+
+  def share?
+    archive?
+  end
+
+  def unshare?
+    share?
+  end
+
+  def transfer?
+    share?
+  end
+
+  def ownership?
+    share?
   end
 
   class Scope < Scope
