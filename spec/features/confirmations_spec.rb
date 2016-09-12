@@ -1,6 +1,7 @@
-require 'rails_helper'
+require 'feature_helper'
 
 describe "Confirmations" do
+  let(:team) { create(:team) }
 
   before(:each) do
     ActionMailer::Base.deliveries = []
@@ -14,6 +15,7 @@ describe "Confirmations" do
     fill_in 'Initials', with: 'TU'
     fill_in 'Username', with: 'testuser'
     fill_in 'Email', with: 'test@example.com'
+    fill_in 'Team slug', with: team.slug
     click_button 'Sign up'
 
     expect(page).to have_content('A confirmation was sent to your e-mail')
@@ -32,7 +34,7 @@ describe "Confirmations" do
     # User should at this point be prompted to set a password
     fill_in 'New password', with: 'password'
     fill_in 'Confirm new password', with: 'password'
-    click_on 'Change my password'
+    click_on 'Confirm new password'
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content('Your password was changed successfully')
@@ -44,11 +46,12 @@ describe "Confirmations" do
   end
 
   it "sends new confirmation token" do
-    user = FactoryGirl.create(:unconfirmed_user, email: 'test@example.com')
+    user = create(:unconfirmed_user, email: 'test@example.com', teams: [team])
     visit '/'
     click_link "Didn't receive confirmation instructions?"
 
     fill_in 'Email', with: user.email
+    fill_in 'Team slug', with: user.teams.first.slug
     click_button 'Resend confirmation instructions'
 
     expect(page).to have_content('You will receive an email with instructions about how to confirm your account in a few minutes')

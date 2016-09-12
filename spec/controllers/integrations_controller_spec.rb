@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 describe IntegrationsController do
+  let(:user)        { create(:user, :with_team_and_is_admin) }
+  let(:project)     { create(:project, users: [user], teams: [user.teams.first]) }
 
-  let(:integration) { FactoryGirl.build(:integration) }
-  let(:project) { integration.project }
+  let(:integration) { build(:integration, project: project) }
 
   context "when logged out" do
     %w[index create].each do |action|
@@ -22,14 +23,9 @@ describe IntegrationsController do
 
   context "when logged in" do
 
-    let(:user)  { FactoryGirl.create(:user) }
-    let(:projects)  { double("projects") }
-
     before do
       sign_in user
-      allow(subject).to receive_messages(current_user: user)
-      allow(user).to receive_messages(projects: projects)
-      allow(projects).to receive_message_chain(:friendly, :find).with(project.id.to_s) { project }
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do

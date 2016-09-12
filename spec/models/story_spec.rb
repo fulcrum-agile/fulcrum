@@ -4,7 +4,7 @@ describe Story do
 
   subject { build :story, :with_project }
   before {
-    subject.acting_user = FactoryGirl.build(:user)
+    subject.acting_user = build(:user)
   }
 
   describe 'scopes' do
@@ -96,11 +96,11 @@ describe Story do
 
   describe 'associations' do
     describe 'notes' do
-      let!(:user)  { FactoryGirl.create :user }
-      let!(:project) { FactoryGirl.create :project, users: [user] }
-      let!(:story) { FactoryGirl.create :story, project: project, requested_by: user }
-      let!(:note) { FactoryGirl.create(:note, created_at: Date.current + 2.days, user: user, story: story) }
-      let!(:note2) { FactoryGirl.create(:note, created_at: Date.current, user: user, story: story) }
+      let!(:user)  { create :user }
+      let!(:project) { create :project, users: [user] }
+      let!(:story) { create :story, project: project, requested_by: user }
+      let!(:note) { create(:note, created_at: Date.current + 2.days, user: user, story: story) }
+      let!(:note2) { create(:note, created_at: Date.current, user: user, story: story) }
 
       it 'order by created at' do
         story.reload

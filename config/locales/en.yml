@@ -23,6 +23,8 @@ en:
   points:   "Points"
   saving:   "Saving ..."
   expand:   "Expand"
+  not_found: "Resource not found"
+  nothing uploaded yet: "Nothing uploaded yet"
 
   save: "Save"
   delete: "Delete"
@@ -110,6 +112,9 @@ en:
       story:
         one: 'Story'
         other: 'Stories'
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
@@ -144,6 +149,13 @@ en:
         password_confirmation: 'Password Confirmation'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
+      team:
+        name:                 'Team Name'
+        slug:                 'Slug'
+        logo:                 'Logo'
+        disable_registration: 'Only administrators can add new users to this team'
+        registration_domain_whitelist: 'If registration is enabled, only emails from this domain can register (comma separated)'
+        registration_domain_blacklist: 'If registration is enabled, no emails from this domain cah register (comma separated)'
 
     errors:
       models:
@@ -173,13 +185,35 @@ en:
       velocity_per_member: "Velocity per Member"
     project properties: "Project Properties"
     archived projects:  "Archived Projects"
+    archive: "Archive"
+    unarchive: "Unarchive"
+    share: "Share"
+    unshare: "Unshare"
+    transfer: "Transfer Ownership"
+    sharing: "Teams with access to this Project"
+    invalid_action: "Can't perform this action or Team not found"
+
+    transfer_sure: "Are you sure you want to transfer ownership? This action is not reversible."
+
+    project was successfully archived: "Project was successfully archived"
+    project was successfully unarchived: "Project was successfully reinstated"
 
     project was successfully created: "Project was successfully created."
     project was successfully updated: "Project was successfully updated."
 
+    project was successfully shared: "Project was successfully shared."
+    project was successfully unshared: "Project was successfully unshared."
+    project was successfully transferred: "Project was successfully transferred."
+
+    integrations: "Integrations"
+    integrations_new: "Add a new integration"
+    integrations_remove_sure: "Are you sure you want to remove '%{kind}' integration from this project?"
+
     index:
       listing projects: "Listing Projects"
       are you sure you want to delete this project: "Are you sure you want to delete this project?  This action cannot be undone."
+      are you sure you want to archive this project: "Are you sure you want to archive this project?"
+      are you sure you want to unshare this project: "Are you sure you want to unshare this project?"
       the iteration starts on x with length of x weeks:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
@@ -210,12 +244,26 @@ en:
     is already a member of this project: "%{email} is already a member of this project"
     was sent an invite to join this project: "%{email} was sent an invite to join this project"
     was added to this project: "%{email} was added to this project"
+    admin_on: Make Administrator
+    admin_off: Make just Member
+
+  teams:
+    create: 'Create new Team'
+    update: 'Update Team'
+    switch: 'Change to another Team'
+    team was successfully created: 'Team was successfully created'
+    team was successfully updated: 'Team was successfully updated'
+    new_instruction: |
+      <p>If you don't have a registered account, you can sign up first.</p>
+      <p>The first user to sign in to this new team will become the administrator.</p>
 
   admin:
     users:
       edit user: "Edit User"
       index:
         are you sure you want to delete this user: "Are you sure you want to delete this user? This action cannot be undone."
+        are you sure you want to remove administration rights from this user: "Are you sure you want to remove administration rights from this user?"
+        are you sure you want to give administration rights to this user: "Are you sure you want to give administration rights to this user?"
 
   registrations:
     edit:

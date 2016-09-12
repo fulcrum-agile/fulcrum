@@ -1,0 +1,18 @@
+<% content_for :title_bar do %>
+  <h1><%= t('teams.new team') %></h1>
+<% end %>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-8">
+    <div class="form-wrapper">
+      <%= render 'form' %>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-8">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+      <%= raw t('teams.new_instruction') %>
+    </div>
+  </div>
+</div>
+

@@ -28,7 +28,8 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
     var view = this;
     this.model.save(null, {
       success: function(model, response) {
-        //view.model.set({editing: false});
+        // force the project to fetch changeset and reload the updated story with the new note
+        window.projectView.model.fetch();
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);

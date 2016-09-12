@@ -34,6 +34,8 @@ $(function() {
   $('.tag-tooltip').tooltip();
   sidebarAction();
   executeAttachinary();
+  changeLocaleEvent();
+  changeSignInTeam();
 });
 
 function executeAttachinary() {
@@ -63,4 +65,26 @@ function hideSidebar() {
   $('.click-overlay').off('click');
   $("#sidebar-wrapper").hide();
   $('.click-overlay').hide();
+}
+
+function changeLocaleEvent() {
+  $('.locale-change').on('change', function(e) {
+    e.preventDefault();
+    $(this).parent('form').submit();
+  });
+}
+
+function changeSignInTeam() {
+  if ($('.change-team')) {
+    if (_.isUndefined($('#user_team_slug').attr('readonly'))) {
+      $('.change-team').css('display', 'none');
+    } else {
+      $('.change-team').on('click', function() {
+        $('#user_team_slug').attr('readonly', false);
+        $('#user_team_slug').val('');
+        $('#user_team_slug').focus();
+        $('.change-team').css('display', 'none');
+      });
+    }
+  }
 }

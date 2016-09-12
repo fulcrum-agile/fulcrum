@@ -16,8 +16,13 @@ class ApplicationController < ActionController::Base
   def render_404
     respond_to do |format|
       format.html do
-        render file: Rails.root.join('public', '404.html'),
-          status: '404'
+        if current_user
+          flash[:alert] = I18n.t('not_found')
+          redirect_to request.referer || root_path
+        else
+          render file: Rails.root.join('public', '404.html'),
+            status: '404'
+        end
       end
       format.xml do
         render nothing: true, status: '404'
@@ -28,7 +33,9 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    if !current_user.nil? && !current_user.locale.nil? && !current_user.locale.empty?
+    if session[:locale]
+      I18n.locale = session[:locale]
+    elsif !current_user.nil? && !current_user.locale.nil? && !current_user.locale.empty?
       I18n.locale = current_user.locale.to_sym
     else
       I18n.locale = :en
@@ -45,6 +52,23 @@ class ApplicationController < ActionController::Base
   end
 
   def pundit_user
-    PunditContext.new(current_user, { current_project: @project, current_story: @story })
+    PunditContext.new(current_team, current_user, { current_project: @project, current_story: @story })
+  end
+  helper_method :pundit_user
+
+  def current_team
+    session[:current_team_slug] = current_user.teams&.not_archived&.first&.slug if current_user && session[:current_team_slug].nil?
+    raise ActiveRecord::RecordNotFound, 'Team not set' unless session[:current_team_slug]
+    @current_team ||= Team.not_archived.find_by_slug(session[:current_team_slug])
+  end
+  helper_method :current_team
+
+  def after_sign_in_path_for(resource)
+    if params.dig(:user, :reset_password_token)
+      session[:current_team_slug] = current_user.teams.first.slug
+    elsif params.dig(:user, :team_slug)
+      session[:current_team_slug] = params[:user][:team_slug]
+    end
+    super
   end
 end

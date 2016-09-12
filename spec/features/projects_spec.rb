@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'feature_helper'
 
 describe "Projects" do
 
@@ -6,19 +6,19 @@ describe "Projects" do
     sign_in user
   end
 
-  let(:user)  {
-    FactoryGirl.create :user, email: 'user@example.com',
-                              password: 'password'
-  }
+  let(:user) { create :user, :with_team_and_is_admin, email: 'user@example.com', password: 'password' }
+  let(:team) { user.teams.first }
 
   describe "list projects" do
 
     before do
-      FactoryGirl.create :project,  name: 'Test Project',
-                                    users: [user]
-      FactoryGirl.create :project,  name: 'Archived Project',
-                                    users: [user],
-                                    archived: "1"
+      p1 = create :project, name: 'Test Project',
+                            users: [user]
+      p2 = create :project, name: 'Archived Project',
+                            users: [user],
+                            archived_at: Time.current
+      team.ownerships.create(project: p1, is_owner: true)
+      team.ownerships.create(project: p2, is_owner: true)
     end
 
     it "shows the project list", js: true do
@@ -51,14 +51,11 @@ describe "Projects" do
 
   describe "edit project" do
 
-    let(:project) {
-      FactoryGirl.create :project,  name: 'Test Project',
-                                    users: [user]
+    let!(:project) {
+      create :project,  name: 'Test Project',
+                        users: [user],
+                        teams: [user.teams.first]
     }
-
-    before do
-      project
-    end
 
     it "edits a project" do
       visit projects_path
@@ -87,13 +84,13 @@ describe "Projects" do
 
   describe "delete project" do
 
-    let(:project) {
-      FactoryGirl.create :project,  name: 'Test Project',
-                                    users: [user]
+    let!(:project) {
+      create :project, name: 'Test Project',
+                       users: [user]
     }
 
     before do
-      project
+      team.ownerships.create(project: project, is_owner: true)
     end
 
     it "deletes a project" do
@@ -101,6 +98,49 @@ describe "Projects" do
       click_on 'Delete'
 
       expect(Project.count).to eq(0)
+    end
+  end
+
+  describe "share/transfer project" do
+
+    let!(:another_team) { create :team, name: "Another Team" }
+
+    let!(:project) {
+      create :project, name: 'Test Project',
+                       users: [user]
+    }
+
+    before do
+      team.ownerships.create(project: project, is_owner: true)
+    end
+
+    it "shares and unshares a project" do
+      visit edit_project_path(project)
+
+      within('.share-project') do
+        fill_in "Slug", with: another_team.slug
+        click_on 'Share'
+      end
+
+      another_team = page.find('.share-project table tr:first-child td:first-child')
+      expect(another_team.text).to eq('Another Team')
+
+      within('.share-project') do
+        click_on "Unshare"
+
+        expect(page).to_not have_selector('.share-project table')
+      end
+    end
+
+    it "transfers a project" do
+      visit edit_project_path(project)
+
+      within('.transfer-project') do
+        fill_in "Slug", with: another_team.slug
+        click_on 'Transfer'
+      end
+
+      expect(page).to have_text(I18n.t('projects.project was successfully transferred'))
     end
   end
 

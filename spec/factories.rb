@@ -1,7 +1,6 @@
 FactoryGirl.define do
 
   factory :user do |u|
-    u.is_admin { true }
     u.sequence(:name) {|n| "User #{n}"}
     u.sequence(:username) {|n| "username #{n}"}
     u.sequence(:initials) {|n| "U#{n}"}
@@ -11,6 +10,14 @@ FactoryGirl.define do
     u.locale 'en'
     u.time_zone 'Brasilia'
     u.after(:build) {|user| user.confirm }
+
+    trait :with_team do
+      after(:build) { |object| object.enrollments.create(team: create(:team), is_admin: false ) }
+    end
+
+    trait :with_team_and_is_admin do
+      after(:build) { |object| object.enrollments.create(team: create(:team), is_admin: true ) }
+    end
   end
 
   factory :unconfirmed_user, class: User do |u|
@@ -30,7 +37,7 @@ FactoryGirl.define do
     s.association :requested_by, factory: :user
 
     trait :with_project do
-      after(:build) { |object| object.project = FactoryGirl.create(:project, users: [object.requested_by]) }
+      after(:build) { |object| object.project = create(:project, users: [object.requested_by]) }
     end
   end
 
@@ -65,5 +72,20 @@ FactoryGirl.define do
     a.association :project
     a.association :user
     action 'create'
+  end
+
+  factory :team do |t|
+    t.sequence(:name) {|n| "Team #{n}"}
+  end
+
+  factory :enrollment do |e|
+    e.association :team
+    e.association :user
+    is_admin false
+  end
+
+  factory :ownership do |o|
+    o.association :team
+    o.association :project
   end
 end

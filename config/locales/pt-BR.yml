@@ -20,6 +20,8 @@ pt-BR:
   points:   "Pontos"
   saving:   "Salvando ..."
   expand:   "Expandir"
+  not_found: "Recurso não encontrado"
+  nothing uploaded yet: "Nada ainda carregado"
 
   save: "Salvar"
   delete: "Apagar"
@@ -107,6 +109,9 @@ pt-BR:
       story:
         one: 'História'
         other: 'Histórias'
+      team:
+        one: 'Equipe'
+        other: 'Equipes'
 
     attributes:
       note:
@@ -146,6 +151,13 @@ pt-BR:
         is_admin:             'É Administrador?'
         current_password:     'Senha atual'
         time_zone:            'fuso horário'
+      team:
+        name:                 'Nome da Equipe'
+        slug:                 'Slug'
+        logo:                 'Logotipo'
+        disable_registration: 'Apenas administradores podem adicionar novos usuários a esta equipe'
+        registration_domain_whitelist: 'Se o registro estiver habilitado, apenas e-mails desses domínios podem se registrar (separados por vírgula)'
+        registration_domain_blacklist: 'Se o registro estiver habilitado, e-mails desses domínios nunca podem se registrar (separados por vírgula)'
 
     errors:
       models:
@@ -175,13 +187,35 @@ pt-BR:
       velocity_per_member: "Velocidade por Membro"
     project properties: "Propriedades do Projeto"
     archived projects:  "Projetos Arquivados"
+    archive: "Arquivar"
+    unarchive: "Desarquivar"
+    share: "Compartilhar"
+    unshare: "Tirar Compartilhamento"
+    transfer: "Transferir a propriedade"
+    sharing: "Equipes com acesso a este projeto"
+    invalid_action: "Não é possível executar esta ação ou Equipe não encontrada"
+
+    transfer_sure: "Tem certeza de que deseja transferir a propriedade? Esta ação não é reversível."
+
+    project was successfully archived: "Projeto foi arquivado com sucesso"
+    project was successfully unarchived: "Project foi desarquivado com sucesso"
 
     project was successfully created: "Projeto criado com sucesso."
     project was successfully updated: "Projeto atualizado com sucesso."
 
+    project was successfully shared: "Projeto foi compartilhado com sucesso."
+    project was successfully unshared: "O acesso ao projeto foi removido com sucesso."
+    project was successfully transferred: "Projeto foi transferido com sucesso."
+
+    integrations: "Integrações"
+    integrations_new: "Adicionar uma nova integração"
+    integrations_remove_sure: "Tem certeza de que deseja remover integração '%{kind} deste projeto?"
+
     index:
       listing projects: "Listando Projetos"
       are you sure you want to delete this project: "Tem certeza de que deseja excluir este projeto? Esta ação não pode ser desfeita."
+      are you sure you want to archive this project: "Tem certeza de que deseja arquivar este projeto?"
+      are you sure you want to unshare this project: "Tem certeza de que remover o acesso ao projeto para esta equipe?"
       the iteration starts on x with length of x weeks:
         one:    "Iteração começa em %{day} com a duração de 1 semana"
         other:  "Iterações começam em %{day} com a duração de %{count} semanas"
@@ -212,12 +246,23 @@ pt-BR:
     is already a member of this project: "%{email} já é um membro deste projeto"
     was sent an invite to join this project: "%{email} foi enviado um convite para participar deste projeto"
     was added to this project: "%{email} foi adicionada a este projecto"
+    admin_on: Torne Administrator
+    admin_off: Torne apenas Membro
+
+  teams:
+    create: 'Criar nova Equipe'
+    update: 'Atualizar Equipe'
+    switch: 'Mudar para outra Equipe'
+    team was successfully created: 'Equipe foi criado com sucesso'
+    team was successfully updated: 'Equipe foi atualizado com sucesso'
 
   admin:
     users:
       edit user: "Editar Usuário"
       index:
         are you sure you want to delete this user: "Tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita."
+        are you sure you want to remove administration rights from this user: "Tem certeza de que deseja remover direitos de administração deste usuário?"
+        are you sure you want to give administration rights to this user: "Tem certeza de que quer dar direitos de administração para este usuário?"
 
   registrations:
     edit:

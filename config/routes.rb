@@ -1,15 +1,22 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+
   mount Attachinary::Engine => "/attachinary"
 
   get 'story/new'
-  get 'locales' => 'application#locales'
   get 'projects/archived' => 'projects#archived'
+  put 'locales' => 'locales#update', as: :locales
+
+  get 't/:id' => 'teams#switch', as: :teams_switch
+  resources :teams
 
   resources :projects do
     member do
       get :import
       patch :import_upload
+      patch :archive
+      patch :unarchive
+      patch :ownership
       get :search
       get :reports
     end
@@ -28,7 +35,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        patch :enrollment
+      end
+    end
   end
 
   devise_for :users, controllers: {

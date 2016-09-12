@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'feature_helper'
 
 describe "Notes" do
 
@@ -9,26 +9,19 @@ describe "Notes" do
     sign_in user
   end
 
-  let(:user)  {
-    FactoryGirl.create :user, email: 'user@example.com',
-                              password: 'password'
-  }
-
-  let!(:project) do
-    FactoryGirl.create :project,  name: 'Test Project',
-                                  users: [user]
-  end
+  let(:user)        { create :user, :with_team, email: 'user@example.com', password: 'password' }
+  let(:project)     { create(:project, name: 'Test Project', users: [user], teams: [user.teams.first] ) }
 
   let!(:story) do
-    FactoryGirl.create :story,  title: 'Test Story',
-                                state: 'started',
-                                project: project,
-                                requested_by: user
+    create :story,  title: 'Test Story',
+                    state: 'started',
+                    project: project,
+                    requested_by: user
   end
 
   describe "full story life cycle" do
 
-    it "adds a note to a story", js: true, driver: :poltergeist do
+    it "adds a note to a story", js: true do
       visit project_path(project)
 
       within('#in_progress .story') do
@@ -42,10 +35,10 @@ describe "Notes" do
 
     end
 
-  	it "deletes a note from a story", js: true, driver: :poltergeist do
-      FactoryGirl.create :note, user: user,
-                                story: story,
-                                note: 'Delete me please'
+    it "deletes a note from a story", js: true do
+      create :note, user: user,
+                    story: story,
+                    note: 'Delete me please'
 
       visit project_path(project)
 

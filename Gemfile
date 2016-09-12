@@ -9,15 +9,18 @@ gem 'chartkick'
 gem 'cloudinary'
 gem 'configuration'
 gem 'devise', '~> 3.5.4'
+gem 'devise-i18n'
 gem 'devise-async'
 gem 'dotenv-rails'
 gem 'enumerize'
 gem 'font_assets', github: "ericallam/font_assets", branch: 'master'
+gem 'foreigner'
 gem 'material_icons'
 gem 'friendly_id', '~> 5.1.0'
 gem 'foreman'
 gem 'pundit'
 gem 'rails-i18n'
+gem "recaptcha", require: "recaptcha/rails"
 gem 'therubyracer'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 

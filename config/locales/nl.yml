@@ -19,6 +19,8 @@ nl:
   points:   "Punten"
   saving:   "Opslaan ..."
   expand:   "Uitvouwen"
+  not_found: "Resource not found"
+  nothing uploaded yet: "Nog niets geupload"
 
   save: "opslaan"
   delete: "schrappen"
@@ -92,6 +94,9 @@ nl:
       story:
         one: 'Verhaal'
         other: 'Verhalen'
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
@@ -127,6 +132,13 @@ nl:
         locale:               'Locale'
         is_admin:             'Is Administrator?'
         time_zone:            'tijdzone'
+      team:
+        name:                 'Naam van het Team'
+        slug:                 'naaktslak'
+        logo:                 'Logo'
+        disable_registration: 'Alleen beheerders kunnen nieuwe gebruikers toe te voegen aan dit team'
+        registration_domain_whitelist: 'Als registratie is ingeschakeld, alleen e-mails van dit domein kunnen registreren (comma separated)'
+        registration_domain_blacklist: 'Als de registratie in dit domein is ingeschakeld van CAH register e-mails (comma separated)'
 
     errors:
       models:
@@ -156,13 +168,35 @@ nl:
       velocity_per_member: "Velocity per lidstaat"
     project properties: "Project Eigenschappen"
     archived projects:  "Gearchiveerd Projecten"
+    archive: "Archiv"
+    unarchive: "UnArchive"
+    share: "Aandeel"
+    unshare: "Niet delen"
+    transfer: "Transfer Ownership"
+    sharing: "Teams met toegang tot deze Project"
+    invalid_action: "Kan deze actie of het team niet gevonden niet uitvoeren"
+
+    transfer_sure: "Bent u zeker dat u wilt eigendom over te dragen? Deze actie is niet omkeerbaar."
+
+    project was successfully archived: "Project succesvol gearchiveerd"
+    project was successfully unarchived: "Project is met succes hersteld"
 
     project was successfully created: "Project is met succes aangemaakt."
     project was successfully updated: "Project is met succes gewijzigd"
 
+    project was successfully shared: "Project correct is gedeeld."
+    project was successfully unshared: "De toegang tot het project werd met succes verwijderd."
+    project was successfully transferred: "Project is met succes overgebracht."
+
+    integrations: "Integraties"
+    integrations_new: "Voeg een nieuwe integratie"
+    integrations_remove_sure: "Weet u zeker dat u '%{kind}' integratie van dit project verwijderen?"
+
     index:
       listing projects: "Projecten overzicht"
       are you sure you want to delete this project: "Weet u zeker dat u dit project wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden!"
+      are you sure you want to archive this project: "Bent u zeker dat u dit project te archiveren?"
+      are you sure you want to unshare this project: "Weet u zeker dat u de toegang tot het project voor dit team te verwijderen?"
       the iteration starts on x with length of x weeks:
         one:    "Iteraties starten op %{day} met een lengte van 1 week"
         other:  "Iteraties starten op %{day} met een lengte van %{count} weken"
@@ -193,12 +227,26 @@ nl:
     is already a member of this project: "%{email} is al lid van dit project"
     was sent an invite to join this project: "%{email} werd gestuurd een uitnodiging om dit project aan te sluiten"
     was added to this project: "%{email} werd toegevoegd aan dit project"
+    admin_on: Maak Administrator
+    admin_off: Maak gewoon lid
+
+  teams:
+    create: 'Maak een nieuwe Team'
+    update: 'Werk de Team'
+    switch: 'Ga verder met een ander team'
+    team was successfully created: 'Team werd met succes aangemaakt'
+    team was successfully updated: 'Team is bijgewerkt'
+    new_instruction: |
+      <p>Als u niet beschikt over een geregistreerd account hebt, kunt u zich aanmelden voor het eerst.</p>
+      <p>De eerste gebruiker aan te melden bij deze nieuwe team zal de beheerder te worden.</p>
 
   admin:
     users:
       edit user: "Wijzig Gebruiker"
       index:
         are you sure you want to delete this user: "Weet u zeker dat u dit Gebruiker wilt verwijderen? Deze actie kan niet ongedaan gemaakt worden!"
+        are you sure you want to remove administration rights from this user: "Bent u zeker dat u administratie rechten van deze gebruiker verwijderen?"
+        are you sure you want to give administration rights to this user: "Bent u zeker dat u administratie rechten te geven aan deze gebruiker?"
 
   registrations:
     edit:

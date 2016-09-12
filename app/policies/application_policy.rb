@@ -1,18 +1,38 @@
+require 'active_support/core_ext/module/delegation'
+
 class ApplicationPolicy
   module CheckRoles
+    def self.included(base)
+      base.class_eval do
+        delegate :current_user, to: :context
+        delegate :current_team, to: :context
+        delegate :current_project, to: :context
+        delegate :current_story, to: :context
+      end
+    end
+
     protected
 
     def is_admin?
-      context.current_user.is_admin?
+      current_team && current_team.is_admin?(current_user)
+    end
+
+    def is_project_owner?
+      current_project && current_team.owns?(current_project)
     end
 
     def is_project_member?
-      context.current_project && context.current_project.users.find_by_id(context.current_user.id)
+      current_project && current_project.users.find_by_id(current_user.id)
     end
 
     def is_story_member?
-      context.current_story && context.current_story.project.users.find_by_id(context.current_user.id)
+      current_story && current_story.project.users.find_by_id(current_user.id)
     end
+
+    def is_team_member?
+      current_team && current_team.users.find_by_id(current_user.id)
+    end
+
   end
   include CheckRoles
 

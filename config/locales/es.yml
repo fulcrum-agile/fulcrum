@@ -20,6 +20,8 @@ es:
   points:   "Puntos"
   saving:   "Ahorro ..."
   expand:   "Expandir"
+  not_found: "Recurso no encontrado"
+  nothing uploaded yet: "Nada se ha subido"
 
   save: "Guardar"
   delete: "Borrar"
@@ -101,6 +103,7 @@ es:
       user: 'Miembro'
       project: "Proyecto"
       story: 'Articulo'
+      team: 'Equipo'
 
     attributes:
       note:
@@ -137,6 +140,13 @@ es:
         is_admin:             '¿Es administrador?'
         current_password:     'contraseña actual'
         time_zone:            'zona horaria'
+      team:
+        name:                 'Nombre del equipo'
+        slug:                 'Slug'
+        logo:                 'luego'
+        disable_registration: 'Sólo los administradores pueden añadir nuevos usuarios a este equipo'
+        registration_domain_whitelist: 'Si se habilita el registro, solamente los correos electrónicos de este dominio pueden inscribirse (separados por comas)'
+        registration_domain_blacklist: 'Si el registro está habilitado en este dominio de los correos electrónicos de registro cah (separados por comas)'
 
     errors:
       models:
@@ -166,13 +176,35 @@ es:
       velocity_per_member: "Velocidad por cada miembro"
     project properties: "Propiedades del Proyecto"
     archived projects:  "Proyectos archivados"
+    archive: "Archiv"
+    unarchive: "Desarchivar"
+    share: "Cuota"
+    unshare: "No Comparte"
+    transfer: "Transferir la propiedad"
+    sharing: "Los equipos con acceso a este proyecto"
+    invalid_action: "No se puede realizar esta acción o equipo que no se encuentra"
+
+    transfer_sure: "¿Seguro que deseas transferir la propiedad? Esta acción no es reversible."
+
+    project was successfully archived: "Proyecto fue archivado correctamente"
+    project was successfully unarchived: "Proyecto fue reintegrado con éxito"
 
     project was successfully created: "El proyecto fue creado exitosamente."
     project was successfully updated: "El proyecto fue actualizado exitosamente."
 
+    project was successfully shared: "Proyecto se ha compartido correctamente."
+    project was successfully unshared: "El acceso al proyecto se ha eliminado correctamente."
+    project was successfully transferred: "Proyecto fue transferido con éxito."
+
+    integrations: "Integraciones"
+    integrations_new: "Añadir una nueva integración"
+    integrations_remove_sure: "¿Seguro que desea eliminar '%{kind}' la integración de este proyecto?"
+
     index:
       listing projects: "Listado de Proyectos"
       are you sure you want to delete this project: "¿Estas seguro de querer borrar este proyecto? Esta acción no se puede deshacer."
+      are you sure you want to archive this project: "¿Está seguro de que desea archivar este proyecto?"
+      are you sure you want to unshare this project: "¿Seguro que quita el acceso al proyecto a este equipo?"
       the iteration starts on x with length of x weeks:
         one:    "Las iteraciones empiezan en %{day} con una duración de 1 semana"
         other:    "Las iteraciones empiezan en %{day} con una duración de %{count} semanas"
@@ -203,12 +235,26 @@ es:
     is already a member of this project: "%{email} ya es un miembro de este proyecto"
     was sent an invite to join this project: "%{email} fue enviado una invitación a unirse a este proyecto"
     was added to this project: "%{email} se añadió a este proyecto"
+    admin_on: Macer administrador
+    admin_off: Simplemente haga miembro
+
+  teams:
+    create: 'Crear nuevo Equipo'
+    update: 'Actualización de equipo'
+    switch: 'Cambiar a otro equipo'
+    team was successfully created: 'El equipo ha sido creado con éxito'
+    team was successfully updated: 'El equipo ha sido actualizado correctamente'
+    new_instruction: |
+      <p>Si usted no tiene una cuenta registrada, usted puede inscribirse en primer lugar.</p>
+      <p>El primer usuario que acceda a este nuevo equipo será el administrador.</p>
 
   admin:
     users:
       edit user: "Edita Miembro"
       index:
         are you sure you want to delete this user: "¿Estas seguro de querer borrar este miembro? Esta acción no se puede deshacer."
+        are you sure you want to remove administration rights from this user: "¿Está seguro de que desea eliminar los derechos de administración de este usuario?"
+        are you sure you want to give administration rights to this user: "¿Está seguro de que desea dar derechos de administrador a este usuario?"
 
   registrations:
     edit:

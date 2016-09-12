@@ -13,3 +13,4 @@ config/deploy.rb
 .env.test
 *.dump
 public/javascripts/*
+public/test_assets/

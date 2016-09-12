@@ -2,10 +2,9 @@ require 'rails_helper'
 
 describe TasksController do
 
-  let!(:membership)     { create(:membership) }
-  let(:user)            { User.first }
-  let(:project)         { Project.first }
-  let(:story)           { create(:story, project: project, requested_by: user) }
+  let(:user)            { create(:user, :with_team_and_is_admin) }
+  let(:project)         { create(:project, users: [user], teams: [user.teams.first]) }
+  let!(:story)          { create(:story, project: project, requested_by: user) }
   let(:request_params)  { { project_id: project.id, story_id: story.id } }
 
   context 'when not logged in' do
@@ -34,6 +33,7 @@ describe TasksController do
   context 'when logged in' do
     before do
       sign_in user
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe '#create' do

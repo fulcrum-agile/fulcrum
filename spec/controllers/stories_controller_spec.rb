@@ -20,12 +20,12 @@ describe StoriesController do
 
   context "when logged in" do
 
-    let!(:membership)     { create(:membership) }
-    let(:user)            { User.first }
-    let(:project)         { Project.first }
+    let(:user)     { create :user, :with_team }
+    let!(:project) { create(:project, name: 'Test Project', users: [user], teams: [user.teams.first] ) }
 
     before do
       sign_in user
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "#index" do
@@ -45,7 +45,7 @@ describe StoriesController do
       let(:story) { create(:story, project: project, requested_by: user )}
 
       let(:story_params) do
-        { title: "Foo", documents: [ {"file"=> attachments.first}, {"file"=> attachments.last} ]}
+        { title: "Foo", documents: [ attachments.first, attachments.last ]}
       end
 
       before do

@@ -1,10 +1,11 @@
 <% content_for :title_bar do %>
-  <h1>Sign up</h1>
+  <h1><%= t('.sign_up') %></h1>
 <% end %>
 
 <div class="row">
   <div class="col-xs-12 col-sm-6">
     <div class="form-wrapper add-user">
+      <% resource.team_slug = session[:team_slug] if session[:team_slug] %>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= devise_error_messages! %>
 
@@ -25,6 +26,16 @@
         <div class="field-wrapper">
           <%= f.label :email, class: 'col-sm-4 control-label' %>
           <div class="col-sm-8"><%= f.email_field :email %></div>
+        </div>
+
+        <div class="field-wrapper">
+          <%= f.label :team_slug, class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8"><%= f.text_field :team_slug, readonly: resource.team_slug.present? %></div>
+        </div>
+
+        <div class="field-wrapper">
+          <%= f.label :captcha, class: 'col-sm-4 control-label' %>
+          <div class="col-sm-8"><%= recaptcha_tags %></div>
         </div>
 
         <div class="actions clearfix">

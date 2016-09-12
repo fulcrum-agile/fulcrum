@@ -6,15 +6,25 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         authentication_keys: {email: true, team_slug: true}
 
   # Flag used to identify if the user was found or created from find_or_create
-  attr_accessor :was_created
+  attr_accessor :was_created, :team_slug
+
+  has_many :enrollments
+  has_many :teams, through: :enrollments
 
   has_many :memberships, dependent: :destroy
-  has_many :projects, -> { uniq }, through: :memberships
+  has_many :projects, -> { uniq }, through: :memberships do
+    def not_archived
+      where(archived_at: nil)
+    end
+  end
 
   before_validation :set_random_password_if_blank
+
+  after_save :set_team
 
   before_destroy :remove_story_association
 
@@ -54,15 +64,43 @@ class User < ActiveRecord::Base
     super(only: JSON_ATTRIBUTES)
   end
 
-  def admin?
-    is_admin
-  end
-
   private
 
   def remove_story_association
     Story.where(requested_by_id: id).update_all(requested_by_id: nil, requested_by_name: nil)
     Story.where(owned_by_id: id).update_all(owned_by_id: nil, owned_by_name: nil)
     Membership.where(user_id: id).delete_all
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    if warden_conditions[:reset_password_token]
+      where(reset_password_token: warden_conditions[:reset_password_token]).first
+    elsif warden_conditions[:confirmation_token]
+      where(confirmation_token: warden_conditions[:confirmation_token]).first
+    else
+      user = joins(enrollments: [:team]).where(email: warden_conditions[:email], teams: { slug: warden_conditions[:team_slug] }).first
+      if user.nil?
+        create_administrator(warden_conditions)
+      else
+        user
+      end
+    end
+  end
+
+  def self.create_administrator(warden_conditions)
+    user = User.find_by_email(warden_conditions[:email])
+    team = Team.not_archived.find_by_slug(warden_conditions[:team_slug])
+    # if this is a brand new team, without any enrollments yet, the first logged in user becomes administrator
+    if user && team && team.enrollments.count.zero?
+      team.enrollments.create(user: user, is_admin: true)
+      user
+    end
+  end
+
+  def set_team
+    if team_slug
+      team = Team.not_archived.find_by_slug(team_slug)
+      self.enrollments.create(team: team) if team
+    end
   end
 end

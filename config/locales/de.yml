@@ -22,6 +22,8 @@ de:
   points:   "Punkte"
   saving:   "Speichern ..."
   expand:   "Expandieren"
+  not_found: "Ressource nicht gefunden"
+  nothing uploaded yet: "Nichts hochgeladen noch"
 
   save: "Speichern"
   delete: "Löschen"
@@ -95,7 +97,9 @@ de:
       story:
         one: 'Story'
         other: 'Stories'
-
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
@@ -131,6 +135,13 @@ de:
         is_admin:             'Ist Administrator?'
         current_password:     'Aktuelles Passwort'
         time_zone:            'Zeitzone'
+      team:
+        name:                 'Team Name'
+        slug:                 'Slug'
+        logo:                 'Bald'
+        disable_registration: 'Nur Administratoren können neue Benutzer zu diesem Team hinzufügen'
+        registration_domain_whitelist: 'Wenn die Registrierung aktiviert ist, werden nur E-Mails von dieser Domain registrieren kann (durch Komma getrennt)'
+        registration_domain_blacklist: 'Wenn die Registrierung in diesem Bereich von CAH Register E-Mails aktiviert ist (durch Komma getrennt)'
 
     errors:
       models:
@@ -160,13 +171,35 @@ de:
       velocity_per_member: "Geschwindigkeit pro Mitglied"
     project properties: "Projekt-Eigenschaften"
     archived projects:  "Archivierten Projekte"
+    archive: "Archiv"
+    unarchive: "UnArchive"
+    share: "Aktie"
+    unshare: "Entfernen Teilen"
+    transfer: "Transfer Eigentümer"
+    sharing: "Teams mit Zugang zu diesem Projekt"
+    invalid_action: "Diese Aktion kann nicht oder Teams führen nicht gefunden"
+
+    transfer_sure: "Sind Sie sicher, dass Sie das Eigentum zu übertragen? Diese Aktion ist nicht umkehrbar."
+
+    project was successfully archived: "Das Projekt wurde erfolgreich archiviert "
+    project was successfully unarchived: "Das Projekt wurde erfolgreich wieder"
 
     project was successfully created: "Projekt wurde erfolgreich erstellt."
     project was successfully updated: "Projekt wurde erfolgreich aktualisiert."
 
+    project was successfully shared: "Das Projekt wurde erfolgreich freigegeben."
+    project was successfully unshared: "Der Zugriff auf das Projekt wurde erfolgreich entfernt."
+    project was successfully transferred: "Das Projekt wurde erfolgreich übertragen."
+
+    integrations: "Integrationen"
+    integrations_new: "Fügen Sie eine neue Integration"
+    integrations_remove_sure: "Sind Sie sicher, dass Sie '%{kind}' Integration von diesem Projekt zu entfernen?"
+
     index:
       listing projects: "Projektliste"
       are you sure you want to delete this project: "Sind Sie sicher, dass Sie das Projekt löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+      are you sure you want to archive this project: "Sind Sie sicher, dass Sie dieses Projekt zu archivieren ?"
+      are you sure you want to unshare this project: "Sind Sie sicher, dass Sie den Zugriff auf das Projekt für dieses Team zu entfernen?"
       the iteration starts on x with length of x weeks:
         one:    "Die Iteration beginnt am %{day} mit einer Länge von einer Woche"
         other:  "Die Iteration beginnt am %{day} mit einer Länge von %{count} Wochen"
@@ -197,12 +230,26 @@ de:
     is already a member of this project: "%{email} ist bereits Mitglied dieses Projekts"
     was sent an invite to join this project: "%{email} gesendet wurde dieses Projekt eine Einladung beitreten"
     was added to this project: "%{email} wurde zu diesem Projekt hinzugefügt"
+    admin_on: Machen Administrator
+    admin_off: So stellen Sie Mitglied
+
+  teams:
+    create: 'Neues Team'
+    update: 'Update Team'
+    switch: 'zu einem anderen Team wechseln'
+    team was successfully created: 'Team wurde erfolgreich erstellt'
+    team was successfully updated: 'Team wurde erfolgreich aktualisiert'
+    new_instruction: |
+      <p>Wenn Sie noch kein Konto registriert haben, können Sie sich zuerst anmelden.</p>
+      <p>Der erste Benutzer zu diesem neuen Team anmelden wird der Administrator werden.</p>
 
   admin:
     users:
       edit user: "Mitglied bearbeiten"
       index:
         are you sure you want to delete this user: "Sind Sie sicher, dass Sie das Mitglied löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+        are you sure you want to remove administration rights from this user: "Sind Sie sicher, dass Sie Administrator-Rechte von diesem Benutzer entfernen?"
+        are you sure you want to give administration rights to this user: "Sind Sie sicher, dass Sie Administrator-Rechte an diesen Benutzer geben möchten?"
 
   registrations:
     edit:

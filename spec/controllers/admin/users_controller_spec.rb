@@ -19,11 +19,11 @@ describe Admin::UsersController do
 
   context "when logged in as admin" do
 
-    let(:user)      { create :user, is_admin: true }
+    let(:user)      { create :user, :with_team_and_is_admin }
 
     before do
       sign_in user
-      allow(subject).to receive(:current_user).and_return(user)
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do
@@ -87,6 +87,33 @@ describe Admin::UsersController do
 
       end
 
+      describe "#enrollment" do
+
+        specify do
+          patch :enrollment, id: user.id, is_admin: true
+          expect(assigns[:user]).to eq(user)
+        end
+
+        context "when update succeeds" do
+
+          specify do
+            patch :enrollment, id: user.id, is_admin: true
+            expect(response).to redirect_to(admin_users_path)
+          end
+
+        end
+
+        context "when update fails" do
+
+          specify do
+            patch :enrollment, id: user.id, is_admin: true
+            expect(response).to redirect_to(admin_users_path)
+          end
+
+        end
+
+      end
+
       describe "#destroy" do
 
         specify do
@@ -103,11 +130,11 @@ describe Admin::UsersController do
 
   context "when logged in as non-admin user" do
 
-    let(:user)         { create :user, is_admin: false }
+    let(:user)         { create :user, :with_team }
 
     before do
       sign_in user
-      allow(subject).to receive(:current_user).and_return(user)
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do
@@ -128,7 +155,8 @@ describe Admin::UsersController do
 
           specify do
             get :edit, id: user.id
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end
@@ -137,7 +165,18 @@ describe Admin::UsersController do
 
           specify do
             put :update, id: user.id, user: {}
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
+          end
+
+        end
+
+        describe "#enrollment" do
+
+          specify do
+            patch :enrollment, id: user.id, is_admin: true
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end
@@ -146,7 +185,8 @@ describe Admin::UsersController do
 
           specify do
             delete :destroy, id: user.id
-            expect(response.status).to eq(404)
+            expect(response).to redirect_to(root_path)
+            expect(flash[:alert]).to eq(I18n.t('not_found'))
           end
 
         end

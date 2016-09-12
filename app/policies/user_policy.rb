@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    is_admin? || (is_project_member? && context.current_project.users.find_by_id(record.id))
+    is_admin? || (is_project_member? && current_project.users.find_by_id(record.id))
   end
 
   def create?
@@ -12,20 +12,24 @@ class UserPolicy < ApplicationPolicy
   end
 
   def is_himself?
-    context.current_user == record
+    current_user == record
+  end
+
+  def enrollment?
+    update?
   end
 
   class Scope < Scope
     def resolve
       if is_admin?
-        if context.current_project
-          context.current_project.users
+        if current_project
+          current_project.users
         else
           # Admin::UsersController
-          User.all
+          current_team.users.all
         end
       elsif is_project_member?
-        context.current_project.users
+        current_project.users
       else
         User.none
       end

@@ -4,9 +4,8 @@ module IntegrationHelpers
     visit root_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: password
+    fill_in "Team slug", with: user.teams.first.slug
     click_button 'Sign in'
-    I18n.locale = :en
-    Time.zone = 'Brasilia'
   end
 
   def send_keys keys, options = {}

@@ -1,5 +1,5 @@
 <% content_for :title_bar do %>
-  <h1>Change your password</h1>
+  <h1><%= t('.change_your_password') %></h1>
 <% end %>
 <div class="row">
   <div class="col-sm-12 col-md-6">
@@ -9,7 +9,7 @@
         <%= f.hidden_field :reset_password_token %>
 
         <div class="field-wrapper">
-          <%= f.label :password, "New password" %>
+          <%= f.label :password, t('.new_password') %>
           <% if @minimum_password_length %>
             <em>(<%= @minimum_password_length %> characters minimum)</em><br />
           <% end %>
@@ -17,11 +17,11 @@
         </div>
 
         <div class="field-wrapper">
-          <%= f.label :password_confirmation, "Confirm new password" %>
+          <%= f.label :password_confirmation, t('.confirm_new_password') %>
           <div class="field"><%= f.password_field :password_confirmation, autocomplete: "off" %></div>
         </div>
 
-        <div class="actions"><%= f.submit "Change my password" %></div>
+        <div class="actions"><%= f.submit t('.confirm_new_password'), class: 'btn btn-primary pull-right' %></div>
       <% end %>
     </div>
   </div>

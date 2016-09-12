@@ -117,6 +117,7 @@ GEM
       warden (~> 1.2.3)
     devise-async (0.10.2)
       devise (>= 3.2, < 4.0)
+    devise-i18n (1.1.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
     domain_name (0.5.20160615)
@@ -136,6 +137,8 @@ GEM
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
     ffi (1.9.10)
+    foreigner (1.7.4)
+      activerecord (>= 3.0.0)
     foreman (0.82.0)
       thor (~> 0.19.1)
     friendly_id (5.1.0)
@@ -247,6 +250,8 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    recaptcha (3.3.0)
+      json
     redis (3.3.0)
     ref (2.0.0)
     responders (1.1.2)
@@ -368,11 +373,13 @@ DEPENDENCIES
   database_cleaner
   devise (~> 3.5.4)
   devise-async
+  devise-i18n
   dotenv-rails
   ejs
   enumerize
   factory_girl_rails
   font_assets!
+  foreigner
   foreman
   friendly_id (~> 5.1.0)
   i18n-js (>= 3.0.0.rc8)
@@ -404,6 +411,7 @@ DEPENDENCIES
   rails-assets-underscore!
   rails-i18n
   rails_12factor
+  recaptcha
   rspec-activemodel-mocks
   rspec-its
   rspec-rails

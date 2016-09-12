@@ -2,8 +2,19 @@
   <h1><%= t('projects.archived projects') %></h1>
 <% end %>
 
-<div id="projects" class="projects-list">
-  <div class="row item">
-    <%= render @projects %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <ul class="list-group">
+      <% @projects.order(:name).each do |project| %>
+      <li class="list-group-item clearfix">
+        <div class="member-name">
+          <%= project.name %> (<%= project.archived_at.to_s(:short) %>)
+        </div>
+        <%= form_for [:unarchive, project], method: :patch do |f| %>
+          <%= f.submit t('projects.unarchive'), class: 'btn btn-danger btn-sm pull-right' %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
   </div>
 </div>
