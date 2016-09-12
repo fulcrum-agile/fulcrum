@@ -50,6 +50,7 @@ ja:
       deliver: "届けます"
       accept: "受け入れます"
       reject: "拒否"
+      restart: "再起動"
     type:
       feature: "機能"
       chore: "雑用"

@@ -50,6 +50,7 @@ de:
       deliver: "liefern"
       accept: "akzeptieren"
       reject: "ablehnen"
+      restart: "Wiederaufnahme"
     type:
       feature: "Feature"
       chore: "lästige Pflicht"

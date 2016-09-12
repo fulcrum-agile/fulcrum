@@ -51,6 +51,7 @@ en:
       deliver: "deliver"
       accept: "accept"
       reject: "reject"
+      restart: "restart"
     type:
       feature: "feature"
       chore: "chore"

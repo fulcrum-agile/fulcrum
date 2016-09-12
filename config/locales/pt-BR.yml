@@ -48,6 +48,7 @@ pt-BR:
       deliver: "entregar"
       accept: "aceitar"
       reject: "rejeitar"
+      restart: "reiniciar"
     type:
       feature: "recurso"
       chore: "chore"

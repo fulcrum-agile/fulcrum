@@ -256,6 +256,7 @@ el:
       deliver: "παραδώσει"
       accept: "δέχονται"
       reject: "απορρίπτει"
+      restart: "επανεκκίνηση"
     type:
       feature: "χαρακτηριστικό"
       chore: "αγγαρεία"

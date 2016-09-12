@@ -47,6 +47,7 @@ nl:
       deliver: "leveren"
       accept: "accepteren"
       reject: "verwerpen"
+      restart: "restart"
     type:
       feature: "feature"
       chore: "karwei"

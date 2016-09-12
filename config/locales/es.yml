@@ -48,6 +48,7 @@ es:
       deliver: "entregar"
       accept: "aceptar"
       reject: "rechazar"
+      restart: "reanudar"
     type:
       feature: "característica"
       chore: "tarea"
