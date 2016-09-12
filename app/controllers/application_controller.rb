@@ -57,6 +57,7 @@ class ApplicationController < ActionController::Base
   helper_method :pundit_user
 
   def current_team
+    session[:current_team_slug] = current_user.teams&.not_archived&.first&.slug if current_user && session[:current_team_slug].nil?
     raise ActiveRecord::RecordNotFound, 'Team not set' unless session[:current_team_slug]
     @current_team ||= Team.not_archived.find_by_slug(session[:current_team_slug])
   end
