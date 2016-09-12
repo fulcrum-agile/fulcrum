@@ -23,6 +23,7 @@ ja:
   saving:   "保存中…"
   expand:   "広げる"
   not_found: "リソースが見つかりません"
+  nothing uploaded yet: "何もまだアップロードされません"
 
   save: "保存"
   delete: "削除"

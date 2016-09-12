@@ -21,6 +21,7 @@ es:
   saving:   "Ahorro ..."
   expand:   "Expandir"
   not_found: "Recurso no encontrado"
+  nothing uploaded yet: "Nada se ha subido"
 
   save: "Guardar"
   delete: "Borrar"

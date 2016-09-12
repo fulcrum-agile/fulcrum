@@ -1,7 +1,7 @@
 <script type="text/template" charset="utf-8" id="attachinary_template">
 <ul class='attachinary_images_list'>
 <% if ( files.length == 0 ) { %>
-  <li>nothing uploaded yet</li>
+<li><%= I18n.t('nothing uploaded yet') %></li>
 <% } %>
 <% for(var i = 0; i < files.length; i++) { %>
   <% if (files[i]) { %>

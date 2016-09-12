@@ -229,6 +229,7 @@ el:
   saving:   αποθήκευση ...
   expand:   ανοιγμα
   not_found: "Πόρου δεν βρέθηκε"
+  nothing uploaded yet: "τίποτα ανεβάσει ακόμα"
 
   save: "Αποθήκευση"
   delete: "Διαγραφή"

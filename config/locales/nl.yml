@@ -20,6 +20,7 @@ nl:
   saving:   "Opslaan ..."
   expand:   "Uitvouwen"
   not_found: "Resource not found"
+  nothing uploaded yet: "Nog niets geupload"
 
   save: "opslaan"
   delete: "schrappen"

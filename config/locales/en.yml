@@ -24,6 +24,7 @@ en:
   saving:   "Saving ..."
   expand:   "Expand"
   not_found: "Resource not found"
+  nothing uploaded yet: "Nothing uploaded yet"
 
   save: "Save"
   delete: "Delete"
