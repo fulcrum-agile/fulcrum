@@ -13,7 +13,9 @@ class TeamPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if is_admin?
+      if is_root?
+        Team
+      elsif is_admin?
         Team.not_archived.where(id: current_team.id)
       else
         Team.none

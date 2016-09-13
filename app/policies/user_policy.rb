@@ -21,7 +21,9 @@ class UserPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      if is_admin?
+      if is_root?
+        User
+      elsif is_admin?
         if current_project
           current_project.users
         else
