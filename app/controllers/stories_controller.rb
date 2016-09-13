@@ -88,8 +88,9 @@ class StoriesController < ApplicationController
   private
 
   def allowed_params
+    attachinary_params = [ :id, :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ]
     params.require(:story).permit(:title, :description, :estimate, :story_type, :state, :requested_by_id, :owned_by_id, :position, :labels,
-                                  documents: [ :id, :public_id, :version, :signature, :width, :height, :format, :resource_type, :created_at, :tags, :bytes, :type, :etag, :url, :secure_url, :original_filename ])
+                                  documents: attachinary_params)
   end
 
   def set_project

@@ -72,6 +72,18 @@ describe StoriesController do
       end
     end
 
+    context "simulating bug on new story with attachment" do
+      let(:received_params) { {"story"=>{"events"=>nil, "documents"=>[{"public_id"=>"BrunoPassos2_gvwhs5", "version"=>1473786081, "signature"=>"380e170a8d26bbe1a869bd2e00c912141b1c2a35", "width"=>1000, "height"=>1000, "format"=>"jpg", "resource_type"=>"image", "created_at"=>"2016-09-13T17:01:21Z", "tags"=>["development_env", "attachinary_tmp"], "bytes"=>690807, "type"=>"upload", "etag"=>"88b961d2a64db1857deba31a8fadcae7", "url"=>"http://res.cloudinary.com/hq5e5afno/image/upload/v1473786081/BrunoPassos2_gvwhs5.jpg", "secure_url"=>"https://res.cloudinary.com/hq5e5afno/image/upload/v1473786081/BrunoPassos2_gvwhs5.jpg", "original_filename"=>"BrunoPassos2"}], "state"=>"unscheduled", "story_type"=>"feature", "files"=>nil, "editing"=>true, "title"=>"teste"}, "project_id"=>project.id} }
+
+      it "should create the new story and associate the attachments" do
+        VCR.use_cassette("cloudinary_upload_new_story") do
+          expect {
+            xhr :post, :create, received_params
+          }.to change {Story.count}.by(1)
+        end
+      end
+    end
+
     context "member actions" do
 
       let(:story) { create(:story, project: project, requested_by: user) }
