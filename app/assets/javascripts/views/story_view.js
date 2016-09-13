@@ -544,7 +544,10 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
 
     // Manually bind labels for now
     $input.on('change', function(){
-      model.set({ labels: $(this).val()});
+      var that = this;
+      setTimeout(function() {
+        model.set({ labels: $(that).val()});
+      }, 50);
     });
   },
 
