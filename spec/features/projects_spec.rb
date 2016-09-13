@@ -103,7 +103,8 @@ describe "Projects" do
 
   describe "share/transfer project" do
 
-    let!(:another_team) { create :team, name: "Another Team" }
+    let!(:another_admin) { create :user, :with_team_and_is_admin }
+    let!(:another_team) { another_admin.teams.first }
 
     let!(:project) {
       create :project, name: 'Test Project',
@@ -122,8 +123,8 @@ describe "Projects" do
         click_on 'Share'
       end
 
-      another_team = page.find('.share-project table tr:first-child td:first-child')
-      expect(another_team.text).to eq('Another Team')
+      another_team_elem = page.find('.share-project table tr:first-child td:first-child')
+      expect(another_team_elem.text).to eq(another_team.name)
 
       within('.share-project') do
         click_on "Unshare"
