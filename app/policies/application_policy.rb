@@ -4,10 +4,8 @@ class ApplicationPolicy
   module CheckRoles
     def self.included(base)
       base.class_eval do
-        delegate :current_user, to: :context
-        delegate :current_team, to: :context
-        delegate :current_project, to: :context
-        delegate :current_story, to: :context
+        delegate :current_user, :current_team, :current_project, :current_story,
+          to: :context
       end
     end
 

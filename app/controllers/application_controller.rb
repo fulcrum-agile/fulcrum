@@ -3,43 +3,33 @@ class ApplicationController < ActionController::Base
 
   include Pundit
 
-  before_filter :authenticate_user!, :set_locale
+  before_filter :authenticate_user!, unless: :devise_controller?
+  before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
 
-  after_filter :verify_authorized, except: [:index], unless: :devise_controller?
-  after_filter :verify_policy_scoped, only: [:index], unless: :devise_controller?
+  after_filter :verify_authorized, except: [:index], if: :must_verify_scoped?
+  after_filter :verify_policy_scoped, only: [:index], if: :must_verify_scoped?
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from Pundit::NotAuthorizedError,   with: :user_not_authorized
 
   protected
+
   def render_404
     respond_to do |format|
       format.html do
         if current_user
-          flash[:alert] = I18n.t('not_found')
-          redirect_to request.referer || root_path
+          redirect_to( request.referer || root_path, alert: I18n.t('not_found') )
         else
-          render file: Rails.root.join('public', '404.html'),
-            status: '404'
+          render file: Rails.root.join('public', '404.html'), status: '404'
         end
       end
-      format.xml do
-        render nothing: true, status: '404'
-      end
+      format.xml { render nothing: true, status: '404' }
     end
   end
 
-  private
-
   def set_locale
-    if session[:locale]
-      I18n.locale = session[:locale]
-    elsif !current_user.nil? && !current_user.locale.nil? && !current_user.locale.empty?
-      I18n.locale = current_user.locale.to_sym
-    else
-      I18n.locale = :en
-    end
+    I18n.locale = session[:locale] || current_user.try(:locale).try(:to_sym) || :en
   end
 
   def user_time_zone(&block)
@@ -65,10 +55,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if params.dig(:user, :reset_password_token)
-      session[:current_team_slug] = current_user.teams.first.slug
+      session[:current_team_slug] = current_user.try(:teams).try(:first).try(:slug)
     elsif params.dig(:user, :team_slug)
       session[:current_team_slug] = params[:user][:team_slug]
     end
     super
+  end
+
+  def must_verify_scoped?
+    !devise_controller? && !(self.class.parent == Manage)
   end
 end
