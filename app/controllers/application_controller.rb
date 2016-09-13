@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
 
-  after_filter :verify_authorized, except: [:index], if: :must_verify_scoped?
-  after_filter :verify_policy_scoped, only: [:index], if: :must_verify_scoped?
+  after_filter :verify_authorized, except: [:index], if: :must_pundit?
+  after_filter :verify_policy_scoped, only: [:index], if: :must_pundit?
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from Pundit::NotAuthorizedError,   with: :user_not_authorized
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     super
   end
 
-  def must_verify_scoped?
+  def must_pundit?
     !devise_controller? && !(self.class.parent == Manage)
   end
 end
