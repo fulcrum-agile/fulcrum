@@ -1,31 +1,43 @@
 ActiveAdmin.register Membership do
+  menu parent: 'Relationships'
+
   controller do
-    def find_resource
-      scoped_collection.includes(:user, :project)
+    belongs_to :project, optional: true
+    belongs_to :user, optional: true
+
+    def scoped_collection
+      if params[:project_id]
+        super.includes(:user)
+      elsif params[:user_id]
+        super.includes(:project)
+      else
+        super.includes(:user, :project)
+      end
     end
   end
 
-  belongs_to :project
 
   permit_params :user_id, :project_id
 
   index do
     selectable_column
     id_column
-    column do |membership|
-      membership.user.name
+    column do |m|
+      m.user.name
     end
-    column do |membership|
-      membership.project.name
+    column do |m|
+      m.project.name
     end
   end
 
   show do
-    row 'Member' do
-      resource.user.name
-    end
-    row 'Project' do
-      resource.project.name
+    attributes_table do
+      row :user do
+        resource.user.name
+      end
+      row :project do
+        resource.project.name
+      end
     end
   end
 
@@ -34,9 +46,9 @@ ActiveAdmin.register Membership do
   form do |f|
     f.inputs "Membership Details" do
       f.input :user, as: :select,
-        collection: Enrollment.where(team: resource.project.teams).includes(:user).map(&:user)
+        collection: User.order(:name).all
       f.input :project, as: :select,
-        collection: Ownership.where(team: resource.project.teams).includes(:project).map(&:project)
+        collection: Project.order(:name).all
     end
   end
 end

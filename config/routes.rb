@@ -3,6 +3,21 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  namespace :manage do
+    resources :projects do
+      resources :ownerships
+    end
+    resources :teams do
+      resources :ownerships
+      resources :enrollments
+    end
+    resources :users do
+      resources :memberships
+      resources :enrollments
+    end
+  end
+
   mount Attachinary::Engine => "/attachinary"
 
   get 'story/new'

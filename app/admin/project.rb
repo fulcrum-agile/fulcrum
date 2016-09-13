@@ -1,5 +1,5 @@
 ActiveAdmin.register Project do
-  permit_params :name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length
+  permit_params :name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :archived_at, :user_ids
 
   index do
     selectable_column
@@ -11,6 +11,23 @@ ActiveAdmin.register Project do
     column :iteration_start_day
     column :iteration_length
     column :archived_at
+  end
+
+  show do
+    attributes_table do
+      row :name
+      row :point_scale
+      row :default_velocity
+      row :start_date
+      row :iteration_start_day
+      row :iteration_length
+      row :archived_at
+      table_for resource.users.order(:name) do
+        column 'Members' do |user|
+          link_to user.name, manage_user_path(user)
+        end
+      end
+    end
   end
 
   filter :name
@@ -28,6 +45,13 @@ ActiveAdmin.register Project do
       f.input :archived_at
     end
     f.actions
+  end
+
+  sidebar "Project Details", only: [:show, :edit] do
+    ul do
+      li link_to "Memberships", manage_project_memberships_path(resource)
+      li link_to "Ownerships", manage_project_ownerships_path(resource)
+    end
   end
 
 end
