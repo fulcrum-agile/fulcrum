@@ -20,6 +20,7 @@
     "jquery-ujs": "^1.2.1",
     "jquery.caret": "^0.3.1",
     "jquery.scrollto": "^2.1.2",
+    "rewire-webpack": "^1.0.1",
     "stats-webpack-plugin": "^0.4.2",
     "underscore": "^1.8.3",
     "webpack": "^1.9.11",
@@ -35,7 +36,6 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.8.0",
-    "rewire-webpack": "^1.0.1",
     "sinon": "^1.17.5"
   }
 }

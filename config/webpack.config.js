@@ -65,7 +65,9 @@ var config = {
       $: 'jquery',
       jQuery: 'jquery',
       _: 'underscore'
-    })
+    }),
+
+    new RewirePlugin()
   ]
 };
 
@@ -83,7 +85,6 @@ if (PRODUCTION) {
     new webpack.optimize.OccurenceOrderPlugin()
   );
 } else {
-  config.plugins.push(new RewirePlugin());
   config.devServer = {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
