@@ -4,33 +4,36 @@ class ApplicationPolicy
   module CheckRoles
     def self.included(base)
       base.class_eval do
-        delegate :current_user, to: :context
-        delegate :current_team, to: :context
-        delegate :current_project, to: :context
-        delegate :current_story, to: :context
+        delegate :current_user, :current_team, :current_project, :current_story,
+          to: :context
       end
     end
 
     protected
 
+    def is_root?
+      # this user can do anothing, it goes in AdminUser instead of User and bypasses everything
+      context.active_admin
+    end
+
     def is_admin?
-      current_team && current_team.is_admin?(current_user)
+      is_root? || ( current_team && current_team.is_admin?(current_user) )
     end
 
     def is_project_owner?
-      current_project && current_team.owns?(current_project)
+      is_root? || ( current_project && current_team.owns?(current_project) )
     end
 
     def is_project_member?
-      current_project && current_project.users.find_by_id(current_user.id)
+      is_root? || ( current_project && current_project.users.find_by_id(current_user.id) )
     end
 
     def is_story_member?
-      current_story && current_story.project.users.find_by_id(current_user.id)
+      is_root? || ( current_story && current_story.project.users.find_by_id(current_user.id) )
     end
 
     def is_team_member?
-      current_team && current_team.users.find_by_id(current_user.id)
+      is_root? || ( current_team && current_team.users.find_by_id(current_user.id) )
     end
 
   end
@@ -39,6 +42,9 @@ class ApplicationPolicy
   attr_reader :context, :record
 
   def initialize(context, record)
+    if context.is_a?(AdminUser)
+      context = PunditContext.new(nil, context, { active_admin: true })
+    end
     raise Pundit::NotAuthorizedError, "Must be signed in." unless context.current_user
     @context = context
     @record  = record
@@ -85,6 +91,9 @@ class ApplicationPolicy
     attr_reader :context, :scope
 
     def initialize(context, scope)
+      if context.is_a?(AdminUser)
+        context = PunditContext.new(nil, context, { active_admin: true })
+      end
       @context = context
       @scope   = scope
     end

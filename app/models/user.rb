@@ -3,11 +3,17 @@ class User < ActiveRecord::Base
   # FIXME - DRY up, repeated in Story model
   JSON_ATTRIBUTES = ["id", "name", "initials", "username", "email"]
 
+  AUTHENTICATION_KEYS = %i[email team_slug]
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         authentication_keys: {email: true, team_slug: true}
+         authentication_keys:   AUTHENTICATION_KEYS,
+         strip_whitespace_keys: AUTHENTICATION_KEYS,
+         confirmation_keys:     AUTHENTICATION_KEYS,
+         reset_password_keys:   AUTHENTICATION_KEYS
+         # unlock_keys: AUTHENTICATION_KEYS
 
   # Flag used to identify if the user was found or created from find_or_create
   attr_accessor :was_created, :team_slug

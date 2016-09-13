@@ -145,4 +145,8 @@ class Project < ActiveRecord::Base
   def iteration_service(since = nil)
     @iteration_service ||= IterationService.new(self, since)
   end
+
+  def to_param
+    ::FriendlyId::Disabler.disabled? ? (id && id.to_s) : super
+  end
 end
