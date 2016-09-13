@@ -80,9 +80,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'jasmine-rails', '~> 0.12.6'
   gem 'phantomjs', '>= 2.1.1.0'
   gem 'pry-rails'
   gem 'quiet_assets'
-  gem 'sinon-rails'
 end

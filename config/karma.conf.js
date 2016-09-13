@@ -42,7 +42,7 @@ module.exports = function(config) {
       noInfo: true
     },
     phantomjsLauncher: {
-      exitOnResourceError: true
+      exitOnResourceError: false
     }
   });
 }

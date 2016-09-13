@@ -1,5 +1,4 @@
 var EpicBarView = require('./epic_bar_view');
-var StoryView = require('./story_view');
 
 module.exports = Backbone.View.extend({
 
@@ -16,6 +15,8 @@ module.exports = Backbone.View.extend({
   },
 
   addStory: function(story, column) {
+    var StoryView = require('./story_view');
+    
     var view = new StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();

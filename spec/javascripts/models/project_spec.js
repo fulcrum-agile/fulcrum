@@ -82,13 +82,13 @@ describe('Project model', function() {
     it("should reload changed stories from changesets", function() {
 
       var changesets = [{"changeset":{"id":123,"story_id":456,"project_id":789}}];
-      var get_spy = sinon.spy(this.project.stories, 'get');
-      var fetch_spy = sinon.spy(this.story, 'fetch');
+      var getSpy = sinon.spy(this.project.stories, 'get');
+      var fetchSpy = sinon.spy(this.story, 'fetch');
 
       this.project.handleChangesets(changesets);
 
-      expect(get_spy).toHaveBeenCalledWith(456);
-      expect(fetch_spy).toHaveBeenCalled();
+      expect(getSpy).toHaveBeenCalledWith(456);
+      expect(fetchSpy).toHaveBeenCalled();
 
     });
 
@@ -104,8 +104,8 @@ describe('Project model', function() {
       );
 
       var changesets = [{"changeset":{"id":123,"story_id":987,"project_id":789}}];
-      var get_spy = sinon.spy(this.project.stories, 'get');
-      var add_spy = sinon.spy(this.project.stories, 'add');
+      var getSpy = sinon.spy(this.project.stories, 'get');
+      var addSpy = sinon.spy(this.project.stories, 'add');
       var initial_collection_length = this.project.stories.length;
 
       this.project.handleChangesets(changesets);
@@ -113,8 +113,8 @@ describe('Project model', function() {
       expect(server.requests.length).toEqual(1);
       server.respond();
 
-      expect(get_spy).toHaveBeenCalled();
-      expect(add_spy).toHaveBeenCalled();
+      expect(getSpy).toHaveBeenCalled();
+      expect(addSpy).toHaveBeenCalled();
       expect(this.project.stories.length).toEqual(initial_collection_length + 1);
       expect(this.project.stories.get(987).get('title')).toEqual("New changeset story");
 

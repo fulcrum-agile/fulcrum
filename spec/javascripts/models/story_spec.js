@@ -257,11 +257,11 @@ describe('Story', function() {
   describe("clear", function() {
 
     it("should destroy itself and its view", function() {
-      var model_spy = sinon.spy(this.story, "destroy");
+      var modelStub = sinon.stub(this.story, "destroy");
 
       this.story.clear();
 
-      expect(model_spy).toHaveBeenCalled();
+      expect(modelStub).toHaveBeenCalled();
     });
 
   });

@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var StatsPlugin = require('stats-webpack-plugin');
+var RewirePlugin = require('rewire-webpack');
 
 // must match config.webpack.dev_server.port
 var devServerPort = 3808;
@@ -82,6 +83,7 @@ if (PRODUCTION) {
     new webpack.optimize.OccurenceOrderPlugin()
   );
 } else {
+  config.plugins.push(new RewirePlugin());
   config.devServer = {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }

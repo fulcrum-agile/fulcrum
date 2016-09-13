@@ -19,9 +19,9 @@ describe('NoteView', function() {
 
   describe("deleteNote", function() {
     it("should call destroy on the model", function() {
-      var deleteSpy = sinon.spy(this.view.model, 'destroy');
+      var deleteStub = sinon.stub(this.view.model, 'destroy');
       this.view.deleteNote();
-      expect(deleteSpy).toHaveBeenCalled();
+      expect(deleteStub).toHaveBeenCalled();
     });
 
     it("should remove element", function() {

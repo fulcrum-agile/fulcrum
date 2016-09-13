@@ -353,8 +353,6 @@ GEM
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
-    sinon-rails (1.15.0)
-      railties (>= 3.1)
     slop (3.6.0)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
@@ -424,7 +422,6 @@ DEPENDENCIES
   foreman
   friendly_id (~> 5.1.0)
   i18n-js (>= 3.0.0.rc8)
-  jasmine-rails (~> 0.12.6)
   jquery-atwho-rails
   jquery-ui-rails
   kgio
@@ -454,7 +451,7 @@ DEPENDENCIES
   sidekiq
   sidekiq_mailer
   sinatra
-  sinon-rails
+  therubyracer
   timecop
   uglifier (>= 2.5.3)
   vcr

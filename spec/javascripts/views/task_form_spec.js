@@ -21,6 +21,7 @@ describe("TaskForm", function() {
 
     it("should disable all form controls on submit", function() {
       var disableSpy = sinon.spy(this.view, 'disableForm');
+      sinon.stub(this.task, 'save');
       this.view.saveTask();
       expect(disableSpy).toHaveBeenCalled();
     });

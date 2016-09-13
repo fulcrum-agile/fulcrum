@@ -189,9 +189,9 @@ describe('StoryView', function() {
       this.story.set({errors:true});
       expect(this.story.get('errors')).toEqual(true);
       sinon.stub(this.story, "hasErrors").returns(true);
-      var spy = sinon.spy(this.story, "fetch");
+      var stub = sinon.stub(this.story, "fetch");
       this.view.cancelEdit();
-      expect(spy).toHaveBeenCalled();
+      expect(stub).toHaveBeenCalled();
       expect(this.story.get('errors')).toBeUndefined();
     });
 
