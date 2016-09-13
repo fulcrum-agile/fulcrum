@@ -38,4 +38,8 @@ class Team < ActiveRecord::Base
     has_blacklist = blacklist.any? { |domain| email.include?(domain) } unless blacklist.empty?
     has_whitelist && !has_blacklist
   end
+
+  def to_param
+    ::FriendlyId::Disabler.disabled? ? (id && id.to_s) : super
+  end
 end
