@@ -156,8 +156,14 @@ class ProjectsController < ApplicationController
       flash[:notice] = I18n.t('projects.project was successfully unshared')
     when 'transfer'
       Project.transaction do
-        current_team.ownerships.where(project: @project).delete_all
-        team.ownerships.create(project: @project, is_owner: true)
+        if team_admin = team.enrollments.where(is_admin: true).first.try(:user)
+          current_team.ownerships.where(project: @project).delete_all
+          @project.memberships.delete_all
+          @project.users << team_admin
+          team.ownerships.create(project: @project, is_owner: true)
+        else
+          raise ActiveRecord::RecordNotFound, 'Team Administrator not found'
+        end
       end
       flash[:notice] = I18n.t('projects.project was successfully transferred')
       redirect_to root_path

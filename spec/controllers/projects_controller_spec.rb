@@ -302,7 +302,8 @@ describe ProjectsController do
       end
 
       describe "#ownership" do
-        let!(:another_team) { create :team, name: "Another Team", users: [user] }
+        let!(:another_admin) { create :user, :with_team_and_is_admin}
+        let!(:another_team) { another_admin.teams.first }
 
         context "when sharing/unsharing" do
           specify do
@@ -322,7 +323,8 @@ describe ProjectsController do
           specify do
             patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'transfer'
             expect(another_team.owns?(project)).to be_truthy
-            expect(team.ownerships.count).to be(0)
+            expect(team.owns?(project)).to be_falsey
+            expect(another_team.users).to eq([another_admin])
             expect(response).to redirect_to(root_path)
           end
 
