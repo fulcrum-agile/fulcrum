@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       flash[:alert] = I18n.t('is already a member of this project', scope: 'users', email: @user.email)
     else
       policy_scope(User) << @user
-      @user.teams << current_team
+      @user.teams << current_team unless @user.teams.include?(current_team)
       if @user.was_created
         flash[:notice] = I18n.t('was sent an invite to join this project', scope: 'users', email: @user.email)
       else
