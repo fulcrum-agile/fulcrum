@@ -20,6 +20,7 @@
     "jquery-ujs": "^1.2.1",
     "jquery.caret": "^0.3.1",
     "jquery.scrollto": "^2.1.2",
+    "rewire": "^2.5.2",
     "rewire-webpack": "^1.0.1",
     "stats-webpack-plugin": "^0.4.2",
     "underscore": "^1.8.3",
