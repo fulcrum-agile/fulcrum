@@ -80,7 +80,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'phantomjs', '>= 2.1.1.0'
   gem 'pry-rails'
   gem 'quiet_assets'
 end
