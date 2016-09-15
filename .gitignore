@@ -12,6 +12,7 @@ config/deploy.rb
 .env
 .env.test
 *.dump
+dump.rdb
 public/javascripts/*
 public/test_assets/
 /node_modules
