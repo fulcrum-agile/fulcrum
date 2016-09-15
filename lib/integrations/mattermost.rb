@@ -13,7 +13,13 @@ class Mattermost
   end
 
   def send(text)
-    Net::HTTP.post_form(@private_uri, {"payload" => payload(text)})
+    if Rails.env.development?
+      Rails.logger.debug("NOT SENDING TO OUTSIDE INTEGRATION!")
+      Rails.logger.debug("URL: #{@private_uri}")
+      Rails.logger.debug("Payload: #{payload(text)}")
+    else
+      Net::HTTP.post_form(@private_uri, {"payload" => payload(text)})
+    end
   end
 
   def payload(text)
