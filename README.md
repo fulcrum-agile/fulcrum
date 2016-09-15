@@ -98,6 +98,7 @@ Once you have these:
     # Install the project dependencies
     $ gem install bundler
     $ bundle install
+    $ npm install
 
     # Set up the development database
     $ bundle exec rake fulcrum:setup db:setup
@@ -135,6 +136,11 @@ You will need a Heroku Postgresql plan, and you will also need:
 - Sendgrid (for email notifications)
 - Cloudinary (for direct client-side uploads, we don't want Carrierwave)
 - Google Recaptcha keys (create for free [here](https://www.google.com/recaptcha/admin))
+
+You will also need to add the buildpacks for Node and webpack-rails:
+
+    $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-nodejs#v83
+    $ heroku buildpacks:add --index 3 https://github.com/febeling/webpack-rails-buildpack.git
 
 You may want to skip recaptcha in development, for that you can manually add this to the environment:
 
@@ -249,8 +255,10 @@ Here are some general guidelines for contributing:
   Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
 * Run `rake spec` to check the Rails test suite is green. You will need
   Firefox with Selenium installed to run the integration tests.
-* To run the Javascript test suite, run `rails server` and point your browser
-  to `http://localhost:3000/specs` or run `rake spec:javascripts`
+* To run the Javascript test suite, run `npm test`. The tests are run with
+  Karma and PhantomJS. The Karma config is already prepared to run the tests on
+  Chrome too, just open `config/karma.conf.js` and add `'Chrome'`
+  to the `browsers` array.
 
 
 License
