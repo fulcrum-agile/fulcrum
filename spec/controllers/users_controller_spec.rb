@@ -108,6 +108,17 @@ describe UsersController do
           end
         end
 
+        context 'when user exists in the team' do
+          specify do
+            new_user = create(:user, user_params.merge(teams: user.teams))
+
+            post :create, project_id: project.id, user: user_params
+
+            expect(response).to redirect_to(project_users_url(project))
+            expect(project.users).to include(new_user)
+          end
+        end
+
         context "when user is already a project member" do
 
           before do
