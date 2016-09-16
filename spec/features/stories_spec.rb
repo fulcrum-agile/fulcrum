@@ -17,6 +17,7 @@ describe "Stories" do
 
     it "steps through the full story life cycle", js: true do
       visit project_path(project)
+      wait_spinner
 
       click_on 'Add story'
 
@@ -59,6 +60,7 @@ describe "Stories" do
 
     it "deletes the story", js: true do
       visit project_path(project)
+      wait_spinner
 
       within(story_selector(story)) do
         find('.story-title').trigger 'click'
@@ -82,6 +84,7 @@ describe "Stories" do
 
     it 'finds the story', js: true do
       visit project_path(project)
+      wait_spinner
 
       # should not have any search results by default
       expect(page).not_to have_css('.searchResult')
@@ -116,6 +119,7 @@ describe "Stories" do
     it "hides and shows the columns", js: true do
 
       visit project_path(project)
+      wait_spinner
 
       columns = {
         "done"        => "Done",
@@ -158,6 +162,7 @@ describe "Stories" do
 
     it 'starts with hidden search results column', js: true do
       visit project_path(project)
+      wait_spinner
 
       selector = "table.stories td.search_results_column"
       expect(page).not_to have_css(selector)
@@ -191,6 +196,7 @@ describe "Stories" do
 
     it 'show epic by label', js: true, driver: :poltergeist do
       visit project_path(project)
+      wait_spinner
 
       expect(page).not_to have_css('.epic_column')
       expect(page).to have_content 'Task 1'
