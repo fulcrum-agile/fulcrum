@@ -19,6 +19,9 @@ class Story < ActiveRecord::Base
     end
   end
 
+  has_many :changesets, dependent: :destroy
+  has_many :tasks, dependent: :destroy
+
   has_attachments :documents, accept: [:raw, :jpg, :png, :psd, :docx, :xlsx, :doc, :xls, :pdf], maximum: 10
   attr_accessor :documents_attributes_was
   prepend ReadOnlyDocuments
@@ -51,55 +54,11 @@ class Story < ActiveRecord::Base
     "errors", "notes", "documents", "tasks"
   ]
 
-  # Returns true or false based on whether the story has been estimated.
-  def estimated?
-    !estimate.nil?
-  end
-  alias :estimated :estimated?
-
-  # Returns true if this story can have an estimate made against it
-  def estimable?
-    feature? && !estimated?
-  end
-  alias :estimable :estimable?
-
-  # Returns the CSS id of the column this story belongs in
-  def column
-    case state
-    when 'unscheduled'
-      '#chilly_bin'
-    when 'unstarted'
-      '#backlog'
-    when 'accepted'
-      if iteration_service
-        if iteration_service.current_iteration_number == iteration_service.iteration_number_for_date(accepted_at)
-          return '#in_progress'
-        end
-      end
-      '#done'
-    else
-      '#in_progress'
-    end
-  end
-
   def as_json(options = {})
     super(only: JSON_ATTRIBUTES, methods: JSON_METHODS)
-  end
-
-  # The list of users that should be notified when a new note is added to this
-  # story.  Includes the requestor, the owner, and any other users who have
-  # added notes to the story.
-  def stakeholders_users
-    ([requested_by, owned_by] + notes.map(&:user)).compact.uniq
   end
 
   def readonly?
     !accepted_at_changed? && accepted_at.present?
   end
-
-  def cycle_time_in(unit = :days)
-    raise 'wrong unit' unless %i[days weeks months years].include?(unit)
-    ( cycle_time / 1.send(unit) ).round
-  end
-
 end
