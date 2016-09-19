@@ -25,6 +25,8 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'therubyracer'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 
+gem 'central-support', github: 'Codeminer42/cm42-central-support', branch: 'master', require: 'central/support'
+
 gem 'pg'
 gem 'pg_search'
 gem 'puma'
