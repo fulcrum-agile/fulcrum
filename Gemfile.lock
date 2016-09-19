@@ -1,11 +1,13 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: ecd58e456b0f0d58a2396d6ae568a265737d543e
+  revision: 0541ffdf709ea8e0bcaf17e84284202deeba01e4
   branch: master
   specs:
     central-support (0.9.0)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
+      enumerize
+      transitions
 
 GIT
   remote: git://github.com/ericallam/font_assets.git
