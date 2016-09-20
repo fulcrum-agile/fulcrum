@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: 7d958d1f276e0a5fd22c3c453cb2e25eeb936f14
+  revision: f90d1ebb8d78d1ef8c6ea218af3563ff3d8e4a68
   branch: master
   specs:
     central-support (0.9.0)
@@ -211,7 +211,6 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    libv8 (3.16.14.15)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     material_icons (2.2.0)
@@ -307,7 +306,6 @@ GEM
     recaptcha (3.3.0)
       json
     redis (3.3.0)
-    ref (2.0.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rest-client (2.0.0)
@@ -376,14 +374,11 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    therubyracer (0.12.2)
-      libv8 (~> 3.16.14.0)
-      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
     timecop (0.8.1)
-    transitions (0.1.9)
+    transitions (1.1.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.0)
@@ -432,7 +427,6 @@ DEPENDENCIES
   devise-i18n
   dotenv-rails
   ejs
-  enumerize
   factory_girl_rails
   font_assets!
   foreigner
@@ -477,9 +471,7 @@ DEPENDENCIES
   sidekiq_mailer
   sinatra
   sinon-rails
-  therubyracer
   timecop
-  transitions (= 0.1.9)
   uglifier (>= 2.5.3)
   vcr
   webmock
