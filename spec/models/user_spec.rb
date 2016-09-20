@@ -2,23 +2,6 @@ require 'rails_helper'
 
 describe User do
 
-  describe "validations" do
-
-    it "requires a name" do
-      subject.name = ''
-      subject.valid?
-      expect(subject.errors[:name].size).to eq(1)
-    end
-
-    it "requires initials" do
-      subject.initials = ''
-      subject.valid?
-      expect(subject.errors[:initials].size).to eq(1)
-    end
-
-  end
-
-
   describe "#to_s" do
 
     subject { build(:user, name: "Dummy User", initials: "DU",
