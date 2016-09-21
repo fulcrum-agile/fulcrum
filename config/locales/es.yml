@@ -1,27 +1,27 @@
 es:
   cm-central:  "CM42 Central"
 
-  log out:  "Termina sesión"
-  log in:   "Inicia sesión"
+  log out:  "Terminar sesión"
+  log in:   "Iniciar sesión"
   sign up:  "Regístrate"
-  edit:     "Edita"
+  edit:     "Editar"
   reports:  "Informes"
-  delete:   "Borra"
+  delete:   "Borrar"
   back:     "Atras"
-  import:   "Importa"
-  export:   "Exporta"
+  import:   "Importar"
+  export:   "Exportar"
   revert:   "Revertir"
   apply:    "Aplicar"
   velocity: "Velocidad"
   volatility: "Volatilidad"
   notes:    "Notas"
   tasks:    "Tareas"
-  close:    "Cerca"
+  close:    "Cerrar"
   points:   "Puntos"
   saving:   "Ahorro ..."
   expand:   "Expandir"
   not_found: "Recurso no encontrado"
-  nothing uploaded yet: "Nada se ha subido"
+  nothing uploaded yet: "Nada se ha subido todavía"
 
   save: "Guardar"
   delete: "Borrar"
@@ -37,11 +37,11 @@ es:
     state:
       unscheduled: "no programada"
       unstarted: "sin empezar"
-      started: "iniciado"
-      finished: "terminado"
-      delivered: "entregado"
-      accepted: "aceptado"
-      rejected: "rechazado"
+      started: "iniciada"
+      finished: "terminada"
+      delivered: "entregada"
+      accepted: "aceptada"
+      rejected: "rechazada"
     events:
       start: "empezar"
       finish: "terminar"
@@ -53,33 +53,33 @@ es:
       feature: "característica"
       chore: "tarea"
       bug: "error"
-      release: "liberar"
+      release: "release"
     no_estimate: "no hay una estimación"
     tasks: "Tareas"
     notes: "Notas"
-    attachments: "Anexos"
+    attachments: "Adjuntos"
 
   author unknown: "Autor desconocido"
   add story: "Añadir articulo"
   add note: "Añadir nota"
   add task: 'Añadir tarea'
-  save error: "Error en Guardar"
+  save error: "Error al Guardar"
   override:
     velocity: "Corrección de la velocidad"
     explanation_1: "Se puede simular con diferentes valores de velocidad."
-    explanation_2: "Las iteraciones serán recalculados para reflejar temporalmente la velocidad simulada pero la velocidad real seguirá siendo el promedio de los últimos 3 iteraciones."
+    explanation_2: "Las iteraciones serán recalculadas para reflejar temporalmente la velocidad simulada pero la velocidad real seguirá siendo el promedio de las últimos 3 iteraciones."
   story title: "Título de la historia"
 
   requested on date:          'Solicitada en {{date}}'
-  requested by user on date:  'Solicitada por  {{user}} en {{date}}'
+  requested by user on date:  'Solicitada por {{user}} en {{date}}'
 
   imported n stories:
-    one: '1 importada historia'
-    other: 'Importados %{count} historias'
+    one: '1 historia importada'
+    other: '%{count} historias importadas'
 
   n stories failed to import:
-    one: '1 No se pudo importar historia'
-    other: '%{count} historias se pudieron importar'
+    one: 'No se pudo importar 1 historia'
+    other: '%{count} historias no se pudieron importar'
 
   n weeks:
     one: '1 semana'
@@ -87,17 +87,17 @@ es:
 
   keycuts:
     keyboard_shortcuts: Atajos de teclado
-    help: Ayuda ( este )
+    help: Ayuda
     add_story: Añadir articulo
-    save_currently_open_story: Guarde historia actualmente abierto
-    save_comment_being_edited: Guardar comentario está editando
-    toggle_backlog: Pasar backlog
-    toggle_done: Pasar terminado
-    toggle_history: Pasar la historia
-    toggle_icebox: Pasar chilly bin
-    toggle_my_work: Pasar mi trabajo
-    toggle_labels_searches: Pasar etiquetas &amp; búsquedas
-    toggle_current: Pasar presente
+    save_currently_open_story: Guarde historia actualmente abierta
+    save_comment_being_edited: Guardar comentario que está editando
+    toggle_backlog: Backlog
+    toggle_done: Terminado
+    toggle_history: Historia
+    toggle_icebox: Icebox
+    toggle_my_work: Mi Trabajo
+    toggle_labels_searches: Etiquetas &amp; Búsquedas
+    toggle_current: Actual
 
   activerecord:
     models:
@@ -122,19 +122,19 @@ es:
         title:                'Título'
         description:          'Descripción'
         estimate:             'La estimación'
-        story_type:           'Tipo de articulo'
+        story_type:           'Tipo de historia'
         state:                'Estado'
-        accepted_at:          'Aceptado en'
+        accepted_at:          'Aceptada en'
         position:             'Posición'
         labels:               'Etiquetas'
-        requested_by:         'Solicitado por'
+        requested_by:         'Solicitada por'
         owned_by:             'Propiedad de'
         documents:            'Archivos adjuntos'
       user:
         name:                 'Nombre completo'
-        username:             'nombre de usuario'
+        username:             'Nombre de usuario'
         initials:             'Iniciales'
-        email:                'correo electrónico'
+        email:                'Correo electrónico'
         password:             'Contraseña'
         password_confirmation: 'Confirmación de la contraseña'
         locale:               'Configuración regional'
@@ -144,7 +144,7 @@ es:
       team:
         name:                 'Nombre del equipo'
         slug:                 'Slug'
-        logo:                 'luego'
+        logo:                 'Logo'
         disable_registration: 'Sólo los administradores pueden añadir nuevos usuarios a este equipo'
         registration_domain_whitelist: 'Si se habilita el registro, solamente los correos electrónicos de este dominio pueden inscribirse (separados por comas)'
         registration_domain_blacklist: 'Si el registro está habilitado en este dominio de los correos electrónicos de registro cah (separados por comas)'
@@ -154,12 +154,12 @@ es:
         story:
           attributes:
             estimate:
-              cant_estimate: "Bug o Chore articulos no pueden estimarse"
+              cant_estimate: "Los Bugs o Tareas no pueden estimarse"
 
   projects:
     new project:        "Nuevo Proyecto"
-    edit project:       "Edita Proyecto"
-    project_members: "Los miembros del Proyecto"
+    edit project:       "Editar Proyecto"
+    project_members: "Miembros del Proyecto"
     available_users: "Miembros disponibles"
     reports:
       n months ago:
@@ -171,41 +171,41 @@ es:
       iteration_number: "Número de iteración"
       quantity_non_estimable: "Cantidad de Bugs / Tareas"
 
-      current_iteration: "La iteración actual"
-      bugs_impact: "Impacto errores"
+      current_iteration: "Iteración actual"
+      bugs_impact: "Impacto de los errores"
       velocity_by_iteration: "Velocidad por iteración"
       velocity_per_member: "Velocidad por cada miembro"
     project properties: "Propiedades del Proyecto"
     archived projects:  "Proyectos archivados"
-    archive: "Archiv"
+    archive: "Archivar"
     unarchive: "Desarchivar"
-    share: "Cuota"
-    unshare: "No Comparte"
+    share: "Compartir"
+    unshare: "Descompartir"
     transfer: "Transferir la propiedad"
     sharing: "Los equipos con acceso a este proyecto"
-    invalid_action: "No se puede realizar esta acción o equipo que no se encuentra"
+    invalid_action: "No se puede realizar esta acción"
 
     transfer_sure: "¿Seguro que deseas transferir la propiedad? Esta acción no es reversible."
 
-    project was successfully archived: "Proyecto fue archivado correctamente"
-    project was successfully unarchived: "Proyecto fue reintegrado con éxito"
+    project was successfully archived: "El proyecto fue archivado correctamente"
+    project was successfully unarchived: "El proyecto fue reintegrado con éxito"
 
     project was successfully created: "El proyecto fue creado exitosamente."
     project was successfully updated: "El proyecto fue actualizado exitosamente."
 
-    project was successfully shared: "Proyecto se ha compartido correctamente."
+    project was successfully shared: "El proyecto se ha compartido correctamente."
     project was successfully unshared: "El acceso al proyecto se ha eliminado correctamente."
-    project was successfully transferred: "Proyecto fue transferido con éxito."
+    project was successfully transferred: "El proyecto fue transferido con éxito."
 
     integrations: "Integraciones"
     integrations_new: "Añadir una nueva integración"
-    integrations_remove_sure: "¿Seguro que desea eliminar '%{kind}' la integración de este proyecto?"
+    integrations_remove_sure: "¿Seguro que desea eliminar '%{kind}' de la integración de este proyecto?"
 
     index:
       listing projects: "Listado de Proyectos"
       are you sure you want to delete this project: "¿Estas seguro de querer borrar este proyecto? Esta acción no se puede deshacer."
       are you sure you want to archive this project: "¿Está seguro de que desea archivar este proyecto?"
-      are you sure you want to unshare this project: "¿Seguro que quita el acceso al proyecto a este equipo?"
+      are you sure you want to unshare this project: "¿Está seguro de que desea quitar el acceso al proyecto a este equipo?"
       the iteration starts on x with length of x weeks:
         one:    "Las iteraciones empiezan en %{day} con una duración de 1 semana"
         other:    "Las iteraciones empiezan en %{day} con una duración de %{count} semanas"
@@ -213,45 +213,45 @@ es:
     show:
       done: "Terminadas"
       in_progress: "En progreso"
-      backlog: "Acumuladas"
-      chilly_bin: "Congelador"
+      backlog: "Backlog"
+      chilly_bin: "Icebox"
       search_results: "Resultados de la búsqueda"
-      epic: 'Épico'
+      epic: 'Epic'
 
     uploads:
-      title: Historias de importación
-      results: Los resultados de importación
+      title: Historias Importadas
+      results: Resultados de importación
       select_file: "Debe seleccionar un archivo CSV para importar sus historias para el proyecto."
-      being_processed: "Su archivo CSV cargado se está procesando. Puede volver aquí más tarde Cuando se termina el proceso."
+      being_processed: "Su archivo CSV cargado se está procesando. Puede volver aquí más tarde cuando se termina el proceso."
       already_uploaded: |
           <p>Ya existe un archivo cargado está procesando hace %{time_ago}.</p>
-          <p>Espera unos minutos y volver a ver los resultados o cargar un nuevo archivo en caso de errores.</p>
+          <p>Espera unos minutos y vuelve a ver los resultados o puedes cargar un nuevo archivo en caso de error.</p>
       instructions: |
-          <p>Puede importar muchas historias a la vez de un formato variable separada por coma (CSV). La primera línea de la CSV debe contenerización los encabezados correctos para la importación sea correcta. Puede descargar una plantilla <a href="/Fulcrum_Import_Template.csv">CSV</a> con los encabezados correctos para empezar.</p>
-          <p>El sistema intentará emparejar los nombres de usuario que se encuentran en esta CSV con los miembros de su proyecto. Asegúrese de registrar a los miembros con los nombres correctos antes de importar la claustrofobia para ellos coinciden. </p>
+          <p>Puede importar muchas historias a la vez de un formato variable separada por coma (CSV). La primera línea de la CSV debe contener los encabezados correctos para la importación sea correcta. Puede descargar una plantilla <a href="/Fulcrum_Import_Template.csv">CSV</a> con los encabezados correctos para empezar.</p>
+          <p>El sistema intentará emparejar los nombres de usuario que se encuentren en este CSV con los miembros de su proyecto. Asegúrese de registrar a los miembros con los nombres correctos antes de importar el archivo para que los mismos coincidan. </p>
           <p><em>Nota: Nota: Puede utilizar un archivo exportado útiles desde otro sistema (Pivotal Tracker).</em></p>
 
   users:
     You are not authorized to perform this action: "Usted no está autorizado para realizar esta acción."
     is already a member of this project: "%{email} ya es un miembro de este proyecto"
-    was sent an invite to join this project: "%{email} fue enviado una invitación a unirse a este proyecto"
+    was sent an invite to join this project: "Se ha enviado una invitación a %{email} para unirse a este proyecto"
     was added to this project: "%{email} se añadió a este proyecto"
-    admin_on: Macer administrador
-    admin_off: Simplemente haga miembro
+    admin_on: Hacer administrador
+    admin_off: Hacer miembro
 
   teams:
     create: 'Crear nuevo Equipo'
-    update: 'Actualización de equipo'
-    switch: 'Cambiar a otro equipo'
+    update: 'Actualizar Equipo'
+    switch: 'Cambiar a otro Equipo'
     team was successfully created: 'El equipo ha sido creado con éxito'
     team was successfully updated: 'El equipo ha sido actualizado correctamente'
     new_instruction: |
-      <p>Si usted no tiene una cuenta registrada, usted puede inscribirse en primer lugar.</p>
+      <p>Si usted no tiene una cuenta registrada, puede inscribirse en primer lugar.</p>
       <p>El primer usuario que acceda a este nuevo equipo será el administrador.</p>
 
   admin:
     users:
-      edit user: "Edita Miembro"
+      edit user: "Editar Miembro"
       index:
         are you sure you want to delete this user: "¿Estas seguro de querer borrar este miembro? Esta acción no se puede deshacer."
         are you sure you want to remove administration rights from this user: "¿Está seguro de que desea eliminar los derechos de administración de este usuario?"
@@ -377,7 +377,7 @@ es:
       less_than_or_equal_to: debe ser menor o igual que %{count}
       not_a_number: no es un número
       not_an_integer: debe ser un entero
-      odd: debe ser un número non
+      odd: debe ser un número impar
       record_invalid: ! 'La validación falló: %{errors}'
       taken: ya ha sido tomado
       too_long:
@@ -465,3 +465,4 @@ es:
   activemodel:
     errors:
       <<: *errors
+
