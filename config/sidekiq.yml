@@ -2,4 +2,3 @@
 :queues:
   - default
   - mailer
-:concurrency: 100
