@@ -17,13 +17,13 @@ module StoryOperations
       case model.state
       when 'started', 'delivered'
         actor = model.requested_by
-        return false unless actor.email_delivery?
+        return false unless actor && actor.email_delivery?
       when 'accepted'
         actor = model.owned_by
-        return false unless actor.email_acceptance?
+        return false unless actor && actor.email_acceptance?
       when 'rejected'
         actor = model.owned_by
-        return false unless actor.email_rejection?
+        return false unless actor && actor.email_rejection?
       else
         return false
       end
