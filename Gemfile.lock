@@ -411,7 +411,6 @@ DEPENDENCIES
   devise-async
   devise-i18n
   dotenv-rails
-  enumerize
   factory_girl_rails
   font_assets!
   foreigner
@@ -446,7 +445,6 @@ DEPENDENCIES
   sidekiq
   sidekiq_mailer
   sinatra
-  therubyracer
   timecop
   uglifier (>= 2.5.3)
   vcr
