@@ -1,3 +1,6 @@
+var executeAttachinary = require('libs/execute_attachinary');
+var KeycutView = require('views/keycut_view');
+
 $(function() {
   $('#add_story').click(function() {
     window.projectView.newStory();
@@ -16,9 +19,11 @@ $(function() {
         case 63: // ? | Should only work without a focused element
           if (!$(':focus').length) {
             if ($('#keycut-help').length) {
-              $('#keycut-help').fadeOut(function(){$('#keycut-help').remove();});
+              $('#keycut-help').fadeOut(function(){
+                $('#keycut-help').remove();
+              });
             } else {
-              new Fulcrum.KeycutView().render();
+              new KeycutView().render();
             };
           };
           break;
@@ -58,4 +63,49 @@ $(function() {
           // whatever
       };
     });
+
+  $(".menu-toggle").click(function(e) {
+    e.preventDefault();
+    if($("#sidebar-wrapper").is(':hidden')) {
+      $('.click-overlay').on('click', function() {
+        hideSidebar();
+      });
+      showSidebar();
+    } else {
+      hideSidebar();
+    }
+  });
+
+  $('.tag-tooltip').tooltip();
+
+  $('.locale-change').on('change', function(e) {
+    e.preventDefault();
+    $(this).parent('form').submit();
+  });
+
+  if ($('.change-team')) {
+    if (_.isUndefined($('#user_team_slug').attr('readonly'))) {
+      $('.change-team').css('display', 'none');
+    } else {
+      $('.change-team').on('click', function() {
+        $('#user_team_slug').attr('readonly', false);
+        $('#user_team_slug').val('');
+        $('#user_team_slug').focus();
+        $('.change-team').css('display', 'none');
+      });
+    }
+  }
+
+  executeAttachinary();
 });
+
+function showSidebar() {
+  $("#sidebar-wrapper").show();
+  $('.click-overlay').show();
+}
+
+function hideSidebar() {
+  $('.click-overlay').off('click');
+  $("#sidebar-wrapper").hide();
+  $('.click-overlay').hide();
+}

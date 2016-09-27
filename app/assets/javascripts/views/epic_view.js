@@ -1,8 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var EpicBarView = require('./epic_bar_view');
 
-Fulcrum.EpicView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   initialize: function(options) {
     this.options = options;
@@ -12,12 +10,14 @@ Fulcrum.EpicView = Backbone.View.extend({
 
   addBar: function(column) {
     var that = this;
-    var view = new Fulcrum.EpicBarView({model: this.model}).render();
+    var view = new EpicBarView({model: this.model}).render();
     this.appendViewToColumn(view, column);
   },
 
   addStory: function(story, column) {
-    var view = new Fulcrum.StoryView({model: story, isSearchResult: true}).render();
+    var StoryView = require('./story_view');
+    
+    var view = new StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
   },

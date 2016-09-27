@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
-  <%= csrf_meta_tag %>
-  <%= stylesheet_link_tag :application %>
-  <%= javascript_include_tag :application %>
-  <%= cloudinary_js_config %>
-  <%= javascript_tag do %>
-    I18n.defaultLocale = "<%= I18n.default_locale %>";
-    I18n.locale = "<%= I18n.locale %>";
-  <%- end -%>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+  <head>
+    <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag :application %>
+    
+  </head>
+  <body>
+    <div id="wrapper">
+      <div class="click-overlay">
+      </div>
 
-<div id="wrapper">
-  <div class="click-overlay">
-  </div>
+      <div id="sidebar-wrapper" style="display: none;">
+        <%= render 'sidebar' %>
+      </div>
 
-  <div id="sidebar-wrapper" style="display: none;">
-    <%= render 'sidebar' %>
-  </div>
+      <div id="page-content-wrapper">
+        <div id="title_bar">
+          <a href="#menu-toggle" class="btn btn-default menu-toggle menu-toggle-closed">
+            <i class="mi md-dark">menu</i>
+          </a>
+          <%= yield :title_bar %>
+        </div>
 
-  <div id="page-content-wrapper">
-    <div id="title_bar">
-      <a href="#menu-toggle" class="btn btn-default menu-toggle menu-toggle-closed">
-        <i class="mi md-dark">menu</i>
-      </a>
-      <%= yield :title_bar %>
+        <div id="main">
+          <%= render 'flash' %>
+          <%= yield %>
+        </div>
+      </div>
     </div>
 
-    <div id="main">
-      <%= render 'flash' %>
-      <%= yield %>
-    </div>
-  </div>
-</div>
-
-</body>
+    <%= javascript_include_tag *webpack_asset_paths('application') %>
+    <%= javascript_include_tag 'i18n/translations' %>
+    <%= javascript_include_tag :attachinary %>
+    <%= yield :charts_data %>
+    <%= cloudinary_js_config %>
+  </body>
 </html>

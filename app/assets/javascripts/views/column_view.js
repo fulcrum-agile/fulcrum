@@ -1,10 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+module.exports = Backbone.View.extend({
 
-Fulcrum.ColumnView = Backbone.View.extend({
-
-  template: JST['templates/column'],
+  template: require('templates/column.ejs'),
 
   tagName: 'td',
 

@@ -1,8 +1,7 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var SearchResultsBarView = require('./search_results_bar_view');
+var StoryView = require('./story_view');
 
-Fulcrum.ProjectSearchView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   initialize: function() {
   },
@@ -13,12 +12,12 @@ Fulcrum.ProjectSearchView = Backbone.View.extend({
 
   addBar: function(column) {
     var that = this;
-    var view = new Fulcrum.SearchResultsBarView({model: this.model}).render();
+    var view = new SearchResultsBarView({model: this.model}).render();
     this.appendViewToColumn(view, column);
   },
 
   addStory: function(story, column) {
-    var view = new Fulcrum.StoryView({model: story, isSearchResult: true}).render();
+    var view = new StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
   },

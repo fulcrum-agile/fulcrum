@@ -6,6 +6,11 @@ services:
 sudo: false
 env:
   - "DB=postgresql"
+before_install:
+  - nvm install 6
+install:
+  - bundle install
+  - npm install
 before_script:
   - "cp config/database.yml.example config/database.yml"
   - "cp .env.sample .env"

@@ -1,11 +1,13 @@
-describe('Fulcrum.TaskCollection', function() {
+var TaskCollection = require('collections/task_collection');
+
+describe('TaskCollection', function() {
 
   beforeEach(function() {
     var Story = Backbone.Model.extend({name: 'story'});
     this.story = new Story({url: '/foo'});
     this.story.url = function() { return '/foo'; };
 
-    this.task_collection = new Fulcrum.TaskCollection();
+    this.task_collection = new TaskCollection();
     this.task_collection.story = this.story;
   });
 

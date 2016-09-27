@@ -1,7 +1,9 @@
-describe("Fulcrum.Task", function() {
+var Task = require('models/task');
+
+describe("Task", function() {
 
   beforeEach(function() {
-    this.task = new Fulcrum.Task({});
+    this.task = new Task({});
   });
 
   describe("story", function() {

@@ -1,3 +1,4 @@
 web: bundle exec rails server
 redis: redis-server
 worker: bundle exec sidekiq -C config/sidekiq.yml
+webpack: ./node_modules/.bin/webpack-dev-server --config config/webpack.config.js

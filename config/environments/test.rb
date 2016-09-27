@@ -40,4 +40,7 @@ Rails.application.configure do
   config.assets.compress = true
   config.assets.digest = true
   config.assets.prefix = "/test_assets"
+
+  # Disable dev server on CI
+  config.webpack.dev_server.enabled = false
 end

@@ -51,6 +51,12 @@
   "buildpacks": [
     {
       "url": "heroku/ruby"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs#v83"
+    },
+    {
+      "url": "https://github.com/febeling/webpack-rails-buildpack.git"
     }
   ]
 }

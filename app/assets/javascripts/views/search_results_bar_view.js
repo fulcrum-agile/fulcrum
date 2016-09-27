@@ -1,10 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+module.exports = Backbone.View.extend({
 
-Fulcrum.SearchResultsBarView = Backbone.View.extend({
-
-  template: JST['templates/search_results_bar'],
+  template: require('templates/search_results_bar.ejs'),
 
   className: 'iteration',
 

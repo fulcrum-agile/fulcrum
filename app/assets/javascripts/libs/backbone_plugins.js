@@ -1,3 +1,5 @@
+require('vendor/backbone.rails');
+
 Backbone.View = (function(View) {
   return View.extend({
     constructor: function(options) {

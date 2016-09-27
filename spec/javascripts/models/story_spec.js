@@ -1,4 +1,6 @@
-describe('Fulcrum.Story', function() {
+var Story = require('models/story');
+
+describe('Story', function() {
 
   beforeEach(function() {
     var Project = Backbone.Model.extend({
@@ -14,13 +16,13 @@ describe('Fulcrum.Story', function() {
       get: function() {}
     };
     var view = new Backbone.View();
-    this.story = new Fulcrum.Story({
+    this.story = new Story({
       id: 999, title: 'Test story', position: '2.45'
     });
-    this.new_story = new Fulcrum.Story({
+    this.new_story = new Story({
       title: 'New story'
     });
-    this.ro_story = new Fulcrum.Story({
+    this.ro_story = new Story({
       id: 998, title: 'Readonly story', position: '2.55'
     });
     this.story.collection = this.new_story.collection = this.ro_story.collection = collection;
@@ -255,11 +257,11 @@ describe('Fulcrum.Story', function() {
   describe("clear", function() {
 
     it("should destroy itself and its view", function() {
-      var model_spy = sinon.spy(this.story, "destroy");
+      var modelStub = sinon.stub(this.story, "destroy");
 
       this.story.clear();
 
-      expect(model_spy).toHaveBeenCalled();
+      expect(modelStub).toHaveBeenCalled();
     });
 
   });
@@ -404,7 +406,7 @@ describe('Fulcrum.Story', function() {
     });
 
     it("should set a notes collection", function() {
-      var story = new Fulcrum.Story({
+      var story = new Story({
         notes: [{"note":{"text": "Dummy note"}}]
       });
 

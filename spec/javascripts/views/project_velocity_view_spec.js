@@ -1,19 +1,27 @@
-describe('Fulcrum.ProjectVelocityView', function() {
+var rewire = require('rewire');
+var ProjectVelocityView = rewire('views/project_velocity_view');
+
+describe('ProjectVelocityView', function() {
 
   beforeEach(function() {
     this.model = {on: sinon.stub()};
-    sinon.stub(Fulcrum, 'ProjectVelocityOverrideView');
-    this.overrideView = {};
-    Fulcrum.ProjectVelocityOverrideView.withArgs({model: this.model}).returns(
-      this.overrideView
-    );
-    Fulcrum.ProjectVelocityOverrideView.prototype.template = sinon.stub();
-    this.subject = new Fulcrum.ProjectVelocityView({model: this.model});
+    var overrideView = this.overrideView = {};
+    function ProjectVelocityOverrideView() {
+      return overrideView;
+    }
+
+    ProjectVelocityOverrideView.prototype.template = sinon.stub();
+
+    this.revertRewire = ProjectVelocityView.__set__({
+      ProjectVelocityOverrideView: ProjectVelocityOverrideView
+    });
+
+    this.subject = new ProjectVelocityView({model: this.model});
   });
 
   afterEach(function() {
-    Fulcrum.ProjectVelocityOverrideView.restore();
-  }); 
+    this.revertRewire();
+  });
 
   it("should have a top level element", function() {
     expect(this.subject.el.nodeName).toEqual('DIV');

@@ -1,8 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var SharedModelMethods = require('mixins/shared_model_methods');
 
-Fulcrum.Note = Backbone.Model.extend({
+var Note = module.exports = Backbone.Model.extend({
 
   name: 'note',
 
@@ -19,4 +17,4 @@ Fulcrum.Note = Backbone.Model.extend({
 
 });
 
-_.defaults(Fulcrum.Note.prototype, Fulcrum.SharedModelMethods);
+_.defaults(Note.prototype, SharedModelMethods);

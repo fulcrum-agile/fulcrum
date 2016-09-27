@@ -1,9 +1,7 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var Note = require('models/note');
 
-Fulcrum.NoteCollection = Backbone.Collection.extend({
-  model: Fulcrum.Note,
+module.exports = Backbone.Collection.extend({
+  model: Note,
 
   url: function() {
     return this.story.url() + '/notes';

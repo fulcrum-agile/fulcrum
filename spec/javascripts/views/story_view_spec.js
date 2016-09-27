@@ -1,4 +1,6 @@
-describe('Fulcrum.StoryView', function() {
+var StoryView = require('views/story_view');
+
+describe('StoryView', function() {
 
   beforeEach(function() {
     window.ATTACHINARY_OPTIONS = {
@@ -50,11 +52,11 @@ describe('Fulcrum.StoryView', function() {
     this.new_story = new Story({title: 'New Story'});
     this.story.notes = this.new_story.notes = new NotesCollection();
     this.story.tasks = this.new_story.tasks = new TasksCollection();
-    Fulcrum.StoryView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.StoryView({
+    StoryView.prototype.template = sinon.stub();
+    this.view = new StoryView({
       model: this.story
     });
-    this.new_story_view = new Fulcrum.StoryView({
+    this.new_story_view = new StoryView({
       model: this.new_story
     });
 
@@ -176,7 +178,7 @@ describe('Fulcrum.StoryView', function() {
   describe("cancel edit", function() {
 
     it("should remove itself when edit cancelled if its new", function() {
-      var view = new Fulcrum.StoryView({model: this.new_story});
+      var view = new StoryView({model: this.new_story});
       var spy = sinon.spy(this.new_story, "clear");
 
       view.cancelEdit();
@@ -187,9 +189,9 @@ describe('Fulcrum.StoryView', function() {
       this.story.set({errors:true});
       expect(this.story.get('errors')).toEqual(true);
       sinon.stub(this.story, "hasErrors").returns(true);
-      var spy = sinon.spy(this.story, "fetch");
+      var stub = sinon.stub(this.story, "fetch");
       this.view.cancelEdit();
-      expect(spy).toHaveBeenCalled();
+      expect(stub).toHaveBeenCalled();
       expect(this.story.get('errors')).toBeUndefined();
     });
 
@@ -424,13 +426,13 @@ describe('Fulcrum.StoryView', function() {
 
     it("binds change:notes to renderNotesCollection()", function() {
       var spy = sinon.spy(this.story, 'on');
-      var view = new Fulcrum.StoryView({model: this.story});
+      var view = new StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotesCollection);
     });
 
     it("binds change:notes to addEmptyNote()", function() {
       var spy = sinon.spy(this.story, 'on');
-      var view = new Fulcrum.StoryView({model: this.story});
+      var view = new StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.addEmptyNote);
     });
 

@@ -1,9 +1,7 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var User = require('models/user');
 
-Fulcrum.UserCollection = Backbone.Collection.extend({
-  model: Fulcrum.User,
+module.exports = Backbone.Collection.extend({
+  model: User,
 
   comparator: function(user) {
     return user.get('name');

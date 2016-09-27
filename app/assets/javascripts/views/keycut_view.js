@@ -1,9 +1,5 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.KeycutView = Backbone.View.extend({
-  template: JST['templates/keycut_view'],
+module.exports = Backbone.View.extend({
+  template: require('templates/keycut_view.ejs'),
   tagName: 'div',
   id: 'keycut-help',
 

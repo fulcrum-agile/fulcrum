@@ -1,4 +1,4 @@
-<%= window.md.makeHtml(note.escape("note")) %>
+<%- window.md.makeHtml(note.escape("note")) %>
 <div class="note_meta">
   <span class="user"><%= note.get("user_name") %></span> -
   <span class="created_at"><%= note.get("created_at") %></span><% if(!note.isReadonly) { %> -

@@ -1,9 +1,7 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var Task = require('models/task');
 
-Fulcrum.TaskCollection = Backbone.Collection.extend({
-  model: Fulcrum.Task,
+module.exports = Backbone.Collection.extend({
+  model: Task,
 
   url: function() {
     return this.story.url() + '/tasks';

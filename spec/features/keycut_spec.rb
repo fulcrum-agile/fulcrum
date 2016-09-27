@@ -36,7 +36,10 @@ describe "Keycuts" do
   end
 
   describe 'in project scope' do
-    before { visit project_path(project) }
+    before do
+      visit project_path(project)
+      wait_spinner
+    end
 
     it 'adds story (a)', js: true do
       send_keys 'a'
