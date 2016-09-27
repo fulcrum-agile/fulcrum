@@ -30,6 +30,7 @@ gem 'puma'
 gem 'sidekiq'
 gem 'sidekiq_mailer'
 gem 'sinatra', require: nil
+gem 'rollbar'
 
 gem 'sass-rails'
 gem 'uglifier', '>= 2.5.3'

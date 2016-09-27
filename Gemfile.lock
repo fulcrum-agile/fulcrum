@@ -297,6 +297,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rollbar (2.12.0)
+      multi_json
     rspec-activemodel-mocks (1.0.3)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -437,6 +439,7 @@ DEPENDENCIES
   rails-i18n
   rails_12factor
   recaptcha
+  rollbar
   rspec-activemodel-mocks
   rspec-its
   rspec-rails
