@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: 1e8f9ebe075364ee769a4466d798f1145eedb2c7
+  revision: b6db1a3a612e7dc9d3b71db9fa7990e959d9cac6
   branch: master
   specs:
     central-support (0.9.0)
@@ -213,7 +213,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.9.1)
     multi_json (1.12.1)
     netrc (0.11.0)
     newrelic_rpm (3.16.0.318)
@@ -458,4 +458,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.0
+   1.13.1
