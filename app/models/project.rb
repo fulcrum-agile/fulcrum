@@ -15,7 +15,6 @@ class Project < ActiveRecord::Base
 
   JSON_METHODS = ["last_changeset_id", "point_values"].freeze
 
-  has_many :integrations, dependent: :destroy
   has_many :changesets, dependent: :destroy
 
   has_attachment :import, accept: [:raw]
