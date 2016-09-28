@@ -11,7 +11,7 @@ class Story < ActiveRecord::Base
     def documents=(attachments)
       raise ActiveRecord::ReadOnlyRecord if readonly?
       # convert from ActionController::Parameters which doesn't have symbolize_keys!
-      super(attachments.map { |hash| hash.to_hash })
+      super(attachments.map { |hash| hash.to_hash }) if attachments
     end
 
     def documents_attributes

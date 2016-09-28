@@ -304,11 +304,20 @@ var Story = module.exports = Backbone.Model.extend({
     }
 
     var documents = options.documents;
-
-    if(documents && documents.length > 0 && documents.val()) {
-      model.set('documents', JSON.parse(documents.val()));
+    if(!_.isUndefined(documents)) {
+      if(documents && documents.length > 0 && documents.val()) {
+        model.set('documents', JSON.parse(documents.val()));
+      } else {
+        model.set('documents', [{}]);
+      }
     } else {
-      model.set('documents', [{}]);
+      var documents = model.get('documents');
+      if(!_.isUndefined(documents)) {
+        documents = _.map(documents, function(elem) {
+          return elem["file"];
+        });
+        model.set('documents', documents);
+      }
     }
     Backbone.sync(method, model, options);
   }
