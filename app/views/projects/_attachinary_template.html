@@ -17,7 +17,7 @@
           </a>
         </div>
         <% } else { %>
-        <a href="<%= $.cloudinary.url(file.public_id, { version: file.version, format: 'png' }) %>" target="_blank">
+        <a href="<%= $.cloudinary.url(file.public_id, { version: file.version }) %>" target="_blank">
           <img src="<%= $.cloudinary.url(file.public_id, { "version": file.version, "format": 'png', "crop": 'fill', "width": 50, "height": 50, "radius": 5, "border": "1px_solid_black" }) %>"
           alt="" width="50" height="50" />
         </a>
