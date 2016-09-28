@@ -1,42 +1,59 @@
-var webpack = require('karma-webpack');
-var webpackConfig = require('./webpack.config');
 var path = require('path');
-var webpackEntryFile = '../spec/javascripts/index.js';
+
+var webpackConfig = require('./webpack.config');
+var webpackSpecsEntryFile = '../spec/javascripts/index.js';
+var jsFiles = '../app/assets/javascripts/**/*.js';
 var karmaPreprocessors = {};
 
-karmaPreprocessors[webpackEntryFile] = ['webpack', 'sourcemap'];
+karmaPreprocessors[webpackSpecsEntryFile] = ['webpack', 'sourcemap'];
 
 webpackConfig.entry = {
-  test: path.resolve(__dirname, webpackEntryFile)
+  test: path.resolve(__dirname, webpackSpecsEntryFile)
 };
 
 webpackConfig.devtool = 'inline-source-map';
+
+webpackConfig.module.preLoaders = [
+  {
+    test: /\.js$/,
+    exclude: /(node_modules|spec\/javascripts|assets\/javascripts\/libs|vendor)/,
+    loader: 'istanbul-instrumenter'
+  }
+];
 
 module.exports = function(config) {
   config.set({
     browsers: ['PhantomJS'],
     port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: false,
+    singleRun: true,
     basePath: '.',
     files: [
       // avoids running tests twice when on watch mode
-      { pattern: webpackEntryFile, watched: false, included: true, served: true }
+      { pattern: webpackSpecsEntryFile, watched: false, included: true, served: true }
     ],
     preprocessors: karmaPreprocessors,
     frameworks: ['jasmine', 'sinon'],
     plugins: [
-      webpack,
+      'karma-webpack',
       'karma-jasmine',
       'karma-sinon',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-spec-reporter',
-      'karma-sourcemap-loader'
+      'karma-sourcemap-loader',
+      'karma-coverage'
     ],
-    reporters: ['spec'],
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: false,
-    singleRun: true,
+    reporters: ['spec', 'coverage'],
+    coverageReporter: {
+      dir : path.resolve(__dirname, '..', 'js_coverage'),
+      reporters: [
+        { type: 'html', subdir: '.' },
+        { type: 'lcov', subdir: '.' }
+      ]
+    },
     webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true
