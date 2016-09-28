@@ -29,7 +29,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = session[:locale] || current_user.try(:locale).try(:to_sym) || :en
+    options = [session[:locale], current_user.try(:locale).try(:to_sym), :en]
+    I18n.locale = (options & I18n.available_locales).first
   end
 
   def user_time_zone(&block)
