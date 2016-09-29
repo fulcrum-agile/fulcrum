@@ -49,7 +49,7 @@
       <% }); %>
     </span>
   <% } %>
-  <%= story.escape('title') %>
+  <%- story.escape('title') %>
   <% if (story.get('owned_by_name')) { %>
     <abbr class="initials" title="<%= story.escape('owned_by_name') %>">
       <%= story.escape('owned_by_initials') %>
