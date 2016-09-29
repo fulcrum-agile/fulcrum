@@ -9,7 +9,7 @@ module StoryOperations
     def notify_users
       return unless can_notify_mentioned_users?
 
-      notifier = Notifications.story_mention(model, users_to_notify)
+      notifier = Notifications.story_mention(model.id, users_to_notify.pluck(:email))
       notifier.deliver if notifier
     end
 

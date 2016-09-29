@@ -3,7 +3,7 @@ module StoryOperations
     def notify_state_changed
       return unless can_notify_state_changed?
 
-      notifier = Notifications.public_send(model.state.to_sym, model, model.acting_user)
+      notifier = Notifications.public_send(model.state.to_sym, model.id, model.acting_user.id)
       notifier.deliver if notifier
       IntegrationWorker.perform_async(model.project.id, integration_message)
     end

@@ -3,36 +3,36 @@ class Notifications < ActionMailer::Base
 
   delegate :name, to: :project, prefix: true
 
-  def started(story, owned_by)
-    @story = story
-    @owned_by = owned_by
+  def started(story_id, user_id)
+    @story = Story.find(story_id)
+    @user = User.find(user_id)
 
-    mail to: story.requested_by.email, from: owned_by.email,
-      subject: "[#{story.project.name}] Your story '#{story.title}' has been started."
+    mail to: @story.requested_by.email, from: @user.email,
+      subject: "[#{@story.project.name}] Your story '#{@story.title}' has been started."
   end
 
-  def delivered(story, delivered_by)
-    @story = story
-    @delivered_by = delivered_by
+  def delivered(story_id, user_id)
+    @story = Story.find(story_id)
+    @user = User.find(user_id)
 
-    mail to: story.requested_by.email, from: delivered_by.email,
-      subject: "[#{story.project.name}] Your story '#{story.title}' has been delivered for acceptance."
+    mail to: @story.requested_by.email, from: @user.email,
+      subject: "[#{@story.project.name}] Your story '#{@story.title}' has been delivered for acceptance."
   end
 
-  def accepted(story, accepted_by)
-    @story = story
-    @accepted_by = accepted_by
+  def accepted(story_id, user_id)
+    @story = Story.find(story_id)
+    @user = User.find(user_id)
 
-    mail to: story.owned_by.email, from: accepted_by.email,
-      subject: "[#{story.project.name}] #{accepted_by.name} ACCEPTED your story '#{story.title}'."
+    mail to: @story.owned_by.email, from: @user.email,
+      subject: "[#{@story.project.name}] #{@user.name} ACCEPTED your story '#{@story.title}'."
   end
 
-  def rejected(story, rejected_by)
-    @story = story
-    @accepted_by = rejected_by
+  def rejected(story_id, user_id)
+    @story = Story.find(story_id)
+    @user = User.find(user_id)
 
-    mail to: story.owned_by.email, from: rejected_by.email,
-      subject: "[#{story.project.name}] #{rejected_by.name} REJECTED your story '#{story.title}'."
+    mail to: @story.owned_by.email, from: @user.email,
+      subject: "[#{@story.project.name}] #{@user.name} REJECTED your story '#{@story.title}'."
   end
 
   # Send notification to of a new note to the listed users
@@ -44,10 +44,10 @@ class Notifications < ActionMailer::Base
       subject: "[#{@story.project.name}] New comment on '#{@story.title}'"
   end
 
-  def story_mention(story, users_to_notify)
-    @story = story
+  def story_mention(story_id, users_to_notify)
+    @story = Story.find(story_id)
 
-    mail to: users_to_notify.map(&:email), from: @story.requested_by.email,
+    mail to: users_to_notify, from: @story.requested_by.email,
       subject: "[#{@story.project.name}] New mention on '#{@story.title}'"
   end
 end

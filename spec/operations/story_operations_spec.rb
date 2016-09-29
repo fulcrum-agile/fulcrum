@@ -36,7 +36,7 @@ describe StoryOperations do
 
       it 'also sends notification for the found username' do
         expect(Notifications).to receive(:story_mention).
-          with(story, [username_user]).and_return(mailer)
+          with(story.id, [username_user.email]).and_return(mailer)
         expect(mailer).to receive(:deliver)
 
         subject.call
@@ -116,7 +116,7 @@ describe StoryOperations do
 
       it "sends 'started' email notification" do
         allow(story).to receive_messages(:state => 'started')
-        expect(Notifications).to receive(:public_send).with(:started, story, acting_user) {
+        expect(Notifications).to receive(:public_send).with(:started, story.id, acting_user.id) {
           notifier
         }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project] The story ['Test Story'](http://foo.com/projects/123#story-#{story.id}) has been started.")
@@ -124,7 +124,7 @@ describe StoryOperations do
       end
       it "sends 'delivered' email notification" do
         allow(story).to receive_messages(:state => 'delivered')
-        expect(Notifications).to receive(:public_send).with(:delivered, story, acting_user) {
+        expect(Notifications).to receive(:public_send).with(:delivered, story.id, acting_user.id) {
           notifier
         }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project] The story ['Test Story'](http://foo.com/projects/123#story-#{story.id}) has been delivered for acceptance.")
@@ -132,7 +132,7 @@ describe StoryOperations do
       end
       it "sends 'accepted' email notification" do
         allow(story).to receive_messages(:state => 'accepted')
-        expect(Notifications).to receive(:public_send).with(:accepted, story, acting_user) {
+        expect(Notifications).to receive(:public_send).with(:accepted, story.id, acting_user.id) {
           notifier
         }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project]  ACCEPTED your story ['Test Story'](http://foo.com/projects/123#story-#{story.id}).")
@@ -140,7 +140,7 @@ describe StoryOperations do
       end
       it "sends 'rejected' email notification" do
         allow(story).to receive_messages(:state => 'rejected')
-        expect(Notifications).to receive(:public_send).with(:rejected, story, acting_user) {
+        expect(Notifications).to receive(:public_send).with(:rejected, story.id, acting_user.id) {
           notifier
         }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project]  REJECTED your story ['Test Story'](http://foo.com/projects/123#story-#{story.id}).")
@@ -150,4 +150,3 @@ describe StoryOperations do
 
   end
 end
-

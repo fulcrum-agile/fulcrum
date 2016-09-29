@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 describe Notifications do
-
-  let(:requested_by) { mock_model(User) }
-  let(:owned_by) { mock_model(User) }
+  let(:requested_by) { mock_model(User, email: 'requested_by@email.com') }
+  let(:owned_by) { mock_model(User, name: 'Developer', email: 'owned_by@email.com') }
   let(:project) { mock_model(Project, name: 'Test Project') }
   let(:story) do
     mock_model(
@@ -13,14 +12,17 @@ describe Notifications do
     )
   end
 
-  describe "#started with story without estimation" do
-    let(:owned_by) { mock_model(User, name: 'Developer') }
+  before do
+    allow(User).to receive(:find).and_return(owned_by)
+    allow(Story).to receive(:find).and_return(story)
+  end
 
+  describe "#started with story without estimation" do
     subject { Notifications.started(story, owned_by) }
 
-    its(:subject) { should == "[Test Project] Your story 'Test story' has been started."}
-    its(:to)      { [requested_by.email] }
-    its(:from)    { [owned_by.email] }
+    its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
+    its(:to)      { should match [requested_by.email] }
+    its(:from)    { should match [owned_by.email] }
 
     specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
     specify { expect(subject.body.encoded).to match("This story is NOT estimated. Ask Developer to add proper estimation before implementation!") }
@@ -28,21 +30,15 @@ describe Notifications do
   end
 
   describe "#started with story with estimation" do
-    let(:estimated_story) do
-      mock_model(
-        Story, title: 'Test story', requested_by: requested_by,
-        owned_by: owned_by, project: project, project_name: project.name,
-        story_type: 'feature', estimate: 10
-      )
+    before do
+      allow(story).to receive_messages(estimate: 10)
     end
 
-    let(:owned_by) { mock_model(User, name: 'Developer') }
+    subject { Notifications.started(story, owned_by) }
 
-    subject { Notifications.started(estimated_story, owned_by) }
-
-    its(:subject) { should == "[Test Project] Your story 'Test story' has been started."}
-    its(:to)      { [requested_by.email] }
-    its(:from)    { [owned_by.email] }
+    its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
+    its(:to)      { should match [requested_by.email] }
+    its(:from)    { should match [owned_by.email] }
 
     specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
     specify { expect(subject.body.encoded).to match("The estimation of this story is 10 points.") }
@@ -50,21 +46,15 @@ describe Notifications do
   end
 
   describe "#started with story with estimation" do
-    let(:bug_story) do
-      mock_model(
-        Story, title: 'Test story', requested_by: requested_by,
-        owned_by: owned_by, project: project, project_name: project.name,
-        story_type: 'bug', estimate: 0
-      )
+    before do
+      allow(story).to receive_messages(story_type: 'bug')
     end
 
-    let(:owned_by) { mock_model(User, name: 'Developer') }
+    subject { Notifications.started(story, owned_by) }
 
-    subject { Notifications.started(bug_story, owned_by) }
-
-    its(:subject) { should == "[Test Project] Your story 'Test story' has been started."}
-    its(:to)      { [requested_by.email] }
-    its(:from)    { [owned_by.email] }
+    its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
+    its(:to)      { should match [requested_by.email] }
+    its(:from)    { should match [owned_by.email] }
 
     specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
     specify { expect(subject.body.encoded).to match("This is either a bug or a chore There is no estimation. Expect the sprint velocity to decrease.") }
@@ -72,14 +62,17 @@ describe Notifications do
   end
 
   describe "#delivered" do
+    let(:delivered_by) { mock_model(User, name: 'Deliverer', email: 'delivered_by@email.com') }
 
-    let(:delivered_by) { mock_model(User, name: 'Deliverer') }
+    before do
+      allow(User).to receive(:find).and_return(delivered_by)
+    end
 
     subject  { Notifications.delivered(story, delivered_by) }
 
-    its(:subject) { should == "[Test Project] Your story 'Test story' has been delivered for acceptance." }
-    its(:to)      { [requested_by.email] }
-    its(:from)    { [delivered_by.email] }
+    its(:subject) { should match "[Test Project] Your story 'Test story' has been delivered for acceptance." }
+    its(:to)      { should match [requested_by.email] }
+    its(:from)    { should match [delivered_by.email] }
 
     specify { expect(subject.body.encoded).to match("Deliverer has delivered your story 'Test story'.") }
     specify { expect(subject.body.encoded).to match("You can now review the story, and either accept or reject it.") }
@@ -88,14 +81,14 @@ describe Notifications do
   end
 
   describe "#accepted" do
+    let(:accepted_by) { mock_model(User, name: 'Accepter', email: 'accerpter@email.com') }
 
-    let(:accepted_by) { mock_model(User, name: 'Accepter') }
+    subject { Notifications.accepted(story, accepted_by) }
+    before { allow(User).to receive_messages(find: accepted_by) }
 
-    subject  { Notifications.accepted(story, accepted_by) }
-
-    its(:subject) { should == "[Test Project] Accepter ACCEPTED your story 'Test story'." }
-    its(:to)      { [owned_by.email] }
-    its(:from)    { [accepted_by.email] }
+    its(:subject) { should match "[Test Project] Accepter ACCEPTED your story 'Test story'." }
+    its(:to)      { should match [owned_by.email] }
+    its(:from)    { should match [accepted_by.email] }
 
     specify { expect(subject.body.encoded).to match("Accepter has accepted the story 'Test story'.") }
     specify { expect(subject.body.encoded).to match(project_url(project)) }
@@ -103,18 +96,17 @@ describe Notifications do
   end
 
   describe "#rejected" do
+    let(:rejected_by) { mock_model(User, name: 'Rejecter', email: 'rejecter@email.com') }
 
-    let(:rejected_by) { mock_model(User, name: 'Rejecter') }
+    subject { Notifications.rejected(story, rejected_by) }
+    before { allow(User).to receive_messages(find: rejected_by) }
 
-    subject  { Notifications.rejected(story, rejected_by) }
-
-    its(:subject) { should == "[Test Project] Rejecter REJECTED your story 'Test story'." }
-    its(:to)      { [owned_by.email] }
-    its(:from)    { [rejected_by.email] }
+    its(:subject) { should match "[Test Project] Rejecter REJECTED your story 'Test story'." }
+    its(:to)      { should match [owned_by.email] }
+    its(:from)    { should match [rejected_by.email] }
 
     specify { expect(subject.body.encoded).to match("Rejecter has rejected the story 'Test story'.") }
     specify { expect(subject.body.encoded).to match(project_url(project)) }
-
   end
 
   describe "#new_note" do
