@@ -45,6 +45,11 @@ gem 'dalli'
 gem 'webpack-rails'
 
 gem 'jquery-atwho-rails'
+
+# SSL (https://github.com/pixielabs/letsencrypt-rails-heroku)
+gem 'platform-api', github: 'jalada/platform-api', branch: 'master'
+gem 'letsencrypt-rails-heroku', group: 'production'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-jquery.gritter'
 end
