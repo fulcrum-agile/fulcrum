@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :manage do
     resources :projects do
       resources :ownerships
+      resources :memberships
     end
     resources :teams do
       resources :ownerships
