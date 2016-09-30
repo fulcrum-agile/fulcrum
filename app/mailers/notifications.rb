@@ -1,38 +1,10 @@
 class Notifications < ActionMailer::Base
-  include Sidekiq::Mailer if Rails.env.production?
+  def story_changed(story, actor)
+    @story = story
+    @actor = actor
 
-  delegate :name, to: :project, prefix: true
-
-  def started(story_id, user_id)
-    @story = Story.find(story_id)
-    @user = User.find(user_id)
-
-    mail to: @story.requested_by.email, from: @user.email,
-      subject: "[#{@story.project.name}] Your story '#{@story.title}' has been started."
-  end
-
-  def delivered(story_id, user_id)
-    @story = Story.find(story_id)
-    @user = User.find(user_id)
-
-    mail to: @story.requested_by.email, from: @user.email,
-      subject: "[#{@story.project.name}] Your story '#{@story.title}' has been delivered for acceptance."
-  end
-
-  def accepted(story_id, user_id)
-    @story = Story.find(story_id)
-    @user = User.find(user_id)
-
-    mail to: @story.owned_by.email, from: @user.email,
-      subject: "[#{@story.project.name}] #{@user.name} ACCEPTED your story '#{@story.title}'."
-  end
-
-  def rejected(story_id, user_id)
-    @story = Story.find(story_id)
-    @user = User.find(user_id)
-
-    mail to: @story.owned_by.email, from: @user.email,
-      subject: "[#{@story.project.name}] #{@user.name} REJECTED your story '#{@story.title}'."
+    mail_params = MailParams.new(story, actor).send(story.status.to_sym)
+    mail mail_params.merge(template_name: story.status)
   end
 
   # Send notification to of a new note to the listed users
@@ -44,10 +16,46 @@ class Notifications < ActionMailer::Base
       subject: "[#{@story.project.name}] New comment on '#{@story.title}'"
   end
 
-  def story_mention(story_id, users_to_notify)
-    @story = Story.find(story_id)
+  def story_mention(story, users_to_notify)
+    @story = story
 
     mail to: users_to_notify, from: @story.requested_by.email,
       subject: "[#{@story.project.name}] New mention on '#{@story.title}'"
+  end
+
+  private
+
+  class MailParams < Struct.new(:story, :actor)
+    def started
+      {
+        to: story.requested_by.email,
+        from: actor.email,
+        subject: "[#{story.project.name}] Your story '#{story.title}' has been started."
+      }
+    end
+
+    def delivered
+      {
+        to: story.requested_by.email,
+        from: actor.email,
+        subject: "[#{story.project.name}] Your story '#{story.title}' has been delivered for acceptance."
+      }
+    end
+
+    def accepted
+      {
+        to: story.owned_by.email,
+        from: actor.email,
+        subject: "[#{story.project.name}] #{actor.name} ACCEPTED your story '#{story.title}'."
+      }
+    end
+
+    def rejected
+      {
+        to: story.owned_by.email,
+        from: actor.email,
+        subject: "[#{story.project.name}] #{actor.name} REJECTED your story '#{story.title}'."
+      }
+    end
   end
 end

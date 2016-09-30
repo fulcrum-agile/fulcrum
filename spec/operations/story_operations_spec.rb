@@ -36,8 +36,8 @@ describe StoryOperations do
 
       it 'also sends notification for the found username' do
         expect(Notifications).to receive(:story_mention).
-          with(story.id, [username_user.email]).and_return(mailer)
-        expect(mailer).to receive(:deliver)
+          with(story, [username_user.email]).and_return(mailer)
+        expect(mailer).to receive(:deliver_later)
 
         subject.call
       end
@@ -111,38 +111,30 @@ describe StoryOperations do
         allow(project).to receive_messages(:start_date => true)
         allow(project).to receive_message_chain(:integrations, :count).and_return(1)
         allow(story).to receive_messages(:base_uri => 'http://foo.com/projects/123')
-        expect(notifier).to receive(:deliver)
+        expect(notifier).to receive(:deliver_later)
       end
 
       it "sends 'started' email notification" do
         allow(story).to receive_messages(:state => 'started')
-        expect(Notifications).to receive(:public_send).with(:started, story.id, acting_user.id) {
-          notifier
-        }
+        expect(Notifications).to receive(:story_changed).with(story, acting_user) { notifier }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project] The story ['Test Story'](http://foo.com/projects/123#story-#{story.id}) has been started.")
         subject.call
       end
       it "sends 'delivered' email notification" do
         allow(story).to receive_messages(:state => 'delivered')
-        expect(Notifications).to receive(:public_send).with(:delivered, story.id, acting_user.id) {
-          notifier
-        }
+        expect(Notifications).to receive(:story_changed).with(story, acting_user) { notifier }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project] The story ['Test Story'](http://foo.com/projects/123#story-#{story.id}) has been delivered for acceptance.")
         subject.call
       end
       it "sends 'accepted' email notification" do
         allow(story).to receive_messages(:state => 'accepted')
-        expect(Notifications).to receive(:public_send).with(:accepted, story.id, acting_user.id) {
-          notifier
-        }
+        expect(Notifications).to receive(:story_changed).with(story, acting_user) { notifier }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project]  ACCEPTED your story ['Test Story'](http://foo.com/projects/123#story-#{story.id}).")
         subject.call
       end
       it "sends 'rejected' email notification" do
         allow(story).to receive_messages(:state => 'rejected')
-        expect(Notifications).to receive(:public_send).with(:rejected, story.id, acting_user.id) {
-          notifier
-        }
+        expect(Notifications).to receive(:story_changed).with(story, acting_user) { notifier }
         expect(IntegrationWorker).to receive(:perform_async).with(project.id, "[Test Project]  REJECTED your story ['Test Story'](http://foo.com/projects/123#story-#{story.id}).")
         subject.call
       end

@@ -1,10 +1,10 @@
-<%= @user.name %> has started your story '<%= @story.title %>'.
+<%= @actor.name %> has started your story '<%= @story.title %>'.
 
 <% if (@story.estimate.nil? || @story.estimate == 0) %>
   <% if @story.story_type != 'feature' %>
 This is either a bug or a chore There is no estimation. Expect the sprint velocity to decrease.
   <% else %>
-This story is NOT estimated. Ask <%= @user.name %> to add proper estimation before implementation!
+This story is NOT estimated. Ask <%= @actor.name %> to add proper estimation before implementation!
   <% end %>
 <% else %>
 The estimation of this story is <%= @story.estimate %> points.

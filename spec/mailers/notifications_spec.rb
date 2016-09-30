@@ -12,105 +12,73 @@ describe Notifications do
     )
   end
 
-  before do
-    allow(User).to receive(:find).and_return(owned_by)
-    allow(Story).to receive(:find).and_return(story)
-  end
-
-  describe "#started with story without estimation" do
-    subject { Notifications.started(story, owned_by) }
+  describe "#story_changed to started" do
+    before { allow(story).to receive_messages(status: :started) }
+    subject { Notifications.story_changed(story, owned_by) }
 
     its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
     its(:to)      { should match [requested_by.email] }
     its(:from)    { should match [owned_by.email] }
+    its(:body)    { should match project_url(project) }
+    its(:body)    { should match "Developer has started your story 'Test story'." }
 
-    specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
-    specify { expect(subject.body.encoded).to match("This story is NOT estimated. Ask Developer to add proper estimation before implementation!") }
-    specify { expect(subject.body.encoded).to match(project_url(project)) }
-  end
-
-  describe "#started with story with estimation" do
-    before do
-      allow(story).to receive_messages(estimate: 10)
+    context "with story without estimation" do
+      its(:body) { should match "This story is NOT estimated. Ask Developer to add proper estimation before implementation!" }
     end
 
-    subject { Notifications.started(story, owned_by) }
+    context "with story with estimation" do
+      before { allow(story).to receive_messages(estimate: 10) }
 
-    its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
-    its(:to)      { should match [requested_by.email] }
-    its(:from)    { should match [owned_by.email] }
-
-    specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
-    specify { expect(subject.body.encoded).to match("The estimation of this story is 10 points.") }
-    specify { expect(subject.body.encoded).to match(project_url(project)) }
-  end
-
-  describe "#started with story with estimation" do
-    before do
-      allow(story).to receive_messages(story_type: 'bug')
+      its(:body) { should match "The estimation of this story is 10 points." }
     end
 
-    subject { Notifications.started(story, owned_by) }
+    context "with a bug story" do
+      before { allow(story).to receive_messages(story_type: 'bug') }
 
-    its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
-    its(:to)      { should match [requested_by.email] }
-    its(:from)    { should match [owned_by.email] }
-
-    specify { expect(subject.body.encoded).to match("Developer has started your story 'Test story'.") }
-    specify { expect(subject.body.encoded).to match("This is either a bug or a chore There is no estimation. Expect the sprint velocity to decrease.") }
-    specify { expect(subject.body.encoded).to match(project_url(project)) }
+      its(:body) { should match "This is either a bug or a chore There is no estimation. Expect the sprint velocity to decrease." }
+    end
   end
 
-  describe "#delivered" do
+  describe "#story_changed to delivered" do
     let(:delivered_by) { mock_model(User, name: 'Deliverer', email: 'delivered_by@email.com') }
-
-    before do
-      allow(User).to receive(:find).and_return(delivered_by)
-    end
-
-    subject  { Notifications.delivered(story, delivered_by) }
+    before { allow(story).to receive_messages(status: :delivered) }
+    subject  { Notifications.story_changed(story, delivered_by) }
 
     its(:subject) { should match "[Test Project] Your story 'Test story' has been delivered for acceptance." }
     its(:to)      { should match [requested_by.email] }
     its(:from)    { should match [delivered_by.email] }
-
-    specify { expect(subject.body.encoded).to match("Deliverer has delivered your story 'Test story'.") }
-    specify { expect(subject.body.encoded).to match("You can now review the story, and either accept or reject it.") }
-    specify { expect(subject.body.encoded).to match(project_url(project)) }
-
+    its(:body)    { should match "Deliverer has delivered your story 'Test story'." }
+    its(:body)    { should match "You can now review the story, and either accept or reject it." }
+    its(:body)    { should match project_url(project) }
   end
 
-  describe "#accepted" do
+  describe "#story_changed to accepted" do
     let(:accepted_by) { mock_model(User, name: 'Accepter', email: 'accerpter@email.com') }
 
-    subject { Notifications.accepted(story, accepted_by) }
-    before { allow(User).to receive_messages(find: accepted_by) }
+    before { allow(story).to receive_messages(status: :accepted) }
+    subject { Notifications.story_changed(story, accepted_by) }
 
     its(:subject) { should match "[Test Project] Accepter ACCEPTED your story 'Test story'." }
     its(:to)      { should match [owned_by.email] }
     its(:from)    { should match [accepted_by.email] }
-
-    specify { expect(subject.body.encoded).to match("Accepter has accepted the story 'Test story'.") }
-    specify { expect(subject.body.encoded).to match(project_url(project)) }
-
+    its(:body)    { should match "Accepter has accepted the story 'Test story'." }
+    its(:body)    { should match project_url(project) }
   end
 
-  describe "#rejected" do
+  describe "#story_changed to rejected" do
     let(:rejected_by) { mock_model(User, name: 'Rejecter', email: 'rejecter@email.com') }
 
-    subject { Notifications.rejected(story, rejected_by) }
-    before { allow(User).to receive_messages(find: rejected_by) }
+    before { allow(story).to receive_messages(status: :rejected) }
+    subject { Notifications.story_changed(story, rejected_by) }
 
     its(:subject) { should match "[Test Project] Rejecter REJECTED your story 'Test story'." }
     its(:to)      { should match [owned_by.email] }
     its(:from)    { should match [rejected_by.email] }
-
-    specify { expect(subject.body.encoded).to match("Rejecter has rejected the story 'Test story'.") }
-    specify { expect(subject.body.encoded).to match(project_url(project)) }
+    its(:body)    { should match "Rejecter has rejected the story 'Test story'." }
+    its(:body)    { should match project_url(project) }
   end
 
   describe "#new_note" do
-
     let(:notify_users)  { [mock_model(User, email: 'foo@example.com')] }
     let(:user)          { mock_model(User, name: 'Note User') }
     let(:note)          { mock_model(Note, story: story, user: user) }
