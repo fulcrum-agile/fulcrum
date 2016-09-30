@@ -12,8 +12,15 @@ describe Notifications do
     )
   end
 
+  describe '#story_changed with invalid state' do
+    before { allow(story).to receive_messages(state: :invalid_state) }
+    subject { Notifications.story_changed(story, double).__getobj__ }
+
+    it { is_expected.to be_a ActionMailer::Base::NullMail }
+  end
+
   describe "#story_changed to started" do
-    before { allow(story).to receive_messages(status: :started) }
+    before { allow(story).to receive_messages(state: :started) }
     subject { Notifications.story_changed(story, owned_by) }
 
     its(:subject) { should match "[Test Project] Your story 'Test story' has been started."}
@@ -41,7 +48,7 @@ describe Notifications do
 
   describe "#story_changed to delivered" do
     let(:delivered_by) { mock_model(User, name: 'Deliverer', email: 'delivered_by@email.com') }
-    before { allow(story).to receive_messages(status: :delivered) }
+    before { allow(story).to receive_messages(state: :delivered) }
     subject  { Notifications.story_changed(story, delivered_by) }
 
     its(:subject) { should match "[Test Project] Your story 'Test story' has been delivered for acceptance." }
@@ -55,7 +62,7 @@ describe Notifications do
   describe "#story_changed to accepted" do
     let(:accepted_by) { mock_model(User, name: 'Accepter', email: 'accerpter@email.com') }
 
-    before { allow(story).to receive_messages(status: :accepted) }
+    before { allow(story).to receive_messages(state: :accepted) }
     subject { Notifications.story_changed(story, accepted_by) }
 
     its(:subject) { should match "[Test Project] Accepter ACCEPTED your story 'Test story'." }
@@ -68,7 +75,7 @@ describe Notifications do
   describe "#story_changed to rejected" do
     let(:rejected_by) { mock_model(User, name: 'Rejecter', email: 'rejecter@email.com') }
 
-    before { allow(story).to receive_messages(status: :rejected) }
+    before { allow(story).to receive_messages(state: :rejected) }
     subject { Notifications.story_changed(story, rejected_by) }
 
     its(:subject) { should match "[Test Project] Rejecter REJECTED your story 'Test story'." }

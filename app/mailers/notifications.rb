@@ -2,9 +2,12 @@ class Notifications < ActionMailer::Base
   def story_changed(story, actor)
     @story = story
     @actor = actor
+    state = story.state.to_sym
 
-    mail_params = MailParams.new(story, actor).send(story.status.to_sym)
-    mail mail_params.merge(template_name: story.status)
+    mail_params = MailParams.new(story, actor)
+    return unless mail_params.methods.include?(state)
+
+    mail mail_params.send(state).merge(template_name: state)
   end
 
   # Send notification to of a new note to the listed users
