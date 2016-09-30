@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     get 'testcard' => 'static#testcard'
   end
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :admin_user do
     mount Sidekiq::Web => '/sidekiq'
   end
 
