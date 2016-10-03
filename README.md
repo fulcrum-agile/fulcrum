@@ -175,9 +175,6 @@ to the previous section for instructions. Then:
     # CDN URL - Go to AWS and create a CloudFront configuration (optional)
     $ heroku config:set CDN_URL=http://xpto.cloudfront.net
 
-    # Font Asset - domain of your app
-    $ heroku config:set FONT_ASSET=http://APPNAME.herokuapp.com
-
     # Google Recaptcha keys
     $ heroku config:set RECAPTCHA_PUBLIC_KEY=xyz RECAPTCHA_PRIVATE_KEY=xyz
 
