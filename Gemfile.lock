@@ -10,14 +10,6 @@ GIT
       transitions (~> 0.1.9)
 
 GIT
-  remote: git://github.com/ericallam/font_assets.git
-  revision: eeb6ef435ab064940fdf3cac6283c236c84259c4
-  branch: master
-  specs:
-    font_assets (0.1.14)
-      rack
-
-GIT
   remote: git://github.com/jalada/platform-api.git
   revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
   branch: master
@@ -462,7 +454,6 @@ DEPENDENCIES
   devise-i18n
   dotenv-rails
   factory_girl_rails
-  font_assets!
   foreigner
   foreman
   friendly_id (~> 5.1.0)
