@@ -285,6 +285,7 @@ GEM
     rack (1.6.4)
     rack-cache (1.6.1)
       rack (>= 0.4)
+    rack-cors (0.4.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -482,6 +483,7 @@ DEPENDENCIES
   pundit
   quiet_assets
   rack-cache
+  rack-cors
   rack-timeout
   rails (~> 4.2.7)
   rails-assets-jquery.gritter!

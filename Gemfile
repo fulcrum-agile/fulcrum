@@ -59,6 +59,7 @@ group :production do
   gem 'newrelic_rpm'
   gem 'rack-cache'
   gem 'rack-timeout'
+  gem 'rack-cors'
   gem 'rails_12factor'
 end
 
