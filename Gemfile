@@ -20,6 +20,7 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'foreman'
 gem 'pundit'
 gem 'rails-i18n'
+gem 'rack-cors', require: 'rack/cors'
 gem "recaptcha", require: "recaptcha/rails"
 
 gem 'central-support', github: 'Codeminer42/cm42-central-support', branch: 'master', require: 'central/support'
@@ -59,7 +60,6 @@ group :production do
   gem 'newrelic_rpm'
   gem 'rack-cache'
   gem 'rack-timeout'
-  gem 'rack-cors'
   gem 'rails_12factor'
 end
 
