@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: 02667e26e4beafda8c92b3d645bac83d0551613a
+  revision: 2c11f8b48216a9086e28d8d7d1b99d2016ebc055
   branch: master
   specs:
-    central-support (0.9.0)
+    central-support (0.9.1)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
       enumerize (~> 2.0)
@@ -180,8 +180,6 @@ GEM
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
-    foreigner (1.7.4)
-      activerecord (>= 3.0.0)
     foreman (0.82.0)
       thor (~> 0.19.1)
     formtastic (3.1.4)
@@ -454,7 +452,6 @@ DEPENDENCIES
   devise-i18n
   dotenv-rails
   factory_girl_rails
-  foreigner
   foreman
   friendly_id (~> 5.1.0)
   i18n-js (>= 3.0.0.rc8)
