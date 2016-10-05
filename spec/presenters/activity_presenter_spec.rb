@@ -98,7 +98,7 @@ describe ActivityPresenter do
         story.state = 'started'
         activity.subject = story
         activity.save
-        expect(subject.description).to eq("#{user_name} updated Story ##{story.id} - '<a href=\"/projects/#{project.id}#story-#{story.id}\">Test story</a>' changing estimate from '2' to '4', description from 'old description' to 'new description', state from 'unstarted' to 'started'")
+        expect(subject.description).to eq("#{user_name} updated Story ##{story.id} - '<a href=\"/projects/#{project.id}#story-#{story.id}\">Test story</a>' changing estimate from '2' to '4', description to '<del class=\"differ\">old</del><ins class=\"differ\">new</ins> description', state moved forward to started")
       end
 
       it 'describes changes in project' do
@@ -120,7 +120,7 @@ describe ActivityPresenter do
       end
 
       it 'describes changing attachments in story' do
-        documents_changes = {documents_attributes: [ ['old_file1.jpg', 'old_file2.jpg'], ['old_file2.jpg', 'new_file3.jpg'] ]}
+        documents_changes = {'documents_attributes' => [ ['old_file1.jpg', 'old_file2.jpg'], ['old_file2.jpg', 'new_file3.jpg'] ]}
         expect(story).to receive(:changes).and_return(documents_changes)
         expect(story).to receive(:changed?).and_return(true)
         activity.subject = story

@@ -47,10 +47,10 @@ class ActivityPresenter < SimpleDelegator
       when 'state'                then state_changes subject_changes[key]
       when 'description'          then description_changes subject_changes[key]
       else
-        if subject_changes[key].first.nil?
+        if subject_changes[key].first.blank?
           "#{key} to '#{subject_changes[key].last}'"
         else
-          "#{key} from '#{subject_changes[key].first}' to '#{subject_changes[key].last}'"
+          "#{key} from '#{subject_changes[key].first}' to '#{subject_changes[key].last || 'empty' }'"
         end
       end
     end.join(", ")
