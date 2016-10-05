@@ -160,6 +160,7 @@ GEM
       devise (>= 3.2, < 4.0)
     devise-i18n (1.1.0)
     diff-lcs (1.2.5)
+    differ (0.1.2)
     docile (1.1.5)
     domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
@@ -450,6 +451,7 @@ DEPENDENCIES
   devise (~> 3.5.4)
   devise-async
   devise-i18n
+  differ
   dotenv-rails
   factory_girl_rails
   foreman
