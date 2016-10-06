@@ -159,18 +159,19 @@ describe UsersController do
     describe "member actions" do
 
       describe "#destroy" do
+        before { request.env['HTTP_REFERER'] = root_url }
 
         context "himself" do
           specify do
             delete :destroy, project_id: project.id, id: user.id
-            expect(response).to redirect_to(project_users_url(project))
+            expect(response).to redirect_to(:back)
           end
         end
 
         context "another user" do
           specify do
             delete :destroy, project_id: project.id, id: another_user.id
-            expect(response).to redirect_to(project_users_url(project))
+            expect(response).to redirect_to(:back)
           end
         end
 
@@ -232,9 +233,10 @@ describe UsersController do
       describe "#destroy" do
 
         context 'himself' do
+          before { request.env['HTTP_REFERER'] = root_url }
           specify do
             delete :destroy, project_id: project.id, id: user.id
-            expect(response).to redirect_to(project_users_url(project))
+            expect(response).to redirect_to(:back)
           end
         end
 
