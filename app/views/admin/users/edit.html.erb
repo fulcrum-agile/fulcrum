@@ -7,19 +7,29 @@
 <% end %>
 
 <div class="row">
-  <div class="col-sm-12 col-md-12">
+  <div class="col-sm-12 col-md-6">
     <h2><%= t('admin.users.edit user') %></h2>
 
     <%= render 'form' %>
+  </div>
 
+  <div class="col-sm-12 col-md-6">
     <h2><%= Project.model_name.human(count: 2) %></h2>
 
     <% if @user.projects.count > 0 %>
-      <ul>
+      <table class="table table-hover">
         <% @user.projects.each do |project| %>
-          <li><%= link_to project.name, project %></li>
+          <tr>
+            <td class="lead"><%= link_to project.name, project %></td>
+            <td>
+              <%= link_to 'Remove', project_user_path(project, @user),
+                method: :delete,
+                class: 'btn btn-danger btn-sm',
+                data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
         <% end %>
-      </ul>
+      </table>
     <% else %>
       --
     <% end %>

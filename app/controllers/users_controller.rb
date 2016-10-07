@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.js { render :refresh_user_list }
-      format.html { redirect_to project_users_url(@project) }
+      format.html { redirect_to :back }
     end
   end
 
