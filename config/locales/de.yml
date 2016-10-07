@@ -136,6 +136,7 @@ de:
         is_admin:             'Ist Administrator?'
         current_password:     'Aktuelles Passwort'
         time_zone:            'Zeitzone'
+        role:                 'Rolle'
       team:
         name:                 'Team Name'
         slug:                 'Slug'
@@ -233,6 +234,10 @@ de:
     was added to this project: "%{email} wurde zu diesem Projekt hinzugefügt"
     admin_on: Machen Administrator
     admin_off: So stellen Sie Mitglied
+    roles:
+      manager: Manager
+      developer: Entwickler
+      guest: Gast
 
   teams:
     create: 'Neues Team'

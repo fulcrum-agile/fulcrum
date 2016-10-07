@@ -349,6 +349,7 @@ el:
         is_admin:             'Είναι διαχειριστής;'
         current_password:     'τρέχων κωδικός πρόσβασης'
         time_zone:            'ζώνη ώρας'
+        role:                 'ρόλος'
       team:
         name:                 'Όνομα ομάδας'
         slug:                 'γυμνοσάλιαγκα'
@@ -446,6 +447,10 @@ el:
     was added to this project: "%{email} προστέθηκε σε αυτό το έργο"
     admin_on: κάνει Διαχειριστής
     admin_off: Απλά βεβαιωθείτε κράτη
+    roles:
+      manager: Διευθυντής
+      developer: προγραμματιστής
+      guest: Επισκέπτης
 
   teams:
     create: 'Δημιουργία νέας ομάδας'

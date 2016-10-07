@@ -132,7 +132,8 @@ nl:
         password_confirmation: 'Wachtwoord bevestigen'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
-        time_zone:            'tijdzone'
+        time_zone:            'Tijdzone'
+        role:                 'Rol'
       team:
         name:                 'Naam van het Team'
         slug:                 'naaktslak'
@@ -230,6 +231,10 @@ nl:
     was added to this project: "%{email} werd toegevoegd aan dit project"
     admin_on: Maak Administrator
     admin_off: Maak gewoon lid
+    roles:
+      manager: Manager
+      developer: Ontwikkelaar
+      guest: Gast
 
   teams:
     create: 'Maak een nieuwe Team'

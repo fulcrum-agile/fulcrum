@@ -129,6 +129,7 @@ ja:
         is_admin:             '管理者ですか'
         current_password:     '現在のパスワード'
         time_zone:            '時間帯'
+        role:                 '役割'
       team:
         name:                 'チーム名'
         slug:                 'スラッグ'
@@ -220,6 +221,10 @@ ja:
     was added to this project: "%{email}はこのプロジェクトに追加されました"
     admin_on: 管理者を作ります
     admin_off: ただメンバーを作ります
+    roles:
+      manager: マネージャー
+      developer: ディベロッパー
+      guest: ゲスト
 
   teams:
     create: '新しいチームを作成します'

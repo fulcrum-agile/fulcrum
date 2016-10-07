@@ -22,6 +22,11 @@
     <div class="col-sm-10"><%= f.text_field :username %></div>
   </div>
 
+  <div class="field-wrapper">
+    <%= f.label :role, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10"><%= f.select :role, I18n.t('users.roles').invert %></div>
+  </div>
+
   <div class="actions">
     <%= f.submit nil, class: 'btn btn-primary pull-right' %>
   </div>

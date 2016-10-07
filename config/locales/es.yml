@@ -139,8 +139,9 @@ es:
         password_confirmation: 'Confirmación de la contraseña'
         locale:               'Configuración regional'
         is_admin:             '¿Es administrador?'
-        current_password:     'contraseña actual'
-        time_zone:            'zona horaria'
+        current_password:     'Contraseña actual'
+        time_zone:            'Zona horaria'
+        role:                 'Papel'
       team:
         name:                 'Nombre del equipo'
         slug:                 'Slug'
@@ -238,6 +239,10 @@ es:
     was added to this project: "%{email} se añadió a este proyecto"
     admin_on: Hacer administrador
     admin_off: Hacer miembro
+    roles:
+      manager: Gerente
+      developer: Desarrollador
+      guest: Huésped
 
   teams:
     create: 'Crear nuevo Equipo'

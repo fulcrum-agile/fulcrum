@@ -150,6 +150,7 @@ en:
         password_confirmation: 'Password Confirmation'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
+        role:                 'Role'
       team:
         name:                 'Team Name'
         slug:                 'Slug'
@@ -247,6 +248,10 @@ en:
     was added to this project: "%{email} was added to this project"
     admin_on: Make Administrator
     admin_off: Make just Member
+    roles:
+      manager: Manager
+      developer: Developer
+      guest: Guest
 
   teams:
     create: 'Create new Team'
