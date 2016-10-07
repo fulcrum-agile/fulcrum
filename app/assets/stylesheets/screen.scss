@@ -16,6 +16,21 @@ a img {
   border: 0;
 }
 
+#wrapper {
+  padding-left: 0;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding-top: 20px;
+
+  #main .row {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
 #header {
   background: #3E6A9E;
   position: relative;
