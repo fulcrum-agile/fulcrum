@@ -34,7 +34,7 @@ class ActivityPresenter < SimpleDelegator
     when 'Story'
       "#{subject_type} ##{subject_id} - '#{helpers.link_to subject.title, project_path(subject.try(:project_id)) + '#story-' + subject_id.to_s}'"
     when 'Note', 'Task'
-      "#{subject_type} '#{(subject.try(:note) || subject.try(:name)).truncate(20)}' for Story '#{helpers.link_to subject.story.title, project_path(subject.story.project_id) + '#story-' + subject.story_id.to_s}'"
+      "#{subject_type} '#{(subject.try(:note) || subject.try(:name)).truncate(40)}' for Story '#{helpers.link_to subject.story.title, project_path(subject.story.project_id) + '#story-' + subject.story_id.to_s}'"
     end
   end
 
@@ -95,13 +95,11 @@ class ActivityPresenter < SimpleDelegator
 
   def description_changes(changes)
     old_description = changes.first || ""
-    new_description = changes.last || ""
+    new_description = changes.last  || ""
     if !old_description.empty?
-      diff = Differ.diff(new_description, old_description, " ").format_as(:html)
-      "description to '#{diff}'"
-    else
-      "description to '#{new_description}'"
+      new_description = Differ.diff(new_description, old_description, " ").format_as(:html)
     end
+    "description to '#{new_description}'"
   end
 
   def helpers
