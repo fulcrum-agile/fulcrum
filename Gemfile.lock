@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: 2c11f8b48216a9086e28d8d7d1b99d2016ebc055
+  revision: 359177dc3f2815978a254f58b5e698604532d2b3
   branch: master
   specs:
     central-support (0.9.1)
@@ -160,6 +160,7 @@ GEM
       devise (>= 3.2, < 4.0)
     devise-i18n (1.1.0)
     diff-lcs (1.2.5)
+    differ (0.1.2)
     docile (1.1.5)
     domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
@@ -450,6 +451,7 @@ DEPENDENCIES
   devise (~> 3.5.4)
   devise-async
   devise-i18n
+  differ
   dotenv-rails
   factory_girl_rails
   foreman
