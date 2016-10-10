@@ -4,13 +4,6 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-$sidebar-size: 200px;
-$bg-default:   #000;
-$bg-selected:  #222;
-$bg-hover:     #333;
-$fg-default:   #bbb;
-$fg-hover:     #fff;
-
 .menu-toggle {
   margin-right: 0.5em;
   text-indent: 0;
@@ -21,7 +14,7 @@ $fg-hover:     #fff;
   position: fixed;
   width: $sidebar-size;
   height: 100%;
-  background: $bg-default;
+  background: $sidebar-bg-default;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -45,18 +38,18 @@ $fg-hover:     #fff;
     a {
       display: block;
       text-decoration: none;
-      color: $fg-default;
+      color: $sidebar-fg-default;
 
       &.nav-current {
-        background: $bg-selected;
+        background: $sidebar-bg-selected;
         cursor: default;
-        color: $fg-hover;
+        color: $sidebar-fg-hover;
       }
 
       &:hover {
-        color: $fg-hover;
+        color: $sidebar-fg-hover;
         text-decoration: none;
-        background: $bg-hover;
+        background: $sidebar-bg-hover;
       }
     }
 
@@ -69,20 +62,20 @@ $fg-hover:     #fff;
     text-indent: 0;
 
     &:hover {
-      background: $bg-hover;
+      background: $sidebar-bg-hover;
     }
 
     select {
-      background: $bg-default;
+      background: $sidebar-bg-default;
       border: none;
       height: 2.8em;
       width: 98%;
-      color: $fg-default;
+      color: $sidebar-fg-default;
       text-indent: 0.5em;
 
       &:hover {
-        background: $bg-hover;
-        color: $fg-hover;
+        background: $sidebar-bg-hover;
+        color: $sidebar-fg-hover;
       }
     }
   }
@@ -98,14 +91,14 @@ $fg-hover:     #fff;
     a {
       color: #999999;
       &:hover {
-        color: $fg-hover;
+        color: $sidebar-fg-hover;
         background: none;
       }
     }
   }
 
   .dropdown-menu-dark {
-    background: $bg-default;
+    background: $sidebar-bg-default;
     position: relative;
     width: 100%;
     padding-left: 1em;
