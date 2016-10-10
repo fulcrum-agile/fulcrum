@@ -84,17 +84,8 @@
     margin-bottom: 0.8em;
   }
 
-  > .sidebar-brand {
-    height: 65px;
-    font-size: 18px;
-    line-height: 60px;
-    a {
-      color: #999999;
-      &:hover {
-        color: $sidebar-fg-hover;
-        background: none;
-      }
-    }
+  .sidebar-brand {
+    padding: 0.4em 0;
   }
 
   .dropdown-menu-dark {
@@ -114,7 +105,7 @@
     margin-top: 0.8em;
   }
 
-  > .divider {
+  .divider {
     border: 1px solid;
   }
 }
