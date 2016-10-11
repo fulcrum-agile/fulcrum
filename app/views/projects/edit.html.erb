@@ -1,6 +1,7 @@
 <% content_for :sidebar do %>
   <%= render partial: 'projects/nav', locals: {project: @project} %>
 <% end %>
+
 <% content_for :title_bar do %>
   <div class="project_nav">
     <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>

@@ -3,90 +3,113 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-/* Toggle Styles */
-/* Sidebar Styles */
-
-$sidebar-size: 200px;
 
 .menu-toggle {
-  &-opened {
-    margin: 0;
-    height: 36px;
-    width: 36px;
-    position: relative;
-    top: 12px;
-    right: 15px;
-    text-indent: 0;
-  }
-
-  &-closed {
-    margin-right: 15px;
-    height: 38px;
-    padding: 6px 8px;
-  }
+  margin-right: 0.5em;
+  text-indent: 0;
 }
 
-#wrapper {
-	padding-left: 0;
-}
 #sidebar-wrapper {
-	z-index: 2000;
-	position: fixed;
-	width: $sidebar-size;
-	height: 100%;
-	background: #000;
+  z-index: 2000;
+  position: fixed;
+  width: $sidebar-size;
+  height: 100%;
+  background: $sidebar-bg-default;
   overflow: auto;
-}
-#page-content-wrapper {
-	width: 100%;
-	position: absolute;
-  padding-top: 20px;
 
-  #main .row {
-    margin-left: 10px;
-    margin-right: 10px;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
+
 .sidebar-nav {
-	position: absolute;
-	top: 0;
-	width: $sidebar-size;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	li {
-		text-indent: 20px;
-		line-height: 40px;
-		a {
-			display: block;
-			text-decoration: none;
-			color: #999999;
-			&:hover {
-				text-decoration: none;
-				color: #444;
-				background: rgba(255,255,255,0.2);
-			}
-			&:active {
-				text-decoration: none;
-			}
-			&:focus {
-				text-decoration: none;
-			}
-		}
-	}
-	>.sidebar-brand {
-		height: 65px;
-		font-size: 18px;
-		line-height: 60px;
-		a {
-			color: #999999;
-			&:hover {
-				color: #fff;
-				background: none;
-			}
-		}
-	}
+  position: absolute;
+  top: 0;
+  width: $sidebar-size;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1em;
+
+  li {
+    text-indent: 1.2em;
+    line-height: 2.8;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: $sidebar-fg-default;
+
+      &.nav-current {
+        background: $sidebar-bg-selected;
+        cursor: default;
+        color: $sidebar-fg-hover;
+      }
+
+      &:hover {
+        color: $sidebar-fg-hover;
+        text-decoration: none;
+        background: $sidebar-bg-hover;
+      }
+    }
+
+    hr {
+      margin: 0.5em 0;
+    }
+  }
+
+  .nav-locale {
+    text-indent: 0;
+
+    &:hover {
+      background: $sidebar-bg-hover;
+    }
+
+    select {
+      background: $sidebar-bg-default;
+      border: none;
+      height: 2.8em;
+      width: 98%;
+      color: $sidebar-fg-default;
+      text-indent: 0.5em;
+
+      &:hover {
+        background: $sidebar-bg-hover;
+        color: $sidebar-fg-hover;
+      }
+    }
+  }
+
+  .column-toggles-wrap {
+    margin-bottom: 0.8em;
+  }
+
+  .sidebar-brand {
+    padding: 0.4em 0;
+  }
+
+  .dropdown-menu-dark {
+    background: $sidebar-bg-default;
+    position: relative;
+    width: 100%;
+    padding-left: 1em;
+    margin: 0;
+
+    > li > a {
+      padding: 0;
+      line-height: inherit;
+    }
+  }
+
+  .nav-archived-projects {
+    margin-top: 0.8em;
+  }
+
+  .divider {
+    border: 1px solid;
+  }
 }
+
 .click-overlay {
   display: none;
   position: fixed;
