@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.2.1'
+ruby '2.2.4'
 
 gem 'rails', '~> 4.1.9'
 gem 'sass-rails', '~> 4.0.3'
@@ -14,7 +14,7 @@ gem 'rails-i18n'
 gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
 gem 'jquery-ui-rails'
-
+gem 'puma'
 gem 'pg', group: :postgres
 gem 'mysql2', group: :mysql
 gem 'sqlite3', group: :sqlite

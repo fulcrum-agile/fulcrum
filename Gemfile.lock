@@ -107,6 +107,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.6.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -224,6 +225,7 @@ DEPENDENCIES
   pg
   poltergeist
   pry
+  puma
   quiet_assets
   rails (~> 4.1.9)
   rails-i18n
@@ -238,3 +240,9 @@ DEPENDENCIES
   sqlite3
   transitions (= 0.1.9)
   uglifier (>= 2.5.3)
+
+RUBY VERSION
+   ruby 2.2.4p230
+
+BUNDLED WITH
+   1.13.3
