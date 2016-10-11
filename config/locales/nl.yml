@@ -231,10 +231,6 @@ nl:
     was added to this project: "%{email} werd toegevoegd aan dit project"
     admin_on: Maak Administrator
     admin_off: Maak gewoon lid
-    roles:
-      manager: Manager
-      developer: Ontwikkelaar
-      guest: Gast
 
   teams:
     create: 'Maak een nieuwe Team'
@@ -263,3 +259,10 @@ nl:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Manager
+        developer: Ontwikkelaar
+        guest: Gast

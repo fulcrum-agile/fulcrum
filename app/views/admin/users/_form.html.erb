@@ -24,7 +24,7 @@
 
   <div class="field-wrapper">
     <%= f.label :role, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.select :role, I18n.t('users.roles').invert %></div>
+    <div class="col-sm-10"><%= f.select :role, User.role.options %></div>
   </div>
 
   <div class="actions">

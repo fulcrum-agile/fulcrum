@@ -250,10 +250,6 @@ pt-BR:
     was added to this project: "%{email} foi adicionada a este projecto"
     admin_on: Torne Administrator
     admin_off: Torne apenas Membro
-    roles:
-      manager: Gerente
-      developer: Desenvolvedor
-      guest: Convidado
 
   teams:
     create: 'Criar nova Equipe'
@@ -279,3 +275,10 @@ pt-BR:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Gerente
+        developer: Desenvolvedor
+        guest: Convidado

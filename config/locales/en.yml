@@ -248,10 +248,6 @@ en:
     was added to this project: "%{email} was added to this project"
     admin_on: Make Administrator
     admin_off: Make just Member
-    roles:
-      manager: Manager
-      developer: Developer
-      guest: Guest
 
   teams:
     create: 'Create new Team'
@@ -280,3 +276,10 @@ en:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Manager
+        developer: Developer
+        guest: Guest

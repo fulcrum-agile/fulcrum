@@ -221,10 +221,6 @@ ja:
     was added to this project: "%{email}はこのプロジェクトに追加されました"
     admin_on: 管理者を作ります
     admin_off: ただメンバーを作ります
-    roles:
-      manager: マネージャー
-      developer: ディベロッパー
-      guest: ゲスト
 
   teams:
     create: '新しいチームを作成します'
@@ -253,3 +249,10 @@ ja:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: マネージャー
+        developer: ディベロッパー
+        guest: ゲスト
