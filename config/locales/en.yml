@@ -150,6 +150,7 @@ en:
         password_confirmation: 'Password Confirmation'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
+        role:                 'Role'
       team:
         name:                 'Team Name'
         slug:                 'Slug'
@@ -275,3 +276,10 @@ en:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Manager
+        developer: Developer
+        guest: Guest

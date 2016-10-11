@@ -136,6 +136,7 @@ de:
         is_admin:             'Ist Administrator?'
         current_password:     'Aktuelles Passwort'
         time_zone:            'Zeitzone'
+        role:                 'Rolle'
       team:
         name:                 'Team Name'
         slug:                 'Slug'
@@ -261,3 +262,10 @@ de:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Manager
+        developer: Entwickler
+        guest: Gast

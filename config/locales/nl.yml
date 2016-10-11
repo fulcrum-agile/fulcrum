@@ -132,7 +132,8 @@ nl:
         password_confirmation: 'Wachtwoord bevestigen'
         locale:               'Locale'
         is_admin:             'Is Administrator?'
-        time_zone:            'tijdzone'
+        time_zone:            'Tijdzone'
+        role:                 'Rol'
       team:
         name:                 'Naam van het Team'
         slug:                 'naaktslak'
@@ -258,3 +259,10 @@ nl:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Manager
+        developer: Ontwikkelaar
+        guest: Gast

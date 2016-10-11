@@ -349,6 +349,7 @@ el:
         is_admin:             'Είναι διαχειριστής;'
         current_password:     'τρέχων κωδικός πρόσβασης'
         time_zone:            'ζώνη ώρας'
+        role:                 'ρόλος'
       team:
         name:                 'Όνομα ομάδας'
         slug:                 'γυμνοσάλιαγκα'
@@ -470,3 +471,10 @@ el:
       leave_blank_if_you_dont_want_to_change_it: "Άφησε κενό αν δεν θές να το αλλάξεις"
       notify_me_when_my_stories_are: "Ειδοποίησέ με όταν οι ιστορίες μου"
       we_need_your_current_password_to_confirm_your_changes: "Ο παρών κωδικός μου"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Διευθυντής
+        developer: προγραμματιστής
+        guest: Επισκέπτης

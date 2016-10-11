@@ -151,7 +151,8 @@ pt-BR:
         locale:               'Região'
         is_admin:             'É Administrador?'
         current_password:     'Senha atual'
-        time_zone:            'fuso horário'
+        time_zone:            'Fuso horário'
+        role:                 'Função'
       team:
         name:                 'Nome da Equipe'
         slug:                 'Slug'
@@ -274,3 +275,10 @@ pt-BR:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Gerente
+        developer: Desenvolvedor
+        guest: Convidado

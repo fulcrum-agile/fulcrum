@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   private
 
   def allowed_params
-    params.require(:user).permit(:email, :name, :initials, :username, :locale, :time_zone)
+    params.require(:user).permit(:email, :name, :initials, :username, :locale, :time_zone, :role)
   end
 
   def set_project

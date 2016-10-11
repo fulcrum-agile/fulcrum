@@ -129,6 +129,7 @@ ja:
         is_admin:             '管理者ですか'
         current_password:     '現在のパスワード'
         time_zone:            '時間帯'
+        role:                 '役割'
       team:
         name:                 'チーム名'
         slug:                 'スラッグ'
@@ -248,3 +249,10 @@ ja:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: マネージャー
+        developer: ディベロッパー
+        guest: ゲスト

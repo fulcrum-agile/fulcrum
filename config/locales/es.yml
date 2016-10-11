@@ -139,8 +139,9 @@ es:
         password_confirmation: 'Confirmación de la contraseña'
         locale:               'Configuración regional'
         is_admin:             '¿Es administrador?'
-        current_password:     'contraseña actual'
-        time_zone:            'zona horaria'
+        current_password:     'Contraseña actual'
+        time_zone:            'Zona horaria'
+        role:                 'Papel'
       team:
         name:                 'Nombre del equipo'
         slug:                 'Slug'
@@ -466,3 +467,9 @@ es:
     errors:
       <<: *errors
 
+  enumerize:
+    defaults:
+      role:
+        manager: Gerente
+        developer: Desarrollador
+        guest: Invitado
