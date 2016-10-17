@@ -1,0 +1,8 @@
+---
+applications:
+- name: aaron_acklen
+  command: bundle exec rake cf:on_first_instance db:migrate && bundle exec puma -e $RAILS_ENV -p $PORT -S ~/puma -C config/puma.rb
+  services:
+    - aaron_acklen_db_production
+  memory: 1G
+  instances: 1
