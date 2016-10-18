@@ -10,11 +10,9 @@
   <%= sidebar_link Story.model_name.human(count: 2), project_path(project) %>
 </li>
 
-<% if policy(User).manage? %>
-  <li>
-    <%= sidebar_link User.model_name.human(count: 2), project_users_path(project) %>
-  </li>
-<% end %>
+<li>
+  <%= sidebar_link User.model_name.human(count: 2), project_users_path(project) %>
+</li>
 
 <% if policy(project).manage? %>
   <li>
