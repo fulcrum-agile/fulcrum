@@ -3,49 +3,51 @@
 <% end %>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-6">
-    <h2><%= t('add new member') %></h2>
-    <div class="add-member">
-      <%= form_for @user,
-        url: project_users_path(@project, @user),
-        html: { class: 'form-horizontal' } do |f| %>
+  <% if policy(User).manage? %>
+    <div class="col-xs-12 col-sm-6">
+      <h2><%= t('add new member') %></h2>
+      <div class="add-member">
+        <%= form_for @user,
+          url: project_users_path(@project, @user),
+          html: { class: 'form-horizontal' } do |f| %>
 
-        <%= content_tag :div, class: 'alert alert-danger' do %>
-          <%= t('errors.template.header', count: @user.errors.count, model: @user.class.name.humanize) %>
+          <%= content_tag :div, class: 'alert alert-danger' do %>
+            <%= t('errors.template.header', count: @user.errors.count, model: @user.class.name.humanize) %>
 
-          <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
-        <% end if @user.errors.any? %>
+            <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          <% end if @user.errors.any? %>
 
-        <div class="form-group">
-          <%= f.label :email, class: 'col-xs-2 control-label' %>
-          <div class="col-xs-10"><%= f.text_field :email, class: 'form-control' %></div>
-        </div>
+          <div class="form-group">
+            <%= f.label :email, class: 'col-xs-2 control-label' %>
+            <div class="col-xs-10"><%= f.text_field :email, class: 'form-control' %></div>
+          </div>
 
-        <div class="form-group">
-          <%= f.label :name, class: 'col-xs-2 control-label' %>
-          <div class="col-xs-10"><%= f.text_field :name, class: 'form-control' %></div>
-        </div>
+          <div class="form-group">
+            <%= f.label :name, class: 'col-xs-2 control-label' %>
+            <div class="col-xs-10"><%= f.text_field :name, class: 'form-control' %></div>
+          </div>
 
-        <div class="form-group">
-          <%= f.label :username, class: 'col-xs-2 control-label' %>
-          <div class="col-xs-10"><%= f.text_field :username, class: 'form-control' %></div>
-        </div>
+          <div class="form-group">
+            <%= f.label :username, class: 'col-xs-2 control-label' %>
+            <div class="col-xs-10"><%= f.text_field :username, class: 'form-control' %></div>
+          </div>
 
-        <div class="form-group">
-          <%= f.label :initials, class: 'col-xs-2 control-label' %>
-          <div class="col-xs-10"><%= f.text_field :initials, class: 'form-control' %></div>
-        </div>
+          <div class="form-group">
+            <%= f.label :initials, class: 'col-xs-2 control-label' %>
+            <div class="col-xs-10"><%= f.text_field :initials, class: 'form-control' %></div>
+          </div>
 
-        <div class="actions">
-          <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
-        </div>
-      <% end %>
+          <div class="actions">
+            <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div id="user_list">
     <%= render 'user_list' %>
