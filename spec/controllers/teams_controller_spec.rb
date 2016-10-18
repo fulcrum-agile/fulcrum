@@ -102,6 +102,14 @@ describe TeamsController, type: :controller do
             expect(response).to be_success
             expect(response).to render_template('edit')
           end
+
+          context 'when name is empty' do
+            specify do
+              put :update, id: 'xyz', team: { name: '' }
+              expect(response).to be_success
+              expect(response).to render_template('edit')
+            end
+          end
         end
       end
 

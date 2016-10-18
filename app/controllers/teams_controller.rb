@@ -62,7 +62,9 @@ class TeamsController < ApplicationController
     authorize @team
 
     respond_to do |format|
-      if @team = TeamOperations::Update.(@team, allowed_params, current_user)
+      if TeamOperations::Update.(@team, allowed_params, current_user)
+        @team.reload
+
         format.html do
           flash[:notice] = t('teams.team was successfully updated')
           render action: "edit"
