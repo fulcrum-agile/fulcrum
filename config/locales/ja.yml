@@ -61,6 +61,8 @@ ja:
     notes: "ノート"
     attachments: "添付ファイル"
 
+    definitive_sure: "あなたは％に%{action}この話をしてもよろしいですか？このアクションは不可逆的です。"
+
   author unknown: "作者不明"
   add story: "ストーリー追加"
   add note: "メモを追加"

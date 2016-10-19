@@ -59,6 +59,8 @@ pt-BR:
     notes: "Notas"
     attachments: "Anexos"
 
+    definitive_sure: "Tem certeza que deseja %{action} essa história? Essa ações é irreversível."
+
   author unknown: "Autor Desconhecido"
   add story: "Adicionar história"
   add note: "Adicionar nota"

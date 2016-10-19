@@ -40,7 +40,10 @@ describe('StoryView', function() {
       documents: function() { return [{"file":{"id":25,"public_id":"ikhhkie4ygljblsleqie.diff","version":"1435342626","format":null,"resource_type":"raw","path":"v1435342626/ikhhkie4ygljblsleqie.diff"}},{"file":{"id":26,"public_id":"zvjhfvramk76ebgvhioa.csv","version":"1435342608","format":null,"resource_type":"raw","path":"v1435342608/zvjhfvramk76ebgvhioa.csv"}},{"file":{"id":27,"public_id":"rythcrivxemvnbyh5mjb","version":"1435346191","format":"png","resource_type":"image","path":"v1435346191/rythcrivxemvnbyh5mjb.png"}}] },
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return [];} } } },
-      start: function() {},
+      start: function()   { this.set({state: "started"}); },
+      deliver: function() { this.set({state: "delivered"}); },
+      accept: function()  { this.set({state: "accepted"}); },
+      reject: function()  { this.set({state: "rejected"}); },
       humanAttributeName: sinon.stub(),
       setAcceptedAt: sinon.spy(),
       errorMessages: sinon.stub(),
@@ -579,6 +582,64 @@ describe('StoryView', function() {
       this.view.render();
 
       expect(this.view.$('.story_estimate')).toBeDisabled();
+    });
+  });
+
+  describe('confirms before finish', function() {
+    beforeEach(function() {
+      this.confirmStub = sinon.stub(window, 'confirm');
+    });
+
+    afterEach(function() {
+      this.confirmStub.restore();
+    });
+
+    describe('when accepting a story', function() {
+      it('should save story when confirmed', function() {
+        this.confirmStub.returns(true);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'accept' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('accepted');
+      });
+
+      it('should not save story when not confirmed', function() {
+        this.confirmStub.returns(false);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'accept' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('delivered');
+      });
+    });
+
+    describe('when rejecteing a story', function() {
+      it('should save story when confirmed', function() {
+        this.confirmStub.returns(true);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'reject' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('rejected');
+      });
+
+      it('should not save story when not confirmed', function() {
+        this.confirmStub.returns(false);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'reject' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('delivered');
+      });
     });
   });
 });

@@ -148,6 +148,12 @@ module.exports = FormView.extend({
         transitionEvent = key;
     })
 
+    if (transitionEvent === 'accept' || transitionEvent === 'reject') {
+      var confirmed = confirm( I18n.t('story.definitive_sure', {action: transitionEvent} ));
+
+      if (!confirmed) return;
+    }
+
     this.saveInProgress = true;
     this.render();
 

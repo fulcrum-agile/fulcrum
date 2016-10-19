@@ -61,6 +61,8 @@ de:
     notes: "Notes"
     attachments: "Anhänge"
 
+    definitive_sure: "Sind Sie sicher, dass Sie %{action} diese Geschichte wollen? Diese Aktion ist unumkehrbar."
+
   author unknown: "Unbekanter Autor"
   add story: "Story hinzufügen"
   add note: "Notiz hinzufügen"

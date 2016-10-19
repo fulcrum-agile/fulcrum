@@ -59,6 +59,8 @@ es:
     notes: "Notas"
     attachments: "Adjuntos"
 
+    definitive_sure: "¿Seguro que deseas %{action} esta historia? Esta acción es irrreversible."
+
   author unknown: "Autor desconocido"
   add story: "Añadir articulo"
   add note: "Añadir nota"
