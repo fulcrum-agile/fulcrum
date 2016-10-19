@@ -58,6 +58,8 @@ nl:
     notes: "merkt op"
     attachments: "Bijlagen"
 
+    definitive_sure: "Weet je zeker dat je %{action} dit verhaal? Deze actie is onomkeerbaar."
+
   author unknown: "Auteur Onbekend"
   add story: "Voeg verhaal toe"
   add note: "Notitie toevoegen"

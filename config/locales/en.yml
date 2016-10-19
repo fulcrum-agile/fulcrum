@@ -62,6 +62,8 @@ en:
     notes: "Notes"
     attachments: "Attachments"
 
+    definitive_sure: "Are you sure you want to %{action} this story? This action is irreversible."
+
   author unknown: "Author Unknown"
   add story: "Add story"
   add note: "Add note"
