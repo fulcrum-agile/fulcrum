@@ -23,12 +23,11 @@
     font-weight: normal;
     line-height: 20px;
     padding: 8px;
-    padding-left: 0px;
     margin: 8px;
     margin-left: 0px;
   }
 
-  .btn {
-    padding-left: 8px;
+  label {
+    padding-left: 0px;
   }
 }
