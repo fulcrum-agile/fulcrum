@@ -1,0 +1,10 @@
+<h2><%= I18n.t('authy_verify_installation_title', {:scope => 'devise'}) %></h2>
+
+<%= verify_authy_installation_form do %>
+  <legend><%= I18n.t('submit_token_title', {:scope => 'devise'}) %></legend>
+  <%= label_tag :token %>
+  <%= text_field_tag :token, "", :autocomplete => :off, :id => 'authy-token' %>
+  <%= authy_request_sms_link %>
+  <%= submit_tag I18n.t('enable_my_account', {:scope => 'devise'}), :class => 'btn' %>
+<% end %>
+

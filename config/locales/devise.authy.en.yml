@@ -1,0 +1,24 @@
+en:
+  devise:
+    submit_token: "Check Token"
+    submit_token_title: "Please enter your Authy token:"
+    authy_register_title: 'Enable Two factor authentication'
+    enable_authy: 'Enable'
+    cellphone: 'Enter your cellphone'
+    country: 'Enter your country'
+    request_sms: 'Request SMS'
+    request_phone_call: 'Request phone call'
+    remember_device: 'Remember Device'
+
+    authy_verify_installation_title: "Verify your account"
+    enable_my_account: 'Enable my account'
+
+    devise_authy:
+      user:
+        enabled: 'Two factor authentication was enabled'
+        not_enabled: 'Something went wrong while enabling two factor authentication'
+        disabled: 'Two factor authentication was disabled'
+        not_disabled: 'Something went wrong while disabling two factor authentication'
+        signed_in: 'Signed in with Authy successfully.'
+        already_enabled: "Two factor authentication is already enabled."
+        invalid_token: 'The entered token is invalid'

@@ -1,0 +1,7 @@
+<h2><%= I18n.t('authy_register_title', {:scope => 'devise'}) %></h2>
+
+<%= enable_authy_form do %>
+  <%= text_field_tag :country_code, '', :autocomplete => :off, :placeholder => I18n.t('devise.country'), :id => "authy-countries"%>
+  <%= text_field_tag :cellphone, '', :autocomplete => :off, :placeholder => I18n.t('devise.cellphone'), :id => "authy-cellphone"%>
+  <p><%= submit_tag I18n.t('enable_authy', {:scope => 'devise'}) %></p>
+<% end %>
