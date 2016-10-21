@@ -70,6 +70,11 @@ Rails.application.routes.draw do
     verify_authy_installation: '/verify-installation'
   }
 
+  devise_scope :user do
+    get 'users/verfiy_two_factor' => 'registrations#verify_two_factor', as: :user_verify_two_factor
+    post 'users/disable_two_factor' => 'registrations#disable_two_factor', as: :user_disable_two_factor
+  end
+
   if Rails.env.development?
     get 'testcard' => 'static#testcard'
   end

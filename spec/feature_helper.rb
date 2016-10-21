@@ -5,4 +5,6 @@ RSpec.configure do |config|
     %x[bundle exec rake assets:precompile]
     %x[bundle exec rake webpack:compile]
   end
+
+  config.include Warden::Test::Helpers
 end

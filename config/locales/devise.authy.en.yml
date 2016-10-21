@@ -2,7 +2,8 @@ en:
   devise:
     submit_token: "Check Token"
     submit_token_title: "Please enter your Authy token:"
-    authy_register_title: 'Enable Two factor authentication'
+    authy_register_title: 'Enable two factor authentication'
+    authy_disable_title: 'Disable two factor authentication'
     enable_authy: 'Enable'
     cellphone: 'Enter your cellphone'
     country: 'Enter your country'
