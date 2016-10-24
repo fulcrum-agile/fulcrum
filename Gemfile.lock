@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: 76be23fae6124398cc0f89e3a933317aaac56055
+  revision: ceba23b3c35dcaeb6c0c81ff468610a6cb01869f
   branch: master
   specs:
-    central-support (0.9.1)
+    central-support (0.9.2)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
       enumerize (~> 2.0)
@@ -168,7 +168,7 @@ GEM
     dotenv-rails (2.1.1)
       dotenv (= 2.1.1)
       railties (>= 4.0, < 5.1)
-    enumerize (2.0.0)
+    enumerize (2.0.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
     excon (0.53.0)
