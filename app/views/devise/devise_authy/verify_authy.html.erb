@@ -8,11 +8,6 @@
     <%= label_tag :token %>
     <%= text_field_tag :token, "", :autocomplete => :off, :id => 'authy-token' %>
 
-    <!-- Help tooltip -->
-    <!-- You need to configure a help message. -->
-    <!-- See documentation: https://github.com/authy/authy-form-helpers#help-tooltip -->
-    <!-- <%= link_to '?', '#', :id => 'authy-help' %> -->
-
     <%= authy_request_sms_link %>
 
     <br />
