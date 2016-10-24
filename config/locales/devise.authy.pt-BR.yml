@@ -1,0 +1,25 @@
+pt-BR:
+  devise:
+    submit_token: 'Verificar Token'
+    submit_token_title: "Insira o seu token Authy:"
+    authy_register_title: 'Ativar verificação em dois passos'
+    authy_disable_title: 'Desativar verificação em dois passos'
+    enable_authy: 'Ativar'
+    cellphone: 'Insira seu telefone'
+    country: 'Insira seu país'
+    request_sms: 'Solicitar SMS'
+    request_phone_call: 'Solicitar ligação'
+    remember_device: 'Lembrar dispositivo'
+
+    authy_verify_installation_title: 'Verifique sua conta'
+    enable_my_account: 'Ativar minha conta'
+
+    devise_authy:
+      user:
+        enabled: 'Verificação em dois passos ativada'
+        not_enabled: 'Algo deu errado ao ativar a verificação em dois passos'
+        disabled: 'Verificação em dois passos desativada'
+        not_disabled: 'Algo deu errado ao desativar a verificação em dois passos'
+        signed_in: 'Cadastrado via Authy com sucesso'
+        already_enabled: 'Verificação em dois passos já está ativada'
+        invalid_token: 'O token enviado é inválido'
