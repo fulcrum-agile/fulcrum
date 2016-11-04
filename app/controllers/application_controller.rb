@@ -61,8 +61,8 @@ class ApplicationController < ActionController::Base
       session[:current_team_slug] = params[:user][:team_slug]
     end
 
-    if user_signed_in? && resource.authy_enabled && resource.authy_id.blank?
-      return user_enable_authy_path
+    if resource.authy_enabled && resource.authy_id.blank?
+      return send("#{resource_name}_enable_authy_path")
     end
 
     super

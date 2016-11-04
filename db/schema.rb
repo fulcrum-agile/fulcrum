@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020154028) do
+ActiveRecord::Schema.define(version: 20161104182706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -62,8 +63,12 @@ ActiveRecord::Schema.define(version: 20161020154028) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.string   "authy_id"
+    t.datetime "last_sign_in_with_authy"
+    t.boolean  "authy_enabled",                       default: false
   end
 
+  add_index "admin_users", ["authy_id"], name: "index_admin_users_on_authy_id", using: :btree
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
