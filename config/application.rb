@@ -21,7 +21,7 @@ module Fulcrum
     # config.i18n.default_locale = :de
     config.i18n.enforce_available_locales = true
 
-    config.i18n.available_locales = ['de', 'el', 'en', 'es', 'nl', 'ja', 'pt-BR']
+    config.i18n.available_locales = ['en', 'es', 'pt-BR']
 
     config.time_zone = 'Brasilia' # default timezone
 
