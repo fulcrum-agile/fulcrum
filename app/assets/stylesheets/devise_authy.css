@@ -13,7 +13,7 @@
     font-size: 21px;
     line-height: 40px;
     color: #333;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid $lightgrey;
   }
 
   .btn,
