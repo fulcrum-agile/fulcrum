@@ -61,6 +61,40 @@ describe "Logins" do
       expect(page).to have_selector('#title_bar', text: 'New Project')
     end
 
+    describe '2 Factor Auth' do
+      context "when account wasn't enabled yet" do
+        before { user.update authy_enabled: true }
+
+        it 'redirects to enable authy page', js: true do
+          visit root_path
+          expect(page).to have_selector('h1', text: 'Log In')
+
+          fill_in "Email",     with: "user@example.com"
+          fill_in "Password",  with: "password"
+          fill_in "Team slug", with: team.slug
+          click_button 'Sign in'
+
+          expect(page).to have_selector('h2', text: I18n.t('authy_register_title', scope: 'devise'))
+        end
+      end
+
+      context "when account was already enabled" do
+        before { user.update authy_enabled: true, authy_id: '12345', last_sign_in_with_authy: Time.current }
+
+        it 'redirects to verify token page', js: true do
+          visit root_path
+          expect(page).to have_selector('h1', text: 'Log In')
+
+          fill_in "Email",     with: "user@example.com"
+          fill_in "Password",  with: "password"
+          fill_in "Team slug", with: team.slug
+          click_button 'Sign in'
+
+          expect(page).to have_selector('legend', text: I18n.t('submit_token_title', scope: 'devise'))
+        end
+      end
+    end
+
   end
 
   describe "new team" do

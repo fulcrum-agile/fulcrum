@@ -80,7 +80,12 @@
 
       <div class="btn-group actions pull-right clearfix">
         <%= f.submit "Update", class: 'btn btn-primary' %>
-        <%= link_to t(".cancel my account"), registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger pull-right' %>
+        <%= link_to t(".cancel my account"), registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger' %>
+        <% if resource.authy_enabled %>
+          <%= link_to 'Disable 2FA', user_verify_two_factor_path, class: 'btn btn-warning' %>
+        <% else %>
+          <%= link_to 'Enable 2FA (Authy app)', user_enable_authy_path, class: 'btn btn-success' %>
+        <% end %>
       </div>
     <% end %>
   </div>

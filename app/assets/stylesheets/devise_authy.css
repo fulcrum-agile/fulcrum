@@ -1,0 +1,33 @@
+.devise_authy {
+  margin-left: auto;
+  margin-right: auto;
+  width: 465px;
+}
+
+.authy-form {
+  legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 40px;
+    color: #333;
+    border-bottom: 1px solid $lightgrey;
+  }
+
+  .btn,
+  label,
+  input {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 8px;
+    margin: 8px;
+    margin-left: 0px;
+  }
+
+  label {
+    padding-left: 0px;
+  }
+}

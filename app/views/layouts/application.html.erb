@@ -5,6 +5,8 @@
     <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag :application %>
+    <%= javascript_include_tag "https://www.authy.com/form.authy.min.js" %>
+    <%= stylesheet_link_tag "https://www.authy.com/form.authy.min.css" %>
   </head>
   <body>
     <div id="wrapper">

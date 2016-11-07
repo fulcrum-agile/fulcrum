@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  permit_params :email, :name, :initials, :username, :locale, :time_zone, :password, :password_confirmation
+  permit_params :email, :name, :initials, :username, :locale, :time_zone, :authy_enabled, :password, :password_confirmation
 
   index do
     selectable_column
@@ -8,6 +8,7 @@ ActiveAdmin.register User do
     column :name
     column :initials
     column :username
+    column :authy_enabled
   end
 
   filter :email
@@ -24,6 +25,7 @@ ActiveAdmin.register User do
       f.input :username
       f.input :locale, collection: I18n.available_locales
       f.input :time_zone
+      f.input :authy_enabled
     end
     f.actions
   end

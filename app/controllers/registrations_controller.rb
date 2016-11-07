@@ -5,6 +5,27 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :devise_params
   after_filter :reset_locale, only: [:update]
 
+  def disable_two_factor
+    verify_token = Authy::API.verify(id: current_user.authy_id, token: params[:token], force: true)
+
+    if verify_token.ok?
+      disable_authy = Authy::API.delete_user(id: current_user.authy_id)
+
+      if disable_authy.ok?
+        current_user.update(authy_id: nil, authy_enabled: false)
+
+        set_flash_message :notice, :disabled, scope: 'devise.devise_authy'
+        redirect_to edit_user_registration_path
+      else
+        set_flash_message :error, :not_disabled, now: true, scope: 'devise.devise_authy'
+        render :verify_two_factor
+      end
+    else
+      set_flash_message :error, :invalid_token, now: true, scope: 'devise.devise_authy'
+      render :verify_two_factor
+    end
+  end
+
   protected
     def after_inactive_sign_up_path_for(resource)
       new_session_path(resource)
