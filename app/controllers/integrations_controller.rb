@@ -24,7 +24,7 @@ class IntegrationsController < ApplicationController
       end
     end
 
-    redirect_to project_integrations_url(@project)
+    redirect_to edit_project_url(@project)
 
   rescue JSON::ParserError, TypeError
     flash.now[:error] = "Insert a valid JSON into 'Data' field"
@@ -35,7 +35,7 @@ class IntegrationsController < ApplicationController
     @integration = policy_scope(Integration).find(params[:id])
     authorize @integration
     @project.integrations.delete(@integration)
-    redirect_to project_integrations_url(@project)
+    redirect_to edit_project_url(@project)
   end
 
   private
