@@ -21,3 +21,4 @@ rvm:
   - 2.3.1
 script:
   - "bundle exec rake travis"
+  - "bundle exec codeclimate-test-reporter"

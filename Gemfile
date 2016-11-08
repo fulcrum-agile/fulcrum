@@ -77,6 +77,7 @@ group :test do
   gem 'vcr'
   gem 'webmock'
   gem 'timecop'
+  gem 'simplecov'
 end
 
 group :development do

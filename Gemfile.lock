@@ -166,6 +166,7 @@ GEM
     devise-i18n (1.1.0)
     diff-lcs (1.2.5)
     differ (0.1.2)
+    docile (1.1.5)
     domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.1.1)
@@ -385,6 +386,11 @@ GEM
       actionmailer (>= 3.0)
       activesupport (>= 3.0)
       sidekiq (>= 2.3)
+    simplecov (0.12.0)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -488,6 +494,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq_mailer
+  simplecov
   sinatra
   timecop
   uglifier (>= 2.5.3)
