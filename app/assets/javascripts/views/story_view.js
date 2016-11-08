@@ -552,7 +552,8 @@ module.exports = FormView.extend({
     var model = this.model;
     var $input = this.$el.find("input[name='labels']");
     $input.tagit({
-      availableTags: model.collection.labels
+      availableTags: model.collection.labels,
+      readOnly: this.isReadonly()
     });
 
     // Manually bind labels for now
