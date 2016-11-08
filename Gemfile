@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 4.2.7.1'
 
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'attachinary'
