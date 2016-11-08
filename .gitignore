@@ -18,3 +18,4 @@ public/test_assets/
 /node_modules
 /public/webpack
 js_coverage/
+coverage
