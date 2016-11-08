@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Codeminer42/cm42-central-support.git
-  revision: ceba23b3c35dcaeb6c0c81ff468610a6cb01869f
+  revision: 1dffff7a950fccf3f149698adabc6c4df17d81d6
   branch: master
   specs:
     central-support (0.9.2)

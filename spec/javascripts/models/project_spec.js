@@ -272,6 +272,18 @@ describe('Project model', function() {
       expect(this.project.velocity()).toEqual(4);
     });
 
+    it("should ignore zero points done iterations while calculating velocity", function() {
+      var doneIterations = _.map([1,2,0,4,5], function(i) {
+        return {points: sinon.stub().returns(i)};
+      });
+      var doneIterationsStub = sinon.stub(this.project, 'doneIterations');
+      doneIterationsStub.returns(doneIterations);
+
+      // By default, should take the average of the last 3 iterations,
+      // (2 + 4 + 5) = 11 / 3 = 5
+      expect(this.project.velocity()).toEqual(3);
+    });
+
     it("should floor the velocity when it returns a fraction", function() {
       var doneIterations = _.map([3,2,2], function(i) {
         return {points: sinon.stub().returns(i)};
