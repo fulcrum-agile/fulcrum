@@ -66,7 +66,7 @@ describe IntegrationsController do
           expect(assigns[:project]).to eq(project)
           expect(assigns[:integration].kind).to eq(integration_params["kind"])
           expect(assigns[:integration].data).to eq(JSON.parse integration_params["data"])
-          expect(response).to redirect_to(project_integrations_url(project))
+          expect(response).to redirect_to(edit_project_url(project))
         end
 
         context "when integration does not exist" do
@@ -125,7 +125,7 @@ describe IntegrationsController do
 
         specify do
           delete :destroy, project_id: project.id, id: integration.id
-          expect(response).to redirect_to(project_integrations_url(project))
+          expect(response).to redirect_to(edit_project_url(project))
         end
 
       end
