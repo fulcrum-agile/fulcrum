@@ -21,10 +21,10 @@ describe "localization" do
   describe "user profile" do
 
     it "lets user change their locale" do
-      change_locale_to "ja"
+      change_locale_to "pt-BR"
 
       current_user.reload
-      expect(current_user.locale).to eq("ja")
+      expect(current_user.locale).to eq("pt-BR")
     end
 
   end
