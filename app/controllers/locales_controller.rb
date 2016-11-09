@@ -1,11 +1,7 @@
 class LocalesController < ApplicationController
   LOCALES = {
     'English'    => 'en',
-    'Deutsche'   => 'de',
-    'ελληνικά'   => 'el',
     'Español'    => 'es',
-    '日本語'     => 'ja',
-    'Nederlands' => 'nl',
     'Português'  => 'pt-BR'
   }
 
