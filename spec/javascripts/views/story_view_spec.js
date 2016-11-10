@@ -213,7 +213,7 @@ describe('StoryView', function() {
         ]
       );
       this.story.set({editing: true});
-      this.view.saveEdit(this.e);
+      this.view.clickSave(this.e);
       expect(this.story.get('editing')).toBeTruthy();
       expect(this.server.requests.length).toEqual(1);
 
