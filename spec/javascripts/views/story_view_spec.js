@@ -213,7 +213,7 @@ describe('StoryView', function() {
         ]
       );
       this.story.set({editing: true});
-      this.view.saveEdit(this.e);
+      this.view.clickSave(this.e);
       expect(this.story.get('editing')).toBeTruthy();
       expect(this.server.requests.length).toEqual(1);
 
@@ -231,7 +231,7 @@ describe('StoryView', function() {
         ]
       );
 
-      this.view.saveEdit(this.e);
+      this.view.clickSave(this.e);
       expect(this.server.responses.length).toEqual(1);
       expect(this.server.responses[0].method).toEqual("PUT");
       expect(this.server.responses[0].url).toEqual("/path/to/story");
@@ -254,7 +254,7 @@ describe('StoryView', function() {
       var enable_spy = sinon.spy(this.view, 'enableForm');
 
       this.story.set({editing: true});
-      this.view.saveEdit(this.e);
+      this.view.clickSave(this.e);
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
@@ -517,10 +517,9 @@ describe('StoryView', function() {
       this.view.model.isNew = sinon.stub().returns(true);
       this.view.render();
       expect(this.view.$('.attachinary-input').length).toEqual(1);
-      expect(this.view.$('.attachinary-input').siblings().length).toEqual(4);
+      expect(this.view.$('.attachinary-input').siblings().length).toEqual(3);
       expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('documents_progress');
-      expect(this.view.$('.attachinary-input').siblings()[2].id).toContain('documents_finished');
-      expect(this.view.$('.attachinary-input').siblings()[3].id).toContain('attachinary_container');
+      expect(this.view.$('.attachinary-input').siblings()[2].id).toContain('attachinary_container');
     });
 
   });
@@ -639,6 +638,30 @@ describe('StoryView', function() {
         this.view.transition(ev);
 
         expect(this.story.get('state')).toEqual('delivered');
+      });
+    });
+  });
+
+  describe('attachmentDone', function() {
+    describe('when the story is new', function() {
+      it('never calls saveEdit', function() {
+        this.view.model.isNew = sinon.stub().returns(true);
+        this.view.saveEdit = sinon.stub();
+
+        this.view.attachmentDone();
+
+        expect(this.view.saveEdit).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when the story is not new', function() {
+      it('calls saveEdit', function() {
+        this.view.model.isNew = sinon.stub().returns(false);
+        this.view.saveEdit = sinon.stub();
+
+        this.view.attachmentDone();
+
+        expect(this.view.saveEdit).toHaveBeenCalled();
       });
     });
   });

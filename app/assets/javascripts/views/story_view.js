@@ -21,7 +21,8 @@ module.exports = FormView.extend({
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
       "renderNotesCollection", "addEmptyNote", "hoverBox",
-      "renderTasks", "renderTasksCollection", "addEmptyTask");
+      "renderTasks", "renderTasksCollection", "addEmptyTask",
+      "clickSave", "attachmentDone");
 
     // Rerender on any relevant change to the views story
     this.model.on("change", this.render);
@@ -72,7 +73,7 @@ module.exports = FormView.extend({
   events: {
     "click": "startEdit",
     "click .epic-link": "openEpic",
-    "click .submit": "saveEdit",
+    "click .submit": "clickSave",
     "click .cancel": "cancelEdit",
     "click .transition": "transition",
     "click .state-actions .estimate": "estimate",
@@ -80,7 +81,8 @@ module.exports = FormView.extend({
     "click .destroy": "clear",
     "click .description": "editDescription",
     "click .edit-description": "editDescription",
-    "sortupdate": "sortUpdate"
+    "sortupdate": "sortUpdate",
+    "fileuploaddone": "attachmentDone"
   },
 
   // Triggered whenever a story is dropped to a new position
@@ -278,7 +280,7 @@ module.exports = FormView.extend({
     }
   },
 
-  saveEdit: function(event) {
+  saveEdit: function(event, editMode) {
     this.disableForm();
 
     // Call this here to ensure the story gets it's accepted_at date set
@@ -288,12 +290,13 @@ module.exports = FormView.extend({
     this.model.setAcceptedAt();
 
     var that = this;
-    documents = $(event.currentTarget).closest('.story').find("[type='hidden'][name='documents[]']");
+    var documents = $(event.currentTarget).closest('.story')
+      .find("[type='hidden'][name='documents[]']");
 
     this.model.save(null, { documents: documents,
       success: function(model, response) {
-        that.model.set({editing: false});
         that.enableForm();
+        that.model.set({editing: editMode});
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
@@ -500,7 +503,6 @@ module.exports = FormView.extend({
           if(!this.isReadonly()) {
             $(div).append(this.fileField("documents", progress_element_id, finished_element_id, attachinary_container_id));
             $(div).append("<div id='" + progress_element_id + "' class='attachinary_progress_bar'></div>");
-            $(div).append('<div id="' + finished_element_id + '" class="attachinary_finished_message">Click the "save" button above!</div>');
           }
           $(div).append('<div id="' + attachinary_container_id + '"></div>');
 
@@ -698,5 +700,15 @@ module.exports = FormView.extend({
       $div.append(content.control);
     }
     return div;
+  },
+
+  attachmentDone: function(event) {
+    if (!this.model.isNew()) {
+      this.saveEdit(event, true);
+    }
+  },
+
+  clickSave: function(event) {
+    this.saveEdit(event, false);
   }
 });
