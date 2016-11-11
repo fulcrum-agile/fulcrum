@@ -21,7 +21,8 @@ module.exports = FormView.extend({
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
       "renderNotesCollection", "addEmptyNote", "hoverBox",
-      "renderTasks", "renderTasksCollection", "addEmptyTask", "clickSave", "attachmentDone");
+      "renderTasks", "renderTasksCollection", "addEmptyTask",
+      "clickSave", "attachmentDone");
 
     // Rerender on any relevant change to the views story
     this.model.on("change", this.render);

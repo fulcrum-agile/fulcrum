@@ -641,4 +641,28 @@ describe('StoryView', function() {
       });
     });
   });
+
+  describe('attachmentDone', function() {
+    describe('when the story is new', function() {
+      it('never calls saveEdit', function() {
+        this.view.model.isNew = sinon.stub().returns(true);
+        this.view.saveEdit = sinon.stub();
+
+        this.view.attachmentDone();
+
+        expect(this.view.saveEdit).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when the story is not new', function() {
+      it('calls saveEdit', function() {
+        this.view.model.isNew = sinon.stub().returns(false);
+        this.view.saveEdit = sinon.stub();
+
+        this.view.attachmentDone();
+
+        expect(this.view.saveEdit).toHaveBeenCalled();
+      });
+    });
+  });
 });
