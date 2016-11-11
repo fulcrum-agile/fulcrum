@@ -279,7 +279,7 @@ module.exports = FormView.extend({
     }
   },
 
-  saveEdit: function(event, shoudHideForm) {
+  saveEdit: function(event, editMode) {
     this.disableForm();
 
     // Call this here to ensure the story gets it's accepted_at date set
@@ -289,14 +289,13 @@ module.exports = FormView.extend({
     this.model.setAcceptedAt();
 
     var that = this;
-    documents = $(event.currentTarget).closest('.story').find("[type='hidden'][name='documents[]']");
+    var documents = $(event.currentTarget).closest('.story')
+      .find("[type='hidden'][name='documents[]']");
 
     this.model.save(null, { documents: documents,
       success: function(model, response) {
         that.enableForm();
-        if(shoudHideForm){
-          that.model.set({editing: false});
-        }
+        that.model.set({editing: editMode});
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
@@ -702,13 +701,13 @@ module.exports = FormView.extend({
     return div;
   },
 
-  attachmentDone: function(event){
+  attachmentDone: function(event) {
     if (!this.model.isNew()) {
-      this.saveEdit(event,false);
+      this.saveEdit(event, true);
     }
   },
 
-  clickSave: function(event){
-    this.saveEdit(event, true);
+  clickSave: function(event) {
+    this.saveEdit(event, false);
   }
 });

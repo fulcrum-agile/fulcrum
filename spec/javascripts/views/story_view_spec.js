@@ -231,7 +231,7 @@ describe('StoryView', function() {
         ]
       );
 
-      this.view.saveEdit(this.e);
+      this.view.clickSave(this.e);
       expect(this.server.responses.length).toEqual(1);
       expect(this.server.responses[0].method).toEqual("PUT");
       expect(this.server.responses[0].url).toEqual("/path/to/story");
@@ -254,7 +254,7 @@ describe('StoryView', function() {
       var enable_spy = sinon.spy(this.view, 'enableForm');
 
       this.story.set({editing: true});
-      this.view.saveEdit(this.e);
+      this.view.clickSave(this.e);
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
