@@ -75,26 +75,12 @@ module ProjectsHelper
   end
 
   def last_iteration_number(worst = false)
-    iterations = if worst
-                   velocity       = @service.velocity
-                   volatility     = @service.volatility
-                   worst_velocity = velocity - ( velocity * volatility )
-                   @service.backlog_iterations(worst_velocity.floor)
-                 else
-                   @service.backlog_iterations
-                 end
-    iterations.last.number
+    @backlog_date ||= @service.backlog_date(worst)
+    @backlog_date.first
   end
 
   def last_iteration_start_date(worst = false)
-    iterations = if worst
-                   velocity       = @service.velocity
-                   volatility     = @service.volatility
-                   worst_velocity = velocity - ( velocity * volatility )
-                   @service.backlog_iterations(worst_velocity.floor)
-                 else
-                   @service.backlog_iterations
-                 end
-    iterations.last.start_date.to_date.to_s(:long)
+    @backlog_date ||= @service.backlog_date(worst)
+    @backlog_date.last.to_s(:short)
   end
 end

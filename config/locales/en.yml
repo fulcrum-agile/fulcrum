@@ -17,6 +17,7 @@ en:
   apply:    "Apply"
   velocity: "Velocity"
   volatility: "Volatility"
+  standard_deviation: "Standard Deviation"
   notes:    "Notes"
   tasks:    "Tasks"
   close:    "Close"
@@ -27,7 +28,6 @@ en:
   nothing uploaded yet: "Nothing uploaded yet"
 
   save: "Save"
-  delete: "Delete"
   cancel: "Cancel"
   add: "Add"
   remove: "Remove"
