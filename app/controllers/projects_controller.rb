@@ -136,7 +136,7 @@ class ProjectsController < ApplicationController
 
   def reports
     since = params[:since].nil? ? nil : params[:since].to_i.months.ago
-    @service = IterationService.new(@project, since)
+    @service = IterationService.new(@project, since: since)
   end
 
   def ownership
