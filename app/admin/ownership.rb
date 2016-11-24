@@ -52,5 +52,6 @@ ActiveAdmin.register Ownership do
         collection: Project.order(:name).all
       f.input :is_owner, as: :check_boxes
     end
+    f.actions
   end
 end

@@ -50,5 +50,6 @@ ActiveAdmin.register Membership do
       f.input :project, as: :select,
         collection: Project.order(:name).all
     end
+    f.actions
   end
 end
