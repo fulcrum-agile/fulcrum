@@ -8,6 +8,7 @@ ActiveAdmin.register User do
     column :name
     column :initials
     column :username
+    column :role
     column :authy_enabled
   end
 
@@ -23,6 +24,7 @@ ActiveAdmin.register User do
       f.input :name
       f.input :initials
       f.input :username
+      f.input :role, collection: User.role.options
       f.input :locale, collection: I18n.available_locales
       f.input :time_zone
       f.input :authy_enabled

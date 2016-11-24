@@ -41,6 +41,11 @@
             <div class="col-xs-10"><%= f.text_field :initials, class: 'form-control' %></div>
           </div>
 
+          <div class="form-group">
+            <%= f.label :role, class: 'col-xs-2 control-label' %>
+            <div class="col-xs-10"><%= f.select :role, User.role.options, class: 'form-control' %></div>
+          </div>
+
           <div class="actions">
             <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
           </div>
