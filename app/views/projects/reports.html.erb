@@ -17,7 +17,7 @@
   </div>
 <% end %>
 
-<% cache [@project, params[:since]], expires_in: 30.minutes do %>
+<% cache "project/#{@project.id}/reports/since/#{params[:since]}", expires_in: 15.minutes do %>
 
 <div class="row">
   <div class="col-sm-12 col-md-12">
