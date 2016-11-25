@@ -22,6 +22,8 @@ es:
   expand:   "Expandir"
   not_found: "Recurso no encontrado"
   nothing uploaded yet: "Nada se ha subido todavía"
+  day:      "Day"
+  accepted_points: "Puntos aceptados"
 
   save: "Guardar"
   delete: "Borrar"
@@ -178,6 +180,7 @@ es:
       bugs_impact: "Impacto de los errores"
       velocity_by_iteration: "Velocidad por iteración"
       velocity_per_member: "Velocidad por cada miembro"
+      burn_up: "Gráfico de Burn Up"
     project properties: "Propiedades del Proyecto"
     archived projects:  "Proyectos archivados"
     archive: "Archivar"

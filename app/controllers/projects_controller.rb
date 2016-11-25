@@ -137,6 +137,7 @@ class ProjectsController < ApplicationController
   def reports
     since = params[:since].nil? ? nil : params[:since].to_i.months.ago
     @service = IterationService.new(@project, since: since)
+    @total_backlog_points = @service.instance_variable_get('@stories').map(&:estimate).compact.sum
   end
 
   def ownership

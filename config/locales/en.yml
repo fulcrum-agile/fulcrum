@@ -26,6 +26,8 @@ en:
   expand:   "Expand"
   not_found: "Resource not found"
   nothing uploaded yet: "Nothing uploaded yet"
+  day:      "Day"
+  accepted_points: "Accepted Points"
 
   save: "Save"
   cancel: "Cancel"
@@ -187,6 +189,7 @@ en:
       bugs_impact: "Bugs Impact"
       velocity_by_iteration: "Velocity by Iteration"
       velocity_per_member: "Velocity per Member"
+      burn_up: "Burn Up Chart"
     project properties: "Project Properties"
     archived projects:  "Archived Projects"
     archive: "Archive"
