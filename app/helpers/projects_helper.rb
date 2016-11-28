@@ -81,6 +81,24 @@ module ProjectsHelper
 
   def last_iteration_start_date(worst = false)
     @backlog_date ||= @service.backlog_date(worst)
-    @backlog_date.last.to_s(:short)
+    @backlog_date.last.to_date.to_s(:short)
+  end
+
+  def calculate_and_render_burn_up!
+    service_full         = IterationService.new(@project, since: nil)
+    @total_backlog_points = service_full.instance_variable_get('@stories').map(&:estimate).compact.sum
+
+    @group_by_day   = [
+      { name: 'today', data: { Date.current => service_full.group_by_day[Date.current]} },
+      { name: 'real',  data: service_full.group_by_day },
+      { name: 'ideal', data: service_full.group_by_day.dup } ]
+
+    points_per_day = @total_backlog_points.to_f / service_full.group_by_day.keys.size
+    initial_points = 0
+
+    @group_by_day.last[:data].keys.each do |key|
+      @group_by_day.last[:data][key] = initial_points
+      initial_points += points_per_day
+    end
   end
 end
