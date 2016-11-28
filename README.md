@@ -90,8 +90,8 @@ First up, your system will need the
 Once you have these:
 
     # Checkout the project
-    $ git clone git://github.com/fulcrum-agile/fulcrum.git
-    $ cd fulcrum
+    $ git clone git://github.com/Codeminer42/cm42-central.git
+    $ cd cm42-central
 
     # copy and edit the configuration
     $ cp .env.sample .env
@@ -110,8 +110,8 @@ Once you have these:
 Or using docker:
 
     # Checkout the project
-    $ git clone git://github.com/fulcrum-agile/fulcrum.git
-    $ cd fulcrum
+    $ git clone git://github.com/Codeminer42/cm42-central.git
+    $ cd cm42-central
 
     # Prepare container
     $ docker-compose build
