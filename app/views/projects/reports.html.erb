@@ -17,8 +17,6 @@
   </div>
 <% end %>
 
-<% cache "project/#{@project.id}/reports/since/#{params[:since]}", expires_in: 15.minutes do %>
-
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <% calculate_and_render_burn_up! %>
@@ -81,5 +79,3 @@
 
   </div>
 </div>
-
-<% end %>
