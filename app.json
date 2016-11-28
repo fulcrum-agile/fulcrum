@@ -1,38 +1,70 @@
 {
   "name": "cm42-central",
+  "description": "Codeminer 42's open source alternative to Pivotal Tracker",
+  "keywords": ["productivity", "project management", "scrum", "agile"],
+  "website": "https://central.cm42.io",
+  "repository": "https://github.com/Codeminer42/cm42-central",
   "scripts": {
     "postdeploy": "rake db:schema:load db:seed"
   },
   "env": {
+    "CDN_URL": {
+      "description": "Create a CloudFront or Fastly configuration and add the CDN URL here",
+      "required": false
+    },
+    "DEVISE_SECRET_KEY": {
+      "required": true,
+      "generator": "secret"
+    },
+    "INTEGRATION_URI_MATTERMOST": {
+      "description": "A Mattermost Hook URL in the format https://yourmattermost.com/hooks/abcdxyz",
+      "required": false
+    },
     "LANG": {
+      "value": "en_US.UTF-8",
       "required": true
     },
     "MAILER_SENDER": {
+      "description": "Notification email sender, something like no-reply@yourdomain.com",
       "required": true
     },
     "MAIN_HOST": {
+      "description": "The full domain name of this application (it can start being your-app.herokuapp.com)",
       "required": true
     },
     "RACK_ENV": {
+      "value": "production",
       "required": true
     },
     "RAILS_ENV": {
+      "value": "production",
       "required": true
     },
     "RECAPTCHA_PRIVATE_KEY": {
+      "description": "Create a Recaptcha account and copy the private key here",
       "required": true
     },
     "RECAPTCHA_PUBLIC_KEY": {
+      "description": "Create a Recaptcha account and copy the public key here",
       "required": true
-    },
-    "ROLLBAR_ENV": {
-      "value": "staging"
     },
     "SECRET_KEY_BASE": {
-      "required": true
+      "required": true,
+      "generator": "secret"
+    },
+    "SECRET_TOKEN": {
+      "required": true,
+      "generator": "secret"
     },
     "SIDEKIQ_CONCURRENCY": {
-      "value": "20"
+      "description": "Sidekiq is used mostly for email notifications, so it's quite fast and can be highly parallelized",
+      "value": "20",
+      "required": false
+    },
+    "WEB_CONCURRENCY": {
+      "description": "A normal Standard 1X dyno should support up to 3 Puma instances of this App and still have some room left",
+      "value": "3",
+      "required": true
     }
   },
   "formation": {

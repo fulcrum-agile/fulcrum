@@ -8,11 +8,11 @@ system for agile development teams.
 [![Build Status](https://travis-ci.org/Codeminer42/cm42-central.svg?branch=master)](https://travis-ci.org/Codeminer42/cm42-central)
 [![JavaScript Coverage Status](https://coveralls.io/repos/github/Codeminer42/cm42-central/badge.svg?branch=master)](https://coveralls.io/github/Codeminer42/cm42-central?branch=master)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ![Project Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/cm42-central-screenshot.png)
 
 ![Reports Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/cm42-central-reports.png)
-
 
 The Codeminer 42 Feature Set
 ----------------------------
@@ -43,7 +43,6 @@ Some of the improvements we added since the end of 2015:
   - [ ] needs more testing and tweaking for tablets
   - [ ] Backbone code needs more refactoring and cleanup (specially moving the render from story_view to an EJS template)
   - [ ] (low priority) replace the polling system for a websockets channel and listener
-  - [ ] (low priority) the initial project loads all stories (up to the STORIES_CEILING), need to asynchronously load the past
 - [x] Improved UI
   - [x] A little bit better icon set (Material Icons)
   - [x] Textarea in Story editing can now auto-resize
@@ -52,6 +51,7 @@ Some of the improvements we added since the end of 2015:
   - [x] Basic task system inside a Story
   - [x] Labels work as "Epic" grouping
   - [x] Minimal responsiveness to make it usable in smartphones/tablets
+  - [x] UI tweaking to make it prettier even without a total redesign
 - [x] Done stories can't be edited, so adding validations and disabling form UIs
 - [x] Added Mattermost basic integration to send story changes to project chat channel
 - [ ] Add APIs for chat slash commands to be able to query projects (ex. /centralstatus project-x)
@@ -61,24 +61,29 @@ Some of the improvements we added since the end of 2015:
   - [x] Bugs per Iteration
   - [x] Velocity per Member per Iteration
   - [x] Volatility calculation
-- [ ] Making clicking labels a searchable action
-- [ ] Adding proper Epics grouping (instead of being simple label grouping)
-- [ ] Adding an Epics column and report for completion forecasting
-- [ ] Adding Team super structure so multiple teams can use the same app separately and share projects and users between them.
+  - [x] Burn Up Chart
+- [x] Teams
+  - [x] Reorganize the project so the main object is a Team instead of the Project, and Teams can have many Projects
+  - [x] Teams are isolated, so a user in a Team can't access a project from another Team
+  - [x] Users can be assigned to multiple teams
+  - [x] Projects can be transferred between Teams
+
+We already have more features in development and you can follow what needs to be built or fixed in the [Issues](http://github.com/codeminer42/cm42-central/issues) page.
 
 Goals
 -----
 
 CM42-Central starts as a clone of [Pivotal Tracker](http://pivotaltracker.com/).
+
 We want to make it a drop-in replacement first, by having all of the main functionalities and to later surpass it,
 by making it not only smarter but also more user-friendly and easier to use than what we consider "incomplete"
 commercial offerings such as Trello.
 
-The principles that we believe in:
+The principles that we believe in are:
 
 - Estimation is not optional, but more like Story Points (proportions) than Time-based estimation.
 - Projects must be divided in short, fixed Iterations.
-- Velocity and Volatility are the key managerial elements.
+- Velocity is the the key managerial element.
 - Stakeholders must test and accept/reject stories within the same Iteration.
 
 Installation
@@ -128,6 +133,8 @@ You can log in with the test username `test@example.com`, password `testpass`.
 
 Heroku setup
 ------------
+
+You can use the Deploy button above or manually install like this:
 
 You will need a Heroku Postgresql plan, and you will also need:
 
