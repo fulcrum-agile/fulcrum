@@ -235,6 +235,9 @@ GEM
       platform-api
     letter_opener (1.4.1)
       launchy (~> 2.2)
+    letter_opener_web (1.2.3)
+      letter_opener (~> 1.0)
+      rails (>= 3.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -468,6 +471,7 @@ DEPENDENCIES
   kgio
   letsencrypt-rails-heroku
   letter_opener
+  letter_opener_web (~> 1.2.0)
   material_icons
   newrelic_rpm
   pg
@@ -506,4 +510,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.2
+   1.13.6
