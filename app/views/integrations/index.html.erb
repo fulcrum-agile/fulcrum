@@ -1,7 +1,53 @@
+<% content_for :sidebar do %>
+  <%= render partial: 'projects/nav', locals: { project: @project } %>
+<% end %>
+
 <% content_for :title_bar do %>
-  <%= render partial: 'projects/nav', locals: {project: @project} %>
+  <div class="project_nav">
+    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+  </div>
 <% end %>
 
 <div class="row">
-  <%= render 'form' %>
+  <div class="col-sm-12 col-md-12">
+    <h3><%= t('projects.integrations') %></h3>
+    <hr>
+
+    <ul class="list-group members-list">
+      <% @integrations.each do |integration| %>
+        <li class="list-group-item clearfix">
+          <% unless integration.new_record? %>
+            <%= link_to 'Remove',
+                        project_integration_path(@project, integration),
+                        confirm: t('projects.integrations_remove_sure', kind: integration.kind),
+                        method: :delete,
+                        class: 'btn btn-danger btn-sm pull-right' %>
+          <% end %>
+
+          <h5><%= integration.kind.upcase %></h5>
+          <hr>
+
+          <% if integration.new_record? %>
+            <div>
+              <%= form_for [@project, integration] do |form| %>
+                <%= form.hidden_field :kind, value: integration.kind %>
+
+                <%= render partial: "integrations/#{integration.kind}",
+                                    locals: { form: form } %>
+
+                <div class="actions">
+                  <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary pull-right' %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <pre><code><%= JSON.pretty_generate(integration.data) %></code></pre>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
 </div>
+
+

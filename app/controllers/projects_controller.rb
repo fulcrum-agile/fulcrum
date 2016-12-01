@@ -40,7 +40,6 @@ class ProjectsController < ApplicationController
   def edit
     @project.users.build
     authorize @project
-    @integration = Integration.new
   end
 
   # POST /projects
@@ -65,8 +64,6 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @integration = Integration.new
-
     respond_to do |format|
       if ProjectOperations::Update.(@project, allowed_params, current_user)
         format.html { redirect_to(@project, notice: t('projects.project was successfully updated')) }

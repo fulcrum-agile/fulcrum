@@ -20,6 +20,10 @@
   </li>
 
   <li>
+    <%= sidebar_link t('projects.integrations'), project_integrations_path(project) %>
+  </li>
+
+  <li>
     <%= sidebar_link t('import'), import_project_path(project) %>
   </li>
 <% end %>

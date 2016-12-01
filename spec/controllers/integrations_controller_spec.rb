@@ -22,51 +22,60 @@ describe IntegrationsController do
   end
 
   context "when logged in" do
-
     before do
       sign_in user
       allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "collection actions" do
-
       describe "#index" do
-        before { integration.save }
+        context "as html with saved integrations" do
+          before { integration.save }
 
-        context "as html" do
           specify do
             get :index, project_id: project.id
             expect(response).to be_success
             expect(assigns[:project]).to eq(project)
+            expect(assigns[:integrations]).to eq([integration])
+          end
+        end
+
+        context "as html with no integrations" do
+          specify do
+            get :index, project_id: project.id
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(assigns[:integrations].count).to eq(1)
+            expect(assigns[:integrations].first.kind).to eq('mattermost')
           end
         end
 
         context "as json" do
+          before { integration.save }
+
           specify do
             xhr :get, :index, project_id: project.id, format: :json
             expect(response).to be_success
             expect(JSON.parse(response.body).first["integration"]["data"]).to eql(integration.data)
           end
-
         end
-
       end
 
       describe "#create" do
-
         let(:integration_params) {{
           "kind" => integration.kind,
-          "data" => integration.data.to_json
+          "data" => integration.data
         }}
 
         specify do
           expect {
             post :create, project_id: project.id, integration: integration_params
           }.to change { Integration.count }.by(1)
+
           expect(assigns[:project]).to eq(project)
           expect(assigns[:integration].kind).to eq(integration_params["kind"])
-          expect(assigns[:integration].data).to eq(JSON.parse integration_params["data"])
-          expect(response).to redirect_to(edit_project_url(project))
+          expect(assigns[:integration].data).to eq(integration_params["data"])
+          expect(response).to redirect_to(project_integrations_url(project))
         end
 
         context "when integration does not exist" do
@@ -125,7 +134,7 @@ describe IntegrationsController do
 
         specify do
           delete :destroy, project_id: project.id, id: integration.id
-          expect(response).to redirect_to(edit_project_url(project))
+          expect(response).to redirect_to(project_integrations_url(project))
         end
 
       end
