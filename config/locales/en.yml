@@ -28,6 +28,7 @@ en:
   nothing uploaded yet: "Nothing uploaded yet"
   day:      "Day"
   accepted_points: "Accepted Points"
+  change team: "Change Team"
 
   save: "Save"
   cancel: "Cancel"
@@ -258,6 +259,7 @@ en:
     create: 'Create new Team'
     update: 'Update Team'
     switch: 'Change to another Team'
+    select: "Select Team"
     team was successfully created: 'Team was successfully created'
     team was successfully updated: 'Team was successfully updated'
     new_instruction: |

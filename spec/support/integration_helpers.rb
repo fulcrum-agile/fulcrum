@@ -4,8 +4,8 @@ module IntegrationHelpers
     visit root_path
     fill_in "Email",    with: user.email
     fill_in "Password", with: password
-    fill_in "Team slug", with: user.teams.first.slug
     click_button 'Sign in'
+    click_button 'Select Team'
   end
 
   def send_keys keys, options = {}

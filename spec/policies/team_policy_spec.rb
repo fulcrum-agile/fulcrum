@@ -24,11 +24,11 @@ describe TeamPolicy do
     context "for a user" do
       let(:current_user) { create :user, :with_team }
 
-      %i[create new].each do |action|
+      %i[index create new].each do |action|
         it { should permit(action) }
       end
 
-      %i[index update edit destroy].each do |action|
+      %i[update edit destroy].each do |action|
         it { should_not permit(action) }
       end
 

@@ -24,6 +24,7 @@ es:
   nothing uploaded yet: "Nada se ha subido todavía"
   day:      "Day"
   accepted_points: "Puntos aceptados"
+  change team: "Cambiar Equipo"
 
   save: "Guardar"
   delete: "Borrar"
@@ -249,6 +250,7 @@ es:
     create: 'Crear nuevo Equipo'
     update: 'Actualizar Equipo'
     switch: 'Cambiar a otro Equipo'
+    select: "Seleccionar Equipo"
     team was successfully created: 'El equipo ha sido creado con éxito'
     team was successfully updated: 'El equipo ha sido actualizado correctamente'
     new_instruction: |

@@ -41,7 +41,6 @@
     <% if session[:current_team_slug] && policy(Team).update? %>
       <li><%= sidebar_link Team.model_name, edit_team_path(current_team) %></li>
     <% end %>
-
     <li><%= sidebar_link current_user.name, edit_user_registration_path %></li>
   <% end %>
 
@@ -52,6 +51,7 @@
   </li>
 
   <% if current_user %>
+    <li><%= link_to t('change team'), teams_path %></li>
     <li><%= link_to t('log out'), destroy_user_session_path, method: :delete %></li>
   <% else %>
     <li><%= link_to t('log in'), new_user_session_path %></li>

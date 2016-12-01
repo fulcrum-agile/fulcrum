@@ -1,4 +1,12 @@
 class TeamPolicy < ApplicationPolicy
+  def index?
+    true
+  end
+
+  def switch?
+    true
+  end
+
   def create?
     true
   end

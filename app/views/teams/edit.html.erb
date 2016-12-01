@@ -8,31 +8,4 @@
       <%= render 'form' %>
     </div>
   </div>
-
-  <% unless @team.new_record? %>
-    <div class="col-xs-12 col-sm-8">
-      <div class="col-sm-6">
-        <button class="btn-clipboard pull-right" data-clipboard-target="#team_url"><img src="/clippy.svg" alt="Copy to clipboard" width="20px"></button>
-        <script type="text/javascript" charset="utf-8">
-          $(function() {
-            new Clipboard('.btn-clipboard');
-          });
-        </script>
-      </div>
-      <div class="col-sm-6">
-        <%= text_field_tag 'team_url', teams_switch_url(@team), size: 45, readonly: true, class: 'form-control' %>
-      </div>
-    </div>
-  <% end %>
-
-  <% if current_user.teams.count > 1 %>
-    <div class="col-xs-12 col-sm-8">
-      <h3><%= t('teams.switch') %></h3>
-      <ul>
-        <% current_user.teams.order(:name).each do |team| %>
-          <li><%= link_to team.name, teams_switch_path(team) %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 </div>

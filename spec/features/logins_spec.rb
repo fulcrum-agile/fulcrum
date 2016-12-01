@@ -2,7 +2,7 @@ require 'feature_helper'
 
 describe "Logins" do
 
-  let(:user)  {
+  let!(:user)  {
     create :user, :with_team_and_is_admin,
                   email: 'user@example.com',
                   password: 'password',
@@ -33,33 +33,17 @@ describe "Logins" do
   end
 
   describe "successful login" do
-
-    let(:team) { user.teams.first }
-
     it "logs in the user", js: true do
       visit root_path
-      expect(page).to have_selector('h1', text: 'Log In')
-
-      fill_in "Email",     with: "user@example.com"
-      fill_in "Password",  with: "password"
-      fill_in "Team slug", with: team.slug
+      fill_in "Email",    with: 'user@example.com'
+      fill_in "Password", with: 'password'
       click_button 'Sign in'
 
-      expect(page).to have_selector('#title_bar', text: 'New Project')
+      expect(page).to have_selector('h1', text: I18n.t('teams.switch'))
       find('.menu-toggle').trigger 'click'
-      expect(page).to have_selector('.sidebar-nav li:nth-child(6)', text: 'Test User')
+      expect(page).to have_selector('.sidebar-nav li:nth-child(4)', text: 'Test User')
     end
 
-    it "switches team through URL and doesn't have to fill in the team slug", js: true do
-      visit teams_switch_path(team.slug)
-      expect(page).to have_selector('#user_team_slug'), text: team.slug
-
-      fill_in "Email",     with: "user@example.com"
-      fill_in "Password",  with: "password"
-      click_button 'Sign in'
-
-      expect(page).to have_selector('#title_bar', text: 'New Project')
-    end
 
     describe '2 Factor Auth' do
       context "when account wasn't enabled yet" do
@@ -71,9 +55,7 @@ describe "Logins" do
 
           fill_in "Email",     with: "user@example.com"
           fill_in "Password",  with: "password"
-          fill_in "Team slug", with: team.slug
           click_button 'Sign in'
-
           expect(page).to have_selector('h2', text: I18n.t('authy_register_title', scope: 'devise'))
         end
       end
@@ -87,29 +69,11 @@ describe "Logins" do
 
           fill_in "Email",     with: "user@example.com"
           fill_in "Password",  with: "password"
-          fill_in "Team slug", with: team.slug
           click_button 'Sign in'
 
           expect(page).to have_selector('legend', text: I18n.t('submit_token_title', scope: 'devise'))
         end
       end
-    end
-
-  end
-
-  describe "new team" do
-    let!(:team) { create :team }
-
-    it "first login" do
-      expect(team.is_admin?(user)).to be_falsey
-
-      visit teams_switch_path(team.slug)
-
-      fill_in "Email",     with: "user@example.com"
-      fill_in "Password",  with: "password"
-      click_button 'Sign in'
-
-      expect(team.is_admin?(user)).to be_truthy
     end
   end
 
@@ -126,5 +90,4 @@ describe "Logins" do
       expect(page).to have_selector('h1', text: 'Log In')
     end
   end
-
 end
