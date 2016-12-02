@@ -77,6 +77,7 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     get 'testcard' => 'static#testcard'
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
   authenticate :admin_user do
