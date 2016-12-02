@@ -5,4 +5,4 @@ applications:
   services:
     - nirdhost_fulcrum_db_production
   memory: 1G
-  instances: 1
+  instances: 2
