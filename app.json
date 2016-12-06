@@ -8,10 +8,6 @@
     "postdeploy": "rake db:schema:load db:seed"
   },
   "env": {
-    "CDN_URL": {
-      "description": "Create a CloudFront or Fastly configuration and add the CDN URL here",
-      "required": false
-    },
     "DEVISE_SECRET_KEY": {
       "required": true,
       "generator": "secret"
