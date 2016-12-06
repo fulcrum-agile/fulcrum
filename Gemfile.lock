@@ -74,6 +74,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    api-pagination (4.4.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (6.0.3)
@@ -85,6 +86,10 @@ GEM
     autoprefixer-rails (6.5.2)
       execjs
     aws_cf_signer (0.1.3)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -120,6 +125,8 @@ GEM
       rest-client
     codeclimate-test-reporter (1.0.1)
     coderay (1.1.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -151,6 +158,8 @@ GEM
     dalli (2.7.6)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     devise (3.5.10)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -175,6 +184,7 @@ GEM
       railties (>= 4.0, < 5.1)
     enumerize (2.0.1)
       activesupport (>= 3.2)
+    equalizer (0.0.11)
     erubis (2.7.0)
     excon (0.54.0)
     execjs (2.7.0)
@@ -195,10 +205,28 @@ GEM
       activerecord (>= 4.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    grape (0.15.0)
+      activesupport
+      builder
+      hashie (>= 2.1.0)
+      multi_json (>= 1.3.2)
+      multi_xml (>= 0.5.2)
+      rack (>= 1.3.0)
+      rack-accept
+      rack-mount
+      virtus (>= 1.0.0)
+    grape-entity (0.6.0)
+      activesupport
+      multi_json (>= 1.3.2)
+    grape-swagger (0.25.2)
+      grape (>= 0.12.0)
+    grape-swagger-rails (0.3.0)
+      railties (>= 3.2.12)
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashdiff (0.3.0)
+    hashie (3.4.4)
     heroics (0.0.17)
       erubis (~> 2.0)
       excon
@@ -211,6 +239,7 @@ GEM
     i18n (0.7.0)
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
+    ice_nine (0.11.2)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
       has_scope (~> 0.6.0.rc)
@@ -252,6 +281,7 @@ GEM
     minitest (5.9.1)
     moneta (0.8.0)
     multi_json (1.12.1)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     netrc (0.11.0)
     newrelic_rpm (3.17.0.325)
@@ -282,9 +312,13 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
     rack-cache (1.6.1)
       rack (>= 0.4)
     rack-cors (0.4.0)
+    rack-mount (0.8.3)
+      rack (>= 1.0.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -420,6 +454,11 @@ GEM
     unf_ext (0.0.7.2)
     uniform_notifier (1.10.0)
     vcr (3.0.3)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.6)
       rack (>= 1.0)
     webmock (2.1.0)
@@ -439,6 +478,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre4)
+  api-pagination
   attachinary
   autoprefixer-rails
   better_errors
@@ -465,9 +505,14 @@ DEPENDENCIES
   factory_girl_rails
   foreman
   friendly_id (~> 5.1.0)
+  grape
+  grape-entity
+  grape-swagger
+  grape-swagger-rails
   i18n-js (>= 3.0.0.rc8)
   jquery-atwho-rails
   jquery-ui-rails
+  kaminari
   kgio
   letsencrypt-rails-heroku
   letter_opener

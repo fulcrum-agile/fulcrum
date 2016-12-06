@@ -88,4 +88,7 @@ Rails.application.routes.draw do
   root 'projects#index'
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
+  mount GrapeSwaggerRails::Engine => '/api/v1/explore'
+  mount API => '/'
 end
