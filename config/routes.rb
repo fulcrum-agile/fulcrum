@@ -25,16 +25,11 @@ Rails.application.routes.draw do
   get 'projects/archived' => 'projects#archived'
   put 'locales' => 'locales#update', as: :locales
 
-<<<<<<< HEAD
-  resources :teams do
-    get :switch, on: :collection
-=======
   get 't/:id' => 'teams#switch', as: :teams_switch
 
   resources :teams do
     get :switch, on: :collection
     resources :api_tokens, only: [:create, :destroy]
->>>>>>> a71f003... Add API tokens
   end
 
   resources :projects do
