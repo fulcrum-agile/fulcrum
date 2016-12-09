@@ -8,4 +8,63 @@
       <%= render 'form' %>
     </div>
   </div>
+<<<<<<< HEAD
+=======
+
+  <% unless @team.new_record? %>
+    <div class="col-xs-12 col-sm-8">
+      <br>
+      <div class="col-sm-6">
+        <button class="btn-clipboard pull-right" data-clipboard-target="#team_url"><img src="/clippy.svg" alt="Copy to clipboard" width="20px"></button>
+        <script type="text/javascript" charset="utf-8">
+          $(function() {
+            new Clipboard('.btn-clipboard');
+          });
+        </script>
+      </div>
+      <div class="col-sm-6">
+        <%= text_field_tag 'team_url', teams_switch_url(@team), size: 45, readonly: true, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-8">
+      <br><br>
+      <div class="col-sm-6">
+        <strong class='pull-right'>API Tokens</strong>
+      </div>
+      <div class="col-sm-6">
+        <% if @team.api_tokens.present? %>
+          <table class='table table-striped table-condensed'>
+            <% @team.api_tokens.each do |api_token| %>
+              <tr>
+                <td><code><%= api_token.token %></code></td>
+                <td>
+                  <%= link_to t('remove'),
+                              team_api_token_path(@team, api_token),
+                              method: :delete,
+                              data: { confirm: 'Are you sure?' } %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
+
+        <%= link_to t('add'),
+                    team_api_tokens_path(@team),
+                    method: :post,
+                    class: 'btn btn-success btn-sm pull-right' %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.teams.count > 1 %>
+    <div class="col-xs-12 col-sm-8">
+      <h3><%= t('teams.switch') %></h3>
+      <ul>
+        <% current_user.teams.order(:name).each do |team| %>
+          <li><%= link_to team.name, teams_switch_path(team) %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+>>>>>>> a71f003... Add API tokens
 </div>

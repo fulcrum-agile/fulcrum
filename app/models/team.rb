@@ -9,6 +9,8 @@ class Team < ActiveRecord::Base
 
   has_attachment :logo, accept: [:jpg, :png, :gif, :bmp]
 
+  has_many :api_tokens
+
   def to_param
     ::FriendlyId::Disabler.disabled? ? (id && id.to_s) : super
   end
