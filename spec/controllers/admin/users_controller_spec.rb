@@ -117,7 +117,7 @@ describe Admin::UsersController do
       describe "#destroy" do
 
         specify do
-          expect { delete :destroy, id: user.id }.to change{User.count}.by(-1)
+          expect { delete :destroy, id: user.id }.to change{Enrollment.count}.by(-1)
           expect(response).to redirect_to(admin_users_path)
         end
 
