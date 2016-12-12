@@ -1,0 +1,58 @@
+<% if (story.estimable()) { %>
+<div class="state-actions estimates">
+  <form>
+    <% _.each(story.point_values(), function(value) { %>
+      <% if (value > 0) { %>
+        <span class="estimate estimate-<%= value %> input" data-value="<%= value %>" id="estimate-<%= value %>"></span>
+      <% } %>
+    <% }); %>
+  </form>
+</div>
+<% } else if (story.events().length > 0) { %>
+<div class="state-actions">
+  <form>
+    <% _.each(story.events(),  function(value) { %>
+      <input type="button" class="transition <%= value %>" value="<%= I18n.t('story.events.' + value) %>"/>
+    <% }); %>
+  </form>
+</div>
+<% } %>
+<div class="story-icons">
+  <% if (view.saveInProgress) { %>
+  <a class="icon icons-throbber" title="<%= I18n.t('saving') %>"></a>
+  <% } %>
+  <span class="popover-activate">
+    <% if (story.get('story_type') == 'feature') { %>
+      <i class="mi md-star md-20">star</i>
+    <% } else if (story.get('story_type') == 'chore') { %>
+      <i class="mi md-dark md-20">settings</i>
+    <% } else if (story.get('story_type') == 'bug') { %>
+      <i class="mi md-bug md-20">bug_report</i>
+    <% } %>
+
+    <% if (story.estimated()) { %>
+      <span class="estimate estimate-<%= story.get('estimate') %>" data-value="<%= story.get('estimate') %>"></span>
+    <% } else { %>
+      <span class="estimate estimate-0" data-value="0"></span>
+    <% } %>
+
+    <% if (story.hasDetails()) { %>
+      <i class="mi md-14 md-dark details">question_answer</i>
+    <% } %>
+  </span>
+</div>
+<div class="story-title">
+  <% if (story.get('labels')) { %>
+    <span class="tags">
+      <% _.each(story.labels(), function(value) { %>
+        <a href="#" class='epic-link' title="<%= value %>"><%= value %></a>
+      <% }); %>
+    </span>
+  <% } %>
+  <%- story.escape('title') %>
+  <% if (story.get('owned_by_name')) { %>
+    <abbr class="initials" title="<%= story.escape('owned_by_name') %>">
+      <%= story.escape('owned_by_initials') %>
+    </abbr>
+  <% } %>
+</div>

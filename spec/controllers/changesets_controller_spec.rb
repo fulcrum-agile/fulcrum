@@ -2,53 +2,56 @@ require 'rails_helper'
 
 describe ChangesetsController do
 
-  let(:project) { mock_model(Project, :id => 42) }
-
   context "when logged out" do
 
     it "redirects to the login page" do
-      xhr :get, :index, :project_id => project.id
-      response.status.should == 401
+      xhr :get, :index, project_id: 42
+      expect(response.status).to eq(401)
     end
 
   end
 
   context "when logged in" do
 
-    let(:user) do
-      FactoryGirl.create :user
-    end
+    let(:user)        { create :user, :with_team }
+    let(:project)     { create(:project, users: [user], teams: [user.teams.first]) }
 
-    let(:projects)    { double("projects") }
-    let(:changesets)  { double("changesets", :to_json => '{foo:bar}') }
+    let(:story) { create :story, project: project, requested_by: user }
+    let(:story2) { create :story, project: project, requested_by: user }
 
     before do
+      @changeset1 = story.changesets.create!
+      @changeset2 = story.changesets.create!
+
       sign_in user
-      subject.stub(:current_user => user)
-      user.stub(:projects => projects)
-      projects.stub(:find).with(project.id.to_s).and_return(project)
-      project.stub(:changesets).and_return(changesets)
+      allow(subject).to receive_messages(current_user: user, current_team: user.teams.first)
     end
 
     describe "#index" do
 
       specify do
-        xhr :get, :index, :project_id => project.id
-        response.should be_success
-        assigns[:project].should == project
-        assigns[:changesets].should == changesets
-        response.content_type.should == "application/json"
-        response.body.should == '{foo:bar}'
+        xhr :get, :index, project_id: project.id
+        expect(response).to be_success
+        expect(assigns[:project]).to eq(project)
+        expect(assigns[:changesets].count).to eq(2)
+        expect(response.content_type).to eq("application/json")
+        cs1, cs2 = JSON.parse(response.body)
+        expect(cs1["changeset"]["id"]).to eq(@changeset1.id)
+        expect(cs1["changeset"]["story_id"]).to eq(@changeset1.story_id)
+        expect(cs1["changeset"]["project_id"]).to eq(@changeset1.project_id)
+        expect(cs2["changeset"]["id"]).to eq(@changeset2.id)
+        expect(cs2["changeset"]["story_id"]).to eq(@changeset2.story_id)
+        expect(cs2["changeset"]["project_id"]).to eq(@changeset2.project_id)
       end
 
       it "scopes on :to parameter" do
-        changesets.should_receive(:until).with('99')
-        xhr :get, :index, :project_id => project.id, :to => 99
+        xhr :get, :index, project_id: project.id, to: @changeset2.id
+        expect(assigns[:changesets]).to eq([@changeset1, @changeset2])
       end
 
       it "scopes on :from parameter" do
-        changesets.should_receive(:since).with('99')
-        xhr :get, :index, :project_id => project.id, :from => 99
+        xhr :get, :index, project_id: project.id, from: @changeset1.id
+        expect(assigns[:changesets]).to eq([@changeset2])
       end
 
     end

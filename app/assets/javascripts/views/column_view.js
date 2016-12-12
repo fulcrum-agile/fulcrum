@@ -1,14 +1,11 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+module.exports = Backbone.View.extend({
 
-Fulcrum.ColumnView = Backbone.View.extend({
-
-  template: JST['templates/column'],
+  template: require('templates/column.ejs'),
 
   tagName: 'td',
 
   events: {
+    'click a.toggle-title': 'toggleAll',
     'click a.toggle-column': 'toggle'
   },
 
@@ -22,6 +19,13 @@ Fulcrum.ColumnView = Backbone.View.extend({
       this.setSortable();
     }
     return this;
+  },
+
+  toggleAll: function() {
+    var stories = this.$el.children('.storycolumn').children('.story');
+    _.each(stories, function(item) {
+      $(item).toggle();
+    });
   },
 
   toggle: function() {

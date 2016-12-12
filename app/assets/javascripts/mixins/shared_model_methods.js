@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.SharedModelMethods = {
+module.exports = {
 
   // Returns the translated name of an attribute
   humanAttributeName: function(attribute) {

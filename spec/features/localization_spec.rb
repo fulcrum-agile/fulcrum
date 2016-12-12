@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'feature_helper'
 
 describe "localization" do
 
@@ -6,23 +6,25 @@ describe "localization" do
     sign_in user
   end
 
-  let(:user)  {
-    FactoryGirl.create :user, :email => 'user@example.com',
-                              :password => 'password'
+  after do
+    I18n.locale = :en
+  end
+
+  let(:user) {
+    create :user, :with_team_and_is_admin,
+                  email: 'user@example.com',
+                  password: 'password'
   }
 
-  # I am pretty sure there is a better way to do this 
-  let(:current_user) {
-    User.where(:email => "user@example.com").first
-  }
-
+  let(:current_user) { user }
 
   describe "user profile" do
 
     it "lets user change their locale" do
-      change_locale_to "en"
+      change_locale_to "pt-BR"
 
-      current_user.locale.should == "en"
+      current_user.reload
+      expect(current_user.locale).to eq("pt-BR")
     end
 
   end
@@ -30,8 +32,9 @@ describe "localization" do
   def change_locale_to new_locale
     visit edit_user_registration_path
 
-    select new_locale, :from => "Locale"
-    fill_in "Current password", :with => "password"
+    select new_locale, from: "Locale"
+    fill_in "Current password", with: "password"
+
     click_on "Update"
   end
 
@@ -42,7 +45,7 @@ describe "localization" do
 
       visit root_path
 
-      page.should have_selector('h1', :text => 'Listado de Proyectos')
+      expect(page).to have_selector('#title_bar', text: 'Nuevo Proyecto')
     end
 
   end

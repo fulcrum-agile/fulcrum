@@ -1,0 +1,32 @@
+<script type="text/template" charset="utf-8" id="attachinary_template">
+<ul class='attachinary_images_list'>
+<% if ( files.length == 0 ) { %>
+<li><%= I18n.t('nothing uploaded yet') %></li>
+<% } %>
+<% for(var i = 0; i < files.length; i++) { %>
+  <% if (files[i]) { %>
+    <% var file = !_.isUndefined(files[i]['file']) ? files[i]['file'] : files[i]; %>
+    <li>
+      <% if ( file.resource_type == "raw" ) { %>
+        <div class="raw-file">
+          <a href="<%= $.cloudinary.url(file.public_id, { version: file.version, resource_type: 'raw' }) %>" target="_blank">
+             <i class="mi md-20">library_books</i> <%= file.public_id %>
+          </a>
+          <a href="#" data-remove="<%= file.public_id %>" class="btn btn-danger btn-xs">
+            <i class="mi md-18">delete</i> <%= I18n.t('delete') %>
+          </a>
+        </div>
+        <% } else { %>
+        <a href="<%= $.cloudinary.url(file.public_id, { version: file.version }) %>" target="_blank">
+          <img src="<%= $.cloudinary.url(file.public_id, { "version": file.version, "format": 'png', "crop": 'fill', "width": 50, "height": 50, "radius": 5, "border": "1px_solid_black" }) %>"
+          alt="" width="50" height="50" />
+        </a>
+        <a href="#" data-remove="<%= file.public_id %>" class="btn btn-danger btn-xs">
+          <i class="mi md-18">delete</i> <%= I18n.t('delete') %>
+        </a>
+      <% } %>
+    </li>
+  <% } %>
+<% } %>
+</ul>
+</script>

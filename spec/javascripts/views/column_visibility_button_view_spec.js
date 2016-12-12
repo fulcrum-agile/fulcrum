@@ -1,12 +1,15 @@
-describe("Fulcrum.ColumnVisibilityButtonView", function() {
-  
+var ColumnVisibilityButtonView = require('views/column_visibility_button_view');
+
+describe("ColumnVisibilityButtonView", function() {
+
   beforeEach(function() {
     this.columnView = {
       name: sinon.stub().returns('Dummy'),
-      bind: sinon.stub()
+      hidden: sinon.stub().returns(false),
+      on: sinon.stub()
     };
-    Fulcrum.ColumnVisibilityButtonView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.ColumnVisibilityButtonView({columnView: this.columnView});
+    ColumnVisibilityButtonView.prototype.template = sinon.stub();
+    this.view = new ColumnVisibilityButtonView({columnView: this.columnView});
   });
 
   it("should have <a> as the tagName",function() {
@@ -16,13 +19,13 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
   it("should set its content from the ColumnView title", function() {
     expect(this.view.render().$el.html()).toEqual(this.columnView.name());
   });
-  
+
   it("should set its class from the ColumnView id", function() {
     expect(this.view.render().$el.attr('class')).toEqual('hide_' + this.columnView.id);
   });
 
   describe('toggle', function() {
-    
+
     beforeEach(function() {
       this.columnView.toggle = sinon.stub();
     });
@@ -48,7 +51,7 @@ describe("Fulcrum.ColumnVisibilityButtonView", function() {
     });
 
     it("is bound to the columnView visibilityChanged event", function() {
-      expect(this.columnView.bind).toHaveBeenCalledWith(
+      expect(this.columnView.on).toHaveBeenCalledWith(
         'visibilityChanged', this.view.setClassName
       );
     });

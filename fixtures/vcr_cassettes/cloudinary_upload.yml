@@ -1,0 +1,206 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.cloudinary.com/v1_1/localhost/image/destroy
+    body:
+      encoding: UTF-8
+      string: timestamp=1471644143&public_id=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&signature=daefe2ee039c2b48f0be8e256e47be1099460c69&api_key=893592954749395
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - CloudinaryRuby/1.1.7
+      Content-Length:
+      - '147'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 Aug 2016 22:02:23 GMT
+      Etag:
+      - W/"33747e3f086d5dd0aef7ac1fde8cf595"
+      Server:
+      - cloudinary
+      Status:
+      - 200 OK
+      X-Request-Id:
+      - 8b1657d0b4b02f6c
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAwAAAP//qlYqSi0uzSlRslLKyy9RSMsvzUtRqgUAAAD//wMA
+        8jYD7xYAAAA=
+    http_version: 
+  recorded_at: Fri, 19 Aug 2016 22:02:25 GMT
+- request:
+    method: post
+    uri: https://api.cloudinary.com/v1_1/localhost/image/destroy
+    body:
+      encoding: UTF-8
+      string: timestamp=1471644145&public_id=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&signature=e9eddcb760d09ac34f04dc0e05d910596381f182&api_key=893592954749395
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - CloudinaryRuby/1.1.7
+      Content-Length:
+      - '147'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 Aug 2016 22:02:24 GMT
+      Etag:
+      - W/"33747e3f086d5dd0aef7ac1fde8cf595"
+      Server:
+      - cloudinary
+      Status:
+      - 200 OK
+      X-Request-Id:
+      - b17641b3faea27c6
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '48'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6pWKkotLs0pUbJSyssvUUjLL81LUaoFAAAA//8DAPI2A+8W
+        AAAA
+    http_version: 
+  recorded_at: Fri, 19 Aug 2016 22:02:26 GMT
+- request:
+    method: post
+    uri: https://api.cloudinary.com/v1_1/localhost/image/tags
+    body:
+      encoding: UTF-8
+      string: timestamp=1471644146&tag=attachinary_tmp&public_ids[]=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&command=remove&signature=f2c870f5a5e54303892483c7cc9fc08ae53d16a6&api_key=893592954749395
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - CloudinaryRuby/1.1.7
+      Content-Length:
+      - '185'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 Aug 2016 22:02:25 GMT
+      Etag:
+      - W/"7bd9202622f9de0e2f09217fcdc4d855"
+      Server:
+      - cloudinary
+      Status:
+      - 200 OK
+      X-Request-Id:
+      - c62438a24d091d46
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAwAAAP//qlYqKE3KyUyOz0wpVrKKjq0FAAAA//8DANqCv0cR
+        AAAA
+    http_version: 
+  recorded_at: Fri, 19 Aug 2016 22:02:27 GMT
+- request:
+    method: post
+    uri: https://api.cloudinary.com/v1_1/localhost/image/tags
+    body:
+      encoding: UTF-8
+      string: timestamp=1471644147&tag=attachinary_tmp&public_ids[]=Screen_Shot_2016-08-19_at_09.30.57_blnr1a&command=remove&signature=355b3435d78ea5451d2afff952f9979c079554fc&api_key=893592954749395
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - CloudinaryRuby/1.1.7
+      Content-Length:
+      - '185'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 19 Aug 2016 22:02:26 GMT
+      Etag:
+      - W/"7bd9202622f9de0e2f09217fcdc4d855"
+      Server:
+      - cloudinary
+      Status:
+      - 200 OK
+      X-Request-Id:
+      - 61b45828d933cb07
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '43'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAA6pWKihNyslMjs9MKVayio6tBQAAAP//AwDagr9HEQAAAA==
+    http_version: 
+  recorded_at: Fri, 19 Aug 2016 22:02:28 GMT
+recorded_with: VCR 3.0.3

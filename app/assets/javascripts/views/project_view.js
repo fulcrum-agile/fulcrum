@@ -1,27 +1,37 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var StoryView = require('./story_view');
+var IterationView = require('./iteration_view');
 
-Fulcrum.ProjectView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
+  columns: {},
 
   initialize: function() {
 
-    this.columns = {};
-
     _.bindAll(this, 'addStory', 'addAll', 'render');
 
-    this.model.stories.bind('add', this.addStory);
-    this.model.stories.bind('reset', this.addAll);
-    this.model.stories.bind('all', this.render);
-    this.model.bind('change:userVelocity', this.addAll);
+    this.model.stories.on('add', this.addStory);
+    this.model.stories.on('reset', this.addAll);
+    this.model.stories.on('all', this.render);
+    this.model.on('change:userVelocity', this.addAll);
 
-    this.model.stories.fetch();
+    var that = this;
+    this.model.stories.fetch({
+      success: function() {
+        that.addAll();
+      }
+    });
   },
 
   // Triggered when the 'Add Story' button is clicked
   newStory: function() {
+    if ($(window).width() <= 992) {
+      _.each(this.columns, function(column, columnId) {
+        if(columnId != 'chilly_bin')
+          if(!column.hidden())
+            column.toggle();
+      });
+    }
     this.model.stories.add([{
-      events: [], editing: true
+      events: [], files: [], editing: true
     }]);
   },
 
@@ -33,7 +43,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
     if (_.isUndefined(column) || !_.isString(column)) {
       column = story.column;
     }
-    var view = new Fulcrum.StoryView({model: story}).render();
+    var view = new StoryView({model: story}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
   },
@@ -45,7 +55,7 @@ Fulcrum.ProjectView = Backbone.View.extend({
   addIteration: function(iteration) {
     var that = this;
     var column = iteration.get('column');
-    var view = new Fulcrum.IterationView({model: iteration}).render();
+    var view = new IterationView({model: iteration}).render();
     this.appendViewToColumn(view, column);
     _.each(iteration.stories(), function(story) {
       that.addStory(story, column);
@@ -56,10 +66,9 @@ Fulcrum.ProjectView = Backbone.View.extend({
     $(".loading_screen").show();
     var that = this;
 
-    $('#done').html("");
-    $('#in_progress').html("");
-    $('#backlog').html("");
-    $('#chilly_bin').html("");
+    _.each(this.columns, function(column, columnId) {
+      column.$el.find('.storycolumn').html("");
+    });
 
     this.model.rebuildIterations();
 
@@ -75,14 +84,44 @@ Fulcrum.ProjectView = Backbone.View.extend({
       that.addStory(story);
     });
     $(".loading_screen").hide();
+    this.scrollToStory(window.location.hash || '');
+  },
+
+  scrollToStory: function(story_hash) {
+    if ( story_hash.lastIndexOf('#story', 0) === 0 ) {
+      var story = $(story_hash);
+      if ( story.length > 0 ) {
+        story.click();
+        document.getElementById(story_hash.replace('#', '')).scrollIntoView();
+        // clean url state so every refresh doesn't reopen the same story over and over
+        if(window.history.pushState) {
+            window.history.pushState('', '/', window.location.pathname)
+        } else {
+            window.location.hash = '';
+        }
+      }
+    }
   },
 
   scaleToViewport: function() {
     var storyTableTop = $('table.stories tbody').offset().top;
-    // Extra for the bottom padding and the
-    var extra = 100;
+
+    var extra = 20;
+
     var height = $(window).height() - (storyTableTop + extra);
+
     $('.storycolumn').css('height', height + 'px');
+
+    if ($(window).width() <= 992) {
+      _.each(this.columns, function(column, columnId) {
+        if(columnId != 'in_progress')
+          if(!column.hidden())
+            column.toggle();
+      });
+      $('#form_search').hide();
+    } else {
+      $('#form_search').show();
+    }
   },
 
   notice: function(message) {
@@ -91,5 +130,35 @@ Fulcrum.ProjectView = Backbone.View.extend({
 
   addColumnView: function(id, view) {
     this.columns[id] = view;
-  }
+  },
+
+  addColumnViews: function(columns) {
+    var that = this;
+    _.each(columns, function(column, columnId) {
+      column.on('visibilityChanged', that.checkColumnViewsVisibility);
+      that.addColumnView(columnId, column);
+    });
+  },
+
+  // make sure there is at least one column opened
+  checkColumnViewsVisibility: function() {
+    if (window.projectView === undefined)
+      return;
+
+    var filtered = _.filter(window.projectView.columns, function(column, columnId) {
+      if(!column.hidden())
+        return true;
+    });
+
+    if(filtered.length == 0) {
+      window.projectView.columns['in_progress'].toggle();
+    }
+  },
+
+  usernames: function() {
+    return this.model.users
+      .map(function(user) { return user.get('username'); })
+      .sort();
+  },
+
 });

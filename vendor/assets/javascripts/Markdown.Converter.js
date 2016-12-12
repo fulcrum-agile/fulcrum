@@ -593,6 +593,7 @@ else
                 result += " title=\"" + title + "\"";
             }
 
+            result += " target=\"_blank\" "
             result += ">" + link_text + "</a>";
 
             return result;

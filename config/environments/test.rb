@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
+  config.serve_static_files   = true
   config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
@@ -30,11 +30,20 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = {:host => 'test.local'}
+  config.action_mailer.default_url_options = {host: 'test.local'}
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.assets.compress = true
+  config.assets.digest = true
+  config.assets.prefix = "/test_assets"
+
+  # Disable dev server on CI
+  config.webpack.dev_server.enabled = false
+
+  # Randomize the order test cases are executed.
+  config.active_support.test_order = :random
 end

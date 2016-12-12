@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.Iteration = Backbone.Model.extend({
+module.exports = Backbone.Model.extend({
 
   name: 'iteration',
 

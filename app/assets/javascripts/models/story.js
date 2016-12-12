@@ -1,24 +1,39 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var NoteCollection = require('collections/note_collection');
+var TaskCollection = require('collections/task_collection');
+var SharedModelMethods = require('mixins/shared_model_methods');
 
-Fulcrum.Story = Backbone.Model.extend({
+var Story = module.exports = Backbone.Model.extend({
   name: 'story',
 
   i18nScope: 'activerecord.attributes.story',
 
   timestampFormat: 'd mmm yyyy, h:MMtt',
 
+  isReadonly: false,
+
   initialize: function(args) {
-    this.bind('change:state', this.changeState);
-    this.bind('change:notes', this.populateNotes);
+    _.bindAll(this, 'changeState', 'populateNotes', 'populateTasks');
+
+    this.views = [];
+    this.clickFromSearchResult = false;
+
+    this.on('change:state', this.changeState);
+    this.on('change:notes', this.populateNotes);
+    this.on('change:tasks', this.populateTasks);
 
     // FIXME Call super()?
     this.maybeUnwrap(args);
 
     this.initNotes();
+    this.initTasks();
     this.setColumn();
 
+    this.setReadonly();
+  },
+
+  setReadonly: function() {
+    if(this.get('state') === 'accepted' && this.get('accepted_at') !== undefined)
+      this.isReadonly = true;
   },
 
   changeState: function(model, new_value) {
@@ -73,6 +88,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   defaults: {
     events: [],
+    documents: [],
     state: "unscheduled",
     story_type: "feature"
   },
@@ -104,7 +120,9 @@ Fulcrum.Story = Backbone.Model.extend({
 
   clear: function() {
     this.destroy();
-    this.view.remove();
+    _.each(this.views, function(view) {
+      view.remove();
+    });
   },
 
   estimable: function() {
@@ -118,6 +136,11 @@ Fulcrum.Story = Backbone.Model.extend({
   estimated: function() {
     var estimate = this.get('estimate');
     return !(_.isUndefined(estimate) || _.isNull(estimate));
+  },
+
+  notEstimable: function () {
+    var storyType = this.get('story_type');
+    return (storyType !== 'feature' && storyType !== 'release');
   },
 
   point_values: function() {
@@ -205,8 +228,20 @@ Fulcrum.Story = Backbone.Model.extend({
 
   iterationNumber: function() {
     if (this.get('state') === "accepted") {
-      return this.collection.project.getIterationNumberForDate(new Date(this.get("accepted_at")));
+      return this.collection.project.getIterationNumberForDate(this.acceptedAtBeginningOfDay());
     }
+  },
+
+  acceptedAtBeginningOfDay: function() {
+    var accepted_at = this.get("accepted_at");
+    if (!_.isUndefined(accepted_at)) {
+      accepted_at = new Date(accepted_at);
+      accepted_at.setHours(0);
+      accepted_at.setMinutes(0);
+      accepted_at.setSeconds(0);
+      accepted_at.setMilliseconds(0);
+    }
+    return accepted_at;
   },
 
   // If the story state is 'accepted', and the 'accepted_at' attribute is not
@@ -233,7 +268,7 @@ Fulcrum.Story = Backbone.Model.extend({
 
   // Initialize the notes collection on this story, and populate if necessary
   initNotes: function() {
-    this.notes = new Fulcrum.NoteCollection();
+    this.notes = new NoteCollection();
     this.notes.story = this;
     this.populateNotes();
   },
@@ -249,7 +284,43 @@ Fulcrum.Story = Backbone.Model.extend({
     return this.notes.any(function(note) {
       return !note.isNew();
     });
+  },
+
+  // Initialize the tasks collection on this story, and populate if necessary
+  initTasks: function() {
+    this.tasks = new TaskCollection();
+    this.tasks.story = this;
+    this.populateTasks();
+  },
+
+  populateTasks: function() {
+    var tasks = this.get('tasks') || [];
+    this.tasks.reset(tasks);
+  },
+
+  sync: function(method, model, options) {
+    if( model.isReadonly ) {
+      return true;
+    }
+
+    var documents = options.documents;
+    if(!_.isUndefined(documents)) {
+      if(documents && documents.length > 0 && documents.val()) {
+        model.set('documents', JSON.parse(documents.val()));
+      } else {
+        model.set('documents', [{}]);
+      }
+    } else {
+      var documents = model.get('documents');
+      if(!_.isUndefined(documents)) {
+        documents = _.map(documents, function(elem) {
+          return elem["file"];
+        });
+        model.set('documents', documents);
+      }
+    }
+    Backbone.sync(method, model, options);
   }
 });
 
-_.defaults(Fulcrum.Story.prototype, Fulcrum.SharedModelMethods);
+_.defaults(Story.prototype, SharedModelMethods);

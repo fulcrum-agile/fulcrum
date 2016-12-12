@@ -1,17 +1,29 @@
 <% content_for :title_bar do %>
-  <h1>Forgot your password?</h1>
+  <h1><%= t('.forgot_your_password') %></h1>
 <% end %>
-<div class="form-wrapper">
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <div class="form-wrapper">
+      <% resource.team_slug = session[:team_slug] if session[:team_slug] %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
 
-  <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+        <div class="field-wrapper">
+          <%= f.label :email %>
+          <div class="field"><%= f.email_field :email, autofocus: true %></div>
+        </div>
+
+        <div class="field-wrapper">
+          <%= f.label :team_slug %>
+          <div class="field"><%= f.text_field :team_slug, readonly: resource.team_slug.present? %></div>
+        </div>
+
+        <div class="actions"><%= f.submit t('.send_me_reset_password_instructions'), class: 'btn btn-primary pull-right' %></div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="actions"><%= f.submit "Send me reset password instructions" %></div>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+  <div class="col-sm-12 col-md-6">
+    <%= render partial: "devise/shared/links" %>
+  </div>
 </div>
+

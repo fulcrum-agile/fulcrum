@@ -1,0 +1,33 @@
+<div class="form-wrapper">
+<%= form_for [:ownership, @project] do |f| %>
+  <%= hidden_field_tag 'ownership_action', 'share' %>
+
+  <div class="field-wrapper">
+    <%= f.label :slug, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.text_field :slug, value: '' %></div>
+  </div>
+
+  <div class="btn-group actions pull-right">
+    <%= f.submit t('projects.share'), class: 'btn btn-primary' %>
+  </div>
+<% end %>
+</div>
+
+<% if @project.ownerships.count > 1 %>
+  <h3><%= t("projects.sharing") %></h3>
+  <table class="table table-hover">
+    <% @project.ownerships.includes(:team).where.not(team_id: current_team.id).each do |ownership| %>
+      <tr>
+        <td>
+          <%= ownership.team.name %>
+        </td>
+        <td>
+          <%= link_to t('projects.unshare'), ownership_project_path(@project, ownership_action: 'unshare', project: { slug: ownership.team.slug }),
+            data: {confirm: t('projects.index.are you sure you want to unshare this project')},
+            method: :patch,
+            class: 'btn btn-warning' %>
+        </td>
+      </tr>
+    <% end %>
+  </ul>
+<% end %>

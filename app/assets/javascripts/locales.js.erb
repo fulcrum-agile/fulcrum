@@ -1,6 +1,0 @@
-<%
-# first we need to force init translations or there wouldn't be any
-I18n.backend.send(:init_translations) unless I18n.backend.initialized?
-%>;
-I18n.translations = <%= I18n.backend.send(:translations).to_json.html_safe %>;
-I18n.fallbacks = true;

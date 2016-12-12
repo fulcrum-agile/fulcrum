@@ -1,0 +1,39 @@
+.members-list {
+  max-height: 40em;
+  overflow-y: auto;
+}
+
+.add-member .field_with_errors {
+  @extend .has-error;
+
+  background-color: transparent;
+  display: inline;
+  padding: 0;
+}
+
+.attachinary_progress_bar {
+  display: none;
+  background-color: green;
+  width: 2px;
+  height: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.attachinary_finished_message {
+  display: none;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.attachinary_images_list {
+  list-style: none;
+  margin-top: 5px;
+  padding: 0;
+  li {
+    margin-bottom: 5px;
+    a.btn-danger {
+      margin-left: 5px;
+    }
+  }
+}

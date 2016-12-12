@@ -1,48 +1,93 @@
-Fulcrum
-=======
+CM42 Central
+============
 
-Fulcrum is an application to provide a user story based backlog management
-system for agile development teams.  See
-[the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
-details.
+CM42 Central is an application to provide a user story based backlog management
+system for agile development teams.
 
-[![Build Status](https://travis-ci.org/fulcrum-agile/fulcrum.png?branch=master)](https://travis-ci.org/fulcrum-agile/fulcrum)
+[![Code Climate](https://codeclimate.com/github/Codeminer42/cm42-central/badges/gpa.svg)](https://codeclimate.com/github/Codeminer42/cm42-central)
+[![Build Status](https://travis-ci.org/Codeminer42/cm42-central.svg?branch=master)](https://travis-ci.org/Codeminer42/cm42-central)
+[![JavaScript Coverage Status](https://coveralls.io/repos/github/Codeminer42/cm42-central/badge.svg?branch=master)](https://coveralls.io/github/Codeminer42/cm42-central?branch=master)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+![Project Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/cm42-central-screenshot.png)
 
-![Fulcrum Screenshot](https://github.com/fulcrum-agile/fulcrum/raw/master/doc/screenshot.png)
+![Reports Screenshot](https://raw.githubusercontent.com/Codeminer42/cm42-central/master/doc/cm42-central-reports.png)
 
-Get involved
-------------
+The Codeminer 42 Feature Set
+----------------------------
 
-Fulcrum is still in early development, so now is the time to make your mark on
-the project.
+CM42-Central is a fork of the discontinued Fulcrum project.
+The old project has not received anything new in the last couple of years, but our fork has evolved considerably
+and we consider it the new upstream for all intents and purposes.
 
-There are several communication channels for Fulcrum:
+Some of the improvements we added since the end of 2015:
 
-* [Follow @fulcrumagile on Twitter](https://twitter.com/fulcrumagile)
-* [Fulcrum Users](http://groups.google.com/group/fulcrum-users) - A
-  discussion group for users and developers of Fulcrum.
-* You might also find someone in #fulcrum on the Freenode IRC network if you're
-  looking for realtime help.
+- [x] Fixing Pivotal Tracker project CSV import to properly get the Notes
+- [x] Added stories search through Pg_Search (low priority: maybe add option for Elastic)
+- [x] Adding superadmin role to manage projects and users
+  - [x] proper users CRUD section
+  - [x] Reorganize the user administration
+- [x] Adding Cloudinary/Attachinary support to upload assets to Stories and Notes
+  - [x] Uploading is working but it is not showing properly yet
+  - [ ] Add uploads to Notes
+- [x] General project cleanup
+  - [x] upgrading gems
+  - [x] using rails-assets
+  - [x] refactoring views to use Bootstrap elements
+  - [x] fixing failing migrations
+  - [x] fixing failing tests, including javascript tests
+  - [x] adding phantomjs for feature tests
+  - [x] remove StoryObserver and refactor main 
+  - [ ] more markdown javascript to assets
+  - [ ] needs more testing and tweaking for tablets
+  - [ ] Backbone code needs more refactoring and cleanup (specially moving the render from story_view to an EJS template)
+  - [ ] (low priority) replace the polling system for a websockets channel and listener
+- [x] Improved UI
+  - [x] A little bit better icon set (Material Icons)
+  - [x] Textarea in Story editing can now auto-resize
+  - [x] Can collapse sprint groups
+  - [x] Bugs and Chores shouldn't be estimated
+  - [x] Basic task system inside a Story
+  - [x] Labels work as "Epic" grouping
+  - [x] Minimal responsiveness to make it usable in smartphones/tablets
+  - [x] UI tweaking to make it prettier even without a total redesign
+- [x] Done stories can't be edited, so adding validations and disabling form UIs
+- [x] Added Mattermost basic integration to send story changes to project chat channel
+- [ ] Add APIs for chat slash commands to be able to query projects (ex. /centralstatus project-x)
+- [x] Added basic reports
+  - [x] Basic Current Iteration status
+  - [x] Velocity per Iteration
+  - [x] Bugs per Iteration
+  - [x] Velocity per Member per Iteration
+  - [x] Volatility calculation
+  - [x] Burn Up Chart
+- [x] Teams
+  - [x] Reorganize the project so the main object is a Team instead of the Project, and Teams can have many Projects
+  - [x] Teams are isolated, so a user in a Team can't access a project from another Team
+  - [x] Users can be assigned to multiple teams
+  - [x] Projects can be transferred between Teams
 
-See the [Development](#development) section below for details on contributing
-to the project, and [Translating](#translating) for details on how to help
-translate Fulcrum into your native language.
+We already have more features in development and you can follow what needs to be built or fixed in the [Issues](http://github.com/codeminer42/cm42-central/issues) page.
 
 Goals
 -----
 
-Fulcrum is a clone of [Pivotal Tracker](http://pivotaltracker.com/).  It will
-almost certainly never surpass the functionality, usability and sheer
-awesomeness of Pivotal Tracker, but aims to provide a usable alternative for
-users who require a Free and Open Source solution.
+CM42-Central starts as a clone of [Pivotal Tracker](http://pivotaltracker.com/).
+
+We want to make it a drop-in replacement first, by having all of the main functionalities and to later surpass it,
+by making it not only smarter but also more user-friendly and easier to use than what we consider "incomplete"
+commercial offerings such as Trello.
+
+The principles that we believe in are:
+
+- Estimation is not optional, but more like Story Points (proportions) than Time-based estimation.
+- Projects must be divided in short, fixed Iterations.
+- Velocity is the the key managerial element.
+- Stakeholders must test and accept/reject stories within the same Iteration.
 
 Installation
 ------------
-
-Fulcrum is still a work in progress, but if you're really keen to try it out
-these instructions will hopefully help you get up and running.
 
 First up, your system will need the
 [prerequisites for running Ruby on Rails installed](http://rubyonrails.org/download)
@@ -50,18 +95,37 @@ First up, your system will need the
 Once you have these:
 
     # Checkout the project
-    $ git clone git://github.com/fulcrum-agile/fulcrum.git
-    $ cd fulcrum
+    $ git clone git://github.com/Codeminer42/cm42-central.git
+    $ cd cm42-central
+
+    # copy and edit the configuration
+    $ cp .env.sample .env
 
     # Install the project dependencies
     $ gem install bundler
     $ bundle install
+    $ npm install
 
     # Set up the development database
     $ bundle exec rake fulcrum:setup db:setup
 
     # Start the local web server
-    $ rails server
+    $ bundle exec foreman start -f Procfile.development
+
+Or using docker:
+
+    # Checkout the project
+    $ git clone git://github.com/Codeminer42/cm42-central.git
+    $ cd cm42-central
+
+    # Prepare container
+    $ docker-compose build
+    $ docker-compose run rake db:create
+    $ docker-compose run rake db:migrate
+    $ docker-compose run rake db:seeds
+
+    # Up container
+    $ docker-compose up
 
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
 You can log in with the test username `test@example.com`, password `testpass`.
@@ -70,13 +134,33 @@ You can log in with the test username `test@example.com`, password `testpass`.
 Heroku setup
 ------------
 
-If you wish to host a publicly available copy of Fulcrum, the easiest option is
-to host it on [Heroku](http://heroku.com/).
+You can use the Deploy button above or manually install like this:
+
+You will need a Heroku Postgresql plan, and you will also need:
+
+- Postgresql (ex. Heroku Postgresql)
+- Redis (ex. Heroku Redis)
+- Memcached (ex. Memcachier)
+- Sendgrid (for email notifications)
+- Cloudinary (for direct client-side uploads, we don't want Carrierwave)
+- Google Recaptcha keys (create for free [here](https://www.google.com/recaptcha/admin))
+
+You will also need to add the buildpacks for Node and webpack-rails:
+
+    $ heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-nodejs#v83
+    $ heroku buildpacks:add --index 3 https://github.com/febeling/webpack-rails-buildpack.git
+
+You may want to skip recaptcha in development, for that you can manually add this to the environment:
+
+    Recaptcha.configuration.skip_verify_env << 'development'
 
 To deploy it to Heroku, make sure you have a local copy of the project; refer
 to the previous section for instructions. Then:
 
     $ gem install heroku
+
+    # Define secret tokens
+    $ heroku config:set SECRET_TOKEN=`rake secret` SECRET_KEY_BASE=`rake secret` DEVISE_SECRET_KEY=`rake secret`
 
     # Create your app. Replace APPNAME with whatever you want to name it.
     $ heroku create APPNAME --stack cedar-14
@@ -92,8 +176,29 @@ to the previous section for instructions. Then:
     # Tell Heroku to exclude parts of the Gemfile
     $ heroku config:set BUNDLE_WITHOUT='development:test:travis:mysql:sqlite'
 
+    # How many stories a project will load at once (so very old, done stories, stay out of the first load), (optional, default is 300)
+    $ heroku config:set STORIES_CEILING=300
+
+    # CDN URL - Go to AWS and create a CloudFront configuration (optional)
+    $ heroku config:set CDN_URL=http://xpto.cloudfront.net
+
+    # Google Recaptcha keys
+    $ heroku config:set RECAPTCHA_PUBLIC_KEY=xyz RECAPTCHA_PRIVATE_KEY=xyz
+
+    # Add postgresql
+    $ heroku addons:create heroku-postgresql:hobby-dev
+
+    # Add Redis for Sidekiq
+    $ heroku addons:create heroku-redis:hobby-dev
+
+    # Add memcache to speed things up (optional)
+    $ heroku addons:add memcachier:dev
+
     # Allow emails to be sent
     $ heroku addons:add sendgrid:starter
+
+    # Add Cloudinary
+    $ heroku addons:create cloudinary:starter
 
     # Deploy the first version
     $ git push heroku master
@@ -104,23 +209,12 @@ to the previous section for instructions. Then:
 Once that's done, you will be able to view your site at
 `http://APPNAME.herokuapp.com`.
 
-Deploying to other platforms
-----------------------------
-
-Fulcrum can be deployed to any platform that can host Rails.  Setting this
-up is beyond the scope of this document, but for the most part Fulcrum does
-not have any special operational requirements and can be deployed as a normal
-Rails application.
-
-You will need to set up some custom configuration, to do this copy the file
-`config/fulcrum.example.rb` to `config/fulcrum.rb` and edit to your
-requirements, or ensure the relevant environment variables are set for the
-application as described in the file above.
+The recommendation is to create a proper domain and add the herokuapp URL as the CNAME.
 
 Translating
 -----------
 
-Below is an example of how you might go about translating Fulcrum to German.
+Below is an example of how you might go about translating to German.
 
 * Find the name of your locale, in this case we are using `de`
 * Copy the `config/locales/en.yml` file to `config/locales/de.yml`
@@ -128,13 +222,12 @@ Below is an example of how you might go about translating Fulcrum to German.
   hand side.
 * Add your new locale to `config.i18n.available_locales` in
   `config/application.rb`
-* Run `rake i18n:js:export` to build the Javascript translations.
 
 Thats it!  Ideally you should send your translation as a pull request so you
 get credit for it, but if you do not wish to do this please send the file to
 one of the mailing lists.
 
-If Fulcrum has already been translated for your language, please take the time
+If we have already translated for your language, please take the time
 to check the translation database is complete for your language.  You can do
 this by running the `rake i18n:missing_keys` task.  If you find any missing
 keys for your language please add them.
@@ -142,20 +235,16 @@ keys for your language please add them.
 Development
 -----------
 
-Fulcrum is currently welcoming contributions.  If you'd like to help:
+If you'd like to help:
 
-* Check the [issue queue](http://github.com/fulcrum-agile/fulcrum/issues) for a
+* Check the [issue queue](http://github.com/codeminer42/cm42-central/issues) for a
   list of the major features which are yet to be implemented.  These have the
   `feature` and `unstarted` labels.  If a feature you'd like to work on isn't
   there, add an issue.
 * Leave a description of how you are going to implement the feature.  Failure
   to do this may lead to you implementing the feature in a way that might
-  conflict with future plans for Fulcrum, and so increase the chances of your
+  conflict with future plans, and so increase the chances of your
   work being rejected or needing a rework.
-* If you'd like to discuss anything about the issue in greater detail with
-  other developers, do so on the
-  [Fulcrum Developers](http://groups.google.com/group/fulcrum-devel) mailing
-  list.
 
 Here are some general guidelines for contributing:
 
@@ -170,30 +259,16 @@ Here are some general guidelines for contributing:
   Javascript, which is covered with a Jasmine test suite in `spec/javascripts/`.
 * Run `rake spec` to check the Rails test suite is green. You will need
   Firefox with Selenium installed to run the integration tests.
-* To run the Javascript test suite, run `rails server` and point your browser
-  to `http://localhost:3000/specs` or run `rake spec:javascripts`
-* For any UI changes, please try to follow the
-  [Tango theme guidelines](http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines).
-* The easiest way to test the impact of CSS or view changes is using the
-  'testcard' at `http://localhost:3000/testcard`.  This is a fake project which
-  exposes as many of the view states as possible on one page.
+* To run the Javascript test suite, run `npm test`. The tests are run with
+  Karma and PhantomJS. The Karma config is already prepared to run the tests on
+  Chrome too, just open `config/karma.conf.js` and add `'Chrome'`
+  to the `browsers` array.
 
-
-Colophon
---------
-
-Fulcrum is built with the following Open Source technologies:
-
-* [Ruby on Rails](http://rubyonrails.org/)
-* [Backbone.js](http://documentcloud.github.com/backbone/)
-* [jQuery](http://jquery.com/)
-* [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
-* [Jasmine](http://jasmine.github.io/)
-* [Sinon](http://sinonjs.org/)
 
 License
 -------
 Copyright 2011-2015, Malcolm Locke.
+Copyright 2015-2016, Codeminer 42.
 
-Fulcrum is made available under the Affero GPL license version 3, see
+CM42-Central is made available under the Affero GPL license version 3, see
 LICENSE.txt.

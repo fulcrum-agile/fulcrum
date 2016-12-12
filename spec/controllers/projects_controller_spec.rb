@@ -3,29 +3,31 @@ require 'rails_helper'
 describe ProjectsController do
 
   context "when logged out" do
-    %W[index new create].each do |action|
+    %W[index new create archived].each do |action|
       specify do
         get action
-        response.should redirect_to(new_user_session_url)
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
-    %W[show edit update destroy].each do |action|
+    %W[show edit update destroy reports import import_upload archive unarchive ownership].each do |action|
       specify do
-        get action, :id => 42
-        response.should redirect_to(new_user_session_url)
+        get action, id: 42
+        expect(response).to redirect_to(new_user_session_url)
       end
     end
   end
 
   context "when logged in" do
 
-    let(:user)      { FactoryGirl.create :user }
-    let(:projects)  { double("projects") }
+    let(:user)        { create :user, :with_team_and_is_admin }
+    let(:team)        { user.teams.first }
+    let(:project)     { create(:project, users: [user]) }
+    let!(:story)      { create(:story, project: project, requested_by: user) }
 
     before do
+      team.ownerships.create(project: project, is_owner: true)
       sign_in user
-      subject.stub(:current_user => user)
-      user.stub(:projects => projects)
+      allow(subject).to receive_messages(current_user: user, current_team: team)
     end
 
     describe "collection actions" do
@@ -34,8 +36,8 @@ describe ProjectsController do
 
         specify do
           get :index
-          response.should be_success
-          assigns[:projects].should == projects
+          expect(response).to be_success
+          expect(assigns[:projects]).to eq(user.projects)
         end
 
       end
@@ -44,65 +46,69 @@ describe ProjectsController do
 
         specify do
           get :new
-          response.should be_success
-          assigns[:project].should be_new_record
+          expect(response).to be_success
+          expect(assigns[:project]).to be_new_record
         end
 
       end
 
       describe "#create" do
 
-        let(:project) { mock_model(Project) }
-        let(:users)   { double("users") }
-
-        before do
-          projects.stub(:build).with({}) { project }
-          project.stub(:users => users)
-          users.should_receive(:<<).with(user)
-          project.stub(:save => true)
-        end
+        let(:project_params) {{ "name" => "Test Project"}}
 
         specify do
-          post :create, :project => {}
-          assigns[:project].should == project
+          post :create, project: project_params
+          expect(assigns[:project].name).to eq(project_params["name"])
+          expect(assigns[:project].users).to include(user)
+          expect(assigns[:project].teams).to include(user.teams.first)
+          expect(team.owns?(assigns[:project])).to be_truthy
         end
 
         context "when save succeeds" do
 
           specify do
-            post :create, :project => {}
-            response.should redirect_to(project_url(project))
-            flash[:notice].should == 'Project was successfully created.'
+            post :create, project: project_params
+            expect(response).to redirect_to(project_url(assigns[:project]))
+            expect(flash[:notice]).to eq('Project was successfully created.')
           end
 
         end
 
         context "when save fails" do
 
-          before do
-            project.stub(:save => false)
-          end
-
           specify do
-            post :create, :project => {}
-            response.should be_success
-            response.should render_template('new')
+            post :create, project: {}
+            expect(response).to be_success
+            expect(response).to render_template('new')
           end
 
         end
 
       end
 
+      describe "#archived" do
+        let(:archived_project) { create :project, archived_at: Time.current }
+
+        before do
+          create :ownership, team: user.teams.first, project: archived_project
+          get :archived
+        end
+
+        it "returns success" do
+          expect(response).to be_success
+        end
+
+        it "assigns projects" do
+          expect(assigns[:projects]).to include archived_project
+        end
+      end
+
     end
 
     describe "member actions" do
 
-      let(:project) { mock_model(Project, :id => 42, :to_json => '{foo:bar}') }
-      let(:story)   { mock_model(Story) }
-
       before do
-        projects.stub(:find).with(project.id.to_s) { project }
-        project.stub_chain(:stories, :build) { story }
+        allow(project).to receive(:"import=").and_return(nil)
       end
 
       describe "#show" do
@@ -110,10 +116,11 @@ describe ProjectsController do
         context "as html" do
 
           specify do
-            get :show, :id => project.id
-            response.should be_success
-            assigns[:project].should == project
-            assigns[:story].should == story
+            get :show, id: project.id
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(assigns[:story].new_record?).to be_truthy
+            expect(assigns[:story].project).to eq(project)
           end
 
         end
@@ -121,10 +128,11 @@ describe ProjectsController do
         context "as json" do
 
           specify do
-            xhr :get, :show, :id => project.id
-            response.should be_success
-            assigns[:project].should == project
-            assigns[:story].should == story
+            xhr :get, :show, id: project.id
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(assigns[:story].new_record?).to be_truthy
+            expect(assigns[:story].project).to eq(project)
           end
 
         end
@@ -133,66 +141,193 @@ describe ProjectsController do
 
       describe "#edit" do
 
-        let(:users) { double("users") }
-
-        before do
-          project.stub(:users => users)
-          users.should_receive(:build)
-        end
-
         specify do
-          get :edit, :id => project.id
-          response.should be_success
-          assigns[:project].should == project
+          get :edit, id: project.id
+          expect(response).to be_success
+          expect(assigns[:project]).to eq(project)
         end
 
       end
 
       describe "#update" do
 
-        before do
-          project.stub(:update_attributes).with({}) { true }
-        end
+        let(:project_params) { { name: 'New Project Title' } }
 
         specify do
-          put :update, :id => project.id, :project => {}
-          assigns[:project].should == project
+          put :update, id: project.id, project: project_params
+          expect(assigns[:project].name).to eq('New Project Title')
         end
 
         context "when update succeeds" do
 
           specify do
-            put :update, :id => project.id, :project => {}
-            response.should redirect_to(project_url(project))
+            put :update, id: project.id, project: project_params
+            expect(response).to redirect_to(project_url(assigns[:project]))
           end
 
         end
 
         context "when update fails" do
 
-          before do
-            project.stub(:update_attributes).with({}) { false }
-          end
-
           specify do
-            put :update, :id => project.id, :project => {}
-            response.should be_success
-            response.should render_template('edit')
+            put :update, id: project.id, project: { 'point_scale' => 'xyz'}
+            expect(response).to be_success
+            expect(response).to render_template('edit')
           end
 
         end
 
       end
 
-      describe "#destroy" do
+      describe "#unarchive" do
 
-        before do
-          project.should_receive(:destroy)
-        end
+        before { project.update_attributes(archived_at: Time.current) }
 
         specify do
-          delete :destroy, :id => project.id
-          response.should redirect_to(projects_url)
+          patch :unarchive, id: project.id
+          expect(assigns[:project].archived_at).to be_nil
+          expect(response).to redirect_to(project_url(assigns[:project]))
+        end
+
+      end
+
+      describe "#destroy" do
+
+        specify do
+          delete :destroy, id: project.id
+          expect(response).to redirect_to(projects_url)
+        end
+
+      end
+
+      describe "#import" do
+        context "when no job is running" do
+          specify do
+            get :import, id: project.id
+            expect(response).to be_success
+            expect(assigns[:project]).to eq(project)
+            expect(response).to render_template('import')
+          end
+        end
+
+        context "when there is a job registered" do
+
+          context "still unprocessed" do
+            before do
+              session[:import_job] = { id: 'foo', created_at: 10.minutes.ago }
+            end
+
+            specify do
+              get :import, id: project.id
+              expect(assigns[:valid_stories]).to be_nil
+              expect(session[:import_job]).not_to be_nil
+              expect(response).to render_template('import')
+            end
+          end
+
+          context "unprocessed for more than 60 minutes" do
+            before do
+              session[:import_job] = { id: 'foo', created_at: 2.hours.ago }
+            end
+
+            specify do
+              get :import, id: project.id
+              expect(assigns[:valid_stories]).to be_nil
+              expect(session[:import_job]).to be_nil
+              expect(response).to render_template('import')
+            end
+          end
+
+          context "finished with errors" do
+            let(:error) { "Bad CSV!" }
+            before do
+              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
+              expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
+            end
+            specify do
+              get :import, id: project.id
+              expect(assigns[:valid_stories]).to be_nil
+              expect(flash[:alert]).to eq("Unable to import CSV: Bad CSV!")
+              expect(session[:import_job]).to be_nil
+              expect(response).to render_template('import')
+            end
+          end
+
+          context "finished with success" do
+            let(:invalid_story) { { title: 'hello', errors: 'bad cookie'} }
+            before do
+              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
+              expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [invalid_story], errors: nil })
+            end
+
+            specify do
+              get :import, id: project.id
+              expect(assigns[:valid_stories]).to eq([story])
+              expect(assigns[:invalid_stories]).to eq([invalid_story])
+              expect(flash[:notice]).to eq("Imported 1 story")
+              expect(session[:import_job]).to be_nil
+              expect(response).to render_template('import')
+            end
+          end
+        end
+      end
+
+      describe "#import_upload" do
+        context "when csv file is missing" do
+          specify do
+            put :import_upload, id: project.id, project: { import: "" }
+            expect(response).to redirect_to(import_project_path(project))
+            expect(flash[:alert]).to eq("You must select a CSV file to import its stories to the project.")
+          end
+        end
+
+        context "when csv file is present" do
+
+          let(:csv)             { fixture_file_upload('csv/stories.csv') }
+
+          before do
+            expect(project).to receive(:update_attributes).and_return(true)
+          end
+
+          specify do
+            expect(Project).to receive_message_chain(:friendly, :find).with(project.id.to_s).and_return(project)
+            expect(ImportWorker).to receive(:perform_async)
+            put :import_upload, id: project.id, project: { import: csv }
+            expect(flash[:notice]).to eq("Your uploaded CSV file is being processed. You can come back here later when the process is finished.")
+            expect(response).to redirect_to(import_project_path(project))
+          end
+
+        end
+
+      end
+
+      describe "#ownership" do
+        let!(:another_admin) { create :user, :with_team_and_is_admin}
+        let!(:another_team) { another_admin.teams.first }
+
+        context "when sharing/unsharing" do
+          specify do
+            patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'share'
+            expect(team.ownerships.where(project: project).count).to be(1)
+            expect(another_team.ownerships.where(project: project).count).to be(1)
+            expect(response).to redirect_to(edit_project_path(assigns[:project]))
+
+            patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'unshare'
+            expect(team.ownerships.where(project: project).count).to be(1)
+            expect(another_team.ownerships.where(project: project).count).to be(0)
+            expect(response).to redirect_to(edit_project_path(assigns[:project]))
+          end
+        end
+
+        context "when transfering" do
+          specify do
+            patch :ownership, id: project.id, project: { slug: another_team.slug }, ownership_action: 'transfer'
+            expect(another_team.owns?(project)).to be_truthy
+            expect(team.owns?(project)).to be_falsey
+            expect(another_team.users).to eq([another_admin])
+            expect(response).to redirect_to(root_path)
+          end
+
         end
 
       end

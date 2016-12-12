@@ -1,0 +1,61 @@
+<% content_for :sidebar do %>
+  <%= render partial: 'projects/nav', locals: {project: @project} %>
+<% end %>
+<% content_for :title_bar do %>
+  <div class="project_nav">
+    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <h2><%= t('projects.uploads.title') %></h2>
+
+    <% if session[:import_job] %>
+      <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
+    <% else %>
+      <%= raw t('projects.uploads.instructions') %>
+
+      <%= form_for [:import_upload, @project], html: { class: "form-horizontal center" } do |f| %>
+        <div class="field">
+          <%= f.attachinary_file_field :import %>
+        </div>
+        <div class="field">
+          <%= f.submit 'import', class: 'btn btn-default btn-primary' %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @valid_stories %>
+      <h2><%= t('projects.uploads.results') %></h2>
+
+      <table id="import">
+        <thead>
+          <tr>
+            <th>Row</th>
+            <th>Story</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @valid_stories.each_with_index do |story, index| %>
+            <tr class="valid">
+              <td><%= index + 1 %></td>
+              <td><%= story.title %></td>
+              <td><%= story.story_type %></td>
+            </tr>
+          <% end %>
+
+          <% @invalid_stories.each_with_index do |errors, index| %>
+            <tr class="invalid">
+              <td><%= index + 1 %></td>
+              <td colspan="2">
+                <%= errors[:title] %> - <%= errors[:errors] %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

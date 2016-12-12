@@ -1,6 +1,33 @@
-<% content_for :title_bar do %>
-  <%= render :partial => 'projects/nav', :locals => {:project => @project} %>
+<% content_for :sidebar do %>
+  <%= render partial: 'projects/nav', locals: {project: @project} %>
 <% end %>
-<h2><%= t('projects.edit project') %></h2>
 
-<%= render 'form' %>
+<% content_for :title_bar do %>
+  <div class="project_nav">
+    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-12 col-md-6">
+    <h3><%= t('projects.edit project') %></h3>
+
+    <%= render 'form' %>
+  </div>
+
+  <% if policy(@project).share? %>
+    <div class="col-sm-12 col-md-6 share-project">
+      <h3><%= t('projects.share project') %></h3>
+
+      <%= render 'share_form' %>
+    </div>
+  <% end %>
+
+  <% if policy(@project).transfer? %>
+    <div class="col-sm-12 col-md-6 transfer-project">
+      <h3><%= t('projects.transfer project') %></h3>
+
+      <%= render 'transfer_form' %>
+    </div>
+  <% end %>
+</div>

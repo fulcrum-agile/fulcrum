@@ -1,4 +1,6 @@
-describe('Fulcrum.Story', function() {
+var Story = require('models/story');
+
+describe('Story', function() {
 
   beforeEach(function() {
     var Project = Backbone.Model.extend({
@@ -14,14 +16,21 @@ describe('Fulcrum.Story', function() {
       get: function() {}
     };
     var view = new Backbone.View();
-    this.story = new Fulcrum.Story({
+    this.story = new Story({
       id: 999, title: 'Test story', position: '2.45'
     });
-    this.new_story = new Fulcrum.Story({
+    this.new_story = new Story({
       title: 'New story'
     });
-    this.story.collection = this.new_story.collection = collection;
-    this.story.view = this.new_story.view = view;
+    this.ro_story = new Story({
+      id: 998, title: 'Readonly story', position: '2.55'
+    });
+    this.story.collection = this.new_story.collection = this.ro_story.collection = collection;
+    this.story.view       = this.new_story.view       = this.ro_story.view       = view;
+
+    // the readonly flag is called in the initialize, but the state change depends on the collection, which in this spec is set after the instance, so has to set manually here
+    this.ro_story.set({state: 'accepted', accepted_at: new Date()});
+    this.ro_story.setReadonly();
 
     this.server = sinon.fakeServer.create();
   });
@@ -168,6 +177,26 @@ describe('Fulcrum.Story', function() {
 
   });
 
+  describe('notEstimable', function () {
+    it('should not be estimable when story type is bug', function () {
+      this.story.set({story_type: 'bug'});
+
+      expect(this.story.notEstimable()).toBeTruthy();
+    });
+
+    it('should not be estimable when story type is chore', function () {
+      this.story.set({story_type: 'chore'});
+
+      expect(this.story.notEstimable()).toBeTruthy();
+    });
+
+    it('should be estimable when story type is feature or release', function () {
+      this.story.set({story_type: 'feature'});
+
+      expect(this.story.notEstimable()).toBeFalsy();
+    });
+  });
+
   describe('point_values', function() {
 
     it('should known about its valid points values', function() {
@@ -228,13 +257,11 @@ describe('Fulcrum.Story', function() {
   describe("clear", function() {
 
     it("should destroy itself and its view", function() {
-      var model_spy = sinon.spy(this.story, "destroy");
-      var view_spy = sinon.spy(this.story.view, "remove");
+      var modelStub = sinon.stub(this.story, "destroy");
 
       this.story.clear();
 
-      expect(model_spy).toHaveBeenCalled();
-      expect(view_spy).toHaveBeenCalled();
+      expect(modelStub).toHaveBeenCalled();
     });
 
   });
@@ -379,7 +406,7 @@ describe('Fulcrum.Story', function() {
     });
 
     it("should set a notes collection", function() {
-      var story = new Fulcrum.Story({
+      var story = new Story({
         notes: [{"note":{"text": "Dummy note"}}]
       });
 
@@ -416,6 +443,15 @@ describe('Fulcrum.Story', function() {
 
     it("strips of the id suffix", function() {
       expect(this.story.humanAttributeName('foo_bar_id')).toEqual('Foo bar');
+    });
+  });
+
+  describe('isReadonly', function() {
+    it("should not be read only", function() {
+      expect(this.story.isReadonly).toBeFalsy();
+    });
+    it("should be read only", function() {
+      expect(this.ro_story.isReadonly).toBeTruthy();
     });
   });
 

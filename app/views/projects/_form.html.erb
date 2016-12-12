@@ -1,39 +1,53 @@
 <div class="form-wrapper">
 <%= form_for(@project) do |f| %>
-  <%= render 'shared/form_errors', :object => @project if @project.errors.any? %>
+  <%= render 'form_errors', object: @project if @project.errors.any? %>
 
   <div class="field-wrapper">
-    <%= f.label :name %>
-    <div class="field"><%= f.text_field :name %></div>
+    <%= f.label :name, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.text_field :name %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :point_scale %>
-    <div class="field"><%= f.select :point_scale, point_scale_options %></div>
+    <%= f.label :point_scale, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.select :point_scale, point_scale_options %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :default_velocity %>
-    <div class="field"><%= f.text_field :default_velocity, :length => 2, :size => 3 %></div>
+    <%= f.label :default_velocity, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.text_field :default_velocity, length: 2, size: 3 %></div>
   </div>
 
   <div class="field-wrapper date-wrapper">
-    <%= f.label :start_date %>
-    <div class="field"><%= f.date_select :start_date %></div>
+    <%= f.label :start_date, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8 date-select-wrapper"><%= f.date_select :start_date %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :iteration_start_day %>
-    <div class="field"><%= f.select :iteration_start_day, day_name_options %></div>
+    <%= f.label :iteration_start_day, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.select :iteration_start_day, day_name_options %></div>
   </div>
 
   <div class="field-wrapper">
-    <%= f.label :iteration_length %>
-    <div class="field"><%= f.select :iteration_length, iteration_length_options %></div>
+    <%= f.label :iteration_length, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.select :iteration_length, iteration_length_options %></div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="btn-group actions pull-right">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+
+    <% if policy(@project).archive? %>
+      <%= link_to t('projects.archive'), [:archive, @project],
+        data: {confirm: t('projects.index.are you sure you want to archive this project')},
+        method: :patch,
+        class: 'btn btn-warning' %>
+    <% end %>
+
+    <% if policy(@project).destroy? %>
+      <%= link_to t('delete'), @project,
+        data: {confirm: t('projects.index.are you sure you want to delete this project')},
+        method: :delete,
+        class: 'btn btn-danger' %>
+    <% end %>
   </div>
 <% end %>
 </div>

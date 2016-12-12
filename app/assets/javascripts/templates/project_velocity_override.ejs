@@ -1,0 +1,17 @@
+<form id="override-velocity">
+  <ul>
+    <li><%= I18n.t("override.velocity") %>:
+      <input name="override" size=2 value=<%= project.velocity() %> />
+    </li>
+    <li>
+      <div class="btn-group">
+        <button name="revert" value="revert" class="btn btn-default btn-xs"><%= I18n.t("revert") %></button>
+        <button name="apply" value="apply" class="btn btn-primary btn-xs"><%= I18n.t("apply") %></button>
+      </div>
+    </li>
+    <li>
+      <p><%= I18n.t("override.explanation_1") %></p>
+      <p><%= I18n.t("override.explanation_2") %></p>
+    </li>
+  </ul>
+</form>

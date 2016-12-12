@@ -1,3 +1,6 @@
+var Project = require('models/project');
+var Iteration = require('models/iteration');
+
 describe('Project model', function() {
 
   beforeEach(function() {
@@ -9,7 +12,7 @@ describe('Project model', function() {
     });
     this.story = new Story({id: 456});
 
-    this.project = new Fulcrum.Project({
+    this.project = new Project({
       id: 999, title: 'Test project', point_values: [0, 1, 2, 3],
       last_changeset_id: null, iteration_start_day: 1, iteration_length: 1
     });
@@ -79,13 +82,13 @@ describe('Project model', function() {
     it("should reload changed stories from changesets", function() {
 
       var changesets = [{"changeset":{"id":123,"story_id":456,"project_id":789}}];
-      var get_spy = sinon.spy(this.project.stories, 'get');
-      var fetch_spy = sinon.spy(this.story, 'fetch');
+      var getSpy = sinon.spy(this.project.stories, 'get');
+      var fetchSpy = sinon.spy(this.story, 'fetch');
 
       this.project.handleChangesets(changesets);
 
-      expect(get_spy).toHaveBeenCalledWith(456);
-      expect(fetch_spy).toHaveBeenCalled();
+      expect(getSpy).toHaveBeenCalledWith(456);
+      expect(fetchSpy).toHaveBeenCalled();
 
     });
 
@@ -101,8 +104,8 @@ describe('Project model', function() {
       );
 
       var changesets = [{"changeset":{"id":123,"story_id":987,"project_id":789}}];
-      var get_spy = sinon.spy(this.project.stories, 'get');
-      var add_spy = sinon.spy(this.project.stories, 'add');
+      var getSpy = sinon.spy(this.project.stories, 'get');
+      var addSpy = sinon.spy(this.project.stories, 'add');
       var initial_collection_length = this.project.stories.length;
 
       this.project.handleChangesets(changesets);
@@ -110,8 +113,8 @@ describe('Project model', function() {
       expect(server.requests.length).toEqual(1);
       server.respond();
 
-      expect(get_spy).toHaveBeenCalled();
-      expect(add_spy).toHaveBeenCalled();
+      expect(getSpy).toHaveBeenCalled();
+      expect(addSpy).toHaveBeenCalled();
       expect(this.project.stories.length).toEqual(initial_collection_length + 1);
       expect(this.project.stories.get(987).get('title')).toEqual("New changeset story");
 
@@ -269,6 +272,18 @@ describe('Project model', function() {
       expect(this.project.velocity()).toEqual(4);
     });
 
+    it("should ignore zero points done iterations while calculating velocity", function() {
+      var doneIterations = _.map([1,2,0,4,5], function(i) {
+        return {points: sinon.stub().returns(i)};
+      });
+      var doneIterationsStub = sinon.stub(this.project, 'doneIterations');
+      doneIterationsStub.returns(doneIterations);
+
+      // By default, should take the average of the last 3 iterations,
+      // (2 + 4 + 5) = 11 / 3 = 5
+      expect(this.project.velocity()).toEqual(3);
+    });
+
     it("should floor the velocity when it returns a fraction", function() {
       var doneIterations = _.map([3,2,2], function(i) {
         return {points: sinon.stub().returns(i)};
@@ -393,7 +408,7 @@ describe('Project model', function() {
     });
 
     it("should add the first iteration to the array", function() {
-      var stub = sinon.stub(Fulcrum.Iteration, 'createMissingIterations');
+      var stub = sinon.stub(Iteration, 'createMissingIterations');
       stub.returns([]);
       this.project.appendIteration(this.iteration);
       expect(_.last(this.project.iterations)).toEqual(this.iteration);
@@ -402,7 +417,7 @@ describe('Project model', function() {
     });
 
     it("should create missing iterations if required", function() {
-      var spy = sinon.spy(Fulcrum.Iteration, 'createMissingIterations');
+      var spy = sinon.spy(Iteration, 'createMissingIterations');
       this.iteration.get.withArgs('number').returns(1);
       this.project.iterations.push(this.iteration);
       var iteration = {
@@ -420,19 +435,19 @@ describe('Project model', function() {
 
     it("should define the columns", function() {
       expect(this.project.columnIds).toEqual([
-        '#done', '#in_progress', '#backlog', '#chilly_bin'
+        '#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results', '#epic'
       ]);
     });
 
     it("should return the columns after a given column", function() {
       expect(this.project.columnsAfter('#done')).toEqual([
-        '#in_progress', '#backlog', '#chilly_bin'
+        '#in_progress', '#backlog', '#chilly_bin', '#search_results', '#epic'
       ]);
       expect(this.project.columnsAfter('#in_progress')).toEqual([
-        '#backlog', '#chilly_bin'
+        '#backlog', '#chilly_bin', '#search_results', '#epic'
       ]);
-      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin']);
-      expect(this.project.columnsAfter('#chilly_bin')).toEqual([]);
+      expect(this.project.columnsAfter('#backlog')).toEqual(['#chilly_bin', '#search_results', '#epic']);
+      expect(this.project.columnsAfter('#chilly_bin')).toEqual(['#search_results', '#epic']);
 
       var project = this.project;
       expect(function() {project.columnsAfter('#foobar');}).toThrow(
@@ -448,6 +463,14 @@ describe('Project model', function() {
       ]);
       expect(this.project.columnsBefore('#chilly_bin')).toEqual([
         '#done', '#in_progress', '#backlog'
+      ]);
+
+      expect(this.project.columnsBefore('#search_results')).toEqual([
+        '#done', '#in_progress', '#backlog', '#chilly_bin'
+      ]);
+
+      expect(this.project.columnsBefore('#epic')).toEqual([
+        '#done', '#in_progress', '#backlog', '#chilly_bin', '#search_results'
       ]);
 
       var project = this.project;

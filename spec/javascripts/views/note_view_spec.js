@@ -1,10 +1,12 @@
-describe('Fulcrum.NoteView', function() {
+var NoteView = require('views/note_view');
+
+describe('NoteView', function() {
 
   beforeEach(function() {
     var Note = Backbone.Model.extend({name: 'note', url: '/foo'});
     this.note = new Note({});
-    Fulcrum.NoteView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.NoteView({model: this.note});
+    NoteView.prototype.template = sinon.stub();
+    this.view = new NoteView({model: this.note});
   });
 
   it("has div as the tag name", function() {
@@ -17,9 +19,9 @@ describe('Fulcrum.NoteView', function() {
 
   describe("deleteNote", function() {
     it("should call destroy on the model", function() {
-      var deleteSpy = sinon.spy(this.view.model, 'destroy');
+      var deleteStub = sinon.stub(this.view.model, 'destroy');
       this.view.deleteNote();
-      expect(deleteSpy).toHaveBeenCalled();
+      expect(deleteStub).toHaveBeenCalled();
     });
 
     it("should remove element", function() {

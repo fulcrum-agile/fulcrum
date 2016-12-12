@@ -1,0 +1,120 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+.menu-toggle {
+  margin-right: 0.5em;
+  text-indent: 0;
+}
+
+#sidebar-wrapper {
+  z-index: 2000;
+  position: fixed;
+  width: $sidebar-size;
+  height: 100%;
+  background: $sidebar-bg-default;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: $sidebar-size;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1em;
+
+  li {
+    text-indent: 1.2em;
+    line-height: 2.8;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: $sidebar-fg-default;
+
+      &.nav-current {
+        background: $sidebar-bg-selected;
+        cursor: default;
+        color: $sidebar-fg-hover;
+      }
+
+      &:hover {
+        color: $sidebar-fg-hover;
+        text-decoration: none;
+        background: $sidebar-bg-hover;
+      }
+    }
+
+    hr {
+      margin: 0.5em 0;
+    }
+  }
+
+  .nav-locale {
+    text-indent: 0;
+
+    &:hover {
+      background: $sidebar-bg-hover;
+    }
+
+    select {
+      background: $sidebar-bg-default;
+      border: none;
+      height: 2.8em;
+      width: 98%;
+      color: $sidebar-fg-default;
+      text-indent: 0.5em;
+
+      &:hover {
+        background: $sidebar-bg-hover;
+        color: $sidebar-fg-hover;
+      }
+    }
+  }
+
+  .column-toggles-wrap {
+    margin-bottom: 0.8em;
+  }
+
+  .sidebar-brand {
+    padding: 0.4em 0;
+  }
+
+  .dropdown-menu-dark {
+    background: $sidebar-bg-default;
+    position: relative;
+    width: 100%;
+    padding-left: 1em;
+    margin: 0;
+
+    > li > a {
+      padding: 0;
+      line-height: inherit;
+    }
+  }
+
+  .nav-archived-projects {
+    margin-top: 0.8em;
+  }
+
+  .divider {
+    border: 1px solid;
+  }
+}
+
+.click-overlay {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1900;
+}

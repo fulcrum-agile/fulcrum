@@ -2,8 +2,9 @@ module IntegrationHelpers
 
   def sign_in(user, password = 'password')
     visit root_path
-    fill_in "Email",    :with => user.email
-    fill_in "Password", :with => password
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: password
+    fill_in "Team slug", with: user.teams.first.slug
     click_button 'Sign in'
   end
 
@@ -38,6 +39,10 @@ module IntegrationHelpers
     content = Nokogiri::HTML(email.body.encoded)
     token = content.at('a')['href'].split('confirmation_token=').last
     token
+  end
+
+  def wait_spinner
+    expect(page).not_to have_css('.loading_screen')
   end
 
 end

@@ -14,7 +14,7 @@ ActionController::Renderers.add :csv do |stories, options|
     max_notes = story_with_most_notes.notes.length
     headers.concat(Array.new(max_notes, "Note"))
   end
-  
+
   csv_string = CSV.generate do |csv|
     csv << Story.csv_headers
     stories.each do |story|
@@ -22,6 +22,6 @@ ActionController::Renderers.add :csv do |stories, options|
     end
   end
 
-  send_data csv_string, :type => Mime::CSV, :filename => filename
+  send_data csv_string, type: Mime::CSV, filename: filename
 
 end

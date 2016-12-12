@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.FormView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
   tagName: 'form',
 
   label: function(elem_id, value) {
@@ -16,28 +12,76 @@ Fulcrum.FormView = Backbone.View.extend({
     var el = this.make('input', defaults);
     this.bindElementToAttribute(el, name, "keyup");
     return el;
-  }, 
+  },
 
   hiddenField: function(name) {
     var el = this.make('input', {type: "hidden", name: name, value: this.model.get(name)});
     this.bindElementToAttribute(el, name);
     return el;
-  }, 
+  },
 
   textArea: function(name) {
-    var el = this.make('textarea', {name: name, value: this.model.get(name)});
+    var el = this.make('textarea', {name: name, class: 'form-control' }, this.model.get(name));
+    $(el).attr('style', 'height:100px;overflow-y:hidden;');
+    $(el).on('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    this.bindElementToAttribute(el, name);
+    return el;
+  },
+
+  fileField: function(name, progress_element_id, finished_element_id, attachinary_container_id) {
+    var field_name = name + ( ATTACHINARY_OPTIONS['html']['multiple'] ? '[]' : '' );
+    var files = this.model.get('documents');
+    if(files) {
+      files = files.map(function(d) { return d.file });
+    }
+    var options = $.extend(ATTACHINARY_OPTIONS['attachinary'], {
+      files_container_selector: '#' + attachinary_container_id, 'files': files });
+    var el = this.make('input', {name: field_name, type: "file", class: 'attachinary-input',
+                       'data-attachinary': JSON.stringify(options),
+                       'data-form-data': JSON.stringify(ATTACHINARY_OPTIONS['html']['data']['form_data']),
+                       'data-url': ATTACHINARY_OPTIONS['html']['data']['url'],
+                       'multiple': ( ATTACHINARY_OPTIONS['html']['multiple'] ? 'multiple' : '' ),
+                       });
+
+    $(el).bind('fileuploadprogressall', (function(_this, _progress_element_id, _finished_element_id) {
+      return function(e, data) {
+        var el_progress = $('#' + _progress_element_id);
+        if ( el_progress.is(":hidden") )
+          el_progress.show();
+
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        el_progress.css('width', progress + "%");
+
+        if (progress == 100) {
+          el_progress.css('width', "1px");
+          el_progress.hide();
+
+          $('#' + _finished_element_id).show();
+        }
+      };
+    })(this, progress_element_id, finished_element_id));
     this.bindElementToAttribute(el, name);
     return el;
   },
 
   select: function(name, select_options, options) {
-    var select = this.make('select', {name: name});
-    var view = this;
-    var model = this.model;
-
     if (typeof options == 'undefined') {
       options = {};
     }
+
+    options = _.defaults(options, { attrs: { class: [] } });
+
+    options.attrs.class = 'form-control input-sm ' +options.attrs.class.join(' ');
+
+    var select = this.make('select', _.extend({name: name}, options.attrs));
+
+    var view = this;
+    var model = this.model;
+
 
     if (options.blank) {
       $(select).append(this.make('option', {value: ''}, options.blank));
@@ -71,24 +115,24 @@ Fulcrum.FormView = Backbone.View.extend({
   },
 
   submit: function() {
-    var el = this.make('input', {id: "submit", type: "button", value: "Save"});
+    var el = this.make('input', {class: "submit", type: "button", value: I18n.t('save')});
     return el;
   },
 
   destroy: function() {
-    var el = this.make('input', {id: "destroy", type: "button", value: "Delete"});
+    var el = this.make('input', {class: "destroy", type: "button", value: I18n.t('delete')});
     return el;
   },
 
   cancel: function() {
-    var el = this.make('input', {id: "cancel", type: "button", value: "Cancel"});
+    var el = this.make('input', {class: "cancel", type: "button", value: I18n.t('cancel')});
     return el;
   },
 
   bindElementToAttribute: function(el, name, eventType) {
     var that = this;
     eventType = typeof(eventType) != 'undefined' ? eventType : "change";
-    $(el).bind(eventType, function() {
+    $(el).on(eventType, function() {
       var obj = {};
       obj[name] = $(el).val();
       that.model.set(obj, {silent: true});

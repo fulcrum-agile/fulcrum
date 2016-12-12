@@ -1,14 +1,24 @@
 language: ruby
 cache: bundler
+services:
+  - postgresql
+  - redis-server
 sudo: false
 env:
-  - "DB=mysql"
   - "DB=postgresql"
+before_install:
+  - nvm install 6
+install:
+  - bundle install
+  - npm install
 before_script:
+  - "cp config/database.yml.example config/database.yml"
+  - "cp .env.sample .env"
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - "bundle exec rake --trace fulcrum:setup db:setup"
 rvm:
-  - 2.2.1
+  - 2.3.1
 script:
   - "bundle exec rake travis"
+  - "bundle exec codeclimate-test-reporter"

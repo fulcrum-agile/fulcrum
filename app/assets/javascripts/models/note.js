@@ -1,23 +1,20 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var SharedModelMethods = require('mixins/shared_model_methods');
 
-Fulcrum.Note = Backbone.Model.extend({
+var Note = module.exports = Backbone.Model.extend({
 
   name: 'note',
 
   i18nScope: 'activerecord.attributes.note',
 
-  user: function() {
-    var userId = this.get('user_id');
-    return this.collection.story.collection.project.users.get(userId);
-  },
+  isReadonly: false,
 
-  userName: function() {
-    var user = this.user();
-    return user ? user.get('name') : 'Author unknown';
+  sync: function(method, model, options) {
+    if( model.isReadonly ) {
+      return true;
+    }
+    Backbone.sync(method, model, options);
   }
 
 });
 
-_.defaults(Fulcrum.Note.prototype, Fulcrum.SharedModelMethods);
+_.defaults(Note.prototype, SharedModelMethods);

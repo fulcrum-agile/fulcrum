@@ -2,12 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  fulcrum:  "Fulcrum"
+  cm-central:  "CM42 Central"
 
   log out:  "Log out"
   log in:   "Log in"
   sign up:  "Sign up"
   edit:     "Edit"
+  reports:  "Reports"
   delete:   "Delete"
   back:     "Back"
   import:   "Import"
@@ -15,16 +16,65 @@ en:
   revert:   "Revert"
   apply:    "Apply"
   velocity: "Velocity"
+  volatility: "Volatility"
+  standard_deviation: "Standard Deviation"
   notes:    "Notes"
+  tasks:    "Tasks"
   close:    "Close"
   points:   "Points"
   saving:   "Saving ..."
   expand:   "Expand"
+  not_found: "Resource not found"
+  nothing uploaded yet: "Nothing uploaded yet"
+  day:      "Day"
+  accepted_points: "Accepted Points"
+
+  save: "Save"
+  cancel: "Cancel"
+  add: "Add"
+  remove: "Remove"
+  add user: "Add User"
+  add new member: "Add a new member"
+  all users: "All Users"
+  remove user confirm: "Are you sure you want to remove %{email} from this project?"
+
+  story:
+    state:
+      unscheduled: "unscheduled"
+      unstarted: "unstarted"
+      started: "started"
+      finished: "finished"
+      delivered: "delivered"
+      accepted: "accepted"
+      rejected: "rejected"
+    events:
+      start: "start"
+      finish: "finish"
+      deliver: "deliver"
+      accept: "accept"
+      reject: "reject"
+      restart: "restart"
+    type:
+      feature: "feature"
+      chore: "chore"
+      bug: "bug"
+      release: "release"
+    no_estimate: "no estimate"
+    tasks: "Tasks"
+    notes: "Notes"
+    attachments: "Attachments"
+
+    definitive_sure: "Are you sure you want to %{action} this story? This action is irreversible."
 
   author unknown: "Author Unknown"
   add story: "Add story"
+  add note: "Add note"
+  add task: 'Add task'
   save error: "Save error"
-  override velocity: "Override velocity"
+  override:
+    velocity: "Override velocity"
+    explanation_1: "You can simulate with different velocity values."
+    explanation_2: "The iterations will be temporatily recalculated to reflect the simulated velocity but the real Velocity will still be the average of the last 3 iterations."
   story title: "Story title"
 
   requested on date:          'Requested on {{date}}'
@@ -41,7 +91,7 @@ en:
   n weeks:
     one: '1 week'
     other: '%{count} weeks'
-  
+
   keycuts:
     keyboard_shortcuts: Keyboard shortcuts
     help: Help (this)
@@ -55,7 +105,7 @@ en:
     toggle_my_work: Toggle my work
     toggle_labels_searches: Toggle labels &amp; searches
     toggle_current: Toggle current
-  
+
   activerecord:
     models:
       user:
@@ -67,10 +117,14 @@ en:
       story:
         one: 'Story'
         other: 'Stories'
+      team:
+        one: 'Team'
+        other: 'Teams'
 
     attributes:
       note:
         note:                 'Note'
+        documents:            'Attachments'
       project:
         name:                 'Name'
         point_scale:          'Point scale'
@@ -78,6 +132,7 @@ en:
         iteration_start_day:  'Iteration start day'
         iteration_length:     'Iteration length'
         default_velocity:     'Default velocity'
+        archived:             'Archived'
       story:
         title:                'Title'
         description:          'Description'
@@ -89,19 +144,83 @@ en:
         labels:               'Labels'
         requested_by:         'Requested by'
         owned_by:             'Owned by'
+        documents:            'Attachments'
+      user:
+        name:                 'Full Name'
+        username:             'Username'
+        initials:             'Initials'
+        email:                'Email'
+        password:             'Password'
+        password_confirmation: 'Password Confirmation'
+        locale:               'Locale'
+        is_admin:             'Is Administrator?'
+        role:                 'Role'
+      team:
+        name:                 'Team Name'
+        slug:                 'Slug'
+        logo:                 'Logo'
+        disable_registration: 'Only administrators can add new users to this team'
+        registration_domain_whitelist: 'If registration is enabled, only emails from this domain can register (comma separated)'
+        registration_domain_blacklist: 'If registration is enabled, no emails from this domain cah register (comma separated)'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Bug or Chore stories can't be estimated"
 
   projects:
-    new project:        "New Project"
-    edit project:       "Edit Project"
+    new project:     "New Project"
+    edit project:    "Edit Project"
+    project_members: "Project Members"
+    available_users: "Available Members"
+    reports:
+      n months ago:
+        one: "1 month ago"
+        other: "%{count} months ago"
+      all_time: "All Time"
+      story_states: "Story States"
+      points: "Points"
+      iteration_number: "Iteration Number"
+      quantity_non_estimable: "Quantity of Bugs/Chores"
+
+      current_iteration: "Current Iteration"
+      bugs_impact: "Bugs Impact"
+      velocity_by_iteration: "Velocity by Iteration"
+      velocity_per_member: "Velocity per Member"
+      burn_up: "Burn Up Chart"
     project properties: "Project Properties"
+    archived projects:  "Archived Projects"
+    archive: "Archive"
+    unarchive: "Unarchive"
+    share: "Share"
+    unshare: "Unshare"
+    transfer: "Transfer Ownership"
+    sharing: "Teams with access to this Project"
+    invalid_action: "Can't perform this action or Team not found"
+
+    transfer_sure: "Are you sure you want to transfer ownership? This action is not reversible."
+
+    project was successfully archived: "Project was successfully archived"
+    project was successfully unarchived: "Project was successfully reinstated"
 
     project was successfully created: "Project was successfully created."
     project was successfully updated: "Project was successfully updated."
 
+    project was successfully shared: "Project was successfully shared."
+    project was successfully unshared: "Project was successfully unshared."
+    project was successfully transferred: "Project was successfully transferred."
+
+    integrations: "Integrations"
+    integrations_new: "Add a new integration"
+    integrations_remove_sure: "Are you sure you want to remove '%{kind}' integration from this project?"
+
     index:
       listing projects: "Listing Projects"
       are you sure you want to delete this project: "Are you sure you want to delete this project?  This action cannot be undone."
+      are you sure you want to archive this project: "Are you sure you want to archive this project?"
+      are you sure you want to unshare this project: "Are you sure you want to unshare this project?"
       the iteration starts on x with length of x weeks:
         one:    "Iterations start on %{day} with a length of 1 week"
         other:  "Iterations start on %{day} with a length of %{count} weeks"
@@ -110,7 +229,48 @@ en:
       done: "Done"
       in_progress: "In Progress"
       backlog: "Backlog"
-      icebox: "Chilly Bin"
+      chilly_bin: "Chilly Bin"
+      search_results: "Search Results"
+      epic: 'Epic'
+
+    uploads:
+      title: Import Stories
+      results: Import Results
+      select_file: "You must select a CSV file to import its stories to the project."
+      being_processed: "Your uploaded CSV file is being processed. You can come back here later when the process is finished."
+      already_uploaded: |
+          <p>There is already an uploaded file being processed %{time_ago} ago.</p>
+          <p>Wait a few minutes and come back to see the results or upload a new file in case of errors.</p>
+      instructions: |
+          <p>You can import many stories at once from a comma separated variable (CSV) format. The first line of the CSV must contain the correct headers for the import to succeed.  You can download a <a href="/Fulcrum_Import_Template.csv">CSV template</a> with the correct headers to get you started.</p>
+          <p>The system will try and match any user names found in the CSV with members of your project. Make sure to register members with the correct names before importing if you want them to match.</p>
+          <p><em>Note: You can also use a file exported from Pivotal Tracker.</em></p>
+
+  users:
+    You are not authorized to perform this action: "You are not authorized to perform this action."
+    is already a member of this project: "%{email} is already a member of this project"
+    was sent an invite to join this project: "%{email} was sent an invite to join this project"
+    was added to this project: "%{email} was added to this project"
+    admin_on: Make Administrator
+    admin_off: Make just Member
+
+  teams:
+    create: 'Create new Team'
+    update: 'Update Team'
+    switch: 'Change to another Team'
+    team was successfully created: 'Team was successfully created'
+    team was successfully updated: 'Team was successfully updated'
+    new_instruction: |
+      <p>If you don't have a registered account, you can sign up first.</p>
+      <p>The first user to sign in to this new team will become the administrator.</p>
+
+  admin:
+    users:
+      edit user: "Edit User"
+      index:
+        are you sure you want to delete this user: "Are you sure you want to delete this user? This action cannot be undone."
+        are you sure you want to remove administration rights from this user: "Are you sure you want to remove administration rights from this user?"
+        are you sure you want to give administration rights to this user: "Are you sure you want to give administration rights to this user?"
 
   registrations:
     edit:
@@ -121,3 +281,10 @@ en:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Manager
+        developer: Developer
+        guest: Guest

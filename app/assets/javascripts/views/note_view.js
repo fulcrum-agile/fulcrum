@@ -1,10 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+module.exports = Backbone.View.extend({
 
-Fulcrum.NoteView = Backbone.View.extend({
-
-  template: JST['templates/note'],
+  template: require('templates/note.ejs'),
 
   tagName: 'div',
 
@@ -18,7 +14,7 @@ Fulcrum.NoteView = Backbone.View.extend({
     this.$el.html(this.template({note: this.model}));
     return this;
   },
-  
+
   deleteNote: function() {
   	this.model.destroy();
   	this.$el.remove();

@@ -1,0 +1,81 @@
+<% content_for :sidebar do %>
+  <%= render partial: 'projects/nav', locals: {project: @project} %>
+<% end %>
+<% content_for :title_bar do %>
+  <div class="project_nav">
+    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+    <% since_options.each do |qty| %>
+      <% if params[:since] == qty.to_s %>
+        <%= link_to t("projects.reports.n months ago", count: qty), "#", class: "btn btn-link btn-sm" %>
+      <% else %>
+        <%= link_to t("projects.reports.n months ago", count: qty), reports_project_path(@project, since: qty), class: "btn btn-default btn-sm" %>
+      <% end %>
+    <% end %>
+    <% if params[:since].present? %>
+      <%= link_to t('projects.reports.all_time'), reports_project_path(@project), class: "btn btn-default btn-sm" %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <% calculate_and_render_burn_up! %>
+
+    <h3><%= t('projects.reports.burn_up') %></h3>
+    <p>The current backlog has a total of <strong><%= @total_backlog_points %> points</strong>. This is without counting the stories in the Chilly Bean!</p>
+    <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished around the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
+
+    <% if last_iteration_number == last_iteration_number(true) %>
+      <p>If the velocity keeps up this pace we should be on track to the date above.</p>
+    <% else %>
+      <p>But with a standard deviation of <%= "%3.2f" % Math.sqrt(@service.standard_deviation) %>, it's more realistic to expect the project to finish around <strong>iteration <%= last_iteration_number(true) %></strong> (<%= last_iteration_start_date(true) %>), if the velocity doesn't increase or the backlog is not simplified.</p>
+    <% end %>
+
+    <p><%= area_chart @group_by_day, max: @total_backlog_points, xtitle: t('day'), ytitle: t('accepted_points') %></p>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.current_iteration') %> <small>(<%= current_iteration_start_date %> - <%= current_iteration_end_date %>)</small></h3>
+
+      <p>This iteration has <%= current_iteration_points %> points planned in <%= current_iteration_count %> stories (including <%= current_iteration_non_estimable %> bugs or chores).</p>
+
+      <p>There are <%= accepted_points %> points accepted so far, which is <%= accepted_rate %> of the total.</p>
+
+      <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
+    </div>
+
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.velocity_by_iteration') %></h3>
+
+      <ul>
+        <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %> (<%= I18n.t('date.day_names')[@project.iteration_start_day] %>)</li>
+        <li><%= Project.human_attribute_name(:iteration_length) %>: <%= t('n weeks', count: @project.iteration_length) %></li>
+        <li><%= t('velocity') %>: <%= @service.velocity %>,  <%= t('standard_deviation') %>: <%= "%3.2f" % Math.sqrt(@service.standard_deviation) %>, <%= t('volatility') %>: <%= number_to_percentage(@service.volatility * 100.0, precision: 2) %></li>
+      </ul>
+
+      <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.velocity_per_member') %></h3>
+      <p><%= line_chart @service.group_by_developer, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity') %></p>
+    </div>
+
+    <div class="col-sm-6 col-md-6">
+      <h3><%= t('projects.reports.bugs_impact') %></h3>
+
+      <p><%= column_chart @service.group_by_bugs, xtitle: t('projects.reports.iteration_number'), ytitle: t('projects.reports.quantity_non_estimable'), colors: ['red'] %></p>
+    </div>
+
+  </div>
+</div>
