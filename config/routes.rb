@@ -25,8 +25,9 @@ Rails.application.routes.draw do
   get 'projects/archived' => 'projects#archived'
   put 'locales' => 'locales#update', as: :locales
 
-  get 't/:id' => 'teams#switch', as: :teams_switch
-  resources :teams
+  resources :teams do
+    get :switch, on: :collection
+  end
 
   resources :projects do
     member do

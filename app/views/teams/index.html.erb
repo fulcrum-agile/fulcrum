@@ -1,0 +1,22 @@
+<% content_for :title_bar do %>
+  <h1><%= t('teams.switch') %></h1>
+<% end %>
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <div class="form-wrapper">
+      <%= form_tag(switch_teams_path, method: :get) do %>
+        <div class="field-wrapper">
+          <%= label_tag :team_slug, 'Teams', class: 'col-sm-2 control-label' %>
+          <div class="col-sm-10">
+            <%= select_tag :team_slug, options_from_collection_for_select(@teams, :slug, :name), disabled: @teams.blank? %>
+          </div>
+        </div>
+        <div class="btn-group actions pull-right">
+          <%= link_to t('teams.create'), new_team_path, class: "btn btn-default" %>
+          <%= submit_tag t('teams.select'), class: 'btn btn-primary', disabled: @teams.blank?  %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

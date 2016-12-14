@@ -48,23 +48,16 @@ class ApplicationController < ActionController::Base
   helper_method :pundit_user
 
   def current_team
-    session[:current_team_slug] = current_user.teams&.not_archived&.first&.slug if current_user && session[:current_team_slug].blank?
-    raise ActiveRecord::RecordNotFound, 'Team not set' if session[:current_team_slug].blank?
     @current_team ||= Team.not_archived.find_by_slug(session[:current_team_slug])
   end
   helper_method :current_team
 
   def after_sign_in_path_for(resource)
-    if params.dig(:user, :reset_password_token)
-      session[:current_team_slug] = current_user.try(:teams).try(:first).try(:slug)
-    elsif params.dig(:user, :team_slug)
-      session[:current_team_slug] = params[:user][:team_slug]
-    end
-
     if resource.authy_enabled && resource.authy_id.blank?
       return send("#{resource_name}_enable_authy_path")
     end
 
+    return teams_url if session[:current_team_slug].blank?
     super
   end
 

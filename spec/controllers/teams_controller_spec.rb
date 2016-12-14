@@ -5,9 +5,11 @@ describe TeamsController, type: :controller do
   let!(:team) { user.teams.first }
 
   context "when logged out" do
-    specify do
-      get :new
-      expect(response).to render_template('new')
+    %W[index switch new].each do |action|
+      specify do
+        get action
+        expect(response).to redirect_to(new_user_session_url)
+      end
     end
 
     %W[edit update destroy].each do |action|
@@ -17,16 +19,11 @@ describe TeamsController, type: :controller do
       end
     end
 
-    describe "#switch" do
-      it "must set team_slug session" do
-        get :switch, id: team.slug
-        expect(session[:team_slug]).to eq(team.slug)
-      end
-    end
-
     describe "#create" do
 
       let(:team_params) {{ "name" => "Test Team"}}
+
+      before { sign_in user }
 
       specify do
         post :create, team: team_params
@@ -62,7 +59,7 @@ describe TeamsController, type: :controller do
 
       describe "#switch" do
         it "must set the current_team_slug session" do
-          get :switch, id: team.slug
+          get :switch, team_slug: team.slug
           expect(session[:current_team_slug]).to eq(team.slug)
         end
       end

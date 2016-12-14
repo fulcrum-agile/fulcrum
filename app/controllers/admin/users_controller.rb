@@ -21,7 +21,7 @@ class Admin::UsersController < ApplicationController
 
   # DELETE /admin/users/1
   def destroy
-    @user.destroy
+    @user.enrollments.where(team: current_team).destroy_all
     redirect_to admin_users_path, notice: 'User was successfully destroyed.'
   end
 

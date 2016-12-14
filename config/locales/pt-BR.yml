@@ -24,6 +24,7 @@ pt-BR:
   nothing uploaded yet: "Nada ainda carregado"
   day:      "Dia"
   accepted_points: "Pontos Aceitos"
+  change team: "Trocar de Equipe"
 
   save: "Salvar"
   delete: "Apagar"
@@ -260,6 +261,7 @@ pt-BR:
     create: 'Criar nova Equipe'
     update: 'Atualizar Equipe'
     switch: 'Mudar para outra Equipe'
+    select: "Selecionar Equipe"
     team was successfully created: 'Equipe foi criado com sucesso'
     team was successfully updated: 'Equipe foi atualizado com sucesso'
 

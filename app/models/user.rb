@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # FIXME - DRY up, repeated in Story model
   JSON_ATTRIBUTES = ["id", "name", "initials", "username", "email"]
 
-  AUTHENTICATION_KEYS = %i[email team_slug]
+  AUTHENTICATION_KEYS = %i(email)
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -56,23 +56,7 @@ class User < ActiveRecord::Base
     elsif warden_conditions[:confirmation_token]
       where(confirmation_token: warden_conditions[:confirmation_token]).first
     else
-      user = joins(enrollments: [:team]).where(email: warden_conditions[:email], teams: { slug: warden_conditions[:team_slug] }).first
-      if user.nil?
-        create_administrator(warden_conditions)
-      else
-        user
-      end
+      find_by(email: warden_conditions[:email])
     end
   end
-
-  def self.create_administrator(warden_conditions)
-    user = User.find_by_email(warden_conditions[:email])
-    team = Team.not_archived.find_by_slug(warden_conditions[:team_slug])
-    # if this is a brand new team, without any enrollments yet, the first logged in user becomes administrator
-    if user && team && team.enrollments.count.zero?
-      team.enrollments.create(user: user, is_admin: true)
-      user
-    end
-  end
-
 end

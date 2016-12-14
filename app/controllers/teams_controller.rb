@@ -1,16 +1,15 @@
 class TeamsController < ApplicationController
-  skip_before_filter :authenticate_user!, only: [:switch, :new, :create]
-  skip_after_filter :verify_authorized, only: [:switch, :new, :create]
-  skip_after_filter :verify_policy_scoped, only: [:switch, :new]
+  skip_after_filter :verify_policy_scoped, only: :index
+
+  def index
+    @teams = current_user.teams
+    authorize @teams
+  end
 
   def switch
-    if current_user
-      team = current_user.teams.friendly.find(params[:id])
-      session[:current_team_slug] = team.slug
-    else
-      team = Team.not_archived.friendly.find(params[:id])
-      session[:team_slug] = team.slug
-    end
+    team = current_user.teams.friendly.find(params[:team_slug])
+    authorize team
+    session[:current_team_slug] = team.slug
     redirect_to root_path
   end
 
@@ -18,7 +17,7 @@ class TeamsController < ApplicationController
   # GET /teams/new.xml
   def new
     @team = Team.new
-
+    authorize @team
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render xml: @team }
@@ -39,11 +38,11 @@ class TeamsController < ApplicationController
   # POST /teams.xml
   def create
     @team = Team.new(allowed_params)
-
+    authorize @team
     respond_to do |format|
       if verify_recaptcha && ( @team = TeamOperations::Create.(@team, current_user) )
         format.html do
-          session[:team_slug] = @team.slug
+          session[:current_team_slug] = @team.slug
           flash[:notice] = t('teams.team was successfully created')
           redirect_to(root_path)
         end

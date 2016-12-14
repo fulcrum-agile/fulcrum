@@ -1,9 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :check_captcha, only: [:create]
-  before_filter :set_locale, only: [:create]
+  prepend_before_action :check_captcha, only: :create
+  before_filter :set_locale, only: :create
   before_filter :check_registration_enabled, only: [:new, :create]
   before_filter :devise_params
-  after_filter :reset_locale, only: [:update]
+  after_filter :reset_locale, only: :update
 
   def disable_two_factor
     verify_token = Authy::API.verify(id: current_user.authy_id, token: params[:token], force: true)
@@ -32,17 +32,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     def check_registration_enabled
-      team_slug = resource.try(:team_slug) || session[:team_slug]
-      if team_slug
-        team = Team.not_archived.find_by_slug(team_slug)
-        if team.disable_registration
-          render_404 and return
-        else
-          if resource.try(:email) && !team.allowed_domain?(resource.email)
-            render_404 and return
-          end
-        end
-      elsif Fulcrum::Application.config.fulcrum.disable_registration
+      if Fulcrum::Application.config.fulcrum.disable_registration
         render_404 and return
       end
     end

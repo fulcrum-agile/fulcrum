@@ -86,28 +86,5 @@ describe RegistrationsController do
         expect(flash[:notice]).to eq('You have signed up successfully. A confirmation was sent to your e-mail. Please follow the contained instructions to activate your account.')
       end
     end
-
-    context "team level lock down" do
-      let!(:team) { create :team, disable_registration: true }
-
-      before do
-        session[:team_slug] = team.slug
-      end
-
-      describe "#new" do
-        specify do
-          get :new
-          expect(response.status).to eq 404
-        end
-      end
-
-      describe "#create" do
-        specify do
-          post :create, user: {name: 'Test User', initials: 'TU', email: 'test_user@example.com'}
-          expect(response.status).to eq 404
-        end
-      end
-    end
-
   end
 end

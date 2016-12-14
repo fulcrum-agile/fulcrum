@@ -4,7 +4,6 @@
 <div class="row">
   <div class="col-sm-12 col-md-6">
     <div class="form-wrapper sign-in">
-      <% resource.team_slug = session[:team_slug] if session[:team_slug] %>
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
         <div class="field-wrapper">
           <%= f.label :email, class: 'col-sm-4 control-label' %>
@@ -14,14 +13,6 @@
         <div class="field-wrapper">
           <%= f.label :password, class: 'col-sm-4 control-label' %>
           <div class="col-sm-8"><%= f.password_field :password, autocomplete: "off" %></div>
-        </div>
-
-        <div class="field-wrapper">
-          <%= f.label :team_slug, class: 'col-sm-4 control-label' %>
-          <div class="col-sm-8">
-            <%= f.text_field :team_slug, readonly: resource.team_slug.present? %>
-            <small><%= link_to t('.change team'), "#", class: 'change-team' %></small>
-          </div>
         </div>
 
         <% if devise_mapping.rememberable? -%>
