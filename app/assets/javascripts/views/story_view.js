@@ -16,13 +16,16 @@ module.exports = FormView.extend({
   tagName: 'div',
 
   initialize: function(options) {
+    this.uploadInProgress = false;
+
     _.extend(this, _.pick(options, "isSearchResult"));
 
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
       "renderNotesCollection", "addEmptyNote", "hoverBox",
       "renderTasks", "renderTasksCollection", "addEmptyTask",
-      "clickSave", "attachmentDone");
+      "clickSave", "attachmentDone", "attachmentStart",
+      "disableControlButtons");
 
     // Rerender on any relevant change to the views story
     this.model.on("change", this.render);
@@ -82,7 +85,8 @@ module.exports = FormView.extend({
     "click .description": "editDescription",
     "click .edit-description": "editDescription",
     "sortupdate": "sortUpdate",
-    "fileuploaddone": "attachmentDone"
+    "fileuploaddone": "attachmentDone",
+    "fileuploadstart": "attachmentStart"
   },
 
   // Triggered whenever a story is dropped to a new position
@@ -296,7 +300,8 @@ module.exports = FormView.extend({
     this.model.save(null, { documents: documents,
       success: function(model, response) {
         that.enableForm();
-        that.model.set({editing: editMode});
+        that.model.set({ editing: editMode });
+        that.uploadInProgress = false;
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
@@ -347,6 +352,7 @@ module.exports = FormView.extend({
             }
           }
           $(div).append(this.cancel());
+          this.disableControlButtons();
         })
       );
 
@@ -706,9 +712,20 @@ module.exports = FormView.extend({
     if (!this.model.isNew()) {
       this.saveEdit(event, true);
     }
+    this.disableControlButtons();
   },
 
   clickSave: function(event) {
     this.saveEdit(event, false);
+  },
+
+  attachmentStart: function() {
+    this.uploadInProgress = true;
+    this.disableControlButtons();
+  },
+
+  disableControlButtons: function() {
+    var $storyControls = this.$el.find('.story-controls');
+    $storyControls.find('.submit, .destroy, .cancel').prop('disabled', this.uploadInProgress);
   }
 });
