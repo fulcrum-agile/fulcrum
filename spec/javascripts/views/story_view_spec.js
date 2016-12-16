@@ -303,6 +303,27 @@ describe('StoryView', function() {
       this.view.saveEdit(this.e);
       expect(this.story.setAcceptedAt).toHaveBeenCalledOnce();
     });
+
+    describe("when an attachment is done", function() {
+      beforeEach(function() {
+        this.view.attachmentStart();
+      });
+
+      it("change the uploadInProgress to false", function() {
+        this.server.respondWith(
+          "PUT", "/path/to/story", [
+            200, {"Content-Type": "application/json"},
+            '{"story":{"estimate":"1"}}'
+          ]
+        );
+
+        this.view.saveEdit(this.e);
+
+        this.server.respond();
+
+        expect(this.view.uploadInProgress).toBeFalsy;
+      });
+    });
   });
 
   describe("expand collapse controls", function() {
@@ -662,6 +683,81 @@ describe('StoryView', function() {
         this.view.attachmentDone();
 
         expect(this.view.saveEdit).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('attachmentStart', function() {
+    describe('while the attachment is happening', function() {
+      it('update the uploadInProgress variable', function() {
+        this.view.attachmentStart();
+        expect(this.view.uploadInProgress).toBeTruthy;
+      });
+
+      it('call disableControlButtons', function() {
+        spyOn(this.view, 'disableControlButtons')
+        this.view.attachmentStart();
+        expect(this.view.disableControlButtons).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('disableControlButtons', function() {
+    var $storyControls;
+
+    beforeEach(function() {
+      this.view.render();
+    });
+
+    describe('it render a enabled', function() {
+      beforeEach(function() {
+        this.view.uploadInProgress = false;
+        $storyControls = this.view.$el.find('.story-controls');
+      });
+
+      it('submit button', function() {
+        var submit = $storyControls.find('.submit');
+
+        expect(submit.disabled).toBeFalsy;
+      });
+
+      it('cancel button', function() {
+        var cancel = $storyControls.find('.cancel');
+
+        expect(cancel.disabled).toBeFalsy;
+      });
+
+      it('destroy button', function() {
+        var destroy = $storyControls.find('.submit');
+
+        expect(destroy.disabled).toBeFalsy;
+      });
+    });
+
+    describe('it render a disabled', function() {
+      var $storyControls;
+
+      beforeEach(function() {
+        this.view.uploadInProgress = true;
+        $storyControls = this.view.$el.find('.story-controls');
+      });
+
+      it('submit button', function() {
+        var submit = $storyControls.find('.submit');
+
+        expect(submit.disabled).toBeTruthy;
+      });
+
+      it('cancel button', function() {
+        var cancel = $storyControls.find('.cancel');
+
+        expect(cancel.disabled).toBeTruthy;
+      });
+
+      it('destroy button', function() {
+        var destroy = $storyControls.find('.submit');
+
+        expect(destroy.disabled).toBeTruthy;
       });
     });
   });
