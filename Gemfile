@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '2.2.1'
+ruby '2.3.1'
 
 gem 'rails', '~> 4.1.9'
 gem 'sass-rails', '~> 4.0.3'
@@ -9,15 +9,14 @@ gem 'jquery-rails'
 gem 'ejs'
 gem 'compass-rails'
 gem 'devise', '~> 3.2.4'
+gem 'sendgrid-ruby'
 gem 'transitions', '0.1.9', require: ['transitions', 'active_record/transitions']
 gem 'rails-i18n'
 gem 'configuration'
 gem 'rails-observers', '~> 0.1.2'
 gem 'jquery-ui-rails'
-
-gem 'pg', group: :postgres
-gem 'mysql2', group: :mysql
-gem 'sqlite3', group: :sqlite
+gem 'puma'
+gem 'pg', '~> 0.19.0'
 
 group :production do
   gem 'rails_12factor'
