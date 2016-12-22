@@ -8,19 +8,14 @@
   <div class="row item">
     <div class="col-md-12">
       <div class="col-md-8">
-        <% cache "#{current_user.id}/projects/activities_group/view", expires_in: 5.minutes do %>
-          <%= render 'activities_group', activities_group: Activity.grouped_activities(@projects, 1.week.ago) %>
-        <% end %>
+        <%= render 'activities_group', activities_group: Activity.grouped_activities(@projects, 1.week.ago) %>
       </div>
 
       <div class="col-md-4">
         <ul class="list-group">
-          <% cache "#{current_user.id}/projects/list", expires_in: 10.minutes do %>
-            <%= render @projects %>
-          <% end %>
+          <%= render @projects %>
         </ul>
       </div>
     </div>
   </div>
 </div>
-
