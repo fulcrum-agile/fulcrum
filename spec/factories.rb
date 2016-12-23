@@ -88,4 +88,6 @@ FactoryGirl.define do
     o.association :team
     o.association :project
   end
+
+  factory :api_token
 end

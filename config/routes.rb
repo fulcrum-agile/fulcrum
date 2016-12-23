@@ -25,8 +25,11 @@ Rails.application.routes.draw do
   get 'projects/archived' => 'projects#archived'
   put 'locales' => 'locales#update', as: :locales
 
+  get 't/:id' => 'teams#switch', as: :teams_switch
+
   resources :teams do
     get :switch, on: :collection
+    resources :api_tokens, only: [:create, :destroy]
   end
 
   resources :projects do
@@ -88,4 +91,7 @@ Rails.application.routes.draw do
   root 'projects#index'
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
+
+  mount GrapeSwaggerRails::Engine => '/api/v1/explore'
+  mount API => '/'
 end
