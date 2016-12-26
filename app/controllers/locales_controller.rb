@@ -1,4 +1,6 @@
 class LocalesController < ApplicationController
+  skip_before_filter :check_team_presence
+
   LOCALES = {
     'English'    => 'en',
     'Español'    => 'es',

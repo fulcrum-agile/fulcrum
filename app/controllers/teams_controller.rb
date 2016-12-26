@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  skip_before_filter :check_team_presence, only: [:index, :switch, :new, :create]
   skip_after_filter :verify_policy_scoped, only: :index
 
   def index
