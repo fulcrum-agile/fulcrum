@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   before_filter :authenticate_user!, unless: :devise_controller?
+  before_filter :check_team_presence, unless: :devise_controller?
   before_filter :set_locale
   around_filter :user_time_zone, if: :current_user
 
@@ -59,6 +60,10 @@ class ApplicationController < ActionController::Base
 
     return teams_url if session[:current_team_slug].blank?
     super
+  end
+
+  def check_team_presence
+    redirect_to teams_url if current_team.blank?
   end
 
   def must_pundit?
