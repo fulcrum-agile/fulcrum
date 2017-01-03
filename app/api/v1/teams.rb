@@ -26,7 +26,7 @@ class V1::Teams < Grape::API
     get '/:slug' do
       team = Team.find_by_slug(params[:slug])
 
-      present team, with: Entities::Team
+      present team, with: Entities::Team, type: :full
     end
 
     desc 'Return all projects of a specified team', { tags: ['team'] }
