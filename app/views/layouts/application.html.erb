@@ -18,7 +18,71 @@
           <a href="#menu-toggle" class="btn btn-default menu-toggle menu-toggle-closed">
             <i class="mi md-dark">menu</i>
           </a>
+
+          <div id="right-menu" style="float: right">
+            <%= yield :right_menu %>
+
+            <%= form_tag locales_path, method: :put do  %>
+              <%= select_tag 'locale', options_for_select(LocalesController::LOCALES, I18n.locale), class: 'locale-change selectpicker language-dropdown' %>
+            <% end %>
+
+            <% if current_user %>
+              <% if current_team %>
+                <div class="dropdown">
+                  <button class="btn btn-link team-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= t('team') %>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                    <li class="dropdown-header">
+                      <%= session[:current_team_slug] && current_team.try(:name) || t('cm-central') %>
+                    </li>
+                    <% current_team.projects.each do |project| %>
+                      <li><%= link_to project.name, project %></li>
+                    <% end %>
+                    <li class="divider"></li>
+                    <% current_user.teams.each do |team| %>
+                      <li><%= link_to team.name, team %></li>
+                    <% end %>
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to t('settings'), edit_team_path(current_team) %>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+
+              <div class="dropdown">
+                <button class="btn btn-link user-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= current_user.name %>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                  <li>
+                    <%= sidebar_link t('edit'), edit_user_registration_path %>
+                  </li>
+                  <% if current_user %>
+                    <li class="divider"></li>
+                    <li><%= link_to t('log out'), destroy_user_session_path, method: :delete %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          </div>
+
+          <% if session[:current_team_slug] && current_team.try(:logo) %>
+            <%= cl_image_tag(current_team.logo.path, { size: '32x32', crop: :fill, radius: 5, border: '1px_solid_black' }) %>
+          <% else %>
+            <%= image_tag 'logo.png', width: 32, height: 32 %>
+          <% end %>
           <%= yield :title_bar %>
+          <a href="" class="toggle-navbar more">
+            <i class="mi md-22">expand_more</i>
+          </a>
+        </div>
+
+        <div id="navbar">
+          <%= yield :navbar %>
         </div>
 
         <div id="main">

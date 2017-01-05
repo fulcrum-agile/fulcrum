@@ -1,7 +1,11 @@
 <% content_for :title_bar do %>
   <div class="project_nav">
-    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+    <%= link_to @project.name, root_path, class: 'project-title' %>
   </div>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'projects/navbar', project: @project, current: "integrations" %>
 <% end %>
 
 <div class="row">
@@ -45,5 +49,3 @@
 
   </div>
 </div>
-
-

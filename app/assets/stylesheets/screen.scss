@@ -89,7 +89,6 @@ ul#primary-nav li {
 
 #title_bar {
   background: #E9E9E9;
-  border-bottom: 1px solid #d5d5d5;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
   line-height: 140%;
@@ -97,17 +96,84 @@ ul#primary-nav li {
   color: #5e6469;
   position: relative;
   margin: -20px 0 0;
-  padding: 10px 1em;
+  padding: 5px 5px 0px 5px;
+
+  .project-title {
+    text-decoration: none;
+    font-weight: 600;
+    color: #444;
+    transition: 0.3s ease color;
+
+    &:hover {
+      color: $darkred-1;
+    }
+  }
+
+  #right-menu {
+    > .dropdown {
+      display: inline;
+    }
+
+    button {
+      text-decoration: none;
+      font-weight: 600;
+      color: #444444;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    form {
+      display: inline;
+
+      select {
+        color: #444444;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .form-control {
+        width: auto;
+        display: inline;
+      }
+
+      .btn-group {
+        width: auto;
+
+        button {
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          width: auto;
+
+          &:active {
+            box-shadow: none;
+          }
+
+          &:focus, span:focus {
+            outline: none !important;
+          }
+        }
+      }
+    }
+
+    .locale-change {
+      border: 0;
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
 
   div.velocity {
     font-size: 1.2em;
-    float: right;
+    display: inline;
     position: relative;
 
     div.velocity_override_container {
       width: 220px;
       position: absolute;
-      right: 0;
+      left: 0;
       top: 30px;
       background: #efefef;
       border: 1px solid #ccc;
@@ -161,6 +227,82 @@ ul#primary-nav li {
 #title_bar h1 {
   font-size: 1.5em;
   margin: 0.3em 0;
+}
+
+#navbar {
+  background: #E9E9E9;
+
+  .nav-pills {
+    li {
+      &.active {
+        a {
+          background-color: transparent;
+          border-bottom: 2px solid $darkred-1;
+          color: $darkred-1;
+        }
+      }
+
+      a {
+        border-radius: 0;
+        padding: 5px 15px;
+        min-width: 80px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: #444444;
+        transition: 0.4s ease all;
+
+        &:before {
+          content: ' ';
+          width: 1px;
+          position: absolute;
+          height: 55%;
+          background-color: #d4d4d4;
+          right: 0;
+        }
+
+        &:after {
+          background: $darkred-1;
+          bottom: -2px;
+          content: ' ';
+          height: 2px;
+          left: 0;
+          position: absolute;
+          transform: scaleX(0);
+          transform-origin: 50% 50%;
+          transition: 0.3s ease all;
+          width: 100%;
+        }
+
+        &:hover {
+          background: transparent;
+          color: $darkred-1;
+
+          &:after {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.toggle-navbar {
+  color: #444;
+  transition: 0.3s ease color;
+
+  &:hover {
+    color: $darkred-1;
+  }
+
+  &.less {
+    padding-left: 10px;
+    cursor: pointer;
+  }
+
+  &.more {
+    display: none;
+  }
 }
 
 #main {

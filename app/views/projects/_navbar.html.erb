@@ -1,0 +1,28 @@
+<ul class="nav nav-pills">
+  <li role="presentation" class="<%= current == 'stories' ? "active" : ""%>">
+    <%= sidebar_link Story.model_name.human(count: 2), project_path(project) %>
+  </li>
+  <li role="presentation" class="<%= current == 'members' ? "active" : ""%>">
+    <%= sidebar_link User.model_name.human(count: 2), project_users_path(project) %>
+  </li>
+  <li role="presentation" class="<%= current == 'reports' ? "active" : ""%>">
+    <%= sidebar_link t('reports'), reports_project_path(project, since: 3) %>
+  </li>
+  <li role="presentation">
+    <%= link_to t('export'), project_stories_path(project, format: :csv) %>
+  </li>
+  <% if policy(project).manage? %>
+    <li role="presentation" class="<%= current == 'import' ? "active" : ""%>">
+      <%= sidebar_link t('import'), import_project_path(project) %>
+    </li>
+    <li role="presentation" class="<%= current == 'integrations' ? "active" : ""%>">
+      <%= sidebar_link t('projects.integrations'), project_integrations_path(project) %>
+    </li>
+    <li role="presentation" class="<%= current == 'edit' ? "active" : ""%>">
+      <%= link_to t('edit'), edit_project_path(project) %>
+    </li>
+  <% end %>
+  <li class="toggle-navbar less">
+    <i class="mi md-22">expand_less</i>
+  </li>
+</ul>

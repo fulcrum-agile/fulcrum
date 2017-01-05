@@ -1,7 +1,11 @@
 <% content_for :title_bar do %>
   <div class="project_nav">
-    <%= link_to t('back'), project_path(@project), class: "btn btn-primary btn-sm" %>
+    <%= link_to @project.name, @project, class: 'project-title' %>
   </div>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'projects/navbar', project: @project, current: "edit" %>
 <% end %>
 
 <div class="row">

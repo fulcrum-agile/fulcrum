@@ -2,6 +2,16 @@ var executeAttachinary = require('libs/execute_attachinary');
 var KeycutView = require('views/keycut_view');
 
 $(function() {
+  $('.toggle-navbar').click(function(e) {
+      e.preventDefault();
+
+      if($("#navbar").is(':hidden')) {
+        showNavbar();
+      } else {
+        hideNavbar()
+      }
+  });
+
   $('#add_story').click(function() {
     window.projectView.newStory();
 
@@ -109,3 +119,26 @@ $(function() {
 
   executeAttachinary();
 });
+
+function showNavbar() {
+  $('#navbar').show();
+  $('.toggle-navbar.more').hide();
+  $('.toggle-navbar.less').show();
+}
+
+function hideNavbar() {
+  $('#navbar').hide();
+  $('.toggle-navbar.more').show();
+  $('.toggle-navbar.less').hide();
+}
+
+function showSidebar() {
+  $("#sidebar-wrapper").show();
+  $('.click-overlay').show();
+}
+
+function hideSidebar() {
+  $('.click-overlay').off('click');
+  $("#sidebar-wrapper").hide();
+  $('.click-overlay').hide();
+}
