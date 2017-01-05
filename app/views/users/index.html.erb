@@ -1,7 +1,3 @@
-<% content_for :sidebar do %>
-  <%= render 'projects/nav', project: @project %>
-<% end %>
-
 <div class="row">
   <% if policy(User).manage? %>
     <div class="col-xs-12 col-sm-6">
