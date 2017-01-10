@@ -17,7 +17,17 @@
   </div>
 <% end %>
 
-<div id="project-stories">
+<% content_for :right_menu do %>
+  <%= form_tag '#', id: 'form_search' do %>
+    <input type="text" name="q" placeholder="Search" value="" class="form-control input-sm"/>
+  <% end %>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'navbar', project: @project %>
+<% end %>
+
+<div class="project-stories">
   <%= content_tag :table,
     class: 'stories',
     width: '100%',
@@ -28,7 +38,7 @@
     } do %>
     <tbody>
       <tr>
-      <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
+      <% if !Fulcrum::Application.config.fulcrum.column_order || Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
         <td data-column-view="done"></td>
         <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
         <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>

@@ -13,8 +13,6 @@ var Central = module.exports = {
   start: function() {
     var columnViews = {};
 
-    $('.selectpicker').selectpicker();
-
     $('[data-column-view]').each(function() {
       var data = $(this).data();
       var column = new ColumnView({

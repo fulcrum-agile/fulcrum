@@ -88,7 +88,7 @@ ul#primary-nav li {
 }
 
 #title_bar {
-  background: #E9E9E9;
+  background: $lightgrey-1;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
   line-height: 140%;
@@ -101,7 +101,7 @@ ul#primary-nav li {
   .project-title {
     text-decoration: none;
     font-weight: 600;
-    color: #444;
+    color: $darkgrey-2;
     transition: 0.3s ease color;
 
     &:hover {
@@ -109,7 +109,9 @@ ul#primary-nav li {
     }
   }
 
-  #right-menu {
+  .right-menu {
+    float: right;
+
     > .dropdown {
       display: inline;
     }
@@ -117,18 +119,18 @@ ul#primary-nav li {
     button {
       text-decoration: none;
       font-weight: 600;
-      color: #444444;
+      color: $darkgrey-2;
 
       &:focus {
         outline: none;
       }
     }
 
-    form {
+    #form_search, .form_locale {
       display: inline;
 
       select {
-        color: #444444;
+        color: $darkgrey-2;
         font-weight: 600;
         font-size: 14px;
       }
@@ -152,7 +154,7 @@ ul#primary-nav li {
           }
 
           &:focus, span:focus {
-            outline: none !important;
+            outline: none;
           }
         }
       }
@@ -166,9 +168,9 @@ ul#primary-nav li {
   }
 
   div.velocity {
-    font-size: 1.2em;
-    display: inline;
     position: relative;
+    display: inline;
+    font-size: 1.2em;
 
     div.velocity_override_container {
       width: 220px;
@@ -229,11 +231,15 @@ ul#primary-nav li {
   margin: 0.3em 0;
 }
 
-#navbar {
-  background: #E9E9E9;
+.navbar {
+  background: $lightgrey-1;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  min-height: 0;
 
   .nav-pills {
-    li {
+    .nav-item {
       &.active {
         a {
           background-color: transparent;
@@ -249,7 +255,7 @@ ul#primary-nav li {
         text-align: center;
         text-transform: uppercase;
         font-weight: 800;
-        color: #444444;
+        color: $darkgrey-2;
         transition: 0.4s ease all;
 
         &:before {
@@ -257,7 +263,7 @@ ul#primary-nav li {
           width: 1px;
           position: absolute;
           height: 55%;
-          background-color: #d4d4d4;
+          background-color: $lightgrey-2;
           right: 0;
         }
 
@@ -288,7 +294,7 @@ ul#primary-nav li {
 }
 
 .toggle-navbar {
-  color: #444;
+  color: $darkgrey-2;
   transition: 0.3s ease color;
 
   &:hover {
@@ -348,7 +354,7 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   text-align: left;
-  background: #444;
+  background: $darkgrey-2;
   color: #eee;
   padding: 0.4em 0.2em 0.3em 0.7em;
   text-transform: uppercase;
@@ -490,7 +496,7 @@ div.story-title abbr.initials {
 }
 
 .story.release {
-  background-color: #444;
+  background-color: $darkgrey-2;
   color: white;
 }
 .story.release:hover {
@@ -848,13 +854,9 @@ div#keycut-help {
   }
 }
 
-#project-stories {
+.project-stories {
   height: 100%;
   display: inline-block;
   position: absolute;
   padding-top: 2px;
-}
-
-.hidden {
-  display: none;
 }

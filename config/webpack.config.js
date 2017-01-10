@@ -40,8 +40,7 @@ var config = {
 
   module: {
     loaders: [
-      { test: /\.ejs$/, loader: 'ejs-compiled' },
-      { test: /\.css$/, loader: 'style!css'}
+      { test: /\.ejs$/, loader: 'ejs-compiled' }
     ]
   },
 

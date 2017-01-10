@@ -1,14 +1,19 @@
 var executeAttachinary = require('libs/execute_attachinary');
 var KeycutView = require('views/keycut_view');
 
+var $navbar = $(".navbar");
+var $navbarToggle = $('.toggle-navbar.more');
+var $sidebarToggleIcon = $("#sidebar-toggle").children('.mi');
+var $sidebarWrapper = $("#sidebar-wrapper");
+
 $(function() {
   $('.toggle-navbar').click(function(e) {
       e.preventDefault();
 
-      if($("#navbar").is(':hidden')) {
+      if($navbar.is(':hidden')) {
         showNavbar();
       } else {
-        hideNavbar()
+        hideNavbar();
       }
   });
 
@@ -74,27 +79,23 @@ $(function() {
       };
     });
 
-  $("#sidebar-wrapper").mouseenter(function() {
-    var sidebar = $(this);
-    var timeoutId = setTimeout(function() {
-      sidebar.toggleClass("open");
-    }, 500);
-    sidebar.mouseleave(function() {
-      clearTimeout(timeoutId);
-      sidebar.removeClass("open");
-    });
+  $sidebarWrapper.mouseenter(_.debounce(function(){
+    $sidebarWrapper.toggleClass('open');
+  }, 500));
+
+  $sidebarWrapper.mouseleave(function(){
+    $sidebarWrapper.removeClass('open');
   });
-  
+
   $("#sidebar-toggle").click(function(e) {
     e.preventDefault();
-    var wrapper = $("#sidebar-wrapper");
-    
-    if (wrapper.hasClass('collapsed') == true) 
-      $(this).html('<i class="mi md-18 mi--sidebar">close</i>');
-    else 
-      $(this).html('<i class="mi md-18 mi--sidebar">menu</i>');
-    
-    wrapper.toggleClass('collapsed')
+
+    if ($sidebarWrapper.hasClass('collapsed'))
+      $sidebarToggleIcon.text('close');
+    else
+      $sidebarToggleIcon.text('menu');
+
+    $sidebarWrapper.toggleClass('collapsed')
   });
 
   $('.tag-tooltip').tooltip();
@@ -121,24 +122,11 @@ $(function() {
 });
 
 function showNavbar() {
-  $('#navbar').show();
-  $('.toggle-navbar.more').hide();
-  $('.toggle-navbar.less').show();
+  $navbar.show();
+  $navbarToggle.hide();
 }
 
 function hideNavbar() {
-  $('#navbar').hide();
-  $('.toggle-navbar.more').show();
-  $('.toggle-navbar.less').hide();
-}
-
-function showSidebar() {
-  $("#sidebar-wrapper").show();
-  $('.click-overlay').show();
-}
-
-function hideSidebar() {
-  $('.click-overlay').off('click');
-  $("#sidebar-wrapper").hide();
-  $('.click-overlay').hide();
+  $navbar.hide();
+  $navbarToggle.show();
 }

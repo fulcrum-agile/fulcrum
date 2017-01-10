@@ -15,15 +15,13 @@
 
       <div id="page-content-wrapper">
         <div id="title_bar">
-          <a href="#menu-toggle" class="btn btn-default menu-toggle menu-toggle-closed">
-            <i class="mi md-dark">menu</i>
-          </a>
-
-          <div id="right-menu" style="float: right">
+          <div class="right-menu">
             <%= yield :right_menu %>
 
-            <%= form_tag locales_path, method: :put do  %>
-              <%= select_tag 'locale', options_for_select(LocalesController::LOCALES, I18n.locale), class: 'locale-change selectpicker language-dropdown' %>
+            <%= form_tag locales_path, method: :put, class: "form_locale" do  %>
+              <%= select_tag 'locale',
+                  options_for_select(LocalesController::LOCALES, I18n.locale),
+                  class: 'locale-change language-dropdown' %>
             <% end %>
 
             <% if current_user %>
@@ -71,17 +69,17 @@
           </div>
 
           <% if session[:current_team_slug] && current_team.try(:logo) %>
-            <%= cl_image_tag(current_team.logo.path, { size: '32x32', crop: :fill, radius: 5, border: '1px_solid_black' }) %>
+            <%= team_logo(current_team.logo.path) %>
           <% else %>
             <%= image_tag 'logo.png', width: 32, height: 32 %>
           <% end %>
           <%= yield :title_bar %>
-          <a href="" class="toggle-navbar more">
+          <a href="#" class="toggle-navbar more">
             <i class="mi md-22">expand_more</i>
           </a>
         </div>
 
-        <div id="navbar">
+        <div class="navbar">
           <%= yield :navbar %>
         </div>
 

@@ -20,19 +20,19 @@ module.exports = Backbone.View.extend({
     var icon = "";
     switch(this.options.columnView.id) {
     case 'done' :
-      icon = '<i class="mi md-18 mi--sidebar">done</i> ';
+      icon = '<i class="mi md-18 sidebar-icon">done</i> ';
       break;
     case 'in_progress' :
-      icon = '<i class="mi md-18 mi--sidebar">inbox</i> ';
+      icon = '<i class="mi md-18 sidebar-icon">inbox</i> ';
       break;
     case 'backlog' :
-      icon = '<i class="mi md-18 mi--sidebar">list</i> ';
+      icon = '<i class="mi md-18 sidebar-icon">list</i> ';
       break;
     case 'chilly_bin' :
-      icon = '<i class="mi md-18 mi--sidebar">ac_unit</i> ';
+      icon = '<i class="mi md-18 sidebar-icon">ac_unit</i> ';
       break;
     case 'search_results' :
-      icon = '<i class="mi md-18 mi--sidebar">search</i> ';
+      icon = '<i class="mi md-18 sidebar-icon">search</i> ';
       break;
     }
     this.$el.html(icon + this.options.columnView.name());

@@ -5,5 +5,3 @@ require('jquery.scrollto');
 require('vendor/tag-it');
 require('jquery.caret');
 require('vendor/at.js');
-require('bootstrap-select');
-require('bootstrap-select/dist/css/bootstrap-select.css')
