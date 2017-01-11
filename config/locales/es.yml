@@ -5,6 +5,7 @@ es:
   log in:   "Iniciar sesión"
   sign up:  "Regístrate"
   edit:     "Editar"
+  settings: "Ajustes"
   reports:  "Informes"
   back:     "Atras"
   import:   "Importar"
@@ -25,6 +26,7 @@ es:
   day:      "Day"
   accepted_points: "Puntos aceptados"
   change team: "Cambiar Equipo"
+  team: "Equipo"
 
   save: "Guardar"
   delete: "Borrar"

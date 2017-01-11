@@ -5,6 +5,7 @@ pt-BR:
   log in:   "Entrar"
   sign up:  "Inscreva-se"
   edit:     "Editar"
+  settings: "Configurações"
   reports:  "Relatórios"
   back:     "Voltar"
   import:   "Importar"
@@ -25,6 +26,7 @@ pt-BR:
   day:      "Dia"
   accepted_points: "Pontos Aceitos"
   change team: "Trocar de Equipe"
+  team: "Equipe"
 
   save: "Salvar"
   delete: "Apagar"

@@ -1,7 +1,22 @@
 var executeAttachinary = require('libs/execute_attachinary');
 var KeycutView = require('views/keycut_view');
 
+var $navbar = $(".navbar");
+var $navbarToggle = $('.toggle-navbar.more');
+var $sidebarToggleIcon = $("#sidebar-toggle").children('.mi');
+var $sidebarWrapper = $("#sidebar-wrapper");
+
 $(function() {
+  $('.toggle-navbar').click(function(e) {
+      e.preventDefault();
+
+      if($navbar.is(':hidden')) {
+        showNavbar();
+      } else {
+        hideNavbar();
+      }
+  });
+
   $('#add_story').click(function() {
     window.projectView.newStory();
 
@@ -64,16 +79,23 @@ $(function() {
       };
     });
 
-  $(".menu-toggle").click(function(e) {
+  $sidebarWrapper.mouseenter(_.debounce(function(){
+    $sidebarWrapper.toggleClass('open');
+  }, 500));
+
+  $sidebarWrapper.mouseleave(function(){
+    $sidebarWrapper.removeClass('open');
+  });
+
+  $("#sidebar-toggle").click(function(e) {
     e.preventDefault();
-    if($("#sidebar-wrapper").is(':hidden')) {
-      $('.click-overlay').on('click', function() {
-        hideSidebar();
-      });
-      showSidebar();
-    } else {
-      hideSidebar();
-    }
+
+    if ($sidebarWrapper.hasClass('collapsed'))
+      $sidebarToggleIcon.text('close');
+    else
+      $sidebarToggleIcon.text('menu');
+
+    $sidebarWrapper.toggleClass('collapsed')
   });
 
   $('.tag-tooltip').tooltip();
@@ -99,13 +121,12 @@ $(function() {
   executeAttachinary();
 });
 
-function showSidebar() {
-  $("#sidebar-wrapper").show();
-  $('.click-overlay').show();
+function showNavbar() {
+  $navbar.show();
+  $navbarToggle.hide();
 }
 
-function hideSidebar() {
-  $('.click-overlay').off('click');
-  $("#sidebar-wrapper").hide();
-  $('.click-overlay').hide();
+function hideNavbar() {
+  $navbar.hide();
+  $navbarToggle.show();
 }

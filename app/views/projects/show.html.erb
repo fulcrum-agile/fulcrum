@@ -1,49 +1,60 @@
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
 <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
-<% content_for :sidebar do %>
-  <%= render 'projects/nav', project: @project %>
-<% end %>
+<div id="sidebar-wrapper" class="collapsed">
+  <%= render 'sidebar' %>
+</div>
 
 <% content_for :title_bar do %>
-  <div id="velocity" class="velocity"></div>
   <div class="project_nav">
+    <%= link_to @project.name , @project, class: "project-title" %>
+    <div id="velocity" class="velocity"></div>
+
     <a id="add_story" class="btn btn-default" href="#">
       <i class="mi md-light md-18 md-add">add</i>
       <%= t('add story') %>
     </a>
-    <%= form_tag '#', id: 'form_search' do %>
-      <input type="text" name="q" placeholder="Search" value=""/>
-    <% end %>
   </div>
 <% end %>
 
-<%= content_tag :table,
-  class: 'stories',
-  width: '100%',
-  data: {
-    project: @project.to_json,
-    users: @project.users.to_json,
-    current_user: current_user.to_json
-  } do %>
-  <tbody>
-    <tr>
-    <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
-      <td data-column-view="done"></td>
-      <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
-      <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>
-      <td data-column-view="chilly_bin" data-connect="#backlog,#in_progress"></td>
-    <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
-      <td data-column-view="chilly_bin" data-connect="#backlog,#in_progress"></td>
-      <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>
-      <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
-      <td data-column-view="done"></td>
-    <% end %>
-    <td style="display: none;" data-column-view="epic" data-hideable="false"></td>
-    <td style="display: none;" data-column-view="search_results"></td>
-    </tr>
-  </tbody>
+<% content_for :right_menu do %>
+  <%= form_tag '#', id: 'form_search' do %>
+    <input type="text" name="q" placeholder="Search" value="" class="form-control input-sm"/>
+  <% end %>
 <% end %>
+
+<% content_for :navbar do %>
+  <%= render 'navbar', project: @project %>
+<% end %>
+
+<div class="project-stories">
+  <%= content_tag :table,
+    class: 'stories',
+    width: '100%',
+    data: {
+      project: @project.to_json,
+      users: @project.users.to_json,
+      current_user: current_user.to_json
+    } do %>
+    <tbody>
+      <tr>
+      <% if !Fulcrum::Application.config.fulcrum.column_order || Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
+        <td data-column-view="done"></td>
+        <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
+        <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>
+        <td data-column-view="chilly_bin" data-connect="#backlog,#in_progress"></td>
+      <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
+        <td data-column-view="chilly_bin" data-connect="#backlog,#in_progress"></td>
+        <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>
+        <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
+        <td data-column-view="done"></td>
+      <% end %>
+      <td style="display: none;" data-column-view="epic" data-hideable="false"></td>
+      <td style="display: none;" data-column-view="search_results"></td>
+      </tr>
+    </tbody>
+  <% end %>
+</div>
 
 <div class="loading_screen">
   <div class="spinner">

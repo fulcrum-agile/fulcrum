@@ -1,5 +1,11 @@
-<% content_for :sidebar do %>
-  <%= render 'projects/nav', project: @project %>
+<% content_for :navbar do %>
+  <%= render 'projects/navbar', project: @project %>
+<% end %>
+
+<% content_for :title_bar do %>
+  <div class="project_nav">
+    <%= link_to @project.name, @project, class: 'project-title' %>
+  </div>
 <% end %>
 
 <div class="row">

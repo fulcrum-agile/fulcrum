@@ -128,7 +128,7 @@ describe "Stories" do
         "chilly_bin"  => "Chilly Bin"
       }
 
-      find('.menu-toggle').trigger 'click'
+      find('#sidebar-toggle').trigger 'click'
 
       columns.each do |column, button_text|
         selector = "table.stories td.#{column}_column"
@@ -147,7 +147,7 @@ describe "Stories" do
         expect(page).to have_css(selector)
 
         # close the sidebar
-        find('.click-overlay').trigger 'click'
+        find('#sidebar-toggle').trigger 'click'
 
         # Hide the column with the 'close' button in the column header
         within("#{selector} .column_header") do
@@ -156,7 +156,7 @@ describe "Stories" do
         expect(page).not_to have_css(selector)
 
         # open sidebar again
-        find('.menu-toggle').trigger 'click'
+        find('#sidebar-toggle').trigger 'click'
       end
     end
 
@@ -167,7 +167,7 @@ describe "Stories" do
       selector = "table.stories td.search_results_column"
       expect(page).not_to have_css(selector)
 
-      find('.menu-toggle').trigger 'click'
+      find('#sidebar-toggle').trigger 'click'
 
       # Show the column
       within('#column-toggles') do
@@ -176,7 +176,7 @@ describe "Stories" do
       expect(page).to have_css(selector)
 
       # close the sidebar
-      find('.click-overlay').trigger 'click'
+      find('#sidebar-toggle').trigger 'click'
 
       # Hide the column with the 'close' button in the column header
       within("#{selector} .column_header") do

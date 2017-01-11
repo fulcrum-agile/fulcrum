@@ -17,11 +17,12 @@ a img {
 }
 
 #wrapper {
-  padding-left: 0;
+  padding-left:0;
 }
 
 #page-content-wrapper {
   width: 100%;
+  height: 100%;
   position: absolute;
   padding-top: 20px;
 
@@ -87,26 +88,94 @@ ul#primary-nav li {
 }
 
 #title_bar {
-  background: #E9E9E9;
-  border-bottom: 1px solid #d5d5d5;
+  background: $lightgrey-1;
   padding: 5px 10px 3px 10px;
   font-size: 1.0em;
   line-height: 140%;
   margin-bottom: 0.5em;
-  color: #5e6469;
+  color: $titlebar-text;
   position: relative;
   margin: -20px 0 0;
-  padding: 10px 1em;
+  padding: 5px;
+
+  .project-title {
+    text-decoration: none;
+    font-weight: 600;
+    color: $darkgrey-2;
+    transition: 0.3s ease color;
+
+    &:hover {
+      color: $darkred-1;
+    }
+  }
+
+  .right-menu {
+    float: right;
+
+    > .dropdown {
+      display: inline;
+    }
+
+    button {
+      text-decoration: none;
+      font-weight: 600;
+      color: $darkgrey-2;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    #form_search, .form_locale {
+      display: inline;
+
+      select {
+        color: $darkgrey-2;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .form-control {
+        width: auto;
+        display: inline;
+      }
+
+      .btn-group {
+        width: auto;
+
+        button {
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          width: auto;
+
+          &:active {
+            box-shadow: none;
+          }
+
+          &:focus, span:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+
+    .locale-change {
+      border: 0;
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
 
   div.velocity {
-    font-size: 1.2em;
-    float: right;
     position: relative;
+    display: inline;
+    font-size: 1.2em;
 
     div.velocity_override_container {
       width: 220px;
       position: absolute;
-      right: 0;
+      left: 0;
       top: 30px;
       background: #efefef;
       border: 1px solid #ccc;
@@ -162,12 +231,95 @@ ul#primary-nav li {
   margin: 0.3em 0;
 }
 
+.navbar {
+  background: $lightgrey-1;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  min-height: 0;
+
+  .nav-pills {
+    .nav-item {
+      &.active {
+        .nav-link {
+          background-color: transparent;
+          border-bottom: 2px solid $darkred-1;
+          color: $darkred-1;
+        }
+      }
+
+      .nav-link {
+        border-radius: 0;
+        padding: 5px 15px;
+        min-width: 80px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: $darkgrey-2;
+        transition: 0.4s ease all;
+
+        &:focus {
+          background-color: inherit;
+        }
+
+        &:before {
+          content: ' ';
+          width: 1px;
+          position: absolute;
+          height: 55%;
+          background-color: $lightgrey-2;
+          right: 0;
+        }
+
+        &:after {
+          background: $darkred-1;
+          bottom: -2px;
+          content: ' ';
+          height: 2px;
+          left: 0;
+          position: absolute;
+          transform: scaleX(0);
+          transform-origin: 50% 50%;
+          transition: 0.3s ease all;
+          width: 100%;
+        }
+
+        &:hover {
+          background: transparent;
+          color: $darkred-1;
+
+          &:after {
+            transform: scaleX(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.toggle-navbar {
+  color: $darkgrey-2;
+  transition: 0.3s ease color;
+
+  &:hover {
+    color: $darkred-1;
+  }
+
+  &.less {
+    padding-left: 10px;
+    cursor: pointer;
+  }
+
+  &.more {
+    display: none;
+  }
+}
+
 #main {
-  margin-top: 2px;
+  margin: 0;
   margin-bottom: 2px;
-  margin-right: 0;
-  margin-left: 0;
   position: relative;
+  height: 100%;
 }
 
 html.stories, html.stories body, html.stories div#main {
@@ -206,7 +358,7 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   text-align: left;
-  background: #444;
+  background: $darkgrey-2;
   color: #eee;
   padding: 0.4em 0.2em 0.3em 0.7em;
   text-transform: uppercase;
@@ -348,7 +500,7 @@ div.story-title abbr.initials {
 }
 
 .story.release {
-  background-color: #444;
+  background-color: $darkgrey-2;
   color: white;
 }
 .story.release:hover {
@@ -704,4 +856,11 @@ div#keycut-help {
     margin-top: 5px;
     margin-bottom: 5px;
   }
+}
+
+.project-stories {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  padding-top: 2px;
 }

@@ -8,6 +8,7 @@ en:
   log in:   "Log in"
   sign up:  "Sign up"
   edit:     "Edit"
+  settings: "Settings"
   reports:  "Reports"
   delete:   "Delete"
   back:     "Back"
@@ -29,6 +30,7 @@ en:
   day:      "Day"
   accepted_points: "Accepted Points"
   change team: "Change Team"
+  team: "Team"
 
   save: "Save"
   cancel: "Cancel"

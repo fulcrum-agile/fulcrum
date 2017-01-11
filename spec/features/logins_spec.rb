@@ -40,8 +40,7 @@ describe "Logins" do
       click_button 'Sign in'
 
       expect(page).to have_selector('h1', text: I18n.t('teams.switch'))
-      find('.menu-toggle').trigger 'click'
-      expect(page).to have_selector('.sidebar-nav li:nth-child(4)', text: 'Test User')
+      expect(page).to have_selector('.user-dropdown', text: 'Test User')
     end
 
 
@@ -84,7 +83,7 @@ describe "Logins" do
 
     it "logs out the user" do
       visit root_path
-      find('.menu-toggle').trigger 'click'
+      find('.user-dropdown').trigger 'click'
       click_on 'Log out'
 
       expect(page).to have_selector('h1', text: 'Log In')
