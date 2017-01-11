@@ -1,11 +1,19 @@
-<%= content_tag :div, id: 'flash-messages' do %>
-  <% flash.each do |key, value| %>
-    <%= content_tag :div, class: "alert alert-dismissible #{flash_key_to_bootstrap_class(key)}" do %>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+<% flash.each do |key, value| %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3">
 
-      <%= value %>
-    <% end %>
-  <% end %>
+        <div class="flash-message">
+          <%= content_tag :div, class: "alert alert-dismissible #{flash_key_to_bootstrap_class(key)}", role: 'alert' do %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="<%= t('close') %>">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+            <%= value %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
 <% end %>

@@ -4,9 +4,11 @@
 en:
   cm-central:  "CM42 Central"
 
-  log out:  "Log out"
-  log in:   "Log in"
-  sign up:  "Sign up"
+  welcome: "Welcome to CM42 Central"
+
+  logout:  "Log out"
+  login:   "Log in"
+  sign_up:  "Sign up"
   edit:     "Edit"
   settings: "Settings"
   reports:  "Reports"
@@ -258,9 +260,9 @@ en:
     admin_off: Make just Member
 
   teams:
-    create: 'Create new Team'
+    create: 'Create new team'
     update: 'Update Team'
-    switch: 'Change to another Team'
+    switch: 'Change to another team'
     select: "Select Team"
     team was successfully created: 'Team was successfully created'
     team was successfully updated: 'Team was successfully updated'

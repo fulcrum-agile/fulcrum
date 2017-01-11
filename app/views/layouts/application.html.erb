@@ -1,99 +1,108 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
-    <%= csrf_meta_tag %>
-    <%= stylesheet_link_tag :application %>
-    <%= javascript_include_tag "https://www.authy.com/form.authy.min.js" %>
-    <%= stylesheet_link_tag "https://www.authy.com/form.authy.min.css" %>
-  </head>
-  <body>
-    <div id="wrapper">
-      <div class="click-overlay">
-      </div>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag :application %>
+  <%= javascript_include_tag "https://www.authy.com/form.authy.min.js" %>
+  <%= stylesheet_link_tag "https://www.authy.com/form.authy.min.css" %>
+  <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Noto+Sans:400,700" %>
+</head>
+<body>
+<div class="click-overlay"></div>
 
-      <div id="page-content-wrapper">
-        <div id="title_bar">
-          <div class="right-menu">
-            <%= yield :right_menu %>
+<div class="content-wrapper">
+  <div class="top-bar">
+    <div class="right-menu">
+      <%= yield :right_menu %>
 
-            <%= form_tag locales_path, method: :put, class: "form_locale" do  %>
-              <%= select_tag 'locale',
-                  options_for_select(LocalesController::LOCALES, I18n.locale),
-                  class: 'locale-change language-dropdown' %>
-            <% end %>
+      <%= form_tag locales_path, method: :put, class: "form_locale" do  %>
+        <%= select_tag 'locale',
+            options_for_select(LocalesController::LOCALES, I18n.locale),
+            class: 'locale-change language-dropdown' %>
+      <% end %>
 
-            <% if current_user %>
-              <% if current_team %>
-                <div class="dropdown">
-                  <button class="btn btn-link team-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <%= t('team') %>
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                    <li class="dropdown-header">
-                      <%= session[:current_team_slug] && current_team.try(:name) || t('cm-central') %>
-                    </li>
-                    <% current_team.projects.each do |project| %>
-                      <li><%= link_to project.name, project %></li>
-                    <% end %>
-                    <li class="divider"></li>
-                    <% current_user.teams.each do |team| %>
-                      <li><%= link_to team.name, switch_teams_path(team_slug: team.slug) %></li>
-                    <% end %>
-                    <li class="divider"></li>
-                    <li>
-                      <%= link_to t('settings'), edit_team_path(current_team) %>
-                    </li>
-                  </ul>
-                </div>
+      <% if current_user %>
+        <% if current_team %>
+          <div class="dropdown">
+            <button class="btn btn-link team-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= t('team') %>
+              <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+              <li class="dropdown-header">
+                <%= session[:current_team_slug] && current_team.try(:name) || t('cm-central') %>
+              </li>
+
+              <% current_team.projects.each do |project| %>
+                <li><%= link_to project.name, project %></li>
               <% end %>
 
-              <div class="dropdown">
-                <button class="btn btn-link user-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%= current_user.name %>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-                  <li>
-                    <%= sidebar_link t('edit'), edit_user_registration_path %>
-                  </li>
-                  <% if current_user %>
-                    <li class="divider"></li>
-                    <li><%= link_to t('log out'), destroy_user_session_path, method: :delete %></li>
-                  <% end %>
-                </ul>
-              </div>
-            <% end %>
+              <li class="divider"></li>
+
+              <% current_user.teams.each do |team| %>
+                <li><%= link_to team.name, team %></li>
+              <% end %>
+
+              <li class="divider"></li>
+
+              <li>
+                <%= link_to t('settings'), edit_team_path(current_team) %>
+              </li>
+            </ul>
           </div>
+        <% end %>
 
-          <% if session[:current_team_slug] && current_team.try(:logo) %>
-            <%= team_logo(current_team.logo.path) %>
-          <% else %>
-            <%= image_tag 'logo.png', width: 32, height: 32 %>
-          <% end %>
-          <%= yield :title_bar %>
-          <a href="#" class="toggle-navbar more">
-            <i class="mi md-22">expand_more</i>
-          </a>
-        </div>
+        <div class="dropdown">
+          <button class="btn btn-link user-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= current_user.name %>
+            <span class="caret"></span>
+          </button>
 
-        <div class="navbar">
-          <%= yield :navbar %>
-        </div>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+            <li>
+              <%= sidebar_link t('edit'), edit_user_registration_path %>
+            </li>
 
-        <div id="main">
-          <%= render 'flash' %>
-          <%= yield %>
+            <% if current_user %>
+              <li class="divider"></li>
+
+              <li><%= link_to t('logout'), destroy_user_session_path, method: :delete %></li>
+            <% end %>
+          </ul>
         </div>
+      <% end %>
       </div>
-    </div>
 
-    <%= javascript_include_tag *webpack_asset_paths('application') %>
-    <%= javascript_include_tag 'i18n/translations' %>
-    <%= javascript_include_tag :attachinary %>
-    <%= yield :charts_data %>
-    <%= cloudinary_js_config %>
-  </body>
+    <% if session[:current_team_slug] && current_team.try(:logo) %>
+      <%= team_logo(current_team.logo.path) %>
+    <% else %>
+      <%= image_tag 'logo.png', width: 32, height: 32, class: 'top-bar-logo' %>
+    <% end %>
+
+    <%= yield :title_bar %>
+
+    <a href="#" class="toggle-navbar more">
+      <i class="mi md-22">expand_more</i>
+    </a>
+  </div>
+
+  <div class="navbar">
+    <%= yield :navbar %>
+  </div>
+
+  <div class="main" id="main">
+    <%= render 'flash' %>
+    <%= yield %>
+  </div>
+</div>
+
+<%= javascript_include_tag *webpack_asset_paths('application') %>
+<%= javascript_include_tag 'i18n/translations' %>
+<%= javascript_include_tag :attachinary %>
+<%= yield :charts_data %>
+<%= cloudinary_js_config %>
+</body>
 </html>

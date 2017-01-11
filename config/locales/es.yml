@@ -1,9 +1,11 @@
 es:
   cm-central:  "CM42 Central"
 
-  log out:  "Terminar sesión"
-  log in:   "Iniciar sesión"
-  sign up:  "Regístrate"
+  welcome: "Bievenido ao CM42 Central"
+
+  logout:  "Terminar sesión"
+  login:   "Iniciar sesión"
+  sign_up:  "Regístrate"
   edit:     "Editar"
   settings: "Ajustes"
   reports:  "Informes"
