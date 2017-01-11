@@ -93,7 +93,7 @@ ul#primary-nav li {
   font-size: 1.0em;
   line-height: 140%;
   margin-bottom: 0.5em;
-  color: #5e6469;
+  color: $titlebar-text;
   position: relative;
   margin: -20px 0 0;
   padding: 5px 5px 0px 5px;
@@ -241,14 +241,14 @@ ul#primary-nav li {
   .nav-pills {
     .nav-item {
       &.active {
-        a {
+        .nav-link {
           background-color: transparent;
           border-bottom: 2px solid $darkred-1;
           color: $darkred-1;
         }
       }
 
-      a {
+      .nav-link {
         border-radius: 0;
         padding: 5px 15px;
         min-width: 80px;
@@ -257,6 +257,10 @@ ul#primary-nav li {
         font-weight: 800;
         color: $darkgrey-2;
         transition: 0.4s ease all;
+
+        &:focus {
+          background-color: inherit;
+        }
 
         &:before {
           content: ' ';
