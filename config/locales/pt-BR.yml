@@ -268,6 +268,7 @@ pt-BR:
     select: "Selecionar Equipe"
     team was successfully created: 'Equipe foi criado com sucesso'
     team was successfully updated: 'Equipe foi atualizado com sucesso'
+    no_teams_found: "Oops! Você não tem equipes."
 
   admin:
     users:
@@ -293,3 +294,7 @@ pt-BR:
         manager: Gerente
         developer: Desenvolvedor
         guest: Convidado
+
+  card:
+    projects: "Projetos"
+    members: "Membros"
