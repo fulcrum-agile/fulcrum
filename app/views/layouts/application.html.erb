@@ -27,7 +27,7 @@
         <% if current_team %>
           <div class="dropdown">
             <button class="btn btn-link team-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= t('team') %>
+              <%= Team.model_name.human(count: 2) %>
               <span class="caret"></span>
             </button>
 
@@ -36,21 +36,20 @@
                 <%= session[:current_team_slug] && current_team.try(:name) || t('cm-central') %>
               </li>
 
-              <% current_team.projects.each do |project| %>
+              <% topbar_projects do |project| %>
                 <li><%= link_to project.name, project %></li>
               <% end %>
 
               <li class="divider"></li>
 
               <% current_user.teams.each do |team| %>
-                <li><%= link_to team.name, team %></li>
+                <li><%= link_to team.name, switch_teams_path(team_slug: team.slug) %></li>
               <% end %>
 
-              <li class="divider"></li>
-
-              <li>
-                <%= link_to t('settings'), edit_team_path(current_team) %>
-              </li>
+              <% if current_team.is_admin?(current_user) %>
+                <li class="divider"></li>
+                <li><%= link_to t('settings'), edit_team_path(current_team) %></li>
+              <% end %>
             </ul>
           </div>
         <% end %>
@@ -63,7 +62,7 @@
 
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
             <li>
-              <%= sidebar_link t('edit'), edit_user_registration_path %>
+              <%= topbar_link t('edit'), edit_user_registration_path %>
             </li>
 
             <% if current_user %>
