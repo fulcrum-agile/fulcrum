@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   get 't/:id' => 'teams#switch', as: :teams_switch
 
-  resources :teams do
+  resources :teams, except: :show do
     get :switch, on: :collection
     resources :api_tokens, only: [:create, :destroy]
   end
