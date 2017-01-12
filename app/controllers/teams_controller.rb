@@ -25,10 +25,6 @@ class TeamsController < ApplicationController
     end
   end
 
-  def show
-    redirect_to edit_team_path(current_team)
-  end
-
   # GET /teams/1/edit
   def edit
     @team = current_team
