@@ -294,7 +294,3 @@ pt-BR:
         manager: Gerente
         developer: Desenvolvedor
         guest: Convidado
-
-  card:
-    projects: "Projetos"
-    members: "Membros"

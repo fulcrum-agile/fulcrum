@@ -295,8 +295,3 @@ en:
         manager: Manager
         developer: Developer
         guest: Guest
-
-  card:
-    projects: "Projects"
-    members: "Members"
-

@@ -485,7 +485,3 @@ es:
         manager: Gerente
         developer: Desarrollador
         guest: Invitado
-
-  card:
-    projects: "Proyecto"
-    members: "Miembros"

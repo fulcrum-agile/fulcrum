@@ -1,0 +1,19 @@
+.scaleIn-animation {
+  transform: scale(0);
+  animation-name: scaleIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes scaleIn{
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,89 @@
+.card {
+  border-radius: 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  border: 0;
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  .panel-heading {
+    background-color: inherit;
+    font-weight: bold;
+    color: $darkgrey-2;
+    border-bottom: 1px solid $lightgrey-11;
+
+    .mi {
+      z-index: 1;
+      position: relative;
+      display: inline;
+      cursor: pointer;
+      padding: 0px 5px;
+      color: $darkgrey-3;
+
+      &:hover {
+        color: $darkgrey-2;
+
+        &:before {
+          transform: scale(1);
+        }
+      }
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        left: 2px;
+        top: -3px;
+        border-radius: 30px;
+        background-color: $darkgrey-4;
+        z-index: -1;
+        transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all;
+        transform: scale(0);
+      }
+    }
+  }
+
+  .panel-body {
+    .counter {
+      text-align: center;
+
+      .counter-description {
+        color: $darkgrey-3;
+        text-transform: uppercase;
+      }
+
+      .counter-value {
+        display: block;
+        font-size: 1.8em;
+        font-weight: 600;
+        color: $darkgrey-3;
+      }
+    }
+  }
+
+  .card-footer {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 8pt;
+    color: $darkgrey-2;
+    border-top: 1px solid $lightgrey-3;
+    background-color: white;
+    border-radius: 0;
+    padding: 5px 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $lightgrey-11;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

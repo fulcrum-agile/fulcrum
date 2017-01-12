@@ -9,11 +9,6 @@ var $sidebarWrapper = $("#sidebar-wrapper");
 $(function() {
   $('[data-toggle="tooltip"]').tooltip();
 
-  $('[data-form-submit]').click(function(e) {
-    e.preventDefault();
-    $(this).closest('form').submit()
-  });
-
   $('.toggle-navbar').click(function(e) {
     e.preventDefault();
 
