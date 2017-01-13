@@ -247,6 +247,7 @@ pt-BR:
       chilly_bin: "Chilly Bin"
       search_results: "Resultados da Busca"
       epic: 'Épico'
+      search: 'Buscar'
 
     uploads:
       title: Importação de Histórias

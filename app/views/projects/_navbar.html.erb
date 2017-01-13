@@ -11,6 +11,7 @@
   <li role="presentation" class="nav-item">
     <%= link_to t('export'), project_stories_path(project, format: :csv), class: 'nav-link' %>
   </li>
+
   <% if policy(project).manage? %>
     <li role="presentation" class="nav-item <%= active_class(import_project_path(project)) %>">
       <%= link_to t('import'), import_project_path(project), class: 'nav-link' %>
@@ -22,7 +23,4 @@
       <%= link_to t('edit'), edit_project_path(project), class: 'nav-link' %>
     </li>
   <% end %>
-  <li class="nav-item toggle-navbar less">
-    <i class="mi md-22">expand_less</i>
-  </li>
 </ul>

@@ -245,6 +245,7 @@ en:
       chilly_bin: "Chilly Bin"
       search_results: "Search Results"
       epic: 'Epic'
+      search: 'Search'
 
     uploads:
       title: Import Stories

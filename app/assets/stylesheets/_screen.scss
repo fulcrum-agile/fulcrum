@@ -2,18 +2,6 @@ a img {
   border: 0;
 }
 
-.content-wrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: $lightgrey-7;
-
-  .main .row {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
 ul#primary-nav {
   text-align: right;
   background-image: image-url('logo.png');
@@ -582,12 +570,6 @@ div#keycut-help {
 
 .current-password {
   margin-top: 20px;
-}
-
-#form_search {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
 }
 
 .list-group.list-group-root {

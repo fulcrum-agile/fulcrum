@@ -3,3 +3,8 @@ body {
   color: $darkgrey-3;
   background-color: $lightgrey-7;
 }
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -236,6 +236,7 @@ es:
       chilly_bin: "Icebox"
       search_results: "Resultados de la búsqueda"
       epic: 'Epic'
+      search: 'Buscar'
 
     uploads:
       title: Historias Importadas

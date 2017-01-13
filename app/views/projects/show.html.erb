@@ -6,20 +6,25 @@
 </div>
 
 <% content_for :title_bar do %>
-  <div class="project_nav">
-    <%= link_to @project.name , @project, class: "project-title" %>
-    <div id="velocity" class="velocity"></div>
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to @project.name, @project %>
+    </li>
+  </ul>
 
-    <a id="add_story" class="btn btn-default" href="#">
-      <i class="mi md-light md-18 md-add">add</i>
-      <%= t('add story') %>
-    </a>
-  </div>
+  <p class="navbar-text velocity" id="velocity"></p>
+
+  <button type="button" class="btn btn-primary btn-sm navbar-btn" id="add_story">
+    <i class="mi md-light md-18 md-add">add</i>
+    <%= t('add story') %>
+  </button>
 <% end %>
 
 <% content_for :right_menu do %>
-  <%= form_tag '#', id: 'form_search' do %>
-    <input type="text" name="q" placeholder="Search" value="" class="form-control input-sm"/>
+  <%= form_tag '#', id: 'form_search', class: 'navbar-form navbar-left navbar-search', html: { role: 'search' } do %>
+    <div class="form-group">
+      <input type="text" name="q" placeholder="Search" class="form-control input-sm"/>
+    </div>
   <% end %>
 <% end %>
 
