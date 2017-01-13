@@ -65,7 +65,6 @@ ul#primary-nav li {
 
 .toggle-navbar {
   color: $darkgrey-2;
-  -webkit-transition: 0.3s ease color;
   transition: 0.3s ease color;
 
   &:hover {
@@ -646,7 +645,6 @@ div#keycut-help {
   .card-link {
     @for $i from 1 through 12 {
       &:nth-child(#{$i}) .card {
-        -webkit-animation-delay: #{$i * 0.15s};
         animation-delay: #{$i * 0.15s};
       }
     }
