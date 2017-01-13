@@ -257,7 +257,7 @@ es:
     select: "Seleccionar Equipo"
     team was successfully created: 'El equipo ha sido creado con éxito'
     team was successfully updated: 'El equipo ha sido actualizado correctamente'
-    no_teams_found: "Oops! No estás inscrito en un equipo"
+    no_teams_found: "Oops! No está inscrito a un equipo aún."
     new_instruction: |
       <p>Si usted no tiene una cuenta registrada, puede inscribirse en primer lugar.</p>
       <p>El primer usuario que acceda a este nuevo equipo será el administrador.</p>
