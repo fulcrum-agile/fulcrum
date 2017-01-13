@@ -1,19 +1,44 @@
-.scaleIn-animation {
-  transform: scale(0);
-  animation-name: scaleIn;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
+.animated {
+  &.scale-in {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    -webkit-animation-name: scaleIn;
+            animation-name: scaleIn;
+    -webkit-animation-duration: 0.3s;
+            animation-duration: 0.3s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+  }
+}
+
+@-webkit-keyframes scaleIn{
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  80% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 
 @keyframes scaleIn{
   0% {
-    transform: scale(0);
+    -webkit-transform: scale(0);
+            transform: scale(0);
   }
   80% {
-    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
   }
   100% {
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
 }

@@ -65,6 +65,7 @@ ul#primary-nav li {
 
 .toggle-navbar {
   color: $darkgrey-2;
+  -webkit-transition: 0.3s ease color;
   transition: 0.3s ease color;
 
   &:hover {
@@ -625,26 +626,11 @@ div#keycut-help {
   }
 }
 
-.project-stories {
-  height: 100%;
-  display: inline-block;
-  position: absolute;
-  padding-top: 2px;
-}
-
 .page-header {
-  padding-bottom: 0px;
+  padding-bottom: 0;
 
   .page-header-title {
     font-weight: 600;
-  }
-}
-
-.simple-alert {
-  .mi {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
   }
 }
 
@@ -656,10 +642,13 @@ div#keycut-help {
   }
 }
 
-.darkgrey-2 {
-  color: $darkgrey-2;
-}
-
-.uppercase {
-  text-transform: uppercase;
+.teams {
+  .card-link {
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) .card {
+        -webkit-animation-delay: #{$i * 0.15s};
+        animation-delay: #{$i * 0.15s};
+      }
+    }
+  }
 }

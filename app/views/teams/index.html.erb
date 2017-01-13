@@ -2,36 +2,47 @@
   <h1 class="top-bar-title"><%= t('teams.switch') %></h1>
 <% end %>
 
-<div class="col-md-8 col-md-offset-2">
-  <div class="page-header">
-    <h4 class="page-header-title darkgrey-2">
-      <i class="mi md-20">dashboard</i> <%= t('teams.select') %>
-      <%= link_to t('teams.create'), new_team_path, class: "btn btn-link pull-right unstyled-link" %>
-    </h4>
-  </div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="page-header">
+      <h4 class="page-header-title darkgrey-2">
+        <i class="mi md-20">dashboard</i> <%= t('teams.select') %>
+        <%= link_to t('teams.create'), new_team_path, class: "btn btn-link pull-right unstyled-link" %>
+      </h4>
+    </div>
 
-  <% @teams.each_with_index do |team, index| %>
-    <%= link_to switch_teams_path(team_slug: team.slug), class: 'card-link' do %>
-      <div class="col-md-4 col-xs-6">
-        <div class="panel panel-default card clickable scaleIn-animation" style="animation-delay: <%= index* 0.15 %>s" data-form-submit>
+    <div class="teams">
+      <% unless @teams.empty? then %>
+        <% @teams.each_with_index do |team, index| %>
+          <%= link_to switch_teams_path(team_slug: team.slug), class: 'card-link' do %>
+            <div class="col-md-4 col-xs-12">
+              <div class="panel panel-default card clickable animated scale-in">
 
-          <div class="panel-heading">
-            <%= team.name %>
-          </div>
+                <div class="panel-heading">
+                  <%= team.name %>
+                </div>
 
-          <div class="panel-body">
-            <div class="col-md-6 counter">
-              <span class="counter-description"><%= User.model_name.human(count: 2) %></span>
-              <span class="counter-value"><%= team.users.size %> </span>
+                <div class="panel-body">
+                  <div class="col-md-6 col-xs-6 counter">
+                    <span class="counter-description"><%= User.model_name.human(count: 2) %></span>
+                    <span class="counter-value"><%= team.users.size %> </span>
+                  </div>
+
+                  <div class="col-md-6 col-xs-6 counter">
+                    <span class="counter-description"><%= Project.model_name.human(count: 2) %></span>
+                    <span class="counter-value"><%= team.projects.size %> </span>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="col-md-6 counter">
-              <span class="counter-description"><%= Project.model_name.human(count: 2) %></span>
-              <span class="counter-value"><%= team.projects.size %> </span>
-            </div>
-          </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="simple-alert">
+          <i class="mi alert-icon">error_outline</i>
+          <h4 class="text-center"><%= t('teams.no_teams_found') %> <br> <%= link_to t('teams.create'), new_team_path, class: "btn btn-link unstyled-link" %></h4>
         </div>
-      </div>
-    <% end %>
-  <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

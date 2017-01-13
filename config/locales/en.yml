@@ -269,7 +269,7 @@ en:
     new_instruction: |
       <p>If you don't have a registered account, you can sign up first.</p>
       <p>The first user to sign in to this new team will become the administrator.</p>
-    no_teams_found: "Oops! You don't have teams."
+    no_teams_found: "Oops! You're not enrolled to a team yet."
 
   admin:
     users:
