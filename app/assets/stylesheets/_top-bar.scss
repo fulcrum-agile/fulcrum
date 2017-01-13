@@ -1,0 +1,152 @@
+.top-bar {
+  position: relative;
+  padding: 12px 10px;
+  height: 52px;
+  font-size: 1em;
+  line-height: 140%;
+  color: $titlebar-text;
+  background-color: $white;
+  border-bottom: 1px solid $lightgrey-2;
+
+  &-logo {
+    position: relative;
+    top: -4px;
+    margin-right: 10px;
+  }
+
+  &-title {
+    font-size: 1.5em;
+    margin: .3em 0;
+  }
+
+  .project-title {
+    text-decoration: none;
+    font-weight: 600;
+    color: $darkgrey-2;
+    transition: .3s ease color;
+
+    &:hover {
+      color: $darkred;
+    }
+  }
+
+  .right-menu {
+    float: right;
+
+    > .dropdown {
+      display: inline;
+    }
+
+    button {
+      text-decoration: none;
+      font-weight: 600;
+      color: $darkgrey-2;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    #form_search, .form_locale {
+      display: inline;
+
+      select {
+        color: $darkgrey-2;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .form-control {
+        width: auto;
+        display: inline;
+      }
+
+      .btn-group {
+        width: auto;
+
+        .btn {
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          width: auto;
+
+          &:active {
+            box-shadow: none;
+          }
+
+          &:focus, span:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+
+    .locale-change {
+      border: 0;
+      box-shadow: none;
+      background-color: transparent;
+    }
+  }
+
+  div.velocity {
+    position: relative;
+    display: inline;
+    font-size: 1.2em;
+
+    div.velocity_override_container {
+      @include border-radius(3px);
+      @include single-box-shadow;
+      width: 220px;
+      position: absolute;
+      left: 0;
+      top: 30px;
+      background: $lightgrey-8;
+      border: 1px solid $lightgrey-9;
+      z-index: 1;
+
+      ul {
+        margin: 10px;
+        padding: 0;
+
+        li {
+          list-style-type: none;
+        }
+      }
+    }
+
+    #velocity_value {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+  div.velocity.fake #velocity_value {
+    color: $darkred;
+    font-style: italic;
+  }
+
+  .project-action {
+    @extend .btn;
+    @extend .btn-link;
+    @extend .btn-xs;
+  }
+
+  #add_story {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .btn-xs;
+  }
+
+  h1 {
+    display: inline;
+  }
+
+  .project_nav {
+    display: inline;
+  }
+
+  .column-toggles-wrap {
+    float: right;
+    margin-right: 10px;
+  }
+}

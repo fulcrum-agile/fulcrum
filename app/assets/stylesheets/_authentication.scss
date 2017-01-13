@@ -1,0 +1,60 @@
+.auth {
+  &-wrapper {
+    margin: 25px auto;
+    padding: 20px;
+    background-color: $white;
+    border: 1px solid $lightgrey-4;
+    border-radius: 4px;
+  }
+
+  &-welcome {
+    margin: 25px auto;
+    color: $darkgrey-3;
+  }
+
+  &-form-group {
+    margin: 0 0 15px 0;
+  }
+
+  &-form-control {
+    margin: 0 auto;
+    border-color: $lightgrey-5;
+    border-radius: 0;
+  }
+
+  &-form-checkbox &-form-checkbox-label {
+    padding-left: 0;
+  }
+
+  &-button-submit {
+    padding: 7px 20px;
+    font-size: 14px;
+    background-color: $blue;
+    border-color: $blue;
+    border-radius: 0;
+
+    &:hover,
+    &:focus {
+      background-color: darken($blue, 5%);
+      border-color: darken($blue, 5%);
+    }
+  }
+
+  &-actions {
+    margin: 0;
+    font-size: 14px;
+
+    &-item {
+      padding-bottom: 6px;
+    }
+
+    &-link {
+      color: $darkgrey-4;
+
+      &:hover,
+      &:focus {
+        color: $darkgrey-5;
+      }
+    }
+  }
+}

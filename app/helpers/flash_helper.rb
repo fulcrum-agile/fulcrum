@@ -6,6 +6,6 @@ module FlashHelper
   }.freeze
 
   def flash_key_to_bootstrap_class(key)
-    CLASSES_MAP[key.to_sym]
+    CLASSES_MAP.fetch(key.to_sym, CLASSES_MAP[:error])
   end
 end

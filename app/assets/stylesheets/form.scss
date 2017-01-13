@@ -1,0 +1,26 @@
+.form {
+  &-error {
+    width: 450px;
+    border: 2px solid $darkred;
+    padding: 7px;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    background-color: $lightgrey-10;
+
+    &-title {
+      text-align: left;
+      font-weight: bold;
+      padding: 5px 5px 5px 15px;
+      font-size: 12px;
+      margin: -7px;
+      margin-bottom: 0px;
+      background-color: $darkred;
+      color: $white;
+    }
+
+    &-list-item {
+      font-size: 12px;
+      list-style: square;
+    }
+  }
+}

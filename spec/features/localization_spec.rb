@@ -45,7 +45,7 @@ describe "localization" do
 
       visit root_path
 
-      expect(page).to have_selector('#title_bar', text: 'Nuevo Proyecto')
+      expect(page).to have_selector('.top-bar', text: 'Nuevo Proyecto')
     end
 
   end

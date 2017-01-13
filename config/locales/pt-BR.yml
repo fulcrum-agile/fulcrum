@@ -1,9 +1,11 @@
 pt-BR:
   cm-central:  "CM42 Central"
 
-  log out:  "Sair"
-  log in:   "Entrar"
-  sign up:  "Inscreva-se"
+  welcome: "Bem-vindo ao CM42 Central"
+
+  logout:  "Sair"
+  login:   "Entrar"
+  sign_up:  "Inscreva-se"
   edit:     "Editar"
   settings: "Configurações"
   reports:  "Relatórios"

@@ -38,7 +38,7 @@ Some of the improvements we added since the end of 2015:
   - [x] fixing failing migrations
   - [x] fixing failing tests, including javascript tests
   - [x] adding phantomjs for feature tests
-  - [x] remove StoryObserver and refactor main 
+  - [x] remove StoryObserver and refactor main
   - [ ] more markdown javascript to assets
   - [ ] needs more testing and tweaking for tablets
   - [ ] Backbone code needs more refactoring and cleanup (specially moving the render from story_view to an EJS template)
@@ -128,7 +128,7 @@ Or using docker:
     $ docker-compose up
 
 You should then be able to navigate to `http://localhost:3000/` in a web browser.
-You can log in with the test username `test@example.com`, password `testpass`.
+You can log in with the test username `foo@bar.com`, password `asdfasdf`.
 
 
 Heroku setup

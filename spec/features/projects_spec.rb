@@ -24,7 +24,7 @@ describe "Projects" do
     it "shows the project list", js: true do
       visit projects_path
 
-      expect(page).to have_selector('#title_bar', text: 'New Project')
+      expect(page).to have_selector('.top-bar', text: 'New Project')
 
       within('#projects') do
         click_on 'Test Project'

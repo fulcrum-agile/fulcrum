@@ -12,9 +12,11 @@ module.exports = Backbone.View.extend({
     return this;
   },
 
-  closeWindow : function(){
-    $('#'+this.id).fadeOut(
-      function() {$('#'+this.id).remove();}
+  closeWindow: function() {
+    $('#' + this.id).fadeOut(
+      function() {
+        $('#'+this.id).remove();
+      }
     );
   }
 });
