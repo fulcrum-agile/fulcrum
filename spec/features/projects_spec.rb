@@ -60,7 +60,7 @@ describe "Projects" do
     it "edits a project" do
       visit projects_path
       within('#projects') do
-        click_on 'Edit'
+        click_on 'settings'
       end
 
       fill_in 'Name', with: 'New Project Name'
@@ -72,7 +72,7 @@ describe "Projects" do
     it "shows form errors" do
       visit projects_path
       within('#projects') do
-        click_on 'Edit'
+        click_on 'settings'
       end
 
       fill_in 'Name', with: ''

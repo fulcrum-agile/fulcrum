@@ -7,14 +7,12 @@
 <div id="projects" class="projects-list">
   <div class="row item">
     <div class="col-md-12">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <%= render 'activities_group', activities_group: Activity.grouped_activities(@projects, 1.week.ago) %>
       </div>
 
-      <div class="col-md-4">
-        <ul class="list-group">
-          <%= render @projects %>
-        </ul>
+      <div class="col-md-6">
+        <%= render @projects %>
       </div>
     </div>
   </div>
