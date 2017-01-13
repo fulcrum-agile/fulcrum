@@ -13,7 +13,7 @@
   <% @teams.each_with_index do |team, index| %>
     <%= link_to switch_teams_path(team_slug: team.slug), class: 'card-link' do %>
       <div class="col-md-4 col-xs-6">
-        <div class="panel panel-default card clickable scaleIn-animation" style="animation-delay: <%= index.to_f * 0.15 %>s" data-form-submit>
+        <div class="panel panel-default card clickable scaleIn-animation" style="animation-delay: <%= index* 0.15 %>s" data-form-submit>
 
           <div class="panel-heading">
             <%= team.name %>
