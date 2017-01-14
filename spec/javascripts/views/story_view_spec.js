@@ -673,6 +673,15 @@ describe('StoryView', function() {
 
         expect(this.view.saveEdit).not.toHaveBeenCalled();
       });
+
+      it('update uploadInProgress variable', function() {
+        this.view.model.isNew = sinon.stub().returns(true);
+        this.view.uploadInProgress = true;
+        
+        this.view.attachmentDone();
+
+        expect(this.view.uploadInProgress).toBeFalsy();
+      });
     });
 
     describe('when the story is not new', function() {
