@@ -1,20 +1,54 @@
-<li class="list-group-item">
-  <h4 class="item-title">
-    <%= link_to truncate(project.name, length: 18), project, class: 'tag-tooltip',
-      data: {toggle: "tooltip"}, title: project.name %>
-    <small class="pull-right"><%= t('velocity') %>: <%= project.iteration_service(since: 4.months.ago).velocity %> <%= t('volatility') %>: <%= number_to_percentage(project.iteration_service(since: 4.months.ago).volatility * 100.0, precision: 0) %></small>
-  </h4>
-</li>
-<li class="list-group-item">
-  <div class="btn-group">
-    <% if policy(project).update? %>
-      <%= link_to t('edit'), edit_project_path(project), class: 'btn btn-default btn-sm' %>
-    <% end %>
+<div class="col-md-6 project-item">
+  <div class="panel panel-default card animated scale-in">
+    <div class="panel-heading">
+      <%= link_to truncate(project.name, length: 18), project, class: 'card-title' %>
+      <div class="icons pull-right">
+        <%= link_to reports_project_path(project), class: 'unstyled-link', data: {toggle: 'tooltip', placement: 'top', title: t('reports')} do %>
+          <i class="mi md-20 heading-icon">insert_chart</i>
+        <% end %>
 
-    <%= link_to t('reports'), reports_project_path(project), class: 'btn btn-default btn-sm' %>
+        <% if policy(User).update? %>
+          <%= link_to project_users_path(project), class: 'unstyled-link', data: {toggle: 'tooltip', placement: 'top', title: User.model_name.human(count: 2)} do %>
+            <i class="mi md-20 heading-icon">group</i>
+          <% end %>
+        <% end %>
 
-    <% if policy(User).update? %>
-      <%= link_to "#{User.model_name.human(count: 2)} (#{project.memberships_count})", project_users_path(project), class: 'btn btn-default btn-sm' %>
-    <% end %>
+        <% if policy(project).update? %>
+          <%= link_to edit_project_path(project), class: 'unstyled-link', data: {toggle: 'tooltip', placement: 'top', title: t('settings')} do %>
+            <i class="mi md-20 heading-icon">settings</i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="col-md-6 col-xs-6 counter">
+        <span class="counter-description">Velocity</span>
+        <span class="counter-value"><%= project.iteration_service(since: 4.months.ago).velocity %></span>
+      </div>
+
+      <div class="col-md-6 col-xs-6 counter">
+        <span class="counter-description">Volatility</span>
+        <span class="counter-value"><%= number_to_percentage(project.iteration_service(since: 4.months.ago).volatility * 100.0, precision: 0) %></span>
+      </div>
+
+      <div class="col-md-12 members">
+        <ul class="member-list">
+          <% project.users.first(Project::MAX_MEMBERS_PER_CARD).each do |member| %>
+            <li class="member">
+              <img src="data:image/png;base64,<%= RubyIdenticon.create_base64(member.username) %>" class="identicon" data-toggle="tooltip" data-placement="top" title="<%= member.name %>">
+            </li>
+          <% end %>
+
+          <% if project.users.size > Project::MAX_MEMBERS_PER_CARD %>
+            <li class="member">
+              <div class="additional">+<%= project.users.size - Project::MAX_MEMBERS_PER_CARD %></div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <%= link_to t('projects.select'), project, class: 'card-footer panel-footer' %>
   </div>
-</li>
+</div>

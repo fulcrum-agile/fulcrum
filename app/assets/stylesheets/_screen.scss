@@ -524,7 +524,7 @@ div#keycut-help {
   margin-left: 0;
   margin-right: 0;
 
-  .col-md-12 {
+  > .col-md-12 {
     margin: 0;
     padding: 0;
   }
@@ -641,8 +641,8 @@ div#keycut-help {
   }
 }
 
-.teams {
-  .card-link {
+.teams, .projects {
+  .card-link, .project-item {
     @for $i from 1 through 12 {
       &:nth-child(#{$i}) .card {
         animation-delay: #{$i * 0.15s};

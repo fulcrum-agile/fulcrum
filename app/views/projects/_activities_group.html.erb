@@ -1,22 +1,26 @@
 <% activities_group.reverse_each do |date_group| %>
-<ul class="list-group list-group-root">
-  <li class="list-group-item activities_date">
+<ul class="timeline-day">
+  <li class="activities-date">
     <%= l date_group.first.to_date, format: :short %>
   </li>
 
-  <ul class="list-group">
+  <ul class="project">
   <% date_group.last.each do |project_group| %>
-    <li class="list-group-item activities_project">
-      <%= link_to project_group.first.name, project_path(project_group.first) %>
+    <li class="activities-project">
+      <%= link_to project_group.first.name, project_path(project_group.first), class: 'project-link' %>
     </li>
 
-    <ul class="list-group">
+    <ul class="subjects">
     <% project_group.last.each do |activities| %>
       <% activities.last.reverse.each do |activity| %>
         <% if activity.description %>
-          <li class="list-group-item activities_subject">
-            <small>(<%= activity.created_at.strftime("%H:%M") %>)</small>
-            <%= activity.description.html_safe %>
+          <li class="activities-subject">
+            <i class="timeline-circle"></i>
+
+            <div class="subject">
+              <small><%= activity.created_at.strftime("%H:%M") %></small><br>
+              <%= activity.description.html_safe %>
+            </div>
           </li>
         <% end %>
       <% end %>

@@ -53,6 +53,8 @@ gem 'webpack-rails'
 
 gem 'jquery-atwho-rails'
 
+gem 'ruby_identicon'
+
 # SSL (https://github.com/pixielabs/letsencrypt-rails-heroku)
 gem 'platform-api', github: 'jalada/platform-api', branch: 'master'
 gem 'letsencrypt-rails-heroku', group: 'production'

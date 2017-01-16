@@ -180,6 +180,7 @@ en:
     edit project:    "Edit Project"
     project_members: "Project Members"
     available_users: "Available Members"
+    select: "Select project"
     reports:
       n months ago:
         one: "1 month ago"
@@ -250,6 +251,8 @@ en:
           <p>You can import many stories at once from a comma separated variable (CSV) format. The first line of the CSV must contain the correct headers for the import to succeed.  You can download a <a href="/Fulcrum_Import_Template.csv">CSV template</a> with the correct headers to get you started.</p>
           <p>The system will try and match any user names found in the CSV with members of your project. Make sure to register members with the correct names before importing if you want them to match.</p>
           <p><em>Note: You can also use a file exported from Pivotal Tracker.</em></p>
+    no_projects_found: "Oops! It seems like this team doesn't have any project."
+    no_recent_activity: "Oops! This team doesn't have recent activity."
 
   users:
     You are not authorized to perform this action: "You are not authorized to perform this action."

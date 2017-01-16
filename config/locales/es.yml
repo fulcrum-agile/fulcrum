@@ -171,6 +171,7 @@ es:
     edit project:       "Editar Proyecto"
     project_members: "Miembros del Proyecto"
     available_users: "Miembros disponibles"
+    select: "Seleccionar proyecto"
     reports:
       n months ago:
         one: "Hace 1 mes"
@@ -241,6 +242,8 @@ es:
           <p>Puede importar muchas historias a la vez de un formato variable separada por coma (CSV). La primera línea de la CSV debe contener los encabezados correctos para la importación sea correcta. Puede descargar una plantilla <a href="/Fulcrum_Import_Template.csv">CSV</a> con los encabezados correctos para empezar.</p>
           <p>El sistema intentará emparejar los nombres de usuario que se encuentren en este CSV con los miembros de su proyecto. Asegúrese de registrar a los miembros con los nombres correctos antes de importar el archivo para que los mismos coincidan. </p>
           <p><em>Nota: Nota: Puede utilizar un archivo exportado útiles desde otro sistema (Pivotal Tracker).</em></p>
+    no_projects_found: "Oops! Parece que este equipo no tiene ningún proyecto."
+    no_recent_activity: "Oops! Este equipo no tiene actividad reciente."
 
   users:
     You are not authorized to perform this action: "Usted no está autorizado para realizar esta acción."
