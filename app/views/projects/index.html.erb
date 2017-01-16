@@ -10,9 +10,9 @@
       <% unless @projects.empty? %>
 
         <div class="col-md-6">
-          <% unless Activity.grouped_activities(@projects, 1.week.ago).empty? %>
+          <% unless @activities_group.empty? %>
             <ul class="timeline">
-              <%= render 'activities_group', activities_group: Activity.grouped_activities(@projects, 1.week.ago) %>
+              <%= render 'activities_group', activities_group: @activities_group %>
             </ul>
           <% else %>
             <div class="simple-alert">
@@ -31,8 +31,7 @@
           <div class="simple-alert">
             <i class="mi alert-icon">error_outline</i>
             <h4 class="text-center">
-              <%= t('projects.no_projects_found') %> <br>
-              <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-link unstyled-link' %>
+              <%= t('projects.no_projects_found') %>
             </h4>
           </div>
         </div>

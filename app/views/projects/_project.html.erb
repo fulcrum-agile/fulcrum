@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6 project-item">
   <div class="panel panel-default card animated scale-in">
     <div class="panel-heading">
       <%= link_to truncate(project.name, length: 18), project, class: 'card-title' %>
@@ -34,15 +34,15 @@
 
       <div class="col-md-12 members">
         <ul class="member-list">
-          <% project.users.first(4).each do |member| %>
+          <% project.users.first(Project::MAX_MEMBERS_PER_CARD).each do |member| %>
             <li class="member">
               <img src="data:image/png;base64,<%= RubyIdenticon.create_base64(member.username) %>" class="identicon" data-toggle="tooltip" data-placement="top" title="<%= member.name %>">
             </li>
           <% end %>
 
-          <% if project.users.size > 4 %>
+          <% if project.users.size > Project::MAX_MEMBERS_PER_CARD %>
             <li class="member">
-              <div class="additional">+<%= project.users.size - 4 %></div>
+              <div class="additional">+<%= project.users.size - Project::MAX_MEMBERS_PER_CARD %></div>
             </li>
           <% end %>
         </ul>

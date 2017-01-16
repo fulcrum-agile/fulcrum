@@ -1,10 +1,13 @@
 class ProjectsController < ApplicationController
   before_action :set_project, except: %i[new create index archived]
 
+  Project::MAX_MEMBERS_PER_CARD = 4;
+
   # GET /projects
   # GET /projects.xml
   def index
     @projects = policy_scope(Project).not_archived
+    @activities_group = Activity.grouped_activities(@projects, 1.week.ago)
 
     respond_to do |format|
       format.html # index.html.erb
