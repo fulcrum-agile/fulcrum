@@ -180,6 +180,7 @@ en:
     edit project:    "Edit Project"
     project_members: "Project Members"
     available_users: "Available Members"
+    select: "Select project"
     reports:
       n months ago:
         one: "1 month ago"

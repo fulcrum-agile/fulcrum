@@ -11,10 +11,9 @@
         <ul class="timeline">
           <%= render 'activities_group', activities_group: Activity.grouped_activities(@projects, 1.week.ago) %>
         </ul>
-
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6 projects">
         <%= render @projects %>
       </div>
     </div>

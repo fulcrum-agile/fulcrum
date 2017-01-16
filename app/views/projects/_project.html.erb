@@ -1,5 +1,5 @@
 <div class="col-md-6">
-  <div class="panel panel-default card">
+  <div class="panel panel-default card animated scale-in">
     <div class="panel-heading">
       <%= link_to truncate(project.name, length: 18), project, class: 'card-title' %>
       <div class="icons pull-right">
@@ -49,6 +49,6 @@
       </div>
     </div>
 
-    <%= link_to 'Open', project, class: 'card-footer panel-footer' %>
+    <%= link_to t('projects.select'), project, class: 'card-footer panel-footer' %>
   </div>
 </div>

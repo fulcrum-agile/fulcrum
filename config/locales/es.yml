@@ -171,6 +171,7 @@ es:
     edit project:       "Editar Proyecto"
     project_members: "Miembros del Proyecto"
     available_users: "Miembros disponibles"
+    select: "Seleccionar proyecto"
     reports:
       n months ago:
         one: "Hace 1 mes"

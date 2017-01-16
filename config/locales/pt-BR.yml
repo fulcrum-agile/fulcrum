@@ -182,6 +182,7 @@ pt-BR:
     edit project:       "Editar Projeto"
     project_members: "Membros do projeto"
     available_users: "Membros disponíveis"
+    select: "Selecionar projeto"
     reports:
       n months ago:
         one: "1 mês atrás"
