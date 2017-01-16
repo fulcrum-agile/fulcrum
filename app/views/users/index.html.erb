@@ -10,52 +10,61 @@
 
 <div class="row">
   <% if policy(User).manage? %>
-    <div class="col-xs-12 col-sm-6">
-      <h2><%= t('add new member') %></h2>
-      <div class="add-member">
-        <%= form_for @user,
-          url: project_users_path(@project, @user),
-          html: { class: 'form-horizontal' } do |f| %>
+    <div class="col-xs12 col-xs-8 col-sm-offset-2">
+      <div class="page-header">
+        <h4 class="page-header-title darkgrey-2">
+          <i class="mi md-20">dashboard</i> <%= t('add new member') %>
+        </h4>
+      </div>
+    </div>
 
-          <%= content_tag :div, class: 'alert alert-danger' do %>
-            <%= t('errors.template.header', count: @user.errors.count, model: @user.class.name.humanize) %>
+    <div class="col-xs-12 col-sm-4 col-sm-offset-2">
 
-            <ul>
-              <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          <% end if @user.errors.any? %>
+      <div class="add-member panel panel-default card">
+        <div class="panel-body">
+          <%= form_for @user,
+            url: project_users_path(@project, @user) do |f| %>
 
-          <div class="form-group">
-            <%= f.label :email, class: 'col-xs-2 control-label' %>
-            <div class="col-xs-10"><%= f.text_field :email, class: 'form-control' %></div>
-          </div>
+            <%= content_tag :div, class: 'alert alert-danger' do %>
+              <%= t('errors.template.header', count: @user.errors.count, model: @user.class.name.humanize) %>
 
-          <div class="form-group">
-            <%= f.label :name, class: 'col-xs-2 control-label' %>
-            <div class="col-xs-10"><%= f.text_field :name, class: 'form-control' %></div>
-          </div>
+              <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            <% end if @user.errors.any? %>
 
-          <div class="form-group">
-            <%= f.label :username, class: 'col-xs-2 control-label' %>
-            <div class="col-xs-10"><%= f.text_field :username, class: 'form-control' %></div>
-          </div>
+            <div class="form-group">
+              <%= f.label :email, class: 'control-label' %>
+              <%= f.email_field :email, class: 'form-control auth-form-control', :required => true %>
+            </div>
 
-          <div class="form-group">
-            <%= f.label :initials, class: 'col-xs-2 control-label' %>
-            <div class="col-xs-10"><%= f.text_field :initials, class: 'form-control' %></div>
-          </div>
+            <div class="form-group">
+              <%= f.label :name, class: 'control-label' %>
+              <%= f.text_field :name, class: 'form-control auth-form-control', :required => true %>
+            </div>
 
-          <div class="form-group">
-            <%= f.label :role, class: 'col-xs-2 control-label' %>
-            <div class="col-xs-10"><%= f.select :role, User.role.options, class: 'form-control' %></div>
-          </div>
+            <div class="form-group">
+              <%= f.label :username, class: 'control-label' %>
+              <%= f.text_field :username, class: 'form-control auth-form-control', :required => true %>
+            </div>
 
-          <div class="actions">
-            <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
-          </div>
-        <% end %>
+            <div class="form-group">
+              <%= f.label :initials, class: 'control-label' %>
+              <%= f.text_field :initials, class: 'form-control auth-form-control', :required => true %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :role, class: 'control-label' %>
+              <%= f.select :role, User.role.options, {}, { :class => 'form-control auth-form-control', :required => true } %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit 'Add user', class: 'btn btn-primary pull-right' %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>
