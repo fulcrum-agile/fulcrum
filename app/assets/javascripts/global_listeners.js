@@ -7,14 +7,16 @@ var $sidebarToggleIcon = $("#sidebar-toggle").children('.mi');
 var $sidebarWrapper = $("#sidebar-wrapper");
 
 $(function() {
-  $('.toggle-navbar').click(function(e) {
-      e.preventDefault();
+  $('[data-toggle="tooltip"]').tooltip();
 
-      if($navbar.is(':hidden')) {
-        showNavbar();
-      } else {
-        hideNavbar();
-      }
+  $('.toggle-navbar').click(function(e) {
+    e.preventDefault();
+
+    if($navbar.is(':hidden')) {
+      showNavbar();
+    } else {
+      hideNavbar();
+    }
   });
 
   $('#add_story').click(function() {
