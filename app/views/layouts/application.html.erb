@@ -9,7 +9,7 @@
   <%= stylesheet_link_tag "https://www.authy.com/form.authy.min.css" %>
   <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Noto+Sans:400,700" %>
 </head>
-<body>
+<body class="<%= "board" if @layout_settings[:fluid] %>">
 <div class="click-overlay"></div>
 
 <div class="content-wrapper">
@@ -94,12 +94,10 @@
     </div>
   </nav>
 
-  <div class="menu">
-    <%= yield :navbar %>
-  </div>
+  <%= yield :navbar %>
 
   <div class="main" id="main">
-    <div class="container<%= "-fluid" if @layout_settings[:fluid] %>">
+    <div class="container<%= "-fluid board" if @layout_settings[:fluid] %>">
       <%= render 'flash' %>
       <%= yield %>
     </div>

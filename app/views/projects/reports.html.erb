@@ -1,18 +1,22 @@
 <% content_for :title_bar do %>
-  <div class="project_nav">
-    <%= link_to @project.name, @project, class: 'project-title' %>
-    <% since_options.each do |qty| %>
-      <% if params[:since] == qty.to_s %>
-        <%= link_to t("projects.reports.n months ago", count: qty), "#", class: "btn btn-link btn-sm" %>
-      <% else %>
-        <%= link_to t("projects.reports.n months ago", count: qty), reports_project_path(@project, since: qty), class: "btn btn-default btn-sm" %>
-      <% end %>
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to @project.name, @project %>
+    </li>
+  </ul>
+
+  <% since_options.each do |qty| %>
+    <% if params[:since] == qty.to_s %>
+      <%= link_to t("projects.reports.n months ago", count: qty), "#", class: "btn btn-warning btn-sm navbar-btn navbar-btn-reports" %>
+    <% else %>
+      <%= link_to t("projects.reports.n months ago", count: qty), reports_project_path(@project, since: qty), class: "btn btn-warning btn-sm navbar-btn navbar-btn-reports" %>
     <% end %>
-    <% if params[:since].present? %>
-      <%= link_to t('projects.reports.all_time'), reports_project_path(@project), class: "btn btn-default btn-sm" %>
-    <% end %>
-  </div>
+  <% end %>
+  <% if params[:since].present? %>
+    <%= link_to t('projects.reports.all_time'), reports_project_path(@project), class: "btn btn-warning btn-sm navbar-btn navbar-btn-reports" %>
+  <% end %>
 <% end %>
+
 <% content_for :navbar do %>
   <%= render 'projects/navbar', project: @project %>
 <% end %>

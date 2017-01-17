@@ -19,6 +19,14 @@
 
   &-btn {
     border-color: transparent;
+
+    &-reports {
+      margin-left: 15px;
+    }
+  }
+
+  &-right {
+    margin-right: 0;
   }
 
   &-right &-locale,

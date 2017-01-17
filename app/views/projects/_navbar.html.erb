@@ -1,26 +1,28 @@
-<ul class="nav nav-pills">
-  <li role="presentation" class="nav-item <%= active_class(project_path(project)) %>">
-    <%= link_to Story.model_name.human(count: 2), project_path(project), class: 'nav-link' %>
-  </li>
-  <li role="presentation" class="nav-item <%= active_class(project_users_path(project)) %>">
-    <%= link_to User.model_name.human(count: 2), project_users_path(project), class: 'nav-link' %>
-  </li>
-  <li role="presentation" class="nav-item <%= active_class(reports_project_path(project)) %>">
-    <%= link_to t('reports'), reports_project_path(project, since: 3), class: 'nav-link' %>
-  </li>
-  <li role="presentation" class="nav-item">
-    <%= link_to t('export'), project_stories_path(project, format: :csv), class: 'nav-link' %>
-  </li>
+<div class="menu">
+  <ul class="nav nav-pills">
+    <li role="presentation" class="nav-item <%= active_class(project_path(project)) %>">
+      <%= link_to Story.model_name.human(count: 2), project_path(project), class: 'nav-link' %>
+    </li>
+    <li role="presentation" class="nav-item <%= active_class(project_users_path(project)) %>">
+      <%= link_to User.model_name.human(count: 2), project_users_path(project), class: 'nav-link' %>
+    </li>
+    <li role="presentation" class="nav-item <%= active_class(reports_project_path(project)) %>">
+      <%= link_to t('reports'), reports_project_path(project, since: 3), class: 'nav-link' %>
+    </li>
+    <li role="presentation" class="nav-item">
+      <%= link_to t('export'), project_stories_path(project, format: :csv), class: 'nav-link' %>
+    </li>
 
-  <% if policy(project).manage? %>
-    <li role="presentation" class="nav-item <%= active_class(import_project_path(project)) %>">
-      <%= link_to t('import'), import_project_path(project), class: 'nav-link' %>
-    </li>
-    <li role="presentation" class="nav-item <%=  active_class(project_integrations_path(project)) %>">
-      <%= link_to t('projects.integrations'), project_integrations_path(project), class: 'nav-link' %>
-    </li>
-    <li role="presentation" class="nav-item <%= active_class(edit_project_path(project)) %>">
-      <%= link_to t('edit'), edit_project_path(project), class: 'nav-link' %>
-    </li>
-  <% end %>
-</ul>
+    <% if policy(project).manage? %>
+      <li role="presentation" class="nav-item <%= active_class(import_project_path(project)) %>">
+        <%= link_to t('import'), import_project_path(project), class: 'nav-link' %>
+      </li>
+      <li role="presentation" class="nav-item <%=  active_class(project_integrations_path(project)) %>">
+        <%= link_to t('projects.integrations'), project_integrations_path(project), class: 'nav-link' %>
+      </li>
+      <li role="presentation" class="nav-item <%= active_class(edit_project_path(project)) %>">
+        <%= link_to t('edit'), edit_project_path(project), class: 'nav-link' %>
+      </li>
+    <% end %>
+  </ul>
+</div>
