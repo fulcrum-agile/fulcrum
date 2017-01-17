@@ -4,13 +4,15 @@
       <h4><i class="mi md-20">group</i> <%= t('projects.project_members') %></h4>
     </div>
 
-    <% @project.users.order('name').each do |user| %>
+    <% project.users.order('name').each do |user| %>
       <div class="col-md-12">
         <div class="panel panel-default card user-card">
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-2">
-                <img src="data:image/png;base64,<%= RubyIdenticon.create_base64(user.username) %>" class="user-image">
+                <% cache user.username do %>
+                  <img class="user-image" src="<%= user_gravatar(user) %>">
+                <% end %>
               </div>
               <div class="col-xs-10 user-description">
                 <%= user.name %> <br>
@@ -21,7 +23,7 @@
 
           <% if policy(User).manage? %>
             <%= link_to t('remove'),
-              project_user_path(@project, user),
+              project_user_path(project, user),
               data: { confirm: t('remove user confirm', email: user.email) },
               method: :delete,
               remote: true,
@@ -38,13 +40,15 @@
         <h4><i class="mi md-20">group</i> <%= t('projects.available_users') %></h4>
       </div>
 
-      <% current_team.users.where.not(id: @project.users).order('name').each do |user| %>
+      <% current_team.users.where.not(id: project.users).order('name').each do |user| %>
       <div class="col-md-12">
         <div class="panel panel-default card user-card">
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-2">
-                <img src="data:image/png;base64,<%= RubyIdenticon.create_base64(user.username) %>" class="user-image">
+                <% cache user.username do %>
+                  <img class="user-image" src="<%= user_gravatar(user) %>">
+                <% end %>
               </div>
               <div class="col-xs-10 user-description">
                 <%= user.name %> <br>
@@ -53,7 +57,7 @@
             </div>
           </div>
 
-          <%= form_tag [@project, :users], method: :post, remote: true do %>
+          <%= form_tag [project, :users], method: :post, remote: true do %>
             <%= hidden_field_tag 'user[email]', user.email %>
             <%= button_tag t('add'), class: 'btn btn-link unstyled-link card-footer' %>
           <% end %>

@@ -222,6 +222,7 @@ GEM
       grape (>= 0.12.0)
     grape-swagger-rails (0.3.0)
       railties (>= 3.2.12)
+    gravtastic (3.2.6)
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -511,6 +512,7 @@ DEPENDENCIES
   grape-entity
   grape-swagger
   grape-swagger-rails
+  gravtastic
   i18n-js (>= 3.0.0.rc8)
   jquery-atwho-rails
   jquery-ui-rails
