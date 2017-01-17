@@ -709,7 +709,9 @@ module.exports = FormView.extend({
   },
 
   attachmentDone: function(event) {
-    if (!this.model.isNew()) {
+    if (this.model.isNew()) {
+      this.uploadInProgress = false;
+    }else{
       this.saveEdit(event, true);
     }
     this.disableControlButtons();
