@@ -81,15 +81,15 @@ $(function() {
       };
     });
 
-  $sidebarWrapper.mouseenter(_.debounce(function(){
+  $sidebarWrapper.mouseenter(function(){
     $sidebarWrapper.toggleClass('open');
-  }, 500));
+  });
 
   $sidebarWrapper.mouseleave(function(){
     $sidebarWrapper.removeClass('open');
   });
 
-  $("#sidebar-toggle").click(function(e) {
+  $('#sidebar-toggle').click(function(e) {
     e.preventDefault();
 
     if ($sidebarWrapper.hasClass('collapsed'))
