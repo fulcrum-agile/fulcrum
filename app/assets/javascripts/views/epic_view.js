@@ -45,11 +45,11 @@ module.exports = Backbone.View.extend({
       }
     });
 
-    $(".loading_screen").hide();
+    $(".loading-spin").hide();
   },
 
   doSearch: function(e) {
-    $(".loading_screen").show();
+    $(".loading-spin").show();
     var that = this;
     this.model.search.fetch({
       reset: true,

@@ -112,29 +112,34 @@ div.storycolumn {
 
 /* Story columns headers */
 .column_header {
-  text-align: left;
+  @include border-radius(2px 2px 0 0);
+  padding: 8px 15px;
+  font-size: 13px;
+  text-transform: uppercase;
   background: $darkgrey-2;
   color: #eee;
-  padding: 0.4em 0.2em 0.3em 0.7em;
-  text-transform: uppercase;
-  @include border-radius(2px 2px 0 0);
-  a.toggle-title{
+
+  a.toggle-title {
     color: white;
     text-decoration: none;
-    &:visited{
+
+    &:visited {
       color: white;
     }
-    &:hover{
+
+    &:hover {
       text-decoration: underline;
     }
   }
-  a.toggle-column{
+
+  a.toggle-column {
     color: #eee;
     text-decoration: none;
     float: right;
-    padding: 0px 5px 1px;
+    padding: 0 0 5px 5px;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
       color:$aluminium-3;
     }
   }
@@ -142,7 +147,7 @@ div.storycolumn {
 
 /* Story types */
 div.story {
-  padding: 0.5em 0.5em 0.9em;
+  padding: 7px 10px;
   background-repeat: no-repeat;
   background-position: 4px 4px;
   background-color: #eee;
@@ -153,6 +158,7 @@ div.story {
     min-height: 37px;
   }
 }
+
 div.story:hover {
   background-color: #ddd;
 }
@@ -168,29 +174,36 @@ div.story.bug.accepted,
 div.story.chore.accepted{
   background-color: adjust-lightness($chameleon-1, 40);
 }
+
 div.story input[type=text],
 div.story textarea {
   width: 99%;
 }
+
 div.story textarea {
   height: 50px;
   resize: none;
 }
+
 div.story {
   .story_link {
     width: 260px;
   }
 }
 
-div.story-icons {
+.story-icons {
   float: left;
-  margin-top: -10px;
+
+  .mi {
+    position: relative;
+    top: -2px;
+  }
 
   .estimate {
-    top: 9px;
-    left: 1px;
+    left: 2px;
   }
 }
+
 div.story-controls {
   @extend .btn-group;
 
@@ -200,13 +213,16 @@ div.story-controls {
     @extend .btn-xs;
   }
 }
+
 div.story-title {
-  margin-left: 60px;
+  margin-left: 45px;
   word-wrap: break-word;
 }
+
 .unestimated div.story-title {
   font-style: italic;
 }
+
 div.story-title abbr.initials {
   color: green;
   font-weight: bold;
@@ -224,25 +240,9 @@ div.story-title abbr.initials {
 }
 
 .estimate {
-  background: image-url('points.png') no-repeat;
-  height: 24px;
-  width: 16px;
+  position: relative;
   display: inline-block;
   cursor: pointer;
-  position: relative;
-  top: -7px;
-  margin-left: -2px;
-  margin-right: -6px;
-
-  &-0 { background: none }
-  &-1 { background-position: 0px 22px; }
-  &-2 { background-position: 0px 19px; }
-  &-3 { background-position: 0px 15px; }
-  &-4 { background-position: 0px 12px; }
-  &-5 { background-position: 0px 9px; }
-  &-6 { background-position: 0px 6px; }
-  &-7 { background-position: 0px 3px; }
-  &-8 { background-position: 0px 0px; }
 }
 
 .estimates {
@@ -268,7 +268,8 @@ div.story-title abbr.initials {
   margin-left: 0.2em;
 }
 
-.state-actions form div, .state-actions form {
+.state-actions form div,
+.state-actions form {
   display: inline;
 }
 
@@ -276,9 +277,10 @@ div.story-title abbr.initials {
 .iteration {
   background-color: #707C8B;
   color: #f5f5f5;
-  padding: 0.2em 0.7em 0.2em 20px;
+  padding: 5px 15px;
   font-size: 12px;
 }
+
 .iteration .points {
   float: right;
 }
@@ -286,28 +288,37 @@ div.story-title abbr.initials {
 .state-actions input {
   @extend .btn;
   @extend .btn-xs;
+  font-size: 11px;
 }
+
 .story.release .state-actions input {
   @include box-shadow(0 1px 2px #000);
 }
+
 .state-actions input:active {
   @include box-shadow(none);
 }
+
 .state-actions input.start {
   @extend .btn-default;
 }
+
 .state-actions input.finish {
   @extend .btn-primary;
 }
+
 .state-actions input.deliver {
   @extend .btn-warning;
 }
+
 .state-actions input.accept {
   @extend .btn-success;
 }
+
 .state-actions input.reject {
   @extend .btn-danger;
 }
+
 .state-actions input.restart {
   @extend .btn-danger;
   background-image: sprite-url($icons-sprites);
@@ -320,6 +331,7 @@ table#import tr.valid, table#import .notice {
   color: white;
   background-color: $chameleon-3;
 }
+
 table#import tr.invalid, table#import .alert {
   color: white;
   background-color: $scarlet-red-2;
@@ -468,24 +480,6 @@ ul.secondary-actions {
   li {
     margin-top: 10px;
     font-size: 1.3em;
-  }
-}
-
-div.loading_screen {
-  position: absolute;
-  top:-10px;
-  left:-10px;
-  z-index: 1000;
-  background: #ccc;
-  @include opacity(0.7);
-  width: 110%;
-  height: 110%;
-}
-
-div.spinner {
-  margin: 15% 45%;
-  span{
-    padding:50px;
   }
 }
 

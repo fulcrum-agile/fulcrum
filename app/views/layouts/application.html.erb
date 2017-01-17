@@ -10,6 +10,7 @@
   <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Noto+Sans:400,700" %>
 </head>
 <body class="<%= "board" if @layout_settings[:fluid] %>">
+
 <div class="click-overlay"></div>
 
 <div class="content-wrapper">
@@ -101,6 +102,12 @@
       <%= render 'flash' %>
       <%= yield %>
     </div>
+  </div>
+</div>
+
+<div class="loading-spin">
+  <div class="spinner">
+    <span class="icons-spinner"></span>
   </div>
 </div>
 
