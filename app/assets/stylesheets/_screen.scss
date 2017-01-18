@@ -113,9 +113,8 @@ div.storycolumn {
 /* Story columns headers */
 .column_header {
   @include border-radius(2px 2px 0 0);
-  padding: 8px 15px;
+  padding: 8px 10px;
   font-size: 13px;
-  text-transform: uppercase;
   background: $darkgrey-2;
   color: #eee;
 
@@ -147,12 +146,12 @@ div.storycolumn {
 
 /* Story types */
 div.story {
-  padding: 7px 10px;
+  padding: 7px 8px;
   background-repeat: no-repeat;
   background-position: 4px 4px;
-  background-color: #eee;
+  background-color: #f4f4f4;
   border-bottom: 1px solid #ddd;
-  border-top: 1px solid #fff;
+  border-top: 1px solid $white;
 
   &:not(.editing):not(.unestimated) {
     min-height: 37px;
@@ -160,7 +159,7 @@ div.story {
 }
 
 div.story:hover {
-  background-color: #ddd;
+  background-color: #e6e6e6;
 }
 
 div.story.editing, div.story.editing:hover {
@@ -194,7 +193,7 @@ div.story {
 .story-icons {
   float: left;
 
-  .mi {
+  .mi:first-child {
     position: relative;
     top: -2px;
   }
@@ -215,7 +214,7 @@ div.story-controls {
 }
 
 div.story-title {
-  margin-left: 45px;
+  margin-left: 55px;
   word-wrap: break-word;
 }
 
@@ -255,11 +254,23 @@ div.story-title abbr.initials {
 }
 
 .story.release {
-  background-color: $darkgrey-2;
-  color: white;
-}
-.story.release:hover {
-  background-color: #222;
+  color: $white;
+  background-color: #407aa5;
+  border-top-color: #5982a7;
+  border-bottom-color: #306494;
+
+  &:hover {
+    background-color: #306494;
+  }
+
+  .epic-link {
+    color: $white;
+
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+  }
 }
 
 /* Story action buttons */
@@ -275,10 +286,12 @@ div.story-title abbr.initials {
 
 /* Iteration markers */
 .iteration {
-  background-color: #707C8B;
-  color: #f5f5f5;
-  padding: 5px 15px;
-  font-size: 12px;
+  padding: 5px 10px;
+  font-size: 11px;
+  color: $lightgrey-12;
+  background-color: $darkgrey-7;
+  border-top: 1px solid $darkgrey-8;
+  border-bottom: 1px solid $darkgrey-9;
 }
 
 .iteration .points {

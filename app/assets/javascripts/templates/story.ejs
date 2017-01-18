@@ -23,11 +23,13 @@
   <% } %>
   <span class="popover-activate">
     <% if (story.get('story_type') == 'feature') { %>
-      <i class="mi md-star md-20">star</i>
+      <i class="mi md-star md-16">star</i>
     <% } else if (story.get('story_type') == 'chore') { %>
-      <i class="mi md-dark md-20">settings</i>
+      <i class="mi md-dark md-16">settings</i>
     <% } else if (story.get('story_type') == 'bug') { %>
-      <i class="mi md-bug md-20">bug_report</i>
+      <i class="mi md-bug md-16">bug_report</i>
+    <% } else if (story.get('story_type') == 'release') { %>
+      <i class="mi md-release md-16">bookmark</i>
     <% } %>
 
     <% if (story.estimated()) { %>
