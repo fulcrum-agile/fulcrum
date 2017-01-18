@@ -36,8 +36,8 @@
         <ul class="member-list">
           <% project.users.first(Project::MAX_MEMBERS_PER_CARD).each do |user| %>
             <li class="member">
-              <% cache user.username do %>
-                <img class="identicon" src="<%= user_gravatar(user) %>" data-toggle="tooltip" data-placement="top" title="<%= user.name %>">
+                <% cache "user/#{user.email}/avatar", expires_in: 1.hour do %>
+                <img class="identicon" src="<%= avatar_url(user) %>" data-toggle="tooltip" data-placement="top" title="<%= user.name %>">
               <% end %>
             </li>
           <% end %>

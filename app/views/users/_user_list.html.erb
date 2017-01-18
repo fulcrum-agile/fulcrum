@@ -10,8 +10,8 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-2">
-                <% cache user.username do %>
-                  <img class="user-image" src="<%= user_gravatar(user) %>">
+                <% cache "user/#{user.email}/avatar", expires_in: 1.hour do %>
+                  <img class="user-image" src="<%= avatar_url(user) %>">
                 <% end %>
               </div>
               <div class="col-xs-10 user-description">
@@ -46,8 +46,8 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-2">
-                <% cache user.username do %>
-                  <img class="user-image" src="<%= user_gravatar(user) %>">
+                <% cache "user/#{user.email}/avatar", expires_in: 1.hour do %>
+                  <img class="user-image" src="<%= avatar_url(user) %>">
                 <% end %>
               </div>
               <div class="col-xs-10 user-description">
