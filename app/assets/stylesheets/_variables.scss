@@ -48,8 +48,8 @@ $aluminium-6:   #2e3436;
 
 $sidebar-size: 200px;
 $sidebar-size-collapsed: 50px;
-$sidebar-bg-default:  #000;
-$sidebar-bg-selected: #222;
-$sidebar-bg-hover:    #333;
+$sidebar-bg-default:  #1f2021;
+$sidebar-bg-selected: darken(#1f2021, 3);
+$sidebar-bg-hover:    darken(#1f2021, 5);
 $sidebar-fg-default:  #bbb;
 $sidebar-fg-hover:    #fff;
