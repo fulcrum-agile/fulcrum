@@ -27,7 +27,7 @@ module.exports = Backbone.View.extend({
   },
 
   addAll: function() {
-    $(".loading-spin").show();
+    $('.loading-spin').addClass('show');
     var that = this;
 
     $('#search_results').html("");
@@ -47,7 +47,7 @@ module.exports = Backbone.View.extend({
       }
     });
 
-    $(".loading-spin").hide();
+    $('.loading-spin').removeClass('show');
   },
 
   doSearch: function(e) {

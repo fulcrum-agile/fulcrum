@@ -269,7 +269,8 @@ div.story-title abbr.initials {
     background-color: #306494;
   }
 
-  .epic-link {
+  .epic-link,
+  .story-title abbr.initials {
     color: $white;
 
     &:hover,

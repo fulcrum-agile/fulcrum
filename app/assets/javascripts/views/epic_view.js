@@ -16,7 +16,7 @@ module.exports = Backbone.View.extend({
 
   addStory: function(story, column) {
     var StoryView = require('./story_view');
-    
+
     var view = new StoryView({model: story, isSearchResult: true}).render();
     this.appendViewToColumn(view, column);
     view.setFocus();
@@ -45,11 +45,11 @@ module.exports = Backbone.View.extend({
       }
     });
 
-    $(".loading-spin").hide();
+    $('.loading-spin').removeClass('show');
   },
 
   doSearch: function(e) {
-    $(".loading-spin").show();
+    $('.loading-spin').addClass('show');
     var that = this;
     this.model.search.fetch({
       reset: true,

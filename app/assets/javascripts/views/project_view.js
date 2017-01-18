@@ -63,7 +63,7 @@ module.exports = Backbone.View.extend({
   },
 
   addAll: function() {
-    $(".loading-spin").show();
+    $('.loading-spin').addClass('show');
     var that = this;
 
     _.each(this.columns, function(column, columnId) {
@@ -83,7 +83,7 @@ module.exports = Backbone.View.extend({
     _.each(this.model.stories.column('#chilly_bin'), function(story) {
       that.addStory(story);
     });
-    $(".loading-spin").hide();
+    $('.loading-spin').removeClass('show');
     this.scrollToStory(window.location.hash || '');
   },
 
