@@ -29,6 +29,8 @@ es:
   accepted_points: "Puntos aceptados"
   change team: "Cambiar Equipo"
   team: "Equipo"
+  visit: "Visite"
+  update_avatar: "para actualizar su imagen de perfil"
 
   save: "Guardar"
   delete: "Borrar"
