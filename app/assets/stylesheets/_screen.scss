@@ -101,7 +101,7 @@ table.stories {
 
 table.stories td {
   vertical-align: top;
-  background-color: #484f57;
+  background-color: $darkgrey-11;
   @include border-radius(5px 5px 0 0);
 }
 
@@ -116,7 +116,7 @@ div.storycolumn {
   padding: 8px 10px;
   font-size: 12px;
   color: $white;
-  background: #2C2D2F;
+  background: $darkgrey-12;
   border: 1px solid $black;
 
   a.toggle-title {
@@ -150,8 +150,8 @@ div.story {
   padding: 7px 8px;
   background-repeat: no-repeat;
   background-position: 4px 4px;
-  background-color: #f4f4f4;
-  border-bottom: 1px solid #ddd;
+  background-color: $lightgrey-11;
+  border-bottom: 1px solid $lightgrey-13;
   border-top: 1px solid $white;
 
   &:not(.editing):not(.unestimated) {
@@ -160,7 +160,7 @@ div.story {
 }
 
 div.story:hover {
-  background-color: #e6e6e6;
+  background-color: $lightgrey-14;
 }
 
 div.story.editing, div.story.editing:hover {
@@ -260,18 +260,18 @@ div.story-title abbr.initials {
 }
 
 .story.started:not(.release) {
-  background-color: #f3f3d1;
-  border-bottom: 1px solid #dbdbb0;
+  background-color: $lightyellow-1;
+  border-bottom: 1px solid $lightyellow-2;
 }
 
 .story.release {
   color: $white;
-  background-color: #407aa5;
-  border-top-color: #5982a7;
-  border-bottom-color: #306494;
+  background-color: $blue-4;
+  border-top-color: $blue-5;
+  border-bottom-color: $blue-3;
 
   &:hover {
-    background-color: #306494;
+    background-color: $blue-3;
   }
 
   .epic-link,
