@@ -116,10 +116,10 @@
       }
     }
 
-    .locale-change {
+    &-locale {
       color: $white;
 
-      &:after {
+      .locale-change-wrapper:after {
         color: $white;
       }
     }
