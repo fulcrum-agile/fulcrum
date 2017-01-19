@@ -103,8 +103,11 @@ $(function() {
   $('.tag-tooltip').tooltip();
 
   $('.locale-change').on('change', function(e) {
+    console.log('locale changed');
+
     e.preventDefault();
-    $(this).parent('form').submit();
+
+    $(this).parent().parent('form').submit();
   });
 
   if ($('.change-team')) {
