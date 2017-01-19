@@ -1,6 +1,6 @@
 .menu {
   padding: 6px 10px;
-  background-color: $titlebar-text;
+  background-color: lighten($aluminium-6, 3);
 
   .nav-pills {
     li > a {
@@ -14,7 +14,7 @@
     li.active > a,
     li > a:hover,
     li > a:focus {
-      background-color: lighten($titlebar-text, 5);
+      background-color: lighten($aluminium-6, 10);
     }
 
     li + li {

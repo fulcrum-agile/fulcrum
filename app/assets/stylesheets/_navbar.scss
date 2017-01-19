@@ -1,7 +1,6 @@
 .navbar {
   padding: 0 10px;
   margin-bottom: 0;
-  color: $white;
   border-radius: 0;
 
   &-logo {
@@ -98,6 +97,39 @@
 
     .caret {
       margin-left: 5px;
+    }
+  }
+
+  .board & {
+    color: $white;
+    background-color: $aluminium-6;
+    border-color: $aluminium-6;
+
+    &-nav > li > a,
+    .btn-link {
+      color: $white;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+        color: $white;
+      }
+    }
+
+    .locale-change {
+      color: $white;
+
+      &:after {
+        color: $white;
+      }
+    }
+
+    .velocity {
+      color: $white;
+
+      &:after {
+        background: rgba($white, .2);
+      }
     }
   }
 

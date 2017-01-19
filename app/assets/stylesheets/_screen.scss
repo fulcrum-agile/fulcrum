@@ -201,6 +201,11 @@ div.story {
 
   .estimate {
     left: 2px;
+    padding: 2px 3px;
+    line-height: 1;
+    background: rgba($white, .4);
+    border: 1px solid rgba($black, .15);
+    border-radius: 3px;
   }
 }
 
@@ -215,7 +220,7 @@ div.story-controls {
 }
 
 div.story-title {
-  margin-left: 55px;
+  margin-left: 65px;
   word-wrap: break-word;
 }
 
