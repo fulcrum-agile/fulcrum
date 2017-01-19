@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @user = User.new
+    @current_team_users = current_team.users.where.not(id: @project.users).order(:name)
     respond_with(@project.users)
   end
 

@@ -405,8 +405,6 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    ruby_identicon (0.0.5)
-      chunky_png (~> 1.3.5)
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -543,7 +541,6 @@ DEPENDENCIES
   rspec-activemodel-mocks
   rspec-its
   rspec-rails
-  ruby_identicon
   sass-rails
   shoulda-matchers
   sidekiq

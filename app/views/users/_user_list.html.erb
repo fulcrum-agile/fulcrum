@@ -16,7 +16,7 @@
               </div>
               <div class="col-xs-10 user-description">
                 <%= user.name %> <br>
-                <span class="user-email"><strong><%= user.email %></strong><span>
+                <span class="user-email"><%= user.email %><span>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
         <h4><i class="mi md-20">group</i> <%= t('projects.available_users') %></h4>
       </div>
 
-      <% current_team.users.where.not(id: project.users).order('name').each do |user| %>
+      <% @current_team_users.each do |user| %>
       <div class="col-md-12">
         <div class="panel panel-default card user-card">
           <div class="panel-body">
@@ -52,7 +52,7 @@
               </div>
               <div class="col-xs-10 user-description">
                 <%= user.name %> <br>
-                <span class="user-email"><strong><%= user.email %></strong><span>
+                <span class="user-email"><%= user.email %><span>
               </div>
             </div>
           </div>
