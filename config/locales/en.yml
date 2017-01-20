@@ -35,6 +35,9 @@ en:
   team: "Team"
   visit: "Visit"
   update_avatar: "to update you profile image"
+  disable_2fa: "Disable 2FA"
+  enable_2fa: "Enable 2FA (Authy app)"
+  cancel_account: "Cancel my account"
 
   save: "Save"
   cancel: "Cancel"

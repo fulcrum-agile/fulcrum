@@ -25,7 +25,7 @@
     <div class="panel panel-default card user-profile">
       <div class="panel-body">
         <div class="text-center">
-          <% cache "user/#{:email}" do %>
+          <% cache "user/#{:email}/avatar_edit_page", expires_in: 1.hour do %>
             <img class="user-image" src="<%= avatar_url(@user) %>">
             <div class="user-name"><%= @user.name %></div>
           <% end %>
@@ -34,11 +34,11 @@
         <hr />
         <div class="account-options">
           <% if resource.authy_enabled %>
-            <%= link_to 'Disable 2FA', user_verify_two_factor_path, class: 'btn btn-warning btn-block' %>
+            <%= link_to t('disable_2fa'), user_verify_two_factor_path, class: 'btn btn-warning btn-block' %>
           <% else %>
-            <%= link_to 'Enable 2FA (Authy app)', user_enable_authy_path, class: 'btn btn-success btn-block' %>
+            <%= link_to t('enable_2fa'), user_enable_authy_path, class: 'btn btn-success btn-block' %>
           <% end %>
-          <%= link_to t(".cancel my account"), registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger btn-block' %>
+          <%= link_to t("cancel_account"), registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger btn-block' %>
         </div>
       </div>
     </div>

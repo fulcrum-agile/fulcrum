@@ -31,6 +31,9 @@ pt-BR:
   team: "Equipe"
   visit: "Visite"
   update_avatar: "para atualizar sua imagem de perfil"
+  disable_2fa: "Desativar 2FA"
+  enable_2fa: "Ativar 2FA (Authy app)"
+  cancel_account: "Cancelar minha conta"
 
   save: "Salvar"
   delete: "Apagar"
