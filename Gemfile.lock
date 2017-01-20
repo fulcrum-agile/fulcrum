@@ -222,6 +222,7 @@ GEM
       grape (>= 0.12.0)
     grape-swagger-rails (0.3.0)
       railties (>= 3.2.12)
+    gravtastic (3.2.6)
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -404,8 +405,6 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    ruby_identicon (0.0.5)
-      chunky_png (~> 1.3.5)
     safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -511,6 +510,7 @@ DEPENDENCIES
   grape-entity
   grape-swagger
   grape-swagger-rails
+  gravtastic
   i18n-js (>= 3.0.0.rc8)
   jquery-atwho-rails
   jquery-ui-rails
@@ -541,7 +541,6 @@ DEPENDENCIES
   rspec-activemodel-mocks
   rspec-its
   rspec-rails
-  ruby_identicon
   sass-rails
   shoulda-matchers
   sidekiq

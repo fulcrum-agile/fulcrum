@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   include Central::Support::UserConcern::Validations
   include Central::Support::UserConcern::Callbacks
 
+  include Gravtastic
+  gravtastic default: 'identicon'
+
   # FIXME - DRY up, repeated in Story model
   JSON_ATTRIBUTES = ["id", "name", "initials", "username", "email"]
 

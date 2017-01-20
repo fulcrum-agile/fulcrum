@@ -1,40 +1,70 @@
-<div class="col-xs-12 col-sm-6">
-  <h2><%= t('projects.project_members') %></h2>
-  <ul class="list-group members-list">
-    <% @project.users.order('name').each do |user| %>
-      <%= content_tag :li, id: dom_id(user), class: 'list-group-item clearfix' do %>
-        <div class="member-name">
-          <%= user %>
+<div class="col-xs-12 col-sm-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h4><i class="mi md-20">group</i> <%= t('projects.project_members') %></h4>
+    </div>
+
+    <% project.users.order('name').each do |user| %>
+      <div class="col-md-12">
+        <div class="panel panel-default card user-card">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-2">
+                <% cache "user/#{user.email}/avatar", expires_in: 1.hour do %>
+                  <img class="user-image" src="<%= avatar_url(user) %>">
+                <% end %>
+              </div>
+              <div class="col-xs-10 user-description">
+                <%= user.name %> <br>
+                <span class="user-email"><%= user.email %><span>
+              </div>
+            </div>
+          </div>
+
+          <% if policy(User).manage? %>
+            <%= link_to t('remove'),
+              project_user_path(project, user),
+              data: { confirm: t('remove user confirm', email: user.email) },
+              method: :delete,
+              remote: true,
+              class: 'card-footer' %>
+          <% end %>
         </div>
-
-        <% if policy(User).manage? %>
-          <%= link_to t('remove'),
-            project_user_path(@project, user),
-            data: { confirm: t('remove user confirm', email: user.email) },
-            method: :delete,
-            remote: true,
-            class: 'btn btn-danger btn-sm pull-right' %>
-        <% end %>
-      <% end %>
+      </div>
     <% end %>
-  </ul>
-
-  <hr>
+  </div>
 
   <% if policy(User).manage? %>
-    <h2><%= t('projects.available_users') %></h2>
-    <ul class="list-group members-list">
-      <% current_team.users.where.not(id: @project.users).order('name').each do |user| %>
-        <%= content_tag :li, id: dom_id(user), class: 'list-group-item clearfix' do %>
-          <%= content_tag :div, user, class: 'member-name' %>
+    <div class="row">
+      <div class="col-md-12">
+        <h4><i class="mi md-20">group</i> <%= t('projects.available_users') %></h4>
+      </div>
 
-          <%= form_tag [@project, :users], method: :post, remote: true, class: 'pull-right' do %>
+      <% @current_team_users.each do |user| %>
+      <div class="col-md-12">
+        <div class="panel panel-default card user-card">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-2">
+                <% cache "user/#{user.email}/avatar", expires_in: 1.hour do %>
+                  <img class="user-image" src="<%= avatar_url(user) %>">
+                <% end %>
+              </div>
+              <div class="col-xs-10 user-description">
+                <%= user.name %> <br>
+                <span class="user-email"><%= user.email %><span>
+              </div>
+            </div>
+          </div>
+
+          <%= form_tag [project, :users], method: :post, remote: true do %>
             <%= hidden_field_tag 'user[email]', user.email %>
-            <%= button_tag t('add'), class: 'btn btn-default btn-sm' %>
+            <%= button_tag t('add'), class: 'btn btn-link unstyled-link card-footer' %>
           <% end %>
-        <% end %>
+        </div>
+      </div>
       <% end %>
-    </ul>
+    </div>
   <% end %>
 </div>
 

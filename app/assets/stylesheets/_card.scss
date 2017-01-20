@@ -7,6 +7,30 @@
     cursor: pointer;
   }
 
+  &.user-card {
+    margin-bottom: 10px;
+
+    .user-image {
+      width: 32px;
+      display: block;
+      margin: 0 auto 15px;
+      border-radius: 50px;
+    }
+
+    .user-description {
+      line-height: 15px;
+
+      .user-email {
+        font-size: 11px;
+        font-weight: bold;
+      }
+    }
+
+    .panel-body {
+      padding: 15px 0 0 0;
+    }
+  }
+
   .panel-heading {
     background-color: inherit;
     font-weight: bold;

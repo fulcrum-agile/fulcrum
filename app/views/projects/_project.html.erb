@@ -34,9 +34,11 @@
 
       <div class="col-md-12 members">
         <ul class="member-list">
-          <% project.users.first(Project::MAX_MEMBERS_PER_CARD).each do |member| %>
+          <% project.users.first(Project::MAX_MEMBERS_PER_CARD).each do |user| %>
             <li class="member">
-              <img src="data:image/png;base64,<%= RubyIdenticon.create_base64(member.username) %>" class="identicon" data-toggle="tooltip" data-placement="top" title="<%= member.name %>">
+                <% cache "user/#{user.email}/avatar", expires_in: 1.hour do %>
+                <img class="identicon" src="<%= avatar_url(user) %>" data-toggle="tooltip" data-placement="top" title="<%= user.name %>">
+              <% end %>
             </li>
           <% end %>
 
