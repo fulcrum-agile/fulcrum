@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, except: %i[new create index archived]
+  before_action :prepare_session, only: %i[import import_upload]
 
   Project::MAX_MEMBERS_PER_CARD = 4;
 
@@ -91,7 +92,7 @@ class ProjectsController < ApplicationController
 
   # CSV import form
   def import
-    if session[:import_job]
+    if session[:import_job].present?
       if job_result = Rails.cache.read(session[:import_job][:id])
         session[:import_job] = nil
         if job_result[:errors]
@@ -110,7 +111,7 @@ class ProjectsController < ApplicationController
           end
         end
       else
-        minutes_ago = (Time.current - session[:import_job][:created_at]) / 1.minute
+        minutes_ago = (Time.current - session[:import_job][:created_at].to_datetime) / 1.minute
         if minutes_ago > 60
           session[:import_job] = nil
         end
@@ -214,4 +215,7 @@ class ProjectsController < ApplicationController
     authorize @project
   end
 
+  def prepare_session
+    session[:import_job] = (session[:import_job] || {}).with_indifferent_access
+  end
 end
