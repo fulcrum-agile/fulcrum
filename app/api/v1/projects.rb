@@ -17,9 +17,13 @@ class V1::Projects < Grape::API
     end
 
     desc 'Return all projects', { tags: ['project'] }
+    params do
+      optional :archiveds, type: Boolean, default: false
+    end
     paginate
     get '/' do
       projects = Project.all
+      projects = projects.not_archived unless params[:archiveds]
       projects = projects.where(slug: @allowed_projects) if @allowed_projects
 
       present paginate(projects), with: Entities::Project
@@ -38,11 +42,11 @@ class V1::Projects < Grape::API
       optional :current_time, type: DateTime
     end
     get '/:slug/analysis' do
-      project = Project.find_by_slug(params[:slug])
+      project = Project.not_archived.find_by_slug(params[:slug])
       current_time = params[:current_time] || Time.current
       since = params[:since].months.ago
 
-      iteration = project.iteration_service(since: since, current_time: current_time)
+      iteration = project.iteration_service(since: since, current_time: current_time) if project
 
       present iteration, with: Entities::ProjectAnalysis
     end

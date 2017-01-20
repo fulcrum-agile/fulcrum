@@ -45,7 +45,7 @@ RSpec.describe V1::Teams do
     subject { get "/api/v1/teams/#{team.slug}", per_page: 2, api_key: api_token.token }
 
     it 'returns the team' do
-      expected = Entities::Team.new(team).as_json
+      expected = Entities::Team.new(team, type: :full).as_json
 
       subject
 
