@@ -46,6 +46,10 @@
     padding-left: 15px;
     margin-left: 5px;
 
+    & > span:first-child {
+      cursor: pointer;
+    }
+
     &:after {
       content: '';
       position: absolute;
@@ -55,6 +59,11 @@
       height: 20px;
       background-color: rgba($darkgrey-6, .25);
     }
+  }
+
+  .popover {
+    width: 250px;
+    color: $darkgrey-2;
   }
 
   &-locale {

@@ -661,20 +661,19 @@ module.exports = FormView.extend({
   },
 
   // FIXME Move to separate view
-  hoverBox: function(){
-    var view  = this;
+  hoverBox: function() {
+    var view = this;
     this.$el.find('.popover-activate').popover({
-      title: function(){
+      title: function() {
         return view.model.get("title");
       },
-      content: function(){
+      content: function() {
         return require('templates/story_hover.ejs')({
           story: view.model,
           noteTemplate: require('templates/note.ejs')
         });
       },
-      // A small delay to stop the popovers triggering whenever the mouse is
-      // moving around
+      // A small delay to stop the popovers triggering whenever the mouse is moving around
       delay: 200,
       html: true,
       trigger: 'hover'

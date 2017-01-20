@@ -387,33 +387,56 @@ a.button:hover {
 
 // Popover Overrides
 // Custom Style Overrides
-.popover{
-  p{
-    margin-top:0px;
+
+.popover {
+  &-title {
+    font-size: 13px;
+    word-wrap: break-word;
   }
-  .title{
-    margin:0px;
-  }
-  .inner{
-    padding:2px ;
-  }
-  .content{
-    padding: 10px 0px 14px;
-  }
-  .small{
-    color:$aluminium-3;
-    font-size:0.85em;
-    padding-left:15px;
-    margin: 0 10px 10px 0;
-    .icons{
-      float:right;
-      .text{
-        vertical-align:top;
-      }
+
+  &-content {
+    word-wrap: break-word;
+
+    ul,
+    li,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul {
+      list-style: none;
     }
   }
-  .description{
-    padding:10px 15px 0px;
+
+  &-content {
+    padding: 5px 5px 0 5px;
+
+    .description {
+      padding: 5px;
+      font-size: 12px;
+    }
+
+    .title {
+      padding: 0 5px;
+      margin: 10px 0 0;
+      font-size: 13px;
+    }
+
+    .small {
+      color: $darkgrey-8;
+      font-size: 0.85em;
+      padding: 0 5px;
+      margin: 5px 0 5px;
+
+      .icons {
+        float: right;
+
+        .text {
+          vertical-align: top;
+        }
+      }
+    }
   }
 }
 .ui-widget{
