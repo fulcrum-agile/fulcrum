@@ -34,6 +34,7 @@ pt-BR:
   disable_2fa: "Desativar 2FA"
   enable_2fa: "Ativar 2FA (Authy app)"
   cancel_account: "Cancelar minha conta"
+  update_profile: "Atualizar perfil"
 
   save: "Salvar"
   delete: "Apagar"

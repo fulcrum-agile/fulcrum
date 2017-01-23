@@ -38,6 +38,7 @@ en:
   disable_2fa: "Disable 2FA"
   enable_2fa: "Enable 2FA (Authy app)"
   cancel_account: "Cancel my account"
+  update_profile: "Update profile"
 
   save: "Save"
   cancel: "Cancel"
