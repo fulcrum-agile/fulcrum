@@ -12,65 +12,67 @@
 
 <%= render partial: 'projects/settings_sidebar' %>
 
-    <% if session[:import_job].present? %>
-      <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
-    <% else %>
-      <%= raw t('projects.uploads.instructions') %>
-
-  <div class="card panel">
-    <div class="panel-content">
-      <% if session[:import_job] %>
-        <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
-      <% else %>
-        <div class="instructions">
-          <%= raw t('projects.uploads.instructions') %>
-        </div>
-
-        <%= form_for [:import_upload, @project], html: { class: "form-horizontal import-form" } do |f| %>
-          <div class="field select">
-            <%= f.attachinary_file_field :import %>
-          </div>
-          <div class="field submit">
-            <%= f.submit 'import', class: 'btn btn-default btn-primary' %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-
-  <% if @valid_stories %>
-    <h3><%= t('projects.uploads.results') %></h3>
+<div class="settings-page">
+  <div class="col-xs-12 col-sm-9">
+    <h3><%= t('projects.uploads.title') %></h3>
     <hr>
 
     <div class="card panel">
-      <div class="panel-content table-responsive">
-        <table class="table table-condensed table-striped table-hover">
-          <thead>
-            <tr>
-              <th>Row</th>
-              <th>Story</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @valid_stories.each_with_index do |story, index| %>
-              <tr class="success">
-                <td><%= index + 1 %></td>
-                <td><%= story.title %></td>
-                <td><%= story.story_type %></td>
-              </tr>
-            <% end %>
+      <div class="panel-content">
+        <% if session[:import_job] %>
+          <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
+        <% else %>
+          <div class="instructions">
+            <%= raw t('projects.uploads.instructions') %>
+          </div>
 
-            <% @invalid_stories.each_with_index do |errors, index| %>
-              <tr class="danger">
-                <td><%= index + 1 %></td>
-                <td colspan="2">
-                  <%= errors[:title] %> - <%= errors[:errors] %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+          <%= form_for [:import_upload, @project], html: { class: "form-horizontal import-form" } do |f| %>
+            <div class="field select">
+              <%= f.attachinary_file_field :import %>
+            </div>
+            <div class="field submit">
+              <%= f.submit 'import', class: 'btn btn-default btn-primary' %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
-  <% end %>
+
+    <% if @valid_stories %>
+      <h3><%= t('projects.uploads.results') %></h3>
+      <hr>
+
+      <div class="card panel">
+        <div class="panel-content table-responsive">
+          <table class="table table-condensed table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Row</th>
+                <th>Story</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @valid_stories.each_with_index do |story, index| %>
+                <tr class="success">
+                  <td><%= index + 1 %></td>
+                  <td><%= story.title %></td>
+                  <td><%= story.story_type %></td>
+                </tr>
+              <% end %>
+
+              <% @invalid_stories.each_with_index do |errors, index| %>
+                <tr class="danger">
+                  <td><%= index + 1 %></td>
+                  <td colspan="2">
+                    <%= errors[:title] %> - <%= errors[:errors] %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

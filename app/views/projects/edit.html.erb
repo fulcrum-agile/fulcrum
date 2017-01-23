@@ -10,26 +10,41 @@
   <%= render 'projects/navbar', project: @project %>
 <% end %>
 
-<div class="row">
-  <div class="col-sm-12 col-md-6">
+<%= render partial: 'settings_sidebar',
+           layout: 'sidebar_wrapper' %>
+
+<div class="settings-page">
+  <div class="col-xs-12 col-sm-9">
+
     <h3><%= t('projects.edit project') %></h3>
+    <hr>
 
-    <%= render 'form' %>
+    <div class="card panel">
+      <div class="panel-content">
+        <%= render 'form' %>
+      </div>
+    </div>
+
+    <% if policy(@project).share? %>
+      <div class="col-xs-12 card panel">
+        <div class="panel-heading">
+          <h4><%= t('projects.share project') %></h4>
+        </div>
+        <div class="panel-content share-project">
+          <%= render 'share_form' %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if policy(@project).transfer? %>
+      <div class="col-xs-12 card panel">
+        <div class="panel-heading">
+          <h4><%= t('projects.transfer project') %></h4>
+        </div>
+        <div class="panel-content transfer-project">
+            <%= render 'transfer_form' %>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <% if policy(@project).share? %>
-    <div class="col-sm-12 col-md-6 share-project">
-      <h3><%= t('projects.share project') %></h3>
-
-      <%= render 'share_form' %>
-    </div>
-  <% end %>
-
-  <% if policy(@project).transfer? %>
-    <div class="col-sm-12 col-md-6 transfer-project">
-      <h3><%= t('projects.transfer project') %></h3>
-
-      <%= render 'transfer_form' %>
-    </div>
-  <% end %>
 </div>
