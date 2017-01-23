@@ -59,6 +59,40 @@
       height: 20px;
       background-color: rgba($darkgrey-6, .25);
     }
+
+    &-change {
+      padding: 10px;
+      margin-top: 10px;
+      width: 300px;
+      font-size: 11px;
+      background-color: lighten($aluminium-6, 3);
+
+      .form-group {
+        margin: 0;
+      }
+
+      p {
+        margin: 5px 0 0;
+      }
+
+      &-input {
+        padding: 5px 8px;
+        width: 45px;
+        height: 24px;
+      }
+
+      &-btn {
+        padding: 6px;
+        height: 24px;
+        font-size: 10px;
+        line-height: 1;
+      }
+    }
+  }
+
+  .velocity-popover-title,
+  .velocity-popover-content {
+    display: none;
   }
 
   .popover {

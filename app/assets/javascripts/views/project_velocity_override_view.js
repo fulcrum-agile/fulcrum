@@ -46,6 +46,10 @@ module.exports = Backbone.View.extend({
       that.clickOverlayOff();
     });
     $('.click-overlay').show();
+
+    setTimeout(function() {
+      $('.click-overlay').css('top', $('nav.navbar').height());
+    }, 10);
   },
 
   clickOverlayOff: function() {

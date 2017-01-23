@@ -1,18 +1,13 @@
-<div class="velocity-popover-title" id="velocity-popover-title">
-  <%= I18n.t("override.velocity") %>
-</div>
-
-<div class="velocity-popover-content" id="velocity-popover-content">
-
-  <form class="form-inline" id="override-velocity">
+<div class="velocity-change">
+  <form class="form-inline velocity-form" id="override-velocity">
     <div class="form-group">
       <label class="sr-only" for="override"><%= I18n.t('override.velocity') %></label>
-      <input type="number" class="form-control input-sm" name="override" size="2" placeholder="<%= I18n.t('override.velocity') %>" value="<%= project.velocity() %>">
+      <input type="number" class="form-control input-sm velocity-change-input" name="override" size="2" placeholder="<%= I18n.t('override.velocity') %>" value="<%= project.velocity() %>">
     </div>
 
     <div class="btn-group">
-      <button name="revert" value="revert" class="btn btn-default btn-sm"><%= I18n.t("revert") %></button>
-      <button name="apply" value="apply" class="btn btn-primary btn-sm"><%= I18n.t("apply") %></button>
+      <button name="revert" value="revert" class="btn btn-default btn-sm velocity-change-btn"><%= I18n.t("revert") %></button>
+      <button name="apply" value="apply" class="btn btn-primary btn-sm velocity-change-btn"><%= I18n.t("apply") %></button>
     </div>
   </form>
 
