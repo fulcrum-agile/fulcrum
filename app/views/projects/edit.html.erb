@@ -11,7 +11,8 @@
 <% end %>
 
 <%= render partial: 'settings_sidebar',
-           layout: 'sidebar_wrapper' %>
+           layout: 'sidebar_wrapper',
+           locals: { project: @project } %>
 
 <div class="settings-page">
   <div class="col-xs-12 col-sm-9">

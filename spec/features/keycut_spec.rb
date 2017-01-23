@@ -59,24 +59,24 @@ describe "Keycuts" do
       find('#sidebar-toggle').trigger 'click'
 
       send_keys "B"
-      expect(page).to have_css('.hide_backlog.pressed')
+      expect(page).to have_css('.hide_backlog.active')
       send_keys "B"
-      expect(page).not_to have_css('.hide_backlog.pressed')
+      expect(page).not_to have_css('.hide_backlog.active')
 
       send_keys "C"
-      expect(page).to have_css('.hide_chilly_bin.pressed')
+      expect(page).to have_css('.hide_chilly_bin.active')
       send_keys "C"
-      expect(page).not_to have_css('.hide_chilly_bin.pressed')
+      expect(page).not_to have_css('.hide_chilly_bin.active')
 
       send_keys "D"
-      expect(page).to have_css('.hide_done.pressed')
+      expect(page).to have_css('.hide_done.active')
       send_keys "D"
-      expect(page).not_to have_css('.hide_done.pressed')
+      expect(page).not_to have_css('.hide_done.active')
 
       send_keys "P"
-      expect(page).to have_css('.hide_in_progress.pressed')
+      expect(page).to have_css('.hide_in_progress.active')
       send_keys "P"
-      expect(page).not_to have_css('.hide_in_progress.pressed')
+      expect(page).not_to have_css('.hide_in_progress.active')
     end
   end
 end

@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, except: %i[new create index archived]
   before_action :prepare_session, only: %i[import import_upload]
+  before_action -> { set_sidebar :project_settings }, only: %i[import edit]
 
   Project::MAX_MEMBERS_PER_CARD = 4;
 

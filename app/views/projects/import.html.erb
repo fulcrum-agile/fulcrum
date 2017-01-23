@@ -10,7 +10,9 @@
   <%= render 'projects/navbar', project: @project %>
 <% end %>
 
-<%= render partial: 'projects/settings_sidebar' %>
+<%= render partial: 'settings_sidebar',
+           layout: 'sidebar_wrapper',
+           locals: { project: @project } %>
 
 <div class="settings-page">
   <div class="col-xs-12 col-sm-9">
@@ -19,19 +21,30 @@
 
     <div class="card panel">
       <div class="panel-content">
-        <% if session[:import_job] %>
-          <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
+        <% if @import_job %>
+          <p class="instructions">
+            <%= t('projects.uploads.already_uploaded.being_processed', time_ago: time_ago_in_words( @import_job[:created_at] )) %>
+          </p>
+          <p class="instructions">
+            <%= t('projects.uploads.already_uploaded.come_back_later') %>
+          </p>
         <% else %>
-          <div class="instructions">
-            <%= raw t('projects.uploads.instructions') %>
-          </div>
+          <p class="instructions">
+            <%= raw t('projects.uploads.instructions.introduction') %>
+          </p>
+          <p class="instructions">
+            <%= t('projects.uploads.instructions.process_explanation') %>
+          </p>
+          <p class="instructions">
+            <em><%= t('projects.uploads.instructions.bottom_line') %></em>
+          </p>
 
-          <%= form_for [:import_upload, @project], html: { class: "form-horizontal import-form" } do |f| %>
+          <%= form_for [:import_upload, @project], html: { class: "form-horizontal import-stories-form" } do |f| %>
             <div class="field select">
               <%= f.attachinary_file_field :import %>
             </div>
             <div class="field submit">
-              <%= f.submit 'import', class: 'btn btn-default btn-primary' %>
+              <%= f.submit t('import'), class: 'btn btn-default btn-primary' %>
             </div>
           <% end %>
         <% end %>
@@ -53,17 +66,17 @@
               </tr>
             </thead>
             <tbody>
-              <% @valid_stories.each_with_index do |story, index| %>
+              <% @valid_stories.each.with_index(1) do |story, index| %>
                 <tr class="success">
-                  <td><%= index + 1 %></td>
+                  <td><%= index %></td>
                   <td><%= story.title %></td>
                   <td><%= story.story_type %></td>
                 </tr>
               <% end %>
 
-              <% @invalid_stories.each_with_index do |errors, index| %>
+              <% @invalid_stories.each.with_index(1) do |errors, index| %>
                 <tr class="danger">
-                  <td><%= index + 1 %></td>
+                  <td><%= index %></td>
                   <td colspan="2">
                     <%= errors[:title] %> - <%= errors[:errors] %>
                   </td>

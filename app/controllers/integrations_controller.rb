@@ -1,5 +1,6 @@
 class IntegrationsController < ApplicationController
   before_action :set_project, :set_integrations
+  before_action -> { set_sidebar :project_settings }, only: %i[index]
 
   respond_to :html, :json
 
@@ -48,4 +49,3 @@ class IntegrationsController < ApplicationController
     end
   end
 end
-

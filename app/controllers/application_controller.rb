@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include Pundit
+  include SidebarController
 
   before_filter :authenticate_user!, unless: :devise_controller?
   before_filter :check_team_presence, unless: :devise_controller?

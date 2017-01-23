@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'setClassName');
-    this.$el.attr('class','hide_'+this.options.columnView.id );
+    this.$el.attr('class','sidebar-link hide_'+this.options.columnView.id );
     this.options.columnView.on('visibilityChanged', this.setClassName);
   },
 
@@ -47,9 +47,9 @@ module.exports = Backbone.View.extend({
 
   setClassName: function() {
     if (this.options.columnView.hidden()) {
-      this.$el.addClass('pressed');
+      this.$el.addClass('active');
     } else {
-      this.$el.removeClass('pressed');
+      this.$el.removeClass('active');
     }
   }
 });

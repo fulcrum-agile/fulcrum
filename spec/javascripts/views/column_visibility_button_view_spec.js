@@ -21,7 +21,7 @@ describe("ColumnVisibilityButtonView", function() {
   });
 
   it("should set its class from the ColumnView id", function() {
-    expect(this.view.render().$el.attr('class')).toEqual('hide_' + this.columnView.id);
+    expect(this.view.render().$el.attr('class')).toEqual('sidebar-link hide_' + this.columnView.id);
   });
 
   describe('toggle', function() {
@@ -41,7 +41,7 @@ describe("ColumnVisibilityButtonView", function() {
     it("sets the pressed class when the column is hidden", function() {
       this.columnView.hidden = sinon.stub().returns(true);
       this.view.setClassName();
-      expect(this.view.$el).toHaveClass('pressed');
+      expect(this.view.$el).toHaveClass('active');
     });
 
     it("removes the pressed class when the column is visible", function() {

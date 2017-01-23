@@ -10,7 +10,9 @@
   <%= render 'projects/navbar', project: @project %>
 <% end %>
 
-<%= render partial: 'projects/settings_sidebar' %>
+<%= render partial: 'projects/settings_sidebar',
+           layout: 'projects/sidebar_wrapper',
+           locals: { project: @project } %>
 
 <div class="settings-page">
   <div class="col-xs-12 col-sm-9">
@@ -25,7 +27,7 @@
 
             <% unless integration.new_record? %>
               <%= link_to project_integration_path(@project, integration),
-                          confirm: t('projects.integrations_remove_sure', kind: integration.kind),
+                          data: { confirm: t('projects.integrations_remove_sure', kind: integration.kind) },
                           method: :delete,
                           class: 'btn btn-sm btn-remove' do %>
                 <%= material_icon.delete_forever.md_18 %> Remove

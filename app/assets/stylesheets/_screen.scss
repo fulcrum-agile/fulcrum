@@ -70,6 +70,7 @@ ul#primary-nav li {
 }
 
 .main {
+  height: 100%;
   margin: 0;
   margin-bottom: 2px;
   position: relative;
@@ -82,7 +83,7 @@ html.stories, html.stories body, html.stories .main {
 }
 
 #column-toggles {
-  a.pressed {
+  .active {
     color: #636363;
   }
   .mi {
@@ -353,7 +354,7 @@ div.story-title abbr.initials {
 }
 
 a.button {
-  background: #efefef;
+  background: $lightgrey-8;
   @include background(linear-gradient(top, $lightgrey-8, $lightgrey-15));
   @include box-shadow(0 1px 2px $lightgrey-16);
   text-shadow: $white 0 1px 0;
@@ -361,12 +362,12 @@ a.button {
   @include border-radius(5px);
   border: 1px solid $darkgrey*1.5;
   text-decoration: none;
-}
 
-a.button:hover {
-  @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
-  color: $white;
-  text-shadow: $darkgrey 0 1px 0;
+  &:hover {
+    @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+    color: $white;
+    text-shadow: $darkgrey 0 1px 0;
+  }
 }
 
 .tags {
@@ -535,7 +536,7 @@ div#keycut-help {
   p {
     margin:0.33em 1em; text-align:right; font-size:0.9em;
     span {
-      display:inline-block; color:$white; margin-right:0.8em; float:left;
+      display:inline-block; color: $white; margin-right: .8em; float:left;
     }
   }
 }
@@ -655,78 +656,6 @@ div#keycut-help {
       &:nth-child(#{$i}) .card {
         animation-delay: #{$i * 0.15s};
       }
-    }
-  }
-}
-
-/* Settings */
-.settings-page {
-  display: inline-block;
-  padding: 0 30px;
-  height: 100%;
-  position: absolute;
-}
-
-.settings-sidebar {
-  > .nav-item {
-    text-indent: inherit;
-    > .nav-link {
-      padding-left: 15px;
-    }
-  }
-}
-
-/* Import */
-
-.import-form {
-  margin: 15px auto;
-  width: 70%;
-
-  .field {
-    &.select {
-      padding: 5px;
-      background: $lightgrey-1;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    &.submit {
-      text-align: right;
-    }
-  }
-}
-
-.instructions > p {
-  font-size: 1em;
-  margin-bottom: 20px;
-}
-
-/* Integrations */
-
-.panel {
-  .panel-content {
-    padding: 15px;
-  }
-}
-
-.integration {
-  &__header {
-    border-bottom: 1px solid #eee;
-    font-weight: bold;
-    padding: 15px 15px;
-
-    > .btn-danger {
-      right: 30px;
-      top: 10px;
-      position: absolute;
-    }
-  }
-
-  &__content {
-    padding: 15px;
-
-    .new_integration > .actions {
-      text-align: right;
     }
   }
 }

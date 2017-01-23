@@ -255,13 +255,13 @@ en:
       type: Type
       select_file: "You must select a CSV file to import its stories to the project."
       being_processed: "Your uploaded CSV file is being processed. You can come back here later when the process is finished."
-      already_uploaded: |
-          <p>There is already an uploaded file being processed %{time_ago} ago.</p>
-          <p>Wait a few minutes and come back to see the results or upload a new file in case of errors.</p>
-      instructions: |
-          <p>You can import many stories at once from a comma separated variable (CSV) format. The first line of the CSV must contain the correct headers for the import to succeed.  You can download a <a href="/Fulcrum_Import_Template.csv">CSV template</a> with the correct headers to get you started.</p>
-          <p>The system will try and match any user names found in the CSV with members of your project. Make sure to register members with the correct names before importing if you want them to match.</p>
-          <p><em>Note: You can also use a file exported from Pivotal Tracker.</em></p>
+      already_uploaded:
+        being_processed: "There is already an uploaded file being processed %{time_ago} ago."
+        come_back_later: "Wait a few minutes and come back to see the results or upload a new file in case of errors."
+      instructions:
+        introduction: "You can import many stories at once from a comma separated variable (CSV) format. The first line of the CSV must contain the correct headers for the import to succeed.  You can download a <a href='/Fulcrum_Import_Template.csv'>CSV template</a> with the correct headers  to get you started."
+        process_explanation: "The system will try and match any user names found in the CSV with members of your project. Make sure to register members with the correct names before importing if you want them to match."
+        bottom_line: "Note: You can also use a file exported from Pivotal Tracker."
     no_projects_found: "Oops! It seems like this team doesn't have any project."
     no_recent_activity: "Oops! This team doesn't have recent activity."
 

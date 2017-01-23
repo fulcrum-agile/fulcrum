@@ -4,7 +4,7 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-#sidebar-wrapper {
+.sidebar-wrapper {
   background: $sidebar-bg-default;
   width: $sidebar-size;
   height: 100%;
@@ -36,34 +36,6 @@
 
   .nav-item.active > .nav-link {
     color: $sidebar-fg-hover;
-  }
-
-
-  li {
-    text-indent: 1.2em;
-    line-height: 2.8;
-
-    a {
-      display: block;
-      text-decoration: none;
-      color: $sidebar-fg-default;
-
-      &.nav-current {
-        background: $sidebar-bg-selected;
-        cursor: default;
-        color: $sidebar-fg-hover;
-      }
-
-      &:hover {
-        color: $sidebar-fg-hover;
-        text-decoration: none;
-        background: $sidebar-bg-hover;
-      }
-    }
-
-    hr {
-      margin: 0.5em 0;
-    }
   }
 
   .nav-locale {
@@ -124,6 +96,33 @@
 
   .toggle {
     text-indent: .62em;
+  }
+}
+
+.sidebar-item {
+  text-indent: 1.2em;
+  line-height: 2.8;
+
+  .sidebar-link {
+    display: block;
+    text-decoration: none;
+    color: $sidebar-fg-default;
+
+    &.nav-current {
+      background: $sidebar-bg-selected;
+      cursor: default;
+      color: $sidebar-fg-hover;
+    }
+
+    &:hover {
+      color: $sidebar-fg-hover;
+      text-decoration: none;
+      background: $sidebar-bg-hover;
+    }
+  }
+
+  hr {
+    margin: 0.5em 0;
   }
 }
 
