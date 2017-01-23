@@ -1,0 +1,28 @@
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav settings-sidebar">
+    <li class="sidebar-brand">
+      PROJECT SETTINGS
+    </li>
+
+    <% if policy(@project).manage? %>
+      <li role="presentation" class="nav-item <%= active_class(edit_project_path(@project)) %>">
+        <%= link_to edit_project_path(@project), class: 'nav-link' do %>
+          <%= material_icon.edit.md_18.css_class('sidebar-icon') %> <%= t('edit') %>
+        <% end %>
+      </li>
+      <li role="presentation" class="nav-item <%=  active_class(project_integrations_path(@project)) %>">
+        <%= link_to project_integrations_path(@project), class: 'nav-link' do %>
+          <%= material_icon.device_hub.md_18.css_class('sidebar-icon') %> <%= t('projects.integrations') %>
+        <% end %>
+      </li>
+
+      <li class="divider"></li>
+
+      <li role="presentation" class="nav-item <%= active_class(import_project_path(@project)) %>">
+        <%= link_to import_project_path(@project), class: 'nav-link' do %>
+          <%= material_icon.file_upload.md_18.css_class('sidebar-icon') %> <%= t('import')%>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

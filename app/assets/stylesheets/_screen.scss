@@ -669,3 +669,75 @@ div#keycut-help {
     }
   }
 }
+
+/* Settings */
+.settings-page {
+  display: inline-block;
+  padding: 0 30px;
+  height: 100%;
+  position: absolute;
+}
+
+.settings-sidebar {
+  > .nav-item {
+    text-indent: inherit;
+    > .nav-link {
+      padding-left: 15px;
+    }
+  }
+}
+
+/* Import */
+
+.import-form {
+  margin: 15px auto;
+  width: 70%;
+
+  .field {
+    &.select {
+      padding: 5px;
+      background: $lightgrey-1;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    &.submit {
+      text-align: right;
+    }
+  }
+}
+
+.instructions > p {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+/* Integrations */
+
+.panel {
+  .panel-content {
+    padding: 15px;
+  }
+}
+
+.integration {
+  &__header {
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    padding: 15px 15px;
+
+    > .btn-danger {
+      right: 30px;
+      top: 10px;
+      position: absolute;
+    }
+  }
+
+  &__content {
+    padding: 15px;
+
+    .new_integration > .actions {
+      text-align: right;
+    }
+  }
+}

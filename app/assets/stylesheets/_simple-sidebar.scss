@@ -34,6 +34,11 @@
   list-style: none;
   font-size: 1em;
 
+  .nav-item.active > .nav-link {
+    color: $sidebar-fg-hover;
+  }
+
+
   li {
     text-indent: 1.2em;
     line-height: 2.8;
@@ -88,7 +93,10 @@
   }
 
   .sidebar-brand {
+    font-size: .8em;
+    font-weight: bold;
     padding: 0.4em 0;
+    color: $lightgrey;
   }
 
   .dropdown-menu-dark {
@@ -109,7 +117,8 @@
   }
 
   .divider {
-    border: 1px solid;
+    border: 1px solid $sidebar-bg-default;
+    margin-bottom: 10px;
   }
 
   .toggle {
