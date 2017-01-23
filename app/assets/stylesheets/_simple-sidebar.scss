@@ -93,10 +93,11 @@
   }
 
   .sidebar-brand {
+    color: $lightgrey;
     font-size: .8em;
     font-weight: bold;
     padding: 0.4em 0;
-    color: $lightgrey;
+    text-transform: uppercase;
   }
 
   .dropdown-menu-dark {

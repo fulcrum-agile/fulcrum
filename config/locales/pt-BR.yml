@@ -252,6 +252,9 @@ pt-BR:
     uploads:
       title: Importação de Histórias
       results: Resultados da Importação
+      row: "Linha"
+      story: "História"
+      type: "Tipo"
       select_file: "Você deve selecionar um arquivo CSV para importar suas histórias para o projeto."
       being_processed: "Seu arquivo CSV carregado está sendo processado. Você pode voltar mais tarde, quando o processo estiver concluído."
       already_uploaded: |

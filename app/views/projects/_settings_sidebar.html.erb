@@ -1,8 +1,6 @@
-<div id="sidebar-wrapper">
-  <ul class="sidebar-nav settings-sidebar">
-    <li class="sidebar-brand">
-      PROJECT SETTINGS
-    </li>
+<li class="sidebar-item sidebar-brand">
+  <%= t('settings') %>
+</li>
 
     <% if policy(@project).manage? %>
       <li role="presentation" class="nav-item <%= active_class(edit_project_path(@project)) %>">

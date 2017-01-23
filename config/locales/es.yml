@@ -241,6 +241,9 @@ es:
     uploads:
       title: Historias Importadas
       results: Resultados de importación
+      row: Fila
+      story: Historia
+      type: Tipo
       select_file: "Debe seleccionar un archivo CSV para importar sus historias para el proyecto."
       being_processed: "Su archivo CSV cargado se está procesando. Puede volver aquí más tarde cuando se termina el proceso."
       already_uploaded: |

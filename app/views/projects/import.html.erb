@@ -39,17 +39,17 @@
     </div>
 
     <% if @valid_stories %>
-      <h3><%= t('projects.uploads.results') %></h3>
-      <hr>
-
       <div class="card panel">
+        <div class="panel-heading">
+          <%= t('projects.uploads.results') %>
+        </div>
         <div class="panel-content table-responsive">
           <table class="table table-condensed table-striped table-hover">
             <thead>
               <tr>
-                <th>Row</th>
-                <th>Story</th>
-                <th>Type</th>
+                <th><%= t('projects.uploads.row') %></th>
+                <th><%= t('projects.uploads.story') %></th>
+                <th><%= t('projects.uploads.type') %></th>
               </tr>
             </thead>
             <tbody>

@@ -18,22 +18,22 @@
     <hr>
 
     <% @integrations.each do |integration| %>
-      <div class="col-xs-12 col-sm-6">
+      <div class="col-xs-12 col-sm-10">
         <div class="card panel integration">
-          <div class="panel-heading integration__header">
+          <div class="panel-heading clearfix">
             <%= integration.kind.camelcase %>
 
             <% unless integration.new_record? %>
               <%= link_to project_integration_path(@project, integration),
                           confirm: t('projects.integrations_remove_sure', kind: integration.kind),
                           method: :delete,
-                          class: 'btn btn-sm btn-danger' do %>
+                          class: 'btn btn-sm btn-remove' do %>
                 <%= material_icon.delete_forever.md_18 %> Remove
               <% end %>
             <% end %>
           </div>
 
-          <div class="panel-content integration__content">
+          <div class="panel-content">
             <% if integration.new_record? %>
               <%= form_for [@project, integration] do |form| %>
                 <%= form.hidden_field :kind, value: integration.kind %>

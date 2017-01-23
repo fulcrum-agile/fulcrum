@@ -15,7 +15,6 @@
 
 <div class="settings-page">
   <div class="col-xs-12 col-sm-9">
-
     <h3><%= t('projects.edit project') %></h3>
     <hr>
 
@@ -26,9 +25,9 @@
     </div>
 
     <% if policy(@project).share? %>
-      <div class="col-xs-12 card panel">
+      <div class="card panel">
         <div class="panel-heading">
-          <h4><%= t('projects.share project') %></h4>
+          <%= t('projects.share project') %>
         </div>
         <div class="panel-content share-project">
           <%= render 'share_form' %>
@@ -37,12 +36,12 @@
     <% end %>
 
     <% if policy(@project).transfer? %>
-      <div class="col-xs-12 card panel">
+      <div class="card panel">
         <div class="panel-heading">
-          <h4><%= t('projects.transfer project') %></h4>
+          <%= t('projects.transfer project') %>
         </div>
         <div class="panel-content transfer-project">
-            <%= render 'transfer_form' %>
+          <%= render 'transfer_form' %>
         </div>
       </div>
     <% end %>
