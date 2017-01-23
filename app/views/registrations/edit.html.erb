@@ -25,7 +25,7 @@
     <div class="panel panel-default card user-profile">
       <div class="panel-body">
         <div class="text-center">
-          <% cache "user/#{:email}/avatar_edit_page", expires_in: 1.hour do %>
+          <% cache "user/#{@user.email}/avatar_edit_page", expires_in: 1.hour do %>
             <img class="user-image" src="<%= avatar_url(@user) %>">
             <div class="user-name"><%= @user.name %></div>
           <% end %>
