@@ -41,7 +41,7 @@ module.exports = Backbone.View.extend({
 
   clickOverlayOn: function() {
     var that = this;
-    this.$el.css('z-index', 2000);
+    $('#velocity').css('z-index', 2000);
     $('.click-overlay').on('click', function() {
       that.clickOverlayOff();
     });

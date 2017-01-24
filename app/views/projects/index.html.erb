@@ -1,6 +1,6 @@
 <% content_for :title_bar do %>
   <% if policy(Project).new? %>
-    <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary' %>
+    <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary btn-sm navbar-btn' %>
   <% end %>
 <% end %>
 

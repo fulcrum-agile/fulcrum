@@ -10,7 +10,8 @@
   height: 100%;
   overflow: auto;
   display: inline-block;
-  
+  transition: 0.1s ease-in-out width;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -23,7 +24,7 @@
   &.open {
     width: $sidebar-size;
     overflow: auto;
-  }    
+  }
 }
 
 .sidebar-nav {
@@ -59,7 +60,7 @@
       margin: 0.5em 0;
     }
   }
-  
+
   .nav-locale {
     text-indent: 0;
 
@@ -109,7 +110,7 @@
 
   .divider {
     border: 1px solid;
-  }  
+  }
 
   .toggle {
     text-indent: .62em;

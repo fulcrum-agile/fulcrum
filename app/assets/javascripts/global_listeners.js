@@ -81,15 +81,15 @@ $(function() {
       };
     });
 
-  $sidebarWrapper.mouseenter(_.debounce(function(){
+  $sidebarWrapper.mouseenter(function(){
     $sidebarWrapper.toggleClass('open');
-  }, 500));
+  });
 
   $sidebarWrapper.mouseleave(function(){
     $sidebarWrapper.removeClass('open');
   });
 
-  $("#sidebar-toggle").click(function(e) {
+  $('#sidebar-toggle').click(function(e) {
     e.preventDefault();
 
     if ($sidebarWrapper.hasClass('collapsed'))
@@ -104,7 +104,8 @@ $(function() {
 
   $('.locale-change').on('change', function(e) {
     e.preventDefault();
-    $(this).parent('form').submit();
+
+    $(this).parent().parent('form').submit();
   });
 
   if ($('.change-team')) {

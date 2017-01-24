@@ -1,13 +1,10 @@
 <% content_for :title_bar do %>
-  <h1 class="top-bar-title"><%= t('teams.edit team') %></h1>
+  <span class="navbar-brand"><%= t('teams.edit team') %></span>
 <% end %>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-8">
-    <div class="form-wrapper">
-      <%= render 'form' %>
-    </div>
-  </div>
+  <%= render 'form' %>
+</div>
 
   <% unless @team.new_record? %>
     <div class="col-xs-12 col-sm-8">

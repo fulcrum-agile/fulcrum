@@ -1,7 +1,9 @@
 <% content_for :title_bar do %>
-  <div class="project_nav">
-    <%= link_to @project.name, @project, class: 'project-title' %>
-  </div>
+<ul class="nav navbar-nav">
+  <li>
+    <%= link_to @project.name, @project %>
+  </li>
+</ul>
 <% end %>
 
 <% content_for :navbar do %>

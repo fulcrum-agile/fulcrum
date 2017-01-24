@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, unless: :devise_controller?
   before_filter :check_team_presence, unless: :devise_controller?
   before_filter :set_locale
+  before_filter :set_layout_settings
   around_filter :user_time_zone, if: :current_user
 
   after_filter :verify_authorized, except: [:index], if: :must_pundit?
@@ -68,5 +69,10 @@ class ApplicationController < ActionController::Base
 
   def must_pundit?
     !devise_controller? && !(self.class.parent == Manage)
+  end
+
+  def set_layout_settings
+    @layout_settings_default = { fluid: false }.freeze
+    @layout_settings = @layout_settings_default.dup
   end
 end

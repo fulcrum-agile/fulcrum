@@ -12,23 +12,26 @@ i {
   vertical-align: middle;
 }
 
-.icon{
-  width:16px;
-  height:16px;
-  padding:0;
-  display:inline-block;
-  text-indent:-9999px;
+.icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  display: inline-block;
+  text-indent: -9999px;
 }
 
-.icons-throbber { background:image-url('throbber.gif') no-repeat; }
-.icons-spinner  { background:image-url('spinner.gif') no-repeat; }
+.icons-throbber { background: image-url('throbber.gif') no-repeat; }
+.icons-spinner  { background: image-url('spinner.gif') no-repeat; }
 
 a.expand, a.collapse { cursor: pointer; }
 
 .mi.md-20 { font-size: 20px; }
+.mi.md-18 { font-size: 18px; }
+.mi.md-16 { font-size: 16px; }
 .mi.md-14 { font-size: 14px; }
 .mi.md-star { color: #FFC000; }
 .mi.md-bug  { color: #C20B0B; }
+.mi.md-release  { color: $white; }
 .mi.md-delete { color: red; }
 
 .story {
@@ -41,7 +44,7 @@ a.expand, a.collapse { cursor: pointer; }
 
   .details {
     position: relative;
-    top: -2px;
-    margin-left: 8px;
+    top: -1px;
+    margin-left: 4px;
   }
 }

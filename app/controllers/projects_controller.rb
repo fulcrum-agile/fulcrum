@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
+    @layout_settings[:fluid] = true
     @story = @project.stories.build
 
     respond_to do |format|

@@ -1,0 +1,24 @@
+.loading-spin {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($white, 0.7);
+  z-index: 1000;
+
+  .spinner {
+    margin: 15% 45%;
+
+    span {
+      padding: 50px;
+    }
+  }
+
+  &.show {
+    display: block;
+  }
+}

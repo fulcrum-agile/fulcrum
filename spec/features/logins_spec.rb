@@ -26,7 +26,7 @@ describe "Logins" do
 
     it "removes the sign up link" do
       visit root_path
-      expect(page).to have_selector('h1', text: 'Log in')
+      expect(page).to have_selector('span', text: 'Log in')
 
       expect(page).not_to have_selector('a', text: 'Sign up')
     end
@@ -39,7 +39,7 @@ describe "Logins" do
       fill_in "Password", with: 'password'
       click_button 'Sign in'
 
-      expect(page).to have_selector('h1', text: I18n.t('teams.switch'))
+      expect(page).to have_selector('span', text: I18n.t('teams.switch'))
       expect(page).to have_selector('.user-dropdown', text: 'Test User')
     end
 
@@ -50,7 +50,7 @@ describe "Logins" do
 
         it 'redirects to enable authy page', js: true do
           visit root_path
-          expect(page).to have_selector('h1', text: 'Log in')
+          expect(page).to have_selector('span', text: 'Log in')
 
           fill_in "Email",     with: "user@example.com"
           fill_in "Password",  with: "password"
@@ -64,7 +64,7 @@ describe "Logins" do
 
         it 'redirects to verify token page', js: true do
           visit root_path
-          expect(page).to have_selector('h1', text: 'Log in')
+          expect(page).to have_selector('span', text: 'Log in')
 
           fill_in "Email",     with: "user@example.com"
           fill_in "Password",  with: "password"
@@ -86,7 +86,7 @@ describe "Logins" do
       find('.user-dropdown').trigger 'click'
       click_on 'Log out'
 
-      expect(page).to have_selector('h1', text: 'Log in')
+      expect(page).to have_selector('span', text: 'Log in')
     end
   end
 end
