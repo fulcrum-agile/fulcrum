@@ -38,7 +38,7 @@
           <% else %>
             <%= link_to t('enable_2fa'), user_enable_authy_path, class: 'btn btn-success btn-block' %>
           <% end %>
-          <%= link_to t("cancel_account"), registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger btn-block' %>
+          <%= link_to t("cancel_account"), registration_path(resource_name), data: {confirm: t('cancel_account_confirmation_question')}, method: :delete, class: 'btn btn-danger btn-block' %>
         </div>
       </div>
     </div>

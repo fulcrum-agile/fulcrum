@@ -34,6 +34,7 @@ es:
   disable_2fa: "Inhabilitar 2FA"
   enable_2fa: "Habilitar 2FA (Authy app)"
   cancel_account: "Cancelar mi cuenta"
+  cancel_account_confirmation_question: "¿Está seguro de que desea cancelar su cuenta?"
   update_profile: "Actualizar perfil"
 
   save: "Guardar"
