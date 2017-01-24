@@ -75,7 +75,7 @@ RSpec.describe V1::Projects do
 
   describe '#GET /api/v1/projects/{slug}/analysis' do
     let(:project) { create :project }
-    let(:date) { Timecop.freeze(Time.new(2016, 12, 7, 10, 0).utc) }
+    let(:date) { Time.new(2016, 12, 7, 10, 0) }
 
     let(:iteration) do
       double(
@@ -101,16 +101,18 @@ RSpec.describe V1::Projects do
         "velocity" => 10,
         "volatility" => 0,
         "current_iteration_number" => 32,
-        "next_iteration_date" => "2016/12/07 10:00:00 +0000",
+        "next_iteration_date" => date.strftime("%Y/%m/%d %H:%M:%S %z"),
         "backlog" =>  [1, 2, 3],
         "backlog_iterations" => [3, 2, 1],
         "current_iteration_details" => {"started" => 8, "finished" => 5},
-        "backlog_date" => [59, "2016/12/07 10:00:00 +0000"],
-        "worst_backlog_date" => [59, "2016/12/07 10:00:00 +0000"]
+        "backlog_date" => [59, date.strftime("%Y/%m/%d %H:%M:%S %z")],
+        "worst_backlog_date" => [59, date.strftime("%Y/%m/%d %H:%M:%S %z")]
       }
     end
 
     before(:each) do
+      Timecop.freeze(date)
+
       allow_any_instance_of(Project).to receive(:iteration_service)
         .and_return(iteration)
 
