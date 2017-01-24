@@ -103,8 +103,6 @@ $(function() {
   $('.tag-tooltip').tooltip();
 
   $('.locale-change').on('change', function(e) {
-    console.log('locale changed');
-
     e.preventDefault();
 
     $(this).parent().parent('form').submit();
