@@ -42,7 +42,7 @@ module IntegrationHelpers
   end
 
   def wait_spinner
-    expect(page).not_to have_css('.loading-spin')
+    expect(page).not_to have_css('.loading_screen.show')
   end
 
 end
