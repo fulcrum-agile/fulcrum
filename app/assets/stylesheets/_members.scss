@@ -15,7 +15,7 @@
       display: inline-block;
 
       .additional {
-        cursor: pointer;
+        cursor: default;
         width: 32px;
         line-height: 32px;
         background-color: $darkred;
@@ -31,7 +31,6 @@
         border: 1px solid $lightgrey-11;
 
         &:hover {
-          cursor: pointer;
           border-color: $darkred;
         }
       }

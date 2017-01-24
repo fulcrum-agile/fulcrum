@@ -29,6 +29,13 @@ pt-BR:
   accepted_points: "Pontos Aceitos"
   change team: "Trocar de Equipe"
   team: "Equipe"
+  visit: "Visite"
+  update_avatar: "para atualizar sua imagem de perfil"
+  disable_2fa: "Desativar 2FA"
+  enable_2fa: "Ativar 2FA (Authy app)"
+  cancel_account: "Cancelar minha conta"
+  cancel_account_confirmation_question: "Tem certeza que desejar cancelar sua conta?"
+  update_profile: "Atualizar perfil"
 
   save: "Salvar"
   delete: "Apagar"
