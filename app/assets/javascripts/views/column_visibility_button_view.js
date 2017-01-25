@@ -47,9 +47,9 @@ module.exports = Backbone.View.extend({
 
   setClassName: function() {
     if (this.options.columnView.hidden()) {
-      this.$el.addClass('active');
+      this.$el.addClass('pressed');
     } else {
-      this.$el.removeClass('active');
+      this.$el.removeClass('pressed');
     }
   }
 });

@@ -23,7 +23,7 @@ $(function() {
     window.projectView.newStory();
 
     // Show chilly bin if it's hidden
-    $('.hide_chilly_bin.active').click();
+    $('.hide_chilly_bin.pressed').click();
     var newStoryElement = $('#chilly_bin div.story:last');
     $('#chilly_bin').scrollTo(newStoryElement, 100);
   });
@@ -68,7 +68,7 @@ $(function() {
         case 97: // a | Should only work without a focused element
           if (!$(':focus').length && window.projectView) {
             window.projectView.newStory();
-            $('.hide_chilly_bin.active').first().click();
+            $('.hide_chilly_bin.pressed').first().click();
             var newStoryElement = $('#chilly_bin div.story:last');
             $('#chilly_bin').scrollTo(newStoryElement, 100);
             return false;

@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, except: %i[new create index archived]
   before_action :prepare_session, only: %i[import import_upload]
   before_action -> { set_sidebar :project_settings }, only: %i[import edit]
+  before_action :fluid_layout, only: %i[show edit import]
 
   Project::MAX_MEMBERS_PER_CARD = 4;
 
@@ -20,7 +21,6 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @layout_settings[:fluid] = true
     @story = @project.stories.build
 
     respond_to do |format|
@@ -94,8 +94,9 @@ class ProjectsController < ApplicationController
 
   # CSV import form
   def import
-    if session[:import_job].present?
-      if job_result = Rails.cache.read(session[:import_job][:id])
+    @import_job = session[:import_job]
+    if @import_job.present?
+      if job_result = Rails.cache.read(@import_job[:id])
         session[:import_job] = nil
         if job_result[:errors]
           flash[:alert] = "Unable to import CSV: #{job_result[:errors]}"
@@ -113,7 +114,7 @@ class ProjectsController < ApplicationController
           end
         end
       else
-        minutes_ago = (Time.current - session[:import_job][:created_at].to_datetime) / 1.minute
+        minutes_ago = (Time.current - @import_job[:created_at].to_datetime) / 1.minute
         if minutes_ago > 60
           session[:import_job] = nil
         end
@@ -210,6 +211,10 @@ class ProjectsController < ApplicationController
 
   def allowed_params
     params.fetch(:project,{}).permit(:name, :point_scale, :default_velocity, :start_date, :iteration_start_day, :iteration_length, :import, :archived)
+  end
+
+  def fluid_layout
+    @layout_settings[:fluid] = true
   end
 
   def set_project

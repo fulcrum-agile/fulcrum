@@ -41,7 +41,7 @@ describe("ColumnVisibilityButtonView", function() {
     it("sets the pressed class when the column is hidden", function() {
       this.columnView.hidden = sinon.stub().returns(true);
       this.view.setClassName();
-      expect(this.view.$el).toHaveClass('active');
+      expect(this.view.$el).toHaveClass('pressed');
     });
 
     it("removes the pressed class when the column is visible", function() {

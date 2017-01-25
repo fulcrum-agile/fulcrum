@@ -11,6 +11,7 @@ ul#primary-nav {
   padding: 1em 1em 1em 40px;
   color: $white;
 }
+
 ul#primary-nav li {
   padding: 0 0.5em;
   display: inline;
@@ -72,23 +73,12 @@ ul#primary-nav li {
 .main {
   height: 100%;
   margin: 0;
-  margin-bottom: 2px;
   position: relative;
   background-color: $lightgrey-7;
-  height: 100%;
 }
 
 html.stories, html.stories body, html.stories .main {
   height: 100%;
-}
-
-#column-toggles {
-  .active {
-    color: #636363;
-  }
-  .mi {
-    display: inline;
-  }
 }
 
 /* stories table */

@@ -16,41 +16,42 @@
 
 <div class="settings-page">
   <div class="col-xs-12 col-sm-9">
-    <h3><%= t('projects.integrations') %></h3>
-    <hr>
+    <div class="page-header">
+      <h4 class="page-header-title darkgrey-2">
+        <i class="mi md-20">device_hub</i> <%= t('projects.integrations') %>
+      </h4>
+    </div>
 
     <% @integrations.each do |integration| %>
-      <div class="col-xs-12 col-sm-10">
-        <div class="card panel integration">
-          <div class="panel-heading clearfix">
-            <%= integration.kind.camelcase %>
+      <div class="card panel integration">
+        <div class="panel-heading clearfix">
+          <%= integration.kind.camelcase %>
 
-            <% unless integration.new_record? %>
-              <%= link_to project_integration_path(@project, integration),
-                          data: { confirm: t('projects.integrations_remove_sure', kind: integration.kind) },
-                          method: :delete,
-                          class: 'btn btn-sm btn-remove' do %>
-                <%= material_icon.delete_forever.md_18 %> Remove
-              <% end %>
+          <% unless integration.new_record? %>
+            <%= link_to project_integration_path(@project, integration),
+                        data: { confirm: t('projects.integrations_remove_sure', kind: integration.kind) },
+                        method: :delete,
+                        class: 'btn btn-sm btn-remove' do %>
+              <%= material_icon.delete_forever.md_18 %> Remove
             <% end %>
-          </div>
+          <% end %>
+        </div>
 
-          <div class="panel-content">
-            <% if integration.new_record? %>
-              <%= form_for [@project, integration] do |form| %>
-                <%= form.hidden_field :kind, value: integration.kind %>
+        <div class="panel-content">
+          <% if integration.new_record? %>
+            <%= form_for [@project, integration] do |form| %>
+              <%= form.hidden_field :kind, value: integration.kind %>
 
-                <%= render partial: "integrations/#{integration.kind}",
-                                    locals: { form: form } %>
+              <%= render partial: "integrations/#{integration.kind}",
+                                  locals: { form: form } %>
 
-                <div class="actions text-right">
-                  <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary' %>
-                </div>
-              <% end %>
-            <% else %>
-              <pre><code><%= JSON.pretty_generate(integration.data) %></code></pre>
+              <div class="actions text-right">
+                <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary' %>
+              </div>
             <% end %>
-          </div>
+          <% else %>
+            <pre><code><%= JSON.pretty_generate(integration.data) %></code></pre>
+          <% end %>
         </div>
       </div>
     <% end %>

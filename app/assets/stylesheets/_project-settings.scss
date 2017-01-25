@@ -1,7 +1,13 @@
 /* Settings */
 .settings-page {
-  height: 100%;
-  padding: 0 30px;
+  background: $lightgrey-7;
+  margin-left: $sidebar-size;
+  padding: 0  30px;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
   overflow-y: auto;
 }
 
@@ -59,5 +65,8 @@
 
   .sidebar-link {
     padding-left: 1.2em;
+    &.active {
+      color: $sidebar-settings-fg-selected;
+    }
   }
 }

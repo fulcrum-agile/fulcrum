@@ -5,6 +5,7 @@ class IntegrationsController < ApplicationController
   respond_to :html, :json
 
   def index
+    @layout_settings[:fluid] = true
     respond_with(@integrations)
   end
 

@@ -8,8 +8,7 @@
   background: $sidebar-bg-default;
   width: $sidebar-size;
   height: 100%;
-  overflow: auto;
-  display: inline-block;
+  float: left;
   transition: 0.1s ease-in-out width;
 
   &::-webkit-scrollbar {
@@ -93,31 +92,28 @@
     border: 1px solid $sidebar-bg-default;
     margin-bottom: 10px;
   }
-
-  .toggle {
-    text-indent: .62em;
-  }
 }
 
 .sidebar-item {
   text-indent: 1.2em;
   line-height: 2.8;
 
+  .mi {
+    display: inline;
+  }
+
   .sidebar-link {
     display: block;
     text-decoration: none;
-    color: $sidebar-fg-default;
-
-    &.nav-current {
-      background: $sidebar-bg-selected;
-      cursor: default;
-      color: $sidebar-fg-hover;
-    }
+    color: $sidebar-fg-selected;
 
     &:hover {
-      color: $sidebar-fg-hover;
       text-decoration: none;
       background: $sidebar-bg-hover;
+    }
+
+    &.pressed {
+      color: $sidebar-fg-default;
     }
   }
 
@@ -125,6 +121,7 @@
     margin: 0.5em 0;
   }
 }
+
 
 .click-overlay {
   display: none;
