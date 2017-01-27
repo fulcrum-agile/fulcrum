@@ -24,9 +24,14 @@
     }
   }
 }
-.date-form-group {
-  .auth-form-control {
-    width: auto;
-    display: inline;
-  }
+
+.date-form-group .auth-form-control {
+  width: auto;
+  display: inline;
+}
+
+.btn-form {
+  padding: 7px 20px;
+  font-size: 14px;
+  border-radius: 0;
 }

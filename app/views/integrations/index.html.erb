@@ -31,7 +31,7 @@
             <%= link_to project_integration_path(@project, integration),
                         data: { confirm: t('projects.integrations_remove_sure', kind: integration.kind) },
                         method: :delete,
-                        class: 'btn btn-sm btn-remove' do %>
+                        class: 'btn btn-sm btn-remove btn-form' do %>
               <%= material_icon.delete_forever.md_18 %> Remove
             <% end %>
           <% end %>
@@ -46,7 +46,7 @@
                                   locals: { form: form } %>
 
               <div class="actions text-right">
-                <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary' %>
+                <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary btn-form' %>
               </div>
             <% end %>
           <% else %>

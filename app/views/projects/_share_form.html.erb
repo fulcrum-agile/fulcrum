@@ -8,7 +8,7 @@
   </div>
 
   <div class="btn-group actions pull-right">
-    <%= f.submit t('projects.share'), class: 'btn btn-primary' %>
+    <%= f.submit t('projects.share'), class: 'btn btn-primary btn-form' %>
   </div>
 <% end %>
 </div>
@@ -25,7 +25,7 @@
           <%= link_to t('projects.unshare'), ownership_project_path(@project, ownership_action: 'unshare', project: { slug: ownership.team.slug }),
             data: {confirm: t('projects.index.are you sure you want to unshare this project')},
             method: :patch,
-            class: 'btn btn-warning' %>
+            class: 'btn btn-warning btn-form' %>
         </td>
       </tr>
     <% end %>

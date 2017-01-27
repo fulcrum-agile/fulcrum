@@ -31,21 +31,21 @@
     <%= f.select :iteration_length, iteration_length_options, {}, { class: 'form-control auth-form-control' } %>
   </div>
 
-  <div class="btn-group actions pull-right">
-    <%= f.submit nil, class: 'btn btn-primary' %>
+  <div class="btn-group actions pull-right clearfix">
+    <%= f.submit nil, class: 'btn btn-primary btn-form' %>
 
     <% if policy(@project).archive? %>
       <%= link_to t('projects.archive'), [:archive, @project],
         data: {confirm: t('projects.index.are you sure you want to archive this project')},
         method: :patch,
-        class: 'btn btn-warning' %>
+        class: 'btn btn-warning btn-form' %>
     <% end %>
 
     <% if policy(@project).destroy? %>
       <%= link_to t('delete'), @project,
         data: {confirm: t('projects.index.are you sure you want to delete this project')},
         method: :delete,
-        class: 'btn btn-danger' %>
+        class: 'btn btn-danger btn-form' %>
     <% end %>
   </div>
 <% end %>
