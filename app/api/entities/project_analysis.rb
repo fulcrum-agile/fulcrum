@@ -2,7 +2,9 @@ class Entities::ProjectAnalysis < Entities::BaseEntity
   expose :velocity
   expose :volatility
   expose :current_iteration_number
+  expose :current_iteration_date
   expose :next_iteration_date
+  expose :iteration_length
   expose :backlog
   expose :backlog_iterations
   expose :current_iteration_details
@@ -15,6 +17,10 @@ class Entities::ProjectAnalysis < Entities::BaseEntity
     last_iteration_number = object.current_iteration_number + 1
 
     object.date_for_iteration_number(last_iteration_number)
+  end
+
+  def current_iteration_date
+    object.date_for_iteration_number(object.current_iteration_number)
   end
 
   def worst_backlog_date

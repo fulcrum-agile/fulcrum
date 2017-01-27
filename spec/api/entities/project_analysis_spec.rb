@@ -9,7 +9,9 @@ RSpec.describe Entities::ProjectAnalysis do
       velocity: 10,
       volatility: 0,
       current_iteration_number: 32,
+      current_iteration_date: date,
       next_iteration_date: date,
+      iteration_length: 1,
       date_for_iteration_number: date,
       backlog: [1, 2, 3],
       backlog_iterations: [3, 2, 1],
@@ -27,7 +29,9 @@ RSpec.describe Entities::ProjectAnalysis do
   it { expect(subject[:velocity]).to eq(10) }
   it { expect(subject[:volatility]).to eq(0) }
   it { expect(subject[:current_iteration_number]).to eq(32) }
+  it { expect(subject[:current_iteration_date]).to eq(date) }
   it { expect(subject[:next_iteration_date]).to eq(date) }
+  it { expect(subject[:iteration_length]).to eq(1) }
   it { expect(subject[:backlog]).to eq([1, 2, 3]) }
   it { expect(subject[:backlog_iterations]).to eq([3, 2, 1]) }
   it { expect(subject[:current_iteration_details]).to eq({ "started": 8, "finished": 5 }) }
