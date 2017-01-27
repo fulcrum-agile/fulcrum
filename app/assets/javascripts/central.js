@@ -25,7 +25,7 @@ var Central = module.exports = {
       column.render();
 
       if (data.hideable !== false) {
-        $('<li/>')
+        $('<li class="sidebar-item"/>')
           .append(new ColumnVisibilityButtonView({ columnView: column }).render().$el)
           .appendTo('#column-toggles');
       }

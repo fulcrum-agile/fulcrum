@@ -252,15 +252,18 @@ pt-BR:
     uploads:
       title: Importação de Histórias
       results: Resultados da Importação
+      row: "Linha"
+      story: "História"
+      type: "Tipo"
       select_file: "Você deve selecionar um arquivo CSV para importar suas histórias para o projeto."
       being_processed: "Seu arquivo CSV carregado está sendo processado. Você pode voltar mais tarde, quando o processo estiver concluído."
-      already_uploaded: |
-          <p>Já existe um arquivo enviado sendo processado %{time_ago} atrás.</p>
-          <p>Aguarde alguns minutos e volte para ver os resultados ou fazer upload de um novo arquivo em caso de erros.</p>
-      instructions: |
-          <p>Você pode importar muitas histórias de uma só vez a partir de um arquivo em formato colunas separadas por vírgula (CSV). A primeira linha do CSV deve conter os cabeçalhos corretos para a importação para ter sucesso. Você pode baixar um <a href="/ Fulcrum_Import_Template.csv">modelo CSV</a> com os cabeçalhos corretos para  começar.</p>
-          <p>O sistema vai tentar igualar quaisquer nomes de usuário encontrados no CSV com os membros de seu projeto. Certifique-se de registrar membros com os nomes corretos antes de importar, se você quer que eles sejam associados corretamente.</p>
-          <p><em>Nota: Você também pode usar um arquivo exportado de outro sistema (Pivotal Tracker).</em></p>
+      already_uploaded:
+        being_processed: "Já existe um arquivo enviado sendo processado %{time_ago} atrás."
+        come_back_later: "Aguarde alguns minutos e volte para ver os resultados ou fazer upload de um novo arquivo em caso de erros."
+      instructions:
+        introduction: "Você pode importar muitas histórias de uma só vez a partir de um arquivo em formato colunas separadas por vírgula (CSV). A primeira linha do CSV deve conter os cabeçalhos corretos para a importação para ter sucesso. Você pode baixar um <a href='/ Fulcrum_Import_Template.csv'>modelo CSV</a> com os cabeçalhos corretos para  começar."
+        process_explanation: "O sistema vai tentar igualar quaisquer nomes de usuário encontrados no CSV com os membros de seu projeto. Certifique-se de registrar membros com os nomes corretos antes de importar, se você quer que eles sejam associados corretamente."
+        bottom_line: "Nota: Você também pode usar um arquivo exportado de outro sistema (Pivotal Tracker)."
     no_projects_found: "Oops! Parece que esta equipe não tem nenhum projeto."
     no_recent_activity: "Oops! Essa equipe não possui atividade recent."
 

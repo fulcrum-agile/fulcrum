@@ -11,8 +11,7 @@
 </head>
 <body class="<%= "board" if @layout_settings[:fluid] %>">
 
-<div class="click-overlay"></div>
-
+  <div class="click-overlay"></div>
 <div class="content-wrapper">
 
   <nav class="navbar navbar-default">
@@ -105,16 +104,16 @@
   </div>
 </div>
 
-<div class="loading-spin">
-  <div class="spinner">
-    <span class="icons-spinner"></span>
+  <div class="loading-spin">
+    <div class="spinner">
+      <span class="icons-spinner"></span>
+    </div>
   </div>
-</div>
 
-<%= javascript_include_tag *webpack_asset_paths('application') %>
-<%= javascript_include_tag 'i18n/translations' %>
-<%= javascript_include_tag :attachinary %>
-<%= yield :charts_data %>
-<%= cloudinary_js_config %>
+  <%= javascript_include_tag *webpack_asset_paths('application') %>
+  <%= javascript_include_tag 'i18n/translations' %>
+  <%= javascript_include_tag :attachinary %>
+  <%= yield :charts_data %>
+  <%= cloudinary_js_config %>
 </body>
 </html>

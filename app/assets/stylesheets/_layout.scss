@@ -7,8 +7,15 @@ body {
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
+  height: 100%;
 }
 
 .board {
   background-color: $darkgrey-10;
+}
+
+.content-wrapper {
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }

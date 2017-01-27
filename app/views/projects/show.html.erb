@@ -1,9 +1,9 @@
 <%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
 <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
-<div id="sidebar-wrapper" class="collapsed">
-  <%= render 'sidebar' %>
-</div>
+<%= render partial: 'sidebar',
+           layout: 'sidebar_wrapper',
+           locals: { wrapper_class: 'collapsed' } %>
 
 <% content_for :title_bar do %>
   <ul class="nav navbar-nav">

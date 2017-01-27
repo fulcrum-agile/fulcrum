@@ -11,6 +11,7 @@ ul#primary-nav {
   padding: 1em 1em 1em 40px;
   color: $white;
 }
+
 ul#primary-nav li {
   padding: 0 0.5em;
   display: inline;
@@ -70,24 +71,14 @@ ul#primary-nav li {
 }
 
 .main {
+  height: 100%;
   margin: 0;
-  margin-bottom: 2px;
   position: relative;
   background-color: $lightgrey-7;
-  height: 100%;
 }
 
 html.stories, html.stories body, html.stories .main {
   height: 100%;
-}
-
-#column-toggles {
-  a.pressed {
-    color: #636363;
-  }
-  .mi {
-    display: inline;
-  }
 }
 
 /* stories table */
@@ -352,31 +343,21 @@ div.story-title abbr.initials {
   padding-left: 20px;
 }
 
-table#import tr.valid, table#import .notice {
-  color: white;
-  background-color: $chameleon-3;
-}
-
-table#import tr.invalid, table#import .alert {
-  color: white;
-  background-color: $scarlet-red-2;
-}
-
 a.button {
-  background: #efefef;
-  @include background(linear-gradient(top, #efefef, #dfe1e2));
-  @include box-shadow(0 1px 2px #aaaaaa);
-  text-shadow: white 0 1px 0;
+  background: $lightgrey-8;
+  @include background(linear-gradient(top, $lightgrey-8, $lightgrey-15));
+  @include box-shadow(0 1px 2px $lightgrey-16);
+  text-shadow: $white 0 1px 0;
   padding: 5px;
   @include border-radius(5px);
   border: 1px solid $darkgrey*1.5;
   text-decoration: none;
-}
 
-a.button:hover {
-  @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
-  color: white;
-  text-shadow: $darkgrey 0 1px 0;
+  &:hover {
+    @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+    color: $white;
+    text-shadow: $darkgrey 0 1px 0;
+  }
 }
 
 .tags {
@@ -387,7 +368,6 @@ a.button:hover {
 
 // Popover Overrides
 // Custom Style Overrides
-
 .popover {
   &-title {
     font-size: 13px;
@@ -445,7 +425,7 @@ a.button:hover {
 
 // Notes
 div.note {
-  background-color: white;
+  background-color: $white;
   margin: 0.3em 0.3em 0.6em;
   border-left: 4px solid $aluminium-3;
 
@@ -546,7 +526,7 @@ div#keycut-help {
   p {
     margin:0.33em 1em; text-align:right; font-size:0.9em;
     span {
-      display:inline-block; color:white; margin-right:0.8em; float:left;
+      display:inline-block; color: $white; margin-right: .8em; float:left;
     }
   }
 }

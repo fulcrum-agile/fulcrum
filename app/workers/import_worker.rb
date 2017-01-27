@@ -43,8 +43,10 @@ class ImportWorker
 
   def fix_project_start_date(project)
     oldest_story = project.stories.where.not(accepted_at: nil).order(:accepted_at).first
-    if project.start_date > oldest_story.accepted_at
-      project.update_attributes(start_date: oldest_story.accepted_at)
+    unless oldest_story.nil?
+      if project.start_date > oldest_story.accepted_at
+        project.update_attributes(start_date: oldest_story.accepted_at)
+      end
     end
   end
 

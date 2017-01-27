@@ -12,7 +12,7 @@ module.exports = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'setClassName');
-    this.$el.attr('class','hide_'+this.options.columnView.id );
+    this.$el.attr('class','sidebar-link hide_'+this.options.columnView.id );
     this.options.columnView.on('visibilityChanged', this.setClassName);
   },
 

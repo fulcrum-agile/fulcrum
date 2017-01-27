@@ -4,12 +4,11 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-#sidebar-wrapper {
+.sidebar-wrapper {
   background: $sidebar-bg-default;
   width: $sidebar-size;
   height: 100%;
-  overflow: auto;
-  display: inline-block;
+  float: left;
   transition: 0.1s ease-in-out width;
 
   &::-webkit-scrollbar {
@@ -34,31 +33,8 @@
   list-style: none;
   font-size: 1em;
 
-  li {
-    text-indent: 1.2em;
-    line-height: 2.8;
-
-    a {
-      display: block;
-      text-decoration: none;
-      color: $sidebar-fg-default;
-
-      &.nav-current {
-        background: $sidebar-bg-selected;
-        cursor: default;
-        color: $sidebar-fg-hover;
-      }
-
-      &:hover {
-        color: $sidebar-fg-hover;
-        text-decoration: none;
-        background: $sidebar-bg-hover;
-      }
-    }
-
-    hr {
-      margin: 0.5em 0;
-    }
+  .nav-item.active > .nav-link {
+    color: $sidebar-fg-hover;
   }
 
   .nav-locale {
@@ -88,7 +64,11 @@
   }
 
   .sidebar-brand {
+    color: $lightgrey;
+    font-size: .8em;
+    font-weight: bold;
     padding: 0.4em 0;
+    text-transform: uppercase;
   }
 
   .dropdown-menu-dark {
@@ -109,13 +89,39 @@
   }
 
   .divider {
-    border: 1px solid;
-  }
-
-  .toggle {
-    text-indent: .62em;
+    border: 1px solid $sidebar-bg-default;
+    margin-bottom: 10px;
   }
 }
+
+.sidebar-item {
+  text-indent: 1.2em;
+  line-height: 2.8;
+
+  .mi {
+    display: inline;
+  }
+
+  .sidebar-link {
+    display: block;
+    text-decoration: none;
+    color: $sidebar-fg-selected;
+
+    &:hover {
+      text-decoration: none;
+      background: $sidebar-bg-hover;
+    }
+
+    &.pressed {
+      color: $sidebar-fg-default;
+    }
+  }
+
+  hr {
+    margin: 0.5em 0;
+  }
+}
+
 
 .click-overlay {
   display: none;

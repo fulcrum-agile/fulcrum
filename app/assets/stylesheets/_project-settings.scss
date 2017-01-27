@@ -1,0 +1,72 @@
+/* Settings */
+.settings-page {
+  background: $lightgrey-7;
+  margin-left: $sidebar-size;
+  padding: 0  30px;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+/* Import */
+.import-stories-form {
+  margin: 15px auto;
+  width: 70%;
+
+  .field {
+    &.select {
+      padding: 5px;
+      background: $lightgrey;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    &.submit {
+      text-align: right;
+    }
+  }
+}
+
+.instructions {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+/* Integrations */
+.panel {
+  .panel-content {
+    padding: 15px;
+  }
+}
+
+.integration > .panel-heading {
+  padding: 10px 15px;
+  vertical-align: middle;
+
+  .btn-remove {
+    float: right;
+    padding: 2px 10px;
+    color: $darkred;
+    border-color: $darkred;
+    &:hover, &:focus {
+      background: $darkred;
+      color: $white;
+    }
+  }
+}
+
+/* Sidebar */
+.settings-sidebar-item {
+  @extend .sidebar-item;
+  text-indent: 0;
+
+  .sidebar-link {
+    padding-left: 1.2em;
+    &.active {
+      color: $sidebar-settings-fg-selected;
+    }
+  }
+}
