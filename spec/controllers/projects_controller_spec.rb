@@ -214,7 +214,7 @@ describe ProjectsController do
 
           context "still unprocessed" do
             before do
-              session[:import_job] = { id: 'foo', created_at: 10.minutes.ago }
+              session[:import_job] = { id: 'foo', created_at: 10.minutes.ago.to_s }
             end
 
             specify do
@@ -227,7 +227,7 @@ describe ProjectsController do
 
           context "unprocessed for more than 60 minutes" do
             before do
-              session[:import_job] = { id: 'foo', created_at: 2.hours.ago }
+              session[:import_job] = { id: 'foo', created_at: 2.hours.ago.to_s }
             end
 
             specify do
@@ -241,7 +241,7 @@ describe ProjectsController do
           context "finished with errors" do
             let(:error) { "Bad CSV!" }
             before do
-              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
+              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago.to_s }
               expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [], errors: error })
             end
             specify do
@@ -256,7 +256,7 @@ describe ProjectsController do
           context "finished with success" do
             let(:invalid_story) { { title: 'hello', errors: 'bad cookie'} }
             before do
-              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago }
+              session[:import_job] = { id: 'foo', created_at: 5.minutes.ago.to_s }
               expect(Rails.cache).to receive(:read).with('foo').and_return({ invalid_stories: [invalid_story], errors: nil })
             end
 

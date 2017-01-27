@@ -14,7 +14,7 @@
   <div class="col-sm-12 col-md-12">
     <h2><%= t('projects.uploads.title') %></h2>
 
-    <% if session[:import_job] %>
+    <% if session[:import_job].present? %>
       <%= raw t('projects.uploads.already_uploaded', time_ago: time_ago_in_words( session[:import_job][:created_at] )) %>
     <% else %>
       <%= raw t('projects.uploads.instructions') %>
