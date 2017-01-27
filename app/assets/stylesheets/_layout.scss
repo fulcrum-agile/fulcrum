@@ -8,6 +8,13 @@ body {
   padding-left: 0;
   padding-right: 0;
   height: 100%;
+  .flash-message-row {
+    width: 100%;
+    margin: auto;
+    .flash-message {
+      width: 40%;
+    }
+  }
 }
 
 .board {

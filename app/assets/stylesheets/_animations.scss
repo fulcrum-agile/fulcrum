@@ -6,6 +6,9 @@
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
   }
+  &.slide-in-slide-out {
+    animation: slide-in-slide-out ease 4s 1;
+  }
 }
 
 @keyframes scaleIn{
@@ -17,5 +20,20 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes slide-in-slide-out {
+  0% {
+    transform: translateY(0);
+  }
+  5% {
+    transform: translateY(150px);
+  }
+  85% {
+    transform: translateY(150px);
+  }
+  100% {
+    transform: translateY(-300px);
   }
 }
