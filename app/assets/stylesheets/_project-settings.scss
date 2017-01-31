@@ -35,22 +35,16 @@
   margin-bottom: 20px;
 }
 
-/* Integrations */
-.panel {
-  .panel-content {
-    padding: 15px;
-  }
-}
-
-.integration > .panel-heading {
-  padding: 10px 15px;
-  vertical-align: middle;
+.panel-actions {
+  padding-right: 15px;
+  padding-top: 7px;
 
   .btn-remove {
+    border-color: $darkred;
+    color: $darkred;
     float: right;
     padding: 2px 10px;
-    color: $darkred;
-    border-color: $darkred;
+
     &:hover, &:focus {
       background: $darkred;
       color: $white;
@@ -65,6 +59,7 @@
 
   .sidebar-link {
     padding-left: 1.2em;
+
     &.active {
       color: $sidebar-settings-fg-selected;
     }
