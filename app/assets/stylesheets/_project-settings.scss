@@ -1,13 +1,7 @@
 /* Settings */
 .settings-page {
   background: $lightgrey-7;
-  margin-left: $sidebar-size;
   padding: 0  30px;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  left: 0;
   overflow-y: auto;
 }
 
@@ -35,16 +29,22 @@
   margin-bottom: 20px;
 }
 
-.panel-actions {
-  padding-right: 15px;
-  padding-top: 7px;
+/* Integrations */
+.panel {
+  .panel-content {
+    padding: 15px;
+  }
+}
+
+.integration > .panel-heading {
+  padding: 10px 15px;
+  vertical-align: middle;
 
   .btn-remove {
-    border-color: $darkred;
-    color: $darkred;
     float: right;
     padding: 2px 10px;
-
+    color: $darkred;
+    border-color: $darkred;
     &:hover, &:focus {
       background: $darkred;
       color: $white;
@@ -59,7 +59,6 @@
 
   .sidebar-link {
     padding-left: 1.2em;
-
     &.active {
       color: $sidebar-settings-fg-selected;
     }

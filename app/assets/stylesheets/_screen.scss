@@ -71,10 +71,8 @@ ul#primary-nav li {
 }
 
 .main {
-  height: 100%;
   margin: 0;
   position: relative;
-  background-color: $lightgrey-7;
 }
 
 html.stories, html.stories body, html.stories .main {
@@ -93,6 +91,7 @@ table.stories {
 table.stories td {
   vertical-align: top;
   background-color: $darkgrey-11;
+  height: 100%;
   @include border-radius(5px 5px 0 0);
 }
 
