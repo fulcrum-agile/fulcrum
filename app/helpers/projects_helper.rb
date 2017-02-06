@@ -101,4 +101,8 @@ module ProjectsHelper
       initial_points += points_per_day
     end
   end
+
+  def formatted_standard_deviation(standard_deviation)
+    "%3.2f" % Math.sqrt(standard_deviation)
+  end
 end

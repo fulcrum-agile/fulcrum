@@ -627,8 +627,9 @@ div#keycut-help {
   margin-top: 20px;
   padding-bottom: 0;
 
-  .page-header-title {
+  &-title {
     font-weight: 600;
+    color: $darkgrey-2;
   }
 }
 
