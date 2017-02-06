@@ -26,19 +26,19 @@
       <div class="panel-body">
         <ul class="nav nav-justified nav-pills reports-list col-xs-12">
           <li class="reports-list-item">
-            <a href="#burn-up" class="nav-link"> <%= t('projects.reports.burn_up') %> </a>
+            <a href="#burn-up" class="nav-link"> <%= t('projects.reports.burn_up.title') %> </a>
           </li>
           <li class="reports-list-item">
-            <a href="#current-iteration" class="nav-link"> <%= t('projects.reports.current_iteration') %></a>
+            <a href="#current-iteration" class="nav-link"> <%= t('projects.reports.current_iteration.title') %></a>
           </li>
           <li class="reports-list-item">
-            <a href="#velocity-by-iteration" class="nav-link"> <%= t('projects.reports.velocity_by_iteration') %></a>
+            <a href="#velocity-by-iteration" class="nav-link"> <%= t('projects.reports.velocity_by_iteration.title') %></a>
           </li>
           <li class="reports-list-item">
-            <a href="#velocity-by-member" class="nav-link"> <%= t('projects.reports.velocity_by_member') %></a>
+            <a href="#velocity-by-member" class="nav-link"> <%= t('projects.reports.velocity_by_member.title') %></a>
           </li>
           <li class="reports-list-item">
-            <a href="#bugs-impact" class="nav-link"> <%= t('projects.reports.bugs_impact') %></a>
+            <a href="#bugs-impact" class="nav-link"> <%= t('projects.reports.bugs_impact.title') %></a>
           </li>
         </ul>
       </div>
@@ -66,17 +66,27 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="panel panel-default card" id="burn-up">
-      <div class="panel-heading"> <%= t('projects.reports.burn_up') %> </div>
+      <div class="panel-heading"> <%= t('projects.reports.burn_up.title') %> </div>
       <div class="panel-body">
         <% calculate_and_render_burn_up! %>
 
-        <p>The current backlog has a total of <strong><%= @total_backlog_points %> points</strong>. This is without counting the stories in the Chilly Bean!</p>
-        <p>At the current velocity (<%= @service.velocity %> points) the existing backlog should only be finished around the iteration <%= last_iteration_number %> (<%= last_iteration_start_date %>).</p>
+        <p><%= t('projects.reports.burn_up.backlog_points_html', count: @total_backlog_points) %></p>
+        <p>
+          <%= t('projects.reports.burn_up.remaining_time',
+                velocity: @service.velocity,
+                last_iteration_number: last_iteration_number,
+                last_iteration_start_date: last_iteration_start_date) %>
+        </p>
 
         <% if last_iteration_number == last_iteration_number(true) %>
-          <p>If the velocity keeps up this pace we should be on track to the date above.</p>
+          <p><%= t('projects.reports.burn_up.on_track') %></p>
         <% else %>
-          <p>But with a standard deviation of <%= standard_deviation(@service.standard_deviation) %>, it's more realistic to expect the project to finish around <strong>iteration <%= last_iteration_number(true) %></strong> (<%= last_iteration_start_date(true) %>), if the velocity doesn't increase or the backlog is not simplified.</p>
+          <p>
+            <%= t('projects.reports.burn_up.realistic_remaining_time',
+                  standard_deviation: formatted_standard_deviation(@service.standard_deviation),
+                  last_iteration_number: last_iteration_number(true),
+                  last_iteration_start_date: last_iteration_start_date(true)) %>
+          </p>
         <% end %>
 
         <p><%= area_chart @group_by_day, max: @total_backlog_points, xtitle: t('day'), ytitle: t('accepted_points') %></p>
@@ -89,14 +99,22 @@
   <div class="col-xs-12 col-sm-6">
     <div class="panel panel-default card" id="current-iteration">
       <div class="panel-heading">
-        <%= t('projects.reports.current_iteration') %>
+        <%= t('projects.reports.current_iteration.title') %>
         <small> (<%= current_iteration_start_date %> - <%= current_iteration_end_date %>) </small>
       </div>
 
       <div class="panel-body">
-        <p>This iteration has <%= current_iteration_points %> points planned in <%= current_iteration_count %> stories (including <%= current_iteration_non_estimable %> bugs or chores).</p>
-
-        <p>There are <%= accepted_points %> points accepted so far, which is <%= accepted_rate %> of the total.</p>
+        <p>
+          <%= t('projects.reports.current_iteration.planned_points',
+                points_count: current_iteration_points,
+                stories_count: current_iteration_count,
+                non_estimable_count: current_iteration_non_estimable) %>
+        </p>
+        <p>
+          <%= t('projects.reports.current_iteration.accepted_points',
+                accepted_points: accepted_points,
+                accepted_rate: accepted_rate) %>
+        </p>
 
         <p><%= column_chart @service.current_iteration_details, xtitle: t('projects.reports.story_states'), ytitle: t('projects.reports.points') %></p>
       </div>
@@ -106,14 +124,14 @@
   <div class="col-xs-12 col-sm-6">
     <div class="panel panel-default card" id="velocity-by-iteration">
       <div class="panel-heading">
-        <%= t('projects.reports.velocity_by_iteration') %>
+        <%= t('projects.reports.velocity_by_iteration.title') %>
       </div>
 
       <div class="panel-body">
         <ul>
-          <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %> (<%= I18n.t('date.day_names')[@project.iteration_start_day] %>)</li>
+          <li><%= Project.human_attribute_name(:start_date) %>: <%= @project.start_date.to_date %> (<%= t('date.day_names')[@project.iteration_start_day] %>)</li>
           <li><%= Project.human_attribute_name(:iteration_length) %>: <%= t('n weeks', count: @project.iteration_length) %></li>
-          <li><%= t('velocity') %>: <%= @service.velocity %>,  <%= t('standard_deviation') %>: <%= standard_deviation(@service.standard_deviation) %>, <%= t('volatility') %>: <%= number_to_percentage(@service.volatility * 100.0, precision: 2) %></li>
+          <li><%= t('velocity') %>: <%= @service.velocity %>,  <%= t('standard_deviation') %>: <%= formatted_standard_deviation(@service.standard_deviation) %>, <%= t('volatility') %>: <%= number_to_percentage(@service.volatility * 100.0, precision: 2) %></li>
         </ul>
 
         <p><%= column_chart @service.group_by_velocity, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity'), colors: ['green'] %></p>
@@ -126,7 +144,7 @@
   <div class="col-xs-12 col-sm-6">
     <div class="panel panel-default card" id="velocity-by-member">
       <div class="panel-heading">
-        <%= t('projects.reports.velocity_per_member') %>
+        <%= t('projects.reports.velocity_per_member.title') %>
       </div>
       <div class="panel-body">
         <p><%= line_chart @service.group_by_developer, xtitle: t('projects.reports.iteration_number'), ytitle: t('velocity') %></p>
@@ -136,7 +154,7 @@
   <div class="col-xs-12 col-sm-6">
     <div class="panel panel-default card" id="bugs-impact">
       <div class="panel-heading">
-        <%= t('projects.reports.bugs_impact') %>
+        <%= t('projects.reports.bugs_impact.title') %>
       </div>
       <div class="panel-body">
         <p><%= column_chart @service.group_by_bugs, xtitle: t('projects.reports.iteration_number'), ytitle: t('projects.reports.quantity_non_estimable'), colors: ['red'] %></p>

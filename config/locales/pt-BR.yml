@@ -200,11 +200,22 @@ pt-BR:
       iteration_number: "Número da Iteração"
       quantity_non_estimable: "Quantidade de Bugs/Chores"
 
-      current_iteration: "Iteração Atual"
-      bugs_impact: "Impacto dos Bugs"
-      velocity_by_iteration: "Velocidade por Iteração"
-      velocity_per_member: "Velocidade por Membro"
-      burn_up: "Gráfico de Burn Up"
+      current_iteration:
+        title: "Iteração Atual"
+        planned_points: "Esta iteração tem %{points_count} pontos planejados em %{stories_count} histórias (incluindo %{non_estimable_count} bugs ou chores)."
+        accepted_points: "Existem %{accepted_points} pontos aceitos até agora, o que é %{accepted_rate} do total."
+      bugs_impact:
+        title: "Impacto dos Bugs"
+      velocity_by_iteration:
+        title: "Velocidade por Iteração"
+      velocity_per_member:
+        title: "Velocidade por Membro"
+      burn_up:
+        title: "Gráfico de Burn Up"
+        backlog_points_html: "O backlog atual contém um total de <strong>%{count} pontos</strong>. Isto é, se não contarmos com as hitórias na Chilly Bin!"
+        remaining_time: "Na atual velocidade (%{velocity} pontos) o backlog existente deve ser finalizado somente por volta da iteração %{last_iteration_number} (%{last_iteration_start_date})."
+        on_track: "Se a velocidade continuar estável, estaremos bem encaminhados para entregar o projeto na data acima."
+        realistic_remaining_time: "No entanto, com o desvio padrão de %{standard_deviation}, é mais realista esperar que o projeto seja finalizado por volta da <strong>iteração %{last_iteration_number}</strong> (%{last_iteration_start_date}), se não houver aumento na velocidade ou uma simplificação do backlog."
     project properties: "Propriedades do Projeto"
     archived projects:  "Projetos Arquivados"
     archive: "Arquivar"
