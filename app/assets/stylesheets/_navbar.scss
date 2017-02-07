@@ -101,41 +101,6 @@
     color: $darkgrey-2;
   }
 
-  &-locale {
-    margin: 15px 10px;
-    font-size: 14px;
-    color: $darkgrey-6;
-
-    .locale-change {
-      position: relative;
-      padding: 0 20px 0 0;
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-      appearance: none;
-    }
-
-    .locale-change-wrapper {
-      position: relative;
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: 9px;
-        right: 5px;
-        display: inline-block;
-        width: 0;
-        height: 0;
-        vertical-align: middle;
-        border-top: 4px dashed;
-        border-top: 4px solid \9;
-        border-right: 4px solid transparent;
-        border-left: 4px solid transparent;
-        pointer-events: none;
-      }
-    }
-  }
-
   .dropdown {
     margin: 8px 0;
 
@@ -179,5 +144,37 @@
 
   @media (min-width: 768px) {
     margin-right: 0;
+  }
+}
+
+.locale-change {
+  &-wrapper {
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: inline-block;
+      width: 0;
+      height: 0;
+      vertical-align: middle;
+      border-top: 4px dashed;
+      border-top: 4px solid \9;
+      border-right: 4px solid transparent;
+      border-left: 4px solid transparent;
+      pointer-events: none;
+    }
+  }
+
+  &-select {
+    padding-right: 31px;
+    appearance: none;
+    -moz-appearance: none;
+
+    .locale-change-option {
+      color: $darkgrey-10;
+    }
   }
 }

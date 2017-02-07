@@ -31,11 +31,11 @@
         <div class="navbar-right">
           <%= yield :right_menu %>
 
-          <%= form_tag locales_path, method: :put, class: "navbar-form navbar-left navbar-locale" do  %>
+          <%= form_tag locales_path, method: :put, class: "dropdown" do %>
             <div class="locale-change-wrapper">
               <%= select_tag 'locale',
                   options_for_select(LocalesController::LOCALES, I18n.locale),
-                  class: 'locale-change language-dropdown' %>
+                  class: 'btn btn-link locale-change-select' %>
             </div>
           <% end %>
 
