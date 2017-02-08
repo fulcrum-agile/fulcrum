@@ -48,5 +48,4 @@ module IntegrationHelpers
   def wait_page_load
     find('.column_header', match: :first).click
   end
-
 end
