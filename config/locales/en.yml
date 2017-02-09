@@ -198,11 +198,22 @@ en:
       iteration_number: "Iteration Number"
       quantity_non_estimable: "Quantity of Bugs/Chores"
 
-      current_iteration: "Current Iteration"
-      bugs_impact: "Bugs Impact"
-      velocity_by_iteration: "Velocity by Iteration"
-      velocity_per_member: "Velocity per Member"
-      burn_up: "Burn Up Chart"
+      current_iteration:
+        title: "Current Iteration"
+        planned_points: "This iteration has %{points_count} points planned in %{stories_count} stories (including %{non_estimable_count} bugs or chores)."
+        accepted_points: "There are %{accepted_points} points accepted so far, which is %{accepted_rate} of the total."
+      bugs_impact:
+        title: "Bugs Impact"
+      velocity_by_iteration:
+        title: "Velocity by Iteration"
+      velocity_per_member:
+        title: "Velocity per Member"
+      burn_up:
+        title: "Burn Up Chart"
+        backlog_points_html: "The current backlog has a total of <strong>%{count} points</strong>. This is without counting the stories in the Chilly Bean!"
+        remaining_time: "At the current velocity (%{velocity} points) the existing backlog should only be finished around the iteration %{last_iteration_number} (%{last_iteration_start_date})."
+        on_track: "If the velocity keeps up this pace we should be on track to the date above."
+        realistic_remaining_time: "But with a standard deviation of %{standard_deviation}, it's more realistic to expect the project to finish around <strong>iteration %{last_iteration_number}</strong> (%{last_iteration_start_date}), if the velocity doesn't increase or the backlog is not simplified."
     project properties: "Project Properties"
     archived projects:  "Archived Projects"
     archive: "Archive"

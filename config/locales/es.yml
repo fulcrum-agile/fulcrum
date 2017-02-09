@@ -189,11 +189,22 @@ es:
       iteration_number: "Número de iteración"
       quantity_non_estimable: "Cantidad de Bugs / Tareas"
 
-      current_iteration: "Iteración actual"
-      bugs_impact: "Impacto de los errores"
-      velocity_by_iteration: "Velocidad por iteración"
-      velocity_per_member: "Velocidad por cada miembro"
-      burn_up: "Gráfico de Burn Up"
+      current_iteration:
+        title: "Iteración actual"
+        planned_points: "Esta iteraión tiene %{points_count} puntos planteados en %{stories_count} historias (incluyendo %{non_estimable_count} bugs o chores)."
+        accepted_points: "Hay %{accepted_points} puntos aceptados hasta ahora, lo que significa %{accepted_rate} del total."
+      bugs_impact:
+        title: "Impacto de los errores"
+      velocity_by_iteration:
+        title: "Velocidad por iteración"
+      velocity_per_member:
+        title: "Velocidad por cada miembro"
+      burn_up:
+        title: "Gráfico de Burn Up"
+        backlog_points_html: "El backlog actual tiene un total de <strong>%{count} puntos</strong>. ¡Esto es, sin contar las historias en el Chilly Bin!"
+        remaining_time: "A la velocidad actual (%{velocity} puntos) el backlog actual sólo se debe terminar alrededor de la iteración %{last_iteration_number} (%{last_iteration_start_date})."
+        on_track: "Si la velocidad sigue este ritmo, deberemos estar en camino a la fecha prevista."
+        realistic_remaining_time: "Pero con una desviación estándar de %{standard_deviation}, es más realista esperar que el proyecto termine alrededor de la <strong>iteración %{last_iteration_number}</strong> (%{last_iteration_start_date}), si la velocidad no aumenta o el backlog no se simplifica."
     project properties: "Propiedades del Proyecto"
     archived projects:  "Proyectos archivados"
     archive: "Archivar"

@@ -102,7 +102,7 @@ $(function() {
 
   $('.tag-tooltip').tooltip();
 
-  $('.locale-change').on('change', function(e) {
+  $('.locale-change-select').on('change', function(e) {
     e.preventDefault();
 
     $(this).parent().parent('form').submit();
