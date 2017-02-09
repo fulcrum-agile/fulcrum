@@ -4,7 +4,7 @@ RSpec.describe V1::Projects do
   let(:api_token) { create :api_token }
 
   before do
-    Timecop.freeze(Time.new(2016, 12, 7, 10, 0))
+    Timecop.freeze(Date.new(2016, 12, 7))
   end
 
   after do
@@ -75,7 +75,11 @@ RSpec.describe V1::Projects do
 
   describe '#GET /api/v1/projects/{slug}/analysis' do
     let(:project) { create :project }
-    let(:date) { Time.new(2016, 12, 7, 10, 0) }
+    let(:date_for_iteration_number) { Time.new(2016, 12, 1) }
+    let(:backlog_date) { Date.new(2016, 12, 13) }
+    let(:worst_backlog_date) { Time.new(2016, 12, 13) }
+    let(:next_iteration_date) { Time.new(2016, 12, 12) }
+    let(:current_iteration_date) { Date.new(2016, 12, 5) }
 
     let(:iteration) do
       double(
@@ -83,16 +87,18 @@ RSpec.describe V1::Projects do
         velocity: 10,
         volatility: 0,
         current_iteration_number: 32,
-        date_for_iteration: date.utc.to_s,
-        date_for_iteration_number: date,
+        current_iteration_date: current_iteration_date,
+        next_iteration_date: next_iteration_date,
+        iteration_length: 1,
+        date_for_iteration_number: date_for_iteration_number,
         backlog: [1, 2, 3],
         backlog_iterations: [3, 2, 1],
         current_iteration_details: {
           "started": 8,
           "finished": 5
         },
-        backlog_date: [59, date],
-        worst_backlog_date: [59, date]
+        backlog_date: [59, backlog_date],
+        worst_backlog_date: [2, worst_backlog_date]
       )
     end
 
@@ -100,19 +106,19 @@ RSpec.describe V1::Projects do
       {
         "velocity" => 10,
         "volatility" => 0,
-        "current_iteration_number" => 32,
-        "next_iteration_date" => date.strftime("%Y/%m/%d %H:%M:%S %z"),
-        "backlog" =>  [1, 2, 3],
-        "backlog_iterations" => [3, 2, 1],
-        "current_iteration_details" => {"started" => 8, "finished" => 5},
-        "backlog_date" => [59, date.strftime("%Y/%m/%d %H:%M:%S %z")],
-        "worst_backlog_date" => [59, date.strftime("%Y/%m/%d %H:%M:%S %z")]
+        "current_iteration_number" => 1,
+        "current_iteration_date" => current_iteration_date.strftime("%Y/%m/%d %H:%M:%S -0200"),
+        "next_iteration_date" => next_iteration_date.strftime("%Y/%m/%d %H:%M:%S -0200"),
+        "iteration_length" => 1,
+        "backlog" =>  [],
+        "backlog_iterations" => [[], []],
+        "current_iteration_details" => {"started"=>0, "finished"=>0, "delivered"=>0, "accepted"=>0, "rejected"=>0},
+        "backlog_date" => [2, backlog_date.strftime("%Y/%m/%d %H:%M:%S -0200")],
+        "worst_backlog_date" => [2, worst_backlog_date.strftime("%Y/%m/%d %H:%M:%S -0200")]
       }
     end
 
     before(:each) do
-      Timecop.freeze(date)
-
       allow_any_instance_of(Project).to receive(:iteration_service)
         .and_return(iteration)
 

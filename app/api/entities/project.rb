@@ -27,7 +27,10 @@ class Entities::Project < Entities::BaseEntity
 
   def iteration_service
     @iteration_service ||= begin
-      object.iteration_service(since: options[:since].to_i.months.ago)
+      Central::Support::IterationService.new(
+        object,
+        current_time: Time.current
+      )
     end
   end
 

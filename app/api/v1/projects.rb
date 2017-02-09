@@ -9,6 +9,12 @@ class V1::Projects < Grape::API
 
         error!('Unauthorized. Invalid team.', 401)
       end
+
+      def load_projects(archiveds)
+        return Project.all if archiveds
+
+        Project.not_archived
+      end
     end
 
     before do
@@ -22,8 +28,7 @@ class V1::Projects < Grape::API
     end
     paginate
     get '/' do
-      projects = Project.all
-      projects = projects.not_archived unless params[:archiveds]
+      projects = load_projects(params[:archiveds])
       projects = projects.where(slug: @allowed_projects) if @allowed_projects
 
       present paginate(projects), with: Entities::Project
@@ -46,7 +51,7 @@ class V1::Projects < Grape::API
       current_time = params[:current_time] || Time.current
       since = params[:since].months.ago
 
-      iteration = project.iteration_service(since: since, current_time: current_time) if project
+      iteration = Central::Support::IterationService.new(project, current_time: current_time) if project
 
       present iteration, with: Entities::ProjectAnalysis
     end
