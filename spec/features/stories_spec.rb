@@ -19,8 +19,8 @@ describe "Stories" do
       visit project_path(project)
       wait_spinner
 
+      wait_page_load
       click_on 'Add story'
-
       within('#chilly_bin') do
         fill_in 'title', with: 'New story'
         click_on 'Save'

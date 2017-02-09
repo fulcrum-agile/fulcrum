@@ -45,4 +45,7 @@ module IntegrationHelpers
     expect(page).not_to have_css('.loading-spin.show')
   end
 
+  def wait_page_load
+    find('.column_header', match: :first).click
+  end
 end

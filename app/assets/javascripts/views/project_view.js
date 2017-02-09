@@ -104,11 +104,12 @@ module.exports = Backbone.View.extend({
   },
 
   scaleToViewport: function() {
-    var storyTableTop = $('table.stories tbody').offset().top;
+    var viewSize = $('.content-wrapper').height();
+    var offsetTop = $('.project-stories').offset().top;
+    var columnHeaderSize = $('.column_header:first').outerHeight();
+    var extra = parseInt($('.project-stories').css('padding-top'));
 
-    var extra = 20;
-
-    var height = $(window).height() - (storyTableTop + extra);
+    var height = viewSize - columnHeaderSize - offsetTop - extra;
 
     $('.storycolumn').css('height', height + 'px');
 

@@ -3,9 +3,18 @@
 <% end %>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6">
-    <h2><%= t('projects.new project') %></h2>
-
-    <%= render 'form' %>
+  <div class="col-xs-12 col-sm-5 col-sm-offset-2">
+    <div class="page-header">
+      <h4 class="page-header-title darkgrey-2">
+        <%= t('projects.new project') %>
+      </h4>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-5 col-sm-offset-2">
+    <div class="panel card">
+      <div class="panel-body">
+        <%= render 'form' %>
+      </div>
+    </div>
   </div>
 </div>

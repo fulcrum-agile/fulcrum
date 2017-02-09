@@ -24,9 +24,7 @@
 
     <% @integrations.each do |integration| %>
       <div class="card panel integration">
-        <div class="panel-heading clearfix">
-          <%= integration.kind.camelcase %>
-
+        <div class="panel-actions pull-right">
           <% unless integration.new_record? %>
             <%= link_to project_integration_path(@project, integration),
                         data: { confirm: t('projects.integrations_remove_sure', kind: integration.kind) },
@@ -37,7 +35,11 @@
           <% end %>
         </div>
 
-        <div class="panel-content">
+        <div class="panel-heading">
+          <%= integration.kind.camelcase %>
+        </div>
+
+        <div class="panel-body">
           <% if integration.new_record? %>
             <%= form_for [@project, integration] do |form| %>
               <%= form.hidden_field :kind, value: integration.kind %>
@@ -46,7 +48,7 @@
                                   locals: { form: form } %>
 
               <div class="actions text-right">
-                <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary' %>
+                <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary btn-form' %>
               </div>
             <% end %>
           <% else %>
