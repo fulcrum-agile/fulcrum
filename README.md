@@ -100,6 +100,7 @@ Once you have these:
 
     # copy and edit the configuration
     $ cp .env.sample .env
+    $ cp config/database.yml.example config/database.yml
 
     # Install the project dependencies
     $ gem install bundler
