@@ -272,4 +272,4 @@ Copyright 2011-2015, Malcolm Locke.
 Copyright 2015-2017, Codeminer 42.
 
 CM42-Central is made available under the Affero GPL license version 3, see
-(LICENSE.txt)[https://github.com/Codeminer42/cm42-central/blob/master/LICENCE.txt].
+[LICENSE.txt](https://github.com/Codeminer42/cm42-central/blob/master/LICENCE.txt).
