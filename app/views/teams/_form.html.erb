@@ -1,47 +1,43 @@
-<div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
-  <div class="auth-wrapper">
-    <%= form_for(@team, html: { class: 'form-horizontal' }) do |f| %>
-      <%= render 'form_errors', object: @team if @team.errors.any? %>
+<%= form_for(@team) do |f| %>
+  <%= render 'form_errors', object: @team if @team.errors.any? %>
 
-      <div class="auth-form-group">
-        <%= f.label :name, class: 'sr-only' %>
-        <%= f.text_field :name, placeholder: true, class: 'form-control auth-form-control' %>
-      </div>
-
-      <% if @team.new_record? %>
-        <div class="auth-form-group">
-          <%= f.label :captcha, class: 'sr-only' %>
-          <%= recaptcha_tags %>
-        </div>
-      <% else %>
-        <div class="auth-form-group">
-          <%= f.label :logo, class: 'sr-only' %>
-          <%= f.attachinary_file_field :logo, placeholder: true, class: 'form-control auth-form-control' %>
-        </div>
-
-        <div class="auth-form-group">
-          <%= f.label :disable_registration, class: 'sr-only' %>
-          <%= f.check_box :disable_registration, placeholder: true, class: 'form-control auth-form-control' %>
-        </div>
-
-        <div class="auth-form-group">
-          <%= f.label :registration_domain_whitelist, class: 'sr-only' %>
-          <%= f.text_field :registration_domain_whitelist, placeholder: true, class: 'form-control auth-form-control' %>
-        </div>
-
-        <div class="auth-form-group">
-          <%= f.label :registration_domain_blacklist, class: 'sr-only' %>
-          <%= f.text_field :registration_domain_blacklist, placeholder: true, class: 'form-control auth-form-control' %>
-        </div>
-      <% end %>
-
-      <div class="actions clearfix">
-        <%= f.submit @team.new_record? ? t('teams.create') : t('teams.update'), class: 'btn btn-primary btn-block auth-button-submit' %>
-      </div>
-    <% end %>
-
-    <% unless @team.new_record? %>
-      <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
-    <% end %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control auth-form-control' %>
   </div>
-</div>
+
+  <% if @team.new_record? %>
+    <div class="form-group">
+      <%= f.label :captcha %>
+      <%= recaptcha_tags %>
+    </div>
+  <% else %>
+    <div class="form-group">
+      <%= f.label :logo %>
+      <%= f.attachinary_file_field :logo, class: 'form-control auth-form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :disable_registration %>
+      <%= f.check_box :disable_registration %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :registration_domain_whitelist %>
+      <%= f.text_field :registration_domain_whitelist, class: 'form-control auth-form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :registration_domain_blacklist %>
+      <%= f.text_field :registration_domain_blacklist, class: 'form-control auth-form-control' %>
+    </div>
+  <% end %>
+
+  <div class="btn-group actions">
+    <%= f.submit @team.new_record? ? t('teams.create') : t('teams.update'), class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<% unless @team.new_record? %>
+  <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
+<% end %>

@@ -173,7 +173,7 @@ en:
         logo:                 'Logo'
         disable_registration: 'Only administrators can add new users to this team'
         registration_domain_whitelist: 'If registration is enabled, only emails from this domain can register (comma separated)'
-        registration_domain_blacklist: 'If registration is enabled, no emails from this domain cah register (comma separated)'
+        registration_domain_blacklist: 'If registration is enabled, no emails from this domain can register (comma separated)'
 
     errors:
       models:

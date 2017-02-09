@@ -28,6 +28,8 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @team = current_team
+    @user_teams = current_user.teams.order(:name)
+
     authorize @team
   end
 

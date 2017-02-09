@@ -11,6 +11,9 @@
 ### Fixed 
 - Fix a locale select bug to make the options visible on a dark navbar.
 
+### Changed
+- Changed the design of the edit teams page
+
 The format is based on [Keep a Changelog](http://keepachangelog.com)
 and this project adheres to [Semantic Versioning](http://semver.org).
 

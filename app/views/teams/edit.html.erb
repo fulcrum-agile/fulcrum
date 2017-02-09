@@ -3,62 +3,73 @@
 <% end %>
 
 <div class="row">
-  <%= render 'form' %>
-</div>
-
-  <% unless @team.new_record? %>
-    <div class="col-xs-12 col-sm-8">
-      <br>
-      <div class="col-sm-6">
-        <button class="btn-clipboard pull-right" data-clipboard-target="#team_url"><img src="/clippy.svg" alt="Copy to clipboard" width="20px"></button>
-        <script type="text/javascript" charset="utf-8">
-          $(function() {
-            new Clipboard('.btn-clipboard');
-          });
-        </script>
-      </div>
-      <div class="col-sm-6">
-        <%= text_field_tag 'team_url', teams_switch_url(@team), size: 45, readonly: true, class: 'form-control' %>
-      </div>
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <div class="page-header">
+      <h4 class="page-header-title darkgrey-2">
+        <i class="mi md-20">group</i> <%= t('teams.edit team') %>
+      </h4>
     </div>
-    <div class="col-xs-12 col-sm-8">
-      <br><br>
-      <div class="col-sm-6">
-        <strong class='pull-right'>API Tokens</strong>
-      </div>
-      <div class="col-sm-6">
-        <% if @team.api_tokens.present? %>
-          <table class='table table-striped table-condensed'>
-            <% @team.api_tokens.each do |api_token| %>
-              <tr>
-                <td><code><%= api_token.token %></code></td>
-                <td>
-                  <%= link_to t('remove'),
-                              team_api_token_path(@team, api_token),
-                              method: :delete,
-                              data: { confirm: 'Are you sure?' } %>
-                </td>
-              </tr>
-            <% end %>
-          </table>
+  </div>
+
+  <div class="col-xs-12 col-sm-<%= current_user.teams.count > 1 ? "5" : "8" %> col-sm-offset-2">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <%= render 'form' %>
+        <hr>
+        <% unless @team.new_record? %>
+          <div class="form-group">
+            <label>API Tokens</label>
+
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button class="btn-clipboard btn btn-default" data-clipboard-target="#team_url"><img src="/clippy.svg" alt="Copy to clipboard" width="20px"></button>
+              </span>
+              <%= text_field_tag 'team_url', teams_switch_url(@team), size: 45, readonly: true, class: 'form-control' %>
+              <span class="input-group-btn">
+                <%= link_to t('add'),
+                            team_api_tokens_path(@team),
+                            method: :post,
+                            class: 'btn btn-success pull-right' %>
+              </span>
+            </div>
+          </div>
+
+          <% if @team.api_tokens.present? %>
+            <table class="table table-striped table-condensed">
+              <% @team.api_tokens.each do |api_token| %>
+                <tr>
+                  <td><code><%= api_token.token %></code></td>
+                  <td>
+                    <%= link_to t('remove'),
+                                team_api_token_path(@team, api_token),
+                                method: :delete,
+                                data: { confirm: 'Are you sure?' } %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          <% end %>
         <% end %>
 
-        <%= link_to t('add'),
-                    team_api_tokens_path(@team),
-                    method: :post,
-                    class: 'btn btn-success btn-sm pull-right' %>
       </div>
     </div>
-  <% end %>
+  </div>
+
 
   <% if current_user.teams.count > 1 %>
-    <div class="col-xs-12 col-sm-8">
-      <h3><%= t('teams.switch') %></h3>
-      <ul>
-        <% current_user.teams.order(:name).each do |team| %>
-          <li><%= link_to team.name, teams_switch_path(team) %></li>
-        <% end %>
-      </ul>
+    <div class="col-xs-12 col-sm-3">
+      <div class="panel panel-default card">
+        <div class="panel-heading">
+          <%= t('teams.switch') %>
+        </div>
+        <div class="panel-body">
+          <div class="list-group">
+            <% @user_teams.each do |team| %>
+              <%= link_to team.name, switch_teams_path(team_slug: team.slug), class: 'list-group-item' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
