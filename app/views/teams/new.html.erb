@@ -1,13 +1,23 @@
 <% content_for :title_bar do %>
-  <span class="navbar-brand"><%= t('teams.new team') %></span>
+  <%= link_to t('back'), teams_path, class: "btn btn-primary btn-sm navbar-btn" %>
 <% end %>
 
 <div class="row">
-  <%= render 'form' %>
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <div class="page-header">
+      <h4 class="page-header-title darkgrey-2">
+        <i class="mi md-20">group</i> <%= t('teams.new team') %>
+      </h4>
+    </div>
+  </div>
 
-  <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
-    <div class="auth-actions">
-      <%= raw t('teams.new_instruction') %>
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <%= render 'form' %>
+        <hr>
+        <%= raw t('teams.new_instruction') %>
+      </div>
     </div>
   </div>
 </div>
