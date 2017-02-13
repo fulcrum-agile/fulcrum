@@ -37,3 +37,7 @@
     }
   }
 }
+
+.admin-users-table {
+  tr:first-child td { border: 0; }
+}

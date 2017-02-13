@@ -7,6 +7,7 @@
 
 ### Changed
 - Redesign project reports and edit password pages.
+- Redesign Admin Users pages.
 
 ### Fixed 
 - Fix a locale select bug to make the options visible on a dark navbar.
