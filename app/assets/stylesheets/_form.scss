@@ -30,8 +30,12 @@
   width: auto;
 }
 
-.btn-form {
+.btn-square {
   border-radius: 0;
+}
+
+.btn-form {
+  @extend .btn-square;
   font-size: 14px;
   padding: 7px 20px;
 }
