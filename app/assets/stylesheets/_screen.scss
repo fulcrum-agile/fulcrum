@@ -71,6 +71,7 @@ ul#primary-nav li {
 }
 
 .main {
+  height: 100%;
   margin: 0;
   position: relative;
 }
@@ -98,6 +99,8 @@ table.stories td {
 div.storycolumn {
   overflow: auto;
   padding-bottom: 80px;
+  border-right: 1px solid $black;
+  border-left: 1px solid $black;
 }
 
 /* Story columns headers */
