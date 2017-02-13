@@ -1,34 +1,32 @@
-<div class="form-wrapper add-member">
 <%= form_for [:admin, @user] do |f| %>
   <%= render 'form_errors', object: @user if @user.errors.any? %>
 
-  <div class="field-wrapper">
-    <%= f.label :email, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :email %></div>
+  <div class="form-group">
+    <%= f.label :email, class: 'control-label' %>
+    <%= f.text_field :email, class: 'form-control auth-form-control' %>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :name, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :name %></div>
+  <div class="form-group">
+    <%= f.label :name, class: 'control-label' %>
+    <%= f.text_field :name, class: 'form-control auth-form-control' %>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :initials, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :initials %></div>
+  <div class="form-group">
+    <%= f.label :initials, class: 'control-label' %>
+    <%= f.text_field :initials, class: 'form-control auth-form-control' %>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :username, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.text_field :username %></div>
+  <div class="form-group">
+    <%= f.label :username, class: 'control-label' %>
+    <%= f.text_field :username, class: 'form-control auth-form-control' %>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :role, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10"><%= f.select :role, User.role.options %></div>
+  <div class="form-group">
+    <%= f.label :role, class: 'control-label' %>
+    <%= f.select :role, User.role.options, {}, { class: 'form-control auth-form-control' } %>
   </div>
 
-  <div class="actions">
-    <%= f.submit nil, class: 'btn btn-primary pull-right' %>
+  <div class="actions pull-right">
+    <%= f.submit nil, class: 'btn btn-primary btn-form' %>
   </div>
 <% end %>
-</div>
