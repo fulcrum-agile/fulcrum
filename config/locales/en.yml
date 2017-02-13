@@ -295,7 +295,7 @@ en:
       <p>If you don't have a registered account, you can sign up first.</p>
       <p>The first user to sign in to this new team will become the administrator.</p>
     no_teams_found: "Oops! You're not enrolled to a team yet."
-
+    members: "Manage Team Members"
   admin:
     users:
       edit user: "Edit User"

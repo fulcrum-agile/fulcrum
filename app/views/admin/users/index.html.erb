@@ -1,9 +1,5 @@
 <% content_for :title_bar do %>
-  <ul class="nav navbar-nav">
-    <li>
-      <%= link_to current_team.name, projects_path %>
-    </li>
-  </ul>
+  <%= link_to t('back'), edit_team_path(current_team), class: "btn btn-primary btn-sm navbar-btn" %>
 <% end %>
 
 <div class="row">
@@ -26,7 +22,7 @@
                 <td><%= user.username %></td>
                 <td><%= user.initials %></td>
                 <td><%= user.role %></td>
-                <td><%= link_to user.email, "mailto:#{user.email}" %></td>
+                <td><%= mail_to user.email %></td>
                 <td>
                   <div class="users_options btn-group pull-right">
                     <% if policy(user).update? %>

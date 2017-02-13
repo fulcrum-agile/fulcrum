@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-<%= current_user.teams.count > 1 ? "5" : "8" %> col-sm-offset-2">
+  <div class="col-xs-12 col-sm-5 col-sm-offset-2">
     <div class="panel panel-default card">
       <div class="panel-body">
         <%= render 'form' %>
@@ -55,9 +55,21 @@
     </div>
   </div>
 
+  <div class="col-xs-12 col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <% if session[:current_team_slug] && current_team.try(:logo) %>
+          <div class="text-center">
+            <img class="user-image" src="<%= current_team.logo.path %>">
+          </div>
+          <hr />
+        <% end %>
 
-  <% if current_user.teams.count > 1 %>
-    <div class="col-xs-12 col-sm-3">
+        <%= link_to t('teams.members'), admin_users_path, class: 'btn btn-default col-xs-12 btn-square' %>
+      </div>
+    </div>
+
+    <% if current_user.teams.count > 1 %>
       <div class="panel panel-default card">
         <div class="panel-heading">
           <%= t('teams.switch') %>
@@ -70,6 +82,6 @@
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

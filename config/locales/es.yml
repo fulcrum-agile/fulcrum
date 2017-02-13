@@ -286,6 +286,7 @@ es:
     new_instruction: |
       <p>Si usted no tiene una cuenta registrada, puede inscribirse en primer lugar.</p>
       <p>El primer usuario que acceda a este nuevo equipo será el administrador.</p>
+    members: "Gestionar los Miembros del Equipo"
 
   admin:
     users:
