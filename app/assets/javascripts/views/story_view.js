@@ -359,7 +359,7 @@ module.exports = FormView.extend({
       if (this.id != undefined) {
         this.$el.append(
           this.makeFormControl(function(div) {
-            $(div).append('<input id="story-link-' + this.id + '" value="' + window.location + '#story-' + this.id + '" class="story_link" readonly/>');
+            $(div).append('<input id="story-link-' + this.id + '" value="' + this.getLocation() + '#story-' + this.id + '" class="story_link" readonly/>');
             $(div).append('<button class="btn-clipboard" data-clipboard-target="#story-link-' + this.id + '"><img src="/clippy.svg" alt="Copy to clipboard" width="10px"></button>');
           })
         );
@@ -728,5 +728,12 @@ module.exports = FormView.extend({
   disableControlButtons: function() {
     var $storyControls = this.$el.find('.story-controls');
     $storyControls.find('.submit, .destroy, .cancel').prop('disabled', this.uploadInProgress);
+  },
+
+  getLocation: function() {
+    var location = window.location.href;
+    var hashIndex = location.indexOf('#');
+    var endIndex = hashIndex > 0 ? hashIndex : location.length;
+    return location.substring(0, endIndex);
   }
 });
