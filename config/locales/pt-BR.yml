@@ -294,6 +294,7 @@ pt-BR:
     team was successfully created: 'Equipe foi criado com sucesso'
     team was successfully updated: 'Equipe foi atualizado com sucesso'
     no_teams_found: "Oops! Você ainda não está inscrito em uma equipe."
+    members: "Gerenciar Membros da Equipe"
 
   admin:
     users:
@@ -302,6 +303,8 @@ pt-BR:
         are you sure you want to delete this user: "Tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita."
         are you sure you want to remove administration rights from this user: "Tem certeza de que deseja remover direitos de administração deste usuário?"
         are you sure you want to give administration rights to this user: "Tem certeza de que quer dar direitos de administração para este usuário?"
+      edit:
+        remove from project confirmation: "Tem certeza de que deseja excluir o usuário deste projeto?"
 
   registrations:
     edit:

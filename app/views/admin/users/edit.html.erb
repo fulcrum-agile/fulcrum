@@ -1,33 +1,55 @@
 <% content_for :title_bar do %>
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to current_team.name, projects_path %>
+    </li>
+  </ul>
+
   <%= link_to t('back'), admin_users_path, class: "btn btn-primary btn-sm navbar-btn" %>
 <% end %>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6">
-    <h2><%= t('admin.users.edit user') %></h2>
 
-    <%= render 'form' %>
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+    <div class="page-header">
+      <h4 class="page-header-title">
+        <i class="mi md-20">edit</i> <%= t('admin.users.edit user') %>
+      </h4>
+    </div>
   </div>
 
-  <div class="col-sm-12 col-md-6">
-    <h2><%= Project.model_name.human(count: 2) %></h2>
+  <div class="col-xs-12 col-sm-5 col-sm-offset-2">
+    <div class="panel card">
+      <div class="panel-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
 
-    <% if @user.projects.count > 0 %>
-      <table class="table table-hover">
-        <% @user.projects.each do |project| %>
-          <tr>
-            <td class="lead"><%= link_to project.name, project %></td>
-            <td>
-              <%= link_to 'Remove', project_user_path(project, @user),
-                method: :delete,
-                class: 'btn btn-danger btn-sm',
-                data: { confirm: 'Are you sure?' } %>
-            </td>
-          </tr>
+  <div class="col-xs-12 c col-sm-3">
+    <div class="panel card">
+      <div class="panel-heading">
+        <%= Project.model_name.human(count: 2) %>
+      </div>
+      <div class="panel-body">
+        <% if @user.projects.count > 0 %>
+          <table class="table table-condensed table-striped table-hover admin-users-table">
+            <% @user.projects.each do |project| %>
+              <tr>
+                <td><%= link_to project.name, project %></td>
+                <td>
+                  <%= link_to 'Remove', project_user_path(project, @user),
+                    method: :delete,
+                    class: 'btn btn-danger btn-sm btn-square pull-right',
+                    data: { confirm: t('admin.users.edit.remove from project confirmation') } %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          --
         <% end %>
-      </table>
-    <% else %>
-      --
-    <% end %>
+      </div>
+    </div>
   </div>
 </div>
