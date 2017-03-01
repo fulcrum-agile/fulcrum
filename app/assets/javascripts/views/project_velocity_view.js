@@ -1,23 +1,21 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var ProjectVelocityOverrideView = require('./project_velocity_override_view');
 
-Fulcrum.ProjectVelocityView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   className: 'velocity',
 
   initialize: function() {
     _.bindAll(this, 'setFakeClass', 'render');
-    this.override_view = new Fulcrum.ProjectVelocityOverrideView({model: this.model});
-    this.model.bind('change:userVelocity', this.setFakeClass);
-    this.model.bind('rebuilt-iterations', this.render);
+    this.override_view = new ProjectVelocityOverrideView({model: this.model});
+    this.model.on('change:userVelocity', this.setFakeClass);
+    this.model.on('rebuilt-iterations', this.render);
   },
 
   events: {
     "click #velocity_value": "editVelocityOverride"
   },
 
-  template: JST['templates/project_velocity'],
+  template: require('templates/project_velocity.ejs'),
 
   render: function() {
     this.$el.html(this.template({project: this.model}));

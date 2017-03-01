@@ -1,5 +1,5 @@
 config/database.yml
-config/fulcrum.rb
+config/cloudinary.yml
 .bundle
 db/*.sqlite3
 log/*.log
@@ -9,3 +9,13 @@ tmp/
 *.DS_Store
 config/deploy.rb
 *.swp
+.env
+.env.test
+*.dump
+dump.rdb
+public/javascripts/*
+public/test_assets/
+/node_modules
+/public/webpack
+js_coverage/
+coverage

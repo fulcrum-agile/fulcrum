@@ -1,0 +1,10 @@
+.flash-message-row {
+  position: fixed;
+  top: -100px;
+  z-index: 98;
+}
+
+.flash-message {
+  margin: 25px auto;
+  width: 55%;
+}

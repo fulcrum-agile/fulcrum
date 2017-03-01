@@ -1,6 +1,19 @@
-describe('Fulcrum.StoryView', function() {
+var StoryView = require('views/story_view');
+
+describe('StoryView', function() {
 
   beforeEach(function() {
+    window.ATTACHINARY_OPTIONS = {
+      "attachinary":{
+        "accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
+        "cloudinary":{
+          "tags":["development_env","attachinary_tmp"],
+          "use_filename": true},
+        "html":{"class":["attachinary-input"],"accept":"image/jpeg,image/png,image/vnd.adobe.photoshop,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/excel",
+        "multiple":true,
+        "data":{"attachinary":{"accessible":true,"accept":["raw","jpg","png","psd","docx","xlsx","doc","xls"],"maximum":10,"single":false,"scope":"documents","plural":"documents","singular":"document","files":[]},
+        "form_data":{"timestamp":1435347909,"callback":"http://localhost:3000/attachinary/cors","tags":"development_env,attachinary_tmp","signature":"db3b029ed02431b1dccac45cc8b2159a280fd334","api_key":"893592954749395"},
+        "url":"https://api.cloudinary.com/v1_1/hq5e5afno/auto/upload"} } };
     window.projectView = {
       availableTags: [],
       notice: sinon.stub()
@@ -10,33 +23,48 @@ describe('Fulcrum.StoryView', function() {
       name: 'note',
       humanAttributeName: sinon.stub()
     });
+    var Task = Backbone.Model.extend({
+      name: 'task',
+      humanAttributeName: sinon.stub()
+    });
     var NotesCollection = Backbone.Collection.extend({model: Note});
+    var TasksCollection = Backbone.Collection.extend({model: Task});
     var Story = Backbone.Model.extend({
       name: 'story', defaults: {story_type: 'feature'},
       estimable: function() { return true; },
       estimated: function() { return false; },
+      notEstimable: function () { return true },
       point_values: function() { return [0,1,2]; },
       hasErrors: function() { return false; },
       errorsOn: function() { return false; },
+      documents: function() { return [{"file":{"id":25,"public_id":"ikhhkie4ygljblsleqie.diff","version":"1435342626","format":null,"resource_type":"raw","path":"v1435342626/ikhhkie4ygljblsleqie.diff"}},{"file":{"id":26,"public_id":"zvjhfvramk76ebgvhioa.csv","version":"1435342608","format":null,"resource_type":"raw","path":"v1435342608/zvjhfvramk76ebgvhioa.csv"}},{"file":{"id":27,"public_id":"rythcrivxemvnbyh5mjb","version":"1435346191","format":"png","resource_type":"image","path":"v1435346191/rythcrivxemvnbyh5mjb.png"}}] },
       url: '/path/to/story',
       collection: { project: { users: { forSelect: function() {return [];} } } },
-      start: function() {},
+      start: function()   { this.set({state: "started"}); },
+      deliver: function() { this.set({state: "delivered"}); },
+      accept: function()  { this.set({state: "accepted"}); },
+      reject: function()  { this.set({state: "rejected"}); },
       humanAttributeName: sinon.stub(),
       setAcceptedAt: sinon.spy(),
-      errorMessages: sinon.stub()
+      errorMessages: sinon.stub(),
+      views: [],
+      clickFromSearchResult: false,
+      isSearchResult: false,
     });
-    this.story = new Story({id: 999, title: 'Story'});
+    this.story = new Story({id: '999', title: 'Story'});
     this.new_story = new Story({title: 'New Story'});
     this.story.notes = this.new_story.notes = new NotesCollection();
-    Fulcrum.StoryView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.StoryView({
+    this.story.tasks = this.new_story.tasks = new TasksCollection();
+    StoryView.prototype.template = sinon.stub();
+    this.view = new StoryView({
       model: this.story
     });
-    this.new_story_view = new Fulcrum.StoryView({
+    this.new_story_view = new StoryView({
       model: this.new_story
     });
 
     window.I18n = {t: sinon.stub()};
+    window.projectView.usernames = sinon.stub();
 
     this.server = sinon.fakeServer.create();
   });
@@ -98,7 +126,7 @@ describe('Fulcrum.StoryView', function() {
       it('sets the model attributes correctly', function() {
         this.view.startEdit(this.e);
         expect(this.view.model.set).toHaveBeenCalledWith({
-          editing: true, editingDescription: false
+          editing: true, editingDescription: false, clickFromSearchResult: false
         });
       });
 
@@ -153,7 +181,7 @@ describe('Fulcrum.StoryView', function() {
   describe("cancel edit", function() {
 
     it("should remove itself when edit cancelled if its new", function() {
-      var view = new Fulcrum.StoryView({model: this.new_story});
+      var view = new StoryView({model: this.new_story});
       var spy = sinon.spy(this.new_story, "clear");
 
       view.cancelEdit();
@@ -164,15 +192,18 @@ describe('Fulcrum.StoryView', function() {
       this.story.set({errors:true});
       expect(this.story.get('errors')).toEqual(true);
       sinon.stub(this.story, "hasErrors").returns(true);
-      var spy = sinon.spy(this.story, "fetch");
+      var stub = sinon.stub(this.story, "fetch");
       this.view.cancelEdit();
-      expect(spy).toHaveBeenCalled();
+      expect(stub).toHaveBeenCalled();
       expect(this.story.get('errors')).toBeUndefined();
     });
 
   });
 
   describe("save edit", function() {
+    beforeEach(function() {
+      this.e = {currentTarget: ''};
+    });
 
     it("should call save", function() {
       this.server.respondWith(
@@ -182,7 +213,7 @@ describe('Fulcrum.StoryView', function() {
         ]
       );
       this.story.set({editing: true});
-      this.view.saveEdit();
+      this.view.clickSave(this.e);
       expect(this.story.get('editing')).toBeTruthy();
       expect(this.server.requests.length).toEqual(1);
 
@@ -200,7 +231,7 @@ describe('Fulcrum.StoryView', function() {
         ]
       );
 
-      this.view.saveEdit();
+      this.view.clickSave(this.e);
       expect(this.server.responses.length).toEqual(1);
       expect(this.server.responses[0].method).toEqual("PUT");
       expect(this.server.responses[0].url).toEqual("/path/to/story");
@@ -223,7 +254,7 @@ describe('Fulcrum.StoryView', function() {
       var enable_spy = sinon.spy(this.view, 'enableForm');
 
       this.story.set({editing: true});
-      this.view.saveEdit();
+      this.view.clickSave(this.e);
 
       expect(disable_spy).toHaveBeenCalled();
       expect(enable_spy).not.toHaveBeenCalled();
@@ -258,7 +289,7 @@ describe('Fulcrum.StoryView', function() {
         ]
       );
 
-      var ev = { target: { value : '1' } };
+      var ev = { target: { attributes : { 'data-value' : { value : 1 } } } };
       this.view.estimate(ev);
 
       expect(this.view.saveInProgress).toBeTruthy();
@@ -269,8 +300,29 @@ describe('Fulcrum.StoryView', function() {
     });
 
     it("should call setAcceptedAt on the story", function() {
-      this.view.saveEdit();
+      this.view.saveEdit(this.e);
       expect(this.story.setAcceptedAt).toHaveBeenCalledOnce();
+    });
+
+    describe("when an attachment is done", function() {
+      beforeEach(function() {
+        this.view.attachmentStart();
+      });
+
+      it("change the uploadInProgress to false", function() {
+        this.server.respondWith(
+          "PUT", "/path/to/story", [
+            200, {"Content-Type": "application/json"},
+            '{"story":{"estimate":"1"}}'
+          ]
+        );
+
+        this.view.saveEdit(this.e);
+
+        this.server.respond();
+
+        expect(this.view.uploadInProgress).toBeFalsy;
+      });
     });
   });
 
@@ -397,14 +449,14 @@ describe('Fulcrum.StoryView', function() {
   describe("notes", function() {
 
     it("binds change:notes to renderNotesCollection()", function() {
-      var spy = sinon.spy(this.story, 'bind');
-      var view = new Fulcrum.StoryView({model: this.story});
+      var spy = sinon.spy(this.story, 'on');
+      var view = new StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.renderNotesCollection);
     });
 
     it("binds change:notes to addEmptyNote()", function() {
-      var spy = sinon.spy(this.story, 'bind');
-      var view = new Fulcrum.StoryView({model: this.story});
+      var spy = sinon.spy(this.story, 'on');
+      var view = new StoryView({model: this.story});
       expect(spy).toHaveBeenCalledWith('change:notes', view.addEmptyNote);
     });
 
@@ -449,10 +501,11 @@ describe('Fulcrum.StoryView', function() {
 
     it("is text area when story is new", function() {
       this.view.model.isNew = sinon.stub().returns(true);
+      this.view.canEdit = sinon.stub().returns(true)
       this.view.render();
       expect(this.view.$('textarea[name="description"]').length).toEqual(1);
       expect(this.view.$('div.description').length).toEqual(0);
-      expect(this.view.$('input#edit-description').length).toEqual(0);
+      expect(this.view.$('input.edit-description').length).toEqual(0);
     });
 
     it("isn't text area when story isn't new", function() {
@@ -460,13 +513,34 @@ describe('Fulcrum.StoryView', function() {
       this.view.render();
       expect(this.view.$('textarea[name="description"]').length).toEqual(0);
       expect(this.view.$('div.description').length).toEqual(1);
-      expect(this.view.$('input#edit-description').length).toEqual(1);
+      expect(this.view.$('input.edit-description').length).toEqual(1);
     });
 
-    it('is a text area after #edit-description is clicked', function() {
+    it('is a text area after .edit-description is clicked', function() {
       this.view.model.isNew = sinon.stub().returns(false);
       this.view.editDescription();
       expect(this.view.model.get('editingDescription')).toBeTruthy();
+    });
+
+  });
+
+  describe("attachinary", function() {
+
+    beforeEach(function() {
+      this.view.model.set({editing: true});
+    });
+
+    afterEach(function() {
+      this.view.model.set({editing: false});
+    });
+
+    it("has its element defined when story is new", function() {
+      this.view.model.isNew = sinon.stub().returns(true);
+      this.view.render();
+      expect(this.view.$('.attachinary-input').length).toEqual(1);
+      expect(this.view.$('.attachinary-input').siblings().length).toEqual(3);
+      expect(this.view.$('.attachinary-input').siblings()[1].id).toContain('documents_progress');
+      expect(this.view.$('.attachinary-input').siblings()[2].id).toContain('attachinary_container');
     });
 
   });
@@ -518,6 +592,182 @@ describe('Fulcrum.StoryView', function() {
         expect(this.appendSpy).toHaveBeenCalledWith(this.content.control);
       });
 
+    });
+  });
+
+  describe('disableEstimate', function () {
+    it('disables estimate field when story is not estimable', function () {
+      this.view.model.notEstimable = sinon.stub().returns(true);
+      this.view.canEdit = sinon.stub().returns(true);
+      this.view.render();
+
+      expect(this.view.$('.story_estimate')).toBeDisabled();
+    });
+  });
+
+  describe('confirms before finish', function() {
+    beforeEach(function() {
+      this.confirmStub = sinon.stub(window, 'confirm');
+    });
+
+    afterEach(function() {
+      this.confirmStub.restore();
+    });
+
+    describe('when accepting a story', function() {
+      it('should save story when confirmed', function() {
+        this.confirmStub.returns(true);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'accept' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('accepted');
+      });
+
+      it('should not save story when not confirmed', function() {
+        this.confirmStub.returns(false);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'accept' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('delivered');
+      });
+    });
+
+    describe('when rejecteing a story', function() {
+      it('should save story when confirmed', function() {
+        this.confirmStub.returns(true);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'reject' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('rejected');
+      });
+
+      it('should not save story when not confirmed', function() {
+        this.confirmStub.returns(false);
+
+        this.story.set({state: "delivered"});
+
+        var ev = { target: { value : 'reject' } };
+        this.view.transition(ev);
+
+        expect(this.story.get('state')).toEqual('delivered');
+      });
+    });
+  });
+
+  describe('attachmentDone', function() {
+    describe('when the story is new', function() {
+      it('never calls saveEdit', function() {
+        this.view.model.isNew = sinon.stub().returns(true);
+        this.view.saveEdit = sinon.stub();
+
+        this.view.attachmentDone();
+
+        expect(this.view.saveEdit).not.toHaveBeenCalled();
+      });
+
+      it('update uploadInProgress variable', function() {
+        this.view.model.isNew = sinon.stub().returns(true);
+        this.view.uploadInProgress = true;
+        
+        this.view.attachmentDone();
+
+        expect(this.view.uploadInProgress).toBeFalsy();
+      });
+    });
+
+    describe('when the story is not new', function() {
+      it('calls saveEdit', function() {
+        this.view.model.isNew = sinon.stub().returns(false);
+        this.view.saveEdit = sinon.stub();
+
+        this.view.attachmentDone();
+
+        expect(this.view.saveEdit).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('attachmentStart', function() {
+    describe('while the attachment is happening', function() {
+      it('update the uploadInProgress variable', function() {
+        this.view.attachmentStart();
+        expect(this.view.uploadInProgress).toBeTruthy;
+      });
+
+      it('call disableControlButtons', function() {
+        spyOn(this.view, 'disableControlButtons')
+        this.view.attachmentStart();
+        expect(this.view.disableControlButtons).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('disableControlButtons', function() {
+    var $storyControls;
+
+    beforeEach(function() {
+      this.view.render();
+    });
+
+    describe('it render a enabled', function() {
+      beforeEach(function() {
+        this.view.uploadInProgress = false;
+        $storyControls = this.view.$el.find('.story-controls');
+      });
+
+      it('submit button', function() {
+        var submit = $storyControls.find('.submit');
+
+        expect(submit.disabled).toBeFalsy;
+      });
+
+      it('cancel button', function() {
+        var cancel = $storyControls.find('.cancel');
+
+        expect(cancel.disabled).toBeFalsy;
+      });
+
+      it('destroy button', function() {
+        var destroy = $storyControls.find('.submit');
+
+        expect(destroy.disabled).toBeFalsy;
+      });
+    });
+
+    describe('it render a disabled', function() {
+      var $storyControls;
+
+      beforeEach(function() {
+        this.view.uploadInProgress = true;
+        $storyControls = this.view.$el.find('.story-controls');
+      });
+
+      it('submit button', function() {
+        var submit = $storyControls.find('.submit');
+
+        expect(submit.disabled).toBeTruthy;
+      });
+
+      it('cancel button', function() {
+        var cancel = $storyControls.find('.cancel');
+
+        expect(cancel.disabled).toBeTruthy;
+      });
+
+      it('destroy button', function() {
+        var destroy = $storyControls.find('.submit');
+
+        expect(destroy.disabled).toBeTruthy;
+      });
     });
   });
 });

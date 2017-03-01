@@ -1,43 +1,44 @@
 class NotesController < ApplicationController
+  before_action :set_project_and_story
 
   def index
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:story_id])
-    @notes = @story.notes
-    render :json => @notes
+    @notes = policy_scope(Note)
+    render json: @notes
   end
 
   def show
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:story_id])
-    @note = @story.notes.find(params[:id])
-    render :json => @note
+    @note = policy_scope(Note).find(params[:id])
+    authorize @note
+    render json: @note
   end
 
   def destroy
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:story_id])
-    @note = @story.notes.find(params[:id])
+    @note = policy_scope(Note).find(params[:id])
+    authorize @note
     @note.destroy
     head :ok
   end
 
   def create
-    @project = current_user.projects.find(params[:project_id])
-    @story = @project.stories.find(params[:story_id])
-    @note = @story.notes.build(allowed_params)
+    @note = policy_scope(Note).build(allowed_params)
+    authorize @note
     @note.user = current_user
-    if @note.save
-      render :json => @note
+    if @note = NoteOperations::Create.(@note, current_user)
+      render json: @note
     else
-      render :json => @note, :status => :unprocessable_entity
+      render json: @note, status: :unprocessable_entity
     end
   end
 
   protected
 
   def allowed_params
-    params.fetch(:note).permit(:note)
+    params.fetch(:note).permit(:note, :documents)
+  end
+
+  def set_project_and_story
+    @project = policy_scope(Project).find(params[:project_id])
+    @story   = policy_scope(Story).find(params[:story_id])
   end
 
 end

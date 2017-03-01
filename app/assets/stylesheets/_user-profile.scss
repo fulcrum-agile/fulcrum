@@ -1,0 +1,21 @@
+.user-profile {
+  .user-image {
+    display: block;
+    margin: 0 auto;
+
+    border-radius: 50%;
+    border: 2px solid $white;
+  }
+
+  .user-name {
+    margin: 10px 0;
+
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .account-options {
+    border-top: 1px solid $lightgrey-7;
+  }
+}

@@ -1,0 +1,9 @@
+<div class="form-error">
+  <h2 class="form-error-title"><%= t('errors.template.header', count: object.errors.count, model: object.class.name.humanize) %></h2>
+
+  <ul class="form-error-list">
+  <% object.errors.full_messages.each do |msg| %>
+    <li class="form-error-list-item"><%= msg %></li>
+  <% end %>
+  </ul>
+</div>

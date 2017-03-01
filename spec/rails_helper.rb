@@ -3,9 +3,16 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
-require 'capybara/poltergeist'
 
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'vcr'
+require 'webmock'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "fixtures/vcr_cassettes"
+  config.hook_into :webmock # or :fakeweb
+  config.ignore_localhost = true
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -33,16 +40,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
-
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:type => :feature) do
-    Capybara.javascript_driver = :poltergeist
-    DatabaseCleaner.clean
-  end
+  # config.use_transactional_fixtures = true
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -51,7 +49,7 @@ RSpec.configure do |config|
   # You can disable this behaviour by removing the line below, and instead
   # explicitly tag your specs with their type, e.g.:
   #
-  #     RSpec.describe UsersController, :type => :controller do
+  #     RSpec.describe UsersController, type: :controller do
   #       # ...
   #     end
   #
@@ -59,14 +57,24 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.include Devise::TestHelpers,           :type => :controller
-  config.include IntegrationHelpers,            :type => :feature
+  config.include Devise::TestHelpers,           type: :controller
+  config.include IntegrationHelpers,            type: :feature
 
   # Turn this off in all request specs
   module DisableTransactionalFixtures
     def self.included(base)
       base.use_transactional_fixtures = false
+      base.after(:each) do |example|
+        while true
+          begin
+            DatabaseCleaner.clean
+            break
+          rescue Exception => e
+            sleep 2
+          end
+        end
+      end
     end
   end
-  config.include DisableTransactionalFixtures,  :type => :feature
+  config.include DisableTransactionalFixtures,  type: :feature
 end

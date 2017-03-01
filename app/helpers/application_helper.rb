@@ -1,7 +1,5 @@
 module ApplicationHelper
-  def show_messages
-    content_tag :div, nil, { :id => 'messages' } do
-      flash.collect { |index, value| content_tag(:div, value, {:class => "flash-" + index.to_s}) }.join.html_safe
-    end unless flash.blank?
+  def team_logo(image_path)
+    cl_image_tag(image_path, { size: '32x32', crop: :fill, radius: 5, border: '1px_solid_black' })
   end
 end

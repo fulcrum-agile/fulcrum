@@ -1,8 +1,6 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var FormView = require('./form_view');
 
-Fulcrum.NoteForm = Fulcrum.FormView.extend({
+module.exports = FormView.extend({
 
   tagName: 'div',
 
@@ -21,14 +19,15 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
 	events: {
     "click input": "saveEdit"
 	},
-	
+
 	saveEdit: function() {
     this.disableForm();
 
     var view = this;
     this.model.save(null, {
       success: function(model, response) {
-        //view.model.set({editing: false});
+        // force the project to fetch changeset and reload the updated story with the new note
+        window.projectView.model.fetch();
       },
       error: function(model, response) {
         var json = $.parseJSON(response.responseText);
@@ -45,12 +44,20 @@ Fulcrum.NoteForm = Fulcrum.FormView.extend({
   render: function() {
     var view = this;
 
-    div = this.make('div');
-    $(div).append(this.label("note"));
-    $(div).append('<br/>');
-    $(div).append(this.textArea("note"));
+    div = this.make('div', {
+      class: 'clearfix'
+    });
 
-    var submit = this.make('input', {id: 'note_submit', type: 'button', value: 'Add note'});
+    var textarea = this.textArea("note");
+    $(textarea).atwho({
+        at: "@",
+        data: window.projectView.usernames(),
+    })
+
+    $(div).append('<br/>');
+    $(div).append(textarea);
+
+    var submit = this.make('input', {id: 'note_submit', type: 'button', value: I18n.t('add note'), class: 'add-note btn btn-default btn-xs'});
     $(div).append(submit);
     this.$el.html(div);
 

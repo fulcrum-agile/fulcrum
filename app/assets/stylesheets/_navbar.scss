@@ -1,0 +1,180 @@
+.navbar {
+  padding: 0 10px;
+  margin-bottom: 0;
+  border-radius: 0;
+  z-index: 99;
+
+  &-logo {
+    padding: 10px 15px;
+  }
+
+  &-nav > li > a {
+    padding: 15px 10px 15px 5px;
+    font-weight: 600;
+  }
+
+  &-header {
+    width: 100%;
+  }
+
+  &-btn {
+    border-color: transparent;
+
+    &-reports {
+      margin-left: 15px;
+    }
+  }
+
+  &-right {
+    margin-right: 0;
+  }
+
+  &-right &-locale,
+  &-right .dropdown {
+    display: inline-block;
+  }
+
+  &-form {
+    padding: 0;
+  }
+
+  &-search {
+    margin: 10px;
+  }
+
+  .velocity {
+    position: relative;
+    padding-left: 15px;
+    margin-left: 5px;
+
+    &-value {
+      cursor: pointer;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 0;
+      width: 1px;
+      height: 20px;
+      background-color: rgba($darkgrey-6, .25);
+    }
+
+    &-change {
+      padding: 10px;
+      margin-top: 10px;
+      width: 300px;
+      font-size: 11px;
+      background-color: lighten($aluminium-6, 3);
+
+      .form-group {
+        margin: 0;
+      }
+
+      &-notice {
+        margin: 5px 0 0;
+      }
+
+      &-input {
+        padding: 5px 8px;
+        width: 45px;
+        height: 24px;
+      }
+
+      &-btn {
+        padding: 6px;
+        height: 24px;
+        font-size: 10px;
+        line-height: 1;
+      }
+    }
+  }
+
+  .velocity-popover-title,
+  .velocity-popover-content {
+    display: none;
+  }
+
+  .popover {
+    width: 250px;
+    color: $darkgrey-2;
+  }
+
+  .dropdown {
+    margin: 8px 0;
+
+    .caret {
+      margin-left: 5px;
+    }
+  }
+
+  .board & {
+    color: $white;
+    background-color: $aluminium-6;
+    border-color: $aluminium-6;
+
+    &-nav > li > a,
+    .btn-link {
+      color: $white;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+        color: $white;
+      }
+    }
+
+    &-locale {
+      color: $white;
+
+      .locale-change-wrapper:after {
+        color: $white;
+      }
+    }
+
+    .velocity {
+      color: $white;
+
+      &:after {
+        background: rgba($white, .2);
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    margin-right: 0;
+  }
+}
+
+.locale-change {
+  &-wrapper {
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: inline-block;
+      width: 0;
+      height: 0;
+      vertical-align: middle;
+      border-top: 4px dashed;
+      border-top: 4px solid \9;
+      border-right: 4px solid transparent;
+      border-left: 4px solid transparent;
+      pointer-events: none;
+    }
+  }
+
+  &-select {
+    padding-right: 31px;
+    appearance: none;
+    -moz-appearance: none;
+
+    .locale-change-option {
+      color: $darkgrey-10;
+    }
+  }
+}

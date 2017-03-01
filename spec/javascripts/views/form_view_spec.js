@@ -1,8 +1,10 @@
-describe('Fulcrum.FormView', function() {
+var FormView = require('views/form_view');
+
+describe('FormView', function() {
 
   beforeEach(function() {
-    Fulcrum.FormView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.FormView();
+    FormView.prototype.template = sinon.stub();
+    this.view = new FormView();
   });
 
   it("should have a form as its top level element", function() {

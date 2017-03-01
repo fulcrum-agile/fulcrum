@@ -1,0 +1,18 @@
+.form-control,
+.form-wrapper input[type=text],
+.form-wrapper input[type=email],
+.form-wrapper input[type=password],
+.form-wrapper select,
+.form-wrapper textarea {
+  font-size: 12px;
+}
+
+.form-inline > * {
+  margin: 5px 3px;
+  &:first-child {
+    margin-left: 0px;
+  }
+  &:lat-child {
+    margin-right: 0px;
+  }
+}

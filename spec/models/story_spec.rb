@@ -2,70 +2,10 @@ require 'rails_helper'
 
 describe Story do
 
-  subject { FactoryGirl.build :story }
-
-  describe "validations" do
-
-    describe '#title' do
-      it "is required" do
-        subject.title = ''
-        subject.valid?
-        expect(subject.errors[:title].size).to eq(1)
-      end
-    end
-
-    describe '#story_type' do
-      it "is required" do
-        subject.story_type = nil
-        subject.valid?
-        expect(subject.errors[:story_type].size).to eq(1)
-      end
-
-      it "is must be a valid story type" do
-        subject.story_type = 'flum'
-        subject.valid?
-        expect(subject.errors[:story_type].size).to eq(1)
-      end
-    end
-
-    describe '#state' do
-      it "must be a valid state" do
-        subject.state = 'flum'
-        subject.valid?
-        expect(subject.errors[:state].size).to eq(1)
-      end
-    end
-
-    describe "#project" do
-      it "cannot be nil" do
-        subject.project_id = nil
-        subject.valid?
-        expect(subject.errors[:project].size).to eq(1)
-      end
-
-      it "must have a valid project_id" do
-        subject.project_id = "invalid"
-        subject.valid?
-        expect(subject.errors[:project].size).to eq(1)
-      end
-
-      it "must have a project" do
-        subject.project =  nil
-        subject.valid?
-        expect(subject.errors[:project].size).to eq(1)
-      end
-    end
-
-    describe '#estimate' do
-      it "must be valid for the project point scale" do
-        subject.project.point_scale = 'fibonacci'
-        subject.estimate = 4 # not in the fibonacci series
-        subject.valid?
-        expect(subject.errors[:estimate].size).to eq(1)
-      end
-    end
-
-  end
+  subject { build :story, :with_project }
+  before {
+    subject.acting_user = build(:user)
+  }
 
   describe "defaults" do
 
@@ -76,223 +16,58 @@ describe Story do
 
   end
 
-  describe "#to_s" do
-
-    before { subject.title = "Dummy Title" }
-    its(:to_s) { should == "Dummy Title" }
-
-  end
-
-  describe "#estimated?" do
-    
-    context "when estimate is nil" do
-      before { subject.estimate = nil }
-      it { should_not be_estimated }
-    end
-
-    context "when estimate is not nil" do
-      before { subject.estimate = 0 }
-      it { should be_estimated }
-    end
-
-  end
-
-  describe "#estimable?" do
-
-    context "when story is a feature" do
-      before { subject.story_type = 'feature' }
-
-      context "when estimate is nil" do
-        before { subject.estimate = nil }
-        it { should be_estimable }
-      end
-
-      context "when estimate is not nil" do
-        before { subject.estimate = 0 }
-        it { should_not be_estimable }
-      end
-
-    end
-
-    ['chore', 'bug', 'release'].each do |story_type|
-      specify "a #{story_type} is not estimable" do
-        subject.story_type = story_type
-        subject.should_not be_estimable
-      end
-    end
-
-  end
-
   describe "#as_json" do
     before { subject.id = 42 }
 
     specify do
-      subject.as_json['story'].keys.sort.should == [
+      expect(subject.as_json['story'].keys.sort).to eq([
         "title", "accepted_at", "created_at", "updated_at", "description",
-        "project_id", "story_type", "owned_by_id", "requested_by_id", "estimate",
-        "state", "position", "id", "errors", "labels", "notes"
-      ].sort
+        "project_id", "story_type", "owned_by_id", "requested_by_id",
+        "requested_by_name", "owned_by_name", "owned_by_initials", "estimate",
+        "state", "position", "id", "errors", "labels", "notes", "tasks", "documents"
+      ].sort)
     end
   end
 
-  describe "#set_position_to_last" do
+  describe '#readonly?' do
+    subject { create :story, :with_project }
 
-    context "when position is set" do
-      before { subject.position = 42 }
+    before { subject.update_attribute(:state, 'accepted') }
 
-      it "does nothing" do
-        subject.set_position_to_last.should be true
-        subject.position = 42
-      end
+    it "can't save model if it is already accepted" do
+      subject.title = 'new title override'
+      expect { subject.save }.to raise_error(ActiveRecord::ReadOnlyRecord)
     end
 
-    context "when there are no other stories" do
-      before { subject.stub_chain(:project, :stories, :order, :first).and_return(nil) }
-
-      it "sets position to 1" do
-        subject.set_position_to_last
-        subject.position.should == 1
-      end
+    it "can't change state back from accepted to anything else" do
+      expect { subject.update_attribute(:state, 'unscheduled') }.to raise_error(ActiveRecord::ReadOnlyRecord)
     end
 
-    context "when there are other stories" do
+    it "can't delete accepted story" do
+      expect { subject.destroy }.to raise_error(ActiveRecord::ReadOnlyRecord)
+    end
 
-      let(:last_story) { mock_model(Story, :position => 41) }
+    context "with attachments" do
+      let(:attachments) { [
+        {"id"=>30, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"},
+        {"id"=>31, "public_id"=>"Screen_Shot_2016-08-19_at_09.30.57_blnr1a", "version"=>"1471624237", "format"=>"png", "resource_type"=>"image", "path"=>"v1471624237/Screen_Shot_2016-08-19_at_09.30.57_blnr1a.png"}
+      ]}
 
       before do
-        subject.stub_chain(:project, :stories, :order, :first).and_return(last_story)
+        attachments.each do |a|
+          a.delete('path')
+          Story.connection.execute("insert into attachinary_files (#{a.keys.join(", ")}, scope, attachinariable_id, attachinariable_type) values ('#{a.values.join("', '")}', 'documents', #{subject.id}, 'Story')")
+        end
       end
 
-      it "incrememnts the position by 1" do
-        subject.set_position_to_last
-        subject.position.should == 42
+      it "can't delete attachments of an accepted story" do
+        expect(subject.documents.count).to eq(2)
+
+        expect { subject.documents = [] }.to raise_error(ActiveRecord::ReadOnlyRecord)
+
+        subject.reload
+        expect(subject.documents.count).to eq(2)
       end
     end
-  end
-
-  describe "#accepted_at" do
-
-    context "when not set" do
-
-      before { subject.accepted_at = nil }
-
-      # FIXME This is non-deterministic
-      it "gets set when state changes to 'accepted'" do
-        subject.update_attribute :state, 'accepted'
-        subject.accepted_at.should == Date.today
-      end
-
-    end
-
-    context "when set" do
-
-      before { subject.accepted_at = Date.parse('1999/01/01') }
-
-      # FIXME This is non-deterministic
-      it "is unchanged when state changes to 'accepted'" do
-        subject.update_attribute :state, 'accepted'
-        subject.accepted_at.should == Date.parse('1999/01/01')
-      end
-
-      it "is unset when state changes from 'accepted'" do
-        subject.accepted_at = Date.parse('1999/01/01') 
-        subject.update_attribute :state, 'accepted'
-        subject.update_attribute :state, 'started'
-        subject.accepted_at.should be_nil
-      end
-
-    end
-  end
-
-  describe "#to_csv" do
-
-    it "returns an array" do
-      subject.to_csv.should be_kind_of(Array)
-    end
-
-    it "has the same number of elements as the .csv_headers" do
-      subject.to_csv.length.should == Story.csv_headers.length
-    end
-  end
-
-  describe "#notify_users" do
-
-    let(:requested_by)  { mock_model(User) }
-    let(:owned_by)      { mock_model(User) }
-    let(:note_user)     { mock_model(User) }
-    let(:notes)         { [mock_model(Note, :user => note_user)] }
-
-    before do
-      subject.requested_by  = requested_by
-      subject.owned_by      = owned_by
-      subject.notes         = notes
-    end
-
-    specify do
-      subject.notify_users.should include(requested_by)
-    end
-
-    specify do
-      subject.notify_users.should include(owned_by)
-    end
-
-    specify do
-      subject.notify_users.should include(note_user)
-    end
-
-    it "strips out nil values" do
-      subject.requested_by = subject.owned_by = nil
-      subject.notify_users.should_not include(nil)
-    end
-  end
-
-  context "when unscheduled" do
-    before { subject.state = 'unscheduled' }
-    its(:events)  { should == [:start] }
-    its(:column)  { should == '#chilly_bin' }
-  end
-
-  context "when unstarted" do
-    before { subject.state = 'unstarted' }
-    its(:events)  { should == [:start] }
-    its(:column)  { should == '#backlog' }
-  end
-
-  context "when started" do
-    before { subject.state = 'started' }
-    its(:events)  { should == [:finish] }
-    its(:column)  { should == '#in_progress' }
-  end
-
-  context "when finished" do
-    before { subject.state = 'finished' }
-    its(:events)  { should == [:deliver] }
-    its(:column)  { should == '#in_progress' }
-  end
-
-  context "when delivered" do
-    before { subject.state = 'delivered' }
-    its(:events)  { should include(:accept) }
-    its(:events)  { should include(:reject) }
-    its(:column)  { should == '#in_progress' }
-  end
-
-  context "when rejected" do
-    before { subject.state = 'rejected' }
-    its(:events)  { should == [:restart] }
-    its(:column)  { should == '#in_progress' }
-  end
-
-  context "when accepted" do
-    before { subject.state = 'accepted' }
-    its(:events)  { should == [] }
-    its(:column)  { should == '#done' }
-  end
-
-
-  describe '.csv_headers' do
-
-    specify { Story.csv_headers.should be_kind_of(Array) }
-
   end
 end

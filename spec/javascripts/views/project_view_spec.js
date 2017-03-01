@@ -1,13 +1,15 @@
-describe("Fulcrum.ProjectView", function() {
+var ProjectView = require('views/project_view');
+
+describe("ProjectView", function() {
 
   beforeEach(function() {
     this.model = {};
-    this.model.bind = sinon.stub();
+    this.model.on = sinon.stub();
     this.model.velocity = sinon.stub();
     this.model.velocityIsFake = sinon.stub();
-    this.model.stories = {fetch: sinon.stub(), bind: sinon.stub()};
-    Fulcrum.ProjectView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.ProjectView({model: this.model});
+    this.model.stories = {fetch: sinon.stub(), on: sinon.stub()};
+    ProjectView.prototype.template = sinon.stub();
+    this.view = new ProjectView({model: this.model});
   });
 
   describe("addColumnView", function() {

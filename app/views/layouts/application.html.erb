@@ -1,53 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= "#{@project.name} - " if @project %><%= t('fulcrum') %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= "#{@project.name} - " if @project %><%= t('cm-central') %></title>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag :application %>
-  <%= javascript_include_tag :application %>
-  <%= javascript_tag do %>
-    I18n.defaultLocale = "<%= I18n.default_locale %>";
-    I18n.locale = "<%= I18n.locale %>";
-  <%- end -%>
+  <%= javascript_include_tag "https://www.authy.com/form.authy.min.js" %>
+  <%= stylesheet_link_tag "https://www.authy.com/form.authy.min.css" %>
+  <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Noto+Sans:400,700" %>
 </head>
-<body>
+<body class="<%= "board" if @layout_settings[:fluid] %>">
 
-<div id="header">
-  <ul id="primary-nav">
-    <li class="root"><%= link_to t('fulcrum'), root_path %></li>
-    <% if current_user %>
-      <li<%= ' class="secondary"'.html_safe if current_user.projects.present? %>>
-        <%= link_to Project.model_name.human(:count => 2), root_path %>
-        <%- if current_user.projects.present? -%>
-          <ul>
-            <%- current_user.projects.each do |project| -%>
-              <li><%= link_to project, project %></li>
-            <%- end -%>
-          </ul>
-        <%- end %>
-      </li>
-      <li><%= link_to current_user.email, edit_user_registration_path %></li>
-      <li><%= link_to t('log out'), destroy_user_session_path,
-                      :method => :delete %></li>
-    <% else %>
-      <li><%= link_to t('log in'), new_user_session_path %></li>
-      <%- unless Fulcrum::Application.config.fulcrum.disable_registration %>
-      <li><%= link_to t('sign up'), new_user_registration_path %></li>
-      <% end -%>
-    <% end %>
-  </ul>
+  <div class="click-overlay"></div>
+<div class="content-wrapper">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+
+        <% if session[:current_team_slug] && current_team.try(:logo) %>
+          <%= team_logo(current_team.logo.path) %>
+        <% else %>
+          <a href="/" class="navbar-brand navbar-logo">
+            <%= image_tag 'logo.png', width: 32, height: 32 %>
+          </a>
+        <% end %>
+
+        <%= yield :title_bar %>
+
+        <div class="navbar-right">
+          <%= yield :right_menu %>
+
+          <%= form_tag locales_path, method: :put, class: "dropdown" do %>
+            <div class="locale-change-wrapper">
+              <%= select_tag 'locale',
+                  options_for_select(LocalesController::LOCALES, I18n.locale),
+                  class: 'btn btn-link locale-change-select' %>
+            </div>
+          <% end %>
+
+          <% if current_user %>
+            <% if current_team %>
+              <div class="dropdown">
+                <button class="btn btn-link team-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= Team.model_name.human(count: 2) %>
+                  <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                  <li class="dropdown-header">
+                    <%= session[:current_team_slug] && current_team.try(:name) || t('cm-central') %>
+                  </li>
+
+                  <% topbar_projects do |project| %>
+                    <li><%= link_to project.name, project %></li>
+                  <% end %>
+
+                  <li class="divider"></li>
+
+                  <% current_user.teams.each do |team| %>
+                    <li><%= link_to team.name, switch_teams_path(team_slug: team.slug) %></li>
+                  <% end %>
+
+                  <% if current_team.is_admin?(current_user) %>
+                    <li class="divider"></li>
+                    <li><%= link_to t('settings'), edit_team_path(current_team) %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="dropdown">
+              <button class="btn btn-link user-dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name %>
+                <span class="caret"></span>
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+                <li>
+                  <%= topbar_link t('edit'), edit_user_registration_path %>
+                </li>
+
+                <% if current_user %>
+                  <li class="divider"></li>
+
+                  <li><%= link_to t('logout'), destroy_user_session_path, method: :delete %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <%= yield :navbar %>
+
+  <div class="main" id="main">
+    <div class="container<%= "-fluid board" if @layout_settings[:fluid] %>">
+      <%= render 'flash' %>
+      <%= yield %>
+    </div>
+  </div>
 </div>
 
-<div id="title_bar">
-  <%= yield :title_bar %>
-</div>
+  <div class="loading-spin">
+    <div class="spinner">
+      <span class="icons-spinner"></span>
+    </div>
+  </div>
 
-<div id="main">
-  <%= show_messages %>
-
-  <%= yield %>
-</div>
-
+  <%= javascript_include_tag *webpack_asset_paths('application') %>
+  <%= javascript_include_tag 'i18n/translations' %>
+  <%= javascript_include_tag :attachinary %>
+  <%= yield :charts_data %>
+  <%= cloudinary_js_config %>
 </body>
 </html>
-

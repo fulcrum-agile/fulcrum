@@ -21,16 +21,22 @@ module Fulcrum
     # config.i18n.default_locale = :de
     config.i18n.enforce_available_locales = true
 
-    config.i18n.available_locales = ['de', 'el', 'en', 'es', 'nl', 'ja', 'pt-BR']
+    config.i18n.available_locales = ['en', 'es', 'pt-BR']
 
-    config.autoload_paths += %W(#{config.root}/lib/validators)
-  
-    config.active_record.observers = :story_observer
+    config.time_zone = 'Brasilia' # default timezone
+
+    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('lib/integrations')
 
     load Rails.root.join('config','fulcrum_defaults.rb')
     if File.exist?(Rails.root.join('config', 'fulcrum.rb'))
       load Rails.root.join('config','fulcrum.rb')
     end
     config.fulcrum = ::Configuration.for 'fulcrum'
+
+    #FIXME this shouldn't be necessary in Rails 4 but the generator was falling back to test_unit
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end

@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.ColumnVisibilityButtonView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   events: {
     'click': 'toggle'
@@ -16,12 +12,31 @@ Fulcrum.ColumnVisibilityButtonView = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this, 'setClassName');
-    this.$el.attr('class','hide_'+this.options.columnView.id);
-    this.options.columnView.bind('visibilityChanged', this.setClassName);
+    this.$el.attr('class','sidebar-link hide_'+this.options.columnView.id );
+    this.options.columnView.on('visibilityChanged', this.setClassName);
   },
 
   render: function() {
-    this.$el.html(this.options.columnView.name());
+    var icon = "";
+    switch(this.options.columnView.id) {
+    case 'done' :
+      icon = '<i class="mi md-18 sidebar-icon">done</i> ';
+      break;
+    case 'in_progress' :
+      icon = '<i class="mi md-18 sidebar-icon">inbox</i> ';
+      break;
+    case 'backlog' :
+      icon = '<i class="mi md-18 sidebar-icon">list</i> ';
+      break;
+    case 'chilly_bin' :
+      icon = '<i class="mi md-18 sidebar-icon">ac_unit</i> ';
+      break;
+    case 'search_results' :
+      icon = '<i class="mi md-18 sidebar-icon">search</i> ';
+      break;
+    }
+    this.$el.html(icon + this.options.columnView.name());
+    this.setClassName();
     return this;
   },
 

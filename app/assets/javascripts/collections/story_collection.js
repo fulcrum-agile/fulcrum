@@ -1,17 +1,19 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
+var Story = require('models/story');
 
-Fulcrum.StoryCollection = Backbone.Collection.extend({
-  model: Fulcrum.Story,
+module.exports = Backbone.Collection.extend({
+  model: Story,
 
   initialize: function() {
-    this.bind('change:position', this.sort);
-    this.bind('change:state', this.sort);
-    this.bind('change:estimate', this.sort);
-    this.bind('change:labels', this.addLabelsFromStory);
-    this.bind('add', this.addLabelsFromStory);
-    this.bind('reset', this.resetLabels);
+    _.bindAll(this, 'sort', 'addLabelsFromStory', 'resetLabels');
+    var triggerReset = _.bind(this.trigger, this, 'reset');
+
+    this.on('change:position', this.sort);
+    this.on('change:state', this.sort);
+    this.on('change:estimate', this.sort);
+    this.on('change:labels', this.addLabelsFromStory);
+    this.on('add', this.addLabelsFromStory);
+    this.on('reset', this.resetLabels);
+    this.on('sort', triggerReset);
 
     this.labels = [];
   },
@@ -21,11 +23,21 @@ Fulcrum.StoryCollection = Backbone.Collection.extend({
   },
 
   next: function(story) {
-    return this.at(this.indexOf(story) + 1);
+    var index = this.indexOf(story) + 1;
+    if(index >= this.length) {
+      return undefined;
+    }
+
+    return this.at(index);
   },
 
   previous: function(story) {
-    return this.at(this.indexOf(story) - 1);
+    var index = this.indexOf(story) - 1;
+    if(index < 0) {
+      return undefined;
+    }
+
+    return this.at(index);
   },
 
   // Returns all the stories in the named column, either #done, #in_progress,

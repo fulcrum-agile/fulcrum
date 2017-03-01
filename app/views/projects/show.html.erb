@@ -1,103 +1,62 @@
-<%= javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery? %>
+<%= javascript_tag "var ATTACHINARY_OPTIONS = #{attachinary_file_field_options(Story.new, :documents, cloudinary: { use_filename: true }).to_json}" %>
+<%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
 
-<script type="text/javascript">
-$(function() {
-  window.md = new Markdown.Converter();
-
-  var project = new Fulcrum.Project(<%= @project.to_json.html_safe %>);
-  project.users.reset(<%= @project.users.to_json.html_safe %>);
-  project.current_user = new Fulcrum.User(<%= current_user.to_json.html_safe %>);
-
-  var doneColumn = new Fulcrum.ColumnView({
-    id: 'done', name: '<%= t('.done') %>', el: $('td.done_column'), sortable: false
-  }).render();
-  $('#column-toggles').append(
-    new Fulcrum.ColumnVisibilityButtonView({columnView: doneColumn}).render().el
-  );
-
-  var inProgressColumn = new Fulcrum.ColumnView({
-    id: 'in_progress', name: '<%= t('.in_progress') %>', el: $('td.in_progress_column'),
-    sortable: true
-  }).render();
-  $('#column-toggles').append(
-    new Fulcrum.ColumnVisibilityButtonView({columnView: inProgressColumn}).render().el
-  );
-
-  var backlogColumn = new Fulcrum.ColumnView({
-    id: 'backlog', name: '<%= t('.backlog') %>', el: $('td.backlog_column'), sortable: true
-  }).render();
-  $('#column-toggles').append(
-    new Fulcrum.ColumnVisibilityButtonView({columnView: backlogColumn}).render().el
-  );
-
-  var chillyBinColumn = new Fulcrum.ColumnView({
-    id: 'chilly_bin', name: '<%= t('.icebox') %>', el: $('td.chilly_bin_column'),
-    sortable: true
-  }).render();
-  $('#column-toggles').append(
-    new Fulcrum.ColumnVisibilityButtonView({columnView: chillyBinColumn, elementId: 'chilly_bin'}).render().el
-  );
-
-  // FIXME Move to view
-  // Connect up drag and drop behaviour
-  $('#backlog').sortable('option', 'connectWith', '#chilly_bin,#in_progress');
-  $('#chilly_bin').sortable('option', 'connectWith', '#backlog,#in_progress');
-  $('#in_progress').sortable('option', 'connectWith', '#backlog,#chilly_bin');
-
-  window.projectView = new Fulcrum.ProjectView({model: project});
-  window.projectView.velocityView = new Fulcrum.ProjectVelocityView({
-    model: project, el: $('#velocity')
-  });
-  window.projectView.scaleToViewport();
-  $(window).resize(projectView.scaleToViewport);
-
-  setInterval(function() {
-   window.projectView.model.fetch();
-  }, 5000);
-
-  <% if notice %>
-    window.projectView.notice({
-      title: 'Notice', text: '<%= notice %>',
-      image: '<%= image_path('dialog-information.png') %>'
-    });
-  <% end %>
-
-  <% if alert %>
-    window.projectView.notice({
-      title: 'Alert', text: '<%= alert %>', sticky: true,
-      image: '<%= image_path('dialog-warning.png') %>'
-    });
-  <% end %>
-});
-</script>
+<%= render partial: 'sidebar',
+           layout: 'sidebar_wrapper',
+           locals: { wrapper_class: 'collapsed' } %>
 
 <% content_for :title_bar do %>
-  <div id="velocity" class="velocity"></div>
-  <%= render :partial => 'projects/nav',
-             :locals => {:project => @project, :show_column_toggles => true} %>
-             | <a id="add_story" href="#"><%= t('add story') %></a>
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to @project.name, @project %>
+    </li>
+  </ul>
+
+  <p class="navbar-text velocity" id="velocity"></p>
+
+  <button type="button" class="btn btn-primary btn-sm navbar-btn" id="add_story">
+    <i class="mi md-light md-18 md-add">add</i>
+    <%= t('add story') %>
+  </button>
 <% end %>
 
-<table class="stories" width="100%">
-  <tbody>
-    <tr>
-    <% if !Fulcrum::Application.config.fulcrum.column_order or Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
-      <td class="done_column" style="width: 25%"></td>
-      <td class="in_progress_column" style="width: 25%"></td>
-      <td class="backlog_column" style="width: 25%"></td>
-      <td class="chilly_bin_column" style="width: 25%"></td>
-    <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
-      <td class="chilly_bin_column" style="width: 25%"></td>
-      <td class="backlog_column" style="width: 25%"></td>
-      <td class="in_progress_column" style="width: 25%"></td>
-      <td class="done_column" style="width: 25%"></td>
-    <% end %>
-    </tr>
-  </tbody>
-</table>
+<% content_for :right_menu do %>
+  <%= form_tag '#', id: 'form_search', class: 'navbar-form navbar-left navbar-search', html: { role: 'search' } do %>
+    <div class="form-group">
+      <input type="text" name="q" placeholder="Search" class="form-control input-sm"/>
+    </div>
+  <% end %>
+<% end %>
 
-<div class="loading_screen">
-  <div class="spinner">
-    <span class="icons-spinner"></span>
-  </div>
+<% content_for :navbar do %>
+  <%= render 'navbar', project: @project %>
+<% end %>
+
+<div class="project-stories">
+  <%= content_tag :table,
+    class: 'stories',
+    width: '100%',
+    data: {
+      project: @project.to_json,
+      users: @project.users.to_json,
+      current_user: current_user.to_json
+    } do %>
+    <tbody>
+      <tr>
+      <% if !Fulcrum::Application.config.fulcrum.column_order || Fulcrum::Application.config.fulcrum.column_order != 'progress_to_right' %>
+        <td data-column-view="done"></td>
+        <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
+        <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>
+        <td data-column-view="chilly_bin" data-connect="#backlog,#in_progress"></td>
+      <% elsif Fulcrum::Application.config.fulcrum.column_order == 'progress_to_right' %>
+        <td data-column-view="chilly_bin" data-connect="#backlog,#in_progress"></td>
+        <td data-column-view="backlog" data-connect="#chilly_bin,#in_progress"></td>
+        <td data-column-view="in_progress" data-connect="#backlog,#chilly_bin"></td>
+        <td data-column-view="done"></td>
+      <% end %>
+      <td style="display: none;" data-column-view="epic" data-hideable="false"></td>
+      <td style="display: none;" data-column-view="search_results"></td>
+      </tr>
+    </tbody>
+  <% end %>
 </div>

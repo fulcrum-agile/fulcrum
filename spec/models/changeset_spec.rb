@@ -11,11 +11,11 @@ describe Changeset do
     end
 
     describe "associations" do
-      let(:user)    { FactoryGirl.create(:user) }
-      let(:project) { FactoryGirl.create(:project, :users => [user]) }
-      let(:story)   { FactoryGirl.create(:story, :project => project,
-                                     :requested_by => user) }
-      let(:changeset) { FactoryGirl.create :changeset, :story => story, :project => project }
+      let(:user)    { create(:user) }
+      let(:project) { create(:project, users: [user]) }
+      let(:story)   { create(:story, project: project,
+                                     requested_by: user) }
+      let(:changeset) { create :changeset, story: story, project: project }
 
       it "must have a valid project" do
         changeset.project_id = "invalid"
@@ -35,13 +35,13 @@ describe Changeset do
 
     context "when project_id is blank" do
 
-      let(:user)    { FactoryGirl.create(:user) }
-      let(:project) { FactoryGirl.create(:project, :users => [user]) }
-      let(:story)   { FactoryGirl.create(:story, :project => project,
-                                     :requested_by => user) }
+      let(:user)    { create(:user) }
+      let(:project) { create(:project, users: [user]) }
+      let(:story)   { create(:story, project: project,
+                                     requested_by: user) }
 
       subject do
-        FactoryGirl.create :changeset, :story => story, :project => nil
+        create :changeset, story: story, project: nil
       end
 
       it "shouldn't have any errors on project" do
@@ -57,7 +57,7 @@ describe Changeset do
 
   describe ".since" do
     specify do
-      Changeset.since(234).where_values.first.should == 'id > 234'
+      expect(Changeset.since(234).where_values.first).to eq('id > 234')
     end
   end
 end

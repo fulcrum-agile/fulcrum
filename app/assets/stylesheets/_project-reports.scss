@@ -1,0 +1,24 @@
+.reports-list-item {
+  display: inline;
+
+  .nav-link {
+    color: $darkgrey-6;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    &:hover {
+      border-radius: 4px;
+    }
+  }
+}
+
+.reports-page-actions {
+  font-weight: 600;
+  float: right;
+
+  .navbar-btn-reports {
+    margin: 0;
+    margin-left: 15px;
+  }
+}

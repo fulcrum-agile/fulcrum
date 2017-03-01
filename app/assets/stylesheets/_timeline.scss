@@ -1,0 +1,102 @@
+.timeline {
+  &.no-rail {
+    &:after {
+      content: none;
+    }
+  }
+
+  &:before {
+    content: '\E192';
+    position: absolute;
+    bottom: -20px;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    margin-left: 18px;
+    color: $white;
+    font-family: 'Material Icons';
+    font-size: 23px;
+    line-height: 32px;
+    text-align: center;
+    background-color: $orange;
+    border-radius: 50px;
+  }
+
+  &:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    margin-left: 33px;
+    height: 100%;
+    width: 3px;
+    background-color: $black;
+  }
+  .activities-date, .activities-project {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    min-width: 70px;
+    padding: 5px;
+    color: $white;
+    font-weight: 600;
+    text-align: center;
+    background-color: $blue-2;
+    border-radius: 0;
+    box-shadow: 0 1px 1px rgba($black, 0.1);
+  }
+
+  .timeline-day, .no-rail {
+    padding-left: 0;
+  }
+
+  .project {
+    padding-left: 14px;
+    margin-top: 10px;
+
+    .activities-project {
+      background-color: $blue;
+
+      .project-link {
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .subjects {
+    list-style-type: none;
+    padding-left: 10px;
+
+    .activities-subject {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    .timeline-circle {
+      position: absolute;
+      z-index: 2;
+      height: 20px;
+      padding: 0;
+      top: 10;
+      width: 20px;
+      text-align: center;
+      background-color: $orange;
+      border-radius: 50px;
+
+      &:after {
+        content: '\E923';
+        color: white;
+        font-family: 'Material Icons';
+        font-style: normal;
+        width: 100%;
+      }
+    }
+
+    .subject {
+      margin-left: 50px;
+      padding: 15px;
+      background-color: white;
+      box-shadow: 0 1px 1px rgba($black , 0.1);
+    }
+  }
+}

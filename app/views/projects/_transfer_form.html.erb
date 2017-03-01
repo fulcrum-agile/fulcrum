@@ -1,0 +1,14 @@
+<div class="form-wrapper">
+<%= form_for [:ownership, @project] do |f| %>
+  <%= hidden_field_tag 'ownership_action', 'transfer' %>
+
+  <div class="field-wrapper">
+    <%= f.label :slug, class: 'col-sm-4 control-label' %>
+    <div class="col-sm-8"><%= f.text_field :slug, value: '' %></div>
+  </div>
+
+  <div class="btn-group actions pull-right">
+    <%= f.submit t('projects.transfer'), class: 'btn btn-danger btn-form', data: { confirm: t("projects.transfer_sure") } %>
+  </div>
+<% end %>
+</div>

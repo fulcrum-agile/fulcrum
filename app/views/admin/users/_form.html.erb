@@ -1,0 +1,32 @@
+<%= form_for [:admin, @user] do |f| %>
+  <%= render 'form_errors', object: @user if @user.errors.any? %>
+
+  <div class="form-group">
+    <%= f.label :email, class: 'control-label' %>
+    <%= f.text_field :email, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'control-label' %>
+    <%= f.text_field :name, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :initials, class: 'control-label' %>
+    <%= f.text_field :initials, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :username, class: 'control-label' %>
+    <%= f.text_field :username, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :role, class: 'control-label' %>
+    <%= f.select :role, User.role.options, {}, { class: 'form-control auth-form-control' } %>
+  </div>
+
+  <div class="actions pull-right">
+    <%= f.submit nil, class: 'btn btn-primary btn-form' %>
+  </div>
+<% end %>

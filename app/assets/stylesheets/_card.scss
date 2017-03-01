@@ -1,0 +1,118 @@
+.card {
+  border-radius: 0;
+  box-shadow: 0 1px 1px rgba($black,0.1);
+  border: 0;
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  &.user-card {
+    margin-bottom: 10px;
+
+    .user-image {
+      width: 32px;
+      display: block;
+      margin: 0 auto 15px;
+      border-radius: 50px;
+    }
+
+    .user-description {
+      line-height: 15px;
+
+      .user-email {
+        font-size: 11px;
+        font-weight: bold;
+      }
+    }
+
+    .panel-body {
+      padding: 15px 0 0 0;
+    }
+  }
+
+  .panel-heading {
+    background-color: inherit;
+    font-weight: bold;
+    color: $darkgrey-2;
+    border-bottom: 1px solid $lightgrey-11;
+
+    .card-title {
+      color: $darkgrey-3;
+      text-decoration: none;
+    }
+
+    .heading-icon {
+      z-index: 1;
+      position: relative;
+      display: inline;
+      cursor: pointer;
+      padding: 0 5px;
+      color: $darkgrey-3;
+
+      &:hover {
+        color: $darkgrey-2;
+
+        &:before {
+          transform: scale(1);
+        }
+      }
+
+      &:before {
+        content: ' ';
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        left: 2px;
+        top: -3px;
+        border-radius: 30px;
+        background-color: $lightgrey-9;
+        z-index: -1;
+        transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) all;
+        transform: scale(0);
+      }
+    }
+  }
+
+  .panel-body {
+    .counter {
+      text-align: center;
+
+      .counter-description {
+        color: $darkgrey-3;
+        text-transform: uppercase;
+      }
+
+      .counter-value {
+        display: block;
+        font-size: 1.8em;
+        font-weight: 600;
+        color: $darkgrey-3;
+      }
+    }
+  }
+
+  .card-footer {
+    width: 100%;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 8pt;
+    color: $darkgrey-2;
+    border-top: 1px solid $lightgrey-11;
+    background-color: white;
+    border-radius: 0;
+    padding: 5px 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $lightgrey-11;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

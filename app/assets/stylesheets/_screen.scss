@@ -1,0 +1,659 @@
+a img {
+  border: 0;
+}
+
+ul#primary-nav {
+  text-align: right;
+  background-image: image-url('logo.png');
+  background-repeat: no-repeat;
+  background-position: 13px 6px;
+  margin: 0;
+  padding: 1em 1em 1em 40px;
+  color: $white;
+}
+
+ul#primary-nav li {
+  padding: 0 0.5em;
+  display: inline;
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+  &.root {
+    float: left;
+    font-size: large;
+  }
+  &.secondary {
+    position: relative;
+    @include icons-sprite(collapse, false, 0px, 6px);
+    background-color: #333;
+    background-position-x:right;
+    padding: 0.4em 18px 0.4em 0.4em;
+    @include border-radius(5px);
+    text-shadow: black 0 1px 0;
+    ul {
+      visibility: hidden;
+    }
+  }
+  .secondary:hover ul {
+    visibility: visible;
+  }
+  &.secondary ul {
+    padding: 0.3em;
+    position: absolute;
+    left: 0; top: 1.7em;
+    background-color: #333;
+    @include border-radius(0 5px 5px 5px);
+    li {
+      white-space: nowrap;
+      text-align: left;
+      display: block;
+    }
+  }
+}
+
+.toggle-navbar {
+  color: $darkgrey-2;
+  transition: 0.3s ease color;
+
+  &:hover {
+    color: $darkred;
+  }
+
+  &.less {
+    padding-left: 10px;
+    cursor: pointer;
+  }
+
+  &.more {
+    display: none;
+  }
+}
+
+.main {
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+html.stories, html.stories body, html.stories .main {
+  height: 100%;
+}
+
+/* stories table */
+table.stories {
+  width: 100%;
+  height: 100%;
+  border-spacing: 2px 0;
+  border-collapse: separate;
+  table-layout: fixed;
+}
+
+table.stories td {
+  vertical-align: top;
+  background-color: $darkgrey-11;
+  height: 100%;
+  @include border-radius(5px 5px 0 0);
+}
+
+div.storycolumn {
+  overflow: auto;
+  padding-bottom: 80px;
+  border-right: 1px solid $black;
+  border-left: 1px solid $black;
+}
+
+/* Story columns headers */
+.column_header {
+  @include border-radius(2px 2px 0 0);
+  padding: 8px 10px;
+  font-size: 12px;
+  color: $white;
+  background: $darkgrey-12;
+  border: 1px solid $black;
+
+  a.toggle-title {
+    color: $white;
+    text-decoration: none;
+
+    &:visited {
+      color: $white;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  a.toggle-column {
+    color: $white;
+    text-decoration: none;
+    float: right;
+    padding: 0 0 5px 5px;
+    cursor: pointer;
+
+    &:hover {
+      color:$aluminium-3;
+    }
+  }
+}
+
+/* Story types */
+div.story {
+  padding: 7px 8px;
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  background-color: $lightgrey-11;
+  border-bottom: 1px solid $lightgrey-13;
+  border-top: 1px solid $white;
+
+  &:not(.editing):not(.unestimated) {
+    min-height: 37px;
+  }
+}
+
+div.story:hover {
+  background-color: $lightgrey-14;
+}
+
+div.story.editing, div.story.editing:hover {
+  background-color: $butter-2;
+  color: $aluminium-6;
+  cursor: default !important;
+}
+
+div.story.feature.accepted,
+div.story.bug.accepted,
+div.story.chore.accepted{
+  background-color: adjust-lightness($chameleon-1, 40);
+}
+
+div.story input[type=text],
+div.story textarea {
+  width: 99%;
+}
+
+div.story textarea {
+  height: 50px;
+  resize: none;
+}
+
+div.story {
+  .story_link {
+    width: 260px;
+  }
+}
+
+.story-icons {
+  float: left;
+
+  .mi:first-child {
+    position: relative;
+    top: -2px;
+  }
+
+  .estimate {
+    left: 2px;
+    padding: 2px 3px;
+    line-height: 1;
+    background: rgba($white, .4);
+    border: 1px solid rgba($black, .15);
+    border-radius: 3px;
+  }
+}
+
+div.story-controls {
+  @extend .btn-group;
+
+  input {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
+}
+
+div.story-title {
+  margin-left: 65px;
+  word-wrap: break-word;
+}
+
+.unestimated div.story-title {
+  font-style: italic;
+}
+
+div.story-title abbr.initials {
+  color: green;
+  font-weight: bold;
+  margin-left: 0.2em;
+  border: none;
+}
+
+#in_progress div.story,
+#backlog div.story,
+#chilly_bin div.story {
+  cursor: move;
+}
+#in_progress div.story.accepted div.story {
+  cursor: inherit;
+}
+
+.estimate {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.estimates {
+  margin-top: 4px;
+  margin-right: 6px;
+
+  .estimate {
+    margin-left: 10px;
+  }
+}
+
+.story.started:not(.release) {
+  background-color: $lightyellow-1;
+  border-bottom: 1px solid $lightyellow-2;
+}
+
+.story.release {
+  color: $white;
+  background-color: $blue-4;
+  border-top-color: $blue-5;
+  border-bottom-color: $blue-3;
+
+  &:hover {
+    background-color: $blue-3;
+  }
+
+  .epic-link,
+  .story-title abbr.initials {
+    color: $white;
+
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+  }
+}
+
+/* Story action buttons */
+.state-actions {
+  float: right;
+  margin-left: 0.2em;
+}
+
+.state-actions form div,
+.state-actions form {
+  display: inline;
+}
+
+/* Iteration markers */
+.iteration {
+  padding: 5px 10px;
+  font-size: 11px;
+  color: $lightgrey-12;
+  background-color: $darkgrey-7;
+  border-top: 1px solid $darkgrey-8;
+  border-bottom: 1px solid $darkgrey-9;
+}
+
+.iteration .points {
+  float: right;
+}
+
+.state-actions input {
+  @extend .btn;
+  @extend .btn-xs;
+  font-size: 11px;
+}
+
+.story.release .state-actions input {
+  @include box-shadow(0 1px 2px #000);
+}
+
+.state-actions input:active {
+  @include box-shadow(none);
+}
+
+.state-actions input.start {
+  @extend .btn-default;
+}
+
+.state-actions input.finish {
+  @extend .btn-primary;
+}
+
+.state-actions input.deliver {
+  @extend .btn-warning;
+}
+
+.state-actions input.accept {
+  @extend .btn-success;
+}
+
+.state-actions input.reject {
+  @extend .btn-danger;
+}
+
+.state-actions input.restart {
+  @extend .btn-danger;
+  background-image: sprite-url($icons-sprites);
+  background-position: sprite-position($icons-sprites, redo, 0, 2px);
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+
+a.button {
+  background: $lightgrey-8;
+  @include background(linear-gradient(top, $lightgrey-8, $lightgrey-15));
+  @include box-shadow(0 1px 2px $lightgrey-16);
+  text-shadow: $white 0 1px 0;
+  padding: 5px;
+  @include border-radius(5px);
+  border: 1px solid $darkgrey*1.5;
+  text-decoration: none;
+
+  &:hover {
+    @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
+    color: $white;
+    text-shadow: $darkgrey 0 1px 0;
+  }
+}
+
+.tags {
+  color: $sky-blue-3;
+  font-size: 84%;
+  margin: 0;
+}
+
+// Popover Overrides
+// Custom Style Overrides
+.popover {
+  &-title {
+    font-size: 13px;
+    word-wrap: break-word;
+  }
+
+  &-content {
+    word-wrap: break-word;
+
+    ul,
+    li,
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul {
+      list-style: none;
+    }
+  }
+
+  &-content {
+    padding: 5px 5px 0 5px;
+
+    .description {
+      padding: 5px;
+      font-size: 12px;
+    }
+
+    .title {
+      padding: 0 5px;
+      margin: 10px 0 0;
+      font-size: 13px;
+    }
+
+    .small {
+      color: $darkgrey-8;
+      font-size: 0.85em;
+      padding: 0 5px;
+      margin: 5px 0 5px;
+
+      .icons {
+        float: right;
+
+        .text {
+          vertical-align: top;
+        }
+      }
+    }
+  }
+}
+.ui-widget{
+  font-size:0.9em;
+}
+
+// Notes
+div.note {
+  background-color: $white;
+  margin: 0.3em 0.3em 0.6em;
+  border-left: 4px solid $aluminium-3;
+
+  p {
+    padding: 0.3em;
+  }
+
+  div.note_meta {
+    color: $aluminium-4;
+    font-style: italic;
+    font-size: x-small;
+    text-align: right;
+    margin-right: 5px;
+  }
+}
+.popover div.note {
+ a.delete-note {
+    display: none;
+  }
+}
+
+.note_form, .task_form {
+  // The submit button while the server is saving the note.
+  input.saving {
+    padding-left: 16px;
+    background-image: url('throbber.gif');
+    background-repeat: no-repeat;
+    background-position: left center;
+  }
+}
+
+/* Form Styles */
+.form-wrapper  {
+  @extend .form-horizontal;
+  @extend .clearfix;
+
+  padding: 10px;
+
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  select,
+  textarea {
+    @extend .form-control;
+  }
+
+  div.field-wrapper {
+    @extend .form-group;
+  }
+
+  div.field-wrapper label {
+    @extend .control-label;
+  }
+
+  div.date-wrapper select {
+    min-width: 0px;
+    width: auto;
+  }
+
+  div.field-wrapper div.help {
+    color: $darkgrey;
+    margin-left: 160px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 0.85em;
+    font-style: italic;
+  }
+
+  div.actions, div.secondary-actions {
+    padding-left: 160px;
+  }
+
+  div.secondary-actions a {
+    display: block;
+  }
+}
+
+
+ul.secondary-actions {
+  list-style: none;
+
+  li {
+    margin-top: 10px;
+    font-size: 1.3em;
+  }
+}
+
+div#keycut-help {
+  top: 1em; left: 1em;
+  position: absolute; opacity:0.8;
+  background:black; color:yellow;
+  @include border-radius(5px);
+
+  a.close {
+    color:yellow; text-align:right; display:block; margin:1em;
+  }
+  h4 { margin:0.8em; }
+  p {
+    margin:0.33em 1em; text-align:right; font-size:0.9em;
+    span {
+      display:inline-block; color: $white; margin-right: .8em; float:left;
+    }
+  }
+}
+
+.projects-list {
+  margin-top: 10px;
+  margin-left: 0;
+  margin-right: 0;
+
+  > .col-md-12 {
+    margin: 0;
+    padding: 0;
+  }
+
+  .item {
+
+    .item-title-wrapper {
+      margin-top: 4px;
+    }
+
+    .item-title {
+      display: inline;
+    }
+
+    .item-since {
+      margin-right: 10px;
+    }
+
+  }
+}
+
+#edit-description {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+}
+
+.add-note, .add-task {
+  @extend .btn;
+  @extend .btn-default;
+  @extend .btn-sm;
+  @extend .pull-right;
+  margin-top: 10px;
+}
+
+.edit-project,
+.add-user,
+.edit-user,
+
+.members-list {
+  .member-name {
+    float: left;
+    margin-top: 5px;
+  }
+}
+
+.edit-user .checkbox,
+.sign-in .checkbox {
+  margin-left: 50px;
+}
+
+.date-select-wrapper select {
+  display: inline-block;
+}
+
+.current-password {
+  margin-top: 20px;
+}
+
+.list-group.list-group-root {
+  padding: 0;
+  overflow: hidden;
+
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  .list-group-item {
+    border-radius: 0;
+    border-width: 1px 0 0 0;
+
+    > &:first-child {
+      border-top-width: 0;
+    }
+  }
+
+  > .list-group {
+    > .list-group-item {
+      padding-left: 30px;
+    }
+
+    > .list-group > .list-group-item {
+      padding-left: 45px;
+    }
+  }
+}
+
+.page-header {
+  margin-top: 20px;
+  padding-bottom: 0;
+
+  &-title {
+    font-weight: 600;
+    color: $darkgrey-2;
+  }
+}
+
+.unstyled-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.teams, .projects {
+  .card-link, .project-item {
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) .card {
+        animation-delay: #{$i * 0.15s};
+      }
+    }
+  }
+}
+
+.btn-clipboard {
+  padding: 4px 12px 5px;
+}

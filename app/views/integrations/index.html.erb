@@ -1,0 +1,61 @@
+<% content_for :title_bar do %>
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to @project.name, root_path %>
+    </li>
+  </ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'projects/navbar', project: @project %>
+<% end %>
+
+<%= render partial: 'projects/settings_sidebar',
+           layout: 'projects/sidebar_wrapper',
+           locals: { project: @project } %>
+
+<div class="settings-page">
+  <div class="col-xs-12 col-sm-9">
+    <div class="page-header">
+      <h4 class="page-header-title">
+        <i class="mi md-20">device_hub</i> <%= t('projects.integrations') %>
+      </h4>
+    </div>
+
+    <% @integrations.each do |integration| %>
+      <div class="card panel integration">
+        <div class="panel-actions pull-right">
+          <% unless integration.new_record? %>
+            <%= link_to project_integration_path(@project, integration),
+                        data: { confirm: t('projects.integrations_remove_sure', kind: integration.kind) },
+                        method: :delete,
+                        class: 'btn btn-sm btn-remove' do %>
+              <%= material_icon.delete_forever.md_18 %> Remove
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="panel-heading">
+          <%= integration.kind.camelcase %>
+        </div>
+
+        <div class="panel-body">
+          <% if integration.new_record? %>
+            <%= form_for [@project, integration] do |form| %>
+              <%= form.hidden_field :kind, value: integration.kind %>
+
+              <%= render partial: "integrations/#{integration.kind}",
+                                  locals: { form: form } %>
+
+              <div class="actions text-right">
+                <%= form.submit t('projects.integrations_new'), class: 'btn btn-primary btn-form' %>
+              </div>
+            <% end %>
+          <% else %>
+            <pre><code><%= JSON.pretty_generate(integration.data) %></code></pre>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

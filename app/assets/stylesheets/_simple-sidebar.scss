@@ -1,0 +1,137 @@
+/*!
+ * Start Bootstrap - Simple Sidebar (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+.sidebar-wrapper {
+  background: $sidebar-bg-default;
+  width: $sidebar-size;
+  height: 100%;
+  float: left;
+  transition: 0.1s ease-in-out width;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.collapsed {
+    width: $sidebar-size-collapsed;
+    overflow: hidden;
+  }
+
+  &.open {
+    width: $sidebar-size;
+    overflow: auto;
+  }
+}
+
+.sidebar-nav {
+  width: $sidebar-size;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1em;
+
+  .nav-item.active > .nav-link {
+    color: $sidebar-fg-hover;
+  }
+
+  .nav-locale {
+    text-indent: 0;
+
+    &:hover {
+      background: $sidebar-bg-hover;
+    }
+
+    select {
+      background: $sidebar-bg-default;
+      border: none;
+      height: 2.8em;
+      width: 98%;
+      color: $sidebar-fg-default;
+      text-indent: 0.5em;
+
+      &:hover {
+        background: $sidebar-bg-hover;
+        color: $sidebar-fg-hover;
+      }
+    }
+  }
+
+  .column-toggles-wrap {
+    margin-bottom: 0.8em;
+  }
+
+  .sidebar-brand {
+    color: $lightgrey;
+    font-size: .8em;
+    font-weight: bold;
+    padding: 0.4em 0;
+    text-transform: uppercase;
+  }
+
+  .dropdown-menu-dark {
+    background: $sidebar-bg-default;
+    position: relative;
+    width: 100%;
+    padding-left: 1em;
+    margin: 0;
+
+    > li > a {
+      padding: 0;
+      line-height: inherit;
+    }
+  }
+
+  .nav-archived-projects {
+    margin-top: 0.8em;
+  }
+
+  .divider {
+    border: 1px solid $sidebar-bg-default;
+    margin-bottom: 10px;
+  }
+}
+
+.sidebar-item {
+  text-indent: 1.2em;
+  line-height: 2.8;
+
+  .mi {
+    display: inline;
+  }
+
+  .sidebar-link {
+    display: block;
+    text-decoration: none;
+    color: $sidebar-fg-selected;
+
+    &:hover {
+      text-decoration: none;
+      background: $sidebar-bg-hover;
+    }
+
+    &.pressed {
+      color: $sidebar-fg-default;
+    }
+  }
+
+  hr {
+    margin: 0.5em 0;
+  }
+}
+
+
+.click-overlay {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1900;
+}
+
+.sidebar-icon {
+  margin-right: 15px;
+}

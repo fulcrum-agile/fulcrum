@@ -1,17 +1,33 @@
 <% content_for :title_bar do %>
-  <h1>Forgot your password?</h1>
+  <span class="navbar-brand"><%= t('.forgot_your_password') %></span>
 <% end %>
-<div class="form-wrapper">
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
+
+      <div class="auth-wrapper">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-horizontal' }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="auth-form-group">
+            <%= f.label :email, class: 'sr-only' %>
+            <%= f.email_field :email, autofocus: true, placeholder: true, class: 'form-control auth-form-control' %>
+          </div>
+
+          <div class="actions clearfix">
+            <%= f.submit t('.send_me_reset_password_instructions'), class: 'btn btn-primary btn-block auth-button-submit' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
+      <%= render 'devise/shared/links' %>
+    </div>
+
   </div>
-
-  <div class="actions"><%= f.submit "Send me reset password instructions" %></div>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
 </div>

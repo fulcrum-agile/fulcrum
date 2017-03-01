@@ -1,28 +1,41 @@
 <% content_for :title_bar do %>
-  <h1><%= t('.listing projects') %></h1>
+  <% if policy(Project).new? %>
+    <%= link_to t('projects.new project'), new_project_path, class: 'btn btn-primary btn-sm navbar-btn' %>
+  <% end %>
 <% end %>
 
-<ul id="projects">
-  <% @projects.each do |project| %>
-    <li>
-      <div class="project_options">
-        <%= link_to t('edit'), edit_project_path(project) %>
-        <%= link_to User.model_name.human(:count => 2), project_users_path(project) %>
-        <%= link_to t('delete'), project,
-          :data => {:confirm => t('.are you sure you want to delete this project')},
-          :method => :delete %>
-      </div>
-      <h2><%= link_to project.name, project %></h2>
-      <%= Project.human_attribute_name('started_at') %>:
-      <%= project.start_date %>
-      <br />
-      <p>
-      <%= t('.the iteration starts on x with length of x weeks',
-            :day    => t('date.day_names')[project.iteration_start_day],
-            :count  => project.iteration_length) %>
-      </p>
-    </li>
-  <% end %>
-</ul>
+<div id="projects" class="projects-list">
+  <div class="row item">
+    <div class="col-md-12">
+      <% unless @projects.empty? %>
 
-<%= link_to t('projects.new project'), new_project_path, :class => :button %>
+        <div class="col-md-6">
+          <% unless @activities_group.empty? %>
+            <ul class="timeline">
+              <%= render 'activities_group', activities_group: @activities_group %>
+            </ul>
+          <% else %>
+            <div class="simple-alert">
+              <i class="mi alert-icon">error_outline</i>
+              <h4 class="text-center"><%= t('projects.no_recent_activity') %></h4>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-md-6 projects">
+          <%= render @projects %>
+        </div>
+
+      <% else %>
+        <div class="col-md-8 col-md-offset-2">
+          <div class="simple-alert">
+            <i class="mi alert-icon">error_outline</i>
+            <h4 class="text-center">
+              <%= t('projects.no_projects_found') %>
+            </h4>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

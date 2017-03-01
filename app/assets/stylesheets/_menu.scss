@@ -1,0 +1,24 @@
+.menu {
+  padding: 6px 10px;
+  background-color: lighten($aluminium-6, 3);
+
+  .nav-pills {
+    li > a {
+      padding: 6px 15px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $white;
+    }
+
+    li.active > a,
+    li > a:hover,
+    li > a:focus {
+      background-color: lighten($aluminium-6, 10);
+    }
+
+    li + li {
+      margin-left: 5px;
+    }
+  }
+}

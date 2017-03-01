@@ -1,19 +1,27 @@
-describe('Fulcrum.ProjectVelocityView', function() {
+var rewire = require('rewire');
+var ProjectVelocityView = rewire('views/project_velocity_view');
+
+describe('ProjectVelocityView', function() {
 
   beforeEach(function() {
-    this.model = {bind: sinon.stub()};
-    sinon.stub(Fulcrum, 'ProjectVelocityOverrideView');
-    this.overrideView = {};
-    Fulcrum.ProjectVelocityOverrideView.withArgs({model: this.model}).returns(
-      this.overrideView
-    );
-    Fulcrum.ProjectVelocityOverrideView.prototype.template = sinon.stub();
-    this.subject = new Fulcrum.ProjectVelocityView({model: this.model});
+    this.model = {on: sinon.stub()};
+    var overrideView = this.overrideView = {};
+    function ProjectVelocityOverrideView() {
+      return overrideView;
+    }
+
+    ProjectVelocityOverrideView.prototype.template = sinon.stub();
+
+    this.revertRewire = ProjectVelocityView.__set__({
+      ProjectVelocityOverrideView: ProjectVelocityOverrideView
+    });
+
+    this.subject = new ProjectVelocityView({model: this.model});
   });
 
   afterEach(function() {
-    Fulcrum.ProjectVelocityOverrideView.restore();
-  }); 
+    this.revertRewire();
+  });
 
   it("should have a top level element", function() {
     expect(this.subject.el.nodeName).toEqual('DIV');
@@ -26,13 +34,13 @@ describe('Fulcrum.ProjectVelocityView', function() {
     });
 
     it("binds setFakeClass to change:userVelocity on the model", function() {
-      expect(this.model.bind).toHaveBeenCalledWith(
+      expect(this.model.on).toHaveBeenCalledWith(
         "change:userVelocity", this.subject.setFakeClass
       );
     });
 
     it("binds render to rebuilt-iterations on the model", function() {
-      expect(this.model.bind).toHaveBeenCalledWith(
+      expect(this.model.on).toHaveBeenCalledWith(
         "rebuilt-iterations", this.subject.render
       );
     });

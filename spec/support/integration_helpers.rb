@@ -2,9 +2,10 @@ module IntegrationHelpers
 
   def sign_in(user, password = 'password')
     visit root_path
-    fill_in "Email",    :with => user.email
-    fill_in "Password", :with => password
+    fill_in "Email",    with: user.email
+    fill_in "Password", with: password
     click_button 'Sign in'
+    find(:css, '.card-link', match: :first).click
   end
 
   def send_keys keys, options = {}
@@ -40,4 +41,11 @@ module IntegrationHelpers
     token
   end
 
+  def wait_spinner
+    expect(page).not_to have_css('.loading-spin.show')
+  end
+
+  def wait_page_load
+    find('.column_header', match: :first).click
+  end
 end

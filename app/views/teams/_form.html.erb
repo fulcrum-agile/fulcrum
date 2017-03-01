@@ -1,0 +1,43 @@
+<%= form_for(@team) do |f| %>
+  <%= render 'form_errors', object: @team if @team.errors.any? %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control auth-form-control' %>
+  </div>
+
+  <% if @team.new_record? %>
+    <div class="form-group">
+      <%= f.label :captcha %>
+      <%= recaptcha_tags %>
+    </div>
+  <% else %>
+    <div class="form-group">
+      <%= f.label :logo %>
+      <%= f.attachinary_file_field :logo, class: 'form-control auth-form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :disable_registration %>
+      <%= f.check_box :disable_registration %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :registration_domain_whitelist %>
+      <%= f.text_field :registration_domain_whitelist, class: 'form-control auth-form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :registration_domain_blacklist %>
+      <%= f.text_field :registration_domain_blacklist, class: 'form-control auth-form-control' %>
+    </div>
+  <% end %>
+
+  <div class="btn-group actions">
+    <%= f.submit @team.new_record? ? t('teams.create') : t('teams.update'), class: 'btn btn-primary btn-form' %>
+  </div>
+<% end %>
+
+<% unless @team.new_record? %>
+  <%= raw File.read Rails.root.join('app/views/projects/_attachinary_template.html') %>
+<% end %>

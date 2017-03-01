@@ -1,0 +1,94 @@
+<% content_for :title_bar do %>
+<ul class="nav navbar-nav">
+  <li>
+    <%= link_to @project.name, @project %>
+  </li>
+</ul>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'projects/navbar', project: @project %>
+<% end %>
+
+<%= render partial: 'settings_sidebar',
+           layout: 'sidebar_wrapper',
+           locals: { project: @project } %>
+
+<div class="settings-page">
+  <div class="col-xs-12 col-sm-9">
+    <div class="page-header">
+      <h4 class="page-header-title">
+        <i class="mi md-20">file_upload</i> <%= t('projects.uploads.title') %>
+      </h4>
+    </div>
+
+    <div class="card panel">
+      <div class="panel-content">
+        <% if @import_job.present? %>
+          <p class="instructions">
+            <%= t('projects.uploads.already_uploaded.being_processed', time_ago: time_ago_in_words( @import_job[:created_at] )) %>
+          </p>
+          <p class="instructions">
+            <%= t('projects.uploads.already_uploaded.come_back_later') %>
+          </p>
+        <% else %>
+          <p class="instructions">
+            <%= raw t('projects.uploads.instructions.introduction') %>
+          </p>
+          <p class="instructions">
+            <%= t('projects.uploads.instructions.process_explanation') %>
+          </p>
+          <p class="instructions">
+            <em><%= t('projects.uploads.instructions.bottom_line') %></em>
+          </p>
+
+          <%= form_for [:import_upload, @project], html: { class: "form-horizontal import-stories-form" } do |f| %>
+            <div class="field select">
+              <%= f.attachinary_file_field :import %>
+            </div>
+            <div class="field submit">
+              <%= f.submit t('import'), class: 'btn btn-default btn-primary btn-form' %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @valid_stories %>
+      <div class="card panel">
+        <div class="panel-heading">
+          <%= t('projects.uploads.results') %>
+        </div>
+        <div class="panel-content table-responsive">
+          <table class="table table-condensed table-striped table-hover">
+            <thead>
+              <tr>
+                <th><%= t('projects.uploads.row') %></th>
+                <th><%= t('projects.uploads.story') %></th>
+                <th><%= t('projects.uploads.type') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @valid_stories.each.with_index(1) do |story, index| %>
+                <tr class="success">
+                  <td><%= index %></td>
+                  <td><%= story.title %></td>
+                  <td><%= story.story_type %></td>
+                </tr>
+              <% end %>
+
+              <% @invalid_stories.each.with_index(1) do |errors, index| %>
+                <tr class="danger">
+                  <td><%= index %></td>
+                  <td colspan="2">
+                    <%= errors[:title] %> - <%= errors[:errors] %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

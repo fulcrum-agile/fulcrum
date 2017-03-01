@@ -1,0 +1,34 @@
+<div class="small">
+  <span class="icons">
+    <% if (story.get('story_type') == 'feature') { %>
+      <i class="story-hover mi md-20 md md-star">star</i>
+    <% } %>
+    <% if (story.get('story_type') == 'chore') { %>
+      <i class="story-hover mi md-20 md-dark">settings</i>
+    <% } %>
+    <% if (story.get('story_type') == 'bug') { %>
+      <i class="story-hover mi md-20 md-bug">bug_report</i>
+    <% } %>
+    <span class="text"><%= story.get('story_type') %></span>
+    <% if (story.get('estimated')) { %>
+      <span class="estimate estimate_<%= story.get('estimate') %>"><%= story.get('estimate') %></span>
+      <span class="text"><%= story.get('estimate') %> <%= I18n.t('points') %></span>
+    <% } %>
+  </span>
+  <span>
+    <% if (story.get('requested_by_name')) { %>
+      <%= I18n.t("requested by user on date", {user: story.get('requested_by_name'), date: story.created_at()}) %>
+    <% } else { %>
+      <%= I18n.t("requested on date", {date: story.created_at()}) %>
+    <% } %>
+</div>
+<% if (story.get('description')) { %>
+  <h4 class="title"><%= story.humanAttributeName('description') %></h4>
+  <div class="description"><%- window.md.makeHtml(story.escape('description')) %></div>
+<% } %>
+<% if (story.hasNotes()) { %>
+  <h5 class="title"><%= I18n.t('notes') %></h5>
+  <% _.each(story.notes.saved(), function(note) { %>
+  <div class="note"><%- noteTemplate({note:note}) %></div>
+  <% }); %>
+<% } %>

@@ -1,27 +1,89 @@
 pt-BR:
-  fulcrum:  "Fulcrum"
+  cm-central:  "CM42 Central"
 
-  log out:  "Sair"
-  log in:   "Entrar"
-  sign up:  "Inscreva-se"
+  welcome: "Bem-vindo ao CM42 Central"
+
+  logout:  "Sair"
+  login:   "Entrar"
+  sign_up:  "Inscreva-se"
   edit:     "Editar"
-  delete:   "Excluir"
+  settings: "Configurações"
+  reports:  "Relatórios"
   back:     "Voltar"
   import:   "Importar"
   export:   "Exportar"
   revert:   "Reverter"
   apply:    "Aplicar"
   velocity: "Velocidade"
+  volatility: "Volatilidade"
+  standard_deviation: "Desvio Padrão"
   notes:    "Notas"
+  tasks:    "Tarefas"
   close:    "Fechar"
   points:   "Pontos"
   saving:   "Salvando ..."
   expand:   "Expandir"
+  not_found: "Recurso não encontrado"
+  nothing uploaded yet: "Nada ainda carregado"
+  day:      "Dia"
+  accepted_points: "Pontos Aceitos"
+  change team: "Trocar de Equipe"
+  team: "Equipe"
+  visit: "Visite"
+  update_avatar: "para atualizar sua imagem de perfil"
+  disable_2fa: "Desativar 2FA"
+  enable_2fa: "Ativar 2FA (Authy app)"
+  cancel_account: "Cancelar minha conta"
+  cancel_account_confirmation_question: "Tem certeza que desejar cancelar sua conta?"
+  update_profile: "Atualizar perfil"
+
+  save: "Salvar"
+  delete: "Apagar"
+  cancel: "Cancelar"
+  add: "Adicionar"
+  remove: "Remover"
+  add user: "Adicionar usuário"
+  add new member: "Adicionar um novo membro"
+  all users: "Todos os usuários"
+  remove user confirm: "Tem certeza de que deseja remover %{email} deste projeto?"
+
+  story:
+    state:
+      unscheduled: "sem data"
+      unstarted: "não iniciado"
+      started: "iniciado"
+      finished: "terminado"
+      delivered: "entregue"
+      accepted: "aceito"
+      rejected: "rejeitado"
+    events:
+      start: "começar"
+      finish: "terminar"
+      deliver: "entregar"
+      accept: "aceitar"
+      reject: "rejeitar"
+      restart: "reiniciar"
+    type:
+      feature: "recurso"
+      chore: "chore"
+      bug: "bug"
+      release: "liberar"
+    no_estimate: "sem estimativa"
+    tasks: "Tarefas"
+    notes: "Notas"
+    attachments: "Anexos"
+
+    definitive_sure: "Tem certeza que deseja %{action} essa história? Essa ações é irreversível."
 
   author unknown: "Autor Desconhecido"
   add story: "Adicionar história"
+  add note: "Adicionar nota"
+  add task: 'Adicionar tarefa'
   save error: "Salvar erro"
-  override velocity: "Velocidade Ultrapassada"
+  override:
+    velocity: "Sobrescrever Velocidade"
+    explanation_1: "Você pode simular com diferentes valores de velocidade."
+    explanation_2: "As iterações serão temporariamente recalculadas para refletir a velocidade simulada, mas a velocidade real ainda será a média das últimos 3 iterações."
   story title: "Título da história"
 
   requested on date:          'Solicitado em {{date}}'
@@ -64,10 +126,14 @@ pt-BR:
       story:
         one: 'História'
         other: 'Histórias'
+      team:
+        one: 'Equipe'
+        other: 'Equipes'
 
     attributes:
       note:
         note:                 'Nota'
+        documents:            'Anexos'
       project:
         name:                 'Nome'
         point_scale:          'Ponto de escala'
@@ -75,6 +141,7 @@ pt-BR:
         iteration_start_day:  'Dia de início da iteração'
         iteration_length:     'Duração da iteração'
         default_velocity:     'Velocidade padrão'
+        archived:             'Arquivado'
       story:
         title:                'Título'
         description:          'Descrição'
@@ -86,19 +153,100 @@ pt-BR:
         labels:               'Etiquetas'
         requested_by:         'Solicitada por'
         owned_by:             'Pertence à'
+        documents:            'Anexos'
+        tasks:                'Tarefas'
+      task:
+        name:                 'Nome'
+      user:
+        name:                 'Nome Completo'
+        username:             'Usuário'
+        initials:             'Iniciais'
+        email:                'E-mail'
+        password:             'Senha'
+        password_confirmation: 'Confirmação de Senha'
+        locale:               'Região'
+        is_admin:             'É Administrador?'
+        current_password:     'Senha atual'
+        time_zone:            'Fuso horário'
+        role:                 'Função'
+      team:
+        name:                 'Nome da Equipe'
+        slug:                 'Slug'
+        logo:                 'Logotipo'
+        disable_registration: 'Apenas administradores podem adicionar novos usuários a esta equipe'
+        registration_domain_whitelist: 'Se o registro estiver habilitado, apenas e-mails desses domínios podem se registrar (separados por vírgula)'
+        registration_domain_blacklist: 'Se o registro estiver habilitado, e-mails desses domínios nunca podem se registrar (separados por vírgula)'
 
+    errors:
+      models:
+        story:
+          attributes:
+            estimate:
+              cant_estimate: "Histórias do tipo bug ou chore não podem ser estimadas"
 
   projects:
     new project:        "Novo Projeto"
     edit project:       "Editar Projeto"
+    project_members: "Membros do projeto"
+    available_users: "Membros disponíveis"
+    select: "Selecionar projeto"
+    reports:
+      n months ago:
+        one: "1 mês atrás"
+        other: "%{count} meses atrás"
+      all_time: "Todo o tempo"
+      story_states: "Estado das Histórias"
+      points: "Pontos"
+      iteration_number: "Número da Iteração"
+      quantity_non_estimable: "Quantidade de Bugs/Chores"
+
+      current_iteration:
+        title: "Iteração Atual"
+        planned_points: "Esta iteração tem %{points_count} pontos planejados em %{stories_count} histórias (incluindo %{non_estimable_count} bugs ou chores)."
+        accepted_points: "Existem %{accepted_points} pontos aceitos até agora, o que é %{accepted_rate} do total."
+      bugs_impact:
+        title: "Impacto dos Bugs"
+      velocity_by_iteration:
+        title: "Velocidade por Iteração"
+      velocity_per_member:
+        title: "Velocidade por Membro"
+      burn_up:
+        title: "Gráfico de Burn Up"
+        backlog_points_html: "O backlog atual contém um total de <strong>%{count} pontos</strong>. Isto é, se não contarmos com as hitórias na Chilly Bin!"
+        remaining_time: "Na atual velocidade (%{velocity} pontos) o backlog existente deve ser finalizado somente por volta da iteração %{last_iteration_number} (%{last_iteration_start_date})."
+        on_track: "Se a velocidade continuar estável, estaremos bem encaminhados para entregar o projeto na data acima."
+        realistic_remaining_time: "No entanto, com o desvio padrão de %{standard_deviation}, é mais realista esperar que o projeto seja finalizado por volta da <strong>iteração %{last_iteration_number}</strong> (%{last_iteration_start_date}), se não houver aumento na velocidade ou uma simplificação do backlog."
     project properties: "Propriedades do Projeto"
+    archived projects:  "Projetos Arquivados"
+    archive: "Arquivar"
+    unarchive: "Desarquivar"
+    share: "Compartilhar"
+    unshare: "Tirar Compartilhamento"
+    transfer: "Transferir a propriedade"
+    sharing: "Equipes com acesso a este projeto"
+    invalid_action: "Não é possível executar esta ação ou Equipe não encontrada"
+
+    transfer_sure: "Tem certeza de que deseja transferir a propriedade? Esta ação não é reversível."
+
+    project was successfully archived: "Projeto foi arquivado com sucesso"
+    project was successfully unarchived: "Project foi desarquivado com sucesso"
 
     project was successfully created: "Projeto criado com sucesso."
     project was successfully updated: "Projeto atualizado com sucesso."
 
+    project was successfully shared: "Projeto foi compartilhado com sucesso."
+    project was successfully unshared: "O acesso ao projeto foi removido com sucesso."
+    project was successfully transferred: "Projeto foi transferido com sucesso."
+
+    integrations: "Integrações"
+    integrations_new: "Adicionar uma nova integração"
+    integrations_remove_sure: "Tem certeza de que deseja remover integração '%{kind} deste projeto?"
+
     index:
       listing projects: "Listando Projetos"
       are you sure you want to delete this project: "Tem certeza de que deseja excluir este projeto? Esta ação não pode ser desfeita."
+      are you sure you want to archive this project: "Tem certeza de que deseja arquivar este projeto?"
+      are you sure you want to unshare this project: "Tem certeza de que remover o acesso ao projeto para esta equipe?"
       the iteration starts on x with length of x weeks:
         one:    "Iteração começa em %{day} com a duração de 1 semana"
         other:  "Iterações começam em %{day} com a duração de %{count} semanas"
@@ -107,7 +255,56 @@ pt-BR:
       done: "Concluído"
       in_progress: "Em Progresso"
       backlog: "Backlog"
-      icebox: "Chilly Bin"
+      chilly_bin: "Chilly Bin"
+      search_results: "Resultados da Busca"
+      epic: 'Épico'
+      search: 'Buscar'
+
+    uploads:
+      title: Importação de Histórias
+      results: Resultados da Importação
+      row: "Linha"
+      story: "História"
+      type: "Tipo"
+      select_file: "Você deve selecionar um arquivo CSV para importar suas histórias para o projeto."
+      being_processed: "Seu arquivo CSV carregado está sendo processado. Você pode voltar mais tarde, quando o processo estiver concluído."
+      already_uploaded:
+        being_processed: "Já existe um arquivo enviado sendo processado %{time_ago} atrás."
+        come_back_later: "Aguarde alguns minutos e volte para ver os resultados ou fazer upload de um novo arquivo em caso de erros."
+      instructions:
+        introduction: "Você pode importar muitas histórias de uma só vez a partir de um arquivo em formato colunas separadas por vírgula (CSV). A primeira linha do CSV deve conter os cabeçalhos corretos para a importação para ter sucesso. Você pode baixar um <a href='/ Fulcrum_Import_Template.csv'>modelo CSV</a> com os cabeçalhos corretos para  começar."
+        process_explanation: "O sistema vai tentar igualar quaisquer nomes de usuário encontrados no CSV com os membros de seu projeto. Certifique-se de registrar membros com os nomes corretos antes de importar, se você quer que eles sejam associados corretamente."
+        bottom_line: "Nota: Você também pode usar um arquivo exportado de outro sistema (Pivotal Tracker)."
+    no_projects_found: "Oops! Parece que esta equipe não tem nenhum projeto."
+    no_recent_activity: "Oops! Essa equipe não possui atividade recent."
+
+  users:
+    You are not authorized to perform this action: "Você não está autorizado para executar esta ação."
+    is already a member of this project: "%{email} já é um membro deste projeto"
+    was sent an invite to join this project: "%{email} foi enviado um convite para participar deste projeto"
+    was added to this project: "%{email} foi adicionada a este projecto"
+    admin_on: Torne Administrator
+    admin_off: Torne apenas Membro
+
+  teams:
+    create: 'Criar nova Equipe'
+    update: 'Atualizar Equipe'
+    switch: 'Mudar para outra Equipe'
+    select: "Selecionar Equipe"
+    team was successfully created: 'Equipe foi criado com sucesso'
+    team was successfully updated: 'Equipe foi atualizado com sucesso'
+    no_teams_found: "Oops! Você ainda não está inscrito em uma equipe."
+    members: "Gerenciar Membros da Equipe"
+
+  admin:
+    users:
+      edit user: "Editar Usuário"
+      index:
+        are you sure you want to delete this user: "Tem certeza de que deseja excluir este usuário? Esta ação não pode ser desfeita."
+        are you sure you want to remove administration rights from this user: "Tem certeza de que deseja remover direitos de administração deste usuário?"
+        are you sure you want to give administration rights to this user: "Tem certeza de que quer dar direitos de administração para este usuário?"
+      edit:
+        remove from project confirmation: "Tem certeza de que deseja excluir o usuário deste projeto?"
 
   registrations:
     edit:
@@ -118,3 +315,10 @@ pt-BR:
   time:
     formats:
       note_date: "%b %d, %Y"
+
+  enumerize:
+    defaults:
+      role:
+        manager: Gerente
+        developer: Desenvolvedor
+        guest: Convidado

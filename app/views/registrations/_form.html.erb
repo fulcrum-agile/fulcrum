@@ -1,0 +1,71 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true, placeholder: true, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :initials %>
+    <%= f.text_field :initials, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :username %>
+    <%= f.text_field :username, class: 'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.email_field :email, class:'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :locale %>
+    <%= f.select :locale, I18n.available_locales, {}, include_blank: true, class:'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :time_zone %>
+    <%= f.time_zone_select :time_zone, nil, {default: Time.zone}, class:'form-control auth-form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control auth-form-control' %>
+    <div class="help-block"><%= t('.leave_blank_if_you_dont_want_to_change_it') %></div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, class:'form-control auth-form-control' %>
+  </div>
+
+  <h3><%= t('.notify_me_when_my_stories_are') %></h3>
+
+  <div class="checkbox">
+    <%= f.check_box :email_delivery %>
+    <%= f.label :email_delivery, t('story.state.delivered') %>
+  </div>
+
+  <div class="checkbox">
+    <%= f.check_box :email_acceptance %>
+    <%= f.label :email_acceptance, t('story.state.accepted') %>
+  </div>
+
+  <div class="checkbox">
+    <%= f.check_box :email_rejection %>
+    <%= f.label :email_rejection, t('story.state.rejected') %>
+  </div>
+
+  <div class="form-group current-password">
+    <%= f.label :current_password %>
+    <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+    <div class="help-block">
+      <%= t('.we_need_your_current_password_to_confirm_your_changes') %>
+    </div>
+  </div>
+
+  <%= f.submit t("update_profile"), class: 'btn btn-primary pull-right' %>
+<% end %>

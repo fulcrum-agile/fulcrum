@@ -1,8 +1,4 @@
-if (typeof Fulcrum == 'undefined') {
-  Fulcrum = {};
-}
-
-Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
+module.exports = Backbone.View.extend({
 
   className: 'velocity_override_container',
 
@@ -12,23 +8,24 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
     "keydown input[name=override]": "keyCapture"
   },
 
-  template: JST['templates/project_velocity_override'],
+  template: require('templates/project_velocity_override.ejs'),
 
   render: function() {
     this.$el.html(this.template({project: this.model}));
     this.delegateEvents();
+    this.clickOverlayOn();
     return this;
   },
 
   changeVelocity: function() {
     this.model.velocity(this.requestedVelocityValue());
-    this.$el.remove();
+    this.clickOverlayOff();
     return false;
   },
 
   revertVelocity: function() {
     this.model.revertVelocity();
-    this.$el.remove();
+    this.clickOverlayOff();
     return false;
   },
 
@@ -40,5 +37,20 @@ Fulcrum.ProjectVelocityOverrideView = Backbone.View.extend({
     if(e.keyCode == '13') {
       this.changeVelocity();
     }
+  },
+
+  clickOverlayOn: function() {
+    var that = this;
+    $('#velocity').css('z-index', 2000);
+    $('.click-overlay').on('click', function() {
+      that.clickOverlayOff();
+    });
+    $('.click-overlay').show();
+  },
+
+  clickOverlayOff: function() {
+    $('.click-overlay').off('click');
+    this.$el.remove();
+    $('.click-overlay').hide();
   }
 });

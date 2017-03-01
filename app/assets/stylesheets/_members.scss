@@ -1,0 +1,39 @@
+.members {
+  display: table;
+  margin: 0 auto;
+  margin-top: 15px;
+  text-align: center;
+
+  .member-list {
+    min-width: 80%;
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    .member {
+      display: inline-block;
+
+      .additional {
+        cursor: default;
+        width: 32px;
+        line-height: 32px;
+        background-color: $darkred;
+        border-radius: 50px;
+        color: $white;
+        font-weight: 600;
+      }
+
+      .identicon {
+        width: 32px;
+        height: 32px;
+        border-radius: 100px;
+        border: 1px solid $lightgrey-11;
+
+        &:hover {
+          border-color: $darkred;
+        }
+      }
+    }
+  }
+}

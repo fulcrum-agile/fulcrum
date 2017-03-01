@@ -1,0 +1,18 @@
+<%= form.fields_for :data, OpenStruct.new(form.object.data) do |p| %>
+  <div class="form-group">
+    <%= p.label :private_uri %>
+    <%= p.text_field :private_uri,
+                     value: 'INTEGRATION_URI_MATTERMOST',
+                     class: "form-control auth-form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= p.label :channel %>
+    <%= p.text_field :channel, class: "form-control auth-form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= p.label :bot_username %>
+    <%= p.text_field :bot_username, class: "form-control auth-form-control" %>
+  </div>
+<% end %>

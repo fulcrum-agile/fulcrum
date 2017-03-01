@@ -1,0 +1,33 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+  color: $darkgrey-3;
+  background-color: $lightgrey-7;
+}
+
+.container-fluid {
+  height: 100%;
+  padding-left: 0;
+  padding-right: 0;
+
+  .flash-message-row {
+    width: 100%;
+    margin: auto;
+
+    .flash-message {
+      width: 40%;
+    }
+  }
+}
+
+.board {
+  background-color: $darkgrey-10;
+}
+
+.content-wrapper {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  overflow-y: auto;
+}

@@ -1,0 +1,4 @@
+$('#user_list').html("<%= escape_javascript(render 'user_list') %>");
+
+$('.flash-message').replaceWith("<%= escape_javascript(render 'flash') %>");
+<% flash.clear %>

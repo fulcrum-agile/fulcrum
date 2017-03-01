@@ -1,63 +1,47 @@
 <% content_for :title_bar do %>
-  <h1><%= t('edit') %> <%= resource.class.name.humanize %></h1>
+  <span class="navbar-brand"><%= t('edit') %> <%= resource.class.name.humanize %></span>
 <% end %>
-<div class="form-wrapper">
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div class="field-wrapper">
-    <%= f.label :name %>
-    <div class="field"><%= f.text_field :name %></div>
+<div class="row">
+  <div class="col-xs-12 col-md-8 col-md-offset-2">
+    <div class="page-header">
+      <h4 class="page-header-title">
+        <i class="mi md-20">account_circle</i> <%= t('edit') %> <%= resource.class.name.humanize %>
+      </h4>
+    </div>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :initials %>
-    <div class="field"><%= f.text_field :initials %></div>
+  <div class="col-xs-12 col-md-5 col-md-offset-2">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <div class="edit-user">
+          <%= render 'form' %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :email %>
-    <div class="field"><%= f.email_field :email %></div>
+  <div class="col-xs-12 col-sm-3">
+    <div class="panel panel-default card user-profile">
+      <div class="panel-body">
+        <div class="text-center">
+          <% cache "user/#{@user.email}/avatar_edit_page", expires_in: 1.hour do %>
+            <img class="user-image" src="<%= avatar_url(@user) %>">
+            <div class="user-name"><%= @user.name %></div>
+          <% end %>
+          <small><%= t('visit') %> <a href="//gravatar.com" target="blank">Gravatar</a> <%= t('update_avatar') %> </small>
+        </div>
+        <hr />
+        <div class="account-options">
+          <% if resource.authy_enabled %>
+            <%= link_to t('disable_2fa'), user_verify_two_factor_path, class: 'btn btn-warning btn-block' %>
+          <% else %>
+            <%= link_to t('enable_2fa'), user_enable_authy_path, class: 'btn btn-success btn-block' %>
+          <% end %>
+          <%= link_to t("cancel_account"), registration_path(resource_name), data: {confirm: t('cancel_account_confirmation_question')}, method: :delete, class: 'btn btn-danger btn-block' %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field-wrapper">
-    <%= f.label :locale %>
-    <div class="field"><%= f.select :locale, I18n.available_locales, :include_blank => true %></div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :password %>
-    <div class="field"><%= f.password_field :password %></div>
-    <div class="help"><%= t('.leave_blank_if_you_dont_want_to_change_it') %></div>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :password_confirmation %>
-    <div class="field"><%= f.password_field :password_confirmation %></div>
-  </div>
-
-  <h3><%= t('.notify_me_when_my_stories_are') %>:</h3>
-  <div class="field">
-    <%= f.check_box :email_delivery %>
-    <%= f.label :email_delivery, t('delivered') %>
-  </div>
-
-  <div class="field">
-    <%= f.check_box :email_acceptance %>
-    <%= f.label :email_acceptance, t('accepted') %>
-  </div>
-
-  <div class="field">
-    <%= f.check_box :email_rejection %>
-    <%= f.label :email_rejection, t('rejected') %>
-  </div>
-
-  <div class="field-wrapper">
-    <%= f.label :current_password %>
-    <div class="field"><%= f.password_field :current_password %></div>
-    <div class="help"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></div>
-  </div>
-
-  <div class="actions"><%= f.submit "Update" %></div>
-<% end %>
-<div class="secondary-actions"><%= link_to t(".cancel my account"), registration_path(resource_name), :data => {:confirm => "Are you sure?"}, :method => :delete %></div>
+</div>

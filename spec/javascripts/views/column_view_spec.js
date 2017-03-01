@@ -1,8 +1,10 @@
-describe("Fulcrum.ColumnView", function() {
+var ColumnView = require('views/column_view');
+
+describe("ColumnView", function() {
 
   beforeEach(function() {
-    Fulcrum.ColumnView.prototype.template = sinon.stub();
-    this.view = new Fulcrum.ColumnView({
+    ColumnView.prototype.template = sinon.stub();
+    this.view = new ColumnView({
       id: 'dummy_column', name: 'Dummy Column'
     });
   });
@@ -43,7 +45,7 @@ describe("Fulcrum.ColumnView", function() {
 
     it("triggers the visibilityChanged event", function() {
       var stub = sinon.stub();
-      this.view.bind('visibilityChanged', stub);
+      this.view.on('visibilityChanged', stub);
       this.view.toggle();
       expect(stub).toHaveBeenCalled();
     });
