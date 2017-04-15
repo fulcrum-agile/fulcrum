@@ -483,8 +483,6 @@ a.button {
   text-decoration: none;
 }
 
-
-
 a.button:hover {
   @include background(linear-gradient(top, $chameleon-2, $chameleon-3));
   color: white;
@@ -493,6 +491,8 @@ a.button:hover {
 .tags{
   color:$sky-blue-3;
   font-size:84%;
+  font-style: italic;
+  font-weight: bold;
 }
 // Popover Overrides
 // Custom Style Overrides

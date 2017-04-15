@@ -34,7 +34,7 @@
   </span>
 </div>
 <div class="story-title">
-  <% if (story.get('labels')) { %><span class="tags"><%= story.escape('labels') %></span><% } %>
+  <% if (story.get('labels')) { %><span class='tags'><%= story.labels().join(', ') %></span><% } %>
   <%= story.escape('title') %>
   <% if (story.owned_by()) { %>
     <abbr class="initials" title="<%= story.owned_by().escape('name') %>">
