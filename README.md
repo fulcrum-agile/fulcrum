@@ -1,6 +1,14 @@
 Fulcrum
 =======
 
+Project no longer maintained
+----------------------------
+This project is no longer maintained.  At the time of writing there is
+an active fork at https://github.com/Codeminer42/cm42-central - please check
+out that project if you are looking for a similar tool.
+
+---
+
 Fulcrum is an application to provide a user story based backlog management
 system for agile development teams.  See
 [the project page](http://wholemeal.co.nz/projects/fulcrum.html) for more
