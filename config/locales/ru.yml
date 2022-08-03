@@ -1,0 +1,123 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+ru:
+  fulcrum:  "Fulcrum"
+
+  log out:  "Выйти"
+  log in:   "Войти"
+  sign up:  "Регистрация"
+  edit:     "Редактировать"
+  delete:   "Удалить"
+  back:     "Назад"
+  import:   "Импорт"
+  export:   "Экспорт"
+  revert:   "Вернуть"
+  apply:    "Применить"
+  velocity: "Скорость выполнения"
+  notes:    "Примечания"
+  close:    "Закрыть"
+  points:   "Баллы"
+  saving:   "Сохранение ..."
+  expand:   "Развернуть"
+
+  author unknown: "Без автора"
+  add story: "Добавить задачу"
+  save error: "Ошибка сохранения"
+  override velocity: "Изменить скорость выполнения"
+  story title: "Имя задачи"
+
+  requested on date:          'Исполнить {{date}}'
+  requested by user on date:  'Назначено {{user}} на {{date}}'
+
+  imported n stories:
+    one: 'Импортирована 1 задача'
+    other: 'Ипортировано %{count} задач'
+
+  n stories failed to import:
+    one: '1 задачу не удалось импортировать'
+    other: '%{count} задач не удалось импортировать'
+
+  n weeks:
+    one: '1 неделя'
+    other: '%{count} недель'
+  
+  keycuts:
+    keyboard_shortcuts: Клавиатурные сочетания
+    help: Помощь (this)
+    add_story: Новая задача
+    save_currently_open_story: Сохранить текущую задачу
+    save_comment_being_edited: Сохранить комментарий
+    toggle_backlog: Переключиться на отложенные
+    toggle_done: Переключиться на выполненные
+    toggle_history: Переключиться на историю
+    toggle_icebox: Переключиться на запланированные
+    toggle_my_work: Переключиться к своим задачам
+    toggle_labels_searches: Переключиться к поискку по &amp; меткам
+    toggle_current: Переключиться на текущую
+  
+  activerecord:
+    models:
+      user:
+        one: 'Участник'
+        other: 'Участники'
+      project:
+        one: 'Проект'
+        other: 'Проекты'
+      story:
+        one: 'Задача'
+        other: 'Задачи'
+
+    attributes:
+      note:
+        note:                 'Примечание'
+      project:
+        name:                 'Имя'
+        point_scale:          'Point scale'
+        start_date:           'Дата начала'
+        iteration_start_day:  'День начала итерации'
+        iteration_length:     'Длина итерации'
+        default_velocity:     'Скорость выполнения по-умолчанию'
+      story:
+        title:                'Название'
+        description:          'Описание'
+        estimate:             'Сложность'
+        story_type:           'Тип задачи'
+        state:                'Статус'
+        accepted_at:          'Принята'
+        position:             'Статус'
+        labels:               'Метки'
+        requested_by:         'Назначил'
+        owned_by:             'Исполнитель'
+
+
+  projects:
+    new project:        "Новый проект"
+    edit project:       "Редактировать проект"
+    project properties: "Свойства проекта"
+
+    project was successfully created: "Прооект создан."
+    project was successfully updated: "Проект обновлен."
+
+    index:
+      listing projects: "Список проектов"
+      are you sure you want to delete this project: "Удалить проект?  Это действие необратимо."
+      the iteration starts on x with length of x weeks:
+        one:    "Итерация начинается %{day} и длится 1 неделю"
+        other:  "Итерация начинается %{day} и длится %{count} недель"
+
+    show:
+      done: "Готово"
+      in_progress: "Выполняется"
+      backlog: "Отложенные"
+      icebox: "Планируемые"
+
+  registrations:
+    edit:
+      leave_blank_if_you_dont_want_to_change_it: "Оставьте пустым если не хотите изменять"
+      notify_me_when_my_stories_are: "Уведомить когда мои задачи"
+      we_need_your_current_password_to_confirm_your_changes: "Требуется ввести ваш пароль для сохранения изменений."
+
+  time:
+    formats:
+      note_date: "%b %d, %Y"
