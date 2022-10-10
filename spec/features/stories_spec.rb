@@ -1,28 +1,22 @@
 require 'rails_helper'
 
 describe "Stories" do
-
-  before(:each) do
-    sign_in user
-  end
-
-  let(:user)  {
+  let(:user) do
     FactoryGirl.create :user, :email => 'user@example.com',
                               :password => 'password'
-  }
+  end
 
   let(:project) do
     FactoryGirl.create :project,  :name => 'Test Project',
                                   :users => [user]
   end
 
+  before(:each) do
+    sign_in user
+  end
+
   describe "full story life cycle" do
-
-    before do
-      project
-    end
-
-    it "steps through the full story life cycle", :js => true do
+    it "steps through the full story life cycle", js: true do
       visit project_path(project)
 
       click_on 'Add story'
@@ -45,23 +39,45 @@ describe "Stories" do
       end
 
       find('#in_progress .story.accepted .story-title').should have_content('New story')
+    end
+  end
 
+  describe 'ID display', js: true do
+    context 'saved story' do
+      let!(:story) { FactoryGirl.create :story, project: project, title: 'My Fantastic Story', requested_by: user }
+      let(:story_div) { "#story-#{story.id}" }
+
+      before(:each) { visit project_path project }
+
+      it 'shows the story ID in the expanded tile' do
+        within(story_div) do
+          find('*', text: story.title).click
+          page.should have_selector('.story-id', text: "ID: #{story.id}")
+        end
+      end
+
+      it 'shows the story ID in the hover balloon' do
+        find(story_div).find('.popover-activate').hover
+        page.should have_selector('.popover .content', text: "ID: #{story.id}")
+      end
     end
 
+    context 'unsaved story', js: true do
+      it 'does not show the story id in the expanded tile' do
+        visit project_path project
+        click_on 'Add story'
+        within '.story.editing' do
+          page.should_not have_text 'ID:'
+        end
+      end
+    end
   end
 
   describe "delete a story" do
-
-    let(:story) {
-      FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
-                                  :requested_by => user)
-    }
-
-    before do
-      story
-    end
-
     it "deletes the story", :js => true do
+      story = FactoryGirl.create(:story, :title => 'Delete Me', :project => project,
+                                  :requested_by => user)
+
       visit project_path(project)
 
       within(story_selector(story)) do
@@ -71,17 +87,11 @@ describe "Stories" do
 
       page.should_not have_css(story_selector(story))
     end
-
   end
 
   describe "show and hide columns" do
-
-    before do
-      project
-      Capybara.ignore_hidden_elements = true
-    end
-
     it "hides and shows the columns", :js => true do
+      Capybara.ignore_hidden_elements = true
 
       visit project_path(project)
 
@@ -113,7 +123,6 @@ describe "Stories" do
           click_link 'Close'
         end
         page.should_not have_css(selector)
-
       end
     end
   end
@@ -121,5 +130,4 @@ describe "Stories" do
   def story_selector(story)
     "#story-#{story.id}"
   end
-
 end
