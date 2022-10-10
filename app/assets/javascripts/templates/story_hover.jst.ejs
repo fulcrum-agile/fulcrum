@@ -16,7 +16,7 @@
 </div>
 <% if (story.get('description')) { %>
   <h4 class="title"><%= story.humanAttributeName('description') %></h4>
-  <div class="description"><%= window.md.makeHtml(story.escape('description')) %></div>
+  <div class="description"><%= window.md.makeHtml(story.get('description')) %></div>
 <% } %>
 <% if (story.hasNotes()) { %>
   <h5 class="title"><%= I18n.t('notes') %></h5>
