@@ -10,6 +10,7 @@
 //= require underscore
 //= require backbone
 //= require backbone.rails
+//= require backbone-model-file-upload
 //= require Markdown.Converter
 //= require_tree ./templates
 //= require_tree ./mixins

@@ -33,9 +33,11 @@ describe "Notes" do
 
       within('#in_progress .story') do
         find('.story-title').click
-        fill_in 'note', :with => 'Adding a new note'
+        fill_in 'note[note]', :with => 'Adding a new note'
         click_on 'Add note'
       end
+
+      wait_for_ajax
 
       find('#in_progress .story .notelist .note').should have_content('Adding a new note')
 
@@ -54,6 +56,9 @@ describe "Notes" do
           click_on 'Delete'
         end
       end
+
+      wait_for_ajax
+
       find('#in_progress .story .notelist').should_not have_content('Delete me please')
     end
 
