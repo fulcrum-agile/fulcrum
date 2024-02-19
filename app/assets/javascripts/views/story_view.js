@@ -11,7 +11,7 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
   initialize: function() {
     _.bindAll(this, "render", "highlight", "moveColumn", "setClassName",
       "transition", "estimate", "disableForm", "renderNotes",
-      "renderNotesCollection", "addEmptyNote");
+      "renderNotesCollection", "addEmptyNote", 'searchFromRoute');
 
     // Rerender on any relevant change to the views story
     this.model.bind("change", this.render);
@@ -37,6 +37,8 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     // remove itself from the page when destroy() gets called.
     this.model.view = this;
 
+    Fulcrum.appRouter.on('all', this.searchFromRoute);
+
     if (this.model.id) {
       this.id = this.el.id = this.model.id;
       this.$el.attr('id', 'story-' + this.id);
@@ -58,7 +60,25 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
     "click input.estimate": "estimate",
     "click #destroy": "clear",
     "click #edit-description": "editDescription",
+    "click .tag": 'tagClicked',
     "sortupdate": "sortUpdate"
+  },
+
+  searchFromRoute: function(route, params) {
+    if (route !== 'route:search') {
+      return this.$el.show();
+    }
+
+    var matched = this.model.matchesSearch(_.queryParams(params));
+    this.$el.toggle(matched);
+
+    if (matched) {
+      $(this.model.column).parent().show();
+    }
+  },
+
+  tagClicked: function(event) {
+    event.stopPropagation();
   },
 
   // Triggered whenever a story is dropped to a new position
@@ -334,8 +354,6 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
         })
       );
 
-
-
       this.$el.append(
         this.makeFormControl(function(div) {
           $(div).append(this.label("description", "Description"));
@@ -361,13 +379,18 @@ Fulcrum.StoryView = Fulcrum.FormView.extend({
       );
 
       this.initTags();
-
       this.renderNotes();
-
     } else {
       this.$el.removeClass('editing');
       this.$el.html(this.template({story: this.model, view: this}));
     }
+
+    var route = Backbone.history.getFragment().split('?');
+
+    if (route[0] === 'search') {
+      this.searchFromRoute('route:search', route[1]);
+    }
+
     this.hoverBox();
     return this;
   },
